@@ -1,0 +1,119 @@
+{
+ "slug": "scos2000-meeting-agenda-2000",
+ "title": "Agenda for the SCOS 2000 Meeting",
+ "short_title": "Agenda for the SCOS 2000 meeting (ESOC, Apr 2000)",
+ "doc_id": null,
+ "issue": null,
+ "date": null,
+ "organisation": "European Space Agency, ESOC (organisation not printed)",
+ "authors": [],
+ "doc_type": "Other",
+ "status_notes": "Agenda for the meeting held at ESOC Room H1 from 14:00 on April 18th to 16:30 on April 19th 2000 (PDF p. 1). No issue date is printed.",
+ "summary": "One-page agenda for the SCOS 2000 meeting held in ESOC room H1 from 14:00 on 18 April to 16:30 on 19 April 2000. At the meeting ESA presented [SCOS-2000](../scos2000/index.md) and the EGSE elements around it to the FIRST and Planck instrument teams, who were deciding whether to build their instrument EGSE on it.\n\nThe agenda has eleven items. C. Mazza opens and P. Estaria gives the introduction. J-F. Kaufeler then presents the SCOS 2000 status and the EGSE and supporting elements: router, test procedure environment (TPE), Tcl/Tk, WINFOPS/MOIS and database tools. He also covers the options for SCOS 2000 systems, the licence agreement and COTS, and service and support. Item 8 is the SCOS 2000 Delta URD: PACS presents the instrument teams' additional requirements and ESOC comments on them. The meeting closes with practical arrangements, a summary and conclusions by P. Estaria and J. Dodsworth, and any other business.\n\nThe agenda is the key to the companion material from the same meeting. The [minutes](scos2000-and-first-planck-mom.md) use its numbering, and the [slides](tos-gc-first-planck-presentation-2000.md) follow its order. Together they record the PI groups' decision to base their EGSE and real-time assessment on SCOS-2000, discussed in [SCOS-2000 as EGSE](../scos2000/egse.md) and [Herschel and Planck](../missions/herschel-planck.md).",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Welcome (C. Mazza)",
+   "pdf_page": 1
+  },
+  {
+   "section": "2",
+   "title": "Introduction (P.Estaria)",
+   "pdf_page": 1
+  },
+  {
+   "section": "3",
+   "title": "SCOS 2000 Status (J-F. Kaufeler)",
+   "pdf_page": 1
+  },
+  {
+   "section": "4",
+   "title": "EGSE and Supporting Elements (J-F. Kaufeler)",
+   "pdf_page": 1
+  },
+  {
+   "section": "5",
+   "title": "Options for SCOS 2000 Systems (J-F. Kaufeler)",
+   "pdf_page": 1
+  },
+  {
+   "section": "6",
+   "title": "Licence Agreement/ COTS (J-F. Kaufeler)",
+   "pdf_page": 1
+  },
+  {
+   "section": "7",
+   "title": "Service and Support (J-F. Kaufeler)",
+   "pdf_page": 1
+  },
+  {
+   "section": "8",
+   "title": "SCOS 2000 Delta URD",
+   "pdf_page": 1
+  },
+  {
+   "section": "8.1",
+   "title": "Delta URD Presentation (PACS)",
+   "pdf_page": 1
+  },
+  {
+   "section": "8.2",
+   "title": "ESOC Comments",
+   "pdf_page": 1
+  },
+  {
+   "section": "9",
+   "title": "Practical Arrangements (J-F. Kaufeler)",
+   "pdf_page": 1
+  },
+  {
+   "section": "10",
+   "title": "Summary and Conclusions (P. Estaria J. Dodsworth)",
+   "pdf_page": 1
+  },
+  {
+   "section": "11",
+   "title": "AOB",
+   "pdf_page": 1
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Venue and time: ESOC Room H1, starting 14:00 on April 18th and ending 16:30 on April 19th 2000.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Item 4 (EGSE and Supporting Elements) covers the Router, TPE, Tcl/TK, WINFOPS/MOIS and database tools.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Items 3 to 7 and 9 are all presented by J-F. Kaufeler.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Item 8, the SCOS 2000 Delta URD, is presented by PACS with ESOC comments.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Summary and conclusions are given by P. Estaria and J. Dodsworth.",
+   "pdf_page": 1
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "SCOS 2000 Delta URD (PACS)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 1
+  }
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "missions/herschel-planck.md",
+  "scos2000/herschel-planck-ground.md"
+ ],
+ "notes": "Single page; the text extraction has a trailing empty page 2. The date field is null because the agenda carries no issue date, only the meeting dates. Item 4 names J-F. Kaufeler as presenter, but the slide agenda says 'JFK/B.Melton' and the minutes credit B Melton (scos2000-and-first-planck-mom, PDF p. 2). The minutes, slides, Estaria evaluation slides and licence note from the same meeting are separate library items."
+}

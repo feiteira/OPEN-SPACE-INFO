@@ -1,0 +1,579 @@
+{
+ "slug": "euicd-v25",
+ "title": "External User Interface Control Document (EUICD) — EGOS Data Dissemination System (EDDS)",
+ "short_title": "EDDS External User ICD (issue 24.0)",
+ "doc_id": "EGOS-GEN-EDDS-ICD-1001",
+ "issue": "Version 24.0",
+ "date": "2025-01-10",
+ "organisation": "European Space Agency, Directorate of Operations and Infrastructure, OPS-GI (ESOC); prepared by the EDDS Team (COSMIC)",
+ "authors": [
+  "Florian Cleyssac",
+  "Rui Santos",
+  "M. Hawkshaw",
+  "R. Ots",
+  "K. Panitzek",
+  "Rokibul Uddin",
+  "Abhishek Annadanappa Chandrashekar",
+  "Teresa Noviello",
+  "AlaEddine Zaghdoud",
+  "Manu Mohan"
+ ],
+ "doc_type": "Interface Control Document",
+ "status_notes": "Version 24.0 'Issue for EDDS v3.6.0i1' (Document Change Log, PDF p. 3). Latest EUICD issue in the library; the CIG and SDD issues 25.0 of 2025-03-07 (cig-v24, sdd-v24) cite EUICD Issue 24.0 as current.",
+ "summary": "Issue 24.0 (January 2025) of the **EDDS External User Interface Control Document** is the most recent public specification of how clients talk to the [EGOS Data Dissemination System](../scos2000/edds.md) and what it returns, at release v3.6.0. It keeps everything in the 2014 to 2018 issues. The services (authentication, batch, stream, user management) and the [SCOS-2000](../scos2000/index.md) data types are unchanged: PARC packets via the PARC Manager or Data Provision Services, DARC and SMON parameters, MCS and EDDS reports, FARC and file-system files. So are the formats: self-describing EDDS binary with optional TM/TC/EV header fields, XML/XSLT, XFDU, TDRS spreadsheet, ASCII, Protocol Buffers and RawSourceBinary, together with the naming rules, delivery options, SOAP/WSDL services, Java client API and XML schema appendices.\n\nClose to 90 pages were added for missions run on the European Ground Systems Common Core ([EGS-CC](../scos2000/ancillary-and-egs-cc.md)). Data can now come from the EGS-CC HBase archive (HARC) or the EGS-CC REST interface. New `Egscc*` request types cover parameters, parameter definitions, raw and decoded TM, TC reports, log messages, activities and out-of-limits. There are dedicated EGS-CC binary header layouts (for example a 16-field EGS-CC TM header with packet instance ID, live flag, Earth-received time, route and data partition) and Protocol Buffers messages whose times are strings of seconds since epoch with 12 decimal places. Other additions are an EDDS REST API (section 9.5, with batchRequest, getStatus, streamRequest and other operations), a section on GDDS-format requests accepted by the Request Submitter and how they map to EDDS requests, live packet streaming via Data Provision Services, a large Java code-example appendix (O) and the DevOps pipeline (P).",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 17
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 17
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 17
+  },
+  {
+   "section": "1.3",
+   "title": "Document Overview",
+   "pdf_page": 17
+  },
+  {
+   "section": "2",
+   "title": "References",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.1",
+   "title": "Applicable documents",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.2",
+   "title": "Reference documents",
+   "pdf_page": 19
+  },
+  {
+   "section": "3",
+   "title": "Glossary",
+   "pdf_page": 20
+  },
+  {
+   "section": "3.1",
+   "title": "Acronyms",
+   "pdf_page": 20
+  },
+  {
+   "section": "3.2",
+   "title": "Definition of Terms",
+   "pdf_page": 21
+  },
+  {
+   "section": "4",
+   "title": "Software Overview",
+   "pdf_page": 22
+  },
+  {
+   "section": "4.1",
+   "title": "EDDS Services Overview",
+   "pdf_page": 22
+  },
+  {
+   "section": "4.2",
+   "title": "EDDS Interface Overview",
+   "pdf_page": 25
+  },
+  {
+   "section": "4.3",
+   "title": "Client Applications Overview",
+   "pdf_page": 25
+  },
+  {
+   "section": "5",
+   "title": "Data Types",
+   "pdf_page": 33
+  },
+  {
+   "section": "5.1",
+   "title": "Packet",
+   "pdf_page": 33
+  },
+  {
+   "section": "5.2",
+   "title": "Parameter",
+   "pdf_page": 33
+  },
+  {
+   "section": "5.3",
+   "title": "Report",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.4",
+   "title": "Archived Files",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.5",
+   "title": "Acknowledgement",
+   "pdf_page": 35
+  },
+  {
+   "section": "5.6",
+   "title": "Request and Response Mappings",
+   "pdf_page": 35
+  },
+  {
+   "section": "6",
+   "title": "Formats",
+   "pdf_page": 37
+  },
+  {
+   "section": "6.1",
+   "title": "EDDS Binary",
+   "pdf_page": 39
+  },
+  {
+   "section": "6.2",
+   "title": "XML",
+   "pdf_page": 49
+  },
+  {
+   "section": "6.3",
+   "title": "XML Transform",
+   "pdf_page": 51
+  },
+  {
+   "section": "6.4",
+   "title": "XFDU",
+   "pdf_page": 51
+  },
+  {
+   "section": "6.5",
+   "title": "TDRS Spreadsheet",
+   "pdf_page": 51
+  },
+  {
+   "section": "6.6",
+   "title": "ASCII",
+   "pdf_page": 51
+  },
+  {
+   "section": "6.7",
+   "title": "Binary",
+   "pdf_page": 53
+  },
+  {
+   "section": "6.8",
+   "title": "RawSourceBinary",
+   "pdf_page": 82
+  },
+  {
+   "section": "7",
+   "title": "Naming Conventions",
+   "pdf_page": 83
+  },
+  {
+   "section": "7.1",
+   "title": "Request ID Convention",
+   "pdf_page": 83
+  },
+  {
+   "section": "7.2",
+   "title": "Response ID Convention",
+   "pdf_page": 83
+  },
+  {
+   "section": "8",
+   "title": "Delivery",
+   "pdf_page": 85
+  },
+  {
+   "section": "8.1",
+   "title": "Delivery Mechanism",
+   "pdf_page": 85
+  },
+  {
+   "section": "9",
+   "title": "Web Services Description",
+   "pdf_page": 86
+  },
+  {
+   "section": "9.1",
+   "title": "Web Service Introduction",
+   "pdf_page": 86
+  },
+  {
+   "section": "9.2",
+   "title": "PortTypes",
+   "pdf_page": 86
+  },
+  {
+   "section": "9.3",
+   "title": "Messages",
+   "pdf_page": 103
+  },
+  {
+   "section": "9.4",
+   "title": "Bindings",
+   "pdf_page": 128
+  },
+  {
+   "section": "9.5",
+   "title": "EDDS REST API endpoints",
+   "pdf_page": 136
+  },
+  {
+   "section": "10",
+   "title": "E-mail Interface",
+   "pdf_page": 146
+  },
+  {
+   "section": "11",
+   "title": "File Server Interface",
+   "pdf_page": 147
+  },
+  {
+   "section": "12",
+   "title": "Client API",
+   "pdf_page": 148
+  },
+  {
+   "section": "12.1",
+   "title": "Edds Web Services Client API",
+   "pdf_page": 149
+  },
+  {
+   "section": "12.2",
+   "title": "EDDS Push notifications client",
+   "pdf_page": 164
+  },
+  {
+   "section": "12.3",
+   "title": "EDDS Utility methods",
+   "pdf_page": 165
+  },
+  {
+   "section": "12.4",
+   "title": "Dependencies",
+   "pdf_page": 165
+  },
+  {
+   "section": "APPENDIX A",
+   "title": "Acknowledgement Data Type",
+   "pdf_page": 166
+  },
+  {
+   "section": "APPENDIX B",
+   "title": "Authentication Data Type",
+   "pdf_page": 171
+  },
+  {
+   "section": "APPENDIX C",
+   "title": "Batch Request Data Type",
+   "pdf_page": 172
+  },
+  {
+   "section": "APPENDIX D",
+   "title": "Common Data Types",
+   "pdf_page": 227
+  },
+  {
+   "section": "APPENDIX E",
+   "title": "Delivery Data Type",
+   "pdf_page": 246
+  },
+  {
+   "section": "APPENDIX F",
+   "title": "File System Data Types",
+   "pdf_page": 250
+  },
+  {
+   "section": "APPENDIX G",
+   "title": "Filter Data Type",
+   "pdf_page": 257
+  },
+  {
+   "section": "APPENDIX H",
+   "title": "Format Data Type",
+   "pdf_page": 294
+  },
+  {
+   "section": "APPENDIX I",
+   "title": "Report Data Type",
+   "pdf_page": 305
+  },
+  {
+   "section": "APPENDIX J",
+   "title": "Schedule Data Type",
+   "pdf_page": 328
+  },
+  {
+   "section": "APPENDIX K",
+   "title": "User Management Data Type",
+   "pdf_page": 332
+  },
+  {
+   "section": "APPENDIX L",
+   "title": "Stream Request Data Type",
+   "pdf_page": 351
+  },
+  {
+   "section": "APPENDIX M",
+   "title": "EDDS Parameter Spreadsheet",
+   "pdf_page": 355
+  },
+  {
+   "section": "APPENDIX N",
+   "title": "Google Protocol Buffers",
+   "pdf_page": 356
+  },
+  {
+   "section": "APPENDIX O",
+   "title": "Code Examples",
+   "pdf_page": 357
+  },
+  {
+   "section": "APPENDIX P",
+   "title": "EDDS DevOps",
+   "pdf_page": 373
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Change log covers issues 1.0 (2007-04-13) to 24.0 (2025-01-10); DCRs for this issue include EDDS-1355 (pre-filtering of EGSCC requests), EDDS-1373 (align Kafka and EDDS response fields) and EDDS-1367 (activity argument data mapped to the TM parameter proto).",
+   "pdf_page": 3
+  },
+  {
+   "text": "EDDS-1271 added EGS-CC out-of-limit requests to the interface (section 6.7.3.3.16, C.100, G.88 to G.90, I.50).",
+   "pdf_page": 4
+  },
+  {
+   "text": "Live TM, TC, event-log and OOL packet streaming is supported only via the SCOS-2000 Data Provision Services (SCOS 5.4.21 and 5.5.4 or later), published on an ActiveMQ topic or forwarded over CometD.",
+   "pdf_page": 23
+  },
+  {
+   "text": "The Request Submitter also accepts GDDS-format requests, converted to EDDS requests by an XSLT (GDDS2EDDS.xsl); scheduled GDDS requests always produce 10 EDDS requests because GDDS has no end date.",
+   "pdf_page": 27
+  },
+  {
+   "text": "Packets are now extracted through the PARC Manager, the Data Provision Services, the HARC manager interface or the EGSCC REST interface; parameters come from DARC, SMON, HARC and EGSCC.",
+   "pdf_page": 33
+  },
+  {
+   "text": "New request-to-response mappings include EgsccParam to EgsccParameterResponse, EgsccPktTmRaw to PktRawResponse, EgsccPktTmReport to EgsccPktTmReportResponse and EgsccLogMessageReport to EgsccLogMessageResponse.",
+   "pdf_page": 35
+  },
+  {
+   "text": "The EGS-CC TM binary header defines 16 fields: APID, PID, CUC generation time, time quality (0 GOOD, 1 INACCURATE, 2 BAD, 255 NA), live flag, packet instance ID, Earth received time, SSC, PUS type, spacecraft ID, quality flag, virtual channel, PUS subtype, EGS-CC reception time, route and data partition.",
+   "pdf_page": 42
+  },
+  {
+   "text": "EGS-CC Protocol Buffers reports express time fields as seconds since epoch with picosecond precision, as a fixed-point string with 12 decimal places.",
+   "pdf_page": 58
+  },
+  {
+   "text": "The classic Packet TM Report proto includes spid, type, sub_type, time_quality, virtual_channel, data_unit_type, pi1, pi2, packet_length and mnemonic fields.",
+   "pdf_page": 67
+  },
+  {
+   "text": "RawSourceBinary remains a continuous stream of TM source packets without additional header, available for the TM Report request.",
+   "pdf_page": 82
+  },
+  {
+   "text": "Section 9.5 defines an EDDS REST API at /edds/EddsRestService/v1/ with POST operations such as batchRequest (returns job IDs), getStatus (returns an acknowledgement), streamRequest, reSubmit, getStatuses, getResponse and getRequest.",
+   "pdf_page": 136
+  },
+  {
+   "text": "Appendix P: the GitLab pipeline has build, publish (JFROG repository) and deploy (Kubernetes cluster) stages.",
+   "pdf_page": 373
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD-1]",
+   "doc_id": "661.0-B.1",
+   "title": "CCSDS, XML Formatted Data Unit (XFDU) Structure and Construction Rules.",
+   "issue": "BLUE BOOK 661.0-B.1",
+   "date": "Set 2008",
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "[AD-2]",
+   "doc_id": "EGOS-MCS-GDDS-1003",
+   "title": "Generic Data Disposition System (GDDS) Generic Data Delivery Interface Document DDID Appendix F",
+   "issue": "Issue 1.4",
+   "date": "2008-04-11",
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-1]",
+   "doc_id": "EGOS-GEN-EDDS-SUM-1001",
+   "title": "EDDS Software User Manual",
+   "issue": "Version 22.0",
+   "date": "2025-01-10",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-2]",
+   "doc_id": "RFC 2045",
+   "title": "Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies",
+   "issue": null,
+   "date": "November 1996",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-3]",
+   "doc_id": null,
+   "title": "Web Services Definition Language (WSDL) 1.1 (http://www.w3.org/TR/wsdl)",
+   "issue": null,
+   "date": "2001-03-15",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-4]",
+   "doc_id": "no reference",
+   "title": "MUST Architectural Design Document",
+   "issue": "Version 1.1",
+   "date": "2006-01-13",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-5]",
+   "doc_id": null,
+   "title": "XSL Transforms (XSLT) Version 1.0 (http://www.w3.org/TR/xslt)",
+   "issue": null,
+   "date": "1999-11-16",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-6]",
+   "doc_id": null,
+   "title": "Extensible Markup Language (XML) 1.0 (Fourth Edition) (http://www.w3.org/TR/xml)",
+   "issue": null,
+   "date": "2006-09-29",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-7]",
+   "doc_id": null,
+   "title": "SOAP Version 1.2 Part 1: Messaging Framework (http://www.w3.org/TR/soap12-part1/)",
+   "issue": null,
+   "date": "2003-06-24",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-8]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": "Deleted",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-9]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": "Deleted",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-10]",
+   "doc_id": "EGOS-MCS-S2K-GLO-0001",
+   "title": "SCOS-2000 Glossary, Definitions and Acronyms",
+   "issue": "Version 1.7",
+   "date": "2007-03-20",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-11]",
+   "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+   "title": "Software Requirements Specification (SRS), EGOS Data Dissemination System (EDDS)",
+   "issue": "Version 22.0",
+   "date": "2021-05-31",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-12]",
+   "doc_id": "EGOS-GEN-EDDS-SDD-1001",
+   "title": "Software Design Document (SDD), EGOS Data Dissemination System (EDDS)",
+   "issue": "Version 24.0",
+   "date": "2025-01-10",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-13]",
+   "doc_id": "EGOS-MCS-GDDS-1003",
+   "title": "Generic Data Disposition System (GDDS) Generic Data Delivery Interface Document (DDID)",
+   "issue": "Version 1.4",
+   "date": "2008-04-11",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-14]",
+   "doc_id": "EGOS-MCS-S2K-ICD-0017",
+   "title": "TDRS External Interfaces Control Document",
+   "issue": "Version 5.1",
+   "date": "2008-08-22",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-15]",
+   "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+   "title": "EDDS Configuration and Installation Guide",
+   "issue": "Version 24.0",
+   "date": "2025-01-10",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[RD-16]",
+   "doc_id": null,
+   "title": "Google Protocol Buffers (https://developers.google.com/protocol-buffers/)",
+   "issue": null,
+   "date": "2012-09-17",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "SCOS 2000 Command History Operator User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 51
+  }
+ ],
+ "topics": [
+  "scos2000/edds-formats.md",
+  "scos2000/edds.md",
+  "scos2000/ancillary-and-egs-cc.md",
+  "scos2000/gdds-and-ddids.md",
+  "scos2000/tdrs.md",
+  "ccsds/time-codes.md",
+  "ccsds/space-packet.md"
+ ],
+ "notes": "File-name vs content mismatch: published as 'EGOS-GEN-EDDS-EUICD.v25.pdf' (slug euicd-v25), but the title page, approval table and footers all say Version 24.0 of 2025-01-10, and the change log ends at 24.0. There is no issue 25.0 content. The approval table lists 'EDDS Team, COSMIC' as preparer. Editing damage: the document-overview list replaces several appendix names with clause numbers (for example 'C.97 – Provides a list ... common data types'), and the chapter 7 heading is merged into a stray sentence ('The output is a binary file of the continuous raw data as provided by RawBodyData attribute. Naming Conventions', PDF p. 83). One mapping cites 'C.469'. DCR dates (2023-08-26 before 2024-05-07) are out of order. The SCOS 2000 Command History Operator User Manual is still cited in section 6.6. Printed page numbers are PDF page minus 16. Latest issue of the same document as euicd-unversioned, euicd-v13 and euicd-i15r0."
+}

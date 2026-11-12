@@ -1,0 +1,53 @@
+{
+ "slug": "indico-109-armitage-2011926",
+ "title": "Right-Sizing Test Tools: A low cost alternative to full-scall system checkout equipment for Instrument & Payload Applications",
+ "short_title": "Right-Sizing Test Tools (CMDVS, SESP 2010)",
+ "doc_id": "SESP 2010",
+ "issue": null,
+ "date": "2010",
+ "organisation": "Terma BV (Leiden, The Netherlands)",
+ "authors": ["Andy Armitage"],
+ "doc_type": "Paper",
+ "status_notes": "Conference paper for SESP 2010 (PDF p. 1), posted on ESA Indico event 109; no status stated.",
+ "summary": "A five-page SESP 2010 conference paper by Andy Armitage of Terma BV describing CMDVS (Commanding Monitoring Data-handling & Visualization System), a 'small' monitoring and control system that Terma developed with Satellite Services BV (SSBV) for instrument- and payload-level EGSE, with features equivalent or compatible to SCOS-2000-based central checkout systems (CCS).\n\nThe motivation section explains why SCOS-2000-based EGSE was felt to be too heavy at instrument level: complex to develop, configure and use; front ends had to be described in a separate EGSE TM/TC database; the SCOS-2000 telecommand chain was limited to 2 packets per second with checking (20 without); and maintenance on modern platforms was getting more expensive. Terma's answer was a new Qt-based system that keeps the same test language (TOPE/Tcl) and the SCOS-2000 MIB database interface, so that users and database producers need not change. At the start of 2010 all SCOS-2000 telemetry and commanding model features had been implemented.\n\nThe key idea is front-end interfacing through plugins generated from SSBV's API headers, introspected at runtime, instead of TM/TC packets, which removes the need for an EGSE database and ICDs. The paper lists improvements over SCOS-2000: variable-packet contents calibrated and limit-checked like fixed packets, variable-length parameters in TM and TC, database-driven TC headers, 64-bit PUS type codes, configurable source sequence counts and up to 64 configurable verification stages. It describes use as an intelligent SCOE (Galileo FOC SMS), subsystem simulation, reuse of the plugin approach in SCOS-2000-based CCS, and a proposal to standardise front-end API descriptions (for example CORBA IDL or WSDL). Missions named include BepiColombo, Sentinel-1 and -2, EarthCARE, Galileo FOC and SGEO.",
+ "contents": [
+  {"section": null, "title": "Introduction", "pdf_page": 1},
+  {"section": null, "title": "Motivations", "pdf_page": 1},
+  {"section": null, "title": "Front end interfacing", "pdf_page": 2},
+  {"section": null, "title": "Fully featured", "pdf_page": 3},
+  {"section": null, "title": "Compatible", "pdf_page": 3},
+  {"section": null, "title": "Adaptable", "pdf_page": 3},
+  {"section": null, "title": "Portable", "pdf_page": 3},
+  {"section": null, "title": "Benefits for both developer and end-user", "pdf_page": 4},
+  {"section": null, "title": "Possibilities for SCOE and instrument EGSE", "pdf_page": 4},
+  {"section": null, "title": "Possibilities for subsystem simulation", "pdf_page": 4},
+  {"section": null, "title": "Benefits for system level EGSE", "pdf_page": 5},
+  {"section": null, "title": "Future potential", "pdf_page": 5}
+ ],
+ "key_points": [
+  {"text": "At the start of 2010 the Terma/SSBV 'small' monitoring and control system implemented all monitoring and control features of SCOS2000; it had been used at payload or instrument level on BepiColombo, Sentinel1, Sentinel2, EarthCare, Galileo FOC and SGEO.", "pdf_page": 1},
+  {"text": "The paper states that the SCOS2000 telecommand chain is limited to 2 packets per second with checking or 20 with no checking, which is insufficient for some modern front ends.", "pdf_page": 1},
+  {"text": "Previous monitoring and control systems are said to have cost of the order of 30 MEURO to develop; the new system kept the CCS test language and the SCOS2000 MIB database interface to preserve continuity for users and database developers.", "pdf_page": 2},
+  {"text": "The SCOS2000 MIB database interface is described as not perfectly normalized but well known, relatively well described and well understood in industry.", "pdf_page": 2},
+  {"text": "Front ends are interfaced through runtime-introspected Qt C++ plugins built from the SSBV API headers instead of TM/TC packets; the system was named CMDVS ('Commanding Monitoring Data-handling & Visualization System').", "pdf_page": 2},
+  {"text": "CMDVS makes variable-packet contents available to test sequences, calibrated and limit-checked like fixed-packet parameters, supports variable-length parameters in TM and TC, and generates TC headers entirely from the database without assuming CCSDS headers.", "pdf_page": 3},
+  {"text": "CMDVS supports all SCOS2000 TC verification stages plus a finalisation stage, and up to 64 verification stages configurable by a mask; source sequence count strategies are configurable without touching the generic verification code.", "pdf_page": 3},
+  {"text": "The dynamic plugin approach was reused in the SCOS2000-based CCS, where the external interface manager became a generic process with a project-specific plugin whose API is loaded automatically into test sequences.", "pdf_page": 5},
+  {"text": "The author proposes standardising only the format in which front-end suppliers describe their APIs (for example CORBA IDL or WSDL) rather than the front-end interfaces themselves.", "pdf_page": 5}
+ ],
+ "references": [
+  {"label": null, "doc_id": null, "title": "CMDVS web site (http://projects.nl.terma.com/CMDVS)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 3},
+  {"label": null, "doc_id": null, "title": "SSBV CMS product", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 2},
+  {"label": null, "doc_id": null, "title": "SCOS2000 MIB database interface", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 2},
+  {"label": null, "doc_id": null, "title": "Packet utilisation standard type codes/function codes", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 3},
+  {"label": null, "doc_id": null, "title": "CORBA IDL", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 5},
+  {"label": null, "doc_id": null, "title": "WSDL (XML format)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 5}
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "mib/tooling.md",
+  "mib/command-verification.md",
+  "missions/other-missions.md"
+ ],
+ "notes": "The title page prints the subtitle with the typo 'full-scall' (for full-scale); it is kept as printed. The event is named only as 'SESP 2010'; no precise date is printed (the file was posted on ESA Indico event 109). The author's e-mail address on the title page is omitted here. No reference list. The extracted text has an empty sixth page after a trailing form feed. The product described (CMDVS) is a predecessor of Terma's TSC/CCS5 line documented in terma-ccs5-tsc-presentation (this relationship is inferred, not stated in this paper)."
+}

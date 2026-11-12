@@ -1,0 +1,865 @@
+{
+ "slug": "sdd-v24",
+ "title": "Software Design Document (SDD) — EGOS Data Dissemination System (EDDS)",
+ "short_title": "EDDS Software Design Document (issue 25.0)",
+ "doc_id": "EGOS-GEN-EDDS-SDD-1001",
+ "issue": "Version 25.0",
+ "date": "2025-03-07",
+ "organisation": "European Space Agency, Directorate of Operations and Infrastructure, OPS-GI (ESOC); prepared by the EDDS Team",
+ "authors": [
+  "Manu Mohan",
+  "Florian Cleyssac",
+  "Rui Santos",
+  "M. Hawkshaw",
+  "M.Lobjakas",
+  "R. Ots",
+  "K. Panitzek",
+  "Rokibul Uddin",
+  "Abhishek Annadanappa Chandrashekar",
+  "Teresa Noviello",
+  "Alessandro Afloarei",
+  "Diwakar Kushwaha"
+ ],
+ "doc_type": "Software Design Document",
+ "status_notes": "Title page: Version 25.0, 2025-03-07, 'Issue for EDDS v3.6.1i1' (Document Change Log, PDF p. 3); body footers read 'VERSION: 24.0 2025-01-10'. Latest SDD issue in the library; supersedes sdd (issue 15.0, 2018).",
+ "summary": "This 2025 issue of the **EDDS Software Design Document** describes the architecture of the [EGOS Data Dissemination System](../scos2000/edds.md) at release v3.6.1. It keeps the full 2018 design (library item sdd). Users without access to the [SCOS-2000](../scos2000/index.md) monitoring and control facilities submit batch, stream and management requests through the MMI, the web portal or SOAP web services. Requests travel over ActiveMQ to an Archiver that stores them in a database and to an EDDS Server that runs chain-of-responsibility pipelines (data manager, filter, formatter, encryption, compression) against the PARC, SCOS-2000 Data Provision Services, DARC, SMON, FARC and file-system providers. A Delivery Manager returns the results, and Secure File Transfer crosses the ESOC firewall.\n\nWhat is new is support for missions run by the European Ground Systems Common Core ([EGS-CC](../scos2000/ancillary-and-egs-cc.md)). Two new data providers fetch EGS-CC historical data (TM, TC, parameters, messages, events): the HARC provider uses the EGS-CC 'ARC standalone' Java library against the EGS-CC HBase archive, and the EGSCC REST provider uses REST end points, with data delivered over HTTP or Kafka and a STOMP client. Sections 7 and 8 give the architecture and batch-request scenarios for both. Section 10 documents the GitLab DevOps pipeline that builds Docker images and deploys EDDS to a Kubernetes cluster with Helm.\n\nThree appendices matter for data users. Appendix B outlines the ARC standalone API. Appendix C compares the fields of an EGS-CC TM packet report with the SCOS-2000 one: EGS-CC lacks SPID, PI1/PI2, packet length, mnemonic and ground-station fields, and the SPID is mapped to the EGS-CC packet ID. Appendix D maps EGS-CC dataspaces and data partitions onto EDDS domains and data partitions.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.3",
+   "title": "Document Overview",
+   "pdf_page": 8
+  },
+  {
+   "section": "2",
+   "title": "References",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.1",
+   "title": "Applicable Documents",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.2",
+   "title": "Reference Documents",
+   "pdf_page": 9
+  },
+  {
+   "section": "3",
+   "title": "Glossary",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.1",
+   "title": "Acronyms",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.2",
+   "title": "Definition of Terms",
+   "pdf_page": 13
+  },
+  {
+   "section": "4",
+   "title": "System Design Overview",
+   "pdf_page": 15
+  },
+  {
+   "section": "4.1",
+   "title": "Introduction",
+   "pdf_page": 15
+  },
+  {
+   "section": "4.2",
+   "title": "EDDS Services",
+   "pdf_page": 15
+  },
+  {
+   "section": "4.3",
+   "title": "Client Applications",
+   "pdf_page": 16
+  },
+  {
+   "section": "4.4",
+   "title": "System Context",
+   "pdf_page": 17
+  },
+  {
+   "section": "4.5",
+   "title": "External Interfaces",
+   "pdf_page": 18
+  },
+  {
+   "section": "5",
+   "title": "Design Standards, Conventions and Procedures",
+   "pdf_page": 21
+  },
+  {
+   "section": "6",
+   "title": "Software Top Level Architectural Design",
+   "pdf_page": 23
+  },
+  {
+   "section": "6.1",
+   "title": "Overall Architecture",
+   "pdf_page": 23
+  },
+  {
+   "section": "6.1.1",
+   "title": "Top Level Component Architecture",
+   "pdf_page": 23
+  },
+  {
+   "section": "6.1.2",
+   "title": "EDDS deployment",
+   "pdf_page": 24
+  },
+  {
+   "section": "6.1.3",
+   "title": "EDDS vs. ESOC Network Security requirements",
+   "pdf_page": 29
+  },
+  {
+   "section": "6.1.4",
+   "title": "EDDS Scalability",
+   "pdf_page": 29
+  },
+  {
+   "section": "6.1.5",
+   "title": "EDDS Component Overview",
+   "pdf_page": 30
+  },
+  {
+   "section": "6.1.6",
+   "title": "EDDS Services",
+   "pdf_page": 36
+  },
+  {
+   "section": "6.1.7",
+   "title": "Scenarios",
+   "pdf_page": 37
+  },
+  {
+   "section": "6.2",
+   "title": "Software Product Components",
+   "pdf_page": 44
+  },
+  {
+   "section": "6.2.1",
+   "title": "EDDS Client Application",
+   "pdf_page": 44
+  },
+  {
+   "section": "6.2.2",
+   "title": "EDDS Client API",
+   "pdf_page": 47
+  },
+  {
+   "section": "6.2.3",
+   "title": "Secure File Transfer",
+   "pdf_page": 49
+  },
+  {
+   "section": "6.2.4",
+   "title": "Request Submitter",
+   "pdf_page": 50
+  },
+  {
+   "section": "6.2.5",
+   "title": "EDDS Stream Client",
+   "pdf_page": 51
+  },
+  {
+   "section": "6.2.6",
+   "title": "EDDS Web Server",
+   "pdf_page": 52
+  },
+  {
+   "section": "6.2.7",
+   "title": "EDDS Archiver",
+   "pdf_page": 54
+  },
+  {
+   "section": "6.2.8",
+   "title": "EDDS Server",
+   "pdf_page": 60
+  },
+  {
+   "section": "6.2.9",
+   "title": "PARC and Data Provision data providers",
+   "pdf_page": 66
+  },
+  {
+   "section": "6.2.10",
+   "title": "HARC data provider",
+   "pdf_page": 67
+  },
+  {
+   "section": "6.2.11",
+   "title": "EGSCC data provider",
+   "pdf_page": 68
+  },
+  {
+   "section": "6.2.12",
+   "title": "EDDS FARC Interface",
+   "pdf_page": 71
+  },
+  {
+   "section": "6.2.13",
+   "title": "FARC data provider",
+   "pdf_page": 72
+  },
+  {
+   "section": "6.2.14",
+   "title": "File System data provider",
+   "pdf_page": 74
+  },
+  {
+   "section": "6.2.15",
+   "title": "DARC data provider",
+   "pdf_page": 76
+  },
+  {
+   "section": "6.2.16",
+   "title": "SMON data provider",
+   "pdf_page": 77
+  },
+  {
+   "section": "6.2.17",
+   "title": "Delivery Manager",
+   "pdf_page": 78
+  },
+  {
+   "section": "6.3",
+   "title": "Software Product Sub Components",
+   "pdf_page": 84
+  },
+  {
+   "section": "6.3.8",
+   "title": "Generic Batch Request Handler Factory (Data Manager, Filter, Formatter, XML Transformer, Encryption, Data Compress)",
+   "pdf_page": 96
+  },
+  {
+   "section": "6.3.9",
+   "title": "PARC & Data Provision Request Processor (Data Manager, Filter, Formatter, Encryption, Data Compress)",
+   "pdf_page": 102
+  },
+  {
+   "section": "6.3.10",
+   "title": "EDDS HBase Request Processor (Data Manager, Filter, Formatter, Encryption, Data Compress)",
+   "pdf_page": 118
+  },
+  {
+   "section": "6.3.11",
+   "title": "FARC Request Processor (Data Manager, Filter, Formatter, Encryption, Data Compress)",
+   "pdf_page": 122
+  },
+  {
+   "section": "6.3.12",
+   "title": "EDDS File System Request Processor (Data Provider, Filter, Formatter)",
+   "pdf_page": 127
+  },
+  {
+   "section": "6.3.13",
+   "title": "DARC Request Processor (Data Manager, Filter, Formatter, Encryption, Data Compression)",
+   "pdf_page": 130
+  },
+  {
+   "section": "6.3.14",
+   "title": "EDDS SMON Request Processor (Data Provider, Filter, Formatter)",
+   "pdf_page": 134
+  },
+  {
+   "section": "7",
+   "title": "EDDS-CC Architecture",
+   "pdf_page": 148
+  },
+  {
+   "section": "7.1",
+   "title": "Software Top Level Architectural Design",
+   "pdf_page": 148
+  },
+  {
+   "section": "7.2",
+   "title": "Overall Architecture",
+   "pdf_page": 148
+  },
+  {
+   "section": "8",
+   "title": "EDDS-CC REST Architecture",
+   "pdf_page": 151
+  },
+  {
+   "section": "8.1",
+   "title": "Software Top Level Architectural Design",
+   "pdf_page": 151
+  },
+  {
+   "section": "8.2",
+   "title": "Overall Architecture",
+   "pdf_page": 151
+  },
+  {
+   "section": "9",
+   "title": "Software Components Detailed Design",
+   "pdf_page": 153
+  },
+  {
+   "section": "9.1",
+   "title": "Database Design",
+   "pdf_page": 153
+  },
+  {
+   "section": "9.2",
+   "title": "Software Detailed Design",
+   "pdf_page": 154
+  },
+  {
+   "section": "10",
+   "title": "EDDS DevOps",
+   "pdf_page": 155
+  },
+  {
+   "section": "10.1",
+   "title": "Packaging Source",
+   "pdf_page": 155
+  },
+  {
+   "section": "10.2",
+   "title": "Building and Publishing EDDS Image",
+   "pdf_page": 155
+  },
+  {
+   "section": "10.3",
+   "title": "Deploying EDDS Artifacts",
+   "pdf_page": 156
+  },
+  {
+   "section": "APPENDIX A",
+   "title": "Chain of Responsibility Pattern",
+   "pdf_page": 157
+  },
+  {
+   "section": "APPENDIX B",
+   "title": "ARC Standalone API",
+   "pdf_page": 158
+  },
+  {
+   "section": "APPENDIX C",
+   "title": "Response Format Compatibility for ARES",
+   "pdf_page": 160
+  },
+  {
+   "section": "APPENDIX D",
+   "title": "Dataspace and Datapartition in EGS-CC",
+   "pdf_page": 161
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Change log runs from issue 1.0 (2007-04-13, post-PDR) to 25.0 (2025-03-07) for EDDS v3.6.1i1; issues 16.0 to 24.0 cover EDDS v2.4.0 to v3.6.0.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Data services remain split into batch services (finite stored data set, optionally scheduled or recurring) and stream services (continuous live data).",
+   "pdf_page": 15
+  },
+  {
+   "text": "Packet streaming of live TM, TC, events and out-of-limits data is only supported through the SCOS-2000 Data Provision Services; clients pull the stream from the ActiveMQ bus to a CometD stream via the client API.",
+   "pdf_page": 67
+  },
+  {
+   "text": "The HARC data provider retrieves EGS-CC historical data (TM, TC, parameters, messages, events) from the EGS-CC HBase archive through the ARC standalone Java API, distributed through the ESOC Nexus; batch only.",
+   "pdf_page": 68
+  },
+  {
+   "text": "The EGSCC REST data provider retrieves EGS-CC data through the EGS-CC REST API acting as a STOMP client.",
+   "pdf_page": 69
+  },
+  {
+   "text": "Unlike SCOS-2000, EGS-CC saves all processed data in its archive; the ARC standalone singleton inside the EDDS Server fetches batch data from the HBase archive using configuration files supplied by the EGS-CC team.",
+   "pdf_page": 148
+  },
+  {
+   "text": "In the REST architecture EGS-CC delivers data to EDDS through HTTP or Kafka, and the JSON data are transformed into EDDS intermediate objects before filtering and formatting.",
+   "pdf_page": 152
+  },
+  {
+   "text": "The GitLab CI pipeline has three stages (package_source, build_publish_image, Helm_deploy); Docker images are built per EDDS component and deployed to a Kubernetes cluster.",
+   "pdf_page": 155
+  },
+  {
+   "text": "ARC standalone interfaces: IOpaqueDataRepository queries TM/TC data and IProcessedDataRepository queries parameter data from the HBase archive.",
+   "pdf_page": 158
+  },
+  {
+   "text": "EGS-CC TM report fields (proto format) include Apid, Packet_id, Generation_time, Earth_received_time, Source_sequence_counter, Pus_type, Pus_sub_type, Spacecraft_id, Virtual_channel_id, Route, Body and Datapartition; the SPID is mapped to the Packet ID.",
+   "pdf_page": 160
+  },
+  {
+   "text": "Fields of the SCOS-2000 TM report that are not applicable to EGS-CC include Spid, Pi1, Pi2, Packet_length, Mnemonic, Domain, Ground_station, Sle_service_id and Database_version, with possible impact on ARES.",
+   "pdf_page": 160
+  },
+  {
+   "text": "Each EGS-CC mission has one static dataspace, mapped to an EDDS domain, and many dynamic data partitions (sessions such as Live and Playback), mapped to EDDS data partitions.",
+   "pdf_page": 161
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD-1]",
+   "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+   "title": "Software Requirements Specification (SRS) for the EDDS",
+   "issue": "Issue 23.0",
+   "date": "2021-12-03",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-2]",
+   "doc_id": "EGOS-GEN-EDDS-SDP-0001",
+   "title": "Software Development Plan (SDP) for the EDDS",
+   "issue": "Issue 1.1",
+   "date": "2010-01-18",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-3]",
+   "doc_id": "EGOS-GEN-EDDS-ICD-1001",
+   "title": "EDDS External User Interface Control Document (EUICD)",
+   "issue": "Issue 24.0",
+   "date": "2025-01-10",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-4]",
+   "doc_id": "EGOS-GEN-GEN-SAD-1001-i0r0",
+   "title": "EGOS High Level Software Architectural Design Document",
+   "issue": "0.0 Draft C",
+   "date": "2006-05-15",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-5]",
+   "doc_id": "BSSC 2005(1)",
+   "title": "Tailoring of ECSS software Engineering Standards for Ground segments in ESA",
+   "issue": "Issue 1.0",
+   "date": "June 2005",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-6]",
+   "doc_id": "EGOS-GEN-GEN-TN-1001",
+   "title": "EGOS Preferred 3rd Party Products",
+   "issue": "Issue 1.2",
+   "date": "2006-12-20",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-7]",
+   "doc_id": "EGGS-ESOC-GS-SRS-1001",
+   "title": "ESOC Generic Ground Systems (EGGS): Development Requirements Specification",
+   "issue": "Issue 1.0",
+   "date": "2006-11-10",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-8]",
+   "doc_id": "EGOS-GEN-SFT-SUM-1001",
+   "title": "SFT documentation",
+   "issue": "Issue 2.0",
+   "date": "2010-04-20",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-9]",
+   "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+   "title": "Configuration and Installation Guide (CIG)",
+   "issue": "Issue 24.0",
+   "date": "2025-01-10",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0010",
+   "title": "EGOS Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0020",
+   "title": "CIG Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0021",
+   "title": "SRN Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0030",
+   "title": "ICD Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0040",
+   "title": "ADD Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0050",
+   "title": "OUM Template Guidelines",
+   "issue": "2.0",
+   "date": "27.10.06",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0060",
+   "title": "SUM Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0070",
+   "title": "SRD Template Guidelines",
+   "issue": "2.0",
+   "date": "27.10.06",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-1]",
+   "doc_id": null,
+   "title": "Producer-Archive Interface Specification",
+   "issue": "Draft White Book",
+   "date": "December-2005",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-2]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": "Deleted",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-3]",
+   "doc_id": "S2K-MCS-SRD-0004-TOS-GIC",
+   "title": "SCOS-2000 TM Data Retrieval Services SRD",
+   "issue": "Issue 3.1",
+   "date": "2003-08-29",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-4]",
+   "doc_id": "EGOS-MCS-GDDS-SRD-5720",
+   "title": "Data Disposition System Software Requirements Document",
+   "issue": "Issue 1.4",
+   "date": "2004-08-30",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-5]",
+   "doc_id": "ESA/TOS-GIC",
+   "title": "WEB-RM User & Software Requirements Baseline",
+   "issue": "Issue 1.4",
+   "date": "2003-11-24",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-6]",
+   "doc_id": "No reference",
+   "title": "MUST Repository ICD",
+   "issue": "Draft 1.0",
+   "date": "(No Date)",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-7]",
+   "doc_id": "No reference",
+   "title": "MUST Rosetta Performance TN",
+   "issue": "Issue 1.1",
+   "date": "(No Date)",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-8]",
+   "doc_id": "No reference",
+   "title": "MUST Server Software Requirements Specification",
+   "issue": "Issue 1.0",
+   "date": "2006-07-04",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-9]",
+   "doc_id": "661.0-B.1",
+   "title": "XML Formatted Data Unit (XFDU) Structure and Construction Rules",
+   "issue": "BLUE BOOK 661.0-B.1",
+   "date": "Set 2008",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-10]",
+   "doc_id": "EGOS-GEN-GEN-SAD-1001-i0r0",
+   "title": "EGOS High Level Architectural Design Document",
+   "issue": "0.0DraftC",
+   "date": "2005-05-15",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-11]",
+   "doc_id": "S2K-MCS-ICD-0017-TOS-GIC",
+   "title": "TDRS External Interfaces Control Document",
+   "issue": "Issue 4.3",
+   "date": "2004-03-31",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-12]",
+   "doc_id": "EGOS-MCS-GDDS-ICD-1003",
+   "title": "Generic Data Delivery Interface Document (GDDID)",
+   "issue": "Issue 1.2",
+   "date": "2004-08-30",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-13]",
+   "doc_id": "910.4-B-1",
+   "title": "CCSDS Definition Cross Support Reference Model – Part 1, Space Link Extension Services",
+   "issue": "Issue 1",
+   "date": "May-1996",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-14]",
+   "doc_id": null,
+   "title": "ESACERT information including Security Plan template and guidelines: http://forum.esacert.esa.int/guidelines.html",
+   "issue": "N/A",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-15]",
+   "doc_id": "DOPS-COM-POL-34555-OPS-ECT",
+   "title": "Implementation of the ESA Network Security Policy for OPSNET",
+   "issue": "Issue 2 Revision 3",
+   "date": "2007-11-09",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-16]",
+   "doc_id": "EGOS-GEN-EDDS-ICD-1001",
+   "title": "EGOS ICD Raw Data Media Production System",
+   "issue": "Issue 1",
+   "date": "2007-04-13",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-17]",
+   "doc_id": "EGOS-GEN-EDDS-SDD-1001",
+   "title": "EDDS SDD",
+   "issue": "Issue 19",
+   "date": "2021-12-03",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-18]",
+   "doc_id": "EGOS-MDW-TN-1002",
+   "title": "Analysis of Web Services and PARC, Enhancements to support EDDS",
+   "issue": "Issue 1",
+   "date": "2007-04-13",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-19]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": "Deleted",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-20]",
+   "doc_id": "EGOS-MCS-S2K-ICD-1004",
+   "title": "MONITORING & CONTROL SCOS-2000 - SFM SERVICE ICD",
+   "issue": "Issue 6",
+   "date": "2008-11-07",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-21]",
+   "doc_id": "EGOS-MCS-S2K-ICD-1005",
+   "title": "SYSTEM MANAGEMENT SCOS-2000 - SFM SERVICE ICD",
+   "issue": "Issue 5",
+   "date": "2008-11-07",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-22]",
+   "doc_id": "CCSDS 661.0-B-1",
+   "title": "XML FORMATTED DATA UNIT (XFDU) STRUCTURE AND CONSTRUCTION RULES - Blue book",
+   "issue": null,
+   "date": "September 2008",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-23]",
+   "doc_id": "EGOS-GEN-DARC-ICD-1001",
+   "title": "DARC ICD",
+   "issue": "Issue 2.0",
+   "date": "2014-06-06",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-24]",
+   "doc_id": "EGOS-GEN-DARC-SDD-0040",
+   "title": "Software Design Document DARC",
+   "issue": "Issue 2.0",
+   "date": "2014-06-06",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-25]",
+   "doc_id": "EGOS-MDW-UDK-ICD-0001",
+   "title": "EGOS USER DESKTOP ICD",
+   "issue": "Issue 2.2",
+   "date": "2008-11-25",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD-26]",
+   "doc_id": "EGOS-MDW-UDK-SDD-0001",
+   "title": "EGOS USER DESKTOP SDD",
+   "issue": "Issue 2.1",
+   "date": "2008-07-28",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD-27]",
+   "doc_id": "EGOS-MDW-LLC-ICD-1005",
+   "title": "Session Manager ICD",
+   "issue": "Issue 1.3a",
+   "date": "2008-12-12",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD-28]",
+   "doc_id": "EGOS-MDW-COR-SDD-1005",
+   "title": "Session Manager SDD",
+   "issue": "Issue 1.3a",
+   "date": "2008-12-12",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD-29]",
+   "doc_id": "EGOS-GEN-EDDS-SUM-1001",
+   "title": "EDDS Client Software User Manual (SUM)",
+   "issue": "Issue 22.0",
+   "date": "2025-01-10",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD-30]",
+   "doc_id": null,
+   "title": "Common Development and Distribution License (CDDL) version 1.0 + GNU General Public License (GPL) version 2 (https://glassfish.dev.java.net/public/CDDL+GPL.html)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD-31]",
+   "doc_id": null,
+   "title": "Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 11
+  }
+ ],
+ "topics": [
+  "scos2000/edds.md",
+  "scos2000/ancillary-and-egs-cc.md",
+  "scos2000/archives.md",
+  "scos2000/edds-formats.md",
+  "scos2000/architecture.md"
+ ],
+ "notes": "File-name vs content mismatch: published as 'EGOS-GEN-EDDS-SDD.v24.pdf' (slug sdd-v24), but the title page says Version 25.0 of 2025-03-07; body footers say 'VERSION: 24.0 2025-01-10' and the change-log page footer says 'VERSION: 24.0.0 2023-11-01'. Appendix B and C subsections are misnumbered 10.4 to 10.6 (continuing chapter 10), and several figure captions have garbled numbers (for example 'Figure 423', 'Figure 445'). Sections 7.1 and 8.1 are empty headings. The text alternates between 'EGSCC', 'EGS-CC' and 'EGOS-CC'. The reference list matches the 2018 issue apart from updated issues of the SRS (23.0), EUICD (24.0), CIG (24.0), SDD (19) and SUM (22.0). Printed page numbers are PDF page minus 7. Later issue of the same document as sdd."
+}

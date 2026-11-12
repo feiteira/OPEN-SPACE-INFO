@@ -1,0 +1,95 @@
+{
+  "table": "tpcf",
+  "file": "tpcf.dat",
+  "icd": true,
+  "name": "Telemetry packets characteristics",
+  "icd_section": "3.3.2.4.3",
+  "pdf_page": 93,
+  "family": "monitoring",
+  "purpose": "tpcf stores attributes that belong to a SCOS-2000 TM packet as a whole, i.e. to everything filed under one SCOS-2000 Packet ID (SPID), with at most one record per SPID. The main attribute is the packet mnemonic, a short readable name that monitoring displays show as the source packet of parameter values. Without a mnemonic the displays show 'None'. The table also has an optional packet size. SCOS-2000 neither imports nor uses it, but missions may use it to generate archive (history file) configuration that needs the complete packet list. The ICD recommends a size of 0 for truly variable packets and the exact SCOS-2000 packet size for fixed packets: the SCOS-2000 TM packet header (64 bytes for header versions 0 to 3, 76 bytes for version 4) plus the full source packet length. A size larger than the real packet wastes disk space; a smaller one (but above 64 bytes) slows filing. A tpcf entry is also needed for internally generated packets so that displays show their mnemonic.",
+  "keys": [
+    "TPCF_SPID"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "TPCF_SPID",
+      "type": "Number(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "SCOS-2000 Telemetry Packet Number (SCOS-2000 Packet ID); unsigned integer that must match PID_SPID of the packet.",
+      "values": [],
+      "references": "pid.PID_SPID",
+      "pdf_page": 93
+    },
+    {
+      "pos": 2,
+      "name": "TPCF_NAME",
+      "type": "Char(12)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Alphanumeric mnemonic of the telemetry packet, shown in the monitoring displays to identify the source packet of parameter values. If none is given, displays show the string 'None'.",
+      "values": [],
+      "references": null,
+      "pdf_page": 94
+    },
+    {
+      "pos": 3,
+      "name": "TPCF_SIZE",
+      "type": "Number(8)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Total length of the SCOS-2000 telemetry packet in bytes. Not imported into the run-time database and not used by any SCOS-2000 process (grey row); provided for mission-specific tools that generate history-file configuration. Recommended values: 0 for truly variable packets; for fixed packets the exact SCOS-2000 packet size, i.e. the SCOS-2000 TM header (64 bytes for header versions 0-3, 76 bytes for version 4) plus the whole source packet. Too large a value wastes disk space; too small a value (but above the 64-byte header) is filed correctly but more slowly, so the size matters most for frequent packets such as periodic housekeeping and verification reports. The description continues on PDF p. 96.",
+      "values": [],
+      "references": null,
+      "pdf_page": 95
+    }
+  ],
+  "relationships": [
+    {
+      "field": "TPCF_SPID",
+      "target": "pid.PID_SPID",
+      "note": "At most one tpcf record per SPID."
+    }
+  ],
+  "history": "ICD 5.1 (p. 43-44) has the same three fields. ICD 6.1 changed the TPCF_SIZE description to say that the SCOS-2000 header length depends on the header version (ICD 7.0 Annex 1, p. 251), and ICD 6.5 split the long description over two pages (p. 256). Unchanged in ICD 6.7 Draft A (p. 87-89), 6.9 (p. 91-93) and 7.0 (p. 93-96). pyscos2000 (ICD 7.2) matches: TPCF_SPID mandatory key, TPCF_NAME and TPCF_SIZE optional.",
+  "solo_stats": {
+    "rows": 11150,
+    "fields": [
+      {
+        "name": "TPCF_SPID",
+        "filled": 11150,
+        "examples": [
+          "10000",
+          "1000002",
+          "1000003",
+          "1000006",
+          "10001"
+        ]
+      },
+      {
+        "name": "TPCF_NAME",
+        "filled": 11150,
+        "examples": [
+          "BAD_PKT",
+          "CTFBAD",
+          "CTFGOOD",
+          "CTFIDLE",
+          "DYNUDCS"
+        ]
+      },
+      {
+        "name": "TPCF_SIZE",
+        "filled": 11150,
+        "examples": [
+          "0",
+          "42",
+          "18",
+          "26",
+          "22"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. Solar Orbiter 2025-09-16: 11,150 records, one per pid SPID (every TPCF_SPID exists in pid and vice versa by count). All mnemonics are filled and unique, up to the full 12 characters (e.g. BAD_PKT, CTFGOOD, DYNUDCS). TPCF_SIZE is 0 for all 2,063 variable (TPSD) packets and for 262 fixed packets; the other 8,825 have sizes from 6 to 4,136 bytes. Most of these are smaller than the 64-byte SCOS-2000 header (7,487 of them are 64 bytes or less) and match the source packet length (e.g. SPID 10002 'YCSV84C0' has size 32 with its last plf parameter at byte 31). Inference: Solar Orbiter fills TPCF_SIZE with the source packet length, not with the header-inclusive SCOS-2000 size the ICD recommends; this is harmless because SCOS-2000 does not use the field."
+}

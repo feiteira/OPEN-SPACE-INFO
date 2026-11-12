@@ -1,0 +1,337 @@
+{
+ "slug": "ccsds-232-1-232x1b2e2c1",
+ "title": "Communications Operation Procedure-1",
+ "short_title": "Communications Operation Procedure-1 (CCSDS 232.1-B-2)",
+ "doc_id": "CCSDS 232.1-B-2",
+ "issue": "Recommended Standard, Issue 2 (Blue Book), with Editorial Changes 1 (December 2018) and 2 (April 2019) and Technical Corrigendum 1 (April 2019)",
+ "date": "September 2010",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Standard",
+ "status_notes": "The Document Control table (PDF p. 7) lists 232.1-B-1 (September 2003) as 'Original issue' and 232.1-B-2 (September 2010) as the 'Current issue'; issue 2 adds text on a new systematic retransmission option. EC1 (December 2018) corrects character encoding in a figure. EC2 (April 2019) updates obsolete information on page i and an obsolete informative reference. Technical Corrigendum 1 (April 2019) adds USLP (732.1-B-1) support and clarifies the FARM window widths W, PW and NW depending on whether Type-AD retransmission is allowed. The cover notes that this copy includes all updates through Cor. 1.",
+ "summary": "The CCSDS Recommended Standard for **COP-1**, the closed-loop go-back-n retransmission procedure that gives the [TC Space Data Link Protocol](../ccsds/tc-sdlp.md) (and, since Cor. 1, [USLP](../ccsds/uslp.md)) complete, in-order, duplicate-free delivery of telecommand frame data units on each Virtual Channel. It is the specification behind the 'AD mode' and 'BD mode' of every ESA mission control system: the ground runs the **FOP-1** (Frame Operation Procedure) and the spacecraft runs the **FARM-1** (Frame Acceptance and Reporting Mechanism). The FARM-1 reports its state in the CLCW, which is returned in the OCF of [TM](../ccsds/tm-sdlp.md) or [AOS](../ccsds/aos.md) frames.\n\nSection 2 explains the concept. Type-AD frames carry sequence-controlled data numbered N(S); Type-BC frames carry the Unlock and Set V(R) control commands; Type-BD frames carry expedited data that is sent once. The section also introduces the key variables V(S), V(R), N(R) and N(S), the Wait flow control and the Lockout mechanism. Section 3 defines the interfaces between COP-1 and the higher procedures and frame generation and reception procedures at each end. Section 4 defines the directive request and notification, asynchronous notification and transfer notification primitives (Initiate AD Service variants, Terminate, Resume, Set V(S), Set FOP sliding window, Set T1_Initial, Set Transmission_Limit, Set Timeout_Type and others).\n\nSection 5 specifies FOP-1 (Revision B). It covers its variables (V(S), NN(R), the Sent_Queue and Wait_Queue, timers, Transmission_Count, Suspend_State and so on), its actions, and the state table over six states: Active, Retransmit without Wait, Retransmit with Wait, Initializing without BC Frame, Initializing with BC Frame, and Initial. Section 6 specifies FARM-1 with its states Open, Wait and Lockout, the sliding window (W, PW, NW), the Type-B counter and its state table. Section 7 lists the managed parameters. Annex D records the changes from the historical Telecommand Part 2.1 recommendation.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.3",
+   "title": "Applicability",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.4",
+   "title": "Rationale",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.5",
+   "title": "Document Structure",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.6",
+   "title": "Conventions and Definitions",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.7",
+   "title": "References",
+   "pdf_page": 13
+  },
+  {
+   "section": "2",
+   "title": "Overview",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.1",
+   "title": "Concept of COP-1",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.2",
+   "title": "Service Types",
+   "pdf_page": 16
+  },
+  {
+   "section": "2.3",
+   "title": "How to Read This Document",
+   "pdf_page": 18
+  },
+  {
+   "section": "3",
+   "title": "Inter-Procedure Interfaces",
+   "pdf_page": 19
+  },
+  {
+   "section": "3.1",
+   "title": "Definitions",
+   "pdf_page": 19
+  },
+  {
+   "section": "3.2",
+   "title": "Inter-Procedure Interfaces at the Sending End",
+   "pdf_page": 19
+  },
+  {
+   "section": "3.3",
+   "title": "Inter-Procedure Interfaces at the Receiving End",
+   "pdf_page": 24
+  },
+  {
+   "section": "4",
+   "title": "Detailed Service Definition",
+   "pdf_page": 27
+  },
+  {
+   "section": "4.1",
+   "title": "Directive Request",
+   "pdf_page": 27
+  },
+  {
+   "section": "4.2",
+   "title": "Directive Notification",
+   "pdf_page": 29
+  },
+  {
+   "section": "4.3",
+   "title": "Asynchronous Notification",
+   "pdf_page": 30
+  },
+  {
+   "section": "4.4",
+   "title": "Transfer Notification",
+   "pdf_page": 32
+  },
+  {
+   "section": "5",
+   "title": "FOP-1",
+   "pdf_page": 36
+  },
+  {
+   "section": "5.1",
+   "title": "FOP-1 Variables",
+   "pdf_page": 36
+  },
+  {
+   "section": "5.2",
+   "title": "FOP-1 Actions",
+   "pdf_page": 45
+  },
+  {
+   "section": "5.3",
+   "title": "FOP-1 State Table",
+   "pdf_page": 49
+  },
+  {
+   "section": "6",
+   "title": "FARM-1",
+   "pdf_page": 61
+  },
+  {
+   "section": "6.1",
+   "title": "FARM-1 Variables",
+   "pdf_page": 61
+  },
+  {
+   "section": "6.2",
+   "title": "FARM-1 Actions",
+   "pdf_page": 66
+  },
+  {
+   "section": "6.3",
+   "title": "FARM-1 State Table",
+   "pdf_page": 67
+  },
+  {
+   "section": "7",
+   "title": "Managed Parameters",
+   "pdf_page": 72
+  },
+  {
+   "section": "7.1",
+   "title": "Overview of Managed Parameters",
+   "pdf_page": 72
+  },
+  {
+   "section": "7.2",
+   "title": "FOP-1 Managed Parameters",
+   "pdf_page": 72
+  },
+  {
+   "section": "7.3",
+   "title": "FARM-1 Managed Parameters",
+   "pdf_page": 73
+  },
+  {
+   "section": "Annex A",
+   "title": "Glossary (Informative)",
+   "pdf_page": 74
+  },
+  {
+   "section": "Annex B",
+   "title": "Informative References (Informative)",
+   "pdf_page": 76
+  },
+  {
+   "section": "Annex C",
+   "title": "State Table Format (Informative)",
+   "pdf_page": 77
+  },
+  {
+   "section": "Annex D",
+   "title": "Changes from Reference [B2] (Informative)",
+   "pdf_page": 78
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Cor. 1 (April 2019) extends COP-1 to USLP and clarifies the FARM window widths depending on whether Type-AD frame retransmission is allowed.",
+   "pdf_page": 7
+  },
+  {
+   "text": "In case of conflict with the TC SDLP or USLP books, this Recommended Standard takes precedence.",
+   "pdf_page": 10
+  },
+  {
+   "text": "COP-1 is a go-back-n ARQ: a FOP-1 at the sender and a FARM-1 at the receiver per Virtual Channel, with acceptance status returned in CLCWs.",
+   "pdf_page": 15
+  },
+  {
+   "text": "Valid Type-B frames are always accepted by FARM-1 and only increment the CLCW Type-B counter; Type-B frames also carry the control commands.",
+   "pdf_page": 15
+  },
+  {
+   "text": "The AD Service ensures no FDU is lost, duplicated or delivered out of sequence on one VC; it uses Type-AD frames for data and Type-BC frames for the Unlock and Set V(R) control commands; four 'Initiate AD Service' directives exist.",
+   "pdf_page": 16
+  },
+  {
+   "text": "Key variables: V(S) at the sender, V(R) at the receiver, N(S) in the frame header and N(R) in the CLCW; a 'Wait' mechanism gives flow control.",
+   "pdf_page": 17
+  },
+  {
+   "text": "Directive types (Table 4-1): Initiate AD Service without CLCW check, with CLCW check, with Unlock, or with Set V(R); Terminate AD Service; Resume AD Service; and the setup directives Set V(S) to V*(S), Set FOP_Sliding_Window_Width, Set T1_Initial, Set Transmission_Limit and Set Timeout_Type.",
+   "pdf_page": 28
+  },
+  {
+   "text": "BD (Expedited) frames are sent once with no delivery guarantee, typically for recovery or when a higher layer retransmits; 'Expedited' does not mean faster, and AD mode is recommended when a reliable link exists.",
+   "pdf_page": 17
+  },
+  {
+   "text": "Systematic retransmission can optionally be provided outside COP-1 for Type-AD or Type-BC frames and has no effect on FOP-1 behaviour.",
+   "pdf_page": 41
+  },
+  {
+   "text": "FOP-1 states: Active (S1), Retransmit without Wait (S2), Retransmit with Wait (S3), Initializing without BC Frame (S4), Initializing with BC Frame (S5) and Initial (S6).",
+   "pdf_page": 37
+  },
+  {
+   "text": "The FOP-1 specified here is Revision B (FOP-1B) from issue 2 of the historical Command Operation Procedures; Revision A came from issue 1.",
+   "pdf_page": 49
+  },
+  {
+   "text": "FARM-1 states: Open (S1), Wait (S2) and Lockout (S3).",
+   "pdf_page": 61
+  },
+  {
+   "text": "FOP-1 managed parameters: T1_Initial, Transmission_Limit, FOP_Sliding_Window_Width K (1 to 255, K <= PW) and Timeout_Type (0 or 1).",
+   "pdf_page": 72
+  },
+  {
+   "text": "FARM-1 managed parameters: W (1 to 256), PW (1 to 256), NW (0 to 127) and the CLCW reporting period; with the 6.1.8.3.1 operation W is an even number from 2 to 254 and PW = NW = W/2, while the 6.1.8.3.2 operation allows PW > NW down to NW = 0, PW = W.",
+   "pdf_page": 73
+  },
+  {
+   "text": "Terminology changed from the historical book: 'Command Link Control Word' became 'Communications Link Control Word' and 'Command Operation Procedure' became 'Communications Operation Procedure'.",
+   "pdf_page": 79
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "ISO/IEC 7498-1",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 14
+  },
+  {
+   "label": "[2]",
+   "doc_id": "ISO/IEC 10731:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the definition of OSI services",
+   "issue": null,
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 14
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 232.0-B-2",
+   "title": "TC Space Data Link Protocol",
+   "issue": "Blue Book. Issue 2",
+   "date": "July 2010",
+   "kind": "normative",
+   "pdf_page": 14
+  },
+  {
+   "label": "[4]",
+   "doc_id": "CCSDS 732.1-B-1",
+   "title": "Unified Space Data Link Protocol",
+   "issue": "Issue 1",
+   "date": "October 2018",
+   "kind": "normative",
+   "pdf_page": 14
+  },
+  {
+   "label": "[B1]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "informative",
+   "pdf_page": 76
+  },
+  {
+   "label": "[B2]",
+   "doc_id": "CCSDS 202.1-B-2-S",
+   "title": "Telecommand Part 2.1—Command Operation Procedures",
+   "issue": "Historical Recommendation. Issue 2-S",
+   "date": "(June 2001) August 2005",
+   "kind": "informative",
+   "pdf_page": 76
+  },
+  {
+   "label": "[B3]",
+   "doc_id": "CCSDS 202.1-B-1-S",
+   "title": "Telecommand Part 2.1—Command Operation Procedures",
+   "issue": "Historical Recommendation. Issue 1-S",
+   "date": "(October 1991) June 2001",
+   "kind": "informative",
+   "pdf_page": 76
+  }
+ ],
+ "topics": [
+  "ccsds/cop-1.md",
+  "ccsds/tc-sdlp.md",
+  "ccsds/uslp.md",
+  "ccsds/tm-sdlp.md",
+  "overview/uplink.md",
+  "scos2000/nctrs-nis.md",
+  "mib/command-verification.md"
+ ],
+ "notes": "The slug's 'e2c1' stands for Editorial Change 2 (April 2019) and Technical Corrigendum 1 (April 2019); EC1 (December 2018) is also recorded. Pages changed by Cor. 1 carry 'Cor. 1' margin markers and stacked footer dates (September 2010 / April 2019). PDF pages 1 and 2 are duplicate cover pages with the corrigendum note. The extraction has 80 PDF pages (registry: 79). The table of contents lists Figures 5-1, 5-5 and 5-6, but the body numbers them 5-1, 5-2 and 5-3 (PDF pp. 58-60). Figure C-1 in Annex C (a state-table format illustration) carries the caption 'Mapping of Terms That Have Been Changed', which is really the title of Table D-1, apparently a copy error in the source. Normative reference [3] cites TC SDLP 232.0-B-2 as 'July 2010', whereas the 232.0-B-4 Document Control table dates B-2 to September 2010. References use the older CCSDS citation style (issue after 'Blue Book'). Section 1.7 references 'constitute provisions of this Recommended Standard' (kind 'normative'); Annex B lists informative references. No individual authors are named. Section 4.1 announces 'four Initiate AD Service, one Terminate, one Resume and five FOP-1 Setup' directives and then calls them 'These twelve Directives', but they add up to eleven, as in Table 4-1."
+}

@@ -1,0 +1,463 @@
+{
+ "slug": "ccsds-133-0-133x0b2e2",
+ "title": "Space Packet Protocol",
+ "short_title": "Space Packet Protocol (CCSDS 133.0-B-2)",
+ "doc_id": "CCSDS 133.0-B-2",
+ "issue": "Recommended Standard, Issue 2 (Blue Book), with Editorial Change 1 (October 2020) and Editorial Change 2 (September 2024)",
+ "date": "June 2020",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Standard",
+ "status_notes": "The Document Control table (PDF p. 7) lists 133.0-B-1 (September 2003) as superseded and 133.0-B-2 (June 2020) as the 'Current issue'. Issue 2 removes networking-type terminology and implied functionality and updates the specification to modern data communication practice. EC 1 (October 2020) corrects figure 2-1 (missing arrowhead; the choice between EPP and SPP is exclusive). EC 2 (September 2024) corrects duplicated table-of-contents entries and changes the page size to A4.",
+ "summary": "The CCSDS Recommended Standard for the **Space Packet Protocol (SPP)**, which defines the Space Packet. This is the variable-length, self-delimiting data unit that on-board applications use for telemetry and telecommand, and that [PUS](../ecss/pus/packets.md) builds on. The Space Packet is the unit that [SCOS-2000](../scos2000/index.md) and its [MIB](../mib/index.md) identify by APID. It travels in the packet services of the [TM](../ccsds/tm-sdlp.md), [TC](../ccsds/tc-sdlp.md), [AOS](../ccsds/aos.md), Proximity-1 and [USLP](../ccsds/uslp.md) data link protocols, or over the DTN Bundle Protocol.\n\nSection 2 explains the concept. The APID names a managed data path inside one naming domain (usually one spacecraft). The protocol itself does no routing, segmentation, retransmission or flow control, and its services are preconfigured, unidirectional, asynchronous, unconfirmed, incomplete and not sequence-preserving. There are two services: the Packet Service (the user supplies ready-made packets) and the Octet String Service (the provider wraps user octets into packets). Section 3 gives their parameters and primitives.\n\nSection 4 specifies the packet bit by bit. The 6-octet primary header holds a 3-bit version ('000'), Packet Type (0 = telemetry, 1 = telecommand), Secondary Header Flag, 11-bit APID (all ones = Idle Packet), 2-bit Sequence Flags, a 14-bit Packet Sequence Count (or Packet Name for telecommand) and the 16-bit Packet Data Length (data field length minus one). The packet data field may hold an optional secondary header (a CCSDS [time code](../ccsds/time-codes.md), ancillary data, or both) and user data, giving packets of 7 to 65542 octets. Section 5 lists the managed parameters. The annexes contain the PICS proforma, the new APID and Secondary Header Format SANA registries, and the informative references.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.3",
+   "title": "Applicability",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.4",
+   "title": "Rationale",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.5",
+   "title": "Document Structure",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.6",
+   "title": "Conventions and Definitions",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.7",
+   "title": "References",
+   "pdf_page": 15
+  },
+  {
+   "section": "2",
+   "title": "Overview",
+   "pdf_page": 16
+  },
+  {
+   "section": "2.1",
+   "title": "Concept of Space Packet Protocol",
+   "pdf_page": 16
+  },
+  {
+   "section": "2.2",
+   "title": "Overview of Services",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.3",
+   "title": "Overview of Functions",
+   "pdf_page": 21
+  },
+  {
+   "section": "2.4",
+   "title": "Services Assumed from Lower Layers",
+   "pdf_page": 23
+  },
+  {
+   "section": "3",
+   "title": "Service Definition",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.1",
+   "title": "Overview",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.2",
+   "title": "Source Data",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.3",
+   "title": "Packet Service",
+   "pdf_page": 25
+  },
+  {
+   "section": "3.4",
+   "title": "Octet String Service",
+   "pdf_page": 28
+  },
+  {
+   "section": "4",
+   "title": "Protocol Specification",
+   "pdf_page": 31
+  },
+  {
+   "section": "4.1",
+   "title": "Protocol Data Unit",
+   "pdf_page": 31
+  },
+  {
+   "section": "4.1.3",
+   "title": "Packet Primary Header",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.1.4",
+   "title": "Packet Data Field",
+   "pdf_page": 36
+  },
+  {
+   "section": "4.2",
+   "title": "Protocol Procedures at the Sending End",
+   "pdf_page": 39
+  },
+  {
+   "section": "4.3",
+   "title": "Protocol Procedures at the Receiving End",
+   "pdf_page": 40
+  },
+  {
+   "section": "5",
+   "title": "Managed Parameters",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.1",
+   "title": "Overview of Managed Parameters",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.2",
+   "title": "Protocol Configuration Parameters",
+   "pdf_page": 42
+  },
+  {
+   "section": "Annex A",
+   "title": "Protocol Implementation Conformance Statement Proforma (Normative)",
+   "pdf_page": 43
+  },
+  {
+   "section": "Annex B",
+   "title": "Security, SANA, and Patent Considerations (Informative)",
+   "pdf_page": 48
+  },
+  {
+   "section": "Annex C",
+   "title": "Informative References (Informative)",
+   "pdf_page": 51
+  },
+  {
+   "section": "Annex D",
+   "title": "Abbreviations (Informative)",
+   "pdf_page": 53
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Issue 2 (June 2020) removes the networking-type terminology and implied functionality of issue 1 (2003); EC 2 (September 2024) changes the page size to A4.",
+   "pdf_page": 7
+  },
+  {
+   "text": "SPP itself defines no path, network or routing functionality; the APID names a managed data path whose meaning and configuration are entirely mission-specific.",
+   "pdf_page": 16
+  },
+  {
+   "text": "Missions with several processors or spacecraft must sub-allocate the single APID naming domain or extend it with mission-specific secondary-header fields.",
+   "pdf_page": 17
+  },
+  {
+   "text": "SPP services are preconfigured, unidirectional, asynchronous, unconfirmed, incomplete and non-sequence-preserving; the protocol does no segmentation, retransmission or flow control.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Two services, both addressed by APID: the Packet Service (user-formatted Space Packets) and the Octet String Service (the provider formats octet strings into packets).",
+   "pdf_page": 20
+  },
+  {
+   "text": "A Space Packet is a 6-octet Primary Header plus a 1 to 65536-octet Packet Data Field, so 7 to 65542 octets in total.",
+   "pdf_page": 31
+  },
+  {
+   "text": "Primary header: Packet Version Number (3 bits, '000'), Packet Type (1 bit), Secondary Header Flag (1 bit), APID (11 bits), Sequence Flags (2 bits), Packet Sequence Count or Packet Name (14 bits) and Packet Data Length (16 bits).",
+   "pdf_page": 32
+  },
+  {
+   "text": "Packet Type is '0' for telemetry (reporting) and '1' for telecommand (requesting); the Secondary Header Flag is static per APID and is '0' for Idle Packets.",
+   "pdf_page": 33
+  },
+  {
+   "text": "The Idle Packet APID is all ones ('11111111111', 2047); the reserved APIDs for CFDP and LTP of issue 1 were removed, so it is now the only reserved value.",
+   "pdf_page": 34
+  },
+  {
+   "text": "Sequence Flags: '00' continuation segment, '01' first segment, '10' last segment, '11' unsegmented; they must be '11' when the Octet String service is used.",
+   "pdf_page": 34
+  },
+  {
+   "text": "The Packet Sequence Count is per APID and modulo-16384; the Packet Name alternative is allowed only in telecommand packets.",
+   "pdf_page": 35
+  },
+  {
+   "text": "Packet Data Length C = number of octets in the Packet Data Field minus 1.",
+   "pdf_page": 36
+  },
+  {
+   "text": "The optional secondary header is a Time Code Field (a CCSDS time code from 301.0-B-4), an Ancillary Data Field, or both, and stays fixed for a managed data path; it is mandatory if there is no User Data Field.",
+   "pdf_page": 37
+  },
+  {
+   "text": "Managed parameters: Maximum Packet Length, Packet Multiplexing Scheme, Service Type per APID, and Packet Secondary Header Contents.",
+   "pdf_page": 42
+  },
+  {
+   "text": "SANA APID registry policy: 0-2046 unmanaged, 2047 reserved by the CCSDS Blue Book; a new registry records Secondary Header Format documents.",
+   "pdf_page": 48
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "ISO/IEC 7498-1:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 15
+  },
+  {
+   "label": "[2]",
+   "doc_id": "ISO/IEC 10731:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the Definition of OSI Services",
+   "issue": null,
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 15
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 301.0-B-4",
+   "title": "Time Code Formats",
+   "issue": "Issue 4",
+   "date": "November 2010",
+   "kind": "normative",
+   "pdf_page": 15
+  },
+  {
+   "label": "[4]",
+   "doc_id": null,
+   "title": "Space Packet Protocol Application Process Identifier (APID) (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/space_packet_protocol_application_process_id)",
+   "issue": null,
+   "date": null,
+   "kind": "normative",
+   "pdf_page": 15
+  },
+  {
+   "label": "[5]",
+   "doc_id": null,
+   "title": "Space Packet Protocol Secondary Header Format Document (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/space_packet_protocol_secondary_header_format_document)",
+   "issue": null,
+   "date": null,
+   "kind": "normative",
+   "pdf_page": 15
+  },
+  {
+   "label": "[C1]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C2]",
+   "doc_id": "CCSDS 130.0-G-3",
+   "title": "Overview of Space Communications Protocols",
+   "issue": "Issue 3",
+   "date": "July 2014",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C3]",
+   "doc_id": "CCSDS 132.0-B-2",
+   "title": "TM Space Data Link Protocol",
+   "issue": "Issue 2",
+   "date": "September 2015",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C4]",
+   "doc_id": "CCSDS 232.0-B-3",
+   "title": "TC Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C5]",
+   "doc_id": "CCSDS 732.0-B-3",
+   "title": "AOS Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C6]",
+   "doc_id": "CCSDS 211.0-B-5",
+   "title": "Proximity-1 Space Link Protocol—Data Link Layer",
+   "issue": "Issue 5",
+   "date": "December 2013",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C7]",
+   "doc_id": "CCSDS 732.1-B-1",
+   "title": "Unified Space Data Link Protocol",
+   "issue": "Issue 1",
+   "date": "October 2018",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C8]",
+   "doc_id": "CCSDS 133.1-B-3",
+   "title": "Encapsulation Packet Protocol",
+   "issue": "Issue 3",
+   "date": "May 2020",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C9]",
+   "doc_id": "CCSDS 734.2-B-1",
+   "title": "CCSDS Bundle Protocol Specification",
+   "issue": "Issue 1",
+   "date": "September 2015",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C10]",
+   "doc_id": "CCSDS 727.0-B-4",
+   "title": "CCSDS File Delivery Protocol (CFDP)",
+   "issue": "Issue 4",
+   "date": "January 2007",
+   "kind": "informative",
+   "pdf_page": 51
+  },
+  {
+   "label": "[C11]",
+   "doc_id": "CCSDS 734.1-B-1",
+   "title": "Licklider Transmission Protocol (LTP) for CCSDS",
+   "issue": "Issue 1",
+   "date": "May 2015",
+   "kind": "informative",
+   "pdf_page": 52
+  },
+  {
+   "label": "[C12]",
+   "doc_id": "CCSDS 851.0-M-1",
+   "title": "Spacecraft Onboard Interface Services—Subnetwork Packet Service",
+   "issue": "Issue 1",
+   "date": "December 2009",
+   "kind": "informative",
+   "pdf_page": 52
+  },
+  {
+   "label": "[C13]",
+   "doc_id": "CCSDS 313.1-Y-1",
+   "title": "CCSDS SANA Registry Management Policy",
+   "issue": "Issue 1",
+   "date": "May 2016",
+   "kind": "informative",
+   "pdf_page": 52
+  },
+  {
+   "label": "[C14]",
+   "doc_id": "CCSDS 524.1-B-1",
+   "title": "Mission Operations—MAL Space Packet Transport Binding and Binary Encoding",
+   "issue": "Issue 1",
+   "date": "August 2015",
+   "kind": "informative",
+   "pdf_page": 52
+  },
+  {
+   "label": "[C15]",
+   "doc_id": "CCSDS 876.0-B-1",
+   "title": "Spacecraft Onboard Interface Services—XML Specification for Electronic Data Sheets",
+   "issue": "Issue 1",
+   "date": "April 2019",
+   "kind": "informative",
+   "pdf_page": 52
+  },
+  {
+   "label": "[C16]",
+   "doc_id": "CCSDS 660.0-B-2",
+   "title": "XML Telemetric and Command Exchange—Version 1.2",
+   "issue": "Issue 2",
+   "date": "February 2020",
+   "kind": "informative",
+   "pdf_page": 52
+  },
+  {
+   "label": "[355.0-B-1]",
+   "doc_id": "CCSDS 355.0-B-1",
+   "title": "Space Data Link Security (SDLS) protocol",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 48
+  },
+  {
+   "label": "[355.1-B]",
+   "doc_id": "CCSDS 355.1-B",
+   "title": "Space Data Link Security (SDLS) protocols (Extended Procedures)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 48
+  },
+  {
+   "label": "[734.5-B]",
+   "doc_id": "CCSDS 734.5-B",
+   "title": "Bundle Security Protocol",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 48
+  }
+ ],
+ "topics": [
+  "ccsds/space-packet.md",
+  "ccsds/encapsulation.md",
+  "ccsds/time-codes.md",
+  "ecss/pus/packets.md",
+  "ccsds/tm-sdlp.md",
+  "ccsds/tc-sdlp.md",
+  "overview/worked-example-tm.md",
+  "overview/worked-example-tc.md",
+  "mib/monitoring.md",
+  "ccsds/index.md"
+ ],
+ "notes": "The slug's 'e2' is Editorial Change 2 (September 2024), recorded in the Document Control table; that page's footer reads 'June 2024 / September 2020', probably an artefact of the editorial changes, while the other pages still read 'June 2020'. PDF pages 1 and 2 are duplicate cover pages. The extraction has 55 PDF pages (registry: 54). Annex B1 cites SDLS and the Bundle Security Protocol with ad-hoc labels '[355.0-B-1]', '[355.1-B]' and '[734.5-B]' that are not in the reference lists; they are recorded here as 'mentioned'. A note in 4.1.4.2.1.4 prints 'intension' (typo). Section 1.7 references 'constitute provisions of this document' (kind 'normative'); Annex C lists informative references. No individual authors are named."
+}

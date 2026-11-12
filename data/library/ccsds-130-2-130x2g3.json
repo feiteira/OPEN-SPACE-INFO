@@ -1,0 +1,479 @@
+{
+ "slug": "ccsds-130-2-130x2g3",
+ "title": "Space Data Link Protocols—Summary of Concept and Rationale",
+ "short_title": "Space Data Link Protocols Rationale (CCSDS 130.2-G-3)",
+ "doc_id": "CCSDS 130.2-G-3",
+ "issue": "Informational Report, Issue 3 (Green Book)",
+ "date": "September 2015",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Informational Report",
+ "status_notes": "The Document Control table (PDF p. 5) lists 130.2-G-1 (December 2007) and 130.2-G-2 (November 2012) as superseded and 130.2-G-3 (September 2015) as the 'Current issue'. The report states that it is not part of the Recommended Standards, which are the controlling specifications in case of conflict (PDF p. 8). It predates USLP and the 2021 issues of TM/TC/AOS, which it does not cover.",
+ "summary": "The CCSDS Green Book that explains the concept and rationale of the three classic Space Data Link Protocols: the [TC](../ccsds/tc-sdlp.md), [TM](../ccsds/tm-sdlp.md) and [AOS](../ccsds/aos.md) Space Data Link Protocols, plus the [COP-1](../ccsds/cop-1.md) retransmission procedure that goes with TC. Proximity-1 is left to its own report. It is short and readable, and it is the best place to learn why the link layer looks as it does before tackling the Blue Books.\n\nSection 2 sets out the design goals (several qualities of service with simple on-board algorithms, upward compatibility with older TDM formats) and the usual protocol pairings: TC up with TM down, TC with AOS, or AOS both ways. It also places the Data Link Protocol Sublayer above the [TM](../ccsds/tm-coding.md) and [TC](../ccsds/tc-coding-cltu.md) synchronization and channel coding sublayer. Section 3 takes the user's view. It covers unidirectional services, the Sequence-Controlled (Type-A) and Expedited (Type-B) TC services, the absence of delivery guarantees in TM and AOS, the asynchronous, synchronous and periodic timing models, and a table of every service (packet, encapsulation, VC/MAP access, FSH, OCF, insert, bitstream, frame).\n\nSection 4 takes the implementer's view. It covers variable-length TC frames versus fixed-length TM/AOS frames, Virtual Channel multiplexing for priority, the identifier hierarchy (TFVN, SCID, MCID, GVCID, Physical Channel Name, MAP ID), how COP-1 works (FOP-1, FARM-1, CLCW, go-back-n), and how packets are segmented (TC MAPs) or packed with a First Header Pointer (TM/AOS). A short FAQ compares the protocols with HDLC, mentions [SDLS](../ccsds/sdls.md) security, managed parameters in SANA, and COP-1 for deep-space and blind commanding.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.3",
+   "title": "Organization of this Report",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.4",
+   "title": "Definitions",
+   "pdf_page": 9
+  },
+  {
+   "section": "1.5",
+   "title": "References",
+   "pdf_page": 10
+  },
+  {
+   "section": "2",
+   "title": "What Are the Space Data Link Protocols? - Architectural Introduction",
+   "pdf_page": 13
+  },
+  {
+   "section": "2.1",
+   "title": "Design Goals",
+   "pdf_page": 13
+  },
+  {
+   "section": "2.2",
+   "title": "Basic Concepts",
+   "pdf_page": 13
+  },
+  {
+   "section": "2.3",
+   "title": "Layer Architecture",
+   "pdf_page": 15
+  },
+  {
+   "section": "3",
+   "title": "What Do the Space Data Link Protocols Provide? - From Users' Perspective",
+   "pdf_page": 18
+  },
+  {
+   "section": "3.1",
+   "title": "Services",
+   "pdf_page": 18
+  },
+  {
+   "section": "3.2",
+   "title": "Service Features",
+   "pdf_page": 19
+  },
+  {
+   "section": "3.3",
+   "title": "Services Provided by the Space Data Link Protocols",
+   "pdf_page": 25
+  },
+  {
+   "section": "3.4",
+   "title": "Typical Example",
+   "pdf_page": 29
+  },
+  {
+   "section": "4",
+   "title": "What Do the Space Data Link Protocols Perform? - From Developers' Perspective",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.1",
+   "title": "Transfer Frames",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.2",
+   "title": "Virtual Channels",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.3",
+   "title": "Addressing and Multiplexing",
+   "pdf_page": 34
+  },
+  {
+   "section": "4.4",
+   "title": "Retransmission",
+   "pdf_page": 36
+  },
+  {
+   "section": "4.5",
+   "title": "Transfer of Packets",
+   "pdf_page": 38
+  },
+  {
+   "section": "5",
+   "title": "Frequently Asked Questions on the Space Data Link Protocols",
+   "pdf_page": 40
+  },
+  {
+   "section": "5.1",
+   "title": "How Do the Space Data Link Protocols Differ from HDLC?",
+   "pdf_page": 40
+  },
+  {
+   "section": "5.2",
+   "title": "Are the Space Data Link Protocols Secure Protocols?",
+   "pdf_page": 40
+  },
+  {
+   "section": "5.3",
+   "title": "What Are the Managed Parameters on a CCSDS Space Data Link?",
+   "pdf_page": 40
+  },
+  {
+   "section": "5.4",
+   "title": "Can COP-1 Be Applied to Deep Space Commanding?",
+   "pdf_page": 41
+  },
+  {
+   "section": "5.5",
+   "title": "Can COP-1 Be Applied to Blind Commanding?",
+   "pdf_page": 41
+  },
+  {
+   "section": "Annex A",
+   "title": "Acronyms",
+   "pdf_page": 42
+  },
+  {
+   "section": "Annex B",
+   "title": "Summary of Services",
+   "pdf_page": 44
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Only TC-SDLP, TM-SDLP and AOS-SDLP are covered; Proximity-1 has its own rationale report (CCSDS 210.0-G-2).",
+   "pdf_page": 8
+  },
+  {
+   "text": "Only one Space Data Link Protocol may be used on a given Physical Channel; TC usually gets its feedback through TM or AOS on the reverse Physical Channel.",
+   "pdf_page": 14
+  },
+  {
+   "text": "The three common pairings are TC forward with TM return (used by most missions), TC with AOS, and AOS in both directions (for example for piloted missions or high-rate two-way links).",
+   "pdf_page": 14
+  },
+  {
+   "text": "The TC Type-A (Sequence-Controlled) service uses go-back-n ARQ to give complete, in-sequence delivery at a single SAP; Type-B (Expedited) sends each SDU once, typically for recovery operations or when a higher layer retransmits.",
+   "pdf_page": 20
+  },
+  {
+   "text": "TM and AOS give no completeness guarantee and no delivery confirmation, but preserve the order of SDUs at a single SAP.",
+   "pdf_page": 21
+  },
+  {
+   "text": "CCSDS recommends no standard Virtual Channel multiplexing algorithm, except that SLE Forward Space Packet (912.3-B-2) imposes its own algorithm when it is used.",
+   "pdf_page": 22
+  },
+  {
+   "text": "TM and AOS offer asynchronous (queue, each SDU sent once), synchronous (single buffer, an SDU may be sent several times or not at all) and periodic (constant rate) service types.",
+   "pdf_page": 23
+  },
+  {
+   "text": "TM and AOS frame length is fixed on a Physical Channel during a Mission Phase and must be known to the receiver through management.",
+   "pdf_page": 32
+  },
+  {
+   "text": "TFVN values: TC and TM are version 1 (binary '00'), AOS is version 2 ('01'); TC and TM frames are told apart by management. SCIDs are 10 bits for TFVN 1 and 8 bits for AOS.",
+   "pdf_page": 35
+  },
+  {
+   "text": "A spacecraft using TC forward and AOS return needs two SCIDs; MCID = TFVN + SCID, and MCID + VCID = GVCID.",
+   "pdf_page": 35
+  },
+  {
+   "text": "COP-1 is a pair of per-VC procedures: FOP-1 at the sender and FARM-1 at the receiver, with status returned in CLCWs; FARM-1 rejects Type-A frames after the first sequence error until the expected sequence number arrives.",
+   "pdf_page": 37
+  },
+  {
+   "text": "In TM and AOS, packets are concatenated into frames and may span frames; the First Header Pointer marks the first packet header, and an Idle Packet fills frames when no data is available.",
+   "pdf_page": 39
+  },
+  {
+   "text": "For deep-space commanding, performance improves by lowering the COP-1 timer or by multiple frame transmission in the coding sublayer; for blind commanding the Expedited service can be used.",
+   "pdf_page": 41
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS 232.0-B-3",
+   "title": "TC Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[2]",
+   "doc_id": "CCSDS 132.0-B-2",
+   "title": "TM Space Data Link Protocol",
+   "issue": "Issue 2",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 732.0-B-3",
+   "title": "AOS Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[4]",
+   "doc_id": "CCSDS 232.1-B-2",
+   "title": "Communications Operation Procedure-1",
+   "issue": "Issue 2",
+   "date": "September 2010",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[5]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[6]",
+   "doc_id": "ISO/IEC 7498-1:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[7]",
+   "doc_id": "CCSDS 211.0-B-5",
+   "title": "Proximity-1 Space Link Protocol—Data Link Layer",
+   "issue": "Issue 5",
+   "date": "December 2013",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[8]",
+   "doc_id": "CCSDS 210.0-G-2",
+   "title": "Proximity-1 Space Link Protocol—Rationale, Architecture, and Scenarios",
+   "issue": "Issue 2",
+   "date": "December 2013",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[9]",
+   "doc_id": "CCSDS 231.0-B-2",
+   "title": "TC Synchronization and Channel Coding",
+   "issue": "Issue 2",
+   "date": "September 2010",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[10]",
+   "doc_id": "CCSDS 131.0-B-2",
+   "title": "TM Synchronization and Channel Coding",
+   "issue": "Issue 2",
+   "date": "August 2011",
+   "kind": "reference",
+   "pdf_page": 10
+  },
+  {
+   "label": "[11]",
+   "doc_id": "CCSDS 401.0-B-25",
+   "title": "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft",
+   "issue": "Issue 25",
+   "date": "February 2015",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[12]",
+   "doc_id": "CCSDS 130.0-G-3",
+   "title": "Overview of Space Communications Protocols",
+   "issue": "Issue 3",
+   "date": "July 2014",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[13]",
+   "doc_id": "CCSDS 133.0-B-1",
+   "title": "Space Packet Protocol",
+   "issue": "Issue 1",
+   "date": "September 2003",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[14]",
+   "doc_id": null,
+   "title": "Registries (Space Assigned Number Authority, http://sanaregistry.org/r/)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[15]",
+   "doc_id": null,
+   "title": "Packet Version Number (Space Assigned Numbers Authority, http://sanaregistry.org/r/packet_version_number/)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[16]",
+   "doc_id": "CCSDS 133.1-B-2",
+   "title": "Encapsulation Service",
+   "issue": "Issue 2",
+   "date": "October 2009",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[17]",
+   "doc_id": "CCSDS 320.0-B-6",
+   "title": "CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures",
+   "issue": "Issue 6",
+   "date": "October 2013",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[18]",
+   "doc_id": "CCSDS 350.0-G-2",
+   "title": "The Application of CCSDS Protocols to Secure Systems",
+   "issue": "Issue 2",
+   "date": "January 2006",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[19]",
+   "doc_id": "CCSDS 912.3-B-2",
+   "title": "Space Link Extension—Forward Space Packet Service Specification",
+   "issue": "Issue 2",
+   "date": "July 2010",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[20]",
+   "doc_id": "CCSDS 230.1-G-2",
+   "title": "TC Synchronization and Channel Coding—Summary of Concept and Rationale",
+   "issue": "Issue 2",
+   "date": "November 2012",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[21]",
+   "doc_id": "CCSDS 355.0-B-1",
+   "title": "Space Data Link Security Protocol",
+   "issue": "Issue 1",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[22]",
+   "doc_id": "CCSDS 311.0-M-1",
+   "title": "Reference Architecture for Space Data Systems",
+   "issue": "Issue 1",
+   "date": "September 2008",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[23]",
+   "doc_id": "CCSDS 901.0-G-1",
+   "title": "Space Communications Cross Support—Architecture Description Document",
+   "issue": "Issue 1",
+   "date": "November 2013",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[24]",
+   "doc_id": "CCSDS 901.1-M-1",
+   "title": "Space Communications Cross Support—Architecture Requirements Document",
+   "issue": "Issue 1",
+   "date": "May 2015",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[25]",
+   "doc_id": "CCSDS 734.1-B-1",
+   "title": "Licklider Transmission Protocol (LTP) for CCSDS",
+   "issue": "Issue 1",
+   "date": "May 2015",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[26]",
+   "doc_id": "CCSDS 910.0-G-2",
+   "title": "Space Link Extension Services—Executive Summary",
+   "issue": "Issue 2",
+   "date": "March 2006",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[27]",
+   "doc_id": "CCSDS 702.1-B-1",
+   "title": "IP over CCSDS Space Links",
+   "issue": "Issue 1",
+   "date": "September 2012",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[28]",
+   "doc_id": "CCSDS 902.0-G-1",
+   "title": "Extensible Space Communication Cross Support—Service Management—Concept",
+   "issue": "Issue 1",
+   "date": "September 2014",
+   "kind": "reference",
+   "pdf_page": 12
+  }
+ ],
+ "topics": [
+  "ccsds/tm-sdlp.md",
+  "ccsds/tc-sdlp.md",
+  "ccsds/aos.md",
+  "ccsds/cop-1.md",
+  "ccsds/index.md",
+  "overview/index.md",
+  "overview/uplink.md",
+  "overview/downlink.md"
+ ],
+ "notes": "PDF pages 1 and 2 are duplicate cover pages. The extraction has 49 PDF pages (registry: 48). There is no member-agency list page in this copy; PDF p. 5 is the Document Control page. Section 3.3.2.1 says the list of authorized PVNs is in reference [14] (SANA registries), while Note 1 of Table 3-1 points to reference [15] (the Packet Version Number registry). Reference [14] prints 'Space Assigned Number Authority' (singular). Reference [17] (SCID code assignment procedures) is cited as a Blue Book, CCSDS 320.0-B-6; the later issue is a Magenta Book (320.0-M-7, as cited in 130.0-G-4). No individual authors are named. Section 1.5 is a plain 'References' list, catalogued as kind 'reference'."
+}

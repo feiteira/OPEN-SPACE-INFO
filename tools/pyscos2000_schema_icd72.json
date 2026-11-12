@@ -1,0 +1,4508 @@
+{
+ "caf": {
+  "cls": "CAFTable",
+  "doc": "The caf.dat table in SCOS\n\n    Numerical calibrations",
+  "columns": [
+   {
+    "name": "CAF_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CAF_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0cc260>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CAF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CAF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CAF_ENGFMT",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "NumericFormatTypeColumn",
+    "raw": {
+     "name": "CAF_ENGFMT",
+     "type": "<pyscos2000.schema.NumericFormatTypeColumn object at 0x77c1bcfc2960>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CAF_RAWFMT",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "NumericFormatTypeColumn",
+    "raw": {
+     "name": "CAF_RAWFMT",
+     "type": "<pyscos2000.schema.NumericFormatTypeColumn object at 0x77c1bcfc2ae0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CAF_RADIX",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "RadixColumn",
+    "raw": {
+     "name": "CAF_RADIX",
+     "type": "<pyscos2000.schema.RadixColumn object at 0x77c1bcfc2c00>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CAF_UNIT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CAF_UNIT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2d50>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CAF_NCURVE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CAF_NCURVE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2e10>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CAF_INTER",
+    "optional": true,
+    "default": "F",
+    "key": false,
+    "type_repr": "InterpolationColumn",
+    "raw": {
+     "name": "CAF_INTER",
+     "type": "<pyscos2000.schema.InterpolationColumn object at 0x77c1bcfc2ed0>",
+     "description": "",
+     "optional": true,
+     "default": "F",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "cap": {
+  "cls": "CAPTable",
+  "doc": "The cap.dat table in SCOS\n\n    Numerical calibration definitions",
+  "columns": [
+   {
+    "name": "CAP_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CAP_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3020>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CAP_XVALS",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CAP_XVALS",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc31a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CAP_YVALS",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CAP_YVALS",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc32f0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "cca": {
+  "cls": "CCATable",
+  "doc": "The cca.dat table in SCOS\n\n    Command/Sequence Parameter (De-)calibration curves",
+  "columns": [
+   {
+    "name": "CCA_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCA_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CCA_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCA_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCA_ENGFMT",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "NumericFormatTypeColumn",
+    "raw": {
+     "name": "CCA_ENGFMT",
+     "type": "<pyscos2000.schema.NumericFormatTypeColumn object at 0x77c1bcfc2f30>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCA_RAWFMT",
+    "optional": true,
+    "default": "U",
+    "key": false,
+    "type_repr": "NumericFormatTypeColumn",
+    "raw": {
+     "name": "CCA_RAWFMT",
+     "type": "<pyscos2000.schema.NumericFormatTypeColumn object at 0x77c1bcfc2870>",
+     "description": "",
+     "optional": true,
+     "default": "U",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCA_RADIX",
+    "optional": true,
+    "default": "D",
+    "key": false,
+    "type_repr": "RadixColumn",
+    "raw": {
+     "name": "CCA_RADIX",
+     "type": "<pyscos2000.schema.RadixColumn object at 0x77c1bcfc2960>",
+     "description": "",
+     "optional": true,
+     "default": "D",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCA_UNIT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCA_UNIT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2ae0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCA_NCURVE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCA_NCURVE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2c00>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "ccf": {
+  "cls": "CCFTable",
+  "doc": "The ccf.dat table in SCOS\n\n    Command characteristics",
+  "columns": [
+   {
+    "name": "CCF_CNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCF_CNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc32f0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CCF_DESCR",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3440>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_DESCR2",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCF_DESCR2",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3020>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_CTYPE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCF_CTYPE",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc31a0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_CRITICAL",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CCF_CRITICAL",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc2e10>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_PKTID",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCF_PKTID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3590>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_TYPE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_TYPE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3710>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_STYPE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_STYPE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3860>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_APID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_APID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3a10>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_NPARS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_NPARS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3b30>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_PLAN",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "PlannableColumn",
+    "raw": {
+     "name": "CCF_PLAN",
+     "type": "<pyscos2000.schema.PlannableColumn object at 0x77c1bcfc3c50>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_EXEC",
+    "optional": true,
+    "default": "Y",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CCF_EXEC",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc3d70>",
+     "description": "",
+     "optional": true,
+     "default": "Y",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_ILSCOPE",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "CommandInterlockColumn",
+    "raw": {
+     "name": "CCF_ILSCOPE",
+     "type": "<pyscos2000.schema.CommandInterlockColumn object at 0x77c1bcfc3e90>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_ILSTAGE",
+    "optional": true,
+    "default": "C",
+    "key": false,
+    "type_repr": "CommandVerificationColumn",
+    "raw": {
+     "name": "CCF_ILSTAGE",
+     "type": "<pyscos2000.schema.CommandVerificationColumn object at 0x77c1bcfc3f80>",
+     "description": "",
+     "optional": true,
+     "default": "C",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_SUBSYS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_SUBSYS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_HIPRI",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CCF_HIPRI",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_MAPID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_MAPID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_DEFSET",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCF_DEFSET",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef79e0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_RAPID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_RAPID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcef7a40>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_ACK",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_ACK",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcef7aa0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CCF_SUBSCHEDID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CCF_SUBSCHEDID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcef7b00>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "ccs": {
+  "cls": "CCSTable",
+  "doc": "The ccs.dat table in SCOS\n\n    Command/Sequence Parameter (De-)calibration curve definitions",
+  "columns": [
+   {
+    "name": "CCS_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCS_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0cc260>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CCS_XVALS",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCS_XVALS",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CCS_YVALS",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CCS_YVALS",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2db0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   }
+  ]
+ },
+ "cdf": {
+  "cls": "CDFTable",
+  "doc": "The cdf.dat table in SCOS\n\n    Command definition",
+  "columns": [
+   {
+    "name": "CDF_CNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CDF_CNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CDF_ELTYPE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "CommandElementTypeColumn",
+    "raw": {
+     "name": "CDF_ELTYPE",
+     "type": "<pyscos2000.schema.CommandElementTypeColumn object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CDF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_ELLEN",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CDF_ELLEN",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3380>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_BIT",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CDF_BIT",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc30e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_GRPSIZE",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CDF_GRPSIZE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3260>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_PNAME",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CDF_PNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2e70>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_INTER",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "CommandValueRepresentationColumn",
+    "raw": {
+     "name": "CDF_INTER",
+     "type": "<pyscos2000.schema.CommandValueRepresentationColumn object at 0x77c1bcfc34a0>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_VALUE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CDF_VALUE",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3650>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CDF_TMID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CDF_TMID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc37a0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "cpc": {
+  "cls": "CPCTable",
+  "doc": "The cpc.dat table in SCOS\n\n    Command parameters",
+  "columns": [
+   {
+    "name": "CPC_NAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CPC_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_PTC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CPC_PTC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2ed0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_PFC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CPC_PFC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3860>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_DISPFMT",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "CommandInputFormatColumn",
+    "raw": {
+     "name": "CPC_DISPFMT",
+     "type": "<pyscos2000.schema.CommandInputFormatColumn object at 0x77c1bcfc3a10>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_RADIX",
+    "optional": true,
+    "default": "D",
+    "key": false,
+    "type_repr": "RadixColumn",
+    "raw": {
+     "name": "CPC_RADIX",
+     "type": "<pyscos2000.schema.RadixColumn object at 0x77c1bcfc3b30>",
+     "description": "",
+     "optional": true,
+     "default": "D",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_UNIT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_UNIT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3c50>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_CATEG",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "CommandCategoryColumn",
+    "raw": {
+     "name": "CPC_CATEG",
+     "type": "<pyscos2000.schema.CommandCategoryColumn object at 0x77c1bcfc3fb0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_PRFREF",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_PRFREF",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3f80>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_CCAREF",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_CCAREF",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2f30>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_PAFREF",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_PAFREF",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2870>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_INTER",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "OutputViewColumn",
+    "raw": {
+     "name": "CPC_INTER",
+     "type": "<pyscos2000.schema.OutputViewColumn object at 0x77c1bcfc2960>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_DEFVAL",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_DEFVAL",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2ae0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_CORR",
+    "optional": true,
+    "default": "Y",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CPC_CORR",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcef7b30>",
+     "description": "",
+     "optional": true,
+     "default": "Y",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_OBTIP",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CPC_OBTIP",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcef79b0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_DESCR2",
+    "optional": true,
+    "default": "",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CPC_DESCR2",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef79e0>",
+     "description": "",
+     "optional": true,
+     "default": "",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CPC_ENDIAN",
+    "optional": true,
+    "default": "B",
+    "key": false,
+    "type_repr": "EndianessColumn",
+    "raw": {
+     "name": "CPC_ENDIAN",
+     "type": "<pyscos2000.schema.EndianessColumn object at 0x77c1bcef7a40>",
+     "description": "",
+     "optional": true,
+     "default": "B",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "csf": {
+  "cls": "CSFTable",
+  "doc": "The csf.dat table in SCOS\n\n    Command sequence characteristics",
+  "columns": [
+   {
+    "name": "CSF_NAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CSF_DESC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_DESC",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_DESC2",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_DESC2",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_IFTT",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "TimeTagTypeColumn",
+    "raw": {
+     "name": "CSF_IFTT",
+     "type": "<pyscos2000.schema.TimeTagTypeColumn object at 0x77c1bcfc37a0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_NFPARS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSF_NFPARS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3920>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_ELEMS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSF_ELEMS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3380>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_CRITICAL",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CSF_CRITICAL",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc30e0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_PLAN",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "PlannableBySourceColumn",
+    "raw": {
+     "name": "CSF_PLAN",
+     "type": "<pyscos2000.schema.PlannableBySourceColumn object at 0x77c1bcfc3260>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_EXEC",
+    "optional": true,
+    "default": "Y",
+    "key": false,
+    "type_repr": "StandaloneExecutionColumn",
+    "raw": {
+     "name": "CSF_EXEC",
+     "type": "<pyscos2000.schema.StandaloneExecutionColumn object at 0x77c1bcfc2e70>",
+     "description": "",
+     "optional": true,
+     "default": "Y",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_SUBSYS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSF_SUBSYS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc34a0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_GENTIME",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_GENTIME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3650>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_DOCNAME",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_DOCNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef7bc0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_ISSUE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_ISSUE",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef7c20>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_DATE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_DATE",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef7c80>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_DEFSET",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSF_DEFSET",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef7ce0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSF_SUBSCHEDID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSF_SUBSCHEDID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcef7d40>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "csp": {
+  "cls": "CSPTable",
+  "doc": "The csp.dat table in SCOS\n\n    Command sequence formal parameters",
+  "columns": [
+   {
+    "name": "CSP_SQNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_SQNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0cc260>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CSP_FPNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_FPNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CSP_FPNUM",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSP_FPNUM",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2db0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2ed0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_PTC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSP_PTC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3860>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_PFC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSP_PFC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3a10>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_DISPFMT",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "CommandInputFormatColumn",
+    "raw": {
+     "name": "CSP_DISPFMT",
+     "type": "<pyscos2000.schema.CommandInputFormatColumn object at 0x77c1bcfc3b30>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_RADIX",
+    "optional": true,
+    "default": "D",
+    "key": false,
+    "type_repr": "RadixColumn",
+    "raw": {
+     "name": "CSP_RADIX",
+     "type": "<pyscos2000.schema.RadixColumn object at 0x77c1bcfc3c50>",
+     "description": "",
+     "optional": true,
+     "default": "D",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_TYPE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "FormatParameterTypeColumn",
+    "raw": {
+     "name": "CSP_TYPE",
+     "type": "<pyscos2000.schema.FormatParameterTypeColumn object at 0x77c1bcfc3e90>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_VTYPE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "OutputViewColumn",
+    "raw": {
+     "name": "CSP_VTYPE",
+     "type": "<pyscos2000.schema.OutputViewColumn object at 0x77c1bcfc2f90>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_DEFVAL",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_DEFVAL",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2a50>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_CATEG",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "CommandCategoryColumn",
+    "raw": {
+     "name": "CSP_CATEG",
+     "type": "<pyscos2000.schema.CommandCategoryColumn object at 0x77c1bcfc2b70>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_PRFREF",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_PRFREF",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2c90>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_CCAREF",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_CCAREF",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2ae0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_PAFREF",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_PAFREF",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef7ad0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSP_UNIT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSP_UNIT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef7b00>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "css": {
+  "cls": "CSSTable",
+  "doc": "The css.dat table in SCOS\n\n    Command sequence definitions",
+  "columns": [
+   {
+    "name": "CSS_SQNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSS_SQNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CSS_COMM",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSS_COMM",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_ENTRY",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSS_ENTRY",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_TYPE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "SequenceElementTypeColumn",
+    "raw": {
+     "name": "CSS_TYPE",
+     "type": "<pyscos2000.schema.SequenceElementTypeColumn object at 0x77c1bcfc37a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_ELEMID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSS_ELEMID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3920>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_NPARS",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CSS_NPARS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3380>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_MANDISP",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CSS_MANDISP",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc31a0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_RELTYPE",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "ReleaseTimeTypeColumn",
+    "raw": {
+     "name": "CSS_RELTYPE",
+     "type": "<pyscos2000.schema.ReleaseTimeTypeColumn object at 0x77c1bcfc2e10>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_RELTIME",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSS_RELTIME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3590>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_EXTIME",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CSS_EXTIME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3650>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_PREVREL",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "ReleaseTimeTypeColumn",
+    "raw": {
+     "name": "CSS_PREVREL",
+     "type": "<pyscos2000.schema.ReleaseTimeTypeColumn object at 0x77c1bcef7d70>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_GROUP",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "RelativePositionColumn",
+    "raw": {
+     "name": "CSS_GROUP",
+     "type": "<pyscos2000.schema.RelativePositionColumn object at 0x77c1bcef7b90>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_BLOCK",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "RelativePositionColumn",
+    "raw": {
+     "name": "CSS_BLOCK",
+     "type": "<pyscos2000.schema.RelativePositionColumn object at 0x77c1bcef7bc0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_ILSCOPE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "CommandSequenceInterlockColumn",
+    "raw": {
+     "name": "CSS_ILSCOPE",
+     "type": "<pyscos2000.schema.CommandSequenceInterlockColumn object at 0x77c1bcef7c20>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_ILSTAGE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "CommandVerificationColumn",
+    "raw": {
+     "name": "CSS_ILSTAGE",
+     "type": "<pyscos2000.schema.CommandVerificationColumn object at 0x77c1bcef7c80>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_DYNPTV",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CSS_DYNPTV",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcef7ce0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_STATPTV",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CSS_STATPTV",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcef79b0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "CSS_CEV",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "CSS_CEV",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcef79e0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "cur": {
+  "cls": "CURTable",
+  "doc": "The cur.dat table in SCOS\n\n    Calibration conditional selection",
+  "columns": [
+   {
+    "name": "CUR_PNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "CUR_PNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CUR_POS",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CUR_POS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bd0cc260>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "CUR_RLCHK",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CUR_RLCHK",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2d50>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CUR_VALPAR",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "CUR_VALPAR",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2db0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "CUR_SELECT",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "CUR_SELECT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2ed0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "dst": {
+  "cls": "DSTTable",
+  "doc": "The dst.dat table in SCOS\n\n    Command routing",
+  "columns": [
+   {
+    "name": "DST_APID",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "DST_APID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "DST_ROUTE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "DST_ROUTE",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "lgf": {
+  "cls": "LGFTable",
+  "doc": "The lgf.dat table in SCOS\n\n    Logarithmic calibrations definitions",
+  "columns": [
+   {
+    "name": "LGF_IDENT",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "LGF_IDENT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "LGF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "LGF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "LGF_POL1",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "LGF_POL1",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "LGF_POL2",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "LGF_POL2",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3bc0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "LGF_POL3",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "LGF_POL3",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3860>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "LGF_POL4",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "LGF_POL4",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2d50>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "LGF_POL5",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "LGF_POL5",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2db0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "mcf": {
+  "cls": "MCFTable",
+  "doc": "The mcf.dat table in SCOS\n\n    Polynomial calibrations definitions",
+  "columns": [
+   {
+    "name": "MCF_IDENT",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "MCF_IDENT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "MCF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "MCF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "MCF_POL1",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "MCF_POL1",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "MCF_POL2",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "MCF_POL2",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3440>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "MCF_POL3",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "MCF_POL3",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc30e0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "MCF_POL4",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "MCF_POL4",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3020>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "MCF_POL5",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "MCF_POL5",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc31a0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "ocf": {
+  "cls": "OCFTable",
+  "doc": "The ocf.dat table in SCOS\n\n    Monitoring checks",
+  "columns": [
+   {
+    "name": "OCF_NAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "OCF_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "OCF_NBCHCK",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "OCF_NBCHCK",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bd0cc260>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "OCF_NBOOL",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "OCF_NBOOL",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "OCF_INTER",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "LimitInterpretationColumn",
+    "raw": {
+     "name": "OCF_INTER",
+     "type": "<pyscos2000.schema.LimitInterpretationColumn object at 0x77c1bcfc3710>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "OCF_CODIN",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "LimitTypeInterpretationColumn",
+    "raw": {
+     "name": "OCF_CODIN",
+     "type": "<pyscos2000.schema.LimitTypeInterpretationColumn object at 0x77c1bcfc2ed0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "ocp": {
+  "cls": "OCPTable",
+  "doc": "the ocp.dat table in SCOS\n\n    Monitoring checks definition",
+  "columns": [
+   {
+    "name": "OCP_NAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "OCP_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "OCP_POS",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "OCP_POS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "OCP_TYPE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "MonitoringCheckFlagColumn",
+    "raw": {
+     "name": "OCP_TYPE",
+     "type": "<pyscos2000.schema.MonitoringCheckFlagColumn object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "OCP_LVALU",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "OCP_LVALU",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2e70>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "OCP_HVALU",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "OCP_HVALU",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc37a0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "OCP_RLCHK",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "OCP_RLCHK",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3440>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "OCP_VALPAR",
+    "optional": true,
+    "default": "1",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "OCP_VALPAR",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc30e0>",
+     "description": "",
+     "optional": true,
+     "default": "1",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "paf": {
+  "cls": "PAFTable",
+  "doc": "The paf.dat table in SCOS\n\n    Command/Sequence Parameter Textual (De-)calibration",
+  "columns": [
+   {
+    "name": "PAF_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PAF_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PAF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PAF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PAF_RAWFMT",
+    "optional": true,
+    "default": "U",
+    "key": false,
+    "type_repr": "NumericFormatTypeColumn",
+    "raw": {
+     "name": "PAF_RAWFMT",
+     "type": "<pyscos2000.schema.NumericFormatTypeColumn object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": true,
+     "default": "U",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PAF_NALIAS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PAF_NALIAS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3ce0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "pas": {
+  "cls": "PASTable",
+  "doc": "The pas.dat table in SCOS\n\n    Command/Sequence Parameter Textual (De-)calibration definition",
+  "columns": [
+   {
+    "name": "PAS_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PAS_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PAS_ALTXT",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PAS_ALTXT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PAS_ALVAL",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PAS_ALVAL",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   }
+  ]
+ },
+ "pcdf": {
+  "cls": "PCDFTable",
+  "doc": "The pcdf.dat table in SCOS\n\n    Packet heaer definitions",
+  "columns": [
+   {
+    "name": "PCDF_TCNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCDF_TCNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PCDF_DESC",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCDF_DESC",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0cc260>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCDF_TYPE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "PacketHeaderElementTypeColumn",
+    "raw": {
+     "name": "PCDF_TYPE",
+     "type": "<pyscos2000.schema.PacketHeaderElementTypeColumn object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCDF_LEN",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCDF_LEN",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2c00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCDF_BIT",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCDF_BIT",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2ed0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PCDF_PNAME",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCDF_PNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc31a0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCDF_VALUE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCDF_VALUE",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2e70>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCDF_RADIX",
+    "optional": true,
+    "default": "H",
+    "key": false,
+    "type_repr": "RadixColumn",
+    "raw": {
+     "name": "PCDF_RADIX",
+     "type": "<pyscos2000.schema.RadixColumn object at 0x77c1bcfc37a0>",
+     "description": "",
+     "optional": true,
+     "default": "H",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "pcf": {
+  "cls": "PCFTable",
+  "doc": "The pcf.dat table in SCOS\n\n    Monitoring parameters characteristics",
+  "columns": [
+   {
+    "name": "PCF_NAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PCF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_PID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCF_PID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_UNIT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_UNIT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3260>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_PTC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCF_PTC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2db0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_PFC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCF_PFC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3710>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_WIDTH",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCF_WIDTH",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3aa0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_VALID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_VALID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc34a0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_RELATED",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_RELATED",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3650>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_CATEG",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "CalibrationCategoryColumn",
+    "raw": {
+     "name": "PCF_CATEG",
+     "type": "<pyscos2000.schema.CalibrationCategoryColumn object at 0x77c1bcfc3d70>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_NATUR",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "ParameterNatureColumn",
+    "raw": {
+     "name": "PCF_NATUR",
+     "type": "<pyscos2000.schema.ParameterNatureColumn object at 0x77c1bcfc3e00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_CURTX",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_CURTX",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3fb0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_INTER",
+    "optional": true,
+    "default": "F",
+    "key": false,
+    "type_repr": "InterpolationColumn",
+    "raw": {
+     "name": "PCF_INTER",
+     "type": "<pyscos2000.schema.InterpolationColumn object at 0x77c1bcfc3f80>",
+     "description": "",
+     "optional": true,
+     "default": "F",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_USCON",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "PCF_USCON",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc2f30>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_DECIM",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCF_DECIM",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2870>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_PARVAL",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_PARVAL",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2960>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_SUBSYS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_SUBSYS",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2ae0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_VALPAR",
+    "optional": true,
+    "default": "1",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCF_VALPAR",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcef7dd0>",
+     "description": "",
+     "optional": true,
+     "default": "1",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_SPTYPE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "OutputViewColumn",
+    "raw": {
+     "name": "PCF_SPTYPE",
+     "type": "<pyscos2000.schema.OutputViewColumn object at 0x77c1bcef7d40>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_CORR",
+    "optional": true,
+    "default": "Y",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "PCF_CORR",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcef7d70>",
+     "description": "",
+     "optional": true,
+     "default": "Y",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_OBTID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PCF_OBTID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcef7b90>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_DARC",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "PCF_DARC",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcef7bc0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_ENDIAN",
+    "optional": true,
+    "default": "B",
+    "key": false,
+    "type_repr": "EndianessColumn",
+    "raw": {
+     "name": "PCF_ENDIAN",
+     "type": "<pyscos2000.schema.EndianessColumn object at 0x77c1bcef7c20>",
+     "description": "",
+     "optional": true,
+     "default": "B",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCF_DESCR2",
+    "optional": true,
+    "default": "",
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCF_DESCR2",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcef7c80>",
+     "description": "",
+     "optional": true,
+     "default": "",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "pcpc": {
+  "cls": "PCPCTable",
+  "doc": "The pcpc.dat table in SCOS\n\n    TC packet header parameters",
+  "columns": [
+   {
+    "name": "PCPC_PNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCPC_PNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PCPC_DESC",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PCPC_DESC",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PCPC_CODE",
+    "optional": true,
+    "default": "U",
+    "key": false,
+    "type_repr": "IntegerFormatTypeColumn",
+    "raw": {
+     "name": "PCPC_CODE",
+     "type": "<pyscos2000.schema.IntegerFormatTypeColumn object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": true,
+     "default": "U",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "pic": {
+  "cls": "PICTable",
+  "doc": "The pic.dat table in SCOS\n\n    Packet identification criteria",
+  "columns": [
+   {
+    "name": "PIC_TYPE",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PIC_TYPE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PIC_STYPE",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PIC_STYPE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PIC_PI1_OFF",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PIC_PI1_OFF",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PIC_PI1_WID",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PIC_PI1_WID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3440>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PIC_PI2_OFF",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PIC_PI2_OFF",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc32f0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PIC_PI2_WID",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PIC_PI2_WID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3860>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PIC_APID",
+    "optional": true,
+    "default": "99999",
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PIC_APID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2d50>",
+     "description": "",
+     "optional": true,
+     "default": "99999",
+     "is_key": true
+    }
+   }
+  ]
+ },
+ "pid": {
+  "cls": "PIDTable",
+  "doc": "The pid.dat table in SCOS\n\n    Packet identification",
+  "columns": [
+   {
+    "name": "PID_TYPE",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_TYPE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PID_STYPE",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_STYPE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PID_APID",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_APID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PID_PI1_VAL",
+    "optional": true,
+    "default": "0",
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_PI1_VAL",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3a10>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": true
+    }
+   },
+   {
+    "name": "PID_PI2_VAL",
+    "optional": true,
+    "default": "0",
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_PI2_VAL",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3b30>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": true
+    }
+   },
+   {
+    "name": "PID_SPID",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_SPID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3c50>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PID_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PID_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3e90>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_UNIT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PID_UNIT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2f90>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_TPSD",
+    "optional": true,
+    "default": "-1",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_TPSD",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2a50>",
+     "description": "",
+     "optional": true,
+     "default": "-1",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_DFHSIZE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_DFHSIZE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2b70>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_TIME",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "PID_TIME",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc2c90>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_INTER",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_INTER",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2ae0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_VALID",
+    "optional": true,
+    "default": "Y",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "PID_VALID",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc3ce0>",
+     "description": "",
+     "optional": true,
+     "default": "Y",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_CHECK",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PID_CHECK",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2c00>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_EVENT",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "EventPacketIndicator",
+    "raw": {
+     "name": "PID_EVENT",
+     "type": "<pyscos2000.schema.EventPacketIndicator object at 0x77c1bcfc2ed0>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PID_EVID",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PID_EVID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc31a0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "plf": {
+  "cls": "PLFTable",
+  "doc": "The plf.dat table in SCOS\n\n    Parameter location in fixed packets",
+  "columns": [
+   {
+    "name": "PLF_NAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PLF_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PLF_SPID",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PLF_SPID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PLF_OFFBY",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PLF_OFFBY",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PLF_OFFBI",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PLF_OFFBI",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3590>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PLF_NBOCC",
+    "optional": true,
+    "default": "1",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PLF_NBOCC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc30e0>",
+     "description": "",
+     "optional": true,
+     "default": "1",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PLF_LGOCC",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PLF_LGOCC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3440>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PLF_TIME",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PLF_TIME",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc32f0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PLF_TDOCC",
+    "optional": true,
+    "default": "1",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PLF_TDOCC",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3860>",
+     "description": "",
+     "optional": true,
+     "default": "1",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "prf": {
+  "cls": "PRFTable",
+  "doc": "The prf.dat table in SCOS\n\n    Command/Sequence Parameter range sets",
+  "columns": [
+   {
+    "name": "PRF_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PRF_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PRF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PRF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PRF_INTER",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "OutputViewColumn",
+    "raw": {
+     "name": "PRF_INTER",
+     "type": "<pyscos2000.schema.OutputViewColumn object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PRF_DSPFMT",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "CommandInputFormatColumn",
+    "raw": {
+     "name": "PRF_DSPFMT",
+     "type": "<pyscos2000.schema.CommandInputFormatColumn object at 0x77c1bcfc3920>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PRF_RADIX",
+    "optional": true,
+    "default": "D",
+    "key": false,
+    "type_repr": "RadixColumn",
+    "raw": {
+     "name": "PRF_RADIX",
+     "type": "<pyscos2000.schema.RadixColumn object at 0x77c1bcfc37a0>",
+     "description": "",
+     "optional": true,
+     "default": "D",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PRF_NRANGE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "PRF_NRANGE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3a10>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PRF_UNIT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PRF_UNIT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3b30>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "prv": {
+  "cls": "PRVTable",
+  "doc": "The prv.dat table in SCOS\n\n    Command/Sequence Parameter range values",
+  "columns": [
+   {
+    "name": "PRV_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PRV_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PRV_MINVAL",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PRV_MINVAL",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PRV_MAXVAL",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PRV_MAXVAL",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "pst": {
+  "cls": "PSTTable",
+  "doc": "The pst.dat table in SCOS\n\n    Command/Sequence parameter sets",
+  "columns": [
+   {
+    "name": "PST_NAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PST_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PST_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PST_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "psv": {
+  "cls": "PSVTable",
+  "doc": "The psv.dat table in SCOS\n\n    Command/sequence parameter value sets",
+  "columns": [
+   {
+    "name": "PSV_NAME",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PSV_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "PSV_PVSID",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PSV_PVSID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PSV_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PSV_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "ptv": {
+  "cls": "PTVTable",
+  "doc": "The ptv.dat table in SCOS\n\n    Commands pre-transmission validation",
+  "columns": [
+   {
+    "name": "PTV_CNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PTV_CNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf6d670>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PTV_PARNAM",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "PTV_PARNAM",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "PTV_INTER",
+    "optional": true,
+    "default": "R",
+    "key": false,
+    "type_repr": "OutputViewColumn",
+    "raw": {
+     "name": "PTV_INTER",
+     "type": "<pyscos2000.schema.OutputViewColumn object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": true,
+     "default": "R",
+     "is_key": false
+    }
+   },
+   {
+    "name": "PTV_VAL",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "PTV_VAL",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3e00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "sdf": {
+  "cls": "SDFTable",
+  "doc": "The sdf.dat table in SCOS\n\n    Command sequence element parameters",
+  "columns": [
+   {
+    "name": "SDF_SQNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "SDF_SQNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "SDF_ENTRY",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "SDF_ENTRY",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "SDF_ELEMID",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "SDF_ELEMID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "SDF_POS",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "SDF_POS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2d50>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "SDF_PNAME",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "SDF_PNAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3920>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "SDF_FTYPE",
+    "optional": true,
+    "default": "E",
+    "key": false,
+    "type_repr": "ValueEditableColumn",
+    "raw": {
+     "name": "SDF_FTYPE",
+     "type": "<pyscos2000.schema.ValueEditableColumn object at 0x77c1bcfc37a0>",
+     "description": "",
+     "optional": true,
+     "default": "E",
+     "is_key": false
+    }
+   },
+   {
+    "name": "SDF_VTYPE",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "ValueSourceColumn",
+    "raw": {
+     "name": "SDF_VTYPE",
+     "type": "<pyscos2000.schema.ValueSourceColumn object at 0x77c1bcfc3a10>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "SDF_VALUE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "SDF_VALUE",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc3590>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "SDF_VALSET",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "SDF_VALSET",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc30e0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "SDF_REPPOS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "SDF_REPPOS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3440>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "tcp": {
+  "cls": "TCPTable",
+  "doc": "The tcp.dat table in SCOS\n\n    TC packet header characteristics",
+  "columns": [
+   {
+    "name": "TCP_ID",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "TCP_ID",
+     "type": "<pyscos2000.schema.String object at 0x77c1bce957c0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "TCP_DESC",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "TCP_DESC",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "tpcf": {
+  "cls": "TPCFTable",
+  "doc": "The tpcf.dat table in SCOS\n\n    Telemetry packets characteristics",
+  "columns": [
+   {
+    "name": "TPCF_SPID",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "TPCF_SPID",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "TPCF_NAME",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "TPCF_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "TPCF_SIZE",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "TPCF_SIZE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "txf": {
+  "cls": "TXFTable",
+  "doc": "The txf.dat table in SCOS\n\n    Textual calibrations",
+  "columns": [
+   {
+    "name": "TXF_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "TXF_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "TXF_DESCR",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "TXF_DESCR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0ccef0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "TXF_RAWFMT",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "NumericFormatTypeColumn",
+    "raw": {
+     "name": "TXF_RAWFMT",
+     "type": "<pyscos2000.schema.NumericFormatTypeColumn object at 0x77c1bce957c0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "TXF_NALIAS",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "TXF_NALIAS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3710>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "txp": {
+  "cls": "TXPTable",
+  "doc": "The txp.dat table in SCOS\n\n    Textual calibrations definition",
+  "columns": [
+   {
+    "name": "TXP_NUMBR",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "TXP_NUMBR",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8140>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "TXP_FROM",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "String",
+    "raw": {
+     "name": "TXP_FROM",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe80e0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "TXP_TO",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "TXP_TO",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8200>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "TXP_ALTXT",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "TXP_ALTXT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc2e70>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "vdf": {
+  "cls": "VDFTable",
+  "doc": "The vdf.dat table in SCOS\n\n    Database meta and version information",
+  "columns": [
+   {
+    "name": "VDF_NAME",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "VDF_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcf7ade0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "VDF_COMMENT",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "VDF_COMMENT",
+     "type": "<pyscos2000.schema.String object at 0x77c1bd0cc260>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "VDF_DOMAIN",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VDF_DOMAIN",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bce957c0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "VDF_RELEASE",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VDF_RELEASE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc32f0>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VDF_ISSUE",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VDF_ISSUE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3440>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   }
+  ]
+ },
+ "vpd": {
+  "cls": "VPDTable",
+  "doc": "The vpd.dat table in SCOS\n\n    Variable packet definition",
+  "columns": [
+   {
+    "name": "VPD_TPSD",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VPD_TPSD",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe8b00>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "VPD_POS",
+    "optional": false,
+    "default": null,
+    "key": true,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VPD_POS",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfe81a0>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": true
+    }
+   },
+   {
+    "name": "VPD_NAME",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "VPD_NAME",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfe8a40>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_GRPSIZE",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VPD_GRPSIZE",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2e70>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_FIXREP",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VPD_FIXREP",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3650>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_CHOICE",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "VPD_CHOICE",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc3a10>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_PIDREF",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "VPD_PIDREF",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc3590>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_DISDESC",
+    "optional": true,
+    "default": null,
+    "key": false,
+    "type_repr": "String",
+    "raw": {
+     "name": "VPD_DISDESC",
+     "type": "<pyscos2000.schema.String object at 0x77c1bcfc30e0>",
+     "description": "",
+     "optional": true,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_WIDTH",
+    "optional": false,
+    "default": null,
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VPD_WIDTH",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc3c50>",
+     "description": "",
+     "optional": false,
+     "default": null,
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_JUSTIFY",
+    "optional": true,
+    "default": "L",
+    "key": false,
+    "type_repr": "JustifyColumn",
+    "raw": {
+     "name": "VPD_JUSTIFY",
+     "type": "<pyscos2000.schema.JustifyColumn object at 0x77c1bcfc3b30>",
+     "description": "",
+     "optional": true,
+     "default": "L",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_NEWLINE",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "Boolean",
+    "raw": {
+     "name": "VPD_NEWLINE",
+     "type": "<pyscos2000.schema.Boolean object at 0x77c1bcfc3e90>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_DCHAR",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VPD_DCHAR",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2f90>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_FORM",
+    "optional": true,
+    "default": "N",
+    "key": false,
+    "type_repr": "DisplayFormatColumn",
+    "raw": {
+     "name": "VPD_FORM",
+     "type": "<pyscos2000.schema.DisplayFormatColumn object at 0x77c1bcfc2a50>",
+     "description": "",
+     "optional": true,
+     "default": "N",
+     "is_key": false
+    }
+   },
+   {
+    "name": "VPD_OFFSET",
+    "optional": true,
+    "default": "0",
+    "key": false,
+    "type_repr": "Number",
+    "raw": {
+     "name": "VPD_OFFSET",
+     "type": "<pyscos2000.schema.Number object at 0x77c1bcfc2b70>",
+     "description": "",
+     "optional": true,
+     "default": "0",
+     "is_key": false
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,296 @@
+{
+ "table": "cdf",
+ "file": "cdf.dat",
+ "icd": true,
+ "name": "Commands definition",
+ "icd_section": "3.3.3.2.3",
+ "pdf_page": 151,
+ "family": "commanding",
+ "purpose": "The cdf table defines the structure of each command's application data field, one record per command element. An element is either a fixed area (constant bits, possibly padding or unused bits) or an instance of a command parameter from CPC, which may be fixed (non-editable) or editable. Elements are encoded back to back with no gaps, in the order of their bit offsets, so every bit of the raw command after the packet header must be covered. The table supports PUS variable-length commands through repeated groups: a counter parameter (e.g. N) with a non-zero group size precedes a group of following elements that is repeated N times when the command is loaded, nested groups being expanded left to right; a fixed counter with a non-zero group size forces the expansion without prompting the user. Each editable element may carry a static default and, optionally, a dynamic default taken from a monitoring parameter (for instance a User Defined Constant controlled from TM SPACON), which replaces the static value after loading until an explicit value is entered. Default values can also be inherited from CPC_DEFVAL. Since R4.2 commands with group repeaters can be used in sequences only if all repeated values are fixed in the database. The structure also serves on-board control directives and throw events (see CCF_CTYPE).",
+ "keys": [
+  "CDF_CNAME",
+  "CDF_BIT",
+  "CDF_GRPSIZE"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "CDF_CNAME",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Name of the command (CCF_CNAME) to which the element belongs.",
+   "values": [],
+   "references": "ccf.CCF_CNAME",
+   "pdf_page": 154
+  },
+  {
+   "pos": 2,
+   "name": "CDF_ELTYPE",
+   "type": "Char(1)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Type of the command element. Only editable elements (E) may be given values in sequence definitions (SDF); the importer rejects SDF entries for fixed parameters.",
+   "values": [
+    {
+     "value": "A",
+     "meaning": "Fixed area: constant raw bits taken from CDF_VALUE."
+    },
+    {
+     "value": "F",
+     "meaning": "Parameter fixed at definition time, not editable by the user."
+    },
+    {
+     "value": "E",
+     "meaning": "Editable parameter whose value can be changed on a manual stack or in a sequence."
+    }
+   ],
+   "references": null,
+   "pdf_page": 154
+  },
+  {
+   "pos": 3,
+   "name": "CDF_DESCR",
+   "type": "Char(24)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Textual description, used for fixed areas only (CDF_ELTYPE=A); parameters are described by CPC_DESCR.",
+   "values": [],
+   "references": null,
+   "pdf_page": 154
+  },
+  {
+   "pos": 4,
+   "name": "CDF_ELLEN",
+   "type": "Number(4)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Length of the element in bits. For fixed areas SCOS-2000 uses it to encode the command. For fixed or editable parameters SCOS-2000 ignores it, because the length follows from the PTC/PFC of the referenced parameter, but it should still be filled correctly so that the consistency of command and parameter definitions can be checked. It must be 0 for variable-length parameters (e.g. PTC=7, PFC=0).",
+   "values": [],
+   "references": null,
+   "pdf_page": 155
+  },
+  {
+   "pos": 5,
+   "name": "CDF_BIT",
+   "type": "Number(4)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Bit offset of the element counted from the start of the unexpanded application data field, i.e. just after the packet header (including the data field header where present, as defined in PCDF). Offsets of elements that follow a repeated group are computed as if every counter were 1. SCOS-2000 uses the offset only to sort the elements: they are encoded in that order with no gaps, not at the absolute positions given. The value must be consistent with the length and position of the preceding elements. Unsigned number of bits; part of the key.",
+   "values": [],
+   "references": null,
+   "pdf_page": 155
+  },
+  {
+   "pos": 6,
+   "name": "CDF_GRPSIZE",
+   "type": "Number(2)",
+   "mandatory": "O",
+   "default": "0",
+   "description": "For a group repeater (counter) parameter, the number of following command elements that form the group to be repeated N times at load time, N being the counter value. For any other element it is left empty or 0. The field becomes part of the table key when it is non-zero. A group repeater with a fixed value and a non-zero group size is expanded automatically; a fixed counter with group size 0 is just an ordinary fixed parameter.",
+   "values": [],
+   "references": null,
+   "pdf_page": 156
+  },
+  {
+   "pos": 7,
+   "name": "CDF_PNAME",
+   "type": "Char(8)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the command parameter (CPC_PNAME) placed at this position. It must be given for parameter elements (CDF_ELTYPE F or E) and is irrelevant for fixed areas (A).",
+   "values": [],
+   "references": "cpc.CPC_PNAME",
+   "pdf_page": 156
+  },
+  {
+   "pos": 8,
+   "name": "CDF_INTER",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Representation of the fixed or default value in CDF_VALUE, or the source of that value. Irrelevant for fixed areas.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "CDF_VALUE is a raw value (import default)."
+    },
+    {
+     "value": "E",
+     "meaning": "CDF_VALUE is an engineering value; only for calibrated parameters (CPC_CATEG T or C)."
+    },
+    {
+     "value": "D",
+     "meaning": "The value is taken from the default of the parameter definition (CPC_DEFVAL)."
+    },
+    {
+     "value": "T",
+     "meaning": "Dynamic default taken from the monitoring parameter named in CDF_TMID; only for editable parameters, and a raw static default must still be given in CDF_VALUE."
+    }
+   ],
+   "references": null,
+   "pdf_page": 157
+  },
+  {
+   "pos": 9,
+   "name": "CDF_VALUE",
+   "type": "Char",
+   "mandatory": "O",
+   "default": null,
+   "description": "Fixed or default value of the element; its maximum length depends on the maximum command size (section 3.3.3.2). For a fixed area it is a raw unsigned integer written in hexadecimal, at most 32 bits (FFFF FFFF); fixed areas must not be used for Service 11 command elements that have to be processed for ground modelling (by the OBQM). Zero is a valid value for fixed areas and for group repeaters. For a fixed or editable parameter it is written raw (compatible with CPC_PTC, and CPC_RADIX for unsigned integers) unless CDF_INTER=E, in which case it follows CPC_DISPFMT. For a 'Command ID' parameter it names a fully defaulted command (CCF_CNAME); for a 'Parameter ID' parameter it names a monitoring parameter with an on-board identifier (PCF_PID). It must be filled for fixed areas, for fixed parameters not taking their value from CPC (CDF_INTER other than D) and for editable parameters with a dynamic default (CDF_INTER=T). If an editable parameter without dynamic default has no value, the user must enter one before the command can be loaded. It is irrelevant when CDF_INTER=D.",
+   "values": [],
+   "references": null,
+   "pdf_page": 157
+  },
+  {
+   "pos": 10,
+   "name": "CDF_TMID",
+   "type": "Char(8)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the monitoring parameter (PCF_NAME) whose current value provides the dynamic default; used only with CDF_INTER=T. Its PTC/PFC must be identical to those of the command parameter in CDF_PNAME, and only parameters processed by the telemetry model library qualify: TM parameters that appear in PLF, or synthetic parameters of any type.",
+   "values": [],
+   "references": "pcf.PCF_NAME",
+   "pdf_page": 159
+  }
+ ],
+ "relationships": [
+  {
+   "field": "CDF_CNAME",
+   "target": "ccf.CCF_CNAME",
+   "note": "Command owning the element; CCF_NPARS should equal the number of CDF records."
+  },
+  {
+   "field": "CDF_PNAME",
+   "target": "cpc.CPC_PNAME",
+   "note": "Parameter placed at the element position (for ELTYPE F/E)."
+  },
+  {
+   "field": "CDF_TMID",
+   "target": "pcf.PCF_NAME",
+   "note": "Monitoring parameter supplying a dynamic default (CDF_INTER=T); must be in PLF or synthetic."
+  },
+  {
+   "field": "CDF_VALUE",
+   "target": "ccf.CCF_CNAME / pcf.PCF_NAME",
+   "note": "Value of 'Command ID' / 'Parameter ID' parameters."
+  },
+  {
+   "field": "CDF_BIT",
+   "target": "sdf.SDF_POS / sdf.SDF_REPPOS",
+   "note": "Sequence element parameters are located by the bit offset of the parameter in the command (SDF_REPPOS gives the original CDF_BIT when repeated groups shift the position)."
+  },
+  {
+   "field": "CDF_BIT",
+   "target": "pvs.PVS_BIT",
+   "note": "Parameter value sets locate command parameters by their bit offset."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.2.3, PDF p.70-73) has the same ten fields, but the key is only CDF_CNAME + CDF_BIT, CDF_VALUE is Char(17), and fixed areas and group repeaters both had to be hexadecimal. In ICD 6.7 Draft A (PDF p.141-148) and ICD 6.9 (PDF p.145-153) CDF_GRPSIZE is a key field (when non-zero). ICD 6.1 clarified that fixed areas must not be used for Service 11 elements processed for ground modelling and that 0 is allowed for group repeaters (Annex 1, PDF p.251); ICD 6.4 restricted dynamic defaults to parameters processed by the TM model (PDF p.254); ICD 6.6 defined the allowed CDF_ELTYPE/SDF_FTYPE combinations (S2K-SPR-3400, PDF p.257). In ICD 6.9 the 32-bit maximum (FFFF FFFF) was stated for CDF_VALUE as a whole; ICD 7.0 (PDF p.151-159) restricts it to fixed areas (S2K-8782, PDF p.263) and makes CDF_VALUE variable-length, bounded by the command size (S2K-8073, PDF p.261). pyscos2000 (ICD 7.2) has the same ten columns in the same order, mandatory CDF_CNAME, CDF_ELTYPE, CDF_ELLEN and CDF_BIT, and defaults 0 for CDF_GRPSIZE and R for CDF_INTER, but marks only CDF_CNAME as key.",
+ "solo_stats": {
+  "rows": 47609,
+  "fields": [
+   {
+    "name": "CDF_CNAME",
+    "filled": 47609,
+    "examples": [
+     "ZIA58764",
+     "ZIA58812",
+     "ZIW00055",
+     "ZIX37009",
+     "ZIW00053"
+    ]
+   },
+   {
+    "name": "CDF_ELTYPE",
+    "filled": 47609,
+    "examples": [
+     "F",
+     "A",
+     "E"
+    ]
+   },
+   {
+    "name": "CDF_DESCR",
+    "filled": 16713,
+    "examples": [
+     "Number of bus commands",
+     "Not used",
+     "Identification number of",
+     "Command Word",
+     "Data Word"
+    ]
+   },
+   {
+    "name": "CDF_ELLEN",
+    "filled": 47609,
+    "examples": [
+     "32",
+     "8",
+     "16",
+     "1",
+     "4"
+    ]
+   },
+   {
+    "name": "CDF_BIT",
+    "filled": 47609,
+    "examples": [
+     "0",
+     "8",
+     "16",
+     "24",
+     "48"
+    ]
+   },
+   {
+    "name": "CDF_GRPSIZE",
+    "filled": 47576,
+    "examples": [
+     "0",
+     "1",
+     "3",
+     "2",
+     "17"
+    ]
+   },
+   {
+    "name": "CDF_PNAME",
+    "filled": 30703,
+    "examples": [
+     "PCD02801",
+     "PCD02802",
+     "PCAB0093",
+     "PCAX0003",
+     "PCAX0004"
+    ]
+   },
+   {
+    "name": "CDF_INTER",
+    "filled": 45995,
+    "examples": [
+     "R",
+     "D",
+     "E"
+    ]
+   },
+   {
+    "name": "CDF_VALUE",
+    "filled": 36855,
+    "examples": [
+     "0",
+     "1",
+     "BUSCPLR_DEF",
+     "0001",
+     "BUS_1"
+    ]
+   },
+   {
+    "name": "CDF_TMID",
+    "filled": 0,
+    "examples": []
+   }
+  ]
+ },
+ "notes": "Columns match between ICD 7.0, pyscos2000 and the Solar Orbiter cdf.dat (10 columns in all 47609 lines). Key discrepancy: ICD 7.0 keys on CDF_CNAME + CDF_BIT (+ CDF_GRPSIZE when non-zero), while pyscos2000 flags only CDF_CNAME as key (necessarily incomplete, since a command has many elements). The Herschel HCSS tailoring note (point 5.2.9, PDF p.13 of hcss-mib-clarification-tailoring-note) further assumed that CDF_CNAME + CDF_PNAME is unique, repeated groups being the way to repeat a parameter. Solar Orbiter 2025: no duplicate (CDF_CNAME, CDF_BIT, CDF_GRPSIZE); element types F 17681, A 16906, E 13022; 569 group repeaters (CDF_GRPSIZE from 1 to 48); 48 variable-length parameter instances (PTC 7 or 8 with PFC 0) all with CDF_ELLEN=0 as required. CDF_INTER is empty for 1614 fixed areas and 'R' for the other 15292 (irrelevant for fixed areas). Editable parameters: 4863 take the CPC default (D), 5876 raw, 2283 engineering; 4959 editable raw entries have no value, i.e. the operator must supply it. Dynamic defaults are never used (CDF_TMID always empty, no CDF_INTER='T'). CDF_GRPSIZE is empty in 33 records (import default 0). All CDF_CNAME and CDF_PNAME values resolve to CCF and CPC records. 44944 records in 2020."
+}

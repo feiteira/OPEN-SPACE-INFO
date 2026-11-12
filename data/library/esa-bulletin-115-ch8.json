@@ -1,0 +1,117 @@
+{
+ "slug": "esa-bulletin-115-ch8",
+ "title": "Checking Whether SCOS is up to SPEC",
+ "short_title": "Checking whether SCOS is up to SPEC (certification)",
+ "doc_id": "esa bulletin 115",
+ "issue": null,
+ "date": "2003-08",
+ "organisation": "European Space Agency, Directorate of Technical and Operational Support (ESTEC and ESOC), with TÜV InterTraffic",
+ "authors": [
+  "Fernando Aldea",
+  "Michael Jones",
+  "Eduardo Gomez",
+  "Hendrik Schäbe"
+ ],
+ "doc_type": "Paper",
+ "status_notes": "Published magazine article (esa bulletin 115, august 2003, printed pages 58-60); running head 'Certification of SCOS-2000'.",
+ "summary": "A three-page ESA Bulletin article (August 2003) by F. Aldea (ESTEC), M. Jones and E. Gomez (ESOC) and H. Schäbe (TÜV InterTraffic) on the independent evaluation and certification of SCOS-2000 with SPEC (Software Product Evaluation and Certification), a method developed under ESA contract and based on several international standards. SCOS-2000 was the largest product evaluated with SPEC to date.\n\nIt explains the SPEC quality model: goal properties (such as functionality) split into second-level properties (completeness, correctness, efficiency), each quantified by metrics measured with defined evaluation methods. The model covers product properties (functionality, reliability, maintainability, re-usability, operability, documentation quality) and process properties (suitability for safety, software development effectiveness, system engineering effectiveness), including space practices from ECSS-E-40 and ECSS-Q-80. A sidebar summarises SCOS-2000: a generic, distributed and scalable mission control system (down to a single-workstation 'SCOS-2000 in-a-box'), with telemetry processing, telecommanding, online database and archive, general services, the Operation Language, roles and privileges, events and actions and on-board software maintenance, configured per mission through its database and configuration files. More than 40 customer licences had been granted.\n\nThe Phase I baseline evaluation of version 2.1e found that, of 85 SPEC metrics, 10 were inapplicable, 3 were replaced and 5 of 72 missed their target, so improvement was needed before certification as Class-B (mission-critical) software. Recommendations covered documentation quality, traceability, architecture simplification and coding standards; a Phase II delta evaluation and certification were to follow, and SPEC was also being applied to RTEMS.\n\nIt is a short primary source on SCOS-2000's software quality status around 2003.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Introduction",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "What exactly is SPEC?",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "What exactly is SCOS-2000?",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Evaluating SCOS-2000 with SPEC",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "The Next Steps",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "Acknowledgement",
+   "pdf_page": 3
+  }
+ ],
+ "key_points": [
+  {
+   "text": "SCOS-2000, originally operational software for ESA missions, was being promoted as an ESA product and more than 40 customer licences had been granted.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Certification benchmarks the product against an agreed quality model, performed by an independent organisation (TÜV InterTraffic) using the SPEC method.",
+   "pdf_page": 1
+  },
+  {
+   "text": "SPEC goal properties are split into properties quantified by metrics; efficiency, for example, is measured by timing margins, memory margins, throughput and resource utilisation.",
+   "pdf_page": 2
+  },
+  {
+   "text": "SPEC product-related goal properties: functionality, reliability, maintainability, re-usability, operability, documentation quality; process-related: suitability for safety, software development effectiveness, system engineering effectiveness; it covers practices such as those of ECSS-E-40 and ECSS-Q-80.",
+   "pdf_page": 2
+  },
+  {
+   "text": "SCOS-2000 functions listed: TM, TC, online database, online archive, general services and utilities, Operation Language (OL), roles and privileges (USER), events and actions (EVAC) and OBSM; the typical configuration is distributed but can be scaled down to 'SCOS-2000 in-a-box'.",
+   "pdf_page": 2
+  },
+  {
+   "text": "Phase I evaluated baseline version 2.1e; Phase II is a delta evaluation and certification agreed between ESTEC, ESOC and TÜV.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Of the 85 metrics defined by SPEC, 10 were inapplicable, 3 were not measured and were replaced, and 5 out of 72 failed to reach the target value.",
+   "pdf_page": 3
+  },
+  {
+   "text": "SCOS-2000 still needed improvement before it could be certified as Class-B (mission-critical) software.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Phase I was preceded by a Software Criticality Analysis based on a software FMECA, performed by Critical Software (Portugal).",
+   "pdf_page": 3
+  },
+  {
+   "text": "New coding standards were to cover state-of-the-art methods such as Model Driven Architecture and the languages used to develop SCOS-2000, primarily C++ and Java.",
+   "pdf_page": 3
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": "ECSS-E-40",
+   "title": "ECSS-E-40 European Standard",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 2
+  },
+  {
+   "label": null,
+   "doc_id": "ECSS-Q-80",
+   "title": "ECSS-Q-80 European Standard",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 2
+  }
+ ],
+ "topics": [
+  "scos2000/index.md",
+  "scos2000/architecture.md"
+ ],
+ "notes": "Printed pages 58-60 map to PDF pp. 1-3 (PDF p. 4 empty); running header 'JONES2 9/2/03 3:18 PM'. The SPEC quality-model figure and the SCOS-2000 functional diagram survive only as text fragments. 'SCOS-200' is a typo in the acknowledgement. The same authors presented a DASIA 2003 paper on the evaluation, cited as reference [11] in library item arxiv-1001-4730-planck-lfi-tm. No reference list."
+}

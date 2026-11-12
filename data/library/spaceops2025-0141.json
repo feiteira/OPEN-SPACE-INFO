@@ -1,0 +1,132 @@
+{
+  "slug": "spaceops2025-0141",
+  "title": "Optimizing Payload Operations Management through an Automated Commanding Request Framework",
+  "short_title": "Payload Command Request File framework (SpaceOps 2025)",
+  "doc_id": "SpaceOps-2025, ID # 141",
+  "issue": null,
+  "date": "2025-05-26",
+  "organisation": "Starion Group (Madrid), with Aurora Technology and ESA (ESAC Madrid, ESOC Darmstadt); 18th International Conference on Space Operations (SpaceOps 2025), Montreal, Canada, 26 - 30 May 2025",
+  "authors": [
+    "Sara de la Fuente",
+    "Fernando Felix Redondo",
+    "Javier Espinosa",
+    "Juan Luis de Pablos",
+    "Sergio Ibarmia",
+    "Carlos Muñiz",
+    "Roman Moreno",
+    "David Frew",
+    "Angela Dietz"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "SpaceOps 2025 conference paper, ID # 141. The header reads 'Copyright ©2025 by Starion Group', published by the Canadian Space Agency on behalf of SpaceOps (PDF p. 1). The date given here is the first day of the conference.",
+  "summary": "A short SpaceOps 2025 paper on **SPOT Cruise** and **SPOT JUICE**, web tools that Starion's service team at ESAC built under ESA's EFC2 frame contract. The tools let instrument teams create and deliver payload command requests to ESOC. At ESOC, payload requests are part of the **Command Request File (CRF)** concept: XML files that carry 'occurrences' such as telecommands, sequences, automation procedures and events for the mission planning and control systems. The tools produce Payload Operations Requests (POR) and Payload Direct Operations Requests (PDOR), subtypes of CRF. They check the requests against the mission's operational database, the [MIB](../mib/index.md) (which this paper expands as 'Mission Information Database'), and against the ESOC operations-planning ICDs.\n\nBefore this framework, each team built its own CRFs, and mismatches with the MIB or the ICDs caused many iterations with the ESOC flight control team. The BepiColombo tool (launch October 2018, a 7.2-year cruise with 9 flybys) supported the near-Earth commissioning phase, six-monthly instrument check-outs and flyby science, with more than about 1500 PORs generated. Its features include COSMOS LDAP access control, a POR/PDOR editor, MIB compatibility checks, handling of MIB updates and conflict resolution, flight dynamics and science events, product generation and direct submission to the MOC with delivery and acknowledgement monitoring, 3D flyby visualisation, timeline and resource simulation, and a MOIS-compatible procedure builder. The JUICE version (adapted in 2021) keeps the editor and delivery functions and had produced more than about 700 requests by the 2024 lunar-Earth gravity assist. The paper also mentions interest from HERA and ARIEL. It is useful context for how [commanding definitions in the MIB](../mib/commanding.md) and [sequences](../mib/sequences.md) are used outside the control centre.",
+  "contents": [
+    {
+      "section": "Abstract",
+      "title": "Abstract",
+      "pdf_page": 1
+    },
+    {
+      "section": "Acronyms",
+      "title": "Acronyms/Abbreviations",
+      "pdf_page": 2
+    },
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 2
+    },
+    {
+      "section": "2",
+      "title": "BepiColombo CRF editor Case",
+      "pdf_page": 3
+    },
+    {
+      "section": "3",
+      "title": "JUICE CRF editor Case",
+      "pdf_page": 5
+    },
+    {
+      "section": "4",
+      "title": "Summary of the Commanding Request Framework Functions",
+      "pdf_page": 6
+    },
+    {
+      "section": "5",
+      "title": "Commanding Request Framework advantages",
+      "pdf_page": 6
+    },
+    {
+      "section": "4 (sic)",
+      "title": "Conclusions",
+      "pdf_page": 7
+    },
+    {
+      "section": "References",
+      "title": "References",
+      "pdf_page": 7
+    }
+  ],
+  "key_points": [
+    {
+      "text": "At ESOC, payload requests are part of the Command Request File (CRF) concept, which encapsulates telecommands, sequences, automation procedures and mission-critical events, collectively called occurrences.",
+      "pdf_page": 1
+    },
+    {
+      "text": "POR (Payload Operations Request) and PDOR (Payload Direct Operations Request) are subtypes of CRF; the tool's requests follow the CRF XML format and the applicable MIB of the ESOC ground data systems.",
+      "pdf_page": 3
+    },
+    {
+      "text": "Decentralised CRF creation in earlier missions caused extensive interaction with the ESOC Flight Control Team because of incompatibilities with the MIB and the ICDs of ESOC systems.",
+      "pdf_page": 1
+    },
+    {
+      "text": "BepiColombo (launched October 2018 with JAXA) has a 7.2-year cruise with 9 planetary flybys: 1 Earth, 2 Venus and 6 Mercury.",
+      "pdf_page": 2
+    },
+    {
+      "text": "SPOT Cruise produces CRFs compatible with the ESOC Mission Planning System, Mission Control System and the applicable MIB; more than about 1500 BepiColombo payload operation requests have been generated since launch.",
+      "pdf_page": 4
+    },
+    {
+      "text": "SPOT Cruise features include COSMOS LDAP access control, MIB compatibility checks, MIB update handling and conflict resolution, direct submission to the MOC with delivery and acknowledgement monitoring, and a MOIS-compatible procedure builder.",
+      "pdf_page": 4
+    },
+    {
+      "text": "The JUICE version (SPOT JUICE) was adapted in 2021 without 3D flyby visualisation, procedure builder or simulation; more than about 700 JUICE payload operation requests were generated, including for the August 2024 LEGA.",
+      "pdf_page": 5
+    },
+    {
+      "text": "The framework's key functions are CRF editing, management of MIB updates, MIB compatibility validation, ICD compliance verification, and CRF generation and delivery.",
+      "pdf_page": 6
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": null,
+      "title": "De La Fuente S. et al, Web-based generation of BepiColombo Operational Procedures and Payload Operations Request, SpaceOps 2018",
+      "issue": null,
+      "date": "2018",
+      "kind": "bibliography",
+      "pdf_page": 7
+    },
+    {
+      "label": "[2]",
+      "doc_id": null,
+      "title": "De La Fuente S. et al, SPOT: The BepiColombo Science Planning Operational Tool, IWPSS 2021",
+      "issue": null,
+      "date": "2021",
+      "kind": "bibliography",
+      "pdf_page": 7
+    }
+  ],
+  "topics": [
+    "mib/commanding.md",
+    "mib/sequences.md",
+    "mib/tooling.md",
+    "missions/other-missions.md",
+    "scos2000/ancillary-and-egs-cc.md"
+  ],
+  "notes": "Author e-mail addresses printed under the title are omitted here. The paper expands MIB as 'Mission Information Database' rather than the usual 'Mission Information Base'. Section numbering repeats: 'Conclusions' is numbered 4 after section 5. The ESAC-built 'SPOT' tools are unrelated to DLR's 'SPOT' (Swath Preview and Ordering Tool) in library item spaceops2021-dlr-mobile-mcs. The extraction reports 8 PDF pages (registry: 7); the last is empty. Figures (dashboards, 3D visualisation, MIB conflicts editor) are screenshots without extracted text. The CRF format itself is not specified in this paper."
+}

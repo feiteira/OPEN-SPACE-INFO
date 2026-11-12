@@ -1,0 +1,346 @@
+{
+ "slug": "arxiv-1001-4730-planck-lfi-tm",
+ "title": "Level 1 on-ground telemetry handling in Planck LFI",
+ "short_title": "Planck LFI Level 1 telemetry handling (JINST 2009)",
+ "doc_id": "arXiv:1001.4730v1",
+ "issue": "v1",
+ "date": "2010-01-26",
+ "organisation": "Planck LFI Data Processing Centre (INAF-Osservatorio Astronomico di Trieste, University of Geneva/ISDC, INAF-IASF Bologna and partner institutes)",
+ "authors": [
+  "A. Zacchei",
+  "M. Frailis",
+  "M. Maris",
+  "N. Morisset",
+  "R. Rohlfs",
+  "M. Meharga",
+  "P. Binko",
+  "M. Türler",
+  "S. Galeotta",
+  "F. Gasparo",
+  "E. Franceschi",
+  "R. C. Butler",
+  "F. Cuttaia",
+  "O. D’Arcangelo",
+  "S. Fogliani",
+  "A. Gregorio",
+  "R. Leonardi",
+  "S.R. Lowe",
+  "D. Maino",
+  "G. Maggio",
+  "M. Malaspina",
+  "N. Mandolesi",
+  "P. Manzato",
+  "P. Meinhold",
+  "L. Mendes",
+  "A. Mennella",
+  "G. Morgante",
+  "F. Pasian",
+  "F. Perrotta",
+  "M. Sandri",
+  "L. Stringhetti",
+  "L. Terenzi",
+  "M. Tomasi",
+  "A. Zonca"
+ ],
+ "doc_type": "Paper",
+ "status_notes": "Preprint (arXiv v1, 26 Jan 2010) of the paper published in JINST: submitted 24 June 2009, accepted 28 August 2009, published 29 December 2009, reference 2009 JINST 4 T12019, DOI 10.1088/1748-0221/4/12/T12019 (title-page footnote, PDF p. 2).",
+ "summary": "A peer-reviewed paper (JINST, December 2009; arXiv preprint January 2010) by the Planck Low Frequency Instrument (LFI) Data Processing Centre team describing the 'Level 1' ground software that receives and first processes LFI telemetry. It first explains the on-board chain: 22 radiometers, the 14-bit ADC of the data acquisition electronics, and the seven processing types (raw, co-added, mixed and requantised, and losslessly compressed variants) that keep LFI within a 53.5 kbit/s telemetry budget. It then describes the packets: ESA packet telemetry and CCSDS packets with a PUS data field header, a structure identifier (SID) after the headers, a 16-bit CRC, a 48-bit CUC on-board time, an extra tertiary header in science packets, and essential, fast (supercommutated) and slow housekeeping packets.\n\nThe second half covers the three Level 1 subsystems. A Real-Time Assessment system based on SCOS-2000 monitors housekeeping, sends telecommands and acts as a telemetry gateway; the paper explains how the instrument was described in the SCOS Mission Information Base (PID keyed by APID, type, subtype and SID; PCF; PLF with offsets and occurrences for supercommutation) and how SCOS 2.3e, and later the HPCCS with its PIPE protocol, were used. A Telemetry Handler reused from INTEGRAL/ISDC software archives raw packets as FITS files, unscrambles them and produces calibrated Time Ordered Information (TOI). A ROOT-based Quick-Look system displays the data. The last section gives the ground formulas for decompression, dequantisation, demixing, conversion to volts and on-board-time reconstruction.\n\nFor this wiki it is a real, citable example of PUS packet design, MIB population and SCOS-2000 used as instrument EGSE and real-time assessment tool.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Abstract",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Contents",
+   "pdf_page": 3
+  },
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 3
+  },
+  {
+   "section": "2",
+   "title": "The LFI on-board data processing and telemetry structure",
+   "pdf_page": 4
+  },
+  {
+   "section": "2.1",
+   "title": "The on-board processing",
+   "pdf_page": 4
+  },
+  {
+   "section": "2.1.1",
+   "title": "Telemetry Packet Structure",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.1.2",
+   "title": "Mapping SCI data into packets",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.1.3",
+   "title": "Mapping HK data into packets",
+   "pdf_page": 9
+  },
+  {
+   "section": "3",
+   "title": "The Level 1 software system overview",
+   "pdf_page": 10
+  },
+  {
+   "section": "3.1",
+   "title": "SCOS in the LFI LEVEL 1",
+   "pdf_page": 11
+  },
+  {
+   "section": "3.2",
+   "title": "The Telemetry Handler System",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.3",
+   "title": "The Telemetry Quick-Look",
+   "pdf_page": 14
+  },
+  {
+   "section": "4",
+   "title": "The Level 1 scientific data processing",
+   "pdf_page": 15
+  },
+  {
+   "section": "5",
+   "title": "Conclusions",
+   "pdf_page": 16
+  },
+  {
+   "section": null,
+   "title": "Acknowledgments",
+   "pdf_page": 17
+  },
+  {
+   "section": null,
+   "title": "References",
+   "pdf_page": 17
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Level 1 consists of a Real-Time Assessment system (RTA, based on SCOS 2000), a Telemetry Handler (TMH) and a Telemetry Quick-Look system (TQL).",
+   "pdf_page": 4
+  },
+  {
+   "text": "LFI has 22 radiometers fed by 11 feedhorns at 30, 44 and 70 GHz; each radiometer output is digitised by a 14-bit ADC in the DAE and stored as a 16-bit unsigned integer (quantisation step 0.30518 mV).",
+   "pdf_page": 4
+  },
+  {
+   "text": "The LFI telemetry budget must not exceed 53.5 Kbps because a whole day of packets is stored on board and downlinked during the Daily Tele-Communication Period; the REBA offers 7 processing types (PType 0-6) to reduce the data rate.",
+   "pdf_page": 6
+  },
+  {
+   "text": "Nominally all 44 detectors use PType 5, and every 15 minutes one detector in turn is also processed with PType 1 to calibrate the gain modulation factors and second quantisation.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Packets follow the ESA Packet Telemetry and Telecommand standards, CCSDS packet telemetry and the ESA PUS: two fixed-length headers, a variable data segment and a 16-bit CRC whose specification and C reference implementation are in the PUS.",
+   "pdf_page": 7
+  },
+  {
+   "text": "The packet sequence counter counts modulo 16384 per application process; the OBT is a 48-bit CUC field as specified in the PUS.",
+   "pdf_page": 8
+  },
+  {
+   "text": "Most Planck TM packets carry a Structure ID (SID); the set (APID, Type, Subtype, SID) identifies the data segment structure, and Planck defined additional custom services for scientific telemetry.",
+   "pdf_page": 8
+  },
+  {
+   "text": "The data segment of each SCI packet is filled up to a maximum of 980 bytes; the tertiary header holds detector, phase-switch status, processing type, REBA parameters and number of samples.",
+   "pdf_page": 9
+  },
+  {
+   "text": "Essential HK packets are sent every 32 s, fast HK is sampled once per second (some packets supercommutated into four sub-fields and delivered every 4 s), and slow HK every 64 s.",
+   "pdf_page": 9
+  },
+  {
+   "text": "SCOS 2000 cannot process the compressed scientific telemetry, so it is used mainly as EGSE during ground tests and for HK monitoring in flight; it also acts as a telemetry gateway via its TCP/IP and CORBA interfaces.",
+   "pdf_page": 11
+  },
+  {
+   "text": "Configuring SCOS means defining the MIB: PID holds APID, Type, Subtype and SID as each packet's 'primary key', PCF describes each monitored parameter and its calibration curve, and PLF places parameters in packets by offset and number of occurrences.",
+   "pdf_page": 12
+  },
+  {
+   "text": "For LFI-only tests the EGSE was SCOS 2.3e with a modified Telemetry Receiver (TMR) replaying simulated telemetry and a tailored Flight Dynamics Interface (FDIF) client; from the Planck integration tests the HPCCS with the PIPE protocol and an LFIGateway were used.",
+   "pdf_page": 12
+  },
+  {
+   "text": "The TMU groups HK packets by APID, Type, Subtype and SID and stores unscrambled telemetry as FITS files in one-hour chunks; TM2TOI writes one FITS file per HK parameter with calibration applied.",
+   "pdf_page": 13
+  },
+  {
+   "text": "Conversion to volts uses the DSA, BTI, DGI and DOI values, inverting Vout = GDAE(Vin + ODAE) + ZDAE; PType 2/5 data are dequantised and demixed with GMF1 and GMF2.",
+   "pdf_page": 15
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "Advances in Space Research 34 (2004) 491–496",
+   "title": "The Planck mission (J. A. Tauber)",
+   "issue": null,
+   "date": "2004",
+   "kind": "bibliography",
+   "pdf_page": 17
+  },
+  {
+   "label": "[2]",
+   "doc_id": "PSS-04-106",
+   "title": "Packet Telemetry Standard (ESA Publications, Tech. Rep., ESA Procedures Standards and Specifications)",
+   "issue": null,
+   "date": "1988",
+   "kind": "bibliography",
+   "pdf_page": 17
+  },
+  {
+   "label": "[3]",
+   "doc_id": "ECSS-E-70-41A",
+   "title": "Packet Utilization Standard (PUS) (ESA Publications, Tech. Rep., ESA Procedures Standards and Specifications)",
+   "issue": "Issue 1",
+   "date": "2002",
+   "kind": "bibliography",
+   "pdf_page": 17
+  },
+  {
+   "label": "[4]",
+   "doc_id": "Journal of Instrumentation 12 (Dec., 2009) 12021",
+   "title": "A systematic approach to the Planck LFI end-to-end test and its application to the DPC Level 1 pipeline (M. Frailis et al.)",
+   "issue": null,
+   "date": "Dec., 2009",
+   "kind": "bibliography",
+   "pdf_page": 17
+  },
+  {
+   "label": "[5]",
+   "doc_id": "arXiv:1001.3321",
+   "title": "Planck pre-launch status: Design and description of the Low Frequency Instrument (M. Bersanelli et al.)",
+   "issue": null,
+   "date": "Jan., 2010",
+   "kind": "bibliography",
+   "pdf_page": 17
+  },
+  {
+   "label": "[6]",
+   "doc_id": "astro-ph/",
+   "title": "Advanced pseudo-correlation radiometers for the Planck-LFI instrument (A. Mennella et al.)",
+   "issue": null,
+   "date": "July, 2003",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[7]",
+   "doc_id": "Journal of Instrumentation 12 (Dec., 2009) 12018",
+   "title": "Optimization of Planck-LFI on-board data handling (M. Maris et al.)",
+   "issue": null,
+   "date": "Dec., 2009",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[8]",
+   "doc_id": "102.0-B-4",
+   "title": "Packet Telemetry (CCSDS, Tech. Rep., CCSDS Secretariat)",
+   "issue": null,
+   "date": "1995",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[9]",
+   "doc_id": "PL-LFI-PST-MA-001",
+   "title": "Planck LFI User Manual (A. Gregorio et al., University of Trieste)",
+   "issue": null,
+   "date": "2008",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[10]",
+   "doc_id": "Journal of Instrumentation 12 (Dec., 2009) 12020",
+   "title": "Off-line radiometric analysis of Planck-LFI data (M. Tomasi et al.)",
+   "issue": null,
+   "date": "Dec., 2009",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[11]",
+   "doc_id": "DASIA 2003, vol. 532 of ESA Special Publication",
+   "title": "SCOS-2000: Evaluating a Generic Mission Control System According To SPEC (M. Jones, E. Gomez, F. Aldea, H. Schäbe)",
+   "issue": null,
+   "date": "2003",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[12]",
+   "doc_id": "ADASS XIII, ASP Conference Series vol. 314, pp. 440",
+   "title": "From INTEGRAL to Planck: Geneva’s contribution to the LFI data processing (M. Türler et al.)",
+   "issue": null,
+   "date": "July, 2004",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[13]",
+   "doc_id": "ADASS XV, ASP Conference Series vol. 351, pp. 287",
+   "title": "Planck LFI Data Processing During Instrument Calibration Tests (N. Morisset et al.)",
+   "issue": null,
+   "date": "July, 2006",
+   "kind": "bibliography",
+   "pdf_page": 18
+  },
+  {
+   "label": "[14]",
+   "doc_id": "ADASS XIII, ASP Conference Series vol. 314, pp. 388",
+   "title": "Pre-processing the INTEGRAL telemetry (N. Morisset et al.)",
+   "issue": null,
+   "date": "July, 2004",
+   "kind": "bibliography",
+   "pdf_page": 19
+  },
+  {
+   "label": "[15]",
+   "doc_id": "ADASS XIII, ASP Conference Series vol. 314, pp. 384",
+   "title": "The ROOT C++ Framework for Astronomy (R. Rohlfs)",
+   "issue": null,
+   "date": "July, 2004",
+   "kind": "bibliography",
+   "pdf_page": 19
+  },
+  {
+   "label": "[16]",
+   "doc_id": "ADASS XVII, ASP Conference Series vol. 394, pp. 601",
+   "title": "PLANCK LFI Level 1 Processing During Operations (N. Morisset et al.)",
+   "issue": null,
+   "date": "Aug., 2008",
+   "kind": "bibliography",
+   "pdf_page": 19
+  }
+ ],
+ "topics": [
+  "scos2000/herschel-planck-ground.md",
+  "missions/herschel-planck.md",
+  "scos2000/egse.md",
+  "mib/monitoring.md",
+  "mib/data-model.md",
+  "ecss/pus/packets.md",
+  "ecss/pus/st03-housekeeping.md",
+  "ccsds/space-packet.md",
+  "ccsds/time-codes.md"
+ ],
+ "notes": "JINST-style preprint; printed page numbers (–1– to –17–) equal PDF page minus 2. Figures (packet structure, data-flow and class diagrams, displays) appear only as captions and fragments in the text layer. Reference [6] is printed with a truncated arXiv identifier ('astro-ph/'). Reference [3] attributes the ECSS PUS (ECSS-E-70-41A) to 'ESA Procedures Standards and Specifications'. Reference [11] is the DASIA 2003 paper by the same authors as the ESA Bulletin 115 article (library item esa-bulletin-115-ch8). In 'doc_id' of journal and conference references this catalogue records the publication locator as printed. The corresponding-author e-mail address on PDF p. 2 is omitted."
+}

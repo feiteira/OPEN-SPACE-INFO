@@ -1,0 +1,562 @@
+{
+ "slug": "h-p-1-asp-tn-1060-mib-processing-hpsdb",
+ "title": "MIB files processing by HPSDB",
+ "short_title": "MIB Files Processing by HPSDB",
+ "doc_id": "H-P-1-ASP-TN-1060",
+ "issue": "1",
+ "date": "2006-02-07",
+ "organisation": "Alcatel Alenia Space - France",
+ "authors": [
+  "F. Chatte",
+  "S. Valera",
+  "T. Grassin",
+  "J.J. Juillet"
+ ],
+ "doc_type": "Technical Note",
+ "status_notes": "The headers show Issue 1, dated 07022006. The change record (p. 3) lists only draft 1D1 (02/02/2006), sent to ESA to close action AI#69-13-04 and to be issued officially 'as soon as ESA agreed'. The title page (p. 1, scanned fax) carries signatures dated 7/3/06 (ESA verification, S. Valera) and 07-03-06 (approval).",
+ "summary": "An Alcatel Alenia Space technical note for Herschel/Planck. It describes how the Herschel/Planck System Database (HPSDB) ingests and regenerates MIB 'bridge files' in two flavours: the S2K flavour used by the SCOS-2000-based instrument EGSE (SCOS-2000 Database Import ICD issue 5.1) and the flavour used by the spacecraft Central Checkout System (CCS). Its goal is round-trip fidelity: it lists the constraints instrument teams must respect so that files loaded into HPSDB come back out identical. Constraints in bold cannot be checked by HPSDB and remain the user's responsibility.\n\nChapter 4 sets out 20 general rules, G1 to G20: the object data model, HPSDB identifier instantiation (subsystem letters, positions, generic items), special numbering for S2K curves, verification stages and parameter range sets, enumerated values, the different modelling of packet commutation, defaults, TM/TC sharing of curves, the 8-bit user category flag, generic TC packet headers, XML-reserved characters, the ban on octal radix, range allocation, automatic instantiation of APIDs and descriptions, mandatory descriptions, orphan items, sorting and derived-parameter files.\n\nChapter 5 then works through every MIB table field by field. For each field it gives input processing, the HPSDB attribute, output processing and the constraint to respect, from VDF through the monitoring, display and commanding tables to CCS-only tables (CUR, GRP, GRPA, GRPK, SCO, TCD, TMD, LGF). It notes which tables are ignored or generated from generic data, such as PIC, TCP, PCPC and PCDF, and which are not supported, such as command sequences and parameter sets. For an engineer it shows concretely how an industrial system database mapped onto the SCOS-2000 MIB, and where the two data models disagree, for example over TM-packet-to-SPID cardinality.",
+ "contents": [
+  {
+   "section": "1.",
+   "title": "SCOPE",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.",
+   "title": "DOCUMENTS",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.1",
+   "title": "Applicable documents",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.2",
+   "title": "Reference documents",
+   "pdf_page": 8
+  },
+  {
+   "section": "3.",
+   "title": "ACRONYMS",
+   "pdf_page": 8
+  },
+  {
+   "section": "4.",
+   "title": "GENERALITIES",
+   "pdf_page": 9
+  },
+  {
+   "section": "4.1",
+   "title": "G1 – Object data model",
+   "pdf_page": 9
+  },
+  {
+   "section": "4.2",
+   "title": "G2 – Naming convention",
+   "pdf_page": 9
+  },
+  {
+   "section": "4.2.1",
+   "title": "G3 – Naming convention for S2K curves",
+   "pdf_page": 10
+  },
+  {
+   "section": "4.2.2",
+   "title": "G4 – Naming convention for S2K command verification stages",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.2.3",
+   "title": "G5– Naming convention for S2K parameter range set",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.3",
+   "title": "G6- Enumerated fields",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.4",
+   "title": "G7- Commutation",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.5",
+   "title": "G8– default value",
+   "pdf_page": 13
+  },
+  {
+   "section": "4.6",
+   "title": "G9– Commonality",
+   "pdf_page": 13
+  },
+  {
+   "section": "4.7",
+   "title": "G10 Category flag",
+   "pdf_page": 13
+  },
+  {
+   "section": "4.8",
+   "title": "G11– HPSDB common fields",
+   "pdf_page": 14
+  },
+  {
+   "section": "4.9",
+   "title": "G12– TC packet header",
+   "pdf_page": 14
+  },
+  {
+   "section": "4.10",
+   "title": "G13– Reserved characters",
+   "pdf_page": 14
+  },
+  {
+   "section": "4.11",
+   "title": "G14– Radix",
+   "pdf_page": 15
+  },
+  {
+   "section": "4.12",
+   "title": "G15– Range allocation",
+   "pdf_page": 15
+  },
+  {
+   "section": "4.13",
+   "title": "G16– Automatic instantiation (TBC)",
+   "pdf_page": 15
+  },
+  {
+   "section": "4.14",
+   "title": "G17– short description",
+   "pdf_page": 16
+  },
+  {
+   "section": "4.15",
+   "title": "G18– Orphan items",
+   "pdf_page": 16
+  },
+  {
+   "section": "4.16",
+   "title": "G19– MIB file sorting",
+   "pdf_page": 16
+  },
+  {
+   "section": "4.17",
+   "title": "G20– Derived parameter",
+   "pdf_page": 16
+  },
+  {
+   "section": "5.",
+   "title": "FIELD BY FIELD PRESENTATION",
+   "pdf_page": 17
+  },
+  {
+   "section": "5.1",
+   "title": "General",
+   "pdf_page": 18
+  },
+  {
+   "section": "5.1.1",
+   "title": "Data base version: VDF",
+   "pdf_page": 18
+  },
+  {
+   "section": "5.2",
+   "title": "Monitoring data",
+   "pdf_page": 18
+  },
+  {
+   "section": "5.2.1",
+   "title": "Monitoring parameters characteristics: PCF",
+   "pdf_page": 18
+  },
+  {
+   "section": "5.2.2",
+   "title": "Numerical calibration curves: CAF",
+   "pdf_page": 21
+  },
+  {
+   "section": "5.2.3",
+   "title": "Numerical calibration definition: CAP",
+   "pdf_page": 22
+  },
+  {
+   "section": "5.2.4",
+   "title": "Textual calibration curves: TXF",
+   "pdf_page": 22
+  },
+  {
+   "section": "5.2.5",
+   "title": "Textual calibration definition: TXP",
+   "pdf_page": 22
+  },
+  {
+   "section": "5.2.6",
+   "title": "Polynomial calibration curves: MCF",
+   "pdf_page": 23
+  },
+  {
+   "section": "5.2.7",
+   "title": "Monitoring checks: OCF",
+   "pdf_page": 23
+  },
+  {
+   "section": "5.2.8",
+   "title": "Monitoring checks definition: OCP",
+   "pdf_page": 23
+  },
+  {
+   "section": "5.2.9",
+   "title": "Telemetry packet definition: PID",
+   "pdf_page": 24
+  },
+  {
+   "section": "5.2.10",
+   "title": "Packet identification criteria: PIC",
+   "pdf_page": 26
+  },
+  {
+   "section": "5.2.11",
+   "title": "Telemetry packets characteristics: TPCF",
+   "pdf_page": 26
+  },
+  {
+   "section": "5.2.12",
+   "title": "Parameter location in fixed packets: PLF",
+   "pdf_page": 26
+  },
+  {
+   "section": "5.2.13",
+   "title": "Variable packet definition: VPD",
+   "pdf_page": 27
+  },
+  {
+   "section": "5.2.14",
+   "title": "Alphanumeric displays: DPF",
+   "pdf_page": 28
+  },
+  {
+   "section": "5.2.16",
+   "title": "Graphic displays: GPF",
+   "pdf_page": 29
+  },
+  {
+   "section": "5.2.18",
+   "title": "Scrolling displays: SPF",
+   "pdf_page": 30
+  },
+  {
+   "section": "5.2.20",
+   "title": "Printout proforma: PPF",
+   "pdf_page": 31
+  },
+  {
+   "section": "5.3",
+   "title": "Commanding data",
+   "pdf_page": 31
+  },
+  {
+   "section": "5.3.1",
+   "title": "Packet header characteristics: TCP",
+   "pdf_page": 31
+  },
+  {
+   "section": "5.3.3",
+   "title": "Packet headers definition: PCDF",
+   "pdf_page": 32
+  },
+  {
+   "section": "5.3.4",
+   "title": "Command characteristics: CCF",
+   "pdf_page": 32
+  },
+  {
+   "section": "5.3.5",
+   "title": "Command routing: DST",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.3.6",
+   "title": "Command parameters: CPC",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.3.7",
+   "title": "Command definition: CDF",
+   "pdf_page": 35
+  },
+  {
+   "section": "5.3.8",
+   "title": "Command pre-transmission validation: PTV",
+   "pdf_page": 36
+  },
+  {
+   "section": "5.3.9",
+   "title": "Command sequence characteristics: CSF",
+   "pdf_page": 36
+  },
+  {
+   "section": "5.3.13",
+   "title": "Verification stage file: CVS",
+   "pdf_page": 37
+  },
+  {
+   "section": "5.3.14",
+   "title": "Verification expressions: CVE",
+   "pdf_page": 38
+  },
+  {
+   "section": "5.3.15",
+   "title": "Verification profiles: CVP",
+   "pdf_page": 38
+  },
+  {
+   "section": "5.3.16",
+   "title": "Parameter sets: PST",
+   "pdf_page": 39
+  },
+  {
+   "section": "5.3.21",
+   "title": "Numerical (de-)calibration curves: CCA",
+   "pdf_page": 40
+  },
+  {
+   "section": "5.3.22",
+   "title": "Numerical (de-)calibration curves definition: CCS",
+   "pdf_page": 41
+  },
+  {
+   "section": "5.3.23",
+   "title": "Textual (de-)calibration: PAF",
+   "pdf_page": 41
+  },
+  {
+   "section": "5.3.24",
+   "title": "textual (de-)calibration definition: PAS",
+   "pdf_page": 41
+  },
+  {
+   "section": "5.3.25",
+   "title": "Parameter range sets: PRF",
+   "pdf_page": 41
+  },
+  {
+   "section": "5.3.26",
+   "title": "Parameter range values: PRV",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.4",
+   "title": "Specific CCS data",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.4.1",
+   "title": "Conditional calibration curve: CUR",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.4.2",
+   "title": "Group: GRP",
+   "pdf_page": 43
+  },
+  {
+   "section": "5.4.3",
+   "title": "Parameter Group: GRPA",
+   "pdf_page": 43
+  },
+  {
+   "section": "5.4.4",
+   "title": "SCOS packet Group: GRPK",
+   "pdf_page": 43
+  },
+  {
+   "section": "5.4.5",
+   "title": "SCOE definition: SCO",
+   "pdf_page": 44
+  },
+  {
+   "section": "5.4.6",
+   "title": "TC distribution: TCD",
+   "pdf_page": 44
+  },
+  {
+   "section": "5.4.7",
+   "title": "TM distribution: TMD",
+   "pdf_page": 44
+  },
+  {
+   "section": "5.4.8",
+   "title": "Logarithmic curve: LGF",
+   "pdf_page": 44
+  }
+ ],
+ "key_points": [
+  {
+   "text": "HPSDB both ingests S2K MIB files (instrument EGSE, MIB ICD 5.1, delivered by ESTEC) or CCS MIB files and generates them; the note lists the constraints on input bridge files needed to get identical output files.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Constraints printed in bold cannot be filtered by HPSDB and are the user's responsibility; non-bold constraints are checked by HPSDB at bridge-file loading time.",
+   "pdf_page": 7
+  },
+  {
+   "text": "HPSDB allows an N-to-1 relation between TM packets and SPIDs, whereas the MIB ICD allows N-to-N (with only one relation valid at any time).",
+   "pdf_page": 7
+  },
+  {
+   "text": "'S2K' in this note means the instrument EGSE version 2.3eP5, based on SCOS 2000 2.3e.",
+   "pdf_page": 8
+  },
+  {
+   "text": "At subsystem/model level an HPSDB CHAR identifier gets the subsystem letter in front ('Z' for a pseudo subsystem) and a 3-digit position appended (system pseudo position '999'); NUMBER identifiers get the subsystem number (A=00 ... Y=25, pseudo subsystem 26) in front.",
+   "pdf_page": 9
+  },
+  {
+   "text": "Generic items use subsystem letter 'G', subsystem number '07', position '000' and element number '000'; all generic items are always extracted when MIB files are produced.",
+   "pdf_page": 10
+  },
+  {
+   "text": "S2K curves referring to specific curves are coded as NUMBER(3); generic curves are coded as NUMBER(4) '1xxx', mapping to HPSDB generic curve 'G000xxx000'.",
+   "pdf_page": 10
+  },
+  {
+   "text": "S2K command verification stages are coded NUMBER(4) for specific stages and NUMBER(5) '1xxxx' for generic stages (HPSDB '07xxxx000'); parameter range sets use NUMBER(3) and '1xxx' (HPSDB 'GRxxx000').",
+   "pdf_page": 11
+  },
+  {
+   "text": "HPSDB models packet commutation differently from SCOS: a packet or structure is a list of parameters, structures and (TC only) fixed areas with offsets, repetition counts and super-commutation attributes; it flags each TM packet as fixed (PLF only), variable (VPD only) or both.",
+   "pdf_page": 12
+  },
+  {
+   "text": "Each HPSDB item has an 8-bit category flag, one bit per user type (AIT, operations, software, flight dynamics); MIB items are loaded as 'all except FDD' and output files are filtered by user type.",
+   "pdf_page": 13
+  },
+  {
+   "text": "TC packet header types are defined generically in HPSDB; the TCP, PCPC and PCDF tables are ignored on loading, and CCF_PKTID must reference a generic HPSDB TC header.",
+   "pdf_page": 14
+  },
+  {
+   "text": "Because HPSDB uses XML, the characters > < ' \" and & must never be used; short descriptions are restricted to letters, digits, blank, plus, minus and underscore.",
+   "pdf_page": 14
+  },
+  {
+   "text": "Octal radix ('O') is not allowed for unsigned integer values; only 'D' and 'H' are allowed.",
+   "pdf_page": 15
+  },
+  {
+   "text": "When an element is instantiated in a subsystem, APID, PID and UDC/MISC parameter positions are computed automatically from element-level values plus position-dependent offsets, and the last character of the short description is overwritten.",
+   "pdf_page": 15
+  },
+  {
+   "text": "Descriptions (xxx_DESCR), optional in the MIB ICD, are mandatory in HPSDB; empty ones are filled with the item identifier. Orphan items are not loaded.",
+   "pdf_page": 16
+  },
+  {
+   "text": "For PID, HPSDB keeps the TM packet definition and the SCOS packet definition in two separate tables with an n-1 relation (one TM packet references only one SCOS packet), and forces a 1-1 link between PID and VPD where the ICD allows n-1.",
+   "pdf_page": 24
+  },
+  {
+   "text": "PID_DFHSIZE defaults to 16 and must be the same for all TM source packets addressing the same SPID; PID_TIME is forced to 'Y' and only valid PID definitions (PID_VALID='Y') may be delivered.",
+   "pdf_page": 25
+  },
+  {
+   "text": "The PIC table is defined in the generic part of HPSDB and must be identical on all Herschel/Planck SCOS and CCS systems to support 'smooth transition'; it is not loaded from bridge files.",
+   "pdf_page": 26
+  },
+  {
+   "text": "CCF_HIPRI is not loaded but calculated: 'Y' if CCF_PKTID = 'GX002000', otherwise 'N'; CCF_SUBSYS is forced from the subsystem letter ('01' for A ... '26' for Z).",
+   "pdf_page": 33
+  },
+  {
+   "text": "Command sequence tables (CSF, CSS, SDF) are not supported by CCS and must not be used; HPSDB supports loading them only to interface with MOIS for operations.",
+   "pdf_page": 36
+  },
+  {
+   "text": "Parameter-set tables (PST, PSV, CPS, PVS, PSM) are likewise not supported by CCS and must not be used, although HPSDB supports loading them.",
+   "pdf_page": 39
+  },
+  {
+   "text": "Chapter 5.4 covers CCS-specific tables absent from the S2K MIB ICD 5.1: CUR (conditional calibration), GRP/GRPA/GRPK (groups), SCO (SCOE definition), TCD/TMD (TC/TM distribution) and LGF (logarithmic curves).",
+   "pdf_page": 42
+  }
+ ],
+ "references": [
+  {
+   "label": "AD1",
+   "doc_id": "H-P-1-ASP-SP-0141",
+   "title": "Naming convention",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 8
+  },
+  {
+   "label": "AD2",
+   "doc_id": "S2K-MCS-ICD-0001-TOS-GCI",
+   "title": "SCOS-2000 Data base import ICD",
+   "issue": "5.1",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 8
+  },
+  {
+   "label": "AD3",
+   "doc_id": "H-P-4-TE-ID-8020",
+   "title": "CCS External Interface Control Document",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 8
+  },
+  {
+   "label": "RD1",
+   "doc_id": "SCI-PT-ICD-07527",
+   "title": "Packet Structure Interface Control Document (PSICD)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-ASP-MN-6913",
+   "title": "MOM: Herschel Instruments – data base meeting on 29 and 30/09/05 in ASED Munchen",
+   "issue": null,
+   "date": "29 and 30/09/05",
+   "kind": "mentioned",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-ASP-MN-7063",
+   "title": "MOM: Herschel / Planck – PM#32 – HPSDB splinter",
+   "issue": null,
+   "date": "30/11/05 and 01/12/05",
+   "kind": "mentioned",
+   "pdf_page": 18
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "PSICD",
+   "issue": "5.0",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 34
+  }
+ ],
+ "topics": [
+  "mib/tailoring.md",
+  "missions/herschel-planck.md",
+  "scos2000/egse.md",
+  "scos2000/herschel-planck-ground.md",
+  "mib/data-model.md",
+  "mib/icd-history.md",
+  "mib/tooling.md",
+  "mib/calibration.md",
+  "mib/commanding.md"
+ ],
+ "notes": "PDF page 1 (title page) is a scanned fax image whose text layer only contains the SPIRE archive stamp SPIRE-ALC-DOC-002697; title, product code (460000), entity and signature names were read from the rendered page image. The fax header and footer include a phone number, which is omitted. Pages are landscape (rotated 90 degrees). The page headers count 45 pages, while the faxed title page says 'Page: 1/46' and 'TOTAL PAGES: 46'. Printed page numbers match PDF page indexes. The applicable naming convention is cited as H-P-1-ASP-SP-0141 here, but as H-P-1-ASPI-SP-0141 in the SPIRE MIB naming convention and as H-P-ASPI-SP-0141 in the HCSS tailoring note. Several sections are TBC, TBW or 'To be written' (for example CSP and DST), and there are typos such as 'HPDSB' (p. 7). The title-page date is printed '0702/2006', read as 7 February 2006. The source URL labels the file 'RD54' in SPIRE's internal documentation archive."
+}

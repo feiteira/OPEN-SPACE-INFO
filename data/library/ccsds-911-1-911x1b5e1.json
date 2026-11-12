@@ -1,0 +1,427 @@
+{
+  "slug": "ccsds-911-1-911x1b5e1",
+  "title": "Space Link Extension—Return All Frames Service Specification",
+  "short_title": "SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)",
+  "doc_id": "CCSDS 911.1-B-5",
+  "issue": "Recommended Standard, Issue 5 (Blue Book), with Editorial Change 1 (October 2024)",
+  "date": "July 2023",
+  "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+  "authors": [],
+  "doc_type": "Standard",
+  "status_notes": "The Document Control table (PDF p. 6) lists issues B-1 (April 2002), B-2 (November 2004), B-3 (January 2010) and B-4 (August 2016) as superseded. 911.1-B-5 (July 2023) is the 'Current issue', which adds support for USLP Transfer Frames plus clarifications and corrections. EC 1 (October 2024) corrects the font in figure 2-2.",
+  "summary": "The CCSDS Recommended Standard that defines the **Return All Frames (RAF)** service of the [Space Link Extension](../ccsds/sle/index.md). RAF is the SLE transfer service a ground station uses to deliver every telemetry frame of the selected quality from one space link physical channel to a mission user. The frames can be [TM](../ccsds/tm-sdlp.md), [AOS](../ccsds/aos.md) or, new in issue 5, [USLP](../ccsds/uslp.md) transfer frames. Each frame travels in an SLE-SDU annotated with Earth receive time, antenna ID, data-link continuity, delivered frame quality ('good' or 'erred', judged from Reed-Solomon/LDPC decoding or the FECF) and an optional private annotation.\n\nSection 2 places RAF in the SLE Reference Model. It explains how service production (the Return Space Link Processing functional group) differs from service provision, how service management sets user- or provider-initiated binding and the delivery mode (timely online, complete online or offline), and how buffering works (transfer buffer, online and offline frame buffers). It also covers security concerns. Section 3 specifies each operation with its parameter table, effects and diagnostics: RAF-BIND (with version negotiation; this issue is version '6'), UNBIND, START (time window and requested frame quality), STOP, TRANSFER-DATA, SYNC-NOTIFY (loss of frame sync, production status change, data discarded due to excessive backlog, end of data), SCHEDULE-STATUS-REPORT, STATUS-REPORT, GET-PARAMETER and PEER-ABORT, together with access control and the 'all'/'bind'/'none' authentication levels. Section 4 gives the provider state machine (unbound, ready, active). The annexes contain the normative ASN.1 modules, the production-status model (running, interrupted, halted) and a conformance matrix. This is the service through which ground stations hand frames to control systems such as [SCOS-2000 via NCTRS/NIS](../scos2000/nctrs-nis.md).",
+  "contents": [
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 9
+    },
+    {
+      "section": "1.1",
+      "title": "Purpose of this Recommended Standard",
+      "pdf_page": 9
+    },
+    {
+      "section": "1.2",
+      "title": "Scope",
+      "pdf_page": 9
+    },
+    {
+      "section": "1.3",
+      "title": "Applicability",
+      "pdf_page": 9
+    },
+    {
+      "section": "1.4",
+      "title": "Rationale",
+      "pdf_page": 10
+    },
+    {
+      "section": "1.5",
+      "title": "Document Structure",
+      "pdf_page": 10
+    },
+    {
+      "section": "1.6",
+      "title": "Definitions, Nomenclature, and Conventions",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.7",
+      "title": "References",
+      "pdf_page": 21
+    },
+    {
+      "section": "2",
+      "title": "Description of the Return All Frames Service",
+      "pdf_page": 23
+    },
+    {
+      "section": "2.1",
+      "title": "Overview",
+      "pdf_page": 23
+    },
+    {
+      "section": "2.2",
+      "title": "Space Link Extension Reference Model",
+      "pdf_page": 23
+    },
+    {
+      "section": "2.3",
+      "title": "Service Management",
+      "pdf_page": 25
+    },
+    {
+      "section": "2.4",
+      "title": "Architecture Model—Functional View",
+      "pdf_page": 26
+    },
+    {
+      "section": "2.5",
+      "title": "Architecture Model—Cross Support View",
+      "pdf_page": 29
+    },
+    {
+      "section": "2.6",
+      "title": "Functional Description",
+      "pdf_page": 30
+    },
+    {
+      "section": "2.7",
+      "title": "Operational Scenario",
+      "pdf_page": 40
+    },
+    {
+      "section": "2.8",
+      "title": "Security Aspects of the RAF Service",
+      "pdf_page": 41
+    },
+    {
+      "section": "3",
+      "title": "RAF Service Operations",
+      "pdf_page": 45
+    },
+    {
+      "section": "3.1",
+      "title": "General Considerations",
+      "pdf_page": 45
+    },
+    {
+      "section": "3.2",
+      "title": "RAF-BIND",
+      "pdf_page": 59
+    },
+    {
+      "section": "3.3",
+      "title": "RAF-UNBIND",
+      "pdf_page": 66
+    },
+    {
+      "section": "3.4",
+      "title": "RAF-START",
+      "pdf_page": 70
+    },
+    {
+      "section": "3.5",
+      "title": "RAF-STOP",
+      "pdf_page": 75
+    },
+    {
+      "section": "3.6",
+      "title": "RAF-TRANSFER-DATA",
+      "pdf_page": 77
+    },
+    {
+      "section": "3.7",
+      "title": "RAF-SYNC-NOTIFY",
+      "pdf_page": 82
+    },
+    {
+      "section": "3.8",
+      "title": "RAF-SCHEDULE-STATUS-REPORT",
+      "pdf_page": 86
+    },
+    {
+      "section": "3.9",
+      "title": "RAF-STATUS-REPORT",
+      "pdf_page": 90
+    },
+    {
+      "section": "3.10",
+      "title": "RAF-GET-PARAMETER",
+      "pdf_page": 93
+    },
+    {
+      "section": "3.11",
+      "title": "RAF-PEER-ABORT",
+      "pdf_page": 97
+    },
+    {
+      "section": "4",
+      "title": "RAF Protocol",
+      "pdf_page": 99
+    },
+    {
+      "section": "4.1",
+      "title": "Generic Protocol Characteristics",
+      "pdf_page": 99
+    },
+    {
+      "section": "4.2",
+      "title": "RAF Service Provider Behavior",
+      "pdf_page": 102
+    },
+    {
+      "section": "Annex A",
+      "title": "Data Type Definitions (Normative)",
+      "pdf_page": 114
+    },
+    {
+      "section": "Annex B",
+      "title": "Production Status (Normative)",
+      "pdf_page": 137
+    },
+    {
+      "section": "Annex C",
+      "title": "Conformance Matrix (Normative)",
+      "pdf_page": 140
+    },
+    {
+      "section": "Annex D",
+      "title": "Index to Definitions (Informative)",
+      "pdf_page": 142
+    },
+    {
+      "section": "Annex E",
+      "title": "Acronyms (Informative)",
+      "pdf_page": 145
+    },
+    {
+      "section": "Annex F",
+      "title": "Informative References (Informative)",
+      "pdf_page": 147
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Issue 5 (July 2023) adds support for USLP Transfer Frames; issues B-1 (2002), B-2 (2004), B-3 (2010) and B-4 (2016) are superseded; Editorial Change 1 (October 2024) only corrects a figure font.",
+      "pdf_page": 6
+    },
+    {
+      "text": "The RAF service delivers to a mission user all telemetry frames of the selected frame quality from one space link physical channel.",
+      "pdf_page": 9
+    },
+    {
+      "text": "The underlying communications service must deliver invocations and returns in sequence, completely and with integrity, without duplication, with flow control and with notification of disruption.",
+      "pdf_page": 9
+    },
+    {
+      "text": "Multiplexing Reed-Solomon coded and uncoded frames on one physical channel, allowed by the historical AOS architecture (701.0-B-3), is no longer allowed by the recommendations in force.",
+      "pdf_page": 10
+    },
+    {
+      "text": "A telemetry frame is a TM, AOS or USLP Transfer Frame; each acquired frame is wrapped in an SLE-SDU with annotation such as the ERT.",
+      "pdf_page": 23
+    },
+    {
+      "text": "Delivery modes are timely online (controlled discarding allowed after a latency limit), complete online and offline; each service instance supports exactly one mode and either user or provider initiation, both set by service management.",
+      "pdf_page": 25
+    },
+    {
+      "text": "For a 'good' Reed-Solomon encoded frame the RS check symbols are removed before delivery; an 'erred' RS frame is delivered complete with check symbols.",
+      "pdf_page": 27
+    },
+    {
+      "text": "RAF operations: BIND and UNBIND (user or provider), START, STOP, SCHEDULE-STATUS-REPORT and GET-PARAMETER (user, confirmed), TRANSFER-DATA, SYNC-NOTIFY and STATUS-REPORT (provider, unconfirmed), and PEER-ABORT.",
+      "pdf_page": 32
+    },
+    {
+      "text": "The version-number value for the RAF service defined by this issue is '6'; a responder may propose a lower version during BIND negotiation.",
+      "pdf_page": 63
+    },
+    {
+      "text": "requested-frame-quality in RAF-START is one of 'good frames only', 'erred frames only' or 'all frames'.",
+      "pdf_page": 73
+    },
+    {
+      "text": "RAF-TRANSFER-DATA carries invoker-credentials, earth-receive-time, antenna-ID, data-link-continuity, delivered-frame-quality, private-annotation and data.",
+      "pdf_page": 77
+    },
+    {
+      "text": "earth-receive-time is the UTC time at which the leading edge of the first bit of the Attached Sync Marker preceding the frame was at the phase centre of the receiving antenna.",
+      "pdf_page": 78
+    },
+    {
+      "text": "data-link-continuity is -1 for the first frame after the start of production, 0 for a direct successor, and a positive estimate of missed frames otherwise (1 if no better estimate).",
+      "pdf_page": 79
+    },
+    {
+      "text": "RAF-SYNC-NOTIFY notification types: 'loss of frame synchronization', 'production status change' (running, halted or interrupted), 'data discarded due to excessive backlog' and 'end of data'.",
+      "pdf_page": 83
+    },
+    {
+      "text": "GET-PARAMETER parameters include delivery-mode, latency-limit, minimum-reporting-cycle, permitted-frame-quality-set, reporting-cycle, requested-frame-quality, return-timeout-period and transfer-buffer-size.",
+      "pdf_page": 95
+    },
+    {
+      "text": "Annex A defines the ASN.1 modules CCSDS-SLE-TRANSFER-SERVICE-COMMON-TYPES, -BIND-TYPES, -COMMON-PDUS, -SERVICE-INSTANCE-ID, -RAF-STRUCTURES, -RAF-INCOMING-PDUS and -RAF-OUTGOING-PDUS.",
+      "pdf_page": 115
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 910.4-B-2",
+      "title": "Cross Support Reference Model—Part 1: Space Link Extension Services",
+      "issue": "Issue 2",
+      "date": "October 2005",
+      "kind": "normative",
+      "pdf_page": 21
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 131.0-B-3",
+      "title": "TM Synchronization and Channel Coding",
+      "issue": "Issue 3",
+      "date": "September 2017",
+      "kind": "normative",
+      "pdf_page": 21
+    },
+    {
+      "label": "[3]",
+      "doc_id": "CCSDS 131.2-B-2",
+      "title": "Flexible Advanced Coding and Modulation Scheme for High Rate Telemetry Applications",
+      "issue": "Issue 2",
+      "date": "February 2023",
+      "kind": "normative",
+      "pdf_page": 21
+    },
+    {
+      "label": "[4]",
+      "doc_id": "CCSDS 131.3-B-2",
+      "title": "CCSDS Space Link Protocols over ETSI DVB-S2 Standard",
+      "issue": "Issue 2",
+      "date": "April 2022",
+      "kind": "normative",
+      "pdf_page": 22
+    },
+    {
+      "label": "[5]",
+      "doc_id": "CCSDS 132.0-B-3",
+      "title": "TM Space Data Link Protocol",
+      "issue": "Issue 3",
+      "date": "October 2021",
+      "kind": "normative",
+      "pdf_page": 22
+    },
+    {
+      "label": "[6]",
+      "doc_id": "CCSDS 732.0-B-4",
+      "title": "AOS Space Data Link Protocol",
+      "issue": "Issue 4",
+      "date": "October 2021",
+      "kind": "normative",
+      "pdf_page": 22
+    },
+    {
+      "label": "[7]",
+      "doc_id": "CCSDS 301.0-B-4",
+      "title": "Time Code Formats",
+      "issue": "Issue 4",
+      "date": "November 2010",
+      "kind": "normative",
+      "pdf_page": 22
+    },
+    {
+      "label": "[8]",
+      "doc_id": "ISO/IEC 7498-1:1994",
+      "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+      "issue": "2nd ed.",
+      "date": "1994",
+      "kind": "normative",
+      "pdf_page": 22
+    },
+    {
+      "label": "[9]",
+      "doc_id": "ISO/IEC 8824-1:2008",
+      "title": "Information Technology—Abstract Syntax Notation One (ASN.1): Specification of Basic Notation",
+      "issue": "4th ed.",
+      "date": "2008",
+      "kind": "normative",
+      "pdf_page": 22
+    },
+    {
+      "label": "[10]",
+      "doc_id": "CCSDS 732.1-B-2",
+      "title": "Unified Space Data Link Protocol",
+      "issue": "Issue 2",
+      "date": "October 2021",
+      "kind": "normative",
+      "pdf_page": 22
+    },
+    {
+      "label": "[F1]",
+      "doc_id": "CCSDS 101.0-B-6-S",
+      "title": "Telemetry Channel Coding",
+      "issue": "Issue 6-S (Historical)",
+      "date": "(October 2002) August 2005",
+      "kind": "informative",
+      "pdf_page": 147
+    },
+    {
+      "label": "[F2]",
+      "doc_id": "CCSDS 102.0-B-5-S",
+      "title": "Packet Telemetry",
+      "issue": "Issue 5-S (Historical)",
+      "date": "(November 2000) August 2005",
+      "kind": "informative",
+      "pdf_page": 147
+    },
+    {
+      "label": "[F3]",
+      "doc_id": "CCSDS 701.0-B-3-S",
+      "title": "Advanced Orbiting Systems, Networks and Data Links: Architectural Specification",
+      "issue": "Issue 3-S (Historical)",
+      "date": "(June 2001) August 2005",
+      "kind": "informative",
+      "pdf_page": 147
+    },
+    {
+      "label": "[F4]",
+      "doc_id": "CCSDS 913.1-B-2",
+      "title": "Space Link Extension—Internet Protocol for Transfer Services",
+      "issue": "Issue 2",
+      "date": "September 2015",
+      "kind": "informative",
+      "pdf_page": 147
+    },
+    {
+      "label": "[F5]",
+      "doc_id": "CCSDS 355.0-B-2",
+      "title": "Space Data Link Security Protocol",
+      "issue": "Issue 2",
+      "date": "July 2022",
+      "kind": "informative",
+      "pdf_page": 147
+    },
+    {
+      "label": "CCSDS A02.1-Y-4",
+      "doc_id": "CCSDS A02.1-Y-4",
+      "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 3
+    }
+  ],
+  "topics": [
+    "ccsds/sle/return-services.md",
+    "ccsds/sle/index.md",
+    "ccsds/sle/isp1-and-api.md",
+    "scos2000/nctrs-nis.md",
+    "ccsds/tm-sdlp.md",
+    "ccsds/tm-coding.md",
+    "ccsds/uslp.md"
+  ],
+  "notes": "Byte-identical duplicate (same SHA-256 593a15b7...) of library item ccsds-911x1b5e1-sle-raf. That copy was taken on 2026-11-05 into the NIS document set; this one was taken on 2026-11-12 from https://ccsds.org/Pubs/911x1b5e1.pdf into the CCSDS standards set. The extracted texts are identical, so all PDF page numbers match between the two entries. This entry repeats the catalogue of the other one after spot-checks of the title page, Document Control (PDF p. 6), the reference lists (PDF pp. 21-22 and 147) and the BIND version-number clause (PDF p. 63). The slug's 'e1' stands for Editorial Change 1 (October 2024), which is recorded in the Document Control table. The footer of that page reads 'July 2024 / October 2023', probably an artefact of the editorial change. PDF pages 1 and 2 are duplicate cover pages. The extraction reports 148 PDF pages (registry: 147); the last page is blank. Figure 1-1, the SLE documentation tree, comes out as garbled repeated labels. No individual authors are named. Section 1.7 is headed simply 'References', and its introductory text says the documents 'constitute provisions of this Recommended Standard', so they are catalogued here as normative. The procedures document A02.1-Y-4 is cited only in the Authority and Foreword pages."
+}

@@ -1,0 +1,688 @@
+{
+  "slug": "ecss-e-70-41a-30jan2003-pus",
+  "title": "Space engineering\nGround systems and operations — Telemetry and telecommand packet utilization",
+  "short_title": "ECSS-E-70-41A Packet Utilization Standard (PUS-A)",
+  "doc_id": "ECSS-E-70-41A",
+  "issue": null,
+  "date": "2003-01-30",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS Working Group for Ground Systems and Operations; published by ESA Publications Division)",
+  "authors": [
+    "ECSS Working Group for Ground Systems and Operations"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Published 30 January 2003 as ECSS-E-70-41A ('PUS-A'). The document has no change log and states no issue number beyond the 'A' letter. Its successor is ECSS-E-ST-70-41C, the second issue of 15 April 2016 (library item ecss-e-st-70-41c-15april2016). Its change log lists ECSS-E-70-41A as the first issue and ECSS-E-70-41B as never issued (PUS-C p. 3). Footnotes on pp. 44 and 48 note that PUS version 0 was used by the earlier ESA PUS.",
+  "summary": "The first ECSS **Packet Utilization Standard (PUS-A)**. It defines the application-level interface between ground and spacecraft that sits on top of the CCSDS packet telemetry and telecommand recommendations (CCSDS 102.0 and 203.0). The scope (clause 1) frames PUS as a *menu*: every service is optional, it comes as a minimum capability set plus additional ones, and each mission tailors it per application process and documents the result in a space-ground ICD.\n\nThe document covers:\n\n* **Operations concepts (clause 4)**: APID allocation (APID 0 reserved for the time packet, 2047 for idle packets, and one APID per CPDU), packet routing and size, the telecommand execution profile and verification, telemetry reporting, scheduling, monitoring, storage and diagnostic mode;\n* **Packet structures (clause 5)**: the TC data field header (PUS version, 4-bit Ack, service type and subtype, optional source ID) and the TM data field header (PUS version, type and subtype, optional packet sub-counter, destination ID and time), plus the 16-bit packet error control;\n* **16 standard services (clauses 6-21)**, each with a concept, requests and reports, and capability sets: 1 TC verification, 2 device command distribution, 3 housekeeping and diagnostic reporting, 4 parameter statistics, 5 events, 6 memory management, 8 function management, 9 time management, 11 scheduling, 12 on-board monitoring, 13 large data transfer, 14 packet forwarding control, 15 storage and retrieval, 17 test, 18 on-board operations procedures and 19 event-action. Clause 22 summarises all the requests and reports;\n* **Parameter types (clause 23)**: PTC 1-11 with their PFC formats and the structure rules for repeated groups. This is the origin of the PTC/PFC scheme that the SCOS-2000 MIB uses.\n\nNormative annexes give the CRC and ISO checksum, the mission constants, the spacecraft time packet and time correlation (taken from ESA PSS-04-106), and the CPDU (taken from ESA PSS-04-151).",
+  "contents": [
+    {
+      "section": null,
+      "title": "Foreword",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 5
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 13
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 15
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 17
+    },
+    {
+      "section": "3.1",
+      "title": "Terms and definitions",
+      "pdf_page": 17
+    },
+    {
+      "section": "3.2",
+      "title": "Abbreviated terms",
+      "pdf_page": 20
+    },
+    {
+      "section": "4",
+      "title": "PUS operations concepts",
+      "pdf_page": 23
+    },
+    {
+      "section": "4.1",
+      "title": "Introduction",
+      "pdf_page": 23
+    },
+    {
+      "section": "4.2",
+      "title": "Application processes",
+      "pdf_page": 24
+    },
+    {
+      "section": "4.3",
+      "title": "Packet design and routing",
+      "pdf_page": 24
+    },
+    {
+      "section": "4.4",
+      "title": "Telecommanding",
+      "pdf_page": 26
+    },
+    {
+      "section": "4.5",
+      "title": "Telemetry reporting",
+      "pdf_page": 30
+    },
+    {
+      "section": "4.6",
+      "title": "Software management",
+      "pdf_page": 31
+    },
+    {
+      "section": "4.7",
+      "title": "On-board operations scheduling",
+      "pdf_page": 32
+    },
+    {
+      "section": "4.8",
+      "title": "On-board monitoring",
+      "pdf_page": 33
+    },
+    {
+      "section": "4.9",
+      "title": "On-board operations procedures",
+      "pdf_page": 34
+    },
+    {
+      "section": "4.10",
+      "title": "Attaching actions to on-board events",
+      "pdf_page": 34
+    },
+    {
+      "section": "4.11",
+      "title": "On-board storage and retrieval",
+      "pdf_page": 34
+    },
+    {
+      "section": "4.12",
+      "title": "Telemetry generation and forwarding",
+      "pdf_page": 35
+    },
+    {
+      "section": "4.13",
+      "title": "Memory management",
+      "pdf_page": 35
+    },
+    {
+      "section": "4.14",
+      "title": "Diagnostic mode",
+      "pdf_page": 36
+    },
+    {
+      "section": "4.15",
+      "title": "Off-line testing",
+      "pdf_page": 37
+    },
+    {
+      "section": "5",
+      "title": "Service specification",
+      "pdf_page": 39
+    },
+    {
+      "section": "5.1",
+      "title": "Introduction",
+      "pdf_page": 39
+    },
+    {
+      "section": "5.2",
+      "title": "Conventions",
+      "pdf_page": 40
+    },
+    {
+      "section": "5.3",
+      "title": "Telecommand packet structure",
+      "pdf_page": 42
+    },
+    {
+      "section": "5.4",
+      "title": "Telemetry source packet structure",
+      "pdf_page": 46
+    },
+    {
+      "section": "5.5",
+      "title": "Standard services",
+      "pdf_page": 50
+    },
+    {
+      "section": "6",
+      "title": "Telecommand verification service",
+      "pdf_page": 51
+    },
+    {
+      "section": "7",
+      "title": "Device command distribution service",
+      "pdf_page": 57
+    },
+    {
+      "section": "8",
+      "title": "Housekeeping and diagnostic data reporting service",
+      "pdf_page": 61
+    },
+    {
+      "section": "9",
+      "title": "Parameter statistics reporting service",
+      "pdf_page": 73
+    },
+    {
+      "section": "10",
+      "title": "Event reporting service",
+      "pdf_page": 79
+    },
+    {
+      "section": "11",
+      "title": "Memory management service",
+      "pdf_page": 83
+    },
+    {
+      "section": "12",
+      "title": "Function management service",
+      "pdf_page": 91
+    },
+    {
+      "section": "13",
+      "title": "Time management service",
+      "pdf_page": 95
+    },
+    {
+      "section": "14",
+      "title": "On-board operations scheduling service",
+      "pdf_page": 99
+    },
+    {
+      "section": "15",
+      "title": "On-board monitoring service",
+      "pdf_page": 119
+    },
+    {
+      "section": "16",
+      "title": "Large data transfer service",
+      "pdf_page": 135
+    },
+    {
+      "section": "17",
+      "title": "Packet forwarding control service",
+      "pdf_page": 145
+    },
+    {
+      "section": "18",
+      "title": "On-board storage and retrieval service",
+      "pdf_page": 153
+    },
+    {
+      "section": "19",
+      "title": "Test service",
+      "pdf_page": 167
+    },
+    {
+      "section": "20",
+      "title": "On-board operations procedure service",
+      "pdf_page": 169
+    },
+    {
+      "section": "21",
+      "title": "Event-action service",
+      "pdf_page": 177
+    },
+    {
+      "section": "22",
+      "title": "Summary of service requests and reports",
+      "pdf_page": 183
+    },
+    {
+      "section": "23",
+      "title": "Parameter types and structure rules",
+      "pdf_page": 189
+    },
+    {
+      "section": "23.1",
+      "title": "Introduction",
+      "pdf_page": 189
+    },
+    {
+      "section": "23.2",
+      "title": "Conventions",
+      "pdf_page": 190
+    },
+    {
+      "section": "23.3",
+      "title": "Encoding formats of parameter types",
+      "pdf_page": 190
+    },
+    {
+      "section": "23.4",
+      "title": "Tailoring of packet structures for a mission",
+      "pdf_page": 191
+    },
+    {
+      "section": "23.5",
+      "title": "Simple parameter types",
+      "pdf_page": 192
+    },
+    {
+      "section": "23.6",
+      "title": "Structured field types",
+      "pdf_page": 199
+    },
+    {
+      "section": "Annex A",
+      "title": "Examples (normative)",
+      "pdf_page": 207
+    },
+    {
+      "section": "A.1",
+      "title": "Specification of the cyclic redundancy code (CRC)",
+      "pdf_page": 207
+    },
+    {
+      "section": "A.2",
+      "title": "Specification of the ISO checksum",
+      "pdf_page": 212
+    },
+    {
+      "section": "A.3",
+      "title": "Use of service type 2, device command distribution",
+      "pdf_page": 214
+    },
+    {
+      "section": "Annex B",
+      "title": "Mission constants (normative)",
+      "pdf_page": 215
+    },
+    {
+      "section": "Annex C",
+      "title": "Spacecraft time protocols (normative)",
+      "pdf_page": 217
+    },
+    {
+      "section": "C.1",
+      "title": "Introduction",
+      "pdf_page": 217
+    },
+    {
+      "section": "C.2",
+      "title": "Presentation of spacecraft elapsed time",
+      "pdf_page": 217
+    },
+    {
+      "section": "C.3",
+      "title": "Standard spacecraft time source packet",
+      "pdf_page": 219
+    },
+    {
+      "section": "C.4",
+      "title": "Spacecraft time correlation procedures",
+      "pdf_page": 219
+    },
+    {
+      "section": "Annex D",
+      "title": "Command pulse distribution unit (normative)",
+      "pdf_page": 221
+    },
+    {
+      "section": "D.1",
+      "title": "General requirements",
+      "pdf_page": 221
+    },
+    {
+      "section": "D.2",
+      "title": "Specification",
+      "pdf_page": 222
+    },
+    {
+      "section": "D.3",
+      "title": "Design requirements",
+      "pdf_page": 224
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 225
+    }
+  ],
+  "key_points": [
+    {
+      "text": "PUS complements ECSS-E-50 and the CCSDS packet TM/TC recommendations by defining the application-level ground-space interface for integration, testing and flight operations.",
+      "pdf_page": 5
+    },
+    {
+      "text": "All services are optional; each has a minimum capability set and optional additional capability sets, and PUS is a 'menu' tailored per application process and recorded in a space-ground interface control document (SGICD).",
+      "pdf_page": 14
+    },
+    {
+      "text": "APID 2047 (all ones) is reserved by CCSDS for idle packets; PUS reserves APID 0 for the standard spacecraft time packet and requires a dedicated APID for each CPDU.",
+      "pdf_page": 24
+    },
+    {
+      "text": "Missions may define <TCPKT_MAX_LENGTH> and <TMPKT_MAX_LENGTH> below the CCSDS 65K-octet maximum; data exceeding them use the large data transfer service with acknowledgement and retransmission.",
+      "pdf_page": 25
+    },
+    {
+      "text": "TC packets follow CCSDS 203.0-B-2: version 0, type 1, data field header flag 1 (mandatory except for CPDU telecommands), 11-bit APID, sequence flags (11 = stand-alone), 14-bit sequence count per source and APID, packet length = data field octets - 1; maximum TC packet 65 542 octets.",
+      "pdf_page": 43
+    },
+    {
+      "text": "TC data field header: CCSDS secondary header flag (0), TC packet PUS version number (1), Ack (4 bits: acceptance, start, progress, completion), service type (8 bits), service subtype (8 bits), optional source ID, spare; a 16-bit Packet Error Control is mandatory for TCs and its type is set by <TC_CHECKSUM_TYPE>.",
+      "pdf_page": 44
+    },
+    {
+      "text": "Service types and subtypes 0-127 are reserved for the standard and 128-255 are mission-specific; within mission-specific services all subtypes 0-255 are free.",
+      "pdf_page": 45
+    },
+    {
+      "text": "TM source packets follow CCSDS 102.0-B-5: type 0, data field header mandatory except for the time packet, grouping flags, 14-bit source sequence count per APID that wraps from 2^14-1 to 0 and must never 'short-cycle'.",
+      "pdf_page": 47
+    },
+    {
+      "text": "TM data field header: spare bit, PUS version (1), spare, service type, service subtype, optional packet sub-counter, optional destination ID, optional time (CUC or CDS per <APPL_TIME_CODE>), spare; the optional 16-bit PEC is set by <TM_CHECKSUM_TYPE>.",
+      "pdf_page": 48
+    },
+    {
+      "text": "Table 2 lists the standard service types: 1-6, 8, 9, 11-15 and 17-19; types 7, 10 and 16 are not used.",
+      "pdf_page": 50
+    },
+    {
+      "text": "Service 1 reports: (1,1)/(1,2) acceptance success/failure, (1,3)/(1,4) execution started, (1,5)/(1,6) progress, (1,7)/(1,8) execution completed success/failure; service 2 requests: (2,1) on-off, (2,2) register load, (2,3) CPDU commands.",
+      "pdf_page": 183
+    },
+    {
+      "text": "A parameter code is the pair PTC (parameter type code) and PFC (parameter format code); missions adopt the standard formats and may add mission-specific PFCs.",
+      "pdf_page": 190
+    },
+    {
+      "text": "The simple parameter types are PTC 1 Boolean, 2 Enumerated, 3 Unsigned integer, 4 Signed integer, 5 Real, 6 Bit-string, 7 Octet-string, 8 Character-string, 9 Absolute time, 10 Relative time and 11 Deduced.",
+      "pdf_page": 192
+    },
+    {
+      "text": "The packet CRC uses g(x) = x^16 + x^12 + x^5 + 1 with encoder and decoder initialised to all ones, computed over the whole packet except the PEC field.",
+      "pdf_page": 207
+    },
+    {
+      "text": "Annex B mission constants include <APPL_TIME_CODE>, <CPDU_DURATION_UNIT> (10 to 15 ms), <CPDU_MAX_INSTR> (12 to 120), <MONLIST_MAX_PARAMS>, <SMALLEST_ADDRESSABLE_UNIT>, <TCPKT_MAX_LENGTH>, <TC_CHECKSUM_TYPE> and <TM_CHECKSUM_TYPE>.",
+      "pdf_page": 215
+    },
+    {
+      "text": "Spacecraft elapsed time is a CUC count of TAI seconds from an arbitrary epoch; P-field bits 0-3 = 0010, bits 4-5 = coarse octets minus one (1-4), bits 6-7 = fine octets (0-3).",
+      "pdf_page": 218
+    },
+    {
+      "text": "The time packet (APID 0, no data field header) carries a rate octet, then the P- and T-field time sample. The clock is sampled at the leading edge of the ASM of the VC 0 frame with VC frame count 0 (every 256 VC0 frames by default, or 128 down to 1).",
+      "pdf_page": 219
+    },
+    {
+      "text": "A CPDU telecommand packet is 10 to 248 octets long, with an even number of octets, ends with a 16-bit CRC, and is carried in a single TC segment and frame (normally on MAP 0).",
+      "pdf_page": 222
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-P-001",
+      "doc_id": "ECSS-P-001",
+      "title": "Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "ECSS-E-50",
+      "doc_id": "ECSS-E-50",
+      "title": "Space engineering -- Communication (to be published)",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "ECSS-E-70",
+      "doc_id": "ECSS-E-70",
+      "title": "Space engineering -- Ground systems and operations",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "CCSDS 102.0-B-5",
+      "doc_id": "CCSDS 102.0-B-5",
+      "title": "Packet Telemetry, Blue Book",
+      "issue": "Issue 5",
+      "date": "November 2000",
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "CCSDS 201.0-B-3",
+      "doc_id": "CCSDS 201.0-B-3",
+      "title": "Telecommand Part 1 -- Channel Service, Blue Book",
+      "issue": "Issue 3",
+      "date": "June 2000",
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "CCSDS 202.0-B-3",
+      "doc_id": "CCSDS 202.0-B-3",
+      "title": "Telecommand Part 2 -- Data Routing Service, Blue Book",
+      "issue": "Issue 3",
+      "date": "June 2001",
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "CCSDS 202.1-B-2",
+      "doc_id": "CCSDS 202.1-B-2",
+      "title": "Telecommand Part 2.1 -- Command Operation Procedures, Blue Book",
+      "issue": "Issue 2",
+      "date": "June 2001",
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "CCSDS 203.0-B-2",
+      "doc_id": "CCSDS 203.0-B-2",
+      "title": "Telecommand Part 3 -- Data Management Service, Blue Book",
+      "issue": "Issue 2",
+      "date": "June 2001",
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "CCSDS 301.0-B-2",
+      "doc_id": "CCSDS 301.0-B-2",
+      "title": "Time Code Format, Blue Book",
+      "issue": "Issue 2",
+      "date": "April 1990",
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "CCSDS 727.0-R-5",
+      "doc_id": "CCSDS 727.0-R-5",
+      "title": "CCSDS File Delivery Protocol (CFDP), Red Book",
+      "issue": "Issue 5",
+      "date": "August 2001",
+      "kind": "normative",
+      "pdf_page": 15
+    },
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 100.0-G-1",
+      "title": "Telemetry: Summary of Concept and Rationale, Green Book",
+      "issue": null,
+      "date": "December 1987",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 200.0-G-6",
+      "title": "Telecommand: Summary of Concept and Rationale, Green Book",
+      "issue": null,
+      "date": "January 1987",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[3]",
+      "doc_id": null,
+      "title": "J.G. Fletcher, An Arithmetic Checksum for Serial Transmission, IEEE Transaction on Communication, Vol. COM- 30, No.1",
+      "issue": null,
+      "date": "January 1982",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[4]",
+      "doc_id": "ISO 8473-1:1998",
+      "title": "Information Technology - Protocol for Providing the Connectionless-Mode Network Service: Protocol specification second edition",
+      "issue": "second edition",
+      "date": "1998",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[5]",
+      "doc_id": "ISO 8824",
+      "title": "Information Technology - Abstract Syntax Notation One (ASN.1)",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[6]",
+      "doc_id": "ISO 8825",
+      "title": "Information Technology – Open Systems Interconnection - Specification of Basic Encoding Rules for Abstract Syntax Notation One (ASN.1)",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[7]",
+      "doc_id": "IEEE 754:1985",
+      "title": "Standard for Binary Floating-Point Arithmetic, IEEE Computer Society Document R(1991)",
+      "issue": null,
+      "date": "1985",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[8]",
+      "doc_id": "MIL-STD-1750a",
+      "title": "Military Standard Sixteen-Bit Computer Instruction Set Architecture",
+      "issue": null,
+      "date": "2nd July 1980",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[9]",
+      "doc_id": "ANSI X3.4",
+      "title": "Information Systems -- Coded Character Sets – 7-Bit American National Standard Code for Information Interchange (7-bit ASCII), American National Standards Institute",
+      "issue": null,
+      "date": "1986",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[10]",
+      "doc_id": "ITU-T V.41",
+      "title": "Code-Independent Error Control System – Data Communication over the Telephone Network (before renaming known as Information Technology - CCITT V.41)",
+      "issue": null,
+      "date": "1989",
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": "[11]",
+      "doc_id": "ECSS-M-00-02",
+      "title": "Space project management – Tailoring of space standards",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 225
+    },
+    {
+      "label": null,
+      "doc_id": "ESA PSS-04-106",
+      "title": "Packet Telemetry Standard (source of Annex C text)",
+      "issue": "Issue 1",
+      "date": "January 1998",
+      "kind": "mentioned",
+      "pdf_page": 217
+    },
+    {
+      "label": null,
+      "doc_id": "ESA PSS-04-151",
+      "title": "Telecommand decoder specification (source of Annex D text)",
+      "issue": "Issue 1",
+      "date": "September 1993",
+      "kind": "mentioned",
+      "pdf_page": 221
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "ESA PUS (earlier ESA Packet Utilization Standard, PUS version 0)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 44
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-M-00-02A",
+      "title": "ECSS-M-00-02A, clause 3 (definition of tailoring)",
+      "issue": "A",
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 14
+    }
+  ],
+  "topics": [
+    "ecss/pus/index.md",
+    "ecss/pus/pus-a-vs-pus-c.md",
+    "ecss/pus/packets.md",
+    "ecss/pus/parameter-types.md",
+    "ecss/pus/message-types.md",
+    "ecss/pus/st01-request-verification.md",
+    "ecss/pus/st02-device-access.md",
+    "ecss/pus/st03-housekeeping.md",
+    "ecss/pus/st04-parameter-statistics.md",
+    "ecss/pus/st05-event-reporting.md",
+    "ecss/pus/st06-memory-management.md",
+    "ecss/pus/st08-function-management.md",
+    "ecss/pus/st09-time-management.md",
+    "ecss/pus/st11-time-based-scheduling.md",
+    "ecss/pus/st12-onboard-monitoring.md",
+    "ecss/pus/st13-large-packet-transfer.md",
+    "ecss/pus/st14-real-time-forwarding-control.md",
+    "ecss/pus/st15-onboard-storage-retrieval.md",
+    "ecss/pus/st17-test.md",
+    "ecss/pus/st18-onboard-operations-procedure.md",
+    "ecss/pus/st19-event-action.md",
+    "mib/parameter-types.md",
+    "scos2000/time-correlation.md",
+    "ccsds/space-packet.md",
+    "ccsds/time-codes.md",
+    "missions/rosetta-mex-vex.md",
+    "missions/herschel-planck.md"
+  ],
+  "notes": "This copy comes from an INAF Redmine attachment (redmine.oas.inaf.it), not from ecss.nl. The text extraction doubles hyphens in identifiers ('ECSS--E--70--41A', 'CCSDS 203.0--B--2'), so regex searches must allow for '--'. Printed page numbers equal PDF page numbers; PDF page 229 is blank, so srcgrep shows 229 pages while the registry gives 228. Pages 4, 6, 16, 226 and 228 are intentionally blank, and PDF page 227 is an ECSS Document Improvement Proposal form with Secretariat contact details (not reproduced here). Annex C says its text was transcribed from 'ESA PSS-04-106 Packet Telemetry Standard, Issue 1, January 1998' (p. 217), whereas ECSS-E-ST-50-03C dates that standard January 1988. The P-field table in C.2 prints '00100111' twice, where the seventh value should be '00100110' (p. 218). The normative reference ECSS-E-50 is footnoted 'To be published' (p. 15). Bit-field figures 3 and 4 extract as scrambled text (pp. 42, 46). Annex A opens with a stray 'A--A--' artefact (p. 207). The table of contents spells 'telemetr y' in Table 1 (p. 11)."
+}

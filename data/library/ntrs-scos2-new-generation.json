@@ -1,0 +1,310 @@
+{
+ "slug": "ntrs-scos2-new-generation",
+ "title": "SCOSII: ESA's New Generation of Mission Control Systems – The User's Perspective",
+ "short_title": "SCOSII: the user's perspective (SpaceOps 94 paper)",
+ "doc_id": "N95-17537",
+ "issue": null,
+ "date": null,
+ "organisation": "European Space Agency, ESOC Mission Operations Department (MOD); VEGA Group PLC",
+ "authors": [
+  "P. Kaufeler",
+  "M. Pecchioli",
+  "I. Shurmer"
+ ],
+ "doc_type": "Paper",
+ "status_notes": "Historical conference paper. It describes SCOSII as under development: Release 1 'at an advanced stage of implementation' with a preliminary delivery expected in November 1994, and Releases 2 and 3 planned for 1995-6 and 1996-7 (PDF p. 7).",
+ "summary": "Conference paper by P. Kaufeler and M. Pecchioli (ESOC Mission Operations Department) and I. Shurmer (VEGA) that presents **SCOSII**, ESOC's third-generation generic mission control system, from the flight control team's point of view. It places SCOSII after MSSS (in service 1977) and SCOS-I (1989; Hipparcos, ERS-1, EURECA). It requires SCOSII to follow the CCSDS and ESA packet telemetry and telecommand standards and the guidelines of the ESA Committee for Operations and EGSE Standards (COES).\n\nThe paper describes a distributed client-server network of Unix workstations. Its performance goals are 2 Mbps of telemetry and 4 kbps of telecommand with up to 50 workstations, and the whole system is meant to be driven by its database. The **Mission Database** goes beyond earlier TM/TC characteristics databases. It holds a hierarchical model of 'System Elements' with operational modes and roles, planning data, memory images, procedures and system configuration. It is managed as Operational, Active and Draft databases under version and change control.\n\nFor monitoring, the paper introduces raw, engineering, functional and status representations of a parameter. It defines parameter validity from several factors and propagates invalidity to [synthetic parameters](../mib/synthetic-parameters.md), and it defines three classes of [checks](../mib/monitoring-checks.md). Commanding treats procedures, command sequences and commands alike as 'Activities'. These are released through a scheduler, a manual stack or an event-driven commander after pre-execution validation, and [verification](../mib/command-verification.md) supports multi-stage criteria with computed windows. The paper ends with historical replay, analysis and report generation and the release plan, naming Huygens, Artemis and Envisat as the first client missions. For this wiki it records the design ideas that came before [SCOS-2000](../scos2000/index.md) and its [MIB](../mib/index.md).",
+ "contents": [
+  {
+   "section": null,
+   "title": "Abstract",
+   "pdf_page": 1
+  },
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 1
+  },
+  {
+   "section": "2",
+   "title": "System Characteristics and Concepts",
+   "pdf_page": 1
+  },
+  {
+   "section": "2.1",
+   "title": "Architecture",
+   "pdf_page": 1
+  },
+  {
+   "section": "2.2",
+   "title": "Overview of Functionality & Utilisation",
+   "pdf_page": 1
+  },
+  {
+   "section": "2.3",
+   "title": "Configurability",
+   "pdf_page": 2
+  },
+  {
+   "section": "2.4",
+   "title": "Performance",
+   "pdf_page": 2
+  },
+  {
+   "section": "2.5",
+   "title": "System Level Tools",
+   "pdf_page": 2
+  },
+  {
+   "section": "2.5.1",
+   "title": "Modelling Tool",
+   "pdf_page": 2
+  },
+  {
+   "section": "2.5.2",
+   "title": "Operations Language",
+   "pdf_page": 3
+  },
+  {
+   "section": "2.5.3",
+   "title": "Mission Database Test Function",
+   "pdf_page": 3
+  },
+  {
+   "section": "2.6",
+   "title": "Human Computer Interface (HCI)",
+   "pdf_page": 4
+  },
+  {
+   "section": "3",
+   "title": "Mission Database",
+   "pdf_page": 4
+  },
+  {
+   "section": "3.1",
+   "title": "Mission Database Structure",
+   "pdf_page": 4
+  },
+  {
+   "section": "3.2",
+   "title": "Database Management",
+   "pdf_page": 4
+  },
+  {
+   "section": "3.3",
+   "title": "Database Maintenance",
+   "pdf_page": 4
+  },
+  {
+   "section": "4",
+   "title": "Monitoring",
+   "pdf_page": 5
+  },
+  {
+   "section": "4.1",
+   "title": "Monitoring Parameters",
+   "pdf_page": 5
+  },
+  {
+   "section": "4.2",
+   "title": "Parameter Validity",
+   "pdf_page": 5
+  },
+  {
+   "section": "4.3",
+   "title": "Parameter Checking",
+   "pdf_page": 5
+  },
+  {
+   "section": "5",
+   "title": "Commanding",
+   "pdf_page": 5
+  },
+  {
+   "section": "5.1",
+   "title": "Activities",
+   "pdf_page": 5
+  },
+  {
+   "section": "5.2",
+   "title": "Preparation",
+   "pdf_page": 6
+  },
+  {
+   "section": "5.3",
+   "title": "Activity Execution",
+   "pdf_page": 6
+  },
+  {
+   "section": "5.4",
+   "title": "Activity Execution Monitoring",
+   "pdf_page": 6
+  },
+  {
+   "section": "6",
+   "title": "Control of SCOSII System",
+   "pdf_page": 6
+  },
+  {
+   "section": "7",
+   "title": "Mission Evaluation",
+   "pdf_page": 6
+  },
+  {
+   "section": "7.1",
+   "title": "Historical Data Access",
+   "pdf_page": 7
+  },
+  {
+   "section": "7.2",
+   "title": "Viewing Historical Data",
+   "pdf_page": 7
+  },
+  {
+   "section": "7.3",
+   "title": "Historical Data Analysis",
+   "pdf_page": 7
+  },
+  {
+   "section": "7.4",
+   "title": "Report Generation",
+   "pdf_page": 7
+  },
+  {
+   "section": "8",
+   "title": "Conclusion",
+   "pdf_page": 7
+  },
+  {
+   "section": null,
+   "title": "References",
+   "pdf_page": 7
+  }
+ ],
+ "key_points": [
+  {
+   "text": "ESOC's generic mission control system line runs from MSSS (in service 1977, still used by MARECS and ECS) to SCOS-I (1989; Hipparcos, ERS-1, EURECA) and then SCOSII.",
+   "pdf_page": 1
+  },
+  {
+   "text": "SCOSII must be compatible with CCSDS and the related ESA standards for telemetry and telecommand packets, and with the standards and guidelines of the ESA Committee for Operations and EGSE Standards (COES).",
+   "pdf_page": 1
+  },
+  {
+   "text": "Architecture: a decentralised client-server network of Unix workstations, with central servers providing system-level services such as the interface to the ground stations.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Performance goals: concurrent real-time telemetry and telecommand rates of 2 Mbps and 4 kbps, display updates faster than 10 per second, and retrieval in 5 s (data a few weeks old) to 30 s (data several years old) with up to 50 workstations in use.",
+   "pdf_page": 2
+  },
+  {
+   "text": "The system can be descoped to a mini-system on a single SUN workstation and, thanks to portability, even on a PC.",
+   "pdf_page": 2
+  },
+  {
+   "text": "The mission is modelled as a whole-part hierarchy of 'System Elements' (mission down to devices hosting measurements and command items) with associated 'Operational Modes' and 'Roles'; modelling is initially limited to data routing, power control and redundancy.",
+   "pdf_page": 3
+  },
+  {
+   "text": "The SCOSII Operations Language provides mini-languages for procedural knowledge, events and actions, and selection strategies.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Three database types: Operational (any number of versions), Active (the Operational database currently supporting real-time operations) and a single Draft database used to build a new Operational one.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Source databases from spacecraft or payload manufacturers (typically several thousand telemetry parameters) are imported in electronic form, e.g. ORACLE or ASCII, with consistency checking that the user can switch off during preparation.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Parameter representations: Raw (uncalibrated), Engineering (calibrated), Functional (e.g. derivative, integral, mean, max) and Status (state of the applicable checking).",
+   "pdf_page": 5
+  },
+  {
+   "text": "Parameter validity depends on power, data unit quality, data routing, age, stability (transients after commanding) and user-defined status; invalidity propagates, e.g. to synthetic parameters using an invalid parameter.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Checking categories: Operational Status Checks, Operational Constraints Checks (never to be violated or disabled) and Behaviour Checks based on predicted on-board status.",
+   "pdf_page": 5
+  },
+  {
+   "text": "An 'Activity' is a Procedure, a Command Sequence or a Command, all treated in the same way; execution facilities are the Scheduler (with Sub-Schedules), the Manual Stack and the Event Driven Commander (EDCRs).",
+   "pdf_page": 6
+  },
+  {
+   "text": "Pre-Execution Validation (PEV) checks have three components: feasibility, safety and dynamic (e.g. time window and interlock) checks.",
+   "pdf_page": 6
+  },
+  {
+   "text": "Command verification supports multi-stage criteria (e.g. reception on-board, reception by application, execution stages); SCOSII computes a verification window per stage from expected execution times and user margins.",
+   "pdf_page": 6
+  },
+  {
+   "text": "History is viewed in 'Replay as Live' mode (interactive technical analysis) or 'Video Replay' mode (same data and workstation layout as at reception).",
+   "pdf_page": 7
+  },
+  {
+   "text": "Release 1 preliminary delivery expected November 1994; Release 2 (1995-6) and Release 3 (1996-7) add modelling, mission planning and data distribution; first client missions HUYGENS, ARTEMIS and ENVISAT, to be launched in 1997-1998.",
+   "pdf_page": 7
+  }
+ ],
+ "references": [
+  {
+   "label": "1",
+   "doc_id": "ESA PSS-07-101",
+   "title": "Packet Utilisation Standard",
+   "issue": "issue 1",
+   "date": "May 1994",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "2",
+   "doc_id": null,
+   "title": "N.Head & J.F.Kaufeler, Evolution of the Agency's Software Infrastructure for Spacecraft and Mission Control, ESA Bulletin no.67",
+   "issue": null,
+   "date": "August 1991",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "3",
+   "doc_id": null,
+   "title": "M.Jones et al., SCOSII: ESA's New Generation of Mission Control System, ESA Bulletin no.75",
+   "issue": null,
+   "date": "August 1993",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "4",
+   "doc_id": null,
+   "title": "A.Baldi et al., SCOSII OL: A Dedicated Language for Mission Operations, SpaceOps 94",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "5",
+   "doc_id": null,
+   "title": "M.Jones, N.Head et al., SCOSII: ESA's New Generation Control System, SpaceOps 94",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  }
+ ],
+ "topics": [
+  "scos2000/index.md",
+  "scos2000/architecture.md",
+  "mib/index.md",
+  "mib/monitoring-checks.md",
+  "mib/command-verification.md",
+  "mib/synthetic-parameters.md"
+ ],
+ "notes": "Scanned NASA NTRS copy (Pdf.Capture OCR); accession number N95-17537 is stamped on PDF p. 1. The OCR text layer has many errors (e.g. 'SCOSI]' and 'eL' for SCOSII and OL) and interleaves the two-column layout. Printed page numbers 719-725 map to PDF pp. 1-7, and the text extraction has a trailing empty page 8. Figures 1-5 survive only as caption fragments. No date or venue is printed. The companion paper ntrs-scosii-ol (printed pp. 689-696) lists this paper as its reference [1] 'these proceedings', and both papers cite SpaceOps 94. That the volume is the SpaceOps 94 proceedings is this catalogue's inference from those citations and the NTRS record number 19950011122. Reference 1 (PUS, ESA PSS-07-101) is marked 'to be published'. The abstract's '1974' start date for ESOC's reusable MCS infrastructure is as printed (OCR)."
+}

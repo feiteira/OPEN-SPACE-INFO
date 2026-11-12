@@ -1,0 +1,100 @@
+{
+  "table": "grp",
+  "file": "grp.dat",
+  "icd": true,
+  "name": "Monitoring groups definition",
+  "icd_section": "3.3.2.6.1",
+  "pdf_page": 108,
+  "family": "monitoring",
+  "purpose": "grp defines named monitoring groups, one record per group. A group is either a parameter group (members listed in grpa) or a packet group (members listed in grpk). SCOS-2000 uses monitoring groups to enable or inhibit the processing or monitoring of many parameters or packets with a single command. According to the ICD change annex, inhibiting a parameter stops its processing: no calibration, no limit checking and no distribution of updates. Inhibiting a packet means it is still stored but neither distributed nor used for parameter extraction, while parameters also carried by other packets keep updating from those. Enabling or inhibiting a group simply repeats the operation on each member; membership of several groups gets no special treatment, and there is no dedicated user interface for the feature. A parameter is enabled by default at system start. The ICD declares all three fields mandatory, including the description.",
+  "keys": [
+    "GRP_NAME"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "GRP_NAME",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Unique identification name of the monitoring group; referenced by GRPA_GNAME and GRPK_GNAME.",
+      "values": [],
+      "references": null,
+      "pdf_page": 108
+    },
+    {
+      "pos": 2,
+      "name": "GRP_DESCR",
+      "type": "Char(24)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Textual description of the monitoring group (the ICD prints 'Textural'). Mandatory.",
+      "values": [],
+      "references": null,
+      "pdf_page": 108
+    },
+    {
+      "pos": 3,
+      "name": "GRP_GTYPE",
+      "type": "Char(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Type of the monitoring group, which decides whether its members are listed in grpa or grpk.",
+      "values": [
+        {
+          "value": "PA",
+          "meaning": "Parameters group (members in grpa)"
+        },
+        {
+          "value": "PK",
+          "meaning": "Packets group (members in grpk)"
+        }
+      ],
+      "references": null,
+      "pdf_page": 108
+    }
+  ],
+  "relationships": [
+    {
+      "field": "GRP_NAME",
+      "target": "grpa.GRPA_GNAME",
+      "note": "Members of parameter groups (GRP_GTYPE = 'PA')."
+    },
+    {
+      "field": "GRP_NAME",
+      "target": "grpk.GRPK_GNAME",
+      "note": "Members of packet groups (GRP_GTYPE = 'PK')."
+    }
+  ],
+  "history": "Not present in ICD 5.1. Parameter groups, packet groups and group enable/inhibit were introduced in ICD 6.0 with the repatriation of Herschel/Planck CCS functions (ICD 7.0 Annex 1, p. 246-247). ICD 6.7 Draft A (p. 102), 6.9 (p. 106) and 7.0 (p. 108) give the same three mandatory fields. pyscos2000 (ICD 7.2) does not model grp, so no 7.2 comparison is possible from that source.",
+  "solo_stats": {
+    "rows": 2,
+    "fields": [
+      {
+        "name": "GRP_NAME",
+        "filled": 2,
+        "examples": [
+          "GRPHK",
+          "GRPPAR"
+        ]
+      },
+      {
+        "name": "GRP_DESCR",
+        "filled": 2,
+        "examples": [
+          "Example for Parameters",
+          "Packet for HK monitoring"
+        ]
+      },
+      {
+        "name": "GRP_GTYPE",
+        "filled": 2,
+        "examples": [
+          "PA",
+          "PK"
+        ]
+      }
+    ]
+  },
+  "notes": "grp is not part of the pyscos2000 schema, so the Solar Orbiter SQLite table uses generic columns COL1..COL3, mapped here in ICD order to GRP_NAME, GRP_DESCR, GRP_GTYPE. Solar Orbiter 2025-09-16: 2 groups, 'GRPHK' ('Packet for HK monitoring', type PK) and 'GRPPAR' ('Example for Parameters', type PA). GRPPAR has no members because grpa.dat is empty, so both appear to be examples or templates rather than operational groups (inference). The 2020 release had a single group."
+}

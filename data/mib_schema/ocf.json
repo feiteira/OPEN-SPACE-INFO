@@ -1,0 +1,161 @@
+{
+  "table": "ocf",
+  "file": "ocf.dat",
+  "icd": true,
+  "name": "Monitoring checks",
+  "icd_section": "3.3.2.3.1",
+  "pdf_page": 72,
+  "family": "monitoring",
+  "purpose": "ocf declares, for each monitoring parameter that is checked, the general characteristics of its monitoring checks (out-of-limit, status, delta, status-consistency and event checks); there is at most one record per parameter and the individual checks are listed in ocp. The record states how many consecutive valid samples must violate a check before the parameter is declared out of limits (OOL), how many ocp checks exist for the parameter (1 to 16), and how the limit values in ocp are to be interpreted: as raw or calibrated values, and as real, integer or ASCII values. These checks are run by the SCOS-2000 Behaviour Limit Checker. If its optimised processing of unchanged periodic samples is enabled (MISCconfig BEHV_ENABLE_OPTIMIZATION = 1), the MISCconfig variable MVC_MAX_CONST_NUMBR must be larger than the largest OCF_NBCHCK in the table. The relationship between pcf and ocf is one-to-one: each parameter references only one set of checks, which can contain up to 16 checks with their own types and applicability criteria.",
+  "keys": [
+    "OCF_NAME"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "OCF_NAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter to be checked; must match PCF_NAME of an existing monitoring parameter.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 73
+    },
+    {
+      "pos": 2,
+      "name": "OCF_NBCHCK",
+      "type": "Number(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Number of consecutive valid samples of the parameter that must violate a check before the parameter is declared out of limits (OOL). It filters out isolated glitches. When the Behaviour Limit Checker optimisation is enabled, MVC_MAX_CONST_NUMBR must exceed the largest value used here (warning at the start of section 3.3.2.3.1, p. 73, which spells the field 'OCF_NBCHK').",
+      "values": [],
+      "references": null,
+      "pdf_page": 73
+    },
+    {
+      "pos": 3,
+      "name": "OCF_NBOOL",
+      "type": "Number(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Number of checks defined for this parameter in ocp, an integer from 1 to 16. It must be consistent with the number of ocp records for the parameter.",
+      "values": [],
+      "references": null,
+      "pdf_page": 73
+    },
+    {
+      "pos": 4,
+      "name": "OCF_INTER",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Whether the limit values OCP_LVALU and OCP_HVALU of this parameter are raw or engineering values. Option 'C' is allowed only for parameters with one or more calibrations (see PCF_CURTX and cur). OCF_CODIN must be compatible with the data type of the view chosen here, and if the parameter is used in a command verification expression (cve) OCF_CODIN must also be compatible with CVE_INTER.",
+      "values": [
+        {
+          "value": "U",
+          "meaning": "Uncalibrated: limits are raw values"
+        },
+        {
+          "value": "C",
+          "meaning": "Calibrated: limits are engineering values"
+        }
+      ],
+      "references": null,
+      "pdf_page": 74
+    },
+    {
+      "pos": 5,
+      "name": "OCF_CODIN",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Data type in which the limit values OCP_LVALU and OCP_HVALU are written.",
+      "values": [
+        {
+          "value": "R",
+          "meaning": "Real values: only for raw values of real parameters (OCF_INTER = 'U' and PCF_PTC = 5), for engineering values of parameters with numerical curves of real engineering format (PCF_CATEG = 'N', CAF_ENGFMT = 'R'), or for engineering values of parameters with polynomial or logarithmic calibrations"
+        },
+        {
+          "value": "A",
+          "meaning": "ASCII strings: only for status parameters (PCF_CATEG = 'S') whose expected values are given in engineering (calibrated text) form, i.e. OCF_INTER = 'C'"
+        },
+        {
+          "value": "I",
+          "meaning": "Integer values: only for raw values of integer parameters (OCF_INTER = 'U' and PCF_PTC < 5) or for engineering values of parameters with numerical curves of integer engineering format (PCF_CATEG = 'N', CAF_ENGFMT not 'R')"
+        }
+      ],
+      "references": null,
+      "pdf_page": 75
+    }
+  ],
+  "relationships": [
+    {
+      "field": "OCF_NAME",
+      "target": "pcf.PCF_NAME",
+      "note": "One-to-one: each parameter has at most one ocf record (section 3.3.2, p. 39)."
+    },
+    {
+      "field": "OCF_NAME",
+      "target": "ocp.OCP_NAME",
+      "note": "One ocf record owns OCF_NBOOL (1-16) ocp check records."
+    }
+  ],
+  "history": "ICD 5.1 (p. 35-36) has the same five fields, all mandatory. Its OCF_INTER 'C' option required 'a calibration curve (PCF_CURTX not null)', and its OCF_CODIN 'A' option was tied to OCF_INTER = 'U'; ICD 7.0 allows 'C' for any calibrated parameter (including via cur) and ties 'A' to OCF_INTER = 'C' (p. 74-75). ICD 6.0 added delta checks and multiple sets of status checks (ICD 7.0 Annex 1, p. 246 and 249). ICD 6.5 added the warning about BEHV_ENABLE_OPTIMIZATION and MVC_MAX_CONST_NUMBR (p. 256). The field layout is unchanged in ICD 6.7 Draft A (p. 68-70), 6.9 (p. 71-73) and 7.0. pyscos2000 (ICD 7.2) matches: five mandatory fields, key OCF_NAME.",
+  "solo_stats": {
+    "rows": 5338,
+    "fields": [
+      {
+        "name": "OCF_NAME",
+        "filled": 5338,
+        "examples": [
+          "NAHD0004",
+          "NAHD0005",
+          "NAHD0006",
+          "NAHD0007",
+          "NAHD0008"
+        ]
+      },
+      {
+        "name": "OCF_NBCHCK",
+        "filled": 5338,
+        "examples": [
+          "1",
+          "2",
+          "3",
+          "14",
+          "5"
+        ]
+      },
+      {
+        "name": "OCF_NBOOL",
+        "filled": 5338,
+        "examples": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "6"
+        ]
+      },
+      {
+        "name": "OCF_INTER",
+        "filled": 5338,
+        "examples": [
+          "C",
+          "U"
+        ]
+      },
+      {
+        "name": "OCF_CODIN",
+        "filled": 5338,
+        "examples": [
+          "I",
+          "R",
+          "A"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. ICD inconsistency: the field is named OCF_NBCHCK in the table but OCF_NBCHK in the warning text and change annex. Solar Orbiter 2025-09-16: 5,338 checked parameters. OCF_INTER/OCF_CODIN combinations: C/A 1,633 (status parameters checked against text), C/R 1,558, U/I 2,029, U/R 110, C/I 8. OCF_NBCHCK ranges from 1 (3,989 parameters) to 24; values 1, 2, 3, 4, 5, 8, 10, 14, 15 and 24 occur. OCF_NBOOL matches the number of ocp records for every parameter except NCDX9308, which declares 2 checks but has no ocp record (the ICD requires consistency; the importer behaviour in that case is not stated)."
+}

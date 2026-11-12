@@ -1,0 +1,137 @@
+{
+ "table": "paf",
+ "file": "paf.dat",
+ "icd": true,
+ "name": "Textual (de-)calibrations",
+ "icd_section": "3.3.3.6.3",
+ "pdf_page": 208,
+ "family": "commanding",
+ "purpose": "The paf table defines the textual (de-)calibrations of command and sequence parameters, also called parameter alias sets, one record per alias set; the alias/raw value pairs of each set are in PAS. A parameter with calibration category T (CPC_CATEG or CSP_CATEG) references one alias set through CPC_PAFREF or CSP_PAFREF, and an alias set may be shared by many parameters. The operator can then enter or read the parameter as a text string (an engineering value such as ENABLED) instead of a number, and the aliases may also serve as default values; parameters using textual calibration display and accept engineering values in ASCII (DISPFMT=A). Unlike the monitoring calibrations (CAF/CAP, TXF/TXP), the commanding (de-)calibrations work in both directions: engineering to raw, for display and for encoding, and raw to engineering, for display. They can be attached to command parameters (CPC) and to sequence formal parameters (CSP) alike, but only to parameters whose raw value is numerical (not strings or times). The record gives the numeric format of the raw values of the set, which must be compatible with the type of the parameters that use it, and, for off-line checking only, the number of aliases.",
+ "keys": [
+  "PAF_NUMBR"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "PAF_NUMBR",
+   "type": "Char(10)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Alphanumeric name uniquely identifying the commanding textual (de-)calibration (alias set); referenced by CPC_PAFREF, CSP_PAFREF and PAS_NUMBR.",
+   "values": [],
+   "references": null,
+   "pdf_page": 209
+  },
+  {
+   "pos": 2,
+   "name": "PAF_DESCR",
+   "type": "Char(24)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Textual description of the (de-)calibration.",
+   "values": [],
+   "references": null,
+   "pdf_page": 209
+  },
+  {
+   "pos": 3,
+   "name": "PAF_RAWFMT",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "U",
+   "description": "Numeric format of the raw values (PAS_ALVAL) of the alias set; it must be compatible with the type of the parameters using the set.",
+   "values": [
+    {
+     "value": "I",
+     "meaning": "Signed integer"
+    },
+    {
+     "value": "U",
+     "meaning": "Unsigned integer (import default)"
+    },
+    {
+     "value": "R",
+     "meaning": "Real"
+    }
+   ],
+   "references": null,
+   "pdf_page": 209
+  },
+  {
+   "pos": 4,
+   "name": "PAF_NALIAS",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Number of PAS records (aliases) defined for this set. Grey in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 209
+  }
+ ],
+ "relationships": [
+  {
+   "field": "PAF_NUMBR",
+   "target": "pas.PAS_NUMBR",
+   "note": "Alias/raw value pairs of the set; PAF_NALIAS should equal their number."
+  },
+  {
+   "field": "PAF_NUMBR",
+   "target": "cpc.CPC_PAFREF",
+   "note": "Command parameters with CPC_CATEG=T."
+  },
+  {
+   "field": "PAF_NUMBR",
+   "target": "csp.CSP_PAFREF",
+   "note": "Sequence formal parameters with CSP_CATEG=T."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.6.3, PDF p.101) has the same four fields with PAF_NUMBR Number(4). ICD 6.7 Draft A (PDF p.195-196), ICD 6.9 (PDF p.200-201) and ICD 7.0 (PDF p.208-209) use Char(10) for PAF_NUMBR (identifier change of ICD 6.0, Annex 1 of ICD 7.0, PDF p.247). pyscos2000 (ICD 7.2) has the same four columns, key and default U.",
+ "solo_stats": {
+  "rows": 624,
+  "fields": [
+   {
+    "name": "PAF_NUMBR",
+    "filled": 624,
+    "examples": [
+     "CAAT0001TC",
+     "CAAT0001TM",
+     "CAAT0003TC",
+     "CAAT0005TC",
+     "CAAT0007TC"
+    ]
+   },
+   {
+    "name": "PAF_DESCR",
+    "filled": 624,
+    "examples": [
+     "HK SID",
+     "Memory ID",
+     "Mode",
+     "Navigation status indica",
+     "Odd parity in TCs"
+    ]
+   },
+   {
+    "name": "PAF_RAWFMT",
+    "filled": 624,
+    "examples": [
+     "U",
+     "I"
+    ]
+   },
+   {
+    "name": "PAF_NALIAS",
+    "filled": 620,
+    "examples": [
+     "2",
+     "3",
+     "4",
+     "8",
+     "5"
+    ]
+   }
+  ]
+ },
+ "notes": "No column discrepancy (4 columns in paf.dat). Solar Orbiter 2025-09-16: 624 alias sets (605 in 2020); PAF_RAWFMT U 622, I 2. PAF_NALIAS matches the PAS count wherever filled; it is empty for four sets (CNISX205TC, CNISX207TC, CNISX211TC, CNISX214TC) and set CCDT0004TX ('Event ID list') declares 1419 aliases, a four-digit value exceeding the declared Number(3). 30 alias sets are not referenced by any CPC or CSP record. Names end in 'TC' (547), 'TX' (58) or 'TM' (19), a mission naming convention not explained in the ICD."
+}

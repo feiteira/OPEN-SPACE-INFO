@@ -1,0 +1,353 @@
+{
+ "slug": "scos2000-complete-presentation-2000",
+ "title": "FIRST/PLANCK – SCOS-2000",
+ "short_title": "FIRST/Planck SCOS-2000 meeting slides, complete set (2000)",
+ "doc_id": null,
+ "issue": null,
+ "date": "2000-04-18",
+ "organisation": "European Space Agency, ESOC TOS-GC; FIRST/Planck Project",
+ "authors": [
+  "Jean-François Kaufeler",
+  "P. Estaria"
+ ],
+ "doc_type": "Presentation",
+ "status_notes": "Slides presented at ESOC on 18-19 April 2000; footers dated 18.04.2000 (PDF pp. 1-37). The appended licence note is marked 'JFK draft-1', 19.04.2000 (PDF pp. 45-46).",
+ "summary": "Complete slide set from the SCOS-2000 meeting with the FIRST/Planck instrument PI groups at ESOC on 18-19 April 2000, compiled into one PDF. Slides 1-37 are the ESOC TOS-GC presentation, led by J-F. Kaufeler (H/TOS-GC). They summarise who used [SCOS-2000](../scos2000/index.md): SOHO (telemetry only, 1995), Huygens, TeamSat and MTP (1997), and at the time Integral, MSG, Rosetta, ERS and PROBA, with Smart-1, Envisat, XMM, Mars Express, FIRST/Planck, CryoSat and GOCE to follow. They explain the change of name from SCOS-2 (up to R1.4) to SCOS-2000 (from R2.0, 1999): a new telemetry chain, an ILOG-based MMI, ObjectStore and CORBA. They also give the release plan through R3.0 (PC and Linux, ObjectStore replaced, mid 2001) and R4.0 (1Q 2002).\n\nThe EGSE part draws the parallel between SCOEs, router and SCOS-2000 EGSE on one side and ground station, [NCTRS](../scos2000/nctrs-nis.md) and SCOS-2000 MCS on the other. It reuses PROBA elements: the EGSE router (1 Mbps TM and 4 kbps TC on a Windows NT PC), the SCOS TCP/IP gateway, a TM/TC front end that extracts CCSDS packets and needs a COTS TC encoder for the ground-space protocol and [COP-1](../ccsds/cop-1.md), a Tcl/Tk test procedure environment, and ORACLE or MS-Access database editors.\n\nThe remaining TOS slides set out the offer. The software is free under licence, while the PIs buy hardware and COTS (ILOG Views, Ctree+, Orbix, ObjectStore, STL); indicative prices are given for support and a 35 Keur/year/user service. Slides 38-44 are P. Estaria's 'SCOS - 2000 EVALUATION' (PT - 07671) with the FIRST/Planck project position. The last two pages are the TOS licence, support and service note. See [SCOS-2000 as EGSE](../scos2000/egse.md).",
+ "contents": [
+  {
+   "section": null,
+   "title": "Title: FIRST/PLANCK – SCOS-2000, ESOC Darmstadt, 18th/19th April 2000 (TOS-GC)",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Agenda",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Welcome (H/TOS-G Carlo Mazza)",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "Introduction (Project, Pierre Estaria)",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Status (H/TOS-GC Jean-François Kaufeler)",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "Utilisation",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "Name?",
+   "pdf_page": 8
+  },
+  {
+   "section": null,
+   "title": "Status of Releases",
+   "pdf_page": 9
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Evolution",
+   "pdf_page": 10
+  },
+  {
+   "section": null,
+   "title": "EGSE and Elements",
+   "pdf_page": 12
+  },
+  {
+   "section": null,
+   "title": "Commonality",
+   "pdf_page": 13
+  },
+  {
+   "section": null,
+   "title": "Main Elements",
+   "pdf_page": 14
+  },
+  {
+   "section": null,
+   "title": "System Level Testing",
+   "pdf_page": 15
+  },
+  {
+   "section": null,
+   "title": "EGSE ROUTER",
+   "pdf_page": 16
+  },
+  {
+   "section": null,
+   "title": "Performance",
+   "pdf_page": 18
+  },
+  {
+   "section": null,
+   "title": "SCOS TCP/IP Gateway",
+   "pdf_page": 19
+  },
+  {
+   "section": null,
+   "title": "TM/TC front end",
+   "pdf_page": 20
+  },
+  {
+   "section": null,
+   "title": "Test Procedure Environment",
+   "pdf_page": 21
+  },
+  {
+   "section": null,
+   "title": "TCL/TK",
+   "pdf_page": 22
+  },
+  {
+   "section": null,
+   "title": "PROBA Status & Plan",
+   "pdf_page": 24
+  },
+  {
+   "section": null,
+   "title": "Options for SCOS-2000",
+   "pdf_page": 25
+  },
+  {
+   "section": null,
+   "title": "TOS Offer (SW Only)",
+   "pdf_page": 26
+  },
+  {
+   "section": null,
+   "title": "TOS Support",
+   "pdf_page": 27
+  },
+  {
+   "section": null,
+   "title": "License Agreement / COTS",
+   "pdf_page": 28
+  },
+  {
+   "section": null,
+   "title": "License",
+   "pdf_page": 29
+  },
+  {
+   "section": null,
+   "title": "Cost Core HW",
+   "pdf_page": 30
+  },
+  {
+   "section": null,
+   "title": "Cost COTS's",
+   "pdf_page": 31
+  },
+  {
+   "section": null,
+   "title": "Support and Service",
+   "pdf_page": 33
+  },
+  {
+   "section": null,
+   "title": "Approach",
+   "pdf_page": 34
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Support",
+   "pdf_page": 36
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Service",
+   "pdf_page": 37
+  },
+  {
+   "section": null,
+   "title": "SCOS - 2000 EVALUATION (P. Estaria, PT - 07671): title",
+   "pdf_page": 38
+  },
+  {
+   "section": null,
+   "title": "SCOS 2000 Evaluation: Introduction, History",
+   "pdf_page": 39
+  },
+  {
+   "section": null,
+   "title": "SCOS 2000 Evaluation: Meeting objectives",
+   "pdf_page": 40
+  },
+  {
+   "section": null,
+   "title": "SCOS 2000 Evaluation: FIRST/Planck Project Position",
+   "pdf_page": 41
+  },
+  {
+   "section": null,
+   "title": "FIRST / PLANCK Software License (TOS, JFK draft-1, 19.04.2000)",
+   "pdf_page": 45
+  },
+  {
+   "section": null,
+   "title": "Support and Service",
+   "pdf_page": 46
+  }
+ ],
+ "key_points": [
+  {
+   "text": "SCOS-2000 utilisation: past 1995 SOHO (TLM only) and 1997 Huygens, TeamSat, MTP (Eumetsat); present Integral and MSG (successful SVTs), Rosetta, ERS, migration from SCOS-1 and PROBA (MCS + EGSE).",
+   "pdf_page": 6
+  },
+  {
+   "text": "Planned users: Smart-1, Envisat and XMM (migrations from SCOS-1), Mars-Express, First/Planck MOC and the Earth Core Explorers (Cryosat, GOCE); First/Planck EGSE and PIs marked '??'.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Naming: SCOS-2 until 1998 (up to release R1.4) and SCOS-2000 from 1999 (from R2.0), an evolution with a new TLC chain, architectural consolidation, an MMI fully based on ILOG, systematic use of Object-Store and CORBA-based distribution and external interfaces.",
+   "pdf_page": 8
+  },
+  {
+   "text": "Release status: R2.0 Sep. 1999 (Integral SVTs), R2.1 Mar. 2000 (MSG SVTs), R2.2 Sep. 2000 (end of nominal project).",
+   "pdf_page": 9
+  },
+  {
+   "text": "Evolution: Release 3.0 (mid 2001) ports SCOS-2000 to PC with an OS shell, replaces Object Store and ports first to Linux; Release 4.0 (1Q 2002) allows multiple SCOS-2000 versions on one machine to support constellation missions.",
+   "pdf_page": 10
+  },
+  {
+   "text": "Commonality: SCOEs connect through the ROUTER to a SCOS-2000 EGSE, just as a ground station connects through NCTRS to a SCOS-2000 MCS.",
+   "pdf_page": 13
+  },
+  {
+   "text": "PROBA checkout facility elements: EMCS, a router (TM reception, TC transmission, SCOS gateway), a Tcl/Tk procedure automation tool used for AIV and operations, and ORACLE-based database editors.",
+   "pdf_page": 14
+  },
+  {
+   "text": "Router performance on a Windows NT PC: 1 Mbps TM input and recording via a DMA parallel card, 4 kbps TC via an RS422 card, CPU load below 15 %, and about 2 % CPU per distributed virtual channel.",
+   "pdf_page": 18
+  },
+  {
+   "text": "The TM/TC front end extracts and distributes CCSDS telemetry packets from a digital stream and turns command-packet requests into a CCSDS data stream; with the ground-space protocol the TC part needs a COTS 'TC ENCODER SHELL' (about 10 Keur).",
+   "pdf_page": 20
+  },
+  {
+   "text": "SCOS-2000 COTS: ILOG Views, Ctree+, Orbix, ObjectStore and the STL library; run-time licences cost 2200 EUR per client plus 300 EUR per client per year.",
+   "pdf_page": 31
+  },
+  {
+   "text": "The TC transmission software shell (10 Keur per PC) is required only if the CCSDS COP1 protocol is used.",
+   "pdf_page": 32
+  },
+  {
+   "text": "Indicative service prices: SCOS-2000 installation 10 Keur per site, a developer course 4 Keur, consultancy 14 Keur per man-month per user, and the maintenance service 35 Keur per year per user (including membership of the SCOS-2000 Board).",
+   "pdf_page": 36
+  },
+  {
+   "text": "Evaluation history: SCOS-2000 version 0.2 was evaluated on 3-5 November 1999 by the RTA CWG; PACS captured extra requirements in a Delta URD (04/04/00), not yet consolidated.",
+   "pdf_page": 39
+  },
+  {
+   "text": "Project position: EGSEs are provided by industry (ESA/IPC(89)126); selecting SCOS-2000 as instrument EGSE kernel is entirely a PI decision, and the project provides no technical support, hardware, software or funding.",
+   "pdf_page": 41
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "SCOS-2000 Delta URD (PIs)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 2
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "CCSDS telemetry packets and command packet data stream (TM/TC front end)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 20
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "CCSDS COP1 protocol",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 32
+  },
+  {
+   "label": null,
+   "doc_id": "PT - 07671",
+   "title": "SCOS - 2000 EVALUATION (P. Estaria)",
+   "issue": null,
+   "date": "18-19 April 2000",
+   "kind": "mentioned",
+   "pdf_page": 38
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "Delta URD (PACS, \"consolidated\" 04/04/00)",
+   "issue": null,
+   "date": "04/04/00",
+   "kind": "mentioned",
+   "pdf_page": 39
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "Draft SCOS-2000 S/W licence agreement proposal",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 40
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "SCOS-2000 Service and Support proposal",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 40
+  },
+  {
+   "label": null,
+   "doc_id": "ESA/IPC(89)126",
+   "title": "ESA (D/SCI) policy: EGSEs provided by industry as part of the spacecraft procurement contract",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 41
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "AIV specifications (part of the ITT)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 42
+  }
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "scos2000/index.md",
+  "scos2000/herschel-planck-ground.md",
+  "missions/herschel-planck.md",
+  "scos2000/nctrs-nis.md",
+  "missions/other-missions.md"
+ ],
+ "notes": "Duplicate. The text extraction is identical to tos-gc-first-planck-presentation-2000: both are 46-page Acrobat Distiller 3.01 files with the metadata title 'Microsoft PowerPoint - TOS-GC_FIRST_Presentation+PIs_20000418', created 8 May 2000, and they differ only in modification time and file size. The PDF is a compilation. PDF pp. 1-37 are the TOS-GC slides, pp. 38-44 repeat spire-000397-07671 (P. Estaria, PT - 07671), and pp. 45-46 repeat spire-sw-licence-application. Slide titles and the 'FIRST/Planck' headers use a font whose text layer is shifted by 29 code points (e.g. '$JHQGD' = 'Agenda', '726*&' = 'TOS-GC'); the titles have been decoded for this entry. Tick marks in the PROBA status table extract as '9'. Diagrams survive only as scattered labels. The text extraction has a trailing empty page 47."
+}

@@ -1,0 +1,67 @@
+{
+  "table": "grpa",
+  "file": "grpa.dat",
+  "icd": true,
+  "name": "Parameters groups",
+  "icd_section": "3.3.2.6.2",
+  "pdf_page": 109,
+  "family": "monitoring",
+  "purpose": "grpa lists the members of parameter groups, one record per monitoring parameter included in a group. A parameter may belong to any number of groups, and a group contains many parameters. The section 3.3.2 overview even mentions the same parameter appearing several times, although the key GRPA_GNAME + GRPA_PANAME allows a given parameter only once per group. The group itself must be declared in grp with GRP_GTYPE = 'PA'. Only parameters processed by the telemetry model library may be members, i.e. TM parameters that have a plf entry or synthetic parameters of any kind. Enabling or inhibiting the group then enables or inhibits each member parameter in turn. An inhibited parameter is not calibrated or limit checked and its updates are not distributed (ICD 7.0 Annex 1, p. 246-247). There is no specific user interface for group enable/inhibit, and parameters in several groups receive no special handling.",
+  "keys": [
+    "GRPA_GNAME",
+    "GRPA_PANAME"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "GRPA_GNAME",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the monitoring group to which the parameter belongs; must match GRP_NAME of a group with GRP_GTYPE = 'PA'.",
+      "values": [],
+      "references": "grp.GRP_NAME",
+      "pdf_page": 109
+    },
+    {
+      "pos": 2,
+      "name": "GRPA_PANAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter belonging to the group; must match PCF_NAME. Only parameters processed by the telemetry model library (TM parameters in plf, or synthetic parameters of any type) may be used.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 109
+    }
+  ],
+  "relationships": [
+    {
+      "field": "GRPA_GNAME",
+      "target": "grp.GRP_NAME",
+      "note": "Group must have GRP_GTYPE = 'PA'."
+    },
+    {
+      "field": "GRPA_PANAME",
+      "target": "pcf.PCF_NAME",
+      "note": "Many-to-many link between parameters and parameter groups (section 3.3.2, p. 39)."
+    }
+  ],
+  "history": "Not present in ICD 5.1; introduced in ICD 6.0 together with grp and grpk (ICD 7.0 Annex 1, p. 247). ICD 6.7 Draft A (p. 102), 6.9 (p. 106) and 7.0 (p. 109) give the same two mandatory key fields. Not modelled by pyscos2000, so no ICD 7.2 comparison is available.",
+  "solo_stats": {
+    "rows": 0,
+    "fields": [
+      {
+        "name": "GRPA_GNAME",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "GRPA_PANAME",
+        "filled": 0,
+        "examples": []
+      }
+    ]
+  },
+  "notes": "grpa is not in the pyscos2000 schema; because the Solar Orbiter grpa.dat files (2025-09-16 and 2020-04-16 releases, and the SWA database) are empty, the SQLite table has a single placeholder column COL1 and no rows, so the field mapping cannot be checked against data. The overview's 'possibly many times the same parameter' (p. 39) conflicts with the two-field key, which allows a parameter only once per group; the intended meaning is probably that one parameter can appear in many groups (inference)."
+}

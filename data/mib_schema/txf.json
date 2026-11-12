@@ -1,0 +1,132 @@
+{
+  "table": "txf",
+  "file": "txf.dat",
+  "icd": true,
+  "name": "Textual calibrations",
+  "icd_section": "3.3.2.2.4",
+  "pdf_page": 69,
+  "family": "monitoring",
+  "purpose": "txf declares the textual calibrations, also called alias sets, which turn the raw value of a status parameter into a text string such as 'ON' or 'OFF'. It has one record per textual calibration. The individual raw-range to text mappings are stored in txp. Parameters use a textual calibration by naming it in PCF_CURTX (single calibration) or CUR_SELECT (conditional calibration), and must then have PCF_CATEG = 'S'. The txf record gives a description, the numeric format of the raw values listed in txp (which must be compatible with the type of the parameters using the calibration) and the number of txp entries. Status parameters are typically checked with status checks in ocp, whose expected values are then written as the calibrated strings when OCF_INTER = 'C' and OCF_CODIN = 'A'. A raw value with no matching text gives an invalid engineering value shown as '****' (PCF_INTER description, p. 50).",
+  "keys": [
+    "TXF_NUMBR"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "TXF_NUMBR",
+      "type": "Char(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Alphanumeric identifier that uniquely names the textual calibration; it is the value used in PCF_CURTX, CUR_SELECT and TXP_NUMBR.",
+      "values": [],
+      "references": null,
+      "pdf_page": 69
+    },
+    {
+      "pos": 2,
+      "name": "TXF_DESCR",
+      "type": "Char(32)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Free textual description of the textual calibration.",
+      "values": [],
+      "references": null,
+      "pdf_page": 69
+    },
+    {
+      "pos": 3,
+      "name": "TXF_RAWFMT",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Format of the raw values (TXP_FROM, TXP_TO) given in the txp records of this calibration. It must be compatible with the type of the parameters that use the calibration.",
+      "values": [
+        {
+          "value": "I",
+          "meaning": "Signed integer"
+        },
+        {
+          "value": "U",
+          "meaning": "Unsigned integer"
+        },
+        {
+          "value": "R",
+          "meaning": "Real"
+        }
+      ],
+      "references": null,
+      "pdf_page": 69
+    },
+    {
+      "pos": 4,
+      "name": "TXF_NALIAS",
+      "type": "Number(3)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Number of records defined in txp for this textual calibration. Grey row in the ICD: informative, not used by SCOS-2000 processing.",
+      "values": [],
+      "references": null,
+      "pdf_page": 69
+    }
+  ],
+  "relationships": [
+    {
+      "field": "TXF_NUMBR",
+      "target": "txp.TXP_NUMBR",
+      "note": "Each alias set contains one or more text points (section 3.3.2, p. 39; the overview text calls the point table 'PAS', which is the commanding-side equivalent, while the monitoring points are in txp)."
+    },
+    {
+      "field": "TXF_NUMBR",
+      "target": "pcf.PCF_CURTX, cur.CUR_SELECT",
+      "note": "Used only by status parameters (PCF_CATEG = 'S'); shareable among parameters."
+    }
+  ],
+  "history": "ICD 5.1 (p. 33-34) has the same four fields but TXF_NUMBR is Number(4) ('identification number'). It became Char(10) in ICD 6.0 (ICD 7.0 Annex 1, p. 247; field-type change also listed for 6.2/6.3, p. 253). Unchanged in ICD 6.7 Draft A (p. 64-65), 6.9 (p. 67-68) and 7.0 (p. 69). pyscos2000 (ICD 7.2) matches.",
+  "solo_stats": {
+    "rows": 1003,
+    "fields": [
+      {
+        "name": "TXF_NUMBR",
+        "filled": 1003,
+        "examples": [
+          "AYMODELE",
+          "CAAT0001TM",
+          "CAAT0003TM",
+          "CAAT0005TM",
+          "CAAT0007TM"
+        ]
+      },
+      {
+        "name": "TXF_DESCR",
+        "filled": 1003,
+        "examples": [
+          "Memory ID",
+          "Failure ID",
+          "Mode ID",
+          "Odd parity in TMs",
+          "APME Mode"
+        ]
+      },
+      {
+        "name": "TXF_RAWFMT",
+        "filled": 1003,
+        "examples": [
+          "U",
+          "I"
+        ]
+      },
+      {
+        "name": "TXF_NALIAS",
+        "filled": 1003,
+        "examples": [
+          "2",
+          "4",
+          "3",
+          "5",
+          "6"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. The ICD's monitoring overview (p. 39) says each textual calibration contains points in 'PAS', but the monitoring alias points are defined in txp (pas is the command-side table); this looks like an editorial slip in the ICD. Solar Orbiter 2025-09-16: 1,003 textual calibrations, raw format U (994) or I (9). TXF_NALIAS is declared Number(3) (at most 999) but four Solar Orbiter calibrations exceed that: PARAMIDTM 'Parameter ID' (19,803 entries, mapping on-board parameter IDs to ground parameter names, used by parameter-ID fields such as NCD0C095), CCDT0004TX 'Event ID list' (1,419), CDMTX000TM (1,192) and CCDT0384TM (1,173). TXF_NALIAS disagrees with the actual txp count for 2 calibrations (CYCT0002TM declares 2 but has 3 points; CYNT0002TM declares 2 but has 1); since the field is not used by SCOS-2000 this is harmless."
+}

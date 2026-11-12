@@ -1,0 +1,247 @@
+{
+  "table": "caf",
+  "file": "caf.dat",
+  "icd": true,
+  "name": "Numerical calibrations",
+  "icd_section": "3.3.2.2.2",
+  "pdf_page": 65,
+  "family": "monitoring",
+  "purpose": "caf defines numerical calibration curves, i.e. piecewise-linear point-pair calibrations that convert a parameter's raw value into an engineering value. It holds one record per curve; the raw/engineering point pairs themselves are in cap. A curve can be shared by any number of monitoring parameters, which reference it through PCF_CURTX (single calibration) or CUR_SELECT (conditional calibration). The record declares the numeric formats of the engineering and raw values stored in cap, the radix used to write unsigned raw values, an optional unit for consistency checks against PCF_UNIT, the number of points and the extrapolation behaviour. SCOS-2000 attaches the extrapolation behaviour to the curve (CAF_INTER), not to the parameter, so every parameter using a curve extrapolates in the same way; a copy of the curve with a different flag is needed if two parameters need different behaviour. Calibration applies only to parameters whose raw representation is numerical (no strings or times), including user defined constants and synthetic parameters, whose computed value is treated as raw (section 3.3.2.2, p. 62).",
+  "keys": [
+    "CAF_NUMBR"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "CAF_NUMBR",
+      "type": "Char(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Alphanumeric identifier that uniquely names the numerical calibration definition (calibration curve). It is the value used in PCF_CURTX, CUR_SELECT and CAP_NUMBR. Per the mcf and lgf remarks (p. 70-72), it must not coincide with any MCF_IDENT or LGF_IDENT, since all non-textual calibrations share one name space.",
+      "values": [],
+      "references": null,
+      "pdf_page": 65
+    },
+    {
+      "pos": 2,
+      "name": "CAF_DESCR",
+      "type": "Char(32)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Free textual description of the calibration curve.",
+      "values": [],
+      "references": null,
+      "pdf_page": 66
+    },
+    {
+      "pos": 3,
+      "name": "CAF_ENGFMT",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Format of the engineering values (CAP_YVALS) given in the cap records of this curve.",
+      "values": [
+        {
+          "value": "I",
+          "meaning": "Signed integer"
+        },
+        {
+          "value": "U",
+          "meaning": "Unsigned integer"
+        },
+        {
+          "value": "R",
+          "meaning": "Real"
+        }
+      ],
+      "references": null,
+      "pdf_page": 66
+    },
+    {
+      "pos": 4,
+      "name": "CAF_RAWFMT",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Format of the raw values (CAP_XVALS) given in the cap records of this curve. It must be compatible with the type of the parameters that use the curve.",
+      "values": [
+        {
+          "value": "I",
+          "meaning": "Signed integer"
+        },
+        {
+          "value": "U",
+          "meaning": "Unsigned integer"
+        },
+        {
+          "value": "R",
+          "meaning": "Real"
+        }
+      ],
+      "references": null,
+      "pdf_page": 66
+    },
+    {
+      "pos": 5,
+      "name": "CAF_RADIX",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Radix in which the raw values of the cap records are written. Only applicable to unsigned integer raw values (CAF_RAWFMT = 'U'); engineering values are always decimal.",
+      "values": [
+        {
+          "value": "D",
+          "meaning": "Decimal"
+        },
+        {
+          "value": "H",
+          "meaning": "Hexadecimal"
+        },
+        {
+          "value": "O",
+          "meaning": "Octal"
+        }
+      ],
+      "references": null,
+      "pdf_page": 66
+    },
+    {
+      "pos": 6,
+      "name": "CAF_UNIT",
+      "type": "Char(4)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Engineering unit mnemonic of the curve, available for consistency checking against the unit (PCF_UNIT) of the parameters that use it. The row is shaded grey in the ICD (not used by SCOS-2000 processing).",
+      "values": [],
+      "references": null,
+      "pdf_page": 67
+    },
+    {
+      "pos": 7,
+      "name": "CAF_NCURVE",
+      "type": "Number(3)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Number of calibration points defined in cap for this curve. Grey row in the ICD: informative, not used by SCOS-2000 processing.",
+      "values": [],
+      "references": null,
+      "pdf_page": 67
+    },
+    {
+      "pos": 8,
+      "name": "CAF_INTER",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "F",
+      "description": "Extrapolation behaviour for raw values that fall outside the range covered by the calibration points (CAP_XVALS). This is the flag SCOS-2000 actually uses (PCF_INTER is ignored), so all parameters that share the curve behave the same; if different behaviours are required, a copy of the curve with another flag has to be defined.",
+      "values": [
+        {
+          "value": "P",
+          "meaning": "Compute a valid engineering value by linear extrapolation from the first two (below range) or last two (above range) points"
+        },
+        {
+          "value": "F",
+          "meaning": "Return an invalid engineering value for raw values outside the curve"
+        }
+      ],
+      "references": null,
+      "pdf_page": 67
+    }
+  ],
+  "relationships": [
+    {
+      "field": "CAF_NUMBR",
+      "target": "cap.CAP_NUMBR",
+      "note": "One curve has one or more points in cap (section 3.3.2, p. 39)."
+    },
+    {
+      "field": "CAF_NUMBR",
+      "target": "pcf.PCF_CURTX, cur.CUR_SELECT",
+      "note": "Many parameters may share one curve (many-to-one from pcf)."
+    },
+    {
+      "field": "CAF_UNIT",
+      "target": "pcf.PCF_UNIT",
+      "note": "Consistency check only."
+    }
+  ],
+  "history": "ICD 5.1 ('Numerical calibration curves: caf', p. 32) has seven fields with CAF_NUMBR as Number(4). ICD 6.0 changed calibration identifiers from Number(4) to Char(10) (ICD 7.0 Annex 1, p. 247; also listed under 6.2/6.3, p. 253). CAF_INTER existed in SCOS-2000 since R4 but was first documented in ICD 6.7 (S2K-SPR-4911, p. 259); ICD 6.7 Draft A (p. 63) and 6.9 (p. 66) describe it as an interpolation/extrapolation switch ('P' interpolate/extrapolate, 'F' disabled) with default F. ICD 7.0 rewrote the description to make clear that the curve's flag, not PCF_INTER, governs extrapolation (S2K-8325, p. 261). pyscos2000 (ICD 7.2) has the same eight fields, key and defaults (CAF_INTER default 'F').",
+  "solo_stats": {
+    "rows": 679,
+    "fields": [
+      {
+        "name": "CAF_NUMBR",
+        "filled": 679,
+        "examples": [
+          "CAHP0000TM",
+          "CAHP0001TM",
+          "CAHP0002TM",
+          "CAHP0003TM",
+          "CAHP0004TM"
+        ]
+      },
+      {
+        "name": "CAF_DESCR",
+        "filled": 679,
+        "examples": [
+          "AGC constant TM",
+          "APR1_APR1_IIN_TF",
+          "APR1_APR1_IOUT_TF",
+          "APR1_APR2_IIN_TF",
+          "APR1_APR2_IOUT_TF"
+        ]
+      },
+      {
+        "name": "CAF_ENGFMT",
+        "filled": 679,
+        "examples": [
+          "R"
+        ]
+      },
+      {
+        "name": "CAF_RAWFMT",
+        "filled": 679,
+        "examples": [
+          "U",
+          "I",
+          "R"
+        ]
+      },
+      {
+        "name": "CAF_RADIX",
+        "filled": 612,
+        "examples": [
+          "D"
+        ]
+      },
+      {
+        "name": "CAF_UNIT",
+        "filled": 654,
+        "examples": [
+          "A",
+          "V",
+          "degC",
+          "mA",
+          "dBm"
+        ]
+      },
+      {
+        "name": "CAF_NCURVE",
+        "filled": 679,
+        "examples": [
+          "2",
+          "7",
+          "3",
+          "4",
+          "11"
+        ]
+      },
+      {
+        "name": "CAF_INTER",
+        "filled": 0,
+        "examples": []
+      }
+    ]
+  },
+  "notes": "No structural discrepancy between ICD 7.0 and pyscos2000. Solar Orbiter 2025-09-16: 679 curves, all with real engineering format (CAF_ENGFMT 'R'); raw formats U (612, all with radix 'D'), I (66) and R (1). CAF_INTER is empty in every record, so the import default 'F' (no extrapolation) applies to all curves. CAF_NCURVE matches the actual number of cap points for all 679 curves (2 to 1,024 points). No CAF_NUMBR collides with an MCF_IDENT. 76 curves are referenced neither by PCF_CURTX nor by CUR_SELECT. Where both units are given, CAF_UNIT always equals the PCF_UNIT of the parameters that reference the curve through PCF_CURTX. Identifiers follow a 10-character pattern such as CAHP0000TM (the naming convention itself is not documented in the ICD)."
+}

@@ -1,0 +1,150 @@
+{
+  "table": "cur",
+  "file": "cur.dat",
+  "icd": true,
+  "name": "Calibration conditional selection",
+  "icd_section": "3.3.2.2.1",
+  "pdf_page": 63,
+  "family": "monitoring",
+  "purpose": "cur associates monitoring parameters with several calibration definitions and says which one applies at any moment. It holds one record per parameter/calibration pair. For each parameter the records are evaluated in increasing CUR_POS order and the first one whose applicability expression CUR_RLCHK = CUR_VALPAR is true selects the calibration (CUR_SELECT) to use; all later entries for that parameter are ignored. This conditional or multiple calibration lets one telemetry parameter be calibrated according to the value of another telemetry parameter (ICD 7.0 Annex 1, p. 246). A parameter listed here must leave PCF_CURTX empty. ICD 7.0 lists three limitations. Static pre-transmission validation (PTV) checks may not use the engineering value (PTV_INTER = 'E') of parameters with multiple calibrations. The Variable Packets Display cannot show calibrated values of conditionally calibrated parameters and shows raw values instead. The same applies to the Packet History display. All calibrations attached to one parameter must produce engineering values of the same format.",
+  "keys": [
+    "CUR_PNAME",
+    "CUR_POS"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "CUR_PNAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter to be calibrated; must match the PCF_NAME of an existing monitoring parameter (whose PCF_CURTX must then be left null).",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 64
+    },
+    {
+      "pos": 2,
+      "name": "CUR_POS",
+      "type": "Number(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Evaluation order of the applicability criteria of the calibrations attached to the parameter, starting with the lowest value. Only the first calibration whose criterion CUR_RLCHK = CUR_VALPAR is true is activated; the other entries of the same parameter are ignored.",
+      "values": [],
+      "references": null,
+      "pdf_page": 64
+    },
+    {
+      "pos": 3,
+      "name": "CUR_RLCHK",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter whose value decides whether this calibration applies; CUR_VALPAR gives the value it is compared with. Only parameters with a signed or unsigned integer raw representation that are processed by the telemetry model library (TM parameters with a plf entry, or synthetic parameters of any kind) may be used.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 64
+    },
+    {
+      "pos": 4,
+      "name": "CUR_VALPAR",
+      "type": "Number(5)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Raw value of the applicability parameter CUR_RLCHK for which this calibration applies; the applicability expression is CUR_RLCHK = CUR_VALPAR.",
+      "values": [],
+      "references": null,
+      "pdf_page": 64
+    },
+    {
+      "pos": 5,
+      "name": "CUR_SELECT",
+      "type": "Char(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Identifier of the calibration to apply when the applicability expression is true. It must match TXF_NUMBR if CUR_PNAME is a status parameter (PCF_CATEG = 'S'), or CAF_NUMBR, MCF_IDENT or LGF_IDENT if it is numerical (PCF_CATEG = 'N'). All calibrations attached to the same parameter must give the same engineering format: ASCII for textual calibrations; real for polynomial, logarithmic and numerical curves with CAF_ENGFMT = 'R'; signed integer for numerical curves with CAF_ENGFMT = 'I'; unsigned integer for CAF_ENGFMT = 'U'. The description continues on PDF p. 65.",
+      "values": [],
+      "references": "txf.TXF_NUMBR | caf.CAF_NUMBR | mcf.MCF_IDENT | lgf.LGF_IDENT",
+      "pdf_page": 64
+    }
+  ],
+  "relationships": [
+    {
+      "field": "CUR_PNAME",
+      "target": "pcf.PCF_NAME",
+      "note": "Parameter being calibrated; many-to-many link between parameters and calibrations (section 3.3.2, p. 38-39)."
+    },
+    {
+      "field": "CUR_RLCHK",
+      "target": "pcf.PCF_NAME",
+      "note": "Applicability (selector) parameter; one parameter can drive many criteria."
+    },
+    {
+      "field": "CUR_SELECT",
+      "target": "caf.CAF_NUMBR / mcf.MCF_IDENT / lgf.LGF_IDENT / txf.TXF_NUMBR",
+      "note": "Calibration selected; the target table depends on PCF_CATEG of CUR_PNAME."
+    }
+  ],
+  "history": "Not present in ICD 5.1 (2001), which allowed only one calibration per parameter through PCF_CURTX. Conditional calibration ('Curve Selection') was introduced in ICD 6.0 with the repatriation of Herschel/Planck CCS functions (ICD 7.0 Annex 1, p. 246). The five-field layout is unchanged in ICD 6.7 Draft A (p. 58-60), 6.9 (p. 62-63) and 7.0 (p. 63-65). ICD 6.4 restricted CUR_RLCHK to parameters processed by the TM model (p. 254). ICD 6.9 lists only the PTV and Variable Packets Display limitations (icd-6-9 p. 62); ICD 7.0 adds the Packet History display limitation and speaks of 'conditional' calibration (S2K-8681, p. 263). pyscos2000 (ICD 7.2) has the same five fields, keys and optionality.",
+  "solo_stats": {
+    "rows": 1974,
+    "fields": [
+      {
+        "name": "CUR_PNAME",
+        "filled": 1974,
+        "examples": [
+          "NDS00010",
+          "NDS01010",
+          "NDS3Z002",
+          "NDS3Z01X",
+          "NCF7Z021"
+        ]
+      },
+      {
+        "name": "CUR_POS",
+        "filled": 1974,
+        "examples": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      {
+        "name": "CUR_RLCHK",
+        "filled": 1974,
+        "examples": [
+          "NPWZ0000",
+          "NDSZ0001",
+          "NDSZ0002",
+          "NIMD6605",
+          "NIMD6609"
+        ]
+      },
+      {
+        "name": "CUR_VALPAR",
+        "filled": 1974,
+        "examples": [
+          "10",
+          "11",
+          "1",
+          "0",
+          "2"
+        ]
+      },
+      {
+        "name": "CUR_SELECT",
+        "filled": 1974,
+        "examples": [
+          "CPWP0041TM",
+          "CPWP5041TM",
+          "CPWP0042TM",
+          "CPWP5042TM",
+          "CPWP0036TM"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. Solar Orbiter 2025-09-16: 1,974 records for 907 parameters (902 numerical, 5 status), driven by 52 different selector parameters and pointing to 382 distinct calibrations (1,944 entries resolve to caf, 30 to txf, none to mcf or lgf). Every parameter has CUR_POS 1 and 2; up to 12 positions are used (e.g. NDS00010 has 12 entries selected by NDSS0783 to NDSS0794). All CUR_PNAME, CUR_RLCHK and CUR_SELECT values resolve, and no parameter in cur also has PCF_CURTX. The most used selector is NPWZ0000 ('PCDU_MODEL', 1,718 entries), a dynamic user defined constant in the 'Dynamic UDCs' packet (SPID 66830); together with NDSZ0001/NDSZ0002 this suggests (inference) that Solar Orbiter uses cur mainly to switch between unit-specific calibration models."
+}

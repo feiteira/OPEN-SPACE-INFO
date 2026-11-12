@@ -1,0 +1,401 @@
+{
+ "slug": "tn-1030-time-correlation",
+ "title": "SCOS-2000 Time Correlation Technical Note",
+ "short_title": "SCOS-2000 Time Correlation Technical Note",
+ "doc_id": "EGOS-MCS-S2K-TN-1030",
+ "issue": "Version 1.0",
+ "date": "2018-10-31",
+ "organisation": "European Space Agency, ESOC (ESA/OPS-GDI); prepared by the SCOS-2000 GIMUS Team",
+ "authors": [
+  "SCOS-2000 GIMUS Team"
+ ],
+ "doc_type": "Technical Note",
+ "status_notes": "Version 1.0, cover date 2018-10-31 (PDF p. 1). The change log entry dated 10/08/2018 reads 'Creation of the document for S2K-7699' (PDF p. 2), and DCR 1.0 dated 12/17/2018 records editorial changes only (PDF p. 3).",
+ "summary": "Version 1.0 (cover date 31 October 2018) of the ESA/ESOC technical note, prepared by the SCOS-2000 GIMUS team, that explains [time correlation](../scos2000/time-correlation.md) (TCO) in SCOS-2000. Time correlation relates the on-board time (OBT) of a spacecraft clock to ground UTC. The Packetiser needs it to time-stamp packets and the Releaser to encode time-tagged telecommands.\n\nThe mechanism works as follows. The spacecraft latches its clock when it transmits a frame whose counter is a multiple of N (a power of 2 up to 256) and reports the value in a later time packet. SCOS-2000 takes the earth reception time (ERT) of that frame and subtracts the ground, propagation and on-board radiation delays to get the frame transmission time. Adding the latching delay gives the OBT latching time, and the result is an OBT/UTC time couple. The couple is accepted only if the time packet arrives within a plausibility window. Coefficients come from a least-squares fit for a free-running clock, or from a single-couple difference (gradient 1) for a clock synchronised to e.g. GPS, and are expressed relative to the last couple used. The deviation of each new couple classifies the coefficients as accurate, valid or invalid and drives automatic recalculation and reset. A separate check confirms synchronisation against the expected TAI/UTC offset.\n\nThe note gives the byte layouts of the ground-generated Time Couple and Time Correlation (coefficient) packets, the SPIDs used for testing, and definitions of every time and delay involved (FTT, OLT, frame radiation and reception times, OWLT, ground delay). It then describes the TCO engine in the packetiser, the client library with its CUC and CDS [time formats](../ccsds/time-codes.md), and the CORBA TCO server with its MISC configuration variables. See also [downlink](../overview/downlink.md).",
+ "contents": [
+  {
+   "section": null,
+   "title": "Document Change Log",
+   "pdf_page": 2
+  },
+  {
+   "section": "1",
+   "title": "Abstract",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.1",
+   "title": "Table Of Contents",
+   "pdf_page": 5
+  },
+  {
+   "section": "1.2",
+   "title": "List Of Figures",
+   "pdf_page": 7
+  },
+  {
+   "section": "1.3",
+   "title": "List Of Tables",
+   "pdf_page": 8
+  },
+  {
+   "section": "2",
+   "title": "Introduction",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.1",
+   "title": "Purpose",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.2",
+   "title": "Scope",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.3",
+   "title": "Acronyms and Abbreviations",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.4",
+   "title": "References",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.4.1",
+   "title": "Applicable Documents",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.5",
+   "title": "Reference Documents",
+   "pdf_page": 9
+  },
+  {
+   "section": "3",
+   "title": "Overview",
+   "pdf_page": 10
+  },
+  {
+   "section": "3.1",
+   "title": "General Context",
+   "pdf_page": 10
+  },
+  {
+   "section": "3.2",
+   "title": "General Structure",
+   "pdf_page": 11
+  },
+  {
+   "section": "4",
+   "title": "Time Correlation Mechanisms",
+   "pdf_page": 13
+  },
+  {
+   "section": "4.1",
+   "title": "Algorithm",
+   "pdf_page": 16
+  },
+  {
+   "section": "5",
+   "title": "Time Correlation Packetizer",
+   "pdf_page": 17
+  },
+  {
+   "section": "5.1",
+   "title": "Time Correlation Access Classes",
+   "pdf_page": 17
+  },
+  {
+   "section": "5.2",
+   "title": "Time Correlation Packets",
+   "pdf_page": 20
+  },
+  {
+   "section": "5.2.1",
+   "title": "Time Couple Packet",
+   "pdf_page": 21
+  },
+  {
+   "section": "5.2.2",
+   "title": "Time Correlation Packet",
+   "pdf_page": 23
+  },
+  {
+   "section": "6",
+   "title": "Time Correlation System & Architectural Design",
+   "pdf_page": 26
+  },
+  {
+   "section": "6.1",
+   "title": "Times And Delays Used in Time Correlation",
+   "pdf_page": 26
+  },
+  {
+   "section": "6.2",
+   "title": "Methods of Time Correlation",
+   "pdf_page": 27
+  },
+  {
+   "section": "6.3",
+   "title": "TCO Engine",
+   "pdf_page": 29
+  },
+  {
+   "section": "6.3.1",
+   "title": "System Design",
+   "pdf_page": 30
+  },
+  {
+   "section": "6.3.2",
+   "title": "Component Description",
+   "pdf_page": 31
+  },
+  {
+   "section": "6.4",
+   "title": "Time Correlation Client (Library)",
+   "pdf_page": 35
+  },
+  {
+   "section": "6.4.1",
+   "title": "System Design",
+   "pdf_page": 35
+  },
+  {
+   "section": "6.4.2",
+   "title": "Component Description",
+   "pdf_page": 37
+  },
+  {
+   "section": "6.4.2.5",
+   "title": "TCOtimeFormatCUC",
+   "pdf_page": 38
+  },
+  {
+   "section": "6.4.2.6",
+   "title": "TCOtimeFormatCDS",
+   "pdf_page": 38
+  },
+  {
+   "section": "6.5",
+   "title": "Time Correlation Server",
+   "pdf_page": 39
+  },
+  {
+   "section": "6.5.1",
+   "title": "System Design",
+   "pdf_page": 39
+  },
+  {
+   "section": "6.5.2",
+   "title": "Component Description",
+   "pdf_page": 39
+  },
+  {
+   "section": "6.5.2.1",
+   "title": "TCOserverInterface",
+   "pdf_page": 40
+  },
+  {
+   "section": "6.5.2.2",
+   "title": "TCOserverImpl",
+   "pdf_page": 40
+  },
+  {
+   "section": "6.5.2.3",
+   "title": "TCOtmPktIF",
+   "pdf_page": 43
+  },
+  {
+   "section": "6.5.2.4",
+   "title": "TCOcalculation",
+   "pdf_page": 43
+  },
+  {
+   "section": "6.5.2.5",
+   "title": "TCODifferenceCalculation & TCOleastSquaresCalculation",
+   "pdf_page": 43
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Time correlation relates the OBT of an event to its time as seen by SCOS-2000; it is mainly needed by the Packetiser for time-stamping packets and by the Releaser for encoding time-tagged commands.",
+   "pdf_page": 10
+  },
+  {
+   "text": "The TCO server stores the gradient and offset (a1, a0) of a linear OBT-to-UTC function in Coefficient Packets; a1 = 1 for a synchronised (e.g. GPS) clock, otherwise a least-squares fit over a set of time couples is used.",
+   "pdf_page": 10
+  },
+  {
+   "text": "Correlation status from the deviation and two configurable limits (accuracy <= validity): ACCURATE and VALID, INACCURATE and VALID, or INACCURATE and INVALID.",
+   "pdf_page": 11
+  },
+  {
+   "text": "Testing without real TCO data: packets are injected through the TM-TC Test Tool; the packet chain is Time Report (SPID 1000005), Time Couple (SPID 1000098) and Time Coefficients (SPID 1000099).",
+   "pdf_page": 11
+  },
+  {
+   "text": "On-board sampling is triggered by transmission of a frame whose frame counter is a multiple of N, N a power of 2 between 1 and 256; the latched OBT is downlinked in a later frame's time packet.",
+   "pdf_page": 13
+  },
+  {
+   "text": "FTT = ERT - ground delay - propagation delay - on-board processing delay; the OBT latching time is FTT + on-board latching delay, and with the reported OBT it forms a time couple.",
+   "pdf_page": 13
+  },
+  {
+   "text": "A time packet creates a time couple only if it arrives within a configured interval after the triggering frame (plausibility check); otherwise it is ignored.",
+   "pdf_page": 14
+  },
+  {
+   "text": "In automatic mode coefficients are recalculated whenever the deviation exceeds half the accuracy limit; invalid couples are first discarded as rogues, and after a configurable number a new correlation is started.",
+   "pdf_page": 15
+  },
+  {
+   "text": "Algorithms: 'free running clock' (least squares, UTC(OBT) = UTC_N + Gradient * (OBT - OBT_N) + Offset) and 'synchronised on board clock' (difference of the last time couple); the conversion is relative to the last couple used, for higher time resolution.",
+   "pdf_page": 16
+  },
+  {
+   "text": "The Packetiser supports three time-stamping options: archive filing time, frame transmission time (ERT minus delays), or on-board generation time from the OBT in the packet data field.",
+   "pdf_page": 17
+  },
+  {
+   "text": "Time Couple Packet: OBT (64 bits, TDSsunTime), OLT, FTT and ERT (96 bits each: seconds, microseconds, picoseconds), light time delay, on-board frame radiation delay, OBT latching delay and ground station delay (doubles), ground station ID (32 bits) and deviation.",
+   "pdf_page": 21
+  },
+  {
+   "text": "Time Correlation Packet: version (1), algorithm (1 = DIFFERENCE, 2 = LEAST SQUARE), synchronisation-check flag, validity, accuracy and synchronisation status bytes, spare, then gradient, offset (now obsolete), OBT_N, UTC_N and display offset as IEEE 64-bit doubles.",
+   "pdf_page": 23
+  },
+  {
+   "text": "Frame Radiation and Frame Reception Time are defined at the leading edge of the first bit of the Attached Sync Marker; for SLE service providers ERT equals the Frame Reception Time and the ground delay is 0.",
+   "pdf_page": 26
+  },
+  {
+   "text": "Example frame rule: real-time VC0 data with VCFC % 32 = 0.",
+   "pdf_page": 31
+  },
+  {
+   "text": "Plausibility check: FTTreport - FarLimit <= FTTobt <= FTTreport - CloseLimit, with MISC variables TCO_FAR_FTT_PLAUSIBILITY_LIMIT and TCO_CLOSE_FTT_PLAUSIBILITY_LIMIT.",
+   "pdf_page": 32
+  },
+  {
+   "text": "Auto-reset: after TCO_AUTORESET_INVALID_DEVIATIONS consecutive deviations beyond the validity interval, the time-couple buffer is emptied and recalculation waits for two new time couples.",
+   "pdf_page": 33
+  },
+  {
+   "text": "Time formats: TCOtimeFormatCUC is parameterised by the PFC from which the CUC variants are derived; TCOtimeFormatCDS handles CDS; missions may subclass TCOtimeFormat for other formats.",
+   "pdf_page": 38
+  },
+  {
+   "text": "The TCO server is a resident process with a CORBA interface and one TCOserverImpl per on-board clock; it produces and stores time-couple and coefficient packets and converts historical times using archived coefficients.",
+   "pdf_page": 39
+  },
+  {
+   "text": "To avoid ambiguity after OBT resets, creating a new coefficient packet deletes archived coefficient packets for OBTs within the validity period of the last generated coefficients.",
+   "pdf_page": 41
+  },
+  {
+   "text": "MISC variables are duplicated per on-board clock using the suffix '_n' for the nth OBT.",
+   "pdf_page": 42
+  },
+  {
+   "text": "Synchronisation check: the expected TAI/UTC difference (TCO_TAI_UTC_DIFFERENCE) minus the current correction must be within the accuracy interval (TCO_ACCURACY_INTERVAL).",
+   "pdf_page": 43
+  }
+ ],
+ "references": [
+  {
+   "label": "AD1",
+   "doc_id": "EGOS-EUD-S2K-SUM-1001",
+   "title": "EUD4S2K Software User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD2",
+   "doc_id": "EGOS-MCS-S2K-ADD-0017",
+   "title": "TM Packetiser and Packet Displays ADD",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "CNF-01",
+   "doc_id": "CIDL-0001",
+   "title": "SCOS-2000 Document Control List",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "CNF-02",
+   "doc_id": "DCL-1001",
+   "title": "EUD4S2K Document control List",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "RD1",
+   "doc_id": "GLO-0001",
+   "title": "SCOS-2000 Glossary, Definitions and Acronyms",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "RD2",
+   "doc_id": "ICD-0001",
+   "title": "SCOS-2000 Database Import Interface Control Document",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "RD3",
+   "doc_id": "SUM-0007",
+   "title": "SCOS-2000 MSG Software User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "GAIA TCO document (source of section 5.2)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 2
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-7699",
+   "title": "SCOS-2000 change request for which the document was created",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 2
+  }
+ ],
+ "topics": [
+  "scos2000/time-correlation.md",
+  "ccsds/time-codes.md",
+  "scos2000/architecture.md",
+  "scos2000/archives.md",
+  "overview/downlink.md",
+  "ccsds/tm-sdlp.md",
+  "mib/parameter-types.md"
+ ],
+ "notes": "The table of contents is numbered one lower than the body headings (TOC '1 Introduction' against body '2 Introduction'), because the Abstract is numbered 1; this entry uses the body numbering. The change log's statement that chapter 4 comes from the EUD4S2K SUM and section 5.2 from a GAIA TCO document probably uses the TOC numbering. Printed page 1 is PDF p. 8 (front matter ii-vii), and the text extraction has a trailing empty page 44. Several cross-references are broken ('Error! Reference source not found.', PDF pp. 10 and 39). Section 6.3.1.1 (TPKTM) has no text. The display-offset formula on PDF p. 25 has a minus sign before 'Gradient' where PDF pp. 16 and 24 use a plus sign. Typos include 'Shema' and 'Plausability'. The dates are written in several ways (2018-10-31, 10/08/2018, 12/17/2018). The file name 'egos-mcs-s2k-tn-1030-version10+TCO' is hosted in the EDDS folder of the Solar Orbiter IRAP document site."
+}

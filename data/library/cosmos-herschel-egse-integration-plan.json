@@ -1,0 +1,138 @@
+{
+ "slug": "cosmos-herschel-egse-integration-plan",
+ "title": "Herschel EGSE integration plan",
+ "short_title": "Herschel EGSE integration plan",
+ "doc_id": "SRON-U/HIFI/PL/2001-1",
+ "issue": "Issue 1 (= draft 4)",
+ "date": "2001-11-06",
+ "organisation": "SRON, for the HIFI instrument (per document number); Herschel EGSE working group",
+ "authors": [
+  "Luc Dubbeldam",
+  "Erich Wiezorrek"
+ ],
+ "doc_type": "Other",
+ "status_notes": "Issue 1 of 6 November 2001, with no changes with respect to Draft 4 of 1 July 2001 (change record, PDF p. 2). The Checked, Agreed and Authorised fields are blank (PDF p. 1).",
+ "summary": "Issue 1 (identical to draft 4) of the plan, dated 6 November 2001 and prepared by Luc Dubbeldam and Erich Wiezorrek, that specifies the activities and responsibilities for integrating the EGSE for Instrument Level Tests (EGSE-ILT) of the three Herschel instruments. It lists the EGSE-ILT building blocks and who delivers each: SCOS-2000 (ESA), the SCOS gateway (ESTeC), the test-equipment interface and the TM-TC router (HIFI), test control (PACS), the CDMS simulator (SPIRE), and OBSM and the MIB editor (ESA). A block diagram shows the instrument, the 1553B CDMS simulator, the router, a test client, the TEI, the EGSE and SCOS gateways, the HCSS, test control, SCOS-2000 and the MIB.\n\nThe plan is a sequence of incremental integration tests, each with a configuration figure, the functions to be demonstrated, test prerequisites and numbered steps: the router (TM packets from a test client to SCOS 2000 and TC packets back, plus throughput), the test-equipment interface, the CDMS simulator (routing, its command interface and a time packet protocol still to be confirmed), test control (retrieving housekeeping values from SCOS 2000, uplinking telecommands, test procedures, command mnemonic sequences and autonomy procedures), and the interface between test control and the HCSS. Every SCOS-based test starts by importing or loading a test MIB that describes the TM and TC packets used; the router test also starts ESA's TTA-2000. On-board software maintenance (OBSM) is left as an open item.\n\nIt is short, but it shows how SCOS-2000 and its MIB sat at the centre of the Herschel instrument EGSE from 2001. The EGSE version of SCOS-2000 later supplied to the instrument teams is described in the EMCS user manual (library item `emcs-sum-4-0`).",
+ "contents": [
+  {
+   "section": null,
+   "title": "Title and signature page",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Document Change Record and Table of contents",
+   "pdf_page": 2
+  },
+  {
+   "section": "1",
+   "title": "INTRODUCTION",
+   "pdf_page": 3
+  },
+  {
+   "section": "2",
+   "title": "DOCUMENT REFERENCES",
+   "pdf_page": 3
+  },
+  {
+   "section": "2.1",
+   "title": "Reference documents",
+   "pdf_page": 3
+  },
+  {
+   "section": "3",
+   "title": "INTEGRATION FLOW",
+   "pdf_page": 3
+  },
+  {
+   "section": "3.1",
+   "title": "Test of the Router",
+   "pdf_page": 5
+  },
+  {
+   "section": "3.2",
+   "title": "Test of Test-equipment interface",
+   "pdf_page": 7
+  },
+  {
+   "section": "3.3",
+   "title": "Test of the CDMS-simulator",
+   "pdf_page": 9
+  },
+  {
+   "section": "3.4",
+   "title": "Test of Test-Control",
+   "pdf_page": 11
+  },
+  {
+   "section": "3.5",
+   "title": "Test-Control and HCSS",
+   "pdf_page": 13
+  },
+  {
+   "section": "4",
+   "title": "OPEN ITEM: OBSM",
+   "pdf_page": 13
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Purpose: specify the activities and responsibilities required for the integration of the EGSE-ILT for the three Herschel instruments.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Deliveries: SCOS-2000 by ESA, SCOS gateway by ESTeC, test-equipment interface and TM-TC router by HIFI, test control by PACS, CDMS-simulator by SPIRE, OBSM and MIB editor by ESA.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Router test: demonstrate routing of TM packets from a test client to SCOS 2000, routing of TC packets from SCOS 2000 to the test client, and throughput; steps include importing the test MIB into SCOS 2000 and starting TTA-2000, the router, the EGSE gateway and the SCOS gateway.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Each test configuration requires a MIB describing the TM and TC packets used.",
+   "pdf_page": 5
+  },
+  {
+   "text": "The TEI is very likely a LabView interface, so a PC running LabView may suffice as test equipment.",
+   "pdf_page": 8
+  },
+  {
+   "text": "CDMS-simulator tests follow RD.1 (section 4.8); handling of the time packet protocol is TBC and how to test it is an open question.",
+   "pdf_page": 9
+  },
+  {
+   "text": "Test-control test: retrieve actual HK parameter values from SCOS 2000, uplink TCs from test control, and exercise test procedures, command mnemonic sequences and autonomy procedures defined in RD.2 sections 3.3.1-3.3.3.",
+   "pdf_page": 11
+  },
+  {
+   "text": "Section 4 (OPEN ITEM: OBSM) has a heading but no content.",
+   "pdf_page": 13
+  }
+ ],
+ "references": [
+  {
+   "label": "RD.1",
+   "doc_id": "SRON-U-HIFI-SP-2000-5",
+   "title": "FIRST-PLANCK CDMS interface test-requirements specifications",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": "RD.2",
+   "doc_id": "FIRST-SPI-DOC-000127",
+   "title": "EGSE-ILT Users Requirements Document",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  }
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "missions/herschel-planck.md",
+  "scos2000/herschel-planck-ground.md"
+ ],
+ "notes": "Printed page numbers equal PDF page indexes (13 pages). The configuration figures repeat the same block diagram with the subsystem under test highlighted; only labels survive in the text layer. The plan is listed in library item cosmos-common-egse-document-overview as SRON-U/HIFI/PL/2001-001 (status D4). RD.1 and RD.2 correspond to rows of that overview printed as SRON-U/HIFI/SP/2000-005 and FIRST-SPI-DOC-0000127. 'ESTeC' and 'SCOS-gatway' are as printed."
+}

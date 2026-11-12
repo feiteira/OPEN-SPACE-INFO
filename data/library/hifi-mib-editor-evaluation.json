@@ -1,0 +1,61 @@
+{
+ "slug": "hifi-mib-editor-evaluation",
+ "title": "MIB editor evaluation report",
+ "short_title": "HIFI evaluation of the SCOS-2000 MIB editor",
+ "doc_id": "SRON-U/HIFI/RP/2001-1.",
+ "issue": "2",
+ "date": "2001-04-12",
+ "organisation": "SRON Utrecht (HIFI instrument team)",
+ "authors": ["L. Dubbeldam"],
+ "doc_type": "Technical Note",
+ "status_notes": "Issue 2, 12 April 2001 (PDF p. 1); the 'Checked by', 'Agreed by' and 'Authorized by' fields are blank. Issue 2 updates issue 1 of the report, with new remarks marked by change bars (PDF p. 3).",
+ "summary": "An evaluation report (issue 2, 12 April 2001) by L. Dubbeldam of the HIFI instrument team on the SCOS-2000 Database Editing Subsystem version 2.0, the MS Access-based MIB editor supplied by ESOC and originally written for INTEGRAL (also called the 'Integral MS Access editor'). It explains that the three FIRST (Herschel) instruments chose SCOS-2000 as the basis of their EGSE throughout integration, so they need a tool to create and maintain the MIB, and it distinguishes the MIB ASCII files, the database application, the editor forms and the data.\n\nThe report walks through the requirements of the HIFI MIB editor requirements specification (RD.3) one by one, records 30 numbered remarks, and includes replies from the editor's author (marked JH). Topics include the missing polynomial calibration (MCF) form and the rule that a numerical PCF_CURTX reference is looked up first in CAF and then in MCF; the automatic VDF version record at export; datasheet and tool-tip support; keys, cascades, validation rules, mandatory fields and default values; the PID primary key (six fields versus the ICD's five); record-count fields that SCOS-2000 does not use; CSF_NFPARS versus the task parameter file ICD; a silent conversion of (PTC,PFC)=(5,2) to (5,3); grouping of data by subsystem; import, append, export and delete tools; user-interface ergonomics; hexadecimal calibration curves; and field-length non-conformances with the import ICD (for example OCP and SPID fields).\n\nThe conclusions find version 2 much improved and a good tool. Annex A proposes report forms for numerical calibrations, command parameters, command definitions, fixed packets and variable packets, filled with example data. The document shows the state of MIB tooling at the start of the Herschel/Planck programme.",
+ "contents": [
+  {"section": "1", "title": "Introduction", "pdf_page": 2},
+  {"section": "2", "title": "Reference documents", "pdf_page": 2},
+  {"section": "3", "title": "Report", "pdf_page": 3},
+  {"section": "3.1", "title": "Review of requirements", "pdf_page": 3},
+  {"section": "3.1.1", "title": "Data content", "pdf_page": 3},
+  {"section": "3.1.2", "title": "User interface", "pdf_page": 4},
+  {"section": "3.1.3", "title": "Data checking", "pdf_page": 5},
+  {"section": "3.1.4", "title": "Groups of data", "pdf_page": 8},
+  {"section": "3.1.5", "title": "Tools", "pdf_page": 8},
+  {"section": "3.2", "title": "Appearance and user interface", "pdf_page": 9},
+  {"section": "3.3", "title": "Miscellaneous observations", "pdf_page": 9},
+  {"section": "3.3.1", "title": "The use of hexadecimal values in numerical calibration curves", "pdf_page": 9},
+  {"section": "3.3.2", "title": "Use of units with engineering calibration", "pdf_page": 10},
+  {"section": "3.3.3", "title": "Non-conformances with RD.2", "pdf_page": 10},
+  {"section": "3.3.4", "title": "Name of the editor", "pdf_page": 10},
+  {"section": "3.3.5", "title": "Report forms", "pdf_page": 10},
+  {"section": "4", "title": "Conclusions", "pdf_page": 11},
+  {"section": "Annex A", "title": "Form suggestions", "pdf_page": 12}
+ ],
+ "key_points": [
+  {"text": "The three FIRST instruments decided to use SCOS-2000 as the basis of their EGSE throughout integration, so a tool to generate and maintain the MIB was required.", "pdf_page": 2},
+  {"text": "The evaluated tool is the ESOC-supplied SCOS-2000 Database Editing Subsystem version 2.0, also called the Integral MS Access editor; its author's replies are included and marked JH.", "pdf_page": 2},
+  {"text": "Per the editor author, when a TM parameter has category 'N' and PCF_CURTX is not null, SCOS-2000 first looks up the reference in CAF and then in MCF; MCF numbers (0 to 9999) must not coincide with CAF numbers.", "pdf_page": 3},
+  {"text": "The VDF table is populated automatically at export time, and the local PC date had to be set to 'DD/MM/YY' for this to work.", "pdf_page": 4},
+  {"text": "The editor keys PID on its first six fields, whereas the import ICD (section 3.3.2.4.1) defines the first five fields as unique provided field #13 contains 'Y'; INTEGRAL needed the six-field key.", "pdf_page": 6},
+  {"text": "The INTEGRAL database is said to have more than 870,000 populated fields, and the editor code behind the forms more than 1300 pages; consistency checking was done by a separate checker application.", "pdf_page": 7},
+  {"text": "The record-count fields of the MIB are said to be unused by SCOS-2000 ('S2K currently does not use any of them'), yet CSF_NFPARS is checked against the number of parameters in a task parameter file per the task parameter file ICD.", "pdf_page": 7},
+  {"text": "An undocumented editor feature converted parameter code (PTC,PFC)=(5,2) into (5,3) on output; it was an INTEGRAL-specific processing to be removed.", "pdf_page": 7},
+  {"text": "Reported non-conformances with the import ICD: OCP_RLCHK limited to six characters instead of 8, OCP low/high values of length 10 instead of 14, and SPID-type fields unable to hold 10-digit numbers.", "pdf_page": 10},
+  {"text": "Conclusion: version 2 is greatly improved over the previous version and the SCOS-2000 database editor is a good tool to work with.", "pdf_page": 11}
+ ],
+ "references": [
+  {"label": "RD.1", "doc_id": "SCI-PT-RS-7360", "title": "FIRST/PLANCK Operations Interface Requirements Document", "issue": "Draft 5", "date": null, "kind": "reference", "pdf_page": 2},
+  {"label": "RD.2", "doc_id": "S2K-MCS-ICD-1-TOS-GCI", "title": "Database Import ICD", "issue": null, "date": null, "kind": "reference", "pdf_page": 2},
+  {"label": "RD.3", "doc_id": "SRON-U/HIFI-SP-2000-2.", "title": "MIB editor Requirements specification document", "issue": null, "date": null, "kind": "reference", "pdf_page": 2},
+  {"label": "RD.4", "doc_id": null, "title": "SCOS-2000 database editing subsystem", "issue": null, "date": null, "kind": "reference", "pdf_page": 2},
+  {"label": "RD.5", "doc_id": "S2K-MCS-ICD-3-TOS-GCI", "title": "SCOS-2000 Task parameter File ICD", "issue": null, "date": null, "kind": "reference", "pdf_page": 2}
+ ],
+ "topics": [
+  "mib/tooling.md",
+  "mib/calibration.md",
+  "mib/data-model.md",
+  "mib/icd-history.md",
+  "missions/herschel-planck.md",
+  "scos2000/egse.md"
+ ],
+ "notes": "Word document printed via Acrobat PDFWriter; the title page shows the local file path 'MIB report V2.doc'. The title 'MIB editor evaluation report' is split across two lines of the header box. The document number is printed with a trailing full stop ('SRON-U/HIFI/RP/2001-1.'). Remark #27 ('The editor appears with three names:') is followed by nothing in the text layer, probably because the names were shown as images. Annex A (PDF pp. 12-15) contains example report layouts with sample data (for example CAF curve 222, command A1021, SPIDs 79 and 97) that appear to come from an example database; they are not HIFI flight data. RD.3 is the companion document hifi-mib-editor-requirements; RD.1 is probably the document registered as cosmos-operations-interface-requirements (not verified here)."
+}

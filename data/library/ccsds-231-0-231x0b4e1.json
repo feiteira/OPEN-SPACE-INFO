@@ -1,0 +1,383 @@
+{
+ "slug": "ccsds-231-0-231x0b4e1",
+ "title": "TC Synchronization and Channel Coding",
+ "short_title": "TC Synchronization and Channel Coding (CCSDS 231.0-B-4)",
+ "doc_id": "CCSDS 231.0-B-4",
+ "issue": "Recommended Standard, Issue 4 (Blue Book), with Editorial Change 1 (October 2024)",
+ "date": "July 2021",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Standard",
+ "status_notes": "The Document Control table (PDF p. 7) lists 231.0-B-1 (September 2003), B-2 (September 2010) and B-3 (September 2017) as superseded and 231.0-B-4 (July 2021) as the 'Current issue'. Issue 4 clarifies the procedures for the short LDPC codes and adds support for USLP. EC 1 (October 2024) corrects the figure listing in the table of contents and changes the page size to A4.",
+ "summary": "The CCSDS Recommended Standard for the **TC Synchronization and Channel Coding Sublayer**, the uplink counterpart of [TM coding](../ccsds/tm-coding.md). It takes variable-length [TC](../ccsds/tc-sdlp.md) or [USLP](../ccsds/uslp.md) Transfer Frames, protects them with error-control coding, wraps them in a **Communications Link Transmission Unit (CLTU)** and hands them to the Physical Layer through a Physical Layer Operations Procedure (PLOP). It is the specification behind every telecommand decoder on board and behind the CLTUs a ground station radiates, including those delivered through [SLE FCLTU](../ccsds/sle/fcltu.md). The rationale and worked examples are in [230.1-G-3](ccsds-230-1-230x1g3e1.md).\n\nSection 2 lists four functions: error-control coding, synchronization, optional pseudo-randomizing and optional repeated transmissions. Section 3 defines the modified (63,56) BCH code with generator g(x) = x^7+x^6+x^2+1, which gives 64-bit codewords of 56 information bits, 7 inverted parity bits and a zero filler bit, padded with alternating-bit fill. It can be decoded in error-detecting or error-correcting mode. Section 4 defines the rate-1/2 (128,64) and (512,256) LDPC codes through their parity-check and circulant generator matrices. Section 5 defines the CLTU: Start Sequence (16-bit 0xEB90 for BCH, 64-bit 0x034776C7272895B0 for LDPC), codewords and Tail Sequence (C5C5 C5C5 C5C5 C579 for BCH, an optional 128-bit pattern for LDPC (128,64), none for (512,256)). It also gives the receiver state machine with states S1 Inactive, S2 Search and S3 Decode and events E1 to E5. Section 6 specifies the Bit Transition Generator randomizer, h(x) = x^8+x^6+x^4+x^3+x^2+x+1, which is optional with BCH and mandatory with LDPC. Section 7 specifies the carrier modulation modes CMM-1 to CMM-4 and PLOP-1 and PLOP-2, and section 8 the managed parameters. Annex A gives the ChannelAccess service with its optional Repetitions parameter.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.3",
+   "title": "Applicability",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.4",
+   "title": "Rationale",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.5",
+   "title": "Document Structure",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.6",
+   "title": "Conventions and Definitions",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.7",
+   "title": "References",
+   "pdf_page": 17
+  },
+  {
+   "section": "2",
+   "title": "Overview",
+   "pdf_page": 18
+  },
+  {
+   "section": "2.1",
+   "title": "Architecture",
+   "pdf_page": 18
+  },
+  {
+   "section": "2.2",
+   "title": "Summary of Functions",
+   "pdf_page": 18
+  },
+  {
+   "section": "2.3",
+   "title": "Internal Organization of Sublayer",
+   "pdf_page": 20
+  },
+  {
+   "section": "3",
+   "title": "BCH Coding",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.1",
+   "title": "Introduction",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.2",
+   "title": "Codeword Format",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.3",
+   "title": "Encoding Procedure",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.4",
+   "title": "Fill Data",
+   "pdf_page": 25
+  },
+  {
+   "section": "3.5",
+   "title": "Decoding Procedure",
+   "pdf_page": 26
+  },
+  {
+   "section": "4",
+   "title": "LDPC Coding",
+   "pdf_page": 27
+  },
+  {
+   "section": "4.1",
+   "title": "Overview",
+   "pdf_page": 27
+  },
+  {
+   "section": "4.2",
+   "title": "Specification",
+   "pdf_page": 27
+  },
+  {
+   "section": "4.3",
+   "title": "Encoding Procedure",
+   "pdf_page": 28
+  },
+  {
+   "section": "4.4",
+   "title": "Fill Data",
+   "pdf_page": 29
+  },
+  {
+   "section": "4.5",
+   "title": "Decoding Procedure",
+   "pdf_page": 29
+  },
+  {
+   "section": "5",
+   "title": "Communications Link Transmission Unit",
+   "pdf_page": 30
+  },
+  {
+   "section": "5.1",
+   "title": "Introduction",
+   "pdf_page": 30
+  },
+  {
+   "section": "5.2",
+   "title": "CLTU Unit Format",
+   "pdf_page": 30
+  },
+  {
+   "section": "5.3",
+   "title": "CLTU Reception Logic",
+   "pdf_page": 33
+  },
+  {
+   "section": "6",
+   "title": "Randomizer",
+   "pdf_page": 36
+  },
+  {
+   "section": "6.1",
+   "title": "Overview",
+   "pdf_page": 36
+  },
+  {
+   "section": "6.2",
+   "title": "Randomizer Description",
+   "pdf_page": 36
+  },
+  {
+   "section": "6.3",
+   "title": "Application of the Randomizer",
+   "pdf_page": 37
+  },
+  {
+   "section": "7",
+   "title": "Physical Layer Operations Procedures",
+   "pdf_page": 39
+  },
+  {
+   "section": "7.1",
+   "title": "Introduction",
+   "pdf_page": 39
+  },
+  {
+   "section": "7.2",
+   "title": "Data Formats",
+   "pdf_page": 39
+  },
+  {
+   "section": "7.3",
+   "title": "Carrier Modulation Modes",
+   "pdf_page": 40
+  },
+  {
+   "section": "7.4",
+   "title": "PLOP-1",
+   "pdf_page": 41
+  },
+  {
+   "section": "7.5",
+   "title": "PLOP-2",
+   "pdf_page": 42
+  },
+  {
+   "section": "8",
+   "title": "Managed Parameters",
+   "pdf_page": 44
+  },
+  {
+   "section": "8.1",
+   "title": "Overview of Managed Parameters",
+   "pdf_page": 44
+  },
+  {
+   "section": "8.2",
+   "title": "Managed Parameters for BCH and LDPC Coding",
+   "pdf_page": 44
+  },
+  {
+   "section": "Annex A",
+   "title": "Service Definition (Normative)",
+   "pdf_page": 46
+  },
+  {
+   "section": "Annex B",
+   "title": "Security, SANA, and Patent Considerations (Informative)",
+   "pdf_page": 49
+  },
+  {
+   "section": "Annex C",
+   "title": "Abbreviations and Acronyms (Informative)",
+   "pdf_page": 51
+  },
+  {
+   "section": "Annex D",
+   "title": "Informative References (Informative)",
+   "pdf_page": 52
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Issue 4 (July 2021) clarifies the short-LDPC procedures and adds USLP support; EC 1 (October 2024) fixes the table of contents and moves to A4.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Four sublayer functions: error-control coding, synchronization, pseudo-randomizing (optional) and repeated transmissions (optional).",
+   "pdf_page": 18
+  },
+  {
+   "text": "The modified BCH code can be decoded in error-detecting or error-correcting mode; the FECF of the TC or USLP frame can lower the undetected-error probability, especially in error-correcting mode.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Repeated transmission is requested with an optional Repetitions parameter in the service primitive; how the repetitions are performed is not specified.",
+   "pdf_page": 20
+  },
+  {
+   "text": "BCH codeword: 56 information bits plus 7 parity bits from g(x) = x^7 + x^6 + x^2 + 1 plus a filler bit that is always zero, 64 bits (8 octets) in total.",
+   "pdf_page": 24
+  },
+  {
+   "text": "Two rate-1/2 LDPC codes are specified, (n=128, k=64) and (n=512, k=256), built from M x M circulant submatrices with M = k/4.",
+   "pdf_page": 27
+  },
+  {
+   "text": "CLTU = Start Sequence + encoded codewords + Tail Sequence. For BCH, the Start Sequence is 16 bits (0xEB90) and the Tail Sequence is 64 bits (C5C5 C5C5 C5C5 C579).",
+   "pdf_page": 30
+  },
+  {
+   "text": "For LDPC, the Start Sequence is 64 bits (0347 76C7 2728 95B0); an optional 128-bit Tail Sequence (5555 5556 AAAA AAAA 5555 5555 5555 5555) applies only to LDPC (128,64), and no tail is used with (512,256).",
+   "pdf_page": 31
+  },
+  {
+   "text": "CLTU reception states are S1 INACTIVE, S2 SEARCH and S3 DECODE; events E1 to E5 are channel activation, channel deactivation, start sequence found, codeword rejection and (for LDPC 128,64) tail sequence detected.",
+   "pdf_page": 33
+  },
+  {
+   "text": "The randomizer polynomial is h(x) = x^8 + x^6 + x^4 + x^3 + x^2 + x + 1, starting from all ones; randomization is always applied with LDPC and required with BCH unless proper operation without it is verified.",
+   "pdf_page": 36
+  },
+  {
+   "text": "With BCH the BTG is preset at the start of the Transfer Frame(s); with LDPC it is preset at the start of each codeword and reset after each codeword.",
+   "pdf_page": 37
+  },
+  {
+   "text": "PLOP-2 shall be used for missions whose planning begins after September 2010; the preferred minimum Acquisition Sequence length is 16 octets.",
+   "pdf_page": 39
+  },
+  {
+   "text": "Carrier Modulation Modes: CMM-1 unmodulated carrier, CMM-2 carrier with acquisition sequence, CMM-3 carrier with CLTU, CMM-4 carrier with idle sequence.",
+   "pdf_page": 40
+  },
+  {
+   "text": "Managed parameters: code type (BCH or LDPC), maximum CLTU length, maximum Repetitions, PLOP-1 or PLOP-2; for BCH also the decoding mode, allowed errors in the Start Sequence (0 or 1) and randomizer use; for LDPC the code length and use of the tail sequence.",
+   "pdf_page": 44
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS 232.0-B-3",
+   "title": "TC Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "normative",
+   "pdf_page": 17
+  },
+  {
+   "label": "[2]",
+   "doc_id": "ISO/IEC 7498-1:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 17
+  },
+  {
+   "label": "[3]",
+   "doc_id": "ISO/IEC 10731:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the Definition of OSI Services",
+   "issue": null,
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 17
+  },
+  {
+   "label": "[4]",
+   "doc_id": "CCSDS 401.0-B-30",
+   "title": "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft",
+   "issue": "Issue 30",
+   "date": "February 2020",
+   "kind": "normative",
+   "pdf_page": 17
+  },
+  {
+   "label": "[5]",
+   "doc_id": "CCSDS 912.1-B-4",
+   "title": "Space Link Extension—Forward CLTU Service Specification",
+   "issue": "Issue 4",
+   "date": "August 2016",
+   "kind": "normative",
+   "pdf_page": 17
+  },
+  {
+   "label": "[6]",
+   "doc_id": "CCSDS 732.1-B-1",
+   "title": "Unified Space Data Link Protocol",
+   "issue": "Issue 1",
+   "date": "October 2018",
+   "kind": "normative",
+   "pdf_page": 17
+  },
+  {
+   "label": "[D1]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "informative",
+   "pdf_page": 52
+  },
+  {
+   "label": "[D2]",
+   "doc_id": "CCSDS 201.0-B-3-S",
+   "title": "Telecommand Part 1—Channel Service",
+   "issue": "Issue 3-S",
+   "date": "(June 2000) August 2005",
+   "kind": "informative",
+   "pdf_page": 52
+  }
+ ],
+ "topics": [
+  "ccsds/tc-coding-cltu.md",
+  "ccsds/tc-sdlp.md",
+  "ccsds/uslp.md",
+  "ccsds/sle/fcltu.md",
+  "ccsds/cop-1.md",
+  "overview/uplink.md",
+  "overview/worked-example-tc.md",
+  "ecss/e-st-50-communications.md"
+ ],
+ "notes": "The slug's 'e1' is Editorial Change 1 (October 2024); the Document Control page footer reads 'July 2024 / October 2021', probably an artefact of the change, while other pages say 'July 2021'. PDF pages 1 and 2 are duplicate cover pages. The extraction has 53 PDF pages (registry: 52); the last page is blank. Several internal cross-references are wrong in the source: 4.1 says the Pseudo-Randomizer is 'defined in section 5' (it is section 6); B3 places the LDPC codes in 'section 5' (they are in section 4); Annex D's note says normative references are 'listed in 1.6.3' (they are in 1.7); the CLTU reception tables are called 'tables 5-1 and 5-2' in the text but listed as Tables 5-3 and 5-4 in the contents. Normative references still cite TC SDLP issue 3 (2015) and USLP issue 1 (2018). Section 1.7 references 'constitute provisions of this Recommended Standard' (kind 'normative'); Annex D lists informative references. No individual authors are named."
+}

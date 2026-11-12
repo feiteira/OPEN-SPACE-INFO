@@ -1,0 +1,221 @@
+{
+ "slug": "cosmos-common-egse-document-overview",
+ "title": "Common EGSE document overview",
+ "short_title": "Herschel common EGSE document overview",
+ "doc_id": null,
+ "issue": null,
+ "date": null,
+ "organisation": "Herschel instrument EGSE working group (document owners listed: HIFI, PACS, SPIRE, ESA); published on ESA's Cosmos web site",
+ "authors": [],
+ "doc_type": "Other",
+ "status_notes": "Not stated. The 'Status' column gives each listed document's issue or draft (D0.1 to D4, 1, 1.1, 2), apparently as of 2001-2002 (inferred from the document numbers).",
+ "summary": "A one-page table, published on ESA's Cosmos web site, that lists the documents of the common Herschel EGSE effort: the shared electrical ground support equipment for the Herschel instruments' tests. The page carries no title, date or author; the title used here comes from the file name, and the PDF metadata name Luc Dubbeldam as author of a file converted from an Excel sheet in November 2014.\n\nEach row gives a category (EGSE, CDMS simulator, router, test-equipment interface (TEI), test control, MIB, on-board software maintenance facility), a document type (terms of reference, URD, plan, specification, SSD, SOW, ICD, SUM, report), the title, the document identifier, an issue or draft status and the responsible party (HIFI, PACS, SPIRE or ESA). Nineteen documents are listed, twelve of them under HIFI. They include the Herschel EGSE integration plan, the EGSE-ILT user requirements document, the real-time analysis URD, the CDMS simulator requirements and interface test specification, the router SOW and packet router ICD, ESA's EGSE Gateway ICD, the TEI specification, SOW and URD, the test-control SOW, the TTA-2000 test-technology SUM, the MIB-editor requirements and evaluation report, and the on-board software maintenance facility URD.\n\nFor this wiki it is a map of the early Herschel instrument EGSE document tree, useful to trace documents cited elsewhere: the integration plan (library item `cosmos-herschel-egse-integration-plan`), its reference documents, and the EGSE Gateway ICD that the EMCS user manual (`emcs-sum-4-0`) lists as applicable document [A1].",
+ "contents": [
+  {
+   "section": null,
+   "title": "Document table (columns: Category, Type, title, Doc ID, Status, responsible party)",
+   "pdf_page": 1
+  }
+ ],
+ "key_points": [
+  {
+   "text": "19 documents are listed in 7 categories: EGSE (5), CDMSsim (3), Router (3), TEI (3), Test control (2), MIB (2) and OBSMF (1).",
+   "pdf_page": 1
+  },
+  {
+   "text": "HIFI is responsible for 12 of the 19 documents, PACS for 2, SPIRE for 1 and ESA for 2; two rows name no owner.",
+   "pdf_page": 1
+  },
+  {
+   "text": "The MIB category contains the MIB-editor requirements (SRON-U/HIFI/SP/2000-002) and the MIB-editor evaluation report (SRON-U/HIFI/RP/2001-001, status 2).",
+   "pdf_page": 1
+  },
+  {
+   "text": "ESA supplies the EGSEGateway ICD (TOS-GCE/98.015/PSH) and the test technology activities TTA-2000 SUM (SCO-TTA-SUM-0001).",
+   "pdf_page": 1
+  },
+  {
+   "text": "Three documents have no identifier ('none'): the EGSE working group terms of reference, the CDMS simulator software specification and the on-board SW maintenance facility URD.",
+   "pdf_page": 1
+  }
+ ],
+ "references": [
+  {
+   "label": "EGSE TOR [PACS]",
+   "doc_id": null,
+   "title": "Herschel EGSE working group Terms of reference",
+   "issue": "D4",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "EGSE URD [SPIRE]",
+   "doc_id": "FIRST-SPI-DOC-0000127",
+   "title": "EGSE-ILT URD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "EGSE Plan [HIFI]",
+   "doc_id": "SRON-U/HIFI/PL/2001-001",
+   "title": "Herschel EGSE integration plan",
+   "issue": "D4",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "EGSE URD [HIFI]",
+   "doc_id": "HICC-2000-011",
+   "title": "Real Time analysis URD",
+   "issue": "D2",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "EGSE URD [HIFI]",
+   "doc_id": "SRON-U/HIFI/TN/2000",
+   "title": "EGSE Interface unit, functional description",
+   "issue": "1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "CDMSsim URD [HIFI]",
+   "doc_id": "SRON-U/HIFI/SP/2000-004",
+   "title": "FIRST-Planck CDMS simulator requirements",
+   "issue": "1.1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "CDMSsim Spec [HIFI]",
+   "doc_id": "SRON-U/HIFI/SP/2000-005",
+   "title": "CDMS interface test requirements specifications",
+   "issue": "1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "CDMSsim SSD",
+   "doc_id": null,
+   "title": "CDMS simulator software specification",
+   "issue": "D2",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "Router SOW [HIFI]",
+   "doc_id": "SRON-U/HIFI/SP/2001-005",
+   "title": "Herschel EGSE Router SOW",
+   "issue": "D1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "Router ICD [HIFI]",
+   "doc_id": "SRON-G/2001",
+   "title": "Herschel EGSE packet router ICD",
+   "issue": "1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "Router ICD [ESA]",
+   "doc_id": "TOS-GCE/98.015/PSH",
+   "title": "EGSEGateway ICD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "TEI Spec [HIFI]",
+   "doc_id": "SRON-G/EGSE/SP/2001-001",
+   "title": "TEI specification",
+   "issue": "D0.1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "TEI SOW",
+   "doc_id": "SRON-U/HIFI/SP/2001-008",
+   "title": "Test equipment interface SOW",
+   "issue": "D1.2",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "TEI URD [HIFI]",
+   "doc_id": "SRON-U/HIFI/SP/2001-009",
+   "title": "Test equipment interface URD",
+   "issue": "D3",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "Test control SOW [PACS]",
+   "doc_id": "PACS-ME-SW-001",
+   "title": "EGSE test-control SOW",
+   "issue": "D2",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "Test control SUM [ESA]",
+   "doc_id": "SCO-TTA-SUM-0001",
+   "title": "Test technology activities TTA-2000",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "MIB URD [HIFI]",
+   "doc_id": "SRON-U/HIFI/SP/2000-002",
+   "title": "MIB-editor requirements",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "MIB Rep [HIFI]",
+   "doc_id": "SRON-U/HIFI/RP/2001-001",
+   "title": "MIB-editor evaluation report",
+   "issue": "2",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "OBSMF URD [HIFI]",
+   "doc_id": null,
+   "title": "On-Board SW maintenance facility URD",
+   "issue": "D1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  }
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "missions/herschel-planck.md",
+  "mib/tooling.md"
+ ],
+ "notes": "Single landscape page exported from Excel (PDF metadata: author Luc Dubbeldam, created 2014-11-11); the title is taken from the file name in the source URL, as none is printed. In 'references', the label combines category and type with the responsible party in brackets, and 'issue' holds the Status column. Cross-check with other library items: the integration plan is printed there as SRON-U/HIFI/PL/2001-1 (here SRON-U/HIFI/PL/2001-001); the EGSE-ILT URD is printed there as FIRST-SPI-DOC-000127 (here FIRST-SPI-DOC-0000127); the EGSE Gateway ICD appears in the EMCS user manual as ESTEC/TOS-EMG/98.015/PSH (here TOS-GCE/98.015/PSH)."
+}

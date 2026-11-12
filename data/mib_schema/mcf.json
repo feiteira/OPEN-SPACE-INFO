@@ -1,0 +1,177 @@
+{
+  "table": "mcf",
+  "file": "mcf.dat",
+  "icd": true,
+  "name": "Polynomial calibrations definitions",
+  "icd_section": "3.3.2.2.6",
+  "pdf_page": 70,
+  "family": "monitoring",
+  "purpose": "mcf defines polynomial calibrations, one record per definition, by giving up to five coefficients. SCOS-2000 computes the engineering value Y of a raw value X as Y = A0 + A1*X + A2*X^2 + A3*X^3 + A4*X^4, where A0 is MCF_POL1 and A4 is MCF_POL5. Unspecified higher-order coefficients default to 0, so a linear calibration needs only MCF_POL1 and MCF_POL2. Parameters use a polynomial calibration by naming it in PCF_CURTX or CUR_SELECT (numerical parameters, PCF_CATEG = 'N'). The engineering result is always real, which matters when several calibrations are attached to one parameter through cur, because they must all share the same engineering format. Polynomial identifiers share a name space with the other non-textual calibrations: an MCF_IDENT may not equal any CAF_NUMBR or LGF_IDENT. The ICD suggests a naming convention or a reserved range of names to guarantee this.",
+  "keys": [
+    "MCF_IDENT"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "MCF_IDENT",
+      "type": "Char(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Alphanumeric identifier that uniquely names the polynomial calibration; used in PCF_CURTX and CUR_SELECT. It must not overlap with CAF_NUMBR or LGF_IDENT values.",
+      "values": [],
+      "references": null,
+      "pdf_page": 71
+    },
+    {
+      "pos": 2,
+      "name": "MCF_DESCR",
+      "type": "Char(32)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Free textual description of the polynomial calibration.",
+      "values": [],
+      "references": null,
+      "pdf_page": 71
+    },
+    {
+      "pos": 3,
+      "name": "MCF_POL1",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Coefficient A0 (constant term), a numerical value in real format (Appendix A).",
+      "values": [],
+      "references": null,
+      "pdf_page": 71
+    },
+    {
+      "pos": 4,
+      "name": "MCF_POL2",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A1 of the first-order term, in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 71
+    },
+    {
+      "pos": 5,
+      "name": "MCF_POL3",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A2 of the second-order term, in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 71
+    },
+    {
+      "pos": 6,
+      "name": "MCF_POL4",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A3 of the third-order term, in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 71
+    },
+    {
+      "pos": 7,
+      "name": "MCF_POL5",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A4 of the fourth-order term, in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 71
+    }
+  ],
+  "relationships": [
+    {
+      "field": "MCF_IDENT",
+      "target": "pcf.PCF_CURTX, cur.CUR_SELECT",
+      "note": "Shareable among parameters; must be unique across caf.CAF_NUMBR and lgf.LGF_IDENT."
+    }
+  ],
+  "history": "ICD 5.1 calls the table 'Polynomial calibration curves: mcf' (p. 34-35); it has the same seven fields with MCF_IDENT as Number(4) and default '0' for MCF_POL2 to MCF_POL5. MCF_IDENT became Char(10) with the other calibration identifiers in ICD 6.0 (ICD 7.0 Annex 1, p. 247). Unchanged in ICD 6.7 Draft A (p. 66-67), 6.9 (p. 69-70) and 7.0 (p. 70-71). pyscos2000 (ICD 7.2) matches, including the '0' defaults.",
+  "solo_stats": {
+    "rows": 229,
+    "fields": [
+      {
+        "name": "MCF_IDENT",
+        "filled": 229,
+        "examples": [
+          "CCAX0001TM",
+          "CIAP0002TM",
+          "CIAP0003TM",
+          "CIAP0004TM",
+          "CIAP0005TM"
+        ]
+      },
+      {
+        "name": "MCF_DESCR",
+        "filled": 229,
+        "examples": [
+          "13V Current",
+          "13V Voltage",
+          "15_5V_minus",
+          "15_5V_plus",
+          "2.5V Current cal"
+        ]
+      },
+      {
+        "name": "MCF_POL1",
+        "filled": 229,
+        "examples": [
+          "0",
+          "-273.15",
+          "-52.6",
+          "-273",
+          "-7.4407"
+        ]
+      },
+      {
+        "name": "MCF_POL2",
+        "filled": 229,
+        "examples": [
+          "1",
+          "0.0378",
+          "0.001220703125",
+          "0.1",
+          "7.35043E-4"
+        ]
+      },
+      {
+        "name": "MCF_POL3",
+        "filled": 229,
+        "examples": [
+          "0",
+          "-0.000006",
+          "-0.00003199115",
+          "0.0003508"
+        ]
+      },
+      {
+        "name": "MCF_POL4",
+        "filled": 229,
+        "examples": [
+          "0",
+          "-0.0000001434",
+          "0.00000000563"
+        ]
+      },
+      {
+        "name": "MCF_POL5",
+        "filled": 229,
+        "examples": [
+          "0",
+          "0.000000000021"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. Solar Orbiter 2025-09-16: 229 polynomial calibrations. Every record fills all five coefficients explicitly; 226 are linear (only A0 and A1 non-zero) and 3 use higher orders, e.g. CIAP0081TM 'DPU_TMP' (A0 = 180.65, A1 = -0.4018, A2 = 0.0003508, A3 = -0.0000001434, A4 = 0.000000000021, real data). Coefficients are written in fixed or scientific notation (e.g. 7.35043E-4). No MCF_IDENT collides with a CAF_NUMBR; 3 definitions are not referenced by any parameter."
+}

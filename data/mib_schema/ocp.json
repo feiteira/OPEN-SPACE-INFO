@@ -1,0 +1,219 @@
+{
+  "table": "ocp",
+  "file": "ocp.dat",
+  "icd": true,
+  "name": "Monitoring checks definition",
+  "icd_section": "3.3.2.3.2",
+  "pdf_page": 75,
+  "family": "monitoring",
+  "purpose": "ocp lists the individual monitoring checks of each parameter declared in ocf, in the order SCOS-2000 applies them. Each check has a type, limit or expected values and an applicability criterion OCP_RLCHK = OCP_VALPAR that enables it. Supported types are soft and hard limit checks on a valid value's range, soft and hard status checks against lists of allowed discrete values, delta checks on the change between consecutive valid samples, and status-consistency checks against a reference value maintained from the predicted or detected effect of commands. Event checks ('E') raise no OOL; they generate a SCOS-2000 event with full ID 'BEHV::<OCP_NAME>' when the value leaves the range, which can trigger system actions. Search stops at the first applicable check or soft/hard pair unless MISCconfig BEHV_STOP_FIRST_SET says otherwise. Status-consistency and event checks must precede the others. Limit checks need numerical parameters and always come in low/high pairs; soft/hard pairs share one criterion, soft first. Several records of one type and criterion form one set of allowed status values. A value equal to a limit is not OOL, and the most critical violation is shown. The table must be sorted by OCP_NAME and OCP_POS.",
+  "keys": [
+    "OCP_NAME",
+    "OCP_POS"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "OCP_NAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter to be checked; must match OCF_NAME of an ocf record (and therefore a PCF_NAME). For event checks it also forms the event ID 'BEHV::<OCP_NAME>'.",
+      "values": [],
+      "references": "ocf.OCF_NAME",
+      "pdf_page": 78
+    },
+    {
+      "pos": 2,
+      "name": "OCP_POS",
+      "type": "Number(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Order in which the checks of the parameter are applied. The table is expected to be sorted by OCP_NAME and OCP_POS, with soft/hard pairs ordered soft first. Grey row in the ICD (value not used by SCOS-2000): checks are taken in the order in which the records are imported, so OCP_POS serves to sort the file.",
+      "values": [],
+      "references": null,
+      "pdf_page": 78
+    },
+    {
+      "pos": 3,
+      "name": "OCP_TYPE",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Type of monitoring check. Status-consistency and event checks must come before any other check of the same parameter. For status parameters, 'S' and 'H' records with the same applicability criterion form one set of allowed values (several sets with different criteria are possible).",
+      "values": [
+        {
+          "value": "S",
+          "meaning": "Soft limit check (or soft status check for status parameters)"
+        },
+        {
+          "value": "H",
+          "meaning": "Hard limit check, or soft status check per the ICD wording (see notes)"
+        },
+        {
+          "value": "D",
+          "meaning": "Delta check: the difference from the last valid value must lie within the given range"
+        },
+        {
+          "value": "C",
+          "meaning": "Status consistency check; PCF_USCON of the parameter must be 'Y'; the applicability criterion is forced to TRUE"
+        },
+        {
+          "value": "E",
+          "meaning": "Event generation only (no OOL): raises event 'BEHV::<OCP_NAME>'; the parameter is not shown in the OOL display"
+        }
+      ],
+      "references": null,
+      "pdf_page": 78
+    },
+    {
+      "pos": 4,
+      "name": "OCP_LVALU",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Value written in the format given by OCF_CODIN; its role depends on OCP_TYPE and PCF_CATEG. For limit checks on numerical parameters (PCF_CATEG = 'N', OCP_TYPE 'S', 'H' or 'E') it is the low limit and cannot be null. For status parameters (PCF_CATEG = 'S', OCP_TYPE 'S' or 'H') it is the expected (allowed) status value and cannot be null. For delta checks on numerical parameters (OCP_TYPE = 'D') it is the minimum delta: it may be null (no minimum-delta check) and otherwise must be positive, because it is applied to the delta in both directions. Irrelevant for status-consistency checks (OCP_TYPE = 'C').",
+      "values": [],
+      "references": null,
+      "pdf_page": 79
+    },
+    {
+      "pos": 5,
+      "name": "OCP_HVALU",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": null,
+      "description": "High limit value in the format given by OCF_CODIN (Appendix A). Relevant only for limit and delta checks of numerical parameters (PCF_CATEG = 'N'). For limit checks (OCP_TYPE 'S', 'H' or 'E') it is the high limit and cannot be null. For delta checks ('D') it is the maximum delta: it may be null (no maximum-delta check) and otherwise must be positive, applied in both directions. Irrelevant for status parameters and for status-consistency checks.",
+      "values": [],
+      "references": null,
+      "pdf_page": 80
+    },
+    {
+      "pos": 6,
+      "name": "OCP_RLCHK",
+      "type": "Char(8)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Name of the parameter that decides whether this check is applicable; OCP_VALPAR gives the value it is compared with, and SCOS-2000 also takes the validity of this applicability expression into account. Only parameters with a signed or unsigned integer raw representation processed by the telemetry model library (TM parameters with a plf entry, or synthetic parameters) may be used. If left null, the check has no applicability condition. Not used for status-consistency checks (OCP_TYPE = 'C').",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 81
+    },
+    {
+      "pos": 7,
+      "name": "OCP_VALPAR",
+      "type": "Number(5)",
+      "mandatory": "O",
+      "default": "1",
+      "description": "Raw value of the applicability parameter OCP_RLCHK for which the check applies; the expression is OCP_RLCHK = OCP_VALPAR. Defaults to 1. Not used for status-consistency checks.",
+      "values": [],
+      "references": null,
+      "pdf_page": 81
+    }
+  ],
+  "relationships": [
+    {
+      "field": "OCP_NAME",
+      "target": "ocf.OCF_NAME",
+      "note": "Up to 16 checks per ocf record (OCF_NBOOL)."
+    },
+    {
+      "field": "OCP_RLCHK",
+      "target": "pcf.PCF_NAME",
+      "note": "Applicability parameter; one parameter may be reused by many criteria (section 3.3.2, p. 39)."
+    },
+    {
+      "field": "OCP_TYPE",
+      "target": "pcf.PCF_USCON",
+      "note": "OCP_TYPE 'C' requires PCF_USCON = 'Y' for the parameter."
+    },
+    {
+      "field": "OCP_LVALU / OCP_HVALU",
+      "target": "ocf.OCF_INTER, ocf.OCF_CODIN",
+      "note": "Raw/engineering view and data type of the limit values."
+    }
+  ],
+  "history": "ICD 5.1 (p. 36-38) has the same seven fields; OCP_POS is not marked mandatory there, OCP_TYPE has only 'S' Soft OOL, 'H' Hard OOL, 'C' and 'E', and the applicability parameter is described only as 'of type integer'. Delta checks ('D') and multiple sets of status checks with different applicability criteria were added in ICD 6.0 (ICD 7.0 Annex 1, p. 246 and 249). ICD 6.1 clarified that delta limits must be positive and apply in both directions (p. 251). ICD 6.4 restricted OCP_RLCHK to TM-model parameters, stated that limit checks always come in pairs and that checks of any severity may stand alone (p. 254-255). ICD 6.6 updated the OCP_TYPE description (S2K-50-DCR-755, p. 257). Field layout is unchanged in ICD 6.7 Draft A (p. 70-76), 6.9 (p. 73-79) and 7.0 (p. 75-81). pyscos2000 (ICD 7.2) matches: OCP_NAME, OCP_POS, OCP_TYPE mandatory, the rest optional, OCP_VALPAR default '1'.",
+  "solo_stats": {
+    "rows": 7369,
+    "fields": [
+      {
+        "name": "OCP_NAME",
+        "filled": 7369,
+        "examples": [
+          "NCDT09N0",
+          "NCDT09X0",
+          "NIXD0058",
+          "NRU02712",
+          "NRU02730"
+        ]
+      },
+      {
+        "name": "OCP_POS",
+        "filled": 7369,
+        "examples": [
+          "1",
+          "2",
+          "3",
+          "0",
+          "4"
+        ]
+      },
+      {
+        "name": "OCP_TYPE",
+        "filled": 7369,
+        "examples": [
+          "H",
+          "S",
+          "D",
+          "C"
+        ]
+      },
+      {
+        "name": "OCP_LVALU",
+        "filled": 7354,
+        "examples": [
+          "0",
+          "1",
+          "TRUE",
+          "3",
+          "DIS_UNCHECK"
+        ]
+      },
+      {
+        "name": "OCP_HVALU",
+        "filled": 5300,
+        "examples": [
+          "1",
+          "0",
+          "50",
+          "47",
+          "85"
+        ]
+      },
+      {
+        "name": "OCP_RLCHK",
+        "filled": 859,
+        "examples": [
+          "NSM00002",
+          "NPWSX053",
+          "NPWSX051",
+          "NTCSX001",
+          "NCST1U10"
+        ]
+      },
+      {
+        "name": "OCP_VALPAR",
+        "filled": 865,
+        "examples": [
+          "2",
+          "1",
+          "0",
+          "15",
+          "3"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. The ICD 7.0 value list for OCP_TYPE prints 'H' as 'Hard limit or soft status check' (p. 78), while the soft value 'S' is described only as 'Soft limit check'; the rules text (p. 77) describes soft and hard checks for both limit and status checks, so 'soft status' under 'H' is probably an editorial slip for 'hard status' (inference). Solar Orbiter 2025-09-16: 7,369 checks on 5,337 parameters: H 4,153, S 3,096, D 105, C 15; no event ('E') checks. OCP_POS values run from 0 to 15; 204 records use OCP_POS 0. All 15 'C' checks belong to parameters with PCF_USCON = 'Y' and leave OCP_LVALU empty, as required. Of the 105 delta checks, 102 use OCP_LVALU = OCP_HVALU = 0 (e.g. NIU01008) and 3 use 2048/2048; the effect of a 0/0 delta range is not explained in the ICD. Status checks give text values such as 'OK', 'TRUE' or 'DIS_UNCHECK'. 859 checks have an applicability parameter; 6 records give OCP_VALPAR without OCP_RLCHK (e.g. NCST5840), which the ICD does not discuss. A parameter has at most 15 checks (ICD limit 16)."
+}

@@ -1,0 +1,68 @@
+{
+  "slug": "pecchioli-egs-cc-esoc",
+  "title": "The EGS-CC based Mission Control Infrastructure at ESOC",
+  "short_title": "The EGS-CC based Mission Control Infrastructure at ESOC",
+  "doc_id": null,
+  "issue": null,
+  "date": null,
+  "organisation": "European Space Agency, ESA/ESOC, Darmstadt",
+  "authors": [
+    "Mauro Pecchioli",
+    "Anthony Walsh"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "No date, version or conference name is printed. The text says EGOS-CC Phase B is complete and extension development is 'planned to start in the second quarter of 2017' (PDF p. 10), so the paper dates from before Q2 2017. It was downloaded from an ESA Indico event attachment (event 180).",
+  "summary": "An ESOC paper on adopting the European Ground Systems Common Core (EGS-CC) as the basis for ESA's next generation of mission control and ground station monitoring and control systems ([ancillary systems and the move to EGS-CC](../scos2000/ancillary-and-egs-cc.md)). It is the earlier, more conceptual companion of the 2019 SESP paper in library item airdrive-b8b986f.\n\nThe paper explains why ESOC is moving on from [SCOS-2000](../scos2000/index.md): the current generation faces obsolescence and was designed around one kind of controlled system, PUS spacecraft. EGS-CC offers a kernel with no assumptions about the controlled system. The objectives include supporting heterogeneous and 'system of systems' controlled systems, off-the-shelf black-box reuse, and simpler model-based operations. The paper lists the disruptive changes this brings. Terminology changes, and there is a new engineering culture with prescribed SDE processes. The technology stack drops C++, CORBA and SQL. Users must learn the EGS-CC **Conceptual Data Model** instead of the familiar 'SCOS-2000 [MIB](../mib/index.md) ICD'. Operations move to model-based control of elements with parameters, events and activities.\n\nThe infrastructure decomposition (development environment, preparation environment, Linux/Windows platform baseline, EGS-CC, extension and adapter components, ancillary applications) is followed by the design drivers for mission control and ground station M&C systems. The products are MICONYS-CC, GSMC-CC and the OPEN preparation environment. The functional extensions planned for mission control fall into two groups. Operations services cover file-based operations (transfer, file store and file utilisation services), on-board software management built on [PUS service 6](../ecss/pus/st06-memory-management.md), and automated schedule execution alongside [service 11](../ecss/pus/st11-time-based-scheduling.md). M&C adaptation covers file-based reception of TM frames, a [CFDP](../ccsds/cfdp.md) wrapper, CSTS monitoring data (the successor of [SLE](../ccsds/sle/index.md)), the CORBA ground station M&C ICD and ground system M&C adapters. The paper closes with the programmatics of the EGOS-CC Project.",
+  "contents": [
+    {"section": "Introduction", "title": "Introduction", "pdf_page": 1},
+    {"section": "Introduction", "title": "Background", "pdf_page": 1},
+    {"section": "Introduction", "title": "The Objectives of the EGS-CC Adoption at ESOC", "pdf_page": 1},
+    {"section": "Introduction", "title": "The Engineering Approach", "pdf_page": 2},
+    {"section": "Introduction", "title": "A Disruptive Change", "pdf_page": 3},
+    {"section": "The new generation M&C infrastructure at ESOC", "title": "The New Generation M&C Infrastructure at ESOC", "pdf_page": 5},
+    {"section": "The new generation M&C infrastructure at ESOC", "title": "High Level Decomposition", "pdf_page": 5},
+    {"section": "The new generation M&C infrastructure at ESOC", "title": "EGOS-CC Products", "pdf_page": 7},
+    {"section": "The new generation M&C infrastructure at ESOC", "title": "EGS-CC Functional Extensions", "pdf_page": 8},
+    {"section": "The new generation M&C infrastructure at ESOC", "title": "Operations Services", "pdf_page": 8},
+    {"section": "The new generation M&C infrastructure at ESOC", "title": "M&C Adaptation", "pdf_page": 9},
+    {"section": "Programmatics", "title": "Programmatics", "pdf_page": 10},
+    {"section": "Conclusions", "title": "Conclusions", "pdf_page": 10},
+    {"section": "Summary", "title": "Summary", "pdf_page": 11},
+    {"section": "Acknowledgments", "title": "Acknowledgments", "pdf_page": 11},
+    {"section": "Acronym list", "title": "Acronym List", "pdf_page": 12},
+    {"section": "References", "title": "References", "pdf_page": 12}
+  ],
+  "key_points": [
+    {"text": "The EGS-CC kernel was designed without implementation or interface assumptions about the controlled system; at ESOC, SCOS-2000 is the basis of mission control systems and more recently also ground station network operations.", "pdf_page": 1},
+    {"text": "SCOS-2000 was designed for spacecraft exchanging TM/TC with the M&C system on the basis of the ECSS Packet Utilisation Standard; EGS-CC adds an abstraction layer to operate any type of system, including ground segment systems.", "pdf_page": 2},
+    {"text": "The current infrastructure specification contains thousands of user and software requirements, so a top-down hierarchical functional model and a 'functional gap analysis' of EGS-CC were used instead of a flat specification.", "pdf_page": 3},
+    {"text": "The EGS-CC technology stack drops technologies used in current ground data systems (no C++, no CORBA, no SQL).", "pdf_page": 4},
+    {"text": "Teams familiar with the 'SCOS-2000 MIB ICD' must learn the EGS-CC Conceptual Data Model (CDM), which defines similar data types with a largely different approach and data semantics.", "pdf_page": 4},
+    {"text": "EGS-CC uses 'model based operations': the controlled system is a hierarchy of elements with M&C aspects (state parameters, events, control activities); this is standard practice for ESA ground station network operations but a significant change for spacecraft operations.", "pdf_page": 4},
+    {"text": "The platform baseline supports two Linux distributions for the back-end and Windows for the front-end.", "pdf_page": 5},
+    {"text": "EGOS (European Ground Operation System) is ESOC's brand name; the EGS-CC based products are MICONYS-CC (mission control system infrastructure) and GSMC-CC (ground station M&C), each with the OPEN preparation environment.", "pdf_page": 7},
+    {"text": "File based operations will offer file transfer management, file store management (including a ground image of the on-board file store) and file utilisation services (e.g. executing loaded TC files).", "pdf_page": 9},
+    {"text": "On-board software management assumes on-board memories are managed through PUS Service 6; automated schedule execution complements the basic time-tagging in EGS-CC for Mission Planning schedules (PUS Service 11 or MCS).", "pdf_page": 9},
+    {"text": "The EGS-CC Reference Implementation provides components to interface a PUS-based spacecraft via SLE and some SCOE adapters; ESA adds file-based TM frame reception (for EO missions with short passes, and AIT replay) with manifest metadata.", "pdf_page": 9},
+    {"text": "File exchange with the spacecraft will be based on CCSDS CFDP; CSTS, described as the new generation of SLE, also provides monitoring data from ground station equipment; ESA ground station equipment is controlled through the CORBA M&C ICD.", "pdf_page": 10},
+    {"text": "EGOS-CC Phase B is complete; development of the EGS-CC extensions (EGOS-CC Components) is planned to start in Q2 2017.", "pdf_page": 10}
+  ],
+  "references": [
+    {"label": "[1]", "doc_id": null, "title": "M. Pecchioli, J. M. Carranza, A. Walsh, \"The Highlights of the European Ground Systems - Common Core Initiative,\" SpaceOps 2014, Pasadena", "issue": null, "date": "2014", "kind": "bibliography", "pdf_page": 12},
+    {"label": "SCOS-2000 MIB ICD", "doc_id": null, "title": "SCOS-2000 MIB ICD", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 4},
+    {"label": "PUS", "doc_id": null, "title": "ECSS Packet Utilisation Standard", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 2},
+    {"label": "CFDP", "doc_id": null, "title": "CCSDS File Delivery Protocol (CFDP)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 10},
+    {"label": "CSTS", "doc_id": null, "title": "Cross-Support Transfer Services (CSTS)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 10},
+    {"label": "CORBA M&C ICD", "doc_id": null, "title": "ESA Ground Stations M&C Interface (CORBA M&C ICD)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 10}
+  ],
+  "topics": [
+    "scos2000/ancillary-and-egs-cc.md",
+    "scos2000/index.md",
+    "mib/index.md",
+    "ccsds/cfdp.md",
+    "ecss/pus/st06-memory-management.md",
+    "ecss/pus/st11-time-based-scheduling.md",
+    "ccsds/sle/index.md"
+  ],
+  "notes": "Undated paper; the date is inferred only from the text's planning statements (see status_notes). Author e-mail addresses printed under the title are omitted here. The library slug suggests an Indico attachment labelled '0930_Pecchioli - Paper'. The extraction reports 13 PDF pages (registry: 12); the last is empty. The acronym list expands EGOS as 'ESA Ground Operations System', while the body says 'European Ground Operation System', and expands SCOS as 'Spacecraft Control System'. Figure 3 (EGS-CC extensions) survives only as scattered labels (+FbO, +OBSM, +CFDP, +CSTS, +TM Files). Large parts of the text recur almost verbatim in library item airdrive-b8b986f (SESP 2019, Walsh et al.), which names the MCS product M4C instead of MICONYS-CC."
+}

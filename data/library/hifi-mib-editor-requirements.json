@@ -1,0 +1,44 @@
+{
+ "slug": "hifi-mib-editor-requirements",
+ "title": "MIB editor Requirements specification document",
+ "short_title": "HIFI MIB editor requirements specification",
+ "doc_id": "SRON-U/HIFI-SP-2000-2.",
+ "issue": "1.0",
+ "date": "2000-08-23",
+ "organisation": "SRON Utrecht (HIFI instrument team)",
+ "authors": ["L. Dubbeldam"],
+ "doc_type": "Requirements Specification",
+ "status_notes": "Issue 1.0, Aug 23, 2000 (PDF p. 1); category printed as '-'; no approval or status stated.",
+ "summary": "A short user requirements document (issue 1.0, 23 August 2000) written by L. Dubbeldam for the HIFI instrument of the FIRST (later Herschel) mission, specifying an editor for the SCOS-2000 Mission Information Base. It explains that SCOS-2000 is configured by the MIB, a set of more than 30 ASCII files of mission-specific data, and that during instrument integration and test the MIB holds the instrument configuration, so a flexible and reliable editor is needed. Because the editor may be a relational database, the document also calls it 'the database'.\n\nThe requirements (numbered RQ 3.x.y) cover: data content (one table per SCOS-2000 file, holding everything needed to configure SCOS-2000); the user interface (datasheets labelled with the ICD field names, tool tips derived from the ICD descriptions, and forms that follow the MIB structure, for example PCF with OCF/OCP, CAF/CAP, TXF/TXP and MCF subforms, CPC with PRF/PRV, CCA/CCS and PAF/PAS, PID with VPD and PLF, CCF with CDF, PTV and verification, CSF with CSS, SDF and CSP, packet headers TCP/PCPC/PCDF, parameter sets and displays); data checking (unique keys, update cascades without delete cascades, validation of enumerated values, mandatory fields and ICD default values, configurable whole-database checks, record counters); grouping of data by instrument subsystem and model (QM/FM swaps) so that subsystem engineers can supply data without SCOS-2000 knowledge; and tools to import, append, export and delete sets of SCOS-2000 files.\n\nAnnex A lists 41 MIB tables grouped as operator (display), packet, packet header, parameter and parameter-set tables, each with the section and page of the SCOS-2000 database import ICD that defines it, which is a useful snapshot of the early (2000) MIB table set.",
+ "contents": [
+  {"section": "1", "title": "Introduction", "pdf_page": 3},
+  {"section": "2", "title": "Applicable documents", "pdf_page": 3},
+  {"section": "3", "title": "Requirements", "pdf_page": 3},
+  {"section": "3.1", "title": "Data content", "pdf_page": 3},
+  {"section": "3.2", "title": "User interface", "pdf_page": 3},
+  {"section": "3.3", "title": "Data checking", "pdf_page": 5},
+  {"section": "3.4", "title": "Groups of data", "pdf_page": 5},
+  {"section": "3.5", "title": "Tools", "pdf_page": 6},
+  {"section": "Annex A", "title": "File overview", "pdf_page": 8}
+ ],
+ "key_points": [
+  {"text": "SCOS-2000 is configured by the Mission Information Base (MIB), described as a set of more than 30 ASCII files containing mission-specific data; during FIRST instrument integration and test it holds the instrument configuration.", "pdf_page": 3},
+  {"text": "RQ 3.1.2 requires one database table per SCOS-2000 file, and RQ 3.2.2/3.2.3 require datasheet columns to use the field names of the SCOS-2000 database import ICD, with tool tips derived from its descriptions.", "pdf_page": 3},
+  {"text": "Required forms follow the MIB structure, e.g. PCF with monitoring checks (OCF, OCP), numerical (CAF, CAP), textual (TXF, TXP) and polynomial (MCF) calibration, and CCF with CDF, PTV and verification (CVP, CVE) subforms.", "pdf_page": 4},
+  {"text": "Data checking requires enforcement of unique keys, update cascades but no delete cascades, enumerated-value validation, mandatory fields and use of the ICD default values; exported default-valued fields must not be left blank.", "pdf_page": 5},
+  {"text": "Data must be groupable by instrument subsystem and model so that, for example, Subsys1 QM data can be replaced by Subsys1 FM data, and subsystem engineers can supply data without detailed SCOS-2000 knowledge.", "pdf_page": 6},
+  {"text": "Tools are required to import, append, output and delete sets of SCOS-2000 files and to enter parameter-value sets in a column-per-set layout.", "pdf_page": 6},
+  {"text": "Annex A groups the MIB tables as Operator (dpc, dpf, gpc, gpf, spc, spf), Packet (ccf, cdf, csf, csp, css, cve, cvp, cvs, pid, plf, ptv, sdf, vpd), Packet header (pcdf, pcpc, tcp), Parameter (caf, cap, cca, ccs, cpc, mcf, ocf, ocp, paf, pas, pcf, prf, prv, txf, txp) and Parameter set (cps, psm, pst, psv, pvs), with the AD-#1 section defining each.", "pdf_page": 8}
+ ],
+ "references": [
+  {"label": "AD-#1", "doc_id": "S2K-MCS-ICD-1-TOS-GCI", "title": "SCOS-2000 database import ICD", "issue": null, "date": null, "kind": "applicable", "pdf_page": 3}
+ ],
+ "topics": [
+  "mib/tooling.md",
+  "mib/index.md",
+  "mib/data-model.md",
+  "mib/icd-history.md",
+  "missions/herschel-planck.md"
+ ],
+ "notes": "Word document printed via Acrobat PDFWriter; every page footer shows the local file path 'mib urd.doc'. The document number is printed as 'SRON-U/HIFI-SP-2000-2.' with a trailing full stop (possibly truncated in the header box); 'Inst.no.: n' and 'Category: -' are printed as placeholders. PDF p. 7 holds only the end of RQ 3.5.5. Annex A cites section and page numbers of the import ICD (for example PCF at 3.3.2.1.1 p 14), which correspond to an early ICD issue not stated here. Annex A lists cvs, cve and cvp under 'Packet' and the command-parameter tables under 'Parameter'. Companion to hifi-mib-editor-evaluation."
+}

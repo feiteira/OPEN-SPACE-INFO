@@ -1,0 +1,217 @@
+{
+  "table": "cvs",
+  "file": "cvs.dat",
+  "icd": true,
+  "name": "Verification stages file",
+  "icd_section": "3.3.3.4.1",
+  "pdf_page": 192,
+  "family": "verification",
+  "purpose": "The cvs table defines the command execution verification (CEV) stages used by SCOS-2000, one record per stage. SCOS-2000 supports two kinds of verification check: report based, which relies on dedicated telemetry packets (PUS service 1 verification reports) announcing the success or failure of an execution stage, and parameter based, which compares the values of one or more monitoring parameters with criteria held in cve. Each stage record says which step of the command execution profile it covers (application acceptance, start, a numbered progress step or completion), which kind of check it uses, when the verification window opens after release (or execution, for time-tagged commands), the sampling interval used to compute the window, optionally the packet that closes a parameter-based stage, and optionally a stage-specific window that overrides the TC Spacon default. Stages are defined once and shared: cvp attaches them to commands. The ICD notes that only verification of commands, not of sequences, is supported by current SCOS-2000 versions.",
+  "keys": [
+    "CVS_ID"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "CVS_ID",
+      "type": "Number(5)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Unique identifier of the verification stage, integer 0 to 32767 (a signed short). Referenced by cve.CVE_CVSID and cvp.CVP_CVSID.",
+      "values": [],
+      "references": null,
+      "pdf_page": 192
+    },
+    {
+      "pos": 2,
+      "name": "CVS_TYPE",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Step of the command execution profile verified by this stage. Limitation of the SCOS-2000 service 1 implementation: the verifier processes progress reports (TM(1,5) packets) only for a stage of type '0'; reports for any other progress step are not processed. Per cvp, a command can have at most one stage of each type.",
+      "values": [
+        {
+          "value": "A",
+          "meaning": "Application acceptance"
+        },
+        {
+          "value": "S",
+          "meaning": "Start of execution"
+        },
+        {
+          "value": "0",
+          "meaning": "Progress step 0; the only progress step whose TM(1,5) reports the SCOS-2000 verifier processes"
+        },
+        {
+          "value": "1-9",
+          "meaning": "Progress step n of execution"
+        },
+        {
+          "value": "C",
+          "meaning": "Completion of execution"
+        }
+      ],
+      "references": null,
+      "pdf_page": 192
+    },
+    {
+      "pos": 3,
+      "name": "CVS_SOURCE",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Type of verification check used for this stage. Progress verification stages of the report type can only be stage 0. The ICD words this as 'R' being possible only for CVS_TYPE = '0'; in context this applies to progress stages, since acceptance and completion stages can also be report based. The ICD points to [RD-2] for the report packets.",
+      "values": [
+        {
+          "value": "R",
+          "meaning": "Report based: uses telemetry verification report packets"
+        },
+        {
+          "value": "V",
+          "meaning": "Parameter based: monitoring parameter values are checked against the criteria in cve for this stage"
+        }
+      ],
+      "references": null,
+      "pdf_page": 193
+    },
+    {
+      "pos": 4,
+      "name": "CVS_START",
+      "type": "Number(5)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Delay, in seconds (positive integer), between release of the command (or its execution, for time-tagged commands) and the opening of the verification window.",
+      "values": [],
+      "references": null,
+      "pdf_page": 193
+    },
+    {
+      "pos": 5,
+      "name": "CVS_INTERVAL",
+      "type": "Number(5)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Length, in seconds (positive integer), of the sampling interval used to calculate the overall verification window, as specified in the SCOS-2000 Commanding SRD [AD-2] (not in the library).",
+      "values": [],
+      "references": null,
+      "pdf_page": 193
+    },
+    {
+      "pos": 6,
+      "name": "CVS_SPID",
+      "type": "Number(10)",
+      "mandatory": "O",
+      "default": null,
+      "description": "SCOS-2000 packet ID (PID_SPID) of the TM packet that marks when to close a stage once its verification window has elapsed; flagged as a future extension. It may only be given for parameter-based stages (CVS_SOURCE = 'V'), where it helps when the verification parameters come from several different packets. If it is not given, the stage closes as soon as a valid sample of any associated verification parameter arrives with a time stamp at or after the window closure time. It is irrelevant for report-based stages, because their packets are known implicitly from type and subtype. The extracted text prints the type as 'Number(10' (closing parenthesis lost at a line break; earlier issues print Number(10)).",
+      "values": [],
+      "references": "pid.PID_SPID",
+      "pdf_page": 194
+    },
+    {
+      "pos": 7,
+      "name": "CVS_UNCERTAINTY",
+      "type": "Number(5)",
+      "mandatory": "O",
+      "default": "-1",
+      "description": "Stage-specific verification window in seconds (positive integer). When present it is used instead of the default window configured in the Spacon (the ICD says 'TM Spacon' in one sentence and 'TCspacon' in the next). If the field is empty, the importer sets -1, meaning that the standard TC Spacon verification window applies. The field name is split over two lines in the ICD table ('CVS_' / 'UNCERTAINTY').",
+      "values": [],
+      "references": null,
+      "pdf_page": 194
+    }
+  ],
+  "relationships": [
+    {
+      "field": "CVS_ID",
+      "target": "cve.CVE_CVSID",
+      "note": "Parameter-based stages (CVS_SOURCE='V') have one or more cve checks, logically ANDed."
+    },
+    {
+      "field": "CVS_ID",
+      "target": "cvp.CVP_CVSID",
+      "note": "Many-to-many relationship between commands and stages, resolved by the mapping table cvp (§3.3.3, PDF p.126)."
+    },
+    {
+      "field": "CVS_SPID",
+      "target": "pid.PID_SPID",
+      "note": "Packet that closes a 'V' stage."
+    },
+    {
+      "field": "CVS_TYPE",
+      "target": "ccf.CCF_ILSTAGE",
+      "note": "The importer checks that a command's default interlock stage ('A' or 'C') is foreseen in its cvp/cvs definition, and otherwise replaces CCF_ILSTAGE with the highest applicable level ('A' or 'O') (§3.3.3.2.1, PDF p.138)."
+    },
+    {
+      "field": "CVS_SOURCE",
+      "target": "ccf.CCF_ACK",
+      "note": "Since R4.0 report-based stages attached to a command can be disabled at load time by clearing the corresponding acknowledgement flag (PDF p.140, p.200)."
+    }
+  ],
+  "history": "ICD 5.1 §3.3.3.4.1 (icd-5-1-tos-gci, PDF p.93-94) has 6 fields (no CVS_UNCERTAINTY). CVS_ID is already Number(5), 0-32767, and there is no stage-0 note. ICD 6.0 brought in the Herschel/Planck CCS functions, including a CVS identifier range raised 'from NUM(5) to NUM(8)' (ICD 7.0 Annex 1, PDF p.247). ICD 6.1 (S2K-40-DCR-0821) updated CVS_TYPE and CVS_SOURCE to say that progress reports are only handled for stage 0 (PDF p.251). ICD 6.2/6.3 record 'CVS_ID Field Type changed' (PDF p.253). ICD 6.7 S2K-DCR-3909 restricted CVS_ID to signed short values (PDF p.259): ICD 6.7 Draft A prints Number(5), 0-32767, with 6 fields (icd-6-7-drafta PDF p.180-181). CVS_UNCERTAINTY was added for R5.2 by S2K-SCR-3774 (override of the TcSpacon verification window, PDF p.260; it arrived in ICD 6.7 Draft B per the change log, PDF p.5). It is printed in ICD 6.9 (icd-6-9-archive-org PDF p.186), whose S2K-NCR-5531 updated its description (PDF p.260). ICD 7.0 (PDF p.192-194) is unchanged from 6.9. Not modelled in pyscos2000 (7.2).",
+  "solo_stats": {
+    "rows": 206,
+    "fields": [
+      {
+        "name": "CVS_ID",
+        "filled": 206,
+        "examples": [
+          "11",
+          "17",
+          "20",
+          "21",
+          "22"
+        ]
+      },
+      {
+        "name": "CVS_TYPE",
+        "filled": 206,
+        "examples": [
+          "A",
+          "C"
+        ]
+      },
+      {
+        "name": "CVS_SOURCE",
+        "filled": 206,
+        "examples": [
+          "R",
+          "V"
+        ]
+      },
+      {
+        "name": "CVS_START",
+        "filled": 206,
+        "examples": [
+          "0"
+        ]
+      },
+      {
+        "name": "CVS_INTERVAL",
+        "filled": 206,
+        "examples": [
+          "20",
+          "60",
+          "4",
+          "36000",
+          "10"
+        ]
+      },
+      {
+        "name": "CVS_SPID",
+        "filled": 20,
+        "examples": [
+          "0",
+          "50001",
+          "50010",
+          "20000",
+          "52000"
+        ]
+      },
+      {
+        "name": "CVS_UNCERTAINTY",
+        "filled": 0,
+        "examples": []
+      }
+    ]
+  },
+  "notes": "Column mapping: COL1..COL7 = CVS_ID, CVS_TYPE, CVS_SOURCE, CVS_START, CVS_INTERVAL, CVS_SPID, CVS_UNCERTAINTY. All 206 lines of the 2025 cvs.dat have 7 fields (ICD 6.9/7.0 layout), but CVS_UNCERTAINTY is empty in every row, so the importer default -1 (TC Spacon window) applies everywhere. The SWA IDB cvs.dat has only 6 fields per line (pre-R5.2 layout without CVS_UNCERTAINTY) and holds 2 stages, 58901 and 58907, which have the same values as the stages with those IDs in the Solar Orbiter MIB. Content: only types 'A' and 'C' are used, with no start or progress stages: A/R 16, C/R 23, C/V 167. CVS_START is 0 everywhere (the ICD describes it as a positive integer). CVS_INTERVAL ranges from 4 to 36000 s; stage 51927 changed from 8000 to 36000 between the 2020-04-16 and 2025-09-16 releases, the only cvs difference. Discrepancy 1: 33 CVS_ID values exceed the ICD 7.0 range 0-32767 (IDs run from 11 to 70007, for example 50001, 54004, 70007), which conflicts with the signed-short restriction of S2K-DCR-3909. Discrepancy 2: CVS_SPID is filled in 20 rows, all report-based (CVS_SOURCE='R'), although ICD 7.0 allows it only for 'V' stages and calls it irrelevant for 'R'. The values are 0 (stages 14001/14007), SPIDs of TM(1,1) or TM(1,7) success-report packets (for example 52000 'TM 1,1 accept report ok', 54013 'STIX TC EXEC SUCCESS'), or 20000, which in pid is a TM(5,1) event packet. Inference, not stated in the sources: the mission control system may use CVS_SPID to tell the verifier which report packet to expect. The 2002 e-mail reproduced in the HCSS note explains that the SCOS-2000 verifier then listened to a predefined list of SPIDs for report-based verification (hcss-mib-clarification-tailoring-note PDF p.29). ICD 7.0 cites [RD-2] for report packets, but its reference list gives RD-2 as the SCOS-2000 Operations Language ADD and the PUS as RD-6 (PDF p.19), so the citation looks stale. pyscos2000 has no cvs model, so no 7.2 cross-check is possible. The HPSDB note forces CVS_SPID to Null (h-p-1-asp-tn-1060-mib-processing-hpsdb PDF p.38)."
+}

@@ -1,0 +1,767 @@
+{
+ "slug": "icd-6-7-drafta",
+ "title": "SCOS-2000 Database Import ICD",
+ "short_title": "SCOS-2000 Database Import ICD, version 6.7 Draft A",
+ "doc_id": "EGOS-MCS-S2K-ICD-0001",
+ "issue": "Version 6.7DraftA",
+ "date": "2009-12-01",
+ "organisation": "ESA/OPS-GIC (ESOC), SCOS-2000 Team",
+ "authors": [
+  "SCOS-2000 R5.2 Team",
+  "R. Southworth",
+  "T. Zimmer",
+  "M.Pecchioli"
+ ],
+ "doc_type": "Interface Control Document",
+ "status_notes": "Draft (version 6.7 Draft A, 01/12/09: updates for R4.5 and R5.2.0i1, change log p. 5). Superseded by 6.7 Draft B (20/02/2010), Draft C (24/05/2010) and the final 6.9 (06/07/2010), per the change log of icd-6-9-archive-org (pp. 5-6), and later by 7.0.",
+ "summary": "Draft A of version 6.7 (December 2009) of the SCOS-2000 Database Import ICD, now numbered EGOS-MCS-S2K-ICD-0001 under ESA/OPS-GIC. It specifies the MIB ASCII tables imported into the SCOS-2000 run-time database and documents SCOS-2000 releases R4.5 and R5.2. The copy was found on an INAF-OAS Redmine project server.\n\nCompared with issue 5.1 it adds multi-domain installations, in which each domain has its own database and a General Domain holds multi-domain synthetic parameters. From R5.0, command sequence and TM display definitions are converted to XML and stored in the FARC instead of the run-time database, with a delta import. The table set grows to 51 with conditional calibration selection (cur), logarithmic calibrations (lgf) and parameter/packet groups (grp, grpa, grpk), all repatriated from the Herschel/Planck CCS. Calibration and range-set identifiers become 10-character strings, PCF descriptions grow to 24 characters, and PCF gains time-correlation and archive fields (PCF_CORR, PCF_OBTID, PCF_DARC, PCF_ENDIAN). Unix-format absolute time (PTC 9, PFC 30) and NIS/SLE throw-event command types also appear.\n\nA new Appendix C explains how SCOS-2000 supports the PUS service by service (1 to 19): data-type restrictions, the ban on using variable packets for regular housekeeping, service 1 report-based verification, the on-board schedule model for service 11, time correlation for service 9, and services that need mission-specific code. Annex 1 lists document changes by release from R4.0 to R5.2. This draft is useful for dating when each MIB feature appeared.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "INTRODUCTION",
+   "pdf_page": 14
+  },
+  {
+   "section": "1.4",
+   "title": "REFERENCES",
+   "pdf_page": 17
+  },
+  {
+   "section": "2",
+   "title": "INTERFACE OVERVIEW",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.1",
+   "title": "ASSUMPTIONS AND CONSTRAINTS",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.2",
+   "title": "LOCATION AND NAMING CONVENTION OF THE ASCII FILES",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.3",
+   "title": "STRUCTURE OF THE ASCII FILES",
+   "pdf_page": 20
+  },
+  {
+   "section": "2.4",
+   "title": "CHECKS APPLIED AT IMPORT TIME",
+   "pdf_page": 20
+  },
+  {
+   "section": "2.5",
+   "title": "IMPORT OPTIONS",
+   "pdf_page": 21
+  },
+  {
+   "section": "3",
+   "title": "DETAILED INTERFACE SPECIFICATION",
+   "pdf_page": 23
+  },
+  {
+   "section": "3.1",
+   "title": "RELATIONSHIP BETWEEN THE ASCII TABLES AND THE DATABASE ITEMS",
+   "pdf_page": 23
+  },
+  {
+   "section": "3.2",
+   "title": "SUMMARY OF THE ASCII TABLES",
+   "pdf_page": 28
+  },
+  {
+   "section": "3.3",
+   "title": "DETAILED DEFINITION OF THE ASCII TABLES STRUCTURE",
+   "pdf_page": 33
+  },
+  {
+   "section": "3.3.1.1",
+   "title": "Database version: vdf",
+   "pdf_page": 35
+  },
+  {
+   "section": "3.3.2",
+   "title": "Monitoring Data",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.3.2.1.1",
+   "title": "Monitoring parameters characteristics: pcf",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.3.2.1.2",
+   "title": "Synthetic parameters",
+   "pdf_page": 51
+  },
+  {
+   "section": "3.3.2.1.3",
+   "title": "User Defined Constants",
+   "pdf_page": 55
+  },
+  {
+   "section": "3.3.2.1.4",
+   "title": "Dynamic Configuration Variables",
+   "pdf_page": 57
+  },
+  {
+   "section": "3.3.2.2.1",
+   "title": "Calibration conditional selection: cur",
+   "pdf_page": 58
+  },
+  {
+   "section": "3.3.2.2.2",
+   "title": "Numerical calibrations: caf",
+   "pdf_page": 61
+  },
+  {
+   "section": "3.3.2.2.3",
+   "title": "Numerical calibrations definition: cap",
+   "pdf_page": 63
+  },
+  {
+   "section": "3.3.2.2.4",
+   "title": "Textual calibrations: txf",
+   "pdf_page": 64
+  },
+  {
+   "section": "3.3.2.2.5",
+   "title": "Textual calibrations definition: txp",
+   "pdf_page": 65
+  },
+  {
+   "section": "3.3.2.2.6",
+   "title": "Polynomial calibrations definitions: mcf",
+   "pdf_page": 66
+  },
+  {
+   "section": "3.3.2.2.7",
+   "title": "Logarithmic calibrations definitions: lgf",
+   "pdf_page": 67
+  },
+  {
+   "section": "3.3.2.3.1",
+   "title": "Monitoring checks: ocf",
+   "pdf_page": 68
+  },
+  {
+   "section": "3.3.2.3.2",
+   "title": "Monitoring checks definition: ocp",
+   "pdf_page": 70
+  },
+  {
+   "section": "3.3.2.4.1",
+   "title": "Packets identification: pid",
+   "pdf_page": 77
+  },
+  {
+   "section": "3.3.2.4.2",
+   "title": "Packets identification criteria: pic",
+   "pdf_page": 85
+  },
+  {
+   "section": "3.3.2.4.3",
+   "title": "Telemetry packets characteristics: tpcf",
+   "pdf_page": 87
+  },
+  {
+   "section": "3.3.2.5.1",
+   "title": "Parameters location in fixed packets: plf",
+   "pdf_page": 91
+  },
+  {
+   "section": "3.3.2.5.2",
+   "title": "Variable packet definition: vpd",
+   "pdf_page": 93
+  },
+  {
+   "section": "3.3.2.6.1",
+   "title": "Monitoring groups definition: grp",
+   "pdf_page": 102
+  },
+  {
+   "section": "3.3.2.6.2",
+   "title": "Parameters groups: grpa",
+   "pdf_page": 102
+  },
+  {
+   "section": "3.3.2.6.3",
+   "title": "Telemetry packets groups: grpk",
+   "pdf_page": 103
+  },
+  {
+   "section": "3.3.2.7.1",
+   "title": "Alphanumeric displays: dpf",
+   "pdf_page": 104
+  },
+  {
+   "section": "3.3.2.7.2",
+   "title": "Alphanumeric displays definition: dpc",
+   "pdf_page": 104
+  },
+  {
+   "section": "3.3.2.7.3",
+   "title": "Graphic displays: gpf",
+   "pdf_page": 107
+  },
+  {
+   "section": "3.3.2.7.4",
+   "title": "Graphic displays definition: gpc",
+   "pdf_page": 109
+  },
+  {
+   "section": "3.3.2.7.5",
+   "title": "Scrolling displays: spf",
+   "pdf_page": 113
+  },
+  {
+   "section": "3.3.2.7.6",
+   "title": "Scrolling displays definition: spc",
+   "pdf_page": 114
+  },
+  {
+   "section": "3.3.2.7.7",
+   "title": "Printout proforma: ppf",
+   "pdf_page": 116
+  },
+  {
+   "section": "3.3.2.7.8",
+   "title": "Printout proforma definition: ppc",
+   "pdf_page": 117
+  },
+  {
+   "section": "3.3.3",
+   "title": "Commanding data",
+   "pdf_page": 119
+  },
+  {
+   "section": "3.3.3.1.1",
+   "title": "Packet headers characteristics: tcp",
+   "pdf_page": 121
+  },
+  {
+   "section": "3.3.3.1.2",
+   "title": "Packet headers parameters: pcpc",
+   "pdf_page": 121
+  },
+  {
+   "section": "3.3.3.1.3",
+   "title": "Packet headers definition: pcdf",
+   "pdf_page": 122
+  },
+  {
+   "section": "3.3.3.2.1",
+   "title": "Command characteristics: ccf",
+   "pdf_page": 124
+  },
+  {
+   "section": "3.3.3.2.1.1",
+   "title": "Command routing: DST",
+   "pdf_page": 132
+  },
+  {
+   "section": "3.3.3.2.2",
+   "title": "Command parameters: cpc",
+   "pdf_page": 133
+  },
+  {
+   "section": "3.3.3.2.3",
+   "title": "Commands definition: cdf",
+   "pdf_page": 141
+  },
+  {
+   "section": "3.3.3.2.4",
+   "title": "Commands pre-transmission validation: ptv",
+   "pdf_page": 149
+  },
+  {
+   "section": "3.3.3.3.1",
+   "title": "Command sequence characteristics: csf",
+   "pdf_page": 154
+  },
+  {
+   "section": "3.3.3.3.2",
+   "title": "Command sequences definition: css",
+   "pdf_page": 157
+  },
+  {
+   "section": "3.3.3.3.3",
+   "title": "Command sequence element parameters: sdf",
+   "pdf_page": 168
+  },
+  {
+   "section": "3.3.3.3.4",
+   "title": "Command sequence formal parameters: csp",
+   "pdf_page": 173
+  },
+  {
+   "section": "3.3.3.4.1",
+   "title": "Verification stages file: cvs",
+   "pdf_page": 180
+  },
+  {
+   "section": "3.3.3.4.2",
+   "title": "Verification expressions: cve",
+   "pdf_page": 182
+  },
+  {
+   "section": "3.3.3.4.3",
+   "title": "Verification profiles: cvp",
+   "pdf_page": 186
+  },
+  {
+   "section": "3.3.3.5.1",
+   "title": "Parameter sets: pst",
+   "pdf_page": 188
+  },
+  {
+   "section": "3.3.3.5.2",
+   "title": "Parameter value sets: psv",
+   "pdf_page": 188
+  },
+  {
+   "section": "3.3.3.5.3",
+   "title": "Parameter sets definition: cps",
+   "pdf_page": 188
+  },
+  {
+   "section": "3.3.3.5.4",
+   "title": "Parameter value sets definition: pvs",
+   "pdf_page": 189
+  },
+  {
+   "section": "3.3.3.5.5",
+   "title": "Parameter sets mapping to commands/sequences: psm",
+   "pdf_page": 191
+  },
+  {
+   "section": "3.3.3.6.1",
+   "title": "Numerical (de-)calibration curves: cca",
+   "pdf_page": 192
+  },
+  {
+   "section": "3.3.3.6.2",
+   "title": "Numerical (de-)calibration curves definition: ccs",
+   "pdf_page": 194
+  },
+  {
+   "section": "3.3.3.6.3",
+   "title": "Textual (de-)calibrations: paf",
+   "pdf_page": 195
+  },
+  {
+   "section": "3.3.3.6.4",
+   "title": "Textual (de-)calibrations definitions: pas",
+   "pdf_page": 196
+  },
+  {
+   "section": "3.3.3.7.1",
+   "title": "Parameter range sets: prf",
+   "pdf_page": 197
+  },
+  {
+   "section": "3.3.3.7.2",
+   "title": "Parameter range values: prv",
+   "pdf_page": 199
+  },
+  {
+   "section": "Appendix A",
+   "title": "SCOS-2000 Parameter Types",
+   "pdf_page": 200
+  },
+  {
+   "section": "Appendix B",
+   "title": "SCOS-2000 Database Import Tables Overview",
+   "pdf_page": 214
+  },
+  {
+   "section": "Appendix C",
+   "title": "SCOS-2000 Support of Packet Utilisation Standard (PUS)",
+   "pdf_page": 219
+  },
+  {
+   "section": "Appendix C, 1.",
+   "title": "SUPPORT OF PUS DATA TYPES",
+   "pdf_page": 220
+  },
+  {
+   "section": "Appendix C, 2.",
+   "title": "SUPPORT OF PUS DATA STRUCTURES",
+   "pdf_page": 221
+  },
+  {
+   "section": "Appendix C, 3.",
+   "title": "SPECIFIC SUPPORT OF TM/TC SERVICES",
+   "pdf_page": 222
+  },
+  {
+   "section": "Annex 1",
+   "title": "List of implemented Document Changes",
+   "pdf_page": 229
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Version 6.4 moved TC sequence and TM display definitions out of the POST MIB database into the FARC as XML files and added the SLE throw-event (TE) command type; 6.7 Draft A adds updates for R4.5 and R5.2.0i1.",
+   "pdf_page": 5
+  },
+  {
+   "text": "The dynamic part of the MIB is now called the 'packet archive' (it was the 'history files' in earlier issues).",
+   "pdf_page": 16
+  },
+  {
+   "text": "SCOS-2000 manages multiple 'domains', each with its own database ASCII files; the General Domain also needs a multi-domain database that only defines multi-domain synthetic parameters.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Every field of a record must contain at least the separator, so null fields hold only the tab character.",
+   "pdf_page": 20
+  },
+  {
+   "text": "An off-line database consistency checker is delivered with the main SCOS-2000 release test environment from R4.0.",
+   "pdf_page": 21
+  },
+  {
+   "text": "From SCOS-2000 R5.0, sequence and display ASCII tables are converted on request into XML files imported into the FARC (not the POST run-time database), using a 'delta' approach that only updates the definitions supplied.",
+   "pdf_page": 22
+  },
+  {
+   "text": "PCF_DESCR is Char(24) (S2K-SPR-3797) and PCF_CURTX is Char(10).",
+   "pdf_page": 38
+  },
+  {
+   "text": "The PCF table has 23 fields; new fields 20-23 are PCF_CORR and PCF_OBTID (time correlation per on-board time ID), PCF_DARC (DARC integration) and PCF_ENDIAN (little-endian support).",
+   "pdf_page": 50
+  },
+  {
+   "text": "The cur table associates calibration definitions with monitoring parameters, one record per parameter/calibration couple, so a parameter can have multiple calibrations; static PTV checks may then not use its engineering value.",
+   "pdf_page": 58
+  },
+  {
+   "text": "Absolute time in Unix format, PTC=9 PFC=30 (8 octets), is listed as a SCOS-2000 extension not defined in the PUS.",
+   "pdf_page": 207
+  },
+  {
+   "text": "Appendix C lists PUS data-type exceptions: integers limited to 32 bits, (5,4) only for TC encoding, no variable bit strings (6,0), variable octet/character strings only for TC encoding, and no p-field absolute time (9,0).",
+   "pdf_page": 220
+  },
+  {
+   "text": "SCOS-2000 adds two special TC parameter types: 'Parameter ID' (encoded as the on-board PID of a named TM parameter, e.g. for TC(4,6) or TC(12,1)) and 'Command ID' (encoded as the raw bytes of a named command, e.g. for TC(19,1)).",
+   "pdf_page": 220
+  },
+  {
+   "text": "Variable TM packets cannot take part in full TM processing (validity, monitoring checks, verification, synthetic parameters), so they should not carry regular housekeeping data.",
+   "pdf_page": 221
+  },
+  {
+   "text": "For PUS service 1, the Verifier extracts the 4 bytes echoing the TC packet ID and sequence control, which must sit at the same position in all type 1 packets; progress reports can only map to progress stage 0, and failure codes are ignored.",
+   "pdf_page": 222
+  },
+  {
+   "text": "New service 3 housekeeping packets must be defined in the TM/TC database before they are enabled on board; parameter time offsets and packet generation intervals are static database values.",
+   "pdf_page": 223
+  },
+  {
+   "text": "SCOS-2000 time correlation using service 9 time reports, for free-running and synchronised clocks, is only available from R5.2; earlier it was mission-specific.",
+   "pdf_page": 225
+  },
+  {
+   "text": "DCR-2421 raises the maximum PCF_PID and PID_SPID values from 2^31-1 to 2^32-1.",
+   "pdf_page": 231
+  },
+  {
+   "text": "Functions repatriated from the Herschel & Planck Check Out System include calibration curve selection, delta limits (a change of engineering value above a threshold is out of limit) and enable/inhibit of parameters.",
+   "pdf_page": 231
+  },
+  {
+   "text": "Further repatriated changes: enable/inhibit of packets, named parameter and packet groups, calibration curve identifiers changed from NUM(4) to CHAR(10), verification stage IDs from NUM(5) to NUM(8) and range set IDs from NUM(4) to CHAR(10).",
+   "pdf_page": 232
+  },
+  {
+   "text": "The logarithmic calibration (LGF), designed for platinum thermistor temperatures, computes Y = 1 / [A0 + A1 ln(X) + A2 ln^2(X) + A3 ln^3(X) + A4 ln^4(X)].",
+   "pdf_page": 233
+  },
+  {
+   "text": "From R5.0, mapping different TM packets to the same SPID is deprecated, because packets are now stored in a database.",
+   "pdf_page": 241
+  }
+ ],
+ "references": [
+  {
+   "label": "AD-1",
+   "doc_id": "SRD-0003",
+   "title": "SCOS-2000 Monitoring SRD",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 17
+  },
+  {
+   "label": "AD-2",
+   "doc_id": "SRD-0002",
+   "title": "SCOS-2000 Commanding SRD",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 17
+  },
+  {
+   "label": "AD-3",
+   "doc_id": "SRD-0001",
+   "title": "SCOS-2000 System Level SRD",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 17
+  },
+  {
+   "label": "AD-4",
+   "doc_id": "ICD-0051",
+   "title": "SCOS-2000 TC Sequences definitions ICD",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 17
+  },
+  {
+   "label": "AD-5",
+   "doc_id": "ICD-5001",
+   "title": "SCOS-2000 TM Displays and Printout definitions Service ICD",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 17
+  },
+  {
+   "label": "CNF-01",
+   "doc_id": "CIDL-0001",
+   "title": "SCOS-2000 Document Control List",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "RD-1",
+   "doc_id": "SUM-0002",
+   "title": "SCOS-2000 Configuration and Installation Guide",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-2",
+   "doc_id": "ADD-0007",
+   "title": "SCOS-2000 Operations Language ADD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-3",
+   "doc_id": "GLO-0001",
+   "title": "SCOS-2000 Glossary, Definitions and Acronyms",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-4",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-5",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-6",
+   "doc_id": "ESA PSS-07-101",
+   "title": "Packet Utilisation Standard",
+   "issue": "Issue 1",
+   "date": "May 1994",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-7",
+   "doc_id": "RO-ESC-IF-5002",
+   "title": "Rosetta Space/Ground ICD",
+   "issue": "Issue 1",
+   "date": "August 1998",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-8",
+   "doc_id": "CCSDS 301.0-B-2",
+   "title": "CCSDS Time Code Formats",
+   "issue": "Issue 2",
+   "date": "April 1990",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-9",
+   "doc_id": "SUM-0019",
+   "title": "SCOS-2000 Synthetic Parameters SUM",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-10",
+   "doc_id": "SUM-0026",
+   "title": "SCOS-2000 Events & Actions SUM",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-11",
+   "doc_id": "SUM-0018",
+   "title": "SCOS-2000 MIB Applications SUM",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-12",
+   "doc_id": "ICD-0002",
+   "title": "SCOS-2000 Stack Import ICD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-13",
+   "doc_id": "ICD-0003",
+   "title": "SCOS-2000 Task Parameter File ICD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-14",
+   "doc_id": "ESA PSS-074-107",
+   "title": "ESA Packet Telecommand Standard",
+   "issue": "Issue 2.0",
+   "date": "April 1992",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-15",
+   "doc_id": "SUM-2210",
+   "title": "SCOS-2000 Telemetry Desktop Operator User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-16",
+   "doc_id": "ICD-0011",
+   "title": "SCOS-2000 Telemetry Parameter Injection ICD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-17",
+   "doc_id": "ADD-0003",
+   "title": "SCOS-2000 Telemetry Monitoring ADD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-18",
+   "doc_id": "EGOS-NIS-NCTR-ICD-0002",
+   "title": "NCTRA-NIS/MCS ICD Volume 2",
+   "issue": "Issue 3.1",
+   "date": "July 2005",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-19",
+   "doc_id": "EGOS-NIS-NIS-ICD-0003",
+   "title": "NIS Throw Events ICD",
+   "issue": "Issue 1.3",
+   "date": "November 2007",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "RD-20",
+   "doc_id": "ECSS-E-70-41A",
+   "title": "Ground Systems And Operations – Telemetry And Telecommand Packet Utilisation Standard (PUS). This document will be replaced by ECSS- E-ST-70-41C",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": null,
+   "doc_id": "MIL STD 1750A",
+   "title": "MIL-STD-1750A floating point formats (32-bit and 48-bit reals, PTC=5 PFC=3/4)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 202
+  },
+  {
+   "label": null,
+   "doc_id": "IEEE Std 754-1985",
+   "title": "IEEE floating point standard (encoding of PTC=5 PFC=1/2 reals)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 210
+  }
+ ],
+ "topics": [
+  "mib/index.md",
+  "mib/data-model.md",
+  "mib/icd-history.md",
+  "mib/parameter-types.md",
+  "mib/monitoring.md",
+  "mib/calibration.md",
+  "mib/monitoring-checks.md",
+  "mib/commanding.md",
+  "mib/command-verification.md",
+  "mib/sequences.md",
+  "mib/displays.md",
+  "mib/synthetic-parameters.md",
+  "scos2000/index.md",
+  "ecss/pus/index.md",
+  "ecss/pus/parameter-types.md",
+  "scos2000/archives.md",
+  "scos2000/time-correlation.md",
+  "ecss/pus/st01-request-verification.md",
+  "ecss/pus/st11-time-based-scheduling.md"
+ ],
+ "notes": "Draft document obtained from an INAF-OAS Redmine attachment (file 'egos-mcs-s2k-icd-0001-version67DraftA mib.pdf'). The cover prints the status 'Version 6.7DraftA' and the running header 'Issue: 6. 7DraftA'. Printed page 1 is PDF page 14 (offset +13). Both PURPOSE and SCOPE are numbered 1.1 in chapter 1, so later chapter-1 numbers are shifted. The 6.6 change-log entry has no date. Appendix C cites PUS sections as 'Section 23.5 of [AD-2]' and 'Section 6 of [AD-5]', but AD-2 and AD-5 in this document are the Commanding SRD and the TM displays ICD; the intended target appears to be the PUS (RD-6 or RD-20). RD-14 is printed 'ESA PSS-074-107'. Annex 1 misspells 'Hershel & Planck'. Related library items: icd-5-1-tos-gci, icd-6-9-archive-org, icd-7-0-final; RD-20 corresponds to ecss-e-70-41a-30jan2003-pus."
+}

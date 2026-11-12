@@ -1,0 +1,207 @@
+{
+ "table": "s13a",
+ "file": "s13a.dat",
+ "icd": false,
+ "name": "File attribute codes for on-board file uploads (inferred title)",
+ "icd_section": null,
+ "pdf_page": null,
+ "family": "mission-specific",
+ "purpose": "Inferred from the data; not documented in any available ICD. A small lookup table (7 rows) of file categories used by Solar Orbiter's file-based uplink, which relies on PUS service 13 'large data transfer' commands such as TC(13,9) 'Accept First Uplink Part' whose application data include a Partition Id and a File Attribute. Each record gives a short name (PLAIN, OBCP, DEL, IMM, PAYLOAD, INVALID, OTHER), a one-letter code, a numeric code (0-6, repeated in two columns) and a description such as 'DELAYED TC' or 'IMMEDIATE TC'. The names OTHER and OBCP are referenced from column 6 of s13t, which suggests that s13a classifies the content of uploaded files (plain data, on-board control procedures, delayed or immediate telecommand sequences, payload context). The numeric codes do not match the on-board 'File types' textual calibration CCDT0082TX used by the File Attribute parameter (where 0 is FT_INVALID and 6 FT_PLAIN), so the codes are probably ground-side (inference). SCOS-2000 does not use this table; it belongs to mission tools.",
+ "keys": [
+  "COL1"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "COL1",
+   "type": "Char (max 7 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: short name of the file attribute/category (PLAIN, OBCP, DEL, IMM, PAYLOAD, INVALID, OTHER). Unique.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "attribute name"
+  },
+  {
+   "pos": 2,
+   "name": "COL2",
+   "type": "Char(1) observed",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: one-letter code of the category: N (PLAIN, PAYLOAD, INVALID, OTHER), O (OBCP), D (DEL), I (IMM). Exact meaning not determinable.",
+   "values": [
+    {
+     "value": "N",
+     "meaning": "observed for PLAIN, PAYLOAD, INVALID, OTHER (meaning not determinable)"
+    },
+    {
+     "value": "O",
+     "meaning": "observed for OBCP"
+    },
+    {
+     "value": "D",
+     "meaning": "observed for DEL (delayed TC)"
+    },
+    {
+     "value": "I",
+     "meaning": "observed for IMM (immediate TC)"
+    }
+   ],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "category code"
+  },
+  {
+   "pos": 3,
+   "name": "COL3",
+   "type": "Number (0-6 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: numeric code of the category (PLAIN 0, OBCP 1, DEL 2, IMM 3, PAYLOAD 4, INVALID 5, OTHER 6). Always equal to COL4.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "code"
+  },
+  {
+   "pos": 4,
+   "name": "COL4",
+   "type": "Number (0-6 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: second numeric code, identical to COL3 in all rows (perhaps a ground and an on-board value that happen to coincide).",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "code (second)"
+  },
+  {
+   "pos": 5,
+   "name": "COL5",
+   "type": "Char (max 7 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: display or class name; equals COL1 except for PLAIN, whose value is PAYLOAD.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "class name"
+  },
+  {
+   "pos": 6,
+   "name": "COL6",
+   "type": "Char (max 15 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: human-readable description (e.g. 'DELAYED TC', 'IMMEDIATE TC', 'PAYLOAD CONTEXT').",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "description"
+  }
+ ],
+ "relationships": [
+  {
+   "field": "COL1",
+   "target": "s13t.COL6",
+   "note": "s13t rows UNKNOWN and OBCP refer to OTHER and OBCP (inferred)."
+  },
+  {
+   "field": "COL3",
+   "target": "pas (PAS_NUMBR='CCDT0082TX') ALVAL",
+   "note": "Same purpose but different numbering than the on-board 'File types' calibration (0 FT_INVALID ... 7 FT_FAT); not a foreign key (inferred)."
+  }
+ ],
+ "history": "Not part of any ICD issue nor of pyscos2000. Present in MIB__20250916M25925PFMS001_SOL (file dated 2021-06-03); absent from MIB__20200416M10720PFMS001_SOL and from the SWA database.",
+ "solo_stats": {
+  "db": "solo-2025-09-16.sqlite",
+  "release": "MIB__20250916M25925PFMS001_SOL",
+  "slug": "mib-20250916m25925pfms001-sol",
+  "rows": 7,
+  "fields": [
+   {
+    "name": "COL1",
+    "filled": 7,
+    "distinct": 7,
+    "max_length": 7,
+    "examples": [
+     "PLAIN",
+     "OBCP",
+     "DEL",
+     "IMM",
+     "PAYLOAD"
+    ]
+   },
+   {
+    "name": "COL2",
+    "filled": 7,
+    "distinct": 4,
+    "max_length": 1,
+    "examples": [
+     "N",
+     "O",
+     "D",
+     "I"
+    ]
+   },
+   {
+    "name": "COL3",
+    "filled": 7,
+    "distinct": 7,
+    "max_length": 1,
+    "examples": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4"
+    ]
+   },
+   {
+    "name": "COL4",
+    "filled": 7,
+    "distinct": 7,
+    "max_length": 1,
+    "examples": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4"
+    ]
+   },
+   {
+    "name": "COL5",
+    "filled": 7,
+    "distinct": 6,
+    "max_length": 7,
+    "examples": [
+     "PAYLOAD",
+     "OBCP",
+     "DEL",
+     "IMM",
+     "INVALID"
+    ]
+   },
+   {
+    "name": "COL6",
+    "filled": 7,
+    "distinct": 7,
+    "max_length": 15,
+    "examples": [
+     "PLAIN",
+     "OBCP",
+     "DELAYED TC",
+     "IMMEDIATE TC",
+     "PAYLOAD CONTEXT"
+    ]
+   }
+  ]
+ },
+ "sources": [
+  "mib-20250916m25925pfms001-sol",
+  "icd-7-0-final"
+ ],
+ "notes": "All meanings inferred. The link to service 13 rests on the table names (s13*), on TC(13,9)/(13,11) definitions in ccf/cdf with parameters 'Partition Id' (PCD0D093, calibration CCDT0192TX) and 'File Attribute' (PCD0D096, calibration CCDT0082TX), and on matching values in s13p. 'a' in the name possibly stands for 'attribute' (inference)."
+}

@@ -1,0 +1,60 @@
+{
+  "slug": "airdrive-b8b986f",
+  "title": "Developing EGS-CC based applications; the EGOS-CC experience",
+  "short_title": "Developing EGS-CC based applications at ESOC (SESP 2019)",
+  "doc_id": null,
+  "issue": null,
+  "date": "2019-03-26",
+  "organisation": "European Space Agency, ESA/ESOC; presented at the Workshop on Simulation and EGSE for Space Programmes (SESP), 26-28 March 2019, ESA-ESTEC, Noordwijk",
+  "authors": [
+    "Anthony Walsh",
+    "Mauro Pecchioli",
+    "Klara Widegård",
+    "Catherine Lannes"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "Workshop paper for SESP, 26-28 March 2019 (title block, PDF p. 1). The date given here is the first day of the workshop. The paper describes work in progress as of early 2019, for example the pilot Juice MCS decision planned for September 2019.",
+  "summary": "An ESOC paper from SESP 2019 on **EGOS-CC**, the ESOC initiative to adopt the European Ground Systems Common Core ([EGS-CC](../scos2000/ancillary-and-egs-cc.md)) as the base of its next generation of monitoring and control infrastructure. EGOS-CC replaces [SCOS-2000](../scos2000/index.md) for mission control and STC2 for ground station network operations, both expected to face obsolescence in the following decade. The paper lists the strategic objectives (lower cost of ownership, a modern operations environment, cross-fertilisation between mission and network operations). It then breaks the infrastructure down into a development environment (the EGS-CC SDE), a preparation environment based on the OPEN framework, the SLES12 platform baseline, EGS-CC itself used unmodified, extension components, adapter components and external ancillary applications.\n\nThe main products are **M4C** (Mission Control Core based on Common Core, the SCOS-2000 successor) and **GSMC-CC** (the STC2 successor), with OPEN-M and OPEN-S as the preparation tools for missions and ground stations. Legacy cross-domain applications such as data distribution and long-term archiving stay outside the EGS-CC runtime and are adapted to it. Three tables list the planned extension and adapter components, among them a CSTS Monitoring Data provider, an ESTRACK schedule interface, file-based operations, OBSW patch/dump management, TM file ingestion, command request file management, a mission propagation delay (OWLT) extension to time correlation, and a [PUS-C service 11](../ecss/pus/st11-time-based-scheduling.md) replacing the PUS-A reference implementation. The paper also covers the engineering approach (black-box use of EGS-CC, a top-down hierarchical functional model and gap analysis) and the programmatics: incremental delivery, a pilot Juice MCS as first target, a pilot GSMC-CC, and validation against the BepiColombo simulator.",
+  "contents": [
+    {"section": "Introduction", "title": "Introduction", "pdf_page": 1},
+    {"section": "Introduction", "title": "Background", "pdf_page": 1},
+    {"section": "Introduction", "title": "EGOS-CC", "pdf_page": 1},
+    {"section": "The new EGOS-CC infrastructure at ESOC", "title": "The new EGOS-CC infrastructure at ESOC", "pdf_page": 2},
+    {"section": "The new EGOS-CC infrastructure at ESOC", "title": "High Level Decomposition", "pdf_page": 2},
+    {"section": "The new EGOS-CC infrastructure at ESOC", "title": "EGOS-CC Products", "pdf_page": 4},
+    {"section": "The new EGOS-CC infrastructure at ESOC", "title": "EGOS-CC Extensions and Adaptors", "pdf_page": 5},
+    {"section": "Engineering approach", "title": "Engineering approach", "pdf_page": 6},
+    {"section": "Programmatics", "title": "Programmatics", "pdf_page": 7},
+    {"section": "Summary", "title": "Summary", "pdf_page": 8},
+    {"section": "References", "title": "References", "pdf_page": 8}
+  ],
+  "key_points": [
+    {"text": "At ESOC, SCOS-2000 is the basis for mission control systems and STC2 for ground station network operations; both are expected to face significant obsolescence problems in the next decade, which EGOS-CC addresses.", "pdf_page": 1},
+    {"text": "The EGOS-CC infrastructure is decomposed into Development Environment (EGS-CC SDE), Preparation Environment, Platform Baseline, EGS-CC, Extension Components, Adapter Components and External Ancillary Applications.", "pdf_page": 2},
+    {"text": "The Tailoring Environment at ESOC is to be based on the OPEN framework; the platform baseline is SLES12; EGS-CC is to be adopted without modifications.", "pdf_page": 3},
+    {"text": "Design drivers for mission control systems include many dozens of parallel users in LEOP, off-line operations with short passes or long propagation delays, and processing of real-time and deferred data.", "pdf_page": 3},
+    {"text": "M4C (Mission Control Core based on Common Core) and GSMC-CC have functional scopes very similar to SCOS-2000 and STC2 respectively; M4C can be extended per mission, GSMC-CC is not mission specific.", "pdf_page": 4},
+    {"text": "Cross domain applications such as data distribution and long-term archiving run outside the EGS-CC runtime and are being adapted to integrate with both M4C/GSMC-CC and the current S2K and GSMC infrastructure.", "pdf_page": 4},
+    {"text": "OPEN (Operations Preparation Environment for EGS-CC based systems) is extended by OPEN-M for mission operations and OPEN-S for ground stations, to be available under the ESA Software Community License.", "pdf_page": 5},
+    {"text": "Cross-domain components include a REALS alert adapter, a CSTS Monitoring Data provider/adapter and a Ground Schedule Increment loader; ground-station components include a Ground Station M&C interface, ESTRACK schedule interface and STDM interface.", "pdf_page": 5},
+    {"text": "Mission-operations components include File Based Operations, OBSW Management, TM Files Ingestion, Command Request Management (CRF files), a TM Packet Interface Adapter for flight dynamics, Mission Propagation Delay (OWLT) and PUS-C Service 11.", "pdf_page": 6},
+    {"text": "Engineering principles: black-box use of EGS-CC (no source-code modifications of kernel or reference implementation), adoption of the EGS-CC SDE and product requirements for all extensions, and a top-down hierarchical functional model used for a functional gap analysis.", "pdf_page": 6},
+    {"text": "Development of OPEN and EGOS-CC extensions started in 2017; the Juice MCS (J-MCS) is the first target MCS, with a pilot J-MCS before a commitment in September 2019, and a pilot GSMC-CC with a decision at the end of 2019.", "pdf_page": 7},
+    {"text": "Parallel EGS-CC sessions allow simultaneous connection to the EGS-CC RTF Simulator and the BepiColombo mission simulator for familiarisation and regression testing.", "pdf_page": 7}
+  ],
+  "references": [
+    {"label": "[1]", "doc_id": null, "title": "M. Pecchioli, J. M. Carranza, A. Walsh, \"The Highlights of the European Ground Systems - Common Core Initiative,\" SpaceOps 2014, Pasadena", "issue": null, "date": "2014", "kind": "bibliography", "pdf_page": 8},
+    {"label": "[2]", "doc_id": "AIAA Paper 2016-2304", "title": "M. Pecchioli, J. M. Carranza, A. Walsh, \"The Operational Adoption of the EGS-CC at ESA\"", "issue": null, "date": "June 2016", "kind": "bibliography", "pdf_page": 8},
+    {"label": "[3]", "doc_id": null, "title": "F. Trifin, A. Walsh \"OPEN: A community based preparation environment for EGS-CC based systems\", SESP 2019", "issue": null, "date": "March 2019", "kind": "bibliography", "pdf_page": 8},
+    {"label": "[4]", "doc_id": null, "title": "K. Widegård, M. Pecchioli, \"Harmonisation of products for ground segment operations at ESA\" SpaceOps 2018", "issue": null, "date": "May 2019", "kind": "bibliography", "pdf_page": 8}
+  ],
+  "topics": [
+    "scos2000/ancillary-and-egs-cc.md",
+    "scos2000/index.md",
+    "scos2000/time-correlation.md",
+    "ecss/pus/st11-time-based-scheduling.md",
+    "ecss/pus/pus-a-vs-pus-c.md",
+    "scos2000/edds.md"
+  ],
+  "notes": "The file name (an EventsAir 'airdrive' hash) says nothing about the content; the PDF is the SESP 2019 paper 'Developing EGS-CC based applications; the EGOS-CC experience'. Author e-mail addresses printed on the title block are omitted here. Reference [4] is printed as 'SpaceOps 2018, May 2019', which is probably a typo for May 2018. Figure 2 (the main EGOS-CC products) is an image with no extracted text. The extraction reports 9 PDF pages while the registry lists 8; the extra page appears empty. There are typos in the original ('Doman', 'CCSD Cross Support Transfer Services'). Mauro Pecchioli is also the author of library item pecchioli-egs-cc-esoc."
+}

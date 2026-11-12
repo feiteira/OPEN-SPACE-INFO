@@ -1,0 +1,96 @@
+{
+  "table": "cap",
+  "file": "cap.dat",
+  "icd": true,
+  "name": "Numerical calibrations definition",
+  "icd_section": "3.3.2.2.3",
+  "pdf_page": 68,
+  "family": "monitoring",
+  "purpose": "cap holds the points of the numerical calibration curves declared in caf: one record per raw/engineering value pair. SCOS-2000 calibrates a raw value by locating it between two consecutive points of the curve and interpolating linearly between them (as the CAF_INTER description of ICD 6.7/6.9 explains). Outside the range covered by the points it either extrapolates from the first or last two points or returns an invalid value, depending on the curve's CAF_INTER flag. Raw values are written in the format declared by CAF_RAWFMT and, for unsigned integers, in the radix given by CAF_RADIX. Engineering values follow CAF_ENGFMT and are always decimal, even when they are unsigned integers. Because the key is the pair (CAP_NUMBR, CAP_XVALS), a curve cannot contain two points with the same raw value. The number of records per curve should agree with CAF_NCURVE.",
+  "keys": [
+    "CAP_NUMBR",
+    "CAP_XVALS"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "CAP_NUMBR",
+      "type": "Char(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Identifier of the calibration curve this point belongs to; must match CAF_NUMBR of an existing caf record.",
+      "values": [],
+      "references": "caf.CAF_NUMBR",
+      "pdf_page": 68
+    },
+    {
+      "pos": 2,
+      "name": "CAP_XVALS",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Raw value of the calibration point, written in a format compatible with CAF_RAWFMT. Unsigned integer raw values (CAF_RAWFMT = 'U') must be written in the radix of the curve (CAF_RADIX).",
+      "values": [],
+      "references": null,
+      "pdf_page": 68
+    },
+    {
+      "pos": 3,
+      "name": "CAP_YVALS",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Engineering value of the calibration point, written in a format compatible with CAF_ENGFMT. All engineering values, including unsigned integers, are written in decimal whatever the curve's CAF_RADIX.",
+      "values": [],
+      "references": null,
+      "pdf_page": 68
+    }
+  ],
+  "relationships": [
+    {
+      "field": "CAP_NUMBR",
+      "target": "caf.CAF_NUMBR",
+      "note": "Many points per curve."
+    }
+  ],
+  "history": "ICD 5.1 ('Numerical calibration curves definition: cap', p. 33) has the same three fields but CAP_NUMBR is Number(4). The identifier became Char(10) in ICD 6.0 (ICD 7.0 Annex 1, p. 247; field-type change also listed for 6.2/6.3, p. 253). The definition is unchanged in ICD 6.7 Draft A (p. 63-64), 6.9 (p. 66-67) and 7.0 (p. 68). pyscos2000 (ICD 7.2) matches: three mandatory fields, key CAP_NUMBR + CAP_XVALS.",
+  "solo_stats": {
+    "rows": 7830,
+    "fields": [
+      {
+        "name": "CAP_NUMBR",
+        "filled": 7830,
+        "examples": [
+          "CDST0007TM",
+          "CITP1054TM",
+          "CICP0400TM",
+          "CICP0420TM",
+          "CITP1083TM"
+        ]
+      },
+      {
+        "name": "CAP_XVALS",
+        "filled": 7830,
+        "examples": [
+          "0",
+          "4095",
+          "255",
+          "-32768",
+          "32767"
+        ]
+      },
+      {
+        "name": "CAP_YVALS",
+        "filled": 7830,
+        "examples": [
+          "0",
+          "0.0201",
+          "0.1001",
+          "0.05",
+          "1.002"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. Solar Orbiter 2025-09-16: 7,830 points for 679 curves (every CAP_NUMBR exists in caf and every curve has at least 2 points; the largest has 1,024). Raw values reach the full 14-character field width, as do engineering values. Example (real data): curve CAHP0000TM maps raw -2048 to -180 and raw 2047 to 179.91211, a two-point linear calibration."
+}

@@ -1,0 +1,155 @@
+{
+  "table": "pvs",
+  "file": "pvs.dat",
+  "icd": true,
+  "name": "Parameter value sets definition",
+  "icd_section": "3.3.3.5.4",
+  "pdf_page": 202,
+  "family": "parameter-set",
+  "purpose": "Parameter sets are named collections of command or sequence parameters for which predefined combinations of values, called parameter value sets, can be stored in the database and then applied in the real-time environment to give a value to every contained parameter with one high-level mnemonic (ICD 7.0 §3.3.3.5, PDF p.200-201). The pvs table holds the contents of the parameter value sets: one record per value in a value set, giving the value-set name (psv), its parameter set (pst), the command or sequence parameter concerned, the parameter's bit offset or position, the representation (raw or engineering) and the value itself. When an operator applies a value set, each listed parameter takes the given value. A record whose value is left empty leaves that parameter's current value unchanged. Because one name can denote a command parameter and a sequence parameter, the ICD requires parameters that share a name and are used in parameter sets to have the same raw and engineering formats (same PTC and display format).",
+  "keys": [
+    "PVS_ID",
+    "PVS_BIT"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "PVS_ID",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter value set (PSV_PVSID) this record belongs to. Part of the key.",
+      "values": [],
+      "references": "psv.PSV_PVSID",
+      "pdf_page": 202
+    },
+    {
+      "pos": 2,
+      "name": "PVS_PSID",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter set (PST_NAME) the value set belongs to.",
+      "values": [],
+      "references": "pst.PST_NAME",
+      "pdf_page": 202
+    },
+    {
+      "pos": 3,
+      "name": "PVS_PNAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the command parameter (CDF_PNAME) or sequence parameter (CSP_FPNAME) whose value is given in PVS_VALS. If two sequence parameters, or a command parameter and a sequence parameter, have the same name and are used in parameter sets, they must have the same raw and engineering formats: the same CPC_PTC/CSP_PTC and the same CPC_DISPFMT/CSP_DISPFMT.",
+      "values": [],
+      "references": "cdf.CDF_PNAME / csp.CSP_FPNAME",
+      "pdf_page": 203
+    },
+    {
+      "pos": 4,
+      "name": "PVS_INTER",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "R",
+      "description": "Representation of the value in PVS_VALS.",
+      "values": [
+        {
+          "value": "R",
+          "meaning": "Raw representation"
+        },
+        {
+          "value": "E",
+          "meaning": "Engineering representation; only for parameters associated with a calibration definition (CPC_CATEG/CSP_CATEG = 'T' or 'C')"
+        }
+      ],
+      "references": null,
+      "pdf_page": 203
+    },
+    {
+      "pos": 5,
+      "name": "PVS_VALS",
+      "type": "Char",
+      "mandatory": "O",
+      "default": null,
+      "description": "Value for the parameter named in PVS_PNAME, in raw form unless PVS_INTER = 'E'. Raw values follow the parameter type (CPC_PTC/CSP_PTC) and, for unsigned integers, the radix (CPC_RADIX/CSP_RADIX). Engineering values follow the engineering representation (CPC_DISPFMT/CSP_DISPFMT). No fixed size: the maximum length depends on the maximum allowed command size (§3.3.3.2). May be left Null, in which case applying the value set does not change this parameter's current value.",
+      "values": [],
+      "references": null,
+      "pdf_page": 204
+    },
+    {
+      "pos": 6,
+      "name": "PVS_BIT",
+      "type": "Number(4)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Unique identification of the parameter within the set: bit offset in the command (CDF_BIT) for command parameters, position (CSP_FPNUM) for sequence parameters. Part of the key.",
+      "values": [],
+      "references": "cdf.CDF_BIT / csp.CSP_FPNUM",
+      "pdf_page": 204
+    }
+  ],
+  "relationships": [
+    {
+      "field": "PVS_ID",
+      "target": "psv.PSV_PVSID",
+      "note": "Owning value set."
+    },
+    {
+      "field": "PVS_PSID",
+      "target": "pst.PST_NAME",
+      "note": "Owning parameter set."
+    },
+    {
+      "field": "PVS_PNAME",
+      "target": "cdf.CDF_PNAME / csp.CSP_FPNAME",
+      "note": "Formats constrained by cpc/csp (PTC, RADIX, DISPFMT, CATEG)."
+    },
+    {
+      "field": "PVS_BIT",
+      "target": "cdf.CDF_BIT / csp.CSP_FPNUM",
+      "note": "Occurrence identifier."
+    },
+    {
+      "field": "PVS_ID",
+      "target": "sdf.SDF_VALSET",
+      "note": "ICD 7.0 describes a 1-to-1 relationship between an sdf entry and a parameter value set (§3.3.3, PDF p.127)."
+    }
+  ],
+  "history": "The parameter-set tables appear with the same section numbers (§3.3.3.5.x) in ICD 5.1 (icd-5-1-tos-gci PDF p.97-99), ICD 6.7 Draft A (icd-6-7-drafta PDF p.188-192), ICD 6.9 (icd-6-9-archive-org PDF p.193-197) and ICD 7.0 (PDF p.200-205). ICD 5.1 (icd-5-1-tos-gci PDF p.98-99) has the same 6 fields, with PVS_VALS Char(17) and PVS_INTER 'E' worded as 'associated to a calibration curve'. ICD 6.2/6.3 updated the PVS_INTER description (ICD 7.0 Annex 1, PDF p.253). ICD 6.7 Draft A (icd-6-7-drafta PDF p.191) and ICD 6.9 (icd-6-9-archive-org PDF p.196) still print PVS_VALS as Char(17). ICD 7.0 (S2K-8073, for SCOS 5.5.3 and 6.0.0 or later) replaced the fixed size with the maximum command parameter size, for PVS_VALS and other value fields (Annex 2, PDF p.261), giving 'Char' with no length (PDF p.204). Not modelled in pyscos2000 (7.2).",
+  "solo_stats": {
+    "rows": 0,
+    "fields": [
+      {
+        "name": "PVS_ID",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "PVS_PSID",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "PVS_PNAME",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "PVS_INTER",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "PVS_VALS",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "PVS_BIT",
+        "filled": 0,
+        "examples": []
+      }
+    ]
+  },
+  "notes": "The database stores only a placeholder COL1 (no rows), because the file is empty. The file is empty (0 bytes) in the 2025-09-16 and 2020-04-16 Solar Orbiter releases and in the SWA IDB. Consistently, CCF_DEFSET is empty in all 5454 ccf rows of the 2025 release and SDF_VALSET is empty in all sdf rows, so Solar Orbiter does not use parameter sets in its MIB. The HCSS MIB Clarification and Tailoring Note says the HCSS (Herschel) ingestion ignores PST, PSV, CPS and PVS (hcss-mib-clarification-tailoring-note, §5.2.11, PDF p.14), and the HPSDB note marks all five parameter-set tables 'not supported by CCS, do not use' (h-p-1-asp-tn-1060-mib-processing-hpsdb, §5.3.16-5.3.20, PDF p.39-40). pyscos2000 has no pvs model. Observation by this wiki: PVS_PSID repeats information that can be derived from PVS_ID through psv.PSV_NAME, and the ICD does not say what happens if the two disagree."
+}

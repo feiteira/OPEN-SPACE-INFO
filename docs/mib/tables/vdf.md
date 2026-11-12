@@ -1,0 +1,35 @@
+---
+title: "vdf.dat: Database version"
+description: "The vdf table names and versions the whole database. It is read when the SCOS-2000 run-time database is generated, and if the file holds several records the last one imported sets the internal databas"
+tags: [MIB, "General"]
+sources: [icd-7-0-final, mib-20250916m25925pfms001-sol]
+---
+
+# vdf.dat: Database version
+
+<div class="osi-chips"><span class="osi-chip">ICD 7.0 §3.3.1.1</span><span class="osi-chip">1 rows in Solar Orbiter 2025-09-16</span></div>
+
+The vdf table names and versions the whole database. It is read when the SCOS-2000 run-time database is generated, and if the file holds several records the last one imported sets the internal database version name and description. SCOS-2000 shows the version name to users and uses it as a consistency token, for example to make sure that a saved command stack is loaded against the same database version that produced it. The table also carries domain and version-management information: a domain identifier that binds the entire database to one SCOS-2000 domain (so no other table needs a domain column), plus a release and an issue number used to manage successive database deliveries. For backwards compatibility these three fields are optional: a null domain means the current local domain, and a null release or issue is taken as 0. The importer also compares the domain identifier given as an import option with the one stored in vdf. Unlike most tables, vdf is compulsory: vdf.dat must be present in the import directory and contain at least one record.[^icd]
+
+## Fields
+
+<div class="osi-fields"><table class="osi-ftable"><colgroup><col style="width:3.2em"><col style="width:11em"><col style="width:7em"><col style="width:3.4em"><col></colgroup><thead><tr><th>#</th><th>Field</th><th>Type</th><th>M/O</th><th>Description</th></tr></thead><tbody>
+<tr id="vdf_name"><td>1</td><td><code>VDF_NAME</code></td><td>Char(8)</td><td>M</td><td>Name of the database version: any alphanumeric string of up to 8 characters. It is the identifier shown by SCOS-2000 applications and used to check that artefacts such as saved stack files were produced with the same database version that is now loaded. When vdf.dat contains several records, the name in the last imported record wins.<div class="osi-extra"><span class="osi-fstat">Solar Orbiter: filled in 1 of 1 rows; e.g. <code>25925PFM</code></span> <span class="osi-pg">ICD PDF p. 38</span></div></td></tr>
+<tr id="vdf_comment"><td>2</td><td><code>VDF_COMMENT</code></td><td>Char(32)</td><td>O</td><td>Free-text comment associated with the database version (up to 32 characters). Together with VDF_NAME it forms the internal version description taken from the last imported record.<div class="osi-extra"><span class="osi-fstat">Solar Orbiter: filled in 1 of 1 rows; e.g. <code>20250916-CSW3.1.2_MAS7.33</code></span> <span class="osi-pg">ICD PDF p. 38</span></div></td></tr>
+<tr id="vdf_domainid"><td>3</td><td><code>VDF_DOMAINID</code></td><td>Number(5)</td><td>O</td><td>Identifier of the SCOS-2000 domain to which the whole database belongs, an unsigned integer in the range 0 to 2^16-1. Storing it once here avoids a domain column in every table. If it is null, the current local domain identifier is assumed (section 3.3.1.1, p. 37). The importer cross-checks this value against the domain identifier passed to it as an input option.<div class="osi-extra"><span class="osi-fstat">Solar Orbiter: filled in 1 of 1 rows; e.g. <code>0</code></span> <span class="osi-pg">ICD PDF p. 38</span></div></td></tr>
+<tr id="vdf_release"><td>4</td><td><code>VDF_RELEASE</code></td><td>Number(5)</td><td>O</td><td>Database release number, an unsigned integer in the range 0 to 2^16-1, used for database version management. Optional for backwards compatibility; a null value is treated as 0.<div class="osi-extra">Default <code>0</code>. <span class="osi-fstat">Solar Orbiter: filled in 1 of 1 rows; e.g. <code>25925</code></span> <span class="osi-pg">ICD PDF p. 38</span></div></td></tr>
+<tr id="vdf_issue"><td>5</td><td><code>VDF_ISSUE</code></td><td>Number(5)</td><td>O</td><td>Database issue number within the release, an unsigned integer in the range 0 to 2^16-1, used for database version management. Optional for backwards compatibility; a null value is treated as 0.<div class="osi-extra">Default <code>0</code>. <span class="osi-fstat">Solar Orbiter: filled in 1 of 1 rows; e.g. <code>733</code></span> <span class="osi-pg">ICD PDF p. 38</span></div></td></tr>
+</tbody></table></div>
+
+## History across ICD issues
+
+ICD 5.1 (2001) defines vdf with only VDF_NAME (Char(8), mandatory) and VDF_COMMENT (Char(32)) (icd-5-1-tos-gci p. 22). The domain, release and issue fields were added in ICD 6.0 for SCOS-2000 R4.0 ('VDF table modification', ICD 7.0 Annex 1, p. 249). ICD 6.7 Draft A (p. 35-36) and ICD 6.9 (p. 37-38) already show the five-field layout with VDF_DOMAINID, and ICD 6.9 gives VDF_RELEASE and VDF_ISSUE the import default '0', as in ICD 7.0 (p. 38). No change to vdf is listed in the ICD 7.0 change annex (Annex 2, p. 261-263). pyscos2000 (based on ICD 7.2) keeps five fields in the same order but names the third one VDF_DOMAIN instead of VDF_DOMAINID; whether ICD 7.2 itself renamed the field is not stated in the available sources.
+
+!!! note "Notes from the extraction"
+    Field 3 is printed VDF_DOMAINID in ICD 6.7, 6.9 and 7.0 but is called VDF_DOMAIN in pyscos2000 (ICD 7.2 based); the Solar Orbiter SQLite database follows the pyscos2000 name (column VDF_DOMAIN). ICD 7.0 marks no key field for vdf, and pyscos2000 also declares none. The Solar Orbiter 2025-09-16 release has exactly one 5-field record: VDF_NAME '25925PFM', VDF_COMMENT '20250916-CSW3.1.2_MAS7.33', VDF_DOMAINID 0, VDF_RELEASE 25925, VDF_ISSUE 733. The 2020-04-16 release has the analogous record '10720PFM' / '20200416-CSW3.0.3p1_MAS6.51' / 0 / 10720 / 651. Inference (not documented in the ICD): Solar Orbiter puts the MIB build number of the release name (MIB__20250916M25925...) into VDF_RELEASE and an encoding of the 'MAS' version (7.33 -&gt; 733) into VDF_ISSUE. The SWA instrument database vdf.dat contains 70 records (a version history from SWA_00.2 to SWA_6.3.4); per the ICD only the last imported record would set the version name, so the record order in the file matters.
+
+## In the Solar Orbiter MIB
+
+The 2025-09-16 release has **1** rows in `vdf.dat`. Browse them through the [MIB Explorer](../../explorer/index.md#/solo/search/) or read about the [Solar Orbiter MIB](../../missions/solar-orbiter/mib.md).
+
+[^icd]: [SCOS-2000 Database Import ICD, EGOS-MCS-S2K-ICD-0001 issue 7.0](../../library/icd-7-0-final.md), §3.3.1.1, PDF p. 37.

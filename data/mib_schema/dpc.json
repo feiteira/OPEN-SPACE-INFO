@@ -1,0 +1,212 @@
+{
+  "table": "dpc",
+  "file": "dpc.dat",
+  "icd": true,
+  "name": "Alphanumeric displays definition",
+  "icd_section": "3.3.2.7.2",
+  "pdf_page": 111,
+  "family": "display",
+  "purpose": "The dpc table defines the content of each Alphanumeric Display (AND) declared in dpf: one record per displayed monitoring parameter or per free-text comment, together with its position on the page. An AND has 64 positions (0 to 63); positions 0 to 31 are drawn in the left column and 32 to 63 in the right column. For each displayed parameter the record selects which sample of a super-commutated parameter is shown, whether the Telemetry Desktop setting for showing invalid values applies, and the number format (binary, octal, decimal, hexadecimal or the normal engineering/raw form). A record whose parameter name is empty is a free entry that displays a fixed text comment instead of a value. Only parameters processed by the telemetry model (plf-located TM parameters or synthetic parameters) can be displayed. As with dpf, from SCOS-2000 R5.0 these definitions are converted into XML display files in the FARC rather than imported into the run-time database.",
+  "keys": [
+    "DPC_NUMBE",
+    "DPC_FLDN"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "DPC_NUMBE",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the AND this record belongs to; must match DPF_NUMBE of an existing dpf record. Part of the table key together with DPC_FLDN.",
+      "values": [],
+      "references": "dpf.DPF_NUMBE",
+      "pdf_page": 111
+    },
+    {
+      "pos": 2,
+      "name": "DPC_NAME",
+      "type": "Char(8)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Name of the monitoring parameter (PCF_NAME) shown at this position, or Null. When Null the record is a free entry: the text in DPC_TEXT is shown and DPC_COMM, DPC_MODE and DPC_FORM are not relevant. When a parameter name is given, DPC_TEXT is ignored. Only parameters processed by the telemetry model (TM parameters appearing in plf or synthetic parameters) may be used (§3.3.2.7, PDF p.110). The ICD text misspells the cross-references as DCP_TEXT and DCP_NAME.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 112
+    },
+    {
+      "pos": 3,
+      "name": "DPC_FLDN",
+      "type": "Number(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Position of the parameter on the display, 0 to 63. Positions 0-31 are shown on the left side and 32-63 on the right side. Part of the key: a display position can hold only one entry.",
+      "values": [],
+      "references": null,
+      "pdf_page": 112
+    },
+    {
+      "pos": 4,
+      "name": "DPC_COMM",
+      "type": "Number(4)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Commutation selector. For super-commutated parameters (PLF_NBOCC greater than 1, see plf, §3.3.2.5.1) it selects which sample within the packet is displayed. The value 0 selects all samples; they are then shown in turn when super-commutated processing is enabled in the Telemetry Desktop. Numeric value 0 to 9999, left justified.",
+      "values": [],
+      "references": null,
+      "pdf_page": 112
+    },
+    {
+      "pos": 5,
+      "name": "DPC_MODE",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "Y",
+      "description": "Controls whether the Telemetry Desktop option governing the display of invalid parameter values applies to this entry.",
+      "values": [
+        {
+          "value": "Y",
+          "meaning": "Invalid values are shown only if the Telemetry Desktop option is set to 'Display invalid values'"
+        },
+        {
+          "value": "N",
+          "meaning": "Invalid values are always shown, whatever the Telemetry Desktop setting"
+        }
+      ],
+      "references": null,
+      "pdf_page": 113
+    },
+    {
+      "pos": 6,
+      "name": "DPC_FORM",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "N",
+      "description": "Display format of the parameter value. B, O and H only apply to raw values of unsigned integer parameters; N shows the calibrated (engineering) value when the parameter has one or more calibration definitions, otherwise the raw value in decimal.",
+      "values": [
+        {
+          "value": "B",
+          "meaning": "Binary; only applicable to raw values of unsigned integer parameters"
+        },
+        {
+          "value": "O",
+          "meaning": "Octal; only applicable to raw values of unsigned integer parameters"
+        },
+        {
+          "value": "D",
+          "meaning": "Decimal"
+        },
+        {
+          "value": "H",
+          "meaning": "Hexadecimal; only applicable to raw values of unsigned integer parameters"
+        },
+        {
+          "value": "N",
+          "meaning": "Normal: the engineering value is shown for parameters associated with one or more calibration definitions, otherwise the raw value in decimal"
+        }
+      ],
+      "references": null,
+      "pdf_page": 113
+    },
+    {
+      "pos": 7,
+      "name": "DPC_TEXT",
+      "type": "Char(32)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Text comment shown in a free entry. Only relevant when DPC_NAME is Null. To stay compatible with older AND definitions the field is optional and the column may be omitted from the file altogether.",
+      "values": [],
+      "references": null,
+      "pdf_page": 113
+    }
+  ],
+  "relationships": [
+    {
+      "field": "DPC_NUMBE",
+      "target": "dpf.DPF_NUMBE",
+      "note": "Many dpc records per AND."
+    },
+    {
+      "field": "DPC_NAME",
+      "target": "pcf.PCF_NAME",
+      "note": "Parameter must be processed by the TM model (plf entry or synthetic). Null for free-text entries."
+    },
+    {
+      "field": "DPC_COMM",
+      "target": "plf.PLF_NBOCC",
+      "note": "Sample selection is meaningful for parameters with more than one occurrence in a packet (super-commutation)."
+    }
+  ],
+  "history": "ICD 5.1 §3.3.2.6.2 (icd-5-1-tos-gci, PDF p.51-52) has only 6 fields: DPC_NAME is mandatory (no free entries), DPC_COMM has default '1' and range 1-9999 without the super-commutation explanation, and DPC_TEXT does not exist. ICD 6.0 (SCOS-2000 R4.0) introduced DCR-2422, display of super-commutated parameters in ANDs (ICD 7.0 Annex 1, PDF p.246), and the DPC change that allows free entries (PDF p.250); this gives the 7-field layout with optional DPC_NAME, DPC_TEXT and DPC_COMM default '0' already printed in ICD 6.7 Draft A (icd-6-7-drafta PDF p.104-106) and ICD 6.9 (icd-6-9-archive-org PDF p.108-110), and unchanged in ICD 7.0 (PDF p.111-113). ICD 6.0 also said that a multi-domain field for ANDs and SCDs, like GPC_DOMAIN, would only be supported from S2K R5.0 (PDF p.249), but no such field appears in dpc in ICD 7.0. Since SCOS-2000 R5.0 (ICD issue 6.4) display definitions are no longer kept in the run-time (POST) MIB database: the ASCII tables are converted on request into XML files stored in the FARC, in a delta fashion that keeps previously imported displays and displays created at run time with the TM Desktop editor (ICD 7.0 §2.5, PDF p.24; §3.3.2.7, PDF p.110; Annex 1, PDF p.254). The XML format is in [AD-5], SCOS-2000 TM Displays and Printout definitions Service ICD (ICD-5001), which is not in the library. Not modelled in pyscos2000 (7.2).",
+  "solo_stats": {
+    "rows": 626,
+    "fields": [
+      {
+        "name": "DPC_NUMBE",
+        "filled": 626,
+        "examples": [
+          "DICA0000",
+          "DICA0100",
+          "DICA0200",
+          "DICA0300",
+          "DICA0400"
+        ]
+      },
+      {
+        "name": "DPC_NAME",
+        "filled": 626,
+        "examples": [
+          "NIC0SN00",
+          "NIC0N080",
+          "NIC0F010",
+          "NIC0F015",
+          "NIC0N000"
+        ]
+      },
+      {
+        "name": "DPC_FLDN",
+        "filled": 626,
+        "examples": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      },
+      {
+        "name": "DPC_COMM",
+        "filled": 626,
+        "examples": [
+          "1",
+          "0"
+        ]
+      },
+      {
+        "name": "DPC_MODE",
+        "filled": 626,
+        "examples": [
+          "N",
+          "Y"
+        ]
+      },
+      {
+        "name": "DPC_FORM",
+        "filled": 626,
+        "examples": [
+          "N",
+          "H",
+          "D"
+        ]
+      },
+      {
+        "name": "DPC_TEXT",
+        "filled": 1,
+        "examples": [
+          "Comment"
+        ]
+      }
+    ]
+  },
+  "notes": "Column mapping: COL1..COL7 = DPC_NUMBE, DPC_NAME, DPC_FLDN, DPC_COMM, DPC_MODE, DPC_FORM, DPC_TEXT. All 626 lines of the 2025 dpc.dat have 7 fields, so the optional DPC_TEXT column is present (empty in 625 rows). Every DPC_NAME is filled and exists in pcf, so the file has no free-text entries; the only DPC_TEXT value ('Comment') is on the DQQA1234 test display, in a row that also names a parameter (NIA00510), so ICD 7.0 says the text is ignored. DPC_COMM is '1' in 625 rows and '0' in 1: the mission writes the ICD 5.1 default explicitly, whereas under ICD 7.0 a non-zero value selects one specific sample and '0' selects all samples. No displayed parameter has PLF_NBOCC > 1 in plf, so the choice has no effect here. DPC_MODE is 'N' in 625 rows ('Y' once), so invalid values are forced visible. DPC_FORM is N 578, H 41, D 7. DPC_FLDN covers 0-63. Content is identical in the 2020-04-16 release. pyscos2000 has no dpc model. The HPSDB note (h-p-1-asp-tn-1060-mib-processing-hpsdb, PDF p.28) maps only 6 fields (no DPC_TEXT) and uses a DPC_COMM default of '1', as in ICD 5.1."
+}

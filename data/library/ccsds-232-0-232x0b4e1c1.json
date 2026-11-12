@@ -1,0 +1,428 @@
+{
+ "slug": "ccsds-232-0-232x0b4e1c1",
+ "title": "TC Space Data Link Protocol",
+ "short_title": "TC Space Data Link Protocol (CCSDS 232.0-B-4)",
+ "doc_id": "CCSDS 232.0-B-4",
+ "issue": "Recommended Standard, Issue 4 (Blue Book), including Technical Corrigendum 1 (October 2023) and Editorial Change 1 (October 2024)",
+ "date": "October 2021",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Standard",
+ "status_notes": "The Document Control table (PDF p. 7) lists 232.0-B-1 (September 2003), B-2 (September 2010) and B-3 (September 2015) as superseded and 232.0-B-4 (October 2021) as the 'Current issue' (corrections and clarifications plus a new normative PICS proforma, annex A). The cover states that this copy includes all updates through Technical Corrigendum 1 (October 2023), which expands and clarifies 6.5.2 'Order of Processing between TC, COP-1, and SDLS protocols'. EC 1 (October 2024) fixes a table callout, figure 6-3 typography, the annex A layout and change bars, and moves to A4.",
+ "summary": "The CCSDS Recommended Standard for the **TC Space Data Link Protocol**, the telecommand data link protocol used on the uplink of most ESA missions. It defines the variable-length TC Transfer Frame, the Communications Link Control Word (CLCW) that reports acceptance status back to the ground, and the services for sending [Space Packets](../ccsds/space-packet.md) and private data units on Virtual Channels and MAP channels. Retransmission is handled by [COP-1](../ccsds/cop-1.md) (CCSDS 232.1), and frames are coded into CLTUs by [TC Synchronization and Channel Coding](../ccsds/tc-coding-cltu.md).\n\nSection 2 covers the channel tree (Physical, Master, Virtual and MAP channels), the Type-A (sequence-controlled) and Type-B (expedited) service types, and six data services: MAP Packet, VC Packet, MAP Access, VC Access, VC Frame and MC Frame. A COP Management service controls the FOP. Section 3 gives each service's primitives.\n\nSection 4 specifies the PDUs. The 5-octet primary header holds the version ('00'), Bypass Flag, Control Command Flag, 2 spare bits, 10-bit SCID, 6-bit VCID, 10-bit Frame Length (total length minus one, so at most 1024 octets) and 8-bit Frame Sequence Number. The flag combinations give Type-AD, Type-BD and Type-BC frames. The optional Segment Header holds Sequence Flags and a 6-bit MAP ID for segmentation. The section also defines the Unlock and Set V(R) control commands and the CRC-16 FECF. The 32-bit CLCW carries COP in Effect, VCID, the No RF Available, No Bit Lock, Lockout, Wait and Retransmit flags, the FARM-B counter and the Report Value N(R). Section 4 then models the sending functions (MAP packet processing, MAP generation and multiplexing, VC generation and multiplexing, MC multiplexing, all-frames generation) and the matching receiving functions. Section 5 lists the managed parameters, and section 6 adds the [SDLS](../ccsds/sdls.md) security header and trailer and the order of processing between TC, COP-1 and SDLS.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.3",
+   "title": "Applicability",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.4",
+   "title": "Rationale",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.5",
+   "title": "Document Structure",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.6",
+   "title": "Conventions and Definitions",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.7",
+   "title": "References",
+   "pdf_page": 15
+  },
+  {
+   "section": "2",
+   "title": "Overview",
+   "pdf_page": 17
+  },
+  {
+   "section": "2.1",
+   "title": "Concept of TC Space Data Link Protocol",
+   "pdf_page": 17
+  },
+  {
+   "section": "2.2",
+   "title": "Overview of Services",
+   "pdf_page": 21
+  },
+  {
+   "section": "2.3",
+   "title": "Overview of Functions",
+   "pdf_page": 28
+  },
+  {
+   "section": "2.4",
+   "title": "Services Assumed from Lower Layers",
+   "pdf_page": 32
+  },
+  {
+   "section": "3",
+   "title": "Service Definition",
+   "pdf_page": 34
+  },
+  {
+   "section": "3.1",
+   "title": "Overview",
+   "pdf_page": 34
+  },
+  {
+   "section": "3.2",
+   "title": "Source Data",
+   "pdf_page": 34
+  },
+  {
+   "section": "3.3",
+   "title": "MAP Packet Service",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.4",
+   "title": "Virtual Channel Packet Service",
+   "pdf_page": 42
+  },
+  {
+   "section": "3.5",
+   "title": "MAP Access Service",
+   "pdf_page": 47
+  },
+  {
+   "section": "3.6",
+   "title": "Virtual Channel Access Service",
+   "pdf_page": 53
+  },
+  {
+   "section": "3.7",
+   "title": "Virtual Channel Frame Service",
+   "pdf_page": 58
+  },
+  {
+   "section": "3.8",
+   "title": "Master Channel Frame Service",
+   "pdf_page": 61
+  },
+  {
+   "section": "3.9",
+   "title": "COP Management Service",
+   "pdf_page": 64
+  },
+  {
+   "section": "4",
+   "title": "Protocol Specification without SDLS Option",
+   "pdf_page": 69
+  },
+  {
+   "section": "4.1",
+   "title": "Protocol Data Unit (TC Transfer Frame)",
+   "pdf_page": 69
+  },
+  {
+   "section": "4.2",
+   "title": "Protocol Data Unit (CLCW)",
+   "pdf_page": 80
+  },
+  {
+   "section": "4.3",
+   "title": "Protocol Procedures at the Sending End",
+   "pdf_page": 86
+  },
+  {
+   "section": "4.4",
+   "title": "Protocol Procedures at the Receiving End",
+   "pdf_page": 97
+  },
+  {
+   "section": "5",
+   "title": "Managed Parameters without SDLS Option",
+   "pdf_page": 107
+  },
+  {
+   "section": "5.1",
+   "title": "Managed Parameters for a Physical Channel",
+   "pdf_page": 107
+  },
+  {
+   "section": "5.2",
+   "title": "Managed Parameters for a Master Channel",
+   "pdf_page": 108
+  },
+  {
+   "section": "5.3",
+   "title": "Managed Parameters for a Virtual Channel",
+   "pdf_page": 108
+  },
+  {
+   "section": "5.4",
+   "title": "Managed Parameters for a MAP Channel",
+   "pdf_page": 110
+  },
+  {
+   "section": "5.5",
+   "title": "Managed Parameters for Packet Transfer",
+   "pdf_page": 110
+  },
+  {
+   "section": "6",
+   "title": "Protocol Specification with SDLS Option",
+   "pdf_page": 111
+  },
+  {
+   "section": "6.1",
+   "title": "Overview",
+   "pdf_page": 111
+  },
+  {
+   "section": "6.2",
+   "title": "Use of SDLS Protocol",
+   "pdf_page": 111
+  },
+  {
+   "section": "6.3",
+   "title": "TC Transfer Frame with SDLS",
+   "pdf_page": 111
+  },
+  {
+   "section": "6.4",
+   "title": "Sending-End Protocol Procedures with SDLS",
+   "pdf_page": 115
+  },
+  {
+   "section": "6.5",
+   "title": "Receiving-End Protocol Procedures with SDLS",
+   "pdf_page": 120
+  },
+  {
+   "section": "6.6",
+   "title": "Additional Managed Parameters for SDLS",
+   "pdf_page": 123
+  },
+  {
+   "section": "Annex A",
+   "title": "Protocol Implementation Conformance Statement Proforma (Normative)",
+   "pdf_page": 125
+  },
+  {
+   "section": "Annex B",
+   "title": "Acronyms (Informative)",
+   "pdf_page": 134
+  },
+  {
+   "section": "Annex C",
+   "title": "Informative References (Informative)",
+   "pdf_page": 136
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Technical Corrigendum 1 (October 2023) expands and clarifies 6.5.2, the order of processing between TC, COP-1 and SDLS; this copy includes it.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Six data transfer services: MAP Packet (SAP = GMAP ID + PVN), VC Packet (GVCID + PVN), MAP Access, VC Access (all Type-A or Type-B), VC Frame and MC Frame; a COP Management service controls COP retransmission per Virtual Channel.",
+   "pdf_page": 24
+  },
+  {
+   "text": "TC Transfer Frame = 5-octet Primary Header + Data Field (up to 1019 octets, or 1017 with FECF) + optional 2-octet Frame Error Control Field.",
+   "pdf_page": 69
+  },
+  {
+   "text": "Primary header: Version (2 bits), Bypass Flag (1), Control Command Flag (1), Reserved Spare (2), SCID (10), VCID (6), Frame Length (10) and Frame Sequence Number (8).",
+   "pdf_page": 70
+  },
+  {
+   "text": "Bypass/Control Command flags 0/0 = Type-AD (sequence-controlled data), 1/0 = Type-BD (expedited data), 1/1 = Type-BC (control commands); 0/1 is reserved.",
+   "pdf_page": 72
+  },
+  {
+   "text": "Frame Length holds total frame octets minus one; the 10-bit field limits a TC frame to 1024 octets.",
+   "pdf_page": 73
+  },
+  {
+   "text": "The Segment Header (Sequence Flags 2 bits + MAP ID 6 bits) is required on any VC with more than one MAP or carrying SDUs larger than one frame; it must not be present in frames carrying control commands.",
+   "pdf_page": 74
+  },
+  {
+   "text": "Control commands: Unlock is a single all-zero octet; Set V(R) is three octets 10000010 00000000 followed by the new V(R) value.",
+   "pdf_page": 77
+  },
+  {
+   "text": "The CLCW is 32 bits: Control Word Type '0', Version '00', Status Field (3), COP in Effect ('01' for COP-1), VCID (6), spare (2), the No RF Available, No Bit Lock, Lockout, Wait and Retransmit flags, FARM-B Counter (2), spare (1) and Report Value (8).",
+   "pdf_page": 81
+  },
+  {
+   "text": "The CLCW is the only reporting mechanism of the protocol and is usually carried in the OCF of TM or AOS frames; each Virtual Channel in use has its own CLCW reporting.",
+   "pdf_page": 80
+  },
+  {
+   "text": "Physical Channel managed parameters include the maximum frame length, TFVN 1, valid SCIDs, FECF presence, maximum frames per coding-sublayer data unit, maximum bit rate and maximum Repetitions.",
+   "pdf_page": 107
+  },
+  {
+   "text": "Virtual Channel managed parameters include VCID 0 to 63, COP in Effect, CLCW reporting rate, Segment Header presence, valid MAP IDs 0 to 63, blocking, and the Repetitions values for Type-A data and for COP control commands.",
+   "pdf_page": 109
+  },
+  {
+   "text": "At the receiving end with SDLS, FARM-1 runs first, then SDLS ProcessSecurity, then the rest of the Virtual Channel Reception Function (6.5.2, as amended by Cor. 1).",
+   "pdf_page": 120
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "ISO/IEC 7498-1:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 15
+  },
+  {
+   "label": "[2]",
+   "doc_id": "ISO/IEC 10731:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the Definition of OSI Services",
+   "issue": null,
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 16
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 231.0-B-4",
+   "title": "TC Synchronization and Channel Coding",
+   "issue": "Issue 4",
+   "date": "July 2021",
+   "kind": "normative",
+   "pdf_page": 16
+  },
+  {
+   "label": "[4]",
+   "doc_id": "CCSDS 232.1-B-2",
+   "title": "Communications Operation Procedure-1",
+   "issue": "Issue 2",
+   "date": "September 2010",
+   "kind": "normative",
+   "pdf_page": 16
+  },
+  {
+   "label": "[5]",
+   "doc_id": null,
+   "title": "Packet Version Number (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/packet_version_number)",
+   "issue": null,
+   "date": null,
+   "kind": "normative",
+   "pdf_page": 16
+  },
+  {
+   "label": "[6]",
+   "doc_id": "CCSDS 320.0-M-7",
+   "title": "CCSDS Spacecraft Identification Field Code Assignment Control Procedures",
+   "issue": "Issue 7",
+   "date": "November 2017",
+   "kind": "normative",
+   "pdf_page": 16
+  },
+  {
+   "label": "[7]",
+   "doc_id": "CCSDS 355.0-B-1",
+   "title": "Space Data Link Security Protocol",
+   "issue": "Issue 1",
+   "date": "September 2015",
+   "kind": "normative",
+   "pdf_page": 16
+  },
+  {
+   "label": "[C1]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "informative",
+   "pdf_page": 136
+  },
+  {
+   "label": "[C2]",
+   "doc_id": "CCSDS 130.0-G-3",
+   "title": "Overview of Space Communications Protocols",
+   "issue": "Issue 3",
+   "date": "July 2014",
+   "kind": "informative",
+   "pdf_page": 136
+  },
+  {
+   "label": "[C3]",
+   "doc_id": "CCSDS 901.0-G-1",
+   "title": "Space Communications Cross Support—Architecture Description Document",
+   "issue": "Issue 1",
+   "date": "November 2013",
+   "kind": "informative",
+   "pdf_page": 136
+  },
+  {
+   "label": "[C4]",
+   "doc_id": "CCSDS 901.1-M-1",
+   "title": "Space Communications Cross Support—Architecture Requirements Document",
+   "issue": "Issue 1",
+   "date": "May 2015",
+   "kind": "informative",
+   "pdf_page": 136
+  },
+  {
+   "label": "[C5]",
+   "doc_id": "CCSDS 910.4-B-2",
+   "title": "Cross Support Reference Model—Part 1: Space Link Extension Services",
+   "issue": "Issue 2",
+   "date": "October 2005",
+   "kind": "informative",
+   "pdf_page": 136
+  },
+  {
+   "label": "[C6]",
+   "doc_id": "CCSDS 132.0-B-3",
+   "title": "TM Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "October 2021",
+   "kind": "informative",
+   "pdf_page": 136
+  },
+  {
+   "label": "[C7]",
+   "doc_id": "CCSDS 732.0-B-4",
+   "title": "AOS Space Data Link Protocol",
+   "issue": "Issue 4",
+   "date": "October 2021",
+   "kind": "informative",
+   "pdf_page": 136
+  }
+ ],
+ "topics": [
+  "ccsds/tc-sdlp.md",
+  "ccsds/cop-1.md",
+  "ccsds/tc-coding-cltu.md",
+  "ccsds/sdls.md",
+  "ccsds/space-packet.md",
+  "overview/uplink.md",
+  "overview/worked-example-tc.md",
+  "mib/commanding.md"
+ ],
+ "notes": "The slug's 'e1c1' stands for Editorial Change 1 (October 2024) and Technical Corrigendum 1 (October 2023), both recorded in the Document Control table; that page's footer shows the stacked dates 2021, October 2023 and 2024, and pages changed by the corrigendum carry 'Cor. 1' markers. PDF pages 1 and 2 are cover pages carrying the corrigendum note. The extraction has 137 PDF pages (registry: 136); the last page is blank. In the table of contents, Tables A-1 and A-4 are titled 'USLP Service Data Units' and 'USLP Protocol Data Unit', but the annex itself (PDF pp. 128, 130) uses 'TC Service Data Units' and 'TC Protocol Data Units'. COP-1 (232.1-B-2, 2010) is a normative reference for the FARM actions on control commands. Section 1.7 references 'constitute provisions of this document' (kind 'normative'); Annex C lists informative references. No individual authors are named."
+}

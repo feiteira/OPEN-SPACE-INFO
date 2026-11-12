@@ -1,0 +1,168 @@
+{
+ "slug": "spire-mib-naming-convention-1-2",
+ "title": "SPIRE MIB Naming Convention",
+ "short_title": "SPIRE MIB Naming Convention",
+ "doc_id": "SPIRE-RAL-NOT-001155",
+ "issue": "1.2",
+ "date": "2002-03-11",
+ "organisation": "SPIRE instrument team, Rutherford Appleton Laboratory (RAL)",
+ "authors": [
+  "K.J. King"
+ ],
+ "doc_type": "Technical Note",
+ "status_notes": "Issue 1.2 dated 11th March 2002 (header of every page). The note does not state whether later issues exist; it was written against SCOS2000 Database Import ICD issue 5.0 (RD01, p. 1), which later ICD issues supersede.",
+ "summary": "A five-page SPIRE technical note that turns the Herschel/Planck system-level naming convention (H-P-1-ASPI-SP-0141, AD01) into concrete identifier patterns for the SPIRE instrument's MIB, the set of SCOS-2000 ASCII tables defined by the SCOS2000 Database Import ICD (issue 5.0, RD01). SPIRE delivered its MIB to the Herschel/Planck system database, so every key field had to follow a shared scheme.\n\nSection 2 gives one pattern per MIB key field: command names (`CCF_CNAME`, `SCiiippp`), command parameters (`CPC_PNAME`, `SPiiippp`), monitoring parameters (`PCF_NAME`, `SMiiippp`), monitoring packets (`PID_SPID`, `tttnnnnppp`), numerical, textual and polynomial calibration identifiers (`tttnnnrrr`) and the alphanumeric, graphic and scrolling display identifiers (`SA`, `SG`, `SL` prefixes). Each pattern also cites the matching AD01 convention number. Section 3 defines the building blocks: system-element type numbers (OBS 480, DPU 490, DCU 500, MCU 510, SCU 520, EGSE 528, TFCS 529) with their subsystem letters, position identifiers per instrument model (AVM, QM, FM, FS), real-element numbers per configuration, fallback numeric 'alternative IDs' for calibration curves in case SCOS-2000 could not handle 8-character names, and one-letter parameter-unit codes such as K for temperature and V for voltage.\n\nAn engineer can use it as a decoder ring for SPIRE mnemonics in Herschel databases, and as a compact real example of how an instrument team tailored generic MIB naming to its own hardware tree. It also covers ground-only EGSE and test-facility (TFCS) parameters.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "INTRODUCTION",
+   "pdf_page": 1
+  },
+  {
+   "section": "1.1",
+   "title": "Documentation",
+   "pdf_page": 1
+  },
+  {
+   "section": "1.1.1",
+   "title": "Applicable Documents",
+   "pdf_page": 1
+  },
+  {
+   "section": "1.1.2",
+   "title": "Reference Documents",
+   "pdf_page": 1
+  },
+  {
+   "section": "2",
+   "title": "NAMING CONVENTION",
+   "pdf_page": 1
+  },
+  {
+   "section": "3",
+   "title": "IDENTIFIERS",
+   "pdf_page": 2
+  },
+  {
+   "section": "3.1",
+   "title": "System Elements",
+   "pdf_page": 2
+  },
+  {
+   "section": "3.2",
+   "title": "Position Identifiers",
+   "pdf_page": 3
+  },
+  {
+   "section": "3.3",
+   "title": "Real Element Numbers",
+   "pdf_page": 3
+  },
+  {
+   "section": "3.4",
+   "title": "Alternative IDs",
+   "pdf_page": 4
+  },
+  {
+   "section": "3.5",
+   "title": "Parameter Unit IDs",
+   "pdf_page": 4
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The note applies the Herschel/Planck System Database (HPSDB) naming convention (AD01) to the SPIRE MIB, which is delivered conforming to the SCOS2000 Database Import ICD (RD01).",
+   "pdf_page": 1
+  },
+  {
+   "text": "The SPIRE MIB must also define parameters from the SPIRE EGSE and other test equipment such as the TFCS; these follow the same naming format as instrument parameters.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Command names (CCF_CNAME, also used in CDF_CNAME and PTV_CNAME) follow the pattern SCiiippp; command parameters (CPC_PNAME, CDF_PNAME) follow SPiiippp; monitoring parameters (PCF_NAME, OCF_NAME, OCP_NAME, PLF_NAME, PTV_PARNAM) follow SMiiippp.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Monitoring packets (PID_SPID, TPCF_SPID, PLF_SPID) use the numeric pattern tttnnnnppp; command and monitoring calibrations (CCA, PAF, CAF, TXF, MCF numbers) use tttnnnrrr, with an alternative identifier sss.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Display identifiers use SAiiippp for alphanumeric displays (DPF_NUMBE), SGiiippp for graphical displays (GPF_NUMBE) and SLiiippp for scrolling displays (SPF_NUMBE).",
+   "pdf_page": 2
+  },
+  {
+   "text": "In the patterns, iii is the theoretical parameter identifier (first character = subsystem ID, third character = parameter unit ID), nnn/nnnn are running numbers, ttt is the system element number, rrr the real element number, ppp the position identifier and sss the alternative identifier.",
+   "pdf_page": 2
+  },
+  {
+   "text": "SPIRE system element type numbers are OBS 480, DPU 490 and DCU 500, with subsystem letters such as T (Telemetry), D (Data), B (Bias), L (LIA), P (Photometer) and S (Spectrometer).",
+   "pdf_page": 2
+  },
+  {
+   "text": "Further system element numbers are MCU 510, SCU 520, EGSE 528 and TFCS 529; EGSE subsystems include the CDMS and DRCU simulators, and TFCS subsystems include the black body, cryostat, FTS and laser.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Position identifiers are the unique System Element numbers per instrument model (AVM, QM, FM, FS); the DPU has distinct prime (4901) and redundant (4912) identifiers.",
+   "pdf_page": 3
+  },
+  {
+   "text": "Real element numbers for the first configuration are 100 (AVM), 300 (QM), 500 (FM) and 700 (FS) for most elements, incremented by 1 for each new configuration; the DPU uses 1001/2002, 3001/4002, 5001/6002 and 7001/8002.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Alternative numeric IDs for calibration curves (used if SCOS2000 cannot handle 8-character field names) are allocated in blocks of 50: OBS 500-549, DPU 550-599, DCU 600-649, MCU 650-699, SCU 700-749.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Parameter unit IDs are single letters, e.g. A current, F status flag, H frequency, K temperature, M mode, N count, T time, V voltage and W power.",
+   "pdf_page": 4
+  }
+ ],
+ "references": [
+  {
+   "label": "AD01",
+   "doc_id": "H-P-1-ASPI-SP-0141",
+   "title": "Herschel/Planck Naming Convention Specification",
+   "issue": "01/00",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 1
+  },
+  {
+   "label": "RD01",
+   "doc_id": "S2K-MKS-ICD-0001-TOS-GCI",
+   "title": "SCOS2000 Database Import ICD",
+   "issue": "5.0",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "RD02",
+   "doc_id": null,
+   "title": "ASPI comments to version 1.0 of this note (email from F. Chatte, 15th February 2002)",
+   "issue": null,
+   "date": "15th February 2002",
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "RD03",
+   "doc_id": "SPIRE-RAL-DOC-001172",
+   "title": "TFCS Requirements Document",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  }
+ ],
+ "topics": [
+  "mib/tailoring.md",
+  "missions/herschel-planck.md",
+  "mib/index.md",
+  "scos2000/egse.md",
+  "scos2000/herschel-planck-ground.md"
+ ],
+ "notes": "The introduction expands MIB as 'Mission Implementation Base' rather than the usual 'Mission Information Base' (p. 1). RD01's document number is printed 'S2K-MKS-ICD-0001-TOS-GCI' (MKS rather than MCS) and its issue as 'Issues 5.0'. AD01 is cited as H-P-1-ASPI-SP-0141 here, while the HCSS MIB Clarification and Tailoring Note cites H-P-ASPI-SP-0141 and H-P-1-ASP-TN-1060 cites H-P-1-ASP-SP-0141 for the same Herschel/Planck naming convention. EGSE- and TFCS-specific text is said to be in blue type, which the text extraction does not preserve. The registry counts 5 pages; PDF page 6 of the extraction is an empty trailing page."
+}

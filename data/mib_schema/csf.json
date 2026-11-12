@@ -1,0 +1,441 @@
+{
+ "table": "csf",
+ "file": "csf.dat",
+ "icd": true,
+ "name": "Command sequence characteristics",
+ "icd_section": "3.3.3.3.1",
+ "pdf_page": 165,
+ "family": "sequence",
+ "purpose": "The csf table is the top level of the command sequence definitions: one record per sequence, giving its name, descriptions and global attributes. A sequence is an ordered list of elements (commands or other sequences, nested to any depth but never containing itself) whose release and execution times, grouping and interlocks are defined in CSS; the values of the element parameters are given in SDF and the sequence's own 'formal parameters' (placeholders that let one definition serve as a template) in CSP. CSF says whether the sequence carries execution time-tagged commands and how the user loads it, its criticality, which external sources may plan it, whether it may be loaded stand-alone, its subsystem, provenance information (generation time, source document, issue and date), a default parameter value set and a default on-board sub-schedule. A nested sequence is expanded like a macro-command when the parent is loaded on a command source. Since SCOS-2000 R5.0 these tables are converted on request into XML sequence definitions held in the FARC rather than the run-time MIB, imported as a delta without re-importing the TM/TC database.",
+ "keys": [
+  "CSF_NAME"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "CSF_NAME",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Unique name of the command sequence. Referenced by CSS_SQNAME, SDF_SQNAME and CSP_SQNAME (content of the sequence), by CSS_ELEMID when the sequence is nested in another one (CSS_TYPE=S), and by PSM_NAME and CVP_TASK.",
+   "values": [],
+   "references": null,
+   "pdf_page": 165
+  },
+  {
+   "pos": 2,
+   "name": "CSF_DESC",
+   "type": "Char(24)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Short textual description of the sequence.",
+   "values": [],
+   "references": null,
+   "pdf_page": 165
+  },
+  {
+   "pos": 3,
+   "name": "CSF_DESC2",
+   "type": "Char(64)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Detailed description of the sequence. Grey in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 165
+  },
+  {
+   "pos": 4,
+   "name": "CSF_IFTT",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "States whether the sequence (or any nested sequence) contains execution time-tagged commands, and therefore how the user is asked for times when loading it.",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "The sequence contains execution time-tagged commands; at load time the user gives an absolute reference time from which all execution time tags are computed. Use this when commands are to be loaded on a manual stack with both a release time and an execution time tag."
+    },
+    {
+     "value": "B",
+     "meaning": "At load time the user chooses between loading the sequence as on-board time-tagged (only the execution time tags are used) or as ground time-tagged (only the release time tags are used and the commands execute immediately on board). Not to be used when commands need both a release and an execution time tag."
+    },
+    {
+     "value": "N",
+     "meaning": "Neither the sequence nor its nested sequences contain execution time-tagged commands (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 166
+  },
+  {
+   "pos": 5,
+   "name": "CSF_NFPARS",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Number of formal parameters of the sequence, for consistency checking against the number of CSP records of the sequence. Grey in ICD 7.0: not used by SCOS-2000.",
+   "values": [],
+   "references": null,
+   "pdf_page": 166
+  },
+  {
+   "pos": 6,
+   "name": "CSF_ELEMS",
+   "type": "Number(5)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Number of elements of the sequence, for consistency checking against the number of CSS records of the sequence. Grey in ICD 7.0: not used by SCOS-2000.",
+   "values": [],
+   "references": null,
+   "pdf_page": 167
+  },
+  {
+   "pos": 7,
+   "name": "CSF_CRITICAL",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Criticality flag of the sequence; the additional protections for critical (hazardous) sequences are mission specific.",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "Critical (hazardous) sequence."
+    },
+    {
+     "value": "N",
+     "meaning": "Non-critical (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 167
+  },
+  {
+   "pos": 8,
+   "name": "CSF_PLAN",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Identifies which external sources may reference the sequence directly in a planning file.",
+   "values": [
+    {
+     "value": "A",
+     "meaning": "Plannable by all sources."
+    },
+    {
+     "value": "F",
+     "meaning": "Plannable by flight dynamics only."
+    },
+    {
+     "value": "S",
+     "meaning": "Plannable by the SOC only."
+    },
+    {
+     "value": "N",
+     "meaning": "Not plannable (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 167
+  },
+  {
+   "pos": 9,
+   "name": "CSF_EXEC",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "Y",
+   "description": "Controls whether the sequence may be loaded stand-alone on SCOS-2000 manual stacks or only as a nested sequence inside another sequence.",
+   "values": [
+    {
+     "value": "N",
+     "meaning": "Cannot be loaded stand-alone (only nested)."
+    },
+    {
+     "value": "Y",
+     "meaning": "No restriction (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 167
+  },
+  {
+   "pos": 10,
+   "name": "CSF_SUBSYS",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Identifier of the subsystem the sequence belongs to, 1 to 255.",
+   "values": [],
+   "references": null,
+   "pdf_page": 167
+  },
+  {
+   "pos": 11,
+   "name": "CSF_GENTIME",
+   "type": "Char(17)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Time at which the sequence was generated. Grey: informative only.",
+   "values": [],
+   "references": null,
+   "pdf_page": 168
+  },
+  {
+   "pos": 12,
+   "name": "CSF_DOCNAME",
+   "type": "Char(32)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the document (procedure) from which the sequence was generated. Grey: informative only.",
+   "values": [],
+   "references": null,
+   "pdf_page": 168
+  },
+  {
+   "pos": 13,
+   "name": "CSF_ISSUE",
+   "type": "Char(10)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Issue of that document. Grey: informative only.",
+   "values": [],
+   "references": null,
+   "pdf_page": 168
+  },
+  {
+   "pos": 14,
+   "name": "CSF_DATE",
+   "type": "Char(17)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Issue date of that document. Grey: informative only.",
+   "values": [],
+   "references": null,
+   "pdf_page": 168
+  },
+  {
+   "pos": 15,
+   "name": "CSF_DEFSET",
+   "type": "Char(8)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the default parameter value set (PSV_PVSID) for the sequence.",
+   "values": [],
+   "references": "psv.PSV_PVSID",
+   "pdf_page": 168
+  },
+  {
+   "pos": 16,
+   "name": "CSF_SUBSCHEDID",
+   "type": "Number(5)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Default on-board sub-schedule identifier (1 to 65535) used when the sequence is loaded as execution time-tagged. If set, every execution time-tagged command of the sequence is assigned this sub-schedule; if empty, each command keeps the default given by its own CCF_SUBSCHEDID.",
+   "values": [],
+   "references": null,
+   "pdf_page": 168
+  }
+ ],
+ "relationships": [
+  {
+   "field": "CSF_NAME",
+   "target": "css.CSS_SQNAME",
+   "note": "Elements of the sequence (one-to-many); CSF_ELEMS should equal their number."
+  },
+  {
+   "field": "CSF_NAME",
+   "target": "csp.CSP_SQNAME",
+   "note": "Formal parameters of the sequence; CSF_NFPARS should equal their number."
+  },
+  {
+   "field": "CSF_NAME",
+   "target": "sdf.SDF_SQNAME",
+   "note": "Values of the element parameters of the sequence."
+  },
+  {
+   "field": "CSF_NAME",
+   "target": "css.CSS_ELEMID",
+   "note": "Use of this sequence as a nested element (CSS_TYPE=S) of other sequences."
+  },
+  {
+   "field": "CSF_NAME",
+   "target": "psm.PSM_NAME",
+   "note": "Parameter sets associated with the sequence (PSM_TYPE=S)."
+  },
+  {
+   "field": "CSF_DEFSET",
+   "target": "psv.PSV_PVSID",
+   "note": "Default parameter value set."
+  },
+  {
+   "field": "CSF_SUBSCHEDID",
+   "target": "ccf.CCF_SUBSCHEDID",
+   "note": "If empty, each command uses its own CCF_SUBSCHEDID default."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.3.1, PDF p.77-78) has fields 1 to 15 with the same names, sizes and defaults. CSF_SUBSCHEDID was added in ICD 6.0 together with CCF_SUBSCHEDID (Annex 1 of ICD 7.0, PDF p.249) and appears in ICD 6.7 Draft A (PDF p.154-157) and ICD 6.9 (PDF p.158-161). In ICD 6.9 an empty CSF_SUBSCHEDID fell back to CSF_SUBSYS; ICD 7.0 (PDF p.165-168, change S2K-6680, PDF p.261) changed the fallback to each command's CCF_SUBSCHEDID. ICD 6.1 deleted the last sentence of option B of CSF_IFTT (PDF p.251). The move of sequences to XML files in the FARC dates from ICD 6.4 for R5.0 (PDF p.254). pyscos2000 (ICD 7.2) has the same 16 columns, mandatory CSF_NAME and CSF_DESC, defaults N (CSF_IFTT, CSF_CRITICAL, CSF_PLAN) and Y (CSF_EXEC).",
+ "solo_stats": {
+  "rows": 3404,
+  "fields": [
+   {
+    "name": "CSF_NAME",
+    "filled": 3404,
+    "examples": [
+     "AACC160A",
+     "AACC160B",
+     "AACC161A",
+     "AACC161B",
+     "AACC250A"
+    ]
+   },
+   {
+    "name": "CSF_DESC",
+    "filled": 3404,
+    "examples": [
+     "Calibrate Slit Mech v07",
+     "EPD SIS Stop Macro v01",
+     "EUI HTRs Off Config v01",
+     "EUI Prep to Safe v01",
+     "EUI to Config v01"
+    ]
+   },
+   {
+    "name": "CSF_DESC2",
+    "filled": 726,
+    "examples": [
+     "Execute Emergency TCM-3d",
+     "Average multiple datasets",
+     "Configuration of UVDA Analog",
+     "EUI: Change Mode to Config",
+     "EUI: Preparation to transition to Safe"
+    ]
+   },
+   {
+    "name": "CSF_IFTT",
+    "filled": 3404,
+    "examples": [
+     "B",
+     "N"
+    ]
+   },
+   {
+    "name": "CSF_NFPARS",
+    "filled": 3404,
+    "examples": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4"
+    ]
+   },
+   {
+    "name": "CSF_ELEMS",
+    "filled": 3404,
+    "examples": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5"
+    ]
+   },
+   {
+    "name": "CSF_CRITICAL",
+    "filled": 3404,
+    "examples": [
+     "N"
+    ]
+   },
+   {
+    "name": "CSF_PLAN",
+    "filled": 3404,
+    "examples": [
+     "N",
+     "S",
+     "F",
+     "A"
+    ]
+   },
+   {
+    "name": "CSF_EXEC",
+    "filled": 3404,
+    "examples": [
+     "Y"
+    ]
+   },
+   {
+    "name": "CSF_SUBSYS",
+    "filled": 771,
+    "examples": [
+     "109",
+     "106",
+     "4",
+     "104",
+     "110"
+    ]
+   },
+   {
+    "name": "CSF_GENTIME",
+    "filled": 3404,
+    "examples": [
+     "13:25:42",
+     "14:23:31",
+     "08:56:09",
+     "08:56:11",
+     "13:25:41"
+    ]
+   },
+   {
+    "name": "CSF_DOCNAME",
+    "filled": 3404,
+    "examples": [
+     "DM-FCP-740",
+     "IW-FCP-052",
+     "IW-FCP-053",
+     "IW-FCP-033",
+     "SY-SEQ-001"
+    ]
+   },
+   {
+    "name": "CSF_ISSUE",
+    "filled": 3404,
+    "examples": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5"
+    ]
+   },
+   {
+    "name": "CSF_DATE",
+    "filled": 3404,
+    "examples": [
+     "29/03/2019",
+     "24/10/2019",
+     "27/03/2019",
+     "13/12/2019",
+     "08/05/2020"
+    ]
+   },
+   {
+    "name": "CSF_DEFSET",
+    "filled": 0,
+    "examples": []
+   },
+   {
+    "name": "CSF_SUBSCHEDID",
+    "filled": 3404,
+    "examples": [
+     "1",
+     "2",
+     "103",
+     "108",
+     "3"
+    ]
+   }
+  ]
+ },
+ "notes": "No column discrepancy (16 columns in every line of the Solar Orbiter csf.dat). Solar Orbiter 2025-09-16 has 3404 sequences (2701 in 2020-04-16). CSF_IFTT is 'B' for 3354 and 'N' for 50; CSF_PLAN is N 2029, S 1177 (SOC), F 195 (flight dynamics) and A 3; CSF_CRITICAL is always N and CSF_EXEC always Y. CSF_GENTIME holds only a clock time such as '13:25:42' and CSF_DATE a date in dd/mm/yyyy form, while CSF_DOCNAME holds procedure identifiers such as 'DM-FCP-740'. CSF_SUBSCHEDID is filled in every record although CSF_SUBSYS is filled in only 771, and the two differ in 183 records. CSF_DEFSET is never used. CSF_ELEMS always equals the number of CSS records, but CSF_NFPARS disagrees with the CSP count for 3 sequences (APWC508A and APWC508B declare 1 formal parameter but have none; ATCC011C declares 11 but has 10)."
+}

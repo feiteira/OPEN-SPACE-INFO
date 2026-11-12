@@ -1,0 +1,222 @@
+{
+ "table": "s13t",
+ "file": "s13t.dat",
+ "icd": false,
+ "name": "Ground file types for on-board file uploads (inferred title)",
+ "icd_section": null,
+ "pdf_page": null,
+ "family": "mission-specific",
+ "purpose": "Inferred from the data; not documented in any available ICD. A lookup table (12 rows) of the kinds of ground files that can be turned into on-board files: unknown/plain files, OBCPs, SCOS stack files (SCOS0-SCOS3), TC sequences of four CSF types (mixed, plain, time-tagged, backup MTL), a binary plain file and a wildcard ALL. Each record holds the type name, a one-letter code (C or W), a numeric type code (-2 to 9), a format or converter name, a description, an optional file attribute (referring to s13a) and an optional default destination partition (referring to s13p), e.g. CSF2 'Time tagged TC sequence (CSF type 2)' goes by default to TCFA, OBCP to OBCA and CSF3 'Backup MTL' to SYSA. Together with s13a and s13p it appears to configure the ground tool that prepares files for upload through PUS service 13 (inference). SCOS-2000 itself does not use it.",
+ "keys": [
+  "COL1"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "COL1",
+   "type": "Char (max 7 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: file type name (UNKNOWN, OBCP, SCOS0..SCOS3, CSF0..CSF3, PLAIN, ALL). Unique.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "file type name"
+  },
+  {
+   "pos": 2,
+   "name": "COL2",
+   "type": "Char(1) observed",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: one-letter code; C for ten concrete types, W for PLAIN and ALL. Meaning not determinable (W possibly 'wildcard', inference).",
+   "values": [
+    {
+     "value": "C",
+     "meaning": "observed for UNKNOWN, OBCP, SCOS0-3, CSF0-3"
+    },
+    {
+     "value": "W",
+     "meaning": "observed for PLAIN and ALL"
+    }
+   ],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "type class"
+  },
+  {
+   "pos": 3,
+   "name": "COL3",
+   "type": "Number (-2 to 9 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: numeric file type code (UNKNOWN -2, OBCP -1, SCOS0-3 0-3, CSF1 4, CSF2 5, CSF3 6, CSF0 7, PLAIN 8, ALL 9).",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "type code"
+  },
+  {
+   "pos": 4,
+   "name": "COL4",
+   "type": "Char (max 7 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: format or converter used for the content (UNKNOWN, OBCP, CSF0-CSF3, BINARY); in 11 of 12 rows the value is itself a COL1 value of this table.",
+   "values": [],
+   "references": "s13t.COL1 (inferred, 11 of 12 rows)",
+   "pdf_page": null,
+   "inferred_name": "content format"
+  },
+  {
+   "pos": 5,
+   "name": "COL5",
+   "type": "Char (max 36 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: description, e.g. 'SCOS stack file', 'Mixed TC sequence (CSF type 0)', 'Backup MTL (CSF type 3)'.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "description"
+  },
+  {
+   "pos": 6,
+   "name": "COL6",
+   "type": "Char (max 5 observed)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Inferred: file attribute name from s13a; filled only for UNKNOWN (OTHER) and OBCP (OBCP).",
+   "values": [],
+   "references": "s13a.COL1",
+   "pdf_page": null,
+   "inferred_name": "file attribute"
+  },
+  {
+   "pos": 7,
+   "name": "COL7",
+   "type": "Char(4) observed",
+   "mandatory": "O",
+   "default": null,
+   "description": "Inferred: default destination partition short name from s13p (SYSA, OBCA, TCFA); filled in 6 of 12 rows.",
+   "values": [],
+   "references": "s13p.COL1",
+   "pdf_page": null,
+   "inferred_name": "default partition"
+  }
+ ],
+ "relationships": [
+  {
+   "field": "COL6",
+   "target": "s13a.COL1",
+   "note": "Both filled values exist in s13a (inferred)."
+  },
+  {
+   "field": "COL7",
+   "target": "s13p.COL1",
+   "note": "All 6 filled values exist in s13p (inferred)."
+  },
+  {
+   "field": "COL1",
+   "target": "csf (CSF type)",
+   "note": "The CSF0-CSF3 names mirror command sequence types; the exact link to csf fields is not determinable from the data (inference)."
+  }
+ ],
+ "history": "Not part of any ICD issue nor of pyscos2000. Present in MIB__20250916M25925PFMS001_SOL (file dated 2021-06-07); absent from MIB__20200416M10720PFMS001_SOL and from the SWA database.",
+ "solo_stats": {
+  "db": "solo-2025-09-16.sqlite",
+  "release": "MIB__20250916M25925PFMS001_SOL",
+  "slug": "mib-20250916m25925pfms001-sol",
+  "rows": 12,
+  "fields": [
+   {
+    "name": "COL1",
+    "filled": 12,
+    "distinct": 12,
+    "max_length": 7,
+    "examples": [
+     "UNKNOWN",
+     "OBCP",
+     "SCOS0",
+     "SCOS1",
+     "SCOS2"
+    ]
+   },
+   {
+    "name": "COL2",
+    "filled": 12,
+    "distinct": 2,
+    "max_length": 1,
+    "examples": [
+     "C",
+     "W"
+    ]
+   },
+   {
+    "name": "COL3",
+    "filled": 12,
+    "distinct": 12,
+    "max_length": 2,
+    "examples": [
+     "-2",
+     "-1",
+     "0",
+     "1",
+     "2"
+    ]
+   },
+   {
+    "name": "COL4",
+    "filled": 12,
+    "distinct": 7,
+    "max_length": 7,
+    "examples": [
+     "UNKNOWN",
+     "OBCP",
+     "CSF1",
+     "CSF2",
+     "CSF3"
+    ]
+   },
+   {
+    "name": "COL5",
+    "filled": 12,
+    "distinct": 8,
+    "max_length": 36,
+    "examples": [
+     "Plain file",
+     "OBCP",
+     "SCOS stack file",
+     "TC sequence (CSF type 1)",
+     "Time tagged TC sequence (CSF type 2)"
+    ]
+   },
+   {
+    "name": "COL6",
+    "filled": 2,
+    "distinct": 2,
+    "max_length": 5,
+    "examples": [
+     "OTHER",
+     "OBCP"
+    ]
+   },
+   {
+    "name": "COL7",
+    "filled": 6,
+    "distinct": 3,
+    "max_length": 4,
+    "examples": [
+     "SYSA",
+     "OBCA",
+     "TCFA"
+    ]
+   }
+  ]
+ },
+ "sources": [
+  "mib-20250916m25925pfms001-sol",
+  "icd-7-0-final"
+ ],
+ "notes": "All meanings inferred from the values and from cross-references to s13a and s13p. Lines have 7 TAB-separated fields; empty optional fields are present as consecutive TABs, following the ICD 7.0 record rules (PDF p.22). 't' in the name possibly stands for 'type' (inference)."
+}

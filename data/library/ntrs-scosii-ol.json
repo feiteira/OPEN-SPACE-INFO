@@ -1,0 +1,271 @@
+{
+ "slug": "ntrs-scosii-ol",
+ "title": "SCOSII OL: A Dedicated Language for Mission Operations",
+ "short_title": "SCOSII OL: a dedicated language for mission operations",
+ "doc_id": "N95-17533",
+ "issue": null,
+ "date": null,
+ "organisation": "European Space Agency, ESOC (Flight Control Systems Department and Mission Operations Department); Computer Resources International (CRI)",
+ "authors": [
+  "Andrea Baldi",
+  "Dennis Elgaard",
+  "Steen Lynenskjold",
+  "Mauro Pecchioli"
+ ],
+ "doc_type": "Paper",
+ "status_notes": "Historical conference paper. It reports a delivered SCOSII Basic System with a reduced OL facility (expressive knowledge only) and plans releases 1 (1Q95), 2 (1Q96) and 3 (1Q97) (PDF p. 7).",
+ "summary": "Conference paper by A. Baldi (ESOC Flight Control Systems Department), D. Elgaard and S. Lynenskjold (Computer Resources International) and M. Pecchioli (ESOC Mission Operations Department) on the **Operations Language (OL)** of SCOSII, the generic mission control system then in development at ESOC. It explains why a dedicated language was needed. In MSSS, operations engineers specified derived-value algorithms on paper and software engineers coded them. In SCOS-I the algorithms were written in extended FORTRAN and linked into the control system, so errors showed up only as run-time crashes. Checkout languages (ETOL, ELISA) and ESOC studies (Expert Operator's Associate, Meteosat Workstation, User Language Study) shaped the requirements.\n\nThe paper sorts mission knowledge into four kinds. Declarative knowledge, such as calibration curves, is entered through forms. Expressive knowledge (derived parameters, command validation conditions) and procedural knowledge (operations procedures) are written in the OL. Special knowledge needs new software. The OL sits in a three-layer model of interaction, logical and physical layers, joined by an explicit object-oriented data model that acts as a 'contract'. Parameters, limits, values and system elements such as heaters are objects with attributes and services. Default attributes let `P112` stand for its engineering value, and values computed from invalid inputs are themselves invalid.\n\nThe language is strongly typed and interpreted. A script has a declaration part and an executable part with the usual imperative constructs, and the paper includes a worked derived-parameter example. It was implemented in C++ with lex and yacc, and parse trees are built at database preparation time. The status section covers the release plan, the FOPGEN procedure editor and the related COES standardisation. Readers of [synthetic parameters](../mib/synthetic-parameters.md) will recognise the name OL; whether SCOS-2000's OL derives from this design is not stated here.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Abstract",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Introduction",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Background and Context",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Concepts",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "Language Facilities",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "Implementation",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "Status",
+   "pdf_page": 7
+  },
+  {
+   "section": null,
+   "title": "Conclusions",
+   "pdf_page": 8
+  },
+  {
+   "section": null,
+   "title": "References",
+   "pdf_page": 8
+  }
+ ],
+ "key_points": [
+  {
+   "text": "SCOSII is a generic system configured through databases holding the mission-specific knowledge; the OL lets operations engineers edit, test, validate and install scripts (e.g. derived-parameter expressions and flight procedures) without software support engineers.",
+   "pdf_page": 1
+  },
+  {
+   "text": "In MSSS derived-value algorithms were coded by software engineers from paper specifications; in SCOS-I they were written in FORTRAN with a few extra constructs, compiled and linked with the control system, so errors surfaced only as run-time crashes and neither system offered version or configuration control.",
+   "pdf_page": 2
+  },
+  {
+   "text": "ESA checkout languages cited as precedents: ETOL (ESA Test Operations Language, ref. [10]) and ELISA (Extended Language for Instrument and Spacecraft AIV, ref. [9]).",
+   "pdf_page": 2
+  },
+  {
+   "text": "First SCOSII client missions: Huygens (97), Artemis (97) and Envisat (98).",
+   "pdf_page": 2
+  },
+  {
+   "text": "Mission knowledge categories: declarative (forms-based, e.g. calibration curves), expressive (OL, e.g. derived parameters, command validation conditions), procedural (OL, e.g. operation and report procedures) and special (requires software expansion).",
+   "pdf_page": 3
+  },
+  {
+   "text": "Layered model: interaction layer (user interface), logical layer (centred on the OL) and physical layer (generic control-system services); the object-oriented data model is the contract between logical and physical layers and cannot be changed through the OL.",
+   "pdf_page": 3
+  },
+  {
+   "text": "The OL is interpreted and strongly typed; the data model is part of the type system, so wrong access to physical-layer objects is detected at preparation time; all OL definitions are part of the database configuration under version control.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Worked example: derived parameter P117 is set to the upper limit of P112 when P112 is above limits, otherwise to P112's engineering value.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Default attributes: the expression 'P112' evaluates as 'P112.eng.value'; a Parameter offers a 'delta' service for historical samples; a Value carries a validity.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Statements offered: assignment, wait, function invocation, goto-label, if-then-else, select-case, while-do, repeat-until, for-in-list-do and for-to-step-next, with numeric, boolean, string, time, list, set, matrix, vector and map expressions.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Implementation: specified with OMT, programmed in C++, scanner and parser generated with lex and yacc; the parse tree is built at preparation time and used directly by the interpreter.",
+   "pdf_page": 5
+  },
+  {
+   "text": "A Value computed from non-valid Values is itself non-valid, which propagates invalidity through expression evaluation.",
+   "pdf_page": 6
+  },
+  {
+   "text": "No language constructs for parallelism or synchronisation: conditions such as interlocks between procedure executions are handled by the physical layer.",
+   "pdf_page": 7
+  },
+  {
+   "text": "FOPGEN, a WYSIWYG tool for operational documentation, was to generate operation procedures in the SCOSII OL.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Conclusion: the language is deliberately 'kept simple and stupid', leaving intelligent behaviour to physical-layer objects; porting scripts between missions can be hard because each mission may have its own data model.",
+   "pdf_page": 8
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": null,
+   "title": "SCOSII: ESA's New Generation of Mission Control Systems - The User's Perspective, P Kaufeler, M Pecchioli, I Shurmer, ESOC - these proceedings",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[2]",
+   "doc_id": null,
+   "title": "A New Communication Protocol Family for a Distributed Spacecraft Control System, A Baldi, M Pace, ESOC - these proceedings",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[3]",
+   "doc_id": null,
+   "title": "SCOSII: ESA's New Generation of Control Systems, M Jones, N Head, K Keyte, P Howard, S Lynenskjold - these proceedings",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[4]",
+   "doc_id": null,
+   "title": "SCOSII - An Object Oriented Software Development Approach, M Symonds, S Lynenskjold, C Müller - these proceedings",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[5]",
+   "doc_id": "DOPS-SYS-URD-001-AMD",
+   "title": "SCOSII User Requirements Document, ESOC",
+   "issue": "Issue 3",
+   "date": "February 1994",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[6]",
+   "doc_id": "SCOSII-SYS-SRD",
+   "title": "SCOSII Software Requirements Document, ESOC",
+   "issue": "Issue 0.6",
+   "date": "June 1994",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[7]",
+   "doc_id": "ULS.RST.RER005",
+   "title": "User Language Study, VEGA (ESOC)",
+   "issue": "Issue 1.0",
+   "date": "October 1992",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[8]",
+   "doc_id": null,
+   "title": "Object-Oriented User Language for Satellite Check-out, Spacebel Informatique (ESTEC)",
+   "issue": null,
+   "date": "1992",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[9]",
+   "doc_id": "CL-CRI-ID-0006",
+   "title": "Control File Language for Cluster AIT, CRI (ESTEC)",
+   "issue": "Issue 3",
+   "date": "February 1993",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[10]",
+   "doc_id": "ER-MA-CRI-AV-065",
+   "title": "User Reference Guide for ERS-1 Check-out Activities, CRI, Volume 1",
+   "issue": "Issue 1",
+   "date": "April 1987",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[11]",
+   "doc_id": null,
+   "title": "Object-Oriented Modelling and Design, Rumbaugh et.al., Prentice-Hall",
+   "issue": null,
+   "date": "1991",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[12]",
+   "doc_id": "EOA-CRI-FINAL-0001-1991",
+   "title": "Expert Systems for Automated Spacecraft Operations. CRI/Matra (ESOC)",
+   "issue": null,
+   "date": "March 1993",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[13]",
+   "doc_id": "MWS.RST.REE002",
+   "title": "Definition Study for a Meteosat Workstation, VEGA (ESOC)",
+   "issue": null,
+   "date": "March 1989",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[14]",
+   "doc_id": null,
+   "title": "SCOSII - A Distributed Architecture for Ground System Control, Vitrociset Keyte, International Symposium on Spacecraft Ground Control and Flight Dynamics, Brazil",
+   "issue": null,
+   "date": "February 1994",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[15]",
+   "doc_id": null,
+   "title": "A Description of the Model-View-Controller User Interface Paradigm in the Smalltalk-80 System, ParcPlace Systems",
+   "issue": null,
+   "date": "August 1988",
+   "kind": "reference",
+   "pdf_page": 8
+  }
+ ],
+ "topics": [
+  "mib/synthetic-parameters.md",
+  "scos2000/index.md",
+  "scos2000/architecture.md",
+  "mib/index.md"
+ ],
+ "notes": "Scanned NASA NTRS copy (Pdf.Capture OCR); accession number N95-17533 is stamped on PDF p. 1. Printed page numbers 689-696 map to PDF pp. 1-8, and the text extraction has a trailing empty page 9. The two-column layout is interleaved and OCR errors are frequent (reference [4] author 'C Müller' is OCR'd as 'Mt_ller'). The author footnote on PDF p. 1 gives the authors' e-mail addresses and postal addresses, which are not reproduced here. Figures 1-6 (layered model, OL example, logical-layer data model, heater system element, physical-layer interface class diagram, script class model) survive only in fragments. No date or venue is printed. References [1]-[4] are 'these proceedings', and [1] is the library item ntrs-scos2-new-generation."
+}

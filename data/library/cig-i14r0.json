@@ -1,0 +1,495 @@
+{
+ "slug": "cig-i14r0",
+ "title": "Configuration and Installation Guide — EGOS Data Dissemination System",
+ "short_title": "EDDS Configuration and Installation Guide (i14r0)",
+ "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+ "issue": "Version 14.0",
+ "date": "2018-02-16",
+ "organisation": "European Space Agency, Directorate of Operations and Infrastructure, OPS-GI (ESOC); prepared by the EDDS Team",
+ "authors": [
+  "Rokibul Uddin",
+  "Delphine Thomas",
+  "Rui Santos",
+  "Michael Hawkshaw",
+  "Rauno Ots",
+  "Merlin Lobjakas",
+  "Kamill Panitzek"
+ ],
+ "doc_type": "User Manual",
+ "status_notes": "Issue 14.0 'Issue for EDDS v2.3.0i1' (Document Change Log, PDF p. 3). Superseded: the library also holds issue 25.0 of 2025-03-07 for EDDS v3.6.1 (cig-v24).",
+ "summary": "The **EDDS Configuration and Installation Guide (CIG)** tells ESOC system administrators and EDDS developers how to build, deploy, configure and run the [EGOS Data Dissemination System](../scos2000/edds.md) release v2.3.0. EDDS gives external users web-service and MMI access to data held by the [SCOS-2000](../scos2000/index.md) packet archive (PARC), the DARC data archive and the FARC file archive ([archives](../scos2000/archives.md)).\n\nSection 3 lists the platform (SLES 12, Java 8, Tomcat, MariaDB, ActiveMQ, OpenLDAP, Pure-FTPd), explains the Ant/Maven build and the long `edds-deploy.properties` file, and describes deploying the separate components: Archiver, Delivery Manager, Web Service, MMI (standalone or web), EDDS Server, Request Submitter, Stream Client, Performance Processor and Migrator. It also covers firewall ports, HTTPS, logging, SFTP and SFT transfer of response files, and serving several missions from one Delivery Manager.\n\nSection 4 is the most useful part for understanding data handling. It gives the full EDDS Server property table and explains how to enable services per mission, XSL transformations of results, and which **SCOS-2000 MIB files** each mission domain must supply: `pid.dat` (SPID to APID conversion), `tpcf.dat` (packet descriptions), command subsystem and host files, `MISCbase.ids` and `MISCcontext_SHARED.sta`, plus mapping files for command source types and on-board-queue request status. Appendix A explains how EDDS decodes raw packet headers and the hexadecimal TC history records it receives over CORBA from the PARC, using XML structure files with field offsets, lengths, verification-stage positions and mission custom fields. The remaining appendices cover the SMON server, ActiveMQ, FARC subscriptions, RSA keys, backups and LDAP.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 8
+  },
+  {
+   "section": "1.3",
+   "title": "Document Overview",
+   "pdf_page": 8
+  },
+  {
+   "section": "2",
+   "title": "Glossary & References",
+   "pdf_page": 9
+  },
+  {
+   "section": "3",
+   "title": "Installation Instructions",
+   "pdf_page": 10
+  },
+  {
+   "section": "3.1",
+   "title": "Prerequisites",
+   "pdf_page": 10
+  },
+  {
+   "section": "3.2",
+   "title": "Development Environment",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.3",
+   "title": "Deployment",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.4",
+   "title": "Firewall Configuration",
+   "pdf_page": 43
+  },
+  {
+   "section": "3.5",
+   "title": "Request Attributes label - “Alias” configuration",
+   "pdf_page": 44
+  },
+  {
+   "section": "3.6",
+   "title": "Running the EDDS Components",
+   "pdf_page": 45
+  },
+  {
+   "section": "3.7",
+   "title": "EDDS MMI",
+   "pdf_page": 49
+  },
+  {
+   "section": "3.8",
+   "title": "Pure-FTP Configuration",
+   "pdf_page": 52
+  },
+  {
+   "section": "3.9",
+   "title": "Configuration for SFTP usage",
+   "pdf_page": 52
+  },
+  {
+   "section": "3.10",
+   "title": "Configuring EDDS web services for SSL (HTTPS)",
+   "pdf_page": 52
+  },
+  {
+   "section": "3.11",
+   "title": "Logging",
+   "pdf_page": 55
+  },
+  {
+   "section": "3.12",
+   "title": "Installing Secure File Transfer (SFT) for use in EDDS",
+   "pdf_page": 57
+  },
+  {
+   "section": "3.13",
+   "title": "Handling Multiple Missions",
+   "pdf_page": 57
+  },
+  {
+   "section": "4",
+   "title": "Mission Specific Configuration",
+   "pdf_page": 58
+  },
+  {
+   "section": "4.1",
+   "title": "EDDS Server Configuration Properties",
+   "pdf_page": 58
+  },
+  {
+   "section": "4.2",
+   "title": "Using mission specific configuration (MSC) files:",
+   "pdf_page": 68
+  },
+  {
+   "section": "4.3",
+   "title": "Enabling or Disabling EDDS Services for a Mission",
+   "pdf_page": 69
+  },
+  {
+   "section": "4.4",
+   "title": "Configuring the EDDS server to retry to process failed requests",
+   "pdf_page": 69
+  },
+  {
+   "section": "4.5",
+   "title": "XSL Transformations",
+   "pdf_page": 70
+  },
+  {
+   "section": "4.6",
+   "title": "SCOS 2000 MIB Required Files",
+   "pdf_page": 72
+  },
+  {
+   "section": "5",
+   "title": "Setting up the development environment",
+   "pdf_page": 75
+  },
+  {
+   "section": "5.1",
+   "title": "Installing the required software",
+   "pdf_page": 75
+  },
+  {
+   "section": "5.2",
+   "title": "Configuring Ant",
+   "pdf_page": 75
+  },
+  {
+   "section": "5.3",
+   "title": "Configuring Eclipse",
+   "pdf_page": 75
+  },
+  {
+   "section": "5.4",
+   "title": "Now read JAutodoc templates",
+   "pdf_page": 77
+  },
+  {
+   "section": "5.5",
+   "title": "Checking out the source code",
+   "pdf_page": 77
+  },
+  {
+   "section": "5.6",
+   "title": "Formatting",
+   "pdf_page": 77
+  },
+  {
+   "section": "5.7",
+   "title": "Code Templates",
+   "pdf_page": 77
+  },
+  {
+   "section": "5.8",
+   "title": "Running MMI from development environment",
+   "pdf_page": 77
+  },
+  {
+   "section": "5.9",
+   "title": "Issuing an EDDS release",
+   "pdf_page": 78
+  },
+  {
+   "section": "APPENDIX A",
+   "title": "Packet Data",
+   "pdf_page": 79
+  },
+  {
+   "section": "A.1",
+   "title": "Creating the header structure information files for TM",
+   "pdf_page": 79
+  },
+  {
+   "section": "A.2",
+   "title": "Creating the header structure information files for TC",
+   "pdf_page": 79
+  },
+  {
+   "section": "A.3",
+   "title": "Defining the TC packet structure",
+   "pdf_page": 80
+  },
+  {
+   "section": "A.4",
+   "title": "Creating the header structure information files for EV",
+   "pdf_page": 82
+  },
+  {
+   "section": "APPENDIX B",
+   "title": "Configuring SMON Server for use with EDDS",
+   "pdf_page": 84
+  },
+  {
+   "section": "APPENDIX C",
+   "title": "Pure-FTP Installation",
+   "pdf_page": 85
+  },
+  {
+   "section": "C.1",
+   "title": "Prerequisites",
+   "pdf_page": 85
+  },
+  {
+   "section": "C.2",
+   "title": "Installation",
+   "pdf_page": 85
+  },
+  {
+   "section": "APPENDIX D",
+   "title": "Apache ActiveMQ Configuration",
+   "pdf_page": 86
+  },
+  {
+   "section": "D.1",
+   "title": "Configuring ActiveMQ",
+   "pdf_page": 86
+  },
+  {
+   "section": "D.2",
+   "title": "Enabling password protection on ActiveMQ",
+   "pdf_page": 86
+  },
+  {
+   "section": "D.3",
+   "title": "Configuring EDDS to use ActiveMQ password",
+   "pdf_page": 88
+  },
+  {
+   "section": "D.4",
+   "title": "Debugging ActiveMQ database contents and connections",
+   "pdf_page": 88
+  },
+  {
+   "section": "D.5",
+   "title": "Important note on clock synchronisation",
+   "pdf_page": 88
+  },
+  {
+   "section": "APPENDIX E",
+   "title": "FARC Subscriptions",
+   "pdf_page": 89
+  },
+  {
+   "section": "APPENDIX F",
+   "title": "Creating RSA Public/Private Key",
+   "pdf_page": 90
+  },
+  {
+   "section": "APPENDIX G",
+   "title": "Cold Backups",
+   "pdf_page": 91
+  },
+  {
+   "section": "APPENDIX H",
+   "title": "LDAP Configuration",
+   "pdf_page": 92
+  },
+  {
+   "section": "H.1",
+   "title": "Creating a backup of LDAP data",
+   "pdf_page": 92
+  },
+  {
+   "section": "H.2",
+   "title": "Importing a previous backup into LDAP",
+   "pdf_page": 92
+  },
+  {
+   "section": "H.3",
+   "title": "Deploying multiple master and slave LDAP servers",
+   "pdf_page": 92
+  },
+  {
+   "section": "APPENDIX I",
+   "title": "Using EDDS with an Existing Central LDAP Installation",
+   "pdf_page": 95
+  },
+  {
+   "section": "APPENDIX J",
+   "title": "Example Requests for the Request Submitter",
+   "pdf_page": 96
+  },
+  {
+   "section": "J.1",
+   "title": "Cancel Requests",
+   "pdf_page": 96
+  },
+  {
+   "section": "J.2",
+   "title": "Suspend Requests",
+   "pdf_page": 96
+  },
+  {
+   "section": "J.3",
+   "title": "Resume Requests",
+   "pdf_page": 97
+  },
+  {
+   "section": "APPENDIX K",
+   "title": "Development Environment Resources",
+   "pdf_page": 98
+  },
+  {
+   "section": "K.1",
+   "title": "Formatting.xml",
+   "pdf_page": 98
+  },
+  {
+   "section": "K.2",
+   "title": "Codetemplate.xml",
+   "pdf_page": 104
+  },
+  {
+   "section": "K.3",
+   "title": "JAutodoc",
+   "pdf_page": 107
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Intended readers are ESOC system administrators and EDDS developers; the guide covers build, deployment and mission-specific configuration of EDDS v2.3.0.",
+   "pdf_page": 8
+  },
+  {
+   "text": "Prerequisites start with SLES 12, JDK 8 (1.8.0_72) for compiling and JRE 8 for running, Apache Tomcat with the manager application, and MariaDB, versions per the SLES 12 baseline.",
+   "pdf_page": 10
+  },
+  {
+   "text": "Further prerequisites: MariaDB max_allowed_packet raised to 50M, Maven, Ant, ActiveMQ, OpenLDAP and Pure-FTPd; GFTS is recommended when the EDDS Server and Delivery Manager run on different machines.",
+   "pdf_page": 11
+  },
+  {
+   "text": "When the EDDS Server and Delivery Manager are on separate machines, SFT 'Sender' and 'Receiver' instances move response files into the 'edds-server-completed' folder; one Delivery Manager can serve multiple missions.",
+   "pdf_page": 57
+  },
+  {
+   "text": "Each EDDS Server is configured for one SCOS-2000 mission; missing properties fall back to defaults with a warning in the log.",
+   "pdf_page": 58
+  },
+  {
+   "text": "The services offered per mission are set with SUPPORTED_BATCH_REQUESTS and SUPPORTED_STREAM_REQUESTS, listing request types from the DataAccessDataElement type in common.xsd; batch and stream requests are routed through ActiveMQ queues with a MISSION_NAME selector.",
+   "pdf_page": 69
+  },
+  {
+   "text": "EDDS needs MIB files per mission domain under MIB_FILES_LOCATION: pid.dat converts SPIDs into APIDs and tpcf.dat gives TM packet descriptions; without them filters such as an APID search for TM packets fail.",
+   "pdf_page": 72
+  },
+  {
+   "text": "CMD_SUBSYSTEM_FILE, CMD_HOST_FILE and MISCbase.ids map subsystem, source and domain IDs in TC history packets to names for the TC report; MISCcontext_SHARED.sta maps domains and data streams for the data provision services.",
+   "pdf_page": 72
+  },
+  {
+   "text": "CMDsourceTypeMapping.properties maps the command source type number (MANUAL_STACK, AUTO_STACK, EXT_SOURCE, TC_SPACON, OBQM_DISP, SMF_SOURCE) to long and short descriptions in the Packet TC report.",
+   "pdf_page": 73
+  },
+  {
+   "text": "CMD_ttRqstObqStatusMapping.properties maps 16 on-board-queue request status values (TT_EXECUTED to TT_UNKNOWN) and must exist under config/MIB/0 or TC packet decoding may fail.",
+   "pdf_page": 74
+  },
+  {
+   "text": "Raw TM, TC and EV header layouts written to raw output files are defined by XML files based on RawPktHeaders.xsd (for example fields 'Apid' and 'Type', or 'ServiceType' and 'ServiceSubType').",
+   "pdf_page": 79
+  },
+  {
+   "text": "Because the PARC returns TC history records hex-encoded over CORBA, EDDS decodes them with a TCPacketStructure XML file giving offset, length, type and occurrence of each field, the verification-stage positions (verStates sized by CMD_NUM_VER_STAGES) and optional mission CustomFields.",
+   "pdf_page": 80
+  },
+  {
+   "text": "TC_PKT_CMD_LEN_PAR_INFO, the length of the INFO field in bytes, must be 3 for SCOS-2000 6.2.0 and later and 2 for earlier versions.",
+   "pdf_page": 80
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD-1]",
+   "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+   "title": "EGOS-GEN-EDDS-SRS-1001",
+   "issue": "Issue 18 Revision 0",
+   "date": "2018-02-16",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-2]",
+   "doc_id": "EGGS-ESOC-GS-SCD-1002",
+   "title": "ESOC Generic Ground Systems: System Configuration Baselines: Part 3- Baseline Definitions",
+   "issue": "Version 1.3",
+   "date": "2011-08-04",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-3]",
+   "doc_id": null,
+   "title": "Apache Tomcat 8.0 - SSL Configuration HOW-TO (https://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html)",
+   "issue": null,
+   "date": "2016-05-17",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-4]",
+   "doc_id": null,
+   "title": "JAutodoc - Eclipse Plugin (http://jautodoc.sourceforge.net/)",
+   "issue": null,
+   "date": "2011-01-21",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-5]",
+   "doc_id": "EGOS-GEN-FARC-ICD-1001_i4r5",
+   "title": "FARC Client Services API",
+   "issue": "Issue 4 Revision 5",
+   "date": "2012-10-31",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-6]",
+   "doc_id": "EGOS-GEN-EUD-CG-0001",
+   "title": "EUD2 Configuration and Installation Guide",
+   "issue": "Version 1.5",
+   "date": "2012-05-02",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-7]",
+   "doc_id": "EGOS-GEN-EDDS-EUG-1001",
+   "title": "EGOS-GEN-EDDS-EUG-1001",
+   "issue": "Version 12.0",
+   "date": "2018-02-16",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "[AD-8]",
+   "doc_id": "EGOS-GEN-EDDS-GLO-0001",
+   "title": "EGOS-GEN-EDDS-GLO-0001",
+   "issue": "Version 7.0",
+   "date": "2017-04-10",
+   "kind": "applicable",
+   "pdf_page": 9
+  }
+ ],
+ "topics": [
+  "scos2000/edds.md",
+  "scos2000/edds-formats.md",
+  "scos2000/archives.md",
+  "mib/monitoring.md",
+  "mib/command-verification.md",
+  "scos2000/ancillary-and-egs-cc.md"
+ ],
+ "notes": "The approval-page title is 'Configuration and Installation Guide'; the cover adds 'EGOS Data Dissemination System'. The source file name 'EGOS-GEN-EDDS-CIG-1001-i14r0_2.pdf' matches the content (issue 14.0). Section 4.6.8 (CMD_ttRqstObqStatusMapping.properties) is in the body but missing from the table of contents. Printed page numbers are PDF page minus 1. Contains example credentials and host names from a test configuration, which are not reproduced here. Same document as cig-v24 at a much earlier issue; part of the same 2018 delivery as srn, eug and euicd-i15r0."
+}

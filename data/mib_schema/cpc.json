@@ -1,0 +1,480 @@
+{
+ "table": "cpc",
+ "file": "cpc.dat",
+ "icd": true,
+ "name": "Command parameters",
+ "icd_section": "3.3.3.2.2",
+ "pdf_page": 142,
+ "family": "commanding",
+ "purpose": "The cpc table defines the command parameters, one record per parameter. A command parameter is any part of a command's application data whose value has to be edited, calibrated or checked; it can be reused in any number of command definitions, where CDF places each instance. The record gives the parameter type and length (PTC/PFC pair, see Appendix A of the ICD), how engineering values are entered and displayed, the default radix for unsigned raw values, the engineering unit, the kind of calibration or special processing (numeric, textual, 'Command ID' or 'Parameter ID'), references to a range-check set (PRF), a numeric (de-)calibration curve (CCA) or a textual (de-)calibration (PAF), and a default value with its representation. Default values can be given at three levels - parameter (CPC_DEFVAL), command definition (CDF_VALUE) and sequence (SDF_VALUE) - and the 'D' options of CDF_INTER and SDF_VTYPE propagate the lower-level default upwards, so a value can be maintained centrally. Special PUS-oriented types are supported: 'Command ID' parameters encode the raw packet of another command as a variable octet string; 'Parameter ID' parameters encode the on-board identifier of a telemetry parameter; and, since R5, 'Deduced' parameters (PTC=11) inherit type, width and calibration from a TM parameter named by a preceding 'Parameter ID' parameter in the same (repeated) group. Time parameters can be time-correlated using a selected on-board clock.",
+ "keys": [
+  "CPC_PNAME"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "CPC_PNAME",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Unique name of the command parameter. CDF_PNAME refers to it to place the parameter in a command; SDF_PNAME and PVS_PNAME refer to it indirectly through the command definition.",
+   "values": [],
+   "references": null,
+   "pdf_page": 143
+  },
+  {
+   "pos": 2,
+   "name": "CPC_DESCR",
+   "type": "Char(24)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Textual description of the command parameter, up to 24 characters.",
+   "values": [],
+   "references": null,
+   "pdf_page": 143
+  },
+  {
+   "pos": 3,
+   "name": "CPC_PTC",
+   "type": "Number(2)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Parameter Type Code: identifies the raw type (unsigned integer, signed integer, real, octet string, character string, absolute time, relative time). The supported codes, their interpretation and the format in which raw values must be written are listed in Appendix A of the ICD (PDF p.214-220), which follows the PUS nomenclature with SCOS-2000 extensions (for example PTC=5/PFC=4 48-bit MIL-STD 1750A reals are supported for command parameters only, and variable-length octet or character strings, PTC 7 or 8 with PFC 0, only for command and sequence parameters). As from SCOS-2000 R5 the value 11 denotes a 'Deduced' parameter whose characteristics (type, calibration) are inherited from a TM parameter specified in the same command definition.",
+   "values": [],
+   "references": null,
+   "pdf_page": 144
+  },
+  {
+   "pos": 4,
+   "name": "CPC_PFC",
+   "type": "Number(5)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Parameter Format Code: together with CPC_PTC it determines the length of the parameter, and its range must be compatible with the PTC as listed in Appendix A. For 'Deduced' parameters (PTC=11) it controls the width: 0 means the width is taken from the associated TM parameter, a positive value forces the encoded width to that number of bits whatever the size of the TM parameter.",
+   "values": [],
+   "references": null,
+   "pdf_page": 144
+  },
+  {
+   "pos": 5,
+   "name": "CPC_DISPFMT",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Input and display format of engineering values, for calibrated parameters and for time parameters. The option must match the calibration category and, for numeric calibration, the engineering format of the referenced CCA curve. The value formats for each representation are given in Appendix A. Not used for 'Command ID' (CATEG=A), 'Parameter ID' (CATEG=P) and 'Deduced' (PTC=11) parameters.",
+   "values": [
+    {
+     "value": "A",
+     "meaning": "ASCII (textually calibrated parameter, CATEG=T)."
+    },
+    {
+     "value": "I",
+     "meaning": "Signed integer (numerically calibrated, CATEG=C, with CCA_ENGFMT=I)."
+    },
+    {
+     "value": "U",
+     "meaning": "Unsigned integer (numerically calibrated, CATEG=C, with CCA_ENGFMT=U)."
+    },
+    {
+     "value": "R",
+     "meaning": "Real (numerically calibrated, CATEG=C, with CCA_ENGFMT=R); import default."
+    },
+    {
+     "value": "T",
+     "meaning": "Absolute time (PTC=9)."
+    },
+    {
+     "value": "D",
+     "meaning": "Delta/relative time (PTC=10)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 145
+  },
+  {
+   "pos": 6,
+   "name": "CPC_RADIX",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "D",
+   "description": "Default radix in which the raw value of an unsigned integer parameter is displayed. It may be overridden by a mission-configurable set of allowed radices. It also governs how raw unsigned values written in CPC_DEFVAL, CDF_VALUE and SDF_VALUE must be expressed.",
+   "values": [
+    {
+     "value": "D",
+     "meaning": "Decimal (import default)"
+    },
+    {
+     "value": "H",
+     "meaning": "Hexadecimal"
+    },
+    {
+     "value": "O",
+     "meaning": "Octal"
+    }
+   ],
+   "references": null,
+   "pdf_page": 145
+  },
+  {
+   "pos": 7,
+   "name": "CPC_UNIT",
+   "type": "Char(4)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Engineering unit mnemonic (for example VOLT) displayed next to the parameter value. CCA_UNIT and PRF_UNIT are checked against it for consistency in the off-line database.",
+   "values": [],
+   "references": null,
+   "pdf_page": 146
+  },
+  {
+   "pos": 8,
+   "name": "CPC_CATEG",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Kind of calibration or special processing applied to the parameter. It must be empty or N for parameters whose raw value is not numeric (strings, times) unless they are 'Command ID' or 'Parameter ID' parameters, and it is not used for 'Deduced' parameters, whose calibration comes from the associated TM parameter. It determines which of CPC_CCAREF and CPC_PAFREF must be filled and whether engineering representations (option E of CPC_INTER, CDF_INTER, SDF_VTYPE, PRF_INTER) may be used.",
+   "values": [
+    {
+     "value": "C",
+     "meaning": "Numeric (de-)calibration: CPC_CCAREF must be filled."
+    },
+    {
+     "value": "T",
+     "meaning": "Textual (de-)calibration: CPC_PAFREF must be filled."
+    },
+    {
+     "value": "B",
+     "meaning": "Both calibrations (not yet supported by SCOS-2000; italic in ICD 7.0)."
+    },
+    {
+     "value": "A",
+     "meaning": "'Command ID' parameter: value encoded as the raw data of a named command; requires PTC=7 and PFC=0."
+    },
+    {
+     "value": "P",
+     "meaning": "'Parameter ID' parameter: value encoded as the on-board identifier (PCF_PID) of a named TM parameter; requires PTC=3."
+    },
+    {
+     "value": "N",
+     "meaning": "No calibration and no special processing (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 146
+  },
+  {
+   "pos": 9,
+   "name": "CPC_PRFREF",
+   "type": "Char(10)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the parameter range set (PRF_NUMBR) that restricts the allowed values of the parameter. The representation of the range set (PRF_DSPFMT) must be compatible with the parameter type: with CPC_PTC if the ranges are raw (PRF_INTER=R), or with CPC_DISPFMT if they are engineering. Not used for 'Deduced' parameters.",
+   "values": [],
+   "references": "prf.PRF_NUMBR",
+   "pdf_page": 147
+  },
+  {
+   "pos": 10,
+   "name": "CPC_CCAREF",
+   "type": "Char(10)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the numeric (de-)calibration curve (CCA_NUMBR) used to convert between engineering and raw values. The raw and engineering formats of the curve (CCA_RAWFMT, CCA_ENGFMT) must be compatible with CPC_PTC and CPC_DISPFMT. It must be empty if CPC_CATEG is empty, A, P, N or T, and must be filled if CPC_CATEG is C or B. Not used for 'Deduced' parameters.",
+   "values": [],
+   "references": "cca.CCA_NUMBR",
+   "pdf_page": 147
+  },
+  {
+   "pos": 11,
+   "name": "CPC_PAFREF",
+   "type": "Char(10)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the textual (de-)calibration, i.e. alias set (PAF_NUMBR), associated with the parameter; its aliases may also serve as default values. The raw format of the alias set (PAF_RAWFMT) must be compatible with CPC_PTC. It must be empty if CPC_CATEG is empty, A, P, N or C, and must be filled if CPC_CATEG is T or B. Not used for 'Deduced' parameters.",
+   "values": [],
+   "references": "paf.PAF_NUMBR",
+   "pdf_page": 148
+  },
+  {
+   "pos": 12,
+   "name": "CPC_INTER",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Representation in which CPC_DEFVAL is written. Not used for 'Deduced' parameters.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Default value is a raw value (import default)."
+    },
+    {
+     "value": "E",
+     "meaning": "Default value is an engineering value; allowed only for calibrated parameters (CPC_CATEG T or C)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 148
+  },
+  {
+   "pos": 13,
+   "name": "CPC_DEFVAL",
+   "type": "Char",
+   "mandatory": "O",
+   "default": null,
+   "description": "Parameter-level default value, used whenever a CDF entry asks for it (CDF_INTER='D'); useful when the same default must apply to every instance of the parameter in every command. Its maximum length is not fixed but depends on the maximum command size (section 3.3.3.2). It must be written in the representation chosen by CPC_INTER: raw values in a format compatible with CPC_PTC (and CPC_RADIX for unsigned integers), engineering values in a format compatible with CPC_DISPFMT. For a 'Command ID' parameter it must name a command (CCF_CNAME) whose parameters all have default values, so that it can be encoded without user input; for a 'Parameter ID' parameter it must name a monitoring parameter (PCF_NAME) that has an on-board identifier (PCF_PID not empty). Not used for 'Deduced' parameters.",
+   "values": [],
+   "references": "ccf.CCF_CNAME / pcf.PCF_NAME (for CATEG A / P)",
+   "pdf_page": 149
+  },
+  {
+   "pos": 14,
+   "name": "CPC_CORR",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "Y",
+   "description": "States whether an absolute time parameter is time-correlated, using the applicable time correlation coefficients, when its raw value is interpreted. For relative time parameters (PTC=10) it must be set explicitly to N. CPC_OBTID selects which on-board clock format and correlation apply; without correlation, the on-board time format must still be known to establish the time reference (the absolute time corresponding to zero), and if no OBT ID is given and correlation is off, the epoch is defined by the MISCconfig variable TCO_ESA_EPOCH. (The ICD text refers to PCF_PTC and PCF_CORR in this description, an evident copy from the PCF table.)",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "Apply time correlation (import default)."
+    },
+    {
+     "value": "N",
+     "meaning": "Extract the time value without time correlation; mandatory for relative times."
+    }
+   ],
+   "references": null,
+   "pdf_page": 150
+  },
+  {
+   "pos": 15,
+   "name": "CPC_OBTID",
+   "type": "Number(5)",
+   "mandatory": "O",
+   "default": "0",
+   "description": "Identifier of the on-board time (OBT) used to encode/interpret time parameters, either to apply the time correlation or to define the time format and in particular its epoch. The OBT ID is a SCOS-2000 configuration identifier for each on-board clock of the mission; with N clocks it takes values 1 to N. If not given, the mission default OBT ID set by the MISCconfig variable TCO_DEFAULT_OBT_ID is used.",
+   "values": [],
+   "references": null,
+   "pdf_page": 150
+  },
+  {
+   "pos": 16,
+   "name": "CPC_ENDIAN",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "B",
+   "description": "Future extension (grey and italic in ICD 7.0, so not used by any SCOS-2000 version, as also stated by change S2K-7749). It is meant to give the byte order of parameters whose length is a whole number of octets; the conversion would be possible for signed and unsigned integers, strings, octet strings, absolute and relative times.",
+   "values": [
+    {
+     "value": "B",
+     "meaning": "Big endian, most significant byte first (import default)."
+    },
+    {
+     "value": "L",
+     "meaning": "Little endian, least significant byte first."
+    }
+   ],
+   "references": null,
+   "pdf_page": 151
+  }
+ ],
+ "relationships": [
+  {
+   "field": "CPC_PNAME",
+   "target": "cdf.CDF_PNAME",
+   "note": "Instances of the parameter in command definitions (many-to-many between CCF and CPC through CDF)."
+  },
+  {
+   "field": "CPC_PRFREF",
+   "target": "prf.PRF_NUMBR",
+   "note": "Range set used to check values (many parameters may share a set)."
+  },
+  {
+   "field": "CPC_CCAREF",
+   "target": "cca.CCA_NUMBR",
+   "note": "Numeric (de-)calibration curve, required when CPC_CATEG=C."
+  },
+  {
+   "field": "CPC_PAFREF",
+   "target": "paf.PAF_NUMBR",
+   "note": "Textual (de-)calibration (alias set), required when CPC_CATEG=T."
+  },
+  {
+   "field": "CPC_DEFVAL",
+   "target": "ccf.CCF_CNAME / pcf.PCF_NAME",
+   "note": "For 'Command ID' (CATEG=A) the default names a fully defaulted command; for 'Parameter ID' (CATEG=P) a monitoring parameter with PCF_PID."
+  },
+  {
+   "field": "CPC_UNIT",
+   "target": "cca.CCA_UNIT / prf.PRF_UNIT",
+   "note": "Units of the referenced curve or range set are checked for consistency."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.2.2, PDF p.67-70) has 13 fields: CPC_PRFREF, CPC_CCAREF and CPC_PAFREF are Number(4), CPC_DEFVAL is Char(17), and CPC_CATEG offers only C, T, B and N. ICD 6.0 introduced the 'Command ID' and 'Parameter ID' categories A and P (Annex 1, PDF p.249) and later changed the calibration and range identifiers to Char(10) (PDF p.247 and p.253); 'Deduced' parameters (PTC=11) came with ICD 6.4 for R5.0 (PDF p.254). CPC_CORR and CPC_OBTID were added in ICD 6.7 for R5.2 (S2K-SCR-4917, PDF p.258) and the CPC_OBTID description updated in 6.9 (S2K-DCR-5743, PDF p.260); ICD 6.7 Draft A (PDF p.133-140) and ICD 6.9 (PDF p.137-145) therefore have 15 fields. ICD 7.0 (PDF p.142-151) made CPC_DEFVAL variable-length, bounded by the maximum command size (S2K-8073, PDF p.261), stated that CPC_CORR must be N for relative times (S2K-8778, PDF p.263; ICD 6.9 had spoken of absolute or relative times), and added CPC_ENDIAN as field 16 for future use (S2K-7749, PDF p.262). pyscos2000 (ICD 7.2) lists 17 columns: it names the key CPC_NAME, field 15 CPC_OBTIP, inserts CPC_DESCR2 (default empty string) as field 16 and moves CPC_ENDIAN (default B) to field 17.",
+ "solo_stats": {
+  "rows": 7155,
+  "fields": [
+   {
+    "name": "CPC_NAME",
+    "filled": 7155,
+    "examples": [
+     "ENISTE01",
+     "ENISTE02",
+     "ENISTE03",
+     "ENISTE06",
+     "ENISTE07"
+    ]
+   },
+   {
+    "name": "CPC_DESCR",
+    "filled": 7155,
+    "examples": [
+     "Parameter ID",
+     "Datapool parameter ID",
+     "Dir write Data",
+     "Padding",
+     "Control Loop ID"
+    ]
+   },
+   {
+    "name": "CPC_PTC",
+    "filled": 7155,
+    "examples": [
+     "3",
+     "2",
+     "5",
+     "1",
+     "4"
+    ]
+   },
+   {
+    "name": "CPC_PFC",
+    "filled": 7155,
+    "examples": [
+     "12",
+     "1",
+     "4",
+     "14",
+     "8"
+    ]
+   },
+   {
+    "name": "CPC_DISPFMT",
+    "filled": 7155,
+    "examples": [
+     "R",
+     "A",
+     "T",
+     "U",
+     "D"
+    ]
+   },
+   {
+    "name": "CPC_RADIX",
+    "filled": 5350,
+    "examples": [
+     "D",
+     "H"
+    ]
+   },
+   {
+    "name": "CPC_UNIT",
+    "filled": 458,
+    "examples": [
+     "mA",
+     "ms",
+     "s",
+     "degC",
+     "deg"
+    ]
+   },
+   {
+    "name": "CPC_CATEG",
+    "filled": 7096,
+    "examples": [
+     "N",
+     "T",
+     "C",
+     "P",
+     "A"
+    ]
+   },
+   {
+    "name": "CPC_PRFREF",
+    "filled": 694,
+    "examples": [
+     "VIPDID00",
+     "VSM00006",
+     "VCD00176",
+     "VCD00186",
+     "VCD00187"
+    ]
+   },
+   {
+    "name": "CPC_CCAREF",
+    "filled": 327,
+    "examples": [
+     "CAHP0003TC",
+     "CIWP0033TC",
+     "CAHP0007TC",
+     "CAMP0003TC",
+     "CAMP0007TC"
+    ]
+   },
+   {
+    "name": "CPC_PAFREF",
+    "filled": 1624,
+    "examples": [
+     "CIWT0006TC",
+     "CRUT0010TC",
+     "CAAT0031TC",
+     "CAHT0000TC",
+     "CAMT0000TC"
+    ]
+   },
+   {
+    "name": "CPC_INTER",
+    "filled": 7155,
+    "examples": [
+     "R",
+     "E"
+    ]
+   },
+   {
+    "name": "CPC_DEFVAL",
+    "filled": 1230,
+    "examples": [
+     "0",
+     "Not_Set",
+     "Set",
+     "00",
+     "Disabled"
+    ]
+   },
+   {
+    "name": "CPC_CORR",
+    "filled": 13,
+    "examples": [
+     "Y",
+     "N"
+    ]
+   },
+   {
+    "name": "CPC_OBTIP",
+    "filled": 0,
+    "examples": []
+   },
+   {
+    "name": "CPC_DESCR2",
+    "filled": 0,
+    "examples": []
+   },
+   {
+    "name": "CPC_ENDIAN",
+    "filled": 0,
+    "examples": []
+   }
+  ]
+ },
+ "notes": "Several discrepancies. (1) Names: ICD 7.0 (and 5.1, 6.7, 6.9) call the key CPC_PNAME, whereas pyscos2000 and the Solar Orbiter SQLite use CPC_NAME; ICD 7.0 field 15 is CPC_OBTID, whereas pyscos2000 and the SQLite use CPC_OBTIP (apparently a misspelling). (2) Order/content: ICD 7.0 has 16 fields ending with CPC_ENDIAN; pyscos2000 (7.2) has CPC_DESCR2 at position 16 and CPC_ENDIAN at 17. A 16-column cpc.dat would therefore be read differently by the two schemas. (3) The Solar Orbiter cpc.dat files (2020 and 2025) have only 15 columns, i.e. the ICD 6.7/6.9 layout; CPC_DESCR2 and CPC_ENDIAN exist in the SQLite only because of the pyscos2000 schema and are empty in every record, and CPC_OBTIP (CPC_OBTID) is also never filled. (4) No record uses PTC=11 ('Deduced'). Time parameters are PTC=9 with PFC 15 or 17 (58 records) and one PTC=10/PFC=17 relative time (PCD0B071, CPC_CORR='N', as ICD 7.0 requires); these 59 time parameters leave CPC_CATEG empty, as allowed. (5) CPC_CORR='Y' is set on 12 non-time parameters (ENISTE*, PTC 2, 3 or 8) used only by the 6 NIS throw-event commands, where the ICD gives the flag no meaning. (6) Category usage in 2025: N 4991, T 1624 (all with CPC_DISPFMT='A'), C 327, P 152 (all PTC=3/PFC=14, i.e. 32-bit parameter IDs), A 2 (PCD0B044 and PCD13013, PTC=7/PFC=0, as required). (7) 316 records use CPC_INTER='E' (311 textual, 5 numeric), consistent with the rule that E needs a calibration. (8) All CPC_PRFREF, CPC_CCAREF and CPC_PAFREF values resolve to existing PRF, CCA and PAF records; every CPC_UNIT of a numerically calibrated parameter equals the unit of its curve. 7155 records in 2025, 6947 in 2020."
+}

@@ -1,0 +1,81 @@
+{
+ "table": "tcp",
+ "file": "tcp.dat",
+ "icd": true,
+ "name": "Packet headers characteristics",
+ "icd_section": "3.3.3.1.1",
+ "pdf_page": 128,
+ "family": "commanding",
+ "purpose": "The tcp table lists the telecommand packet header types known to the database, one record per header type. SCOS-2000 uses a packet header definition to build the first portion of every encoded TC packet: the header is prefixed to the command application data, whose layout is defined separately through the CPC and CDF tables. Each command (CCF record) must name exactly one header through CCF_PKTID, while the same header can be shared by any number of commands. The header itself carries no layout information in this table: its elements (fixed areas and named header parameters such as APID, service type, subtype, acknowledgement flags, packet length and source sequence count) are described in PCDF, and the named header parameters in PCPC, so that TCP and PCPC are linked many-to-many through PCDF. Header parameter values cannot be edited by operators on a manual stack; the command source or command handler sets them (APID, type and subtype from the CCF record, packet length computed from the actual encoded length including repeated groups, sequence counter maintained by the multiplexer per APID). For special command types (CCF_CTYPE R, F, T or N) the PCDF/CDF entries describe a frame data field or throw-event content instead of a packet. The size of the header (sum of its PCDF_LEN values) reduces the room left for command parameters within the maximum command size.",
+ "keys": [
+  "TCP_ID"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "TCP_ID",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Unique identifier of the TC packet header definition. It is the value that commands quote in CCF_PKTID to select the header to be prepended when the command is encoded, and the value that PCDF records quote in PCDF_TCNAME to attach header elements to this header. Being the table key, a given name may appear only once; names are compared without regard to letter case and should not contain spaces (general rule of ICD section 3.3).",
+   "values": [],
+   "references": null,
+   "pdf_page": 128
+  },
+  {
+   "pos": 2,
+   "name": "TCP_DESC",
+   "type": "Char(24)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Free-text description of the packet header (up to 24 characters). It is informative only and has no effect on encoding.",
+   "values": [],
+   "references": null,
+   "pdf_page": 128
+  }
+ ],
+ "relationships": [
+  {
+   "field": "TCP_ID",
+   "target": "ccf.CCF_PKTID",
+   "note": "One header is referenced by many commands; each command references exactly one header (ICD 7.0 section 3.3.3, PDF p.127-128)."
+  },
+  {
+   "field": "TCP_ID",
+   "target": "pcdf.PCDF_TCNAME",
+   "note": "PCDF holds one record per element of the header (fixed areas and header parameters) with its bit offset and length."
+  },
+  {
+   "field": "TCP_ID",
+   "target": "pcpc.PCPC_PNAME (via pcdf.PCDF_PNAME)",
+   "note": "Many-to-many relationship between headers and header parameters, resolved by PCDF."
+  }
+ ],
+ "history": "The table is identical in all examined issues: two fields TCP_ID Char(8) mandatory key and TCP_DESC Char(24) optional, in ICD 5.1 (2001, section 3.3.3.1.1, PDF p.60), ICD 6.7 Draft A (2009, PDF p.121), ICD 6.9 (2010, PDF p.125) and ICD 7.0 (2017, PDF p.128). The pyscos2000 schema based on ICD 7.2 also has the same two columns (TCP_ID key and mandatory, TCP_DESC optional).",
+ "solo_stats": {
+  "rows": 4,
+  "fields": [
+   {
+    "name": "TCP_ID",
+    "filled": 4,
+    "examples": [
+     "HPC1_TC",
+     "NOM_TC",
+     "NOS2KHDR",
+     "NO_HDR"
+    ]
+   },
+   {
+    "name": "TCP_DESC",
+    "filled": 4,
+    "examples": [
+     "HPC_TC_Packet_Header",
+     "NIS Throw Events",
+     "NOM_DH_TC_Packet_Header",
+     "TCP Header for CF/CS"
+    ]
+   }
+  ]
+ },
+ "notes": "No discrepancy in field names, order or optionality between ICD 7.0, pyscos2000 (7.2) and the Solar Orbiter file (2 tab-separated columns in every line of tcp.dat). The 2025-09-16 Solar Orbiter MIB defines 4 headers (the 2020-04-16 release also has 4): NOM_TC (description 'NOM_DH_TC_Packet_Header', used by 5318 commands; 13 PCDF elements, i.e. 6-octet primary header plus a 4-octet data field header), HPC1_TC ('HPC_TC_Packet_Header', 125 commands; 7 PCDF elements, primary header only with data field header flag 0), NOS2KHDR ('NIS Throw Events', used by the 6 commands with CCF_CTYPE='N') and NO_HDR ('TCP Header for CF/CS', used by the 5 control frames and control segments with CCF_CTYPE 'F' or 'R'). NOS2KHDR and NO_HDR have no PCDF records, so for those commands all content comes from CDF (inference from the data: these special directives and throw events need no packet header, which is consistent with the ICD statement that their PCDF/CDF entries describe the frame data field or the throw-event fields rather than a packet)."
+}

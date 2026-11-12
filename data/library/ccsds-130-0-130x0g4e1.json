@@ -1,0 +1,741 @@
+{
+ "slug": "ccsds-130-0-130x0g4e1",
+ "title": "Overview of Space Communications Protocols",
+ "short_title": "Overview of Space Communications Protocols (CCSDS 130.0-G-4)",
+ "doc_id": "CCSDS 130.0-G-4",
+ "issue": "Informational Report, Issue 4 (Green Book), with Editorial Change 1 (February 2024)",
+ "date": "April 2023",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Informational Report",
+ "status_notes": "The Document Control table (PDF p. 6) lists 130.0-G-1 'Overview of Space Link Protocols' (June 2001), 130.0-G-2 (December 2007) and 130.0-G-3 (July 2014) as superseded, and 130.0-G-4 (April 2023) as the 'Current issue'. Editorial Change 1 (February 2024) corrects the page numbering in section 4.",
+ "summary": "A CCSDS Green Book (informational, non-normative) that gives an architectural tour of every space communications protocol CCSDS recommends and shows how they combine in a mission data system. It is the natural starting point before reading any of the individual Blue Books: it contains no protocol specifications, only the map.\n\nSection 2 recounts the history, from early fixed-format TDM telemetry through the 1980s Packet Telemetry, Telecommand and AOS standards, which were later restructured into the [Space Packet Protocol](../ccsds/space-packet.md), the [TM](../ccsds/tm-sdlp.md), [TC](../ccsds/tc-sdlp.md) and [AOS](../ccsds/aos.md) Space Data Link Protocols and the [TM](../ccsds/tm-coding.md) and [TC](../ccsds/tc-coding-cltu.md) synchronization and channel coding books. It also covers SCPS, [CFDP](../ccsds/cfdp.md), DTN (LTP and Bundle Protocol), data compression, Proximity-1, [USLP](../ccsds/uslp.md) and [SDLS](../ccsds/sdls.md). It then places all of them in a five-layer reference model (Physical, Data Link with its two sublayers, Network, Transport, Application).\n\nSection 3 is the most useful part for a telemetry and telecommand engineer. It explains Virtual Channels, Master Channels (MCID = TFVN + SCID) and MAP channels, and tabulates the identifier ranges of each data link protocol (Table 3-1), the services each one offers (Table 3-2) and the coding, randomisation and synchronisation options of each coding standard (Table 3-3). It also explains where [COP-1](../ccsds/cop-1.md) retransmission applies and how [Encapsulation Packets](../ccsds/encapsulation.md) carry IP or DTN traffic. Section 4 gives example end-to-end protocol stacks: Space Packet or Encapsulation Packet forwarding, IP over CCSDS and BP-based routing. A 61-entry reference list catalogues the CCSDS books as they stood in 2023.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 9
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose and Scope",
+   "pdf_page": 9
+  },
+  {
+   "section": "1.2",
+   "title": "Document Structure",
+   "pdf_page": 9
+  },
+  {
+   "section": "1.3",
+   "title": "Definitions",
+   "pdf_page": 9
+  },
+  {
+   "section": "1.4",
+   "title": "References",
+   "pdf_page": 11
+  },
+  {
+   "section": "2",
+   "title": "Introduction to Space Communications Protocols",
+   "pdf_page": 16
+  },
+  {
+   "section": "2.1",
+   "title": "History of Space Communications Protocols",
+   "pdf_page": 16
+  },
+  {
+   "section": "2.2",
+   "title": "Protocol Layers",
+   "pdf_page": 18
+  },
+  {
+   "section": "3",
+   "title": "Major Features of Space Communications Protocols",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.1",
+   "title": "Physical Layer",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.2",
+   "title": "Data Link Layer",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.3",
+   "title": "Network Layer",
+   "pdf_page": 32
+  },
+  {
+   "section": "3.4",
+   "title": "Transport Layer",
+   "pdf_page": 32
+  },
+  {
+   "section": "3.5",
+   "title": "Application Layer",
+   "pdf_page": 33
+  },
+  {
+   "section": "4",
+   "title": "Examples of Protocol Configurations",
+   "pdf_page": 36
+  },
+  {
+   "section": "4.1",
+   "title": "General",
+   "pdf_page": 36
+  },
+  {
+   "section": "4.2",
+   "title": "End-to-End Data Forwarding Using Packets Defined by CCSDS",
+   "pdf_page": 37
+  },
+  {
+   "section": "4.3",
+   "title": "IP over CCSDS for End-to-End Routing",
+   "pdf_page": 38
+  },
+  {
+   "section": "4.4",
+   "title": "BP for End-to-End Data Routing",
+   "pdf_page": 40
+  },
+  {
+   "section": "Annex A",
+   "title": "Acronyms",
+   "pdf_page": 42
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The report is a top-level overview only: protocol specifications are in CCSDS Blue Books and their rationale is in accompanying Green Books.",
+   "pdf_page": 9
+  },
+  {
+   "text": "Packet Telemetry, Telecommand and AOS were restructured into the Space Packet Protocol, the TM, TC and AOS Space Data Link Protocols, and TM and TC Synchronization and Channel Coding.",
+   "pdf_page": 16
+  },
+  {
+   "text": "CCSDS has retired all SCPS protocols except SCPS-TP.",
+   "pdf_page": 17
+  },
+  {
+   "text": "USLP was released in 2018 and is envisioned as the data link layer protocol for all future robotic and crewed missions.",
+   "pdf_page": 18
+  },
+  {
+   "text": "The CCSDS Data Link Layer has two sublayers: the Data Link Protocol Sublayer (Transfer Frames) and the Synchronization and Channel Coding Sublayer.",
+   "pdf_page": 20
+  },
+  {
+   "text": "SDLS can add authentication and confidentiality to TM, AOS, TC and USLP Transfer Frames; its use is optional, and no security requirements exist for Proximity-1.",
+   "pdf_page": 20
+  },
+  {
+   "text": "TM, AOS and USLP use fixed-length Transfer Frames for robust synchronisation; TC, Proximity-1 and USLP use variable-length frames for telecommand.",
+   "pdf_page": 25
+  },
+  {
+   "text": "A Master Channel is the set of frames with the same MCID (TFVN + SCID) on a Physical Channel and consists of one or more Virtual Channels.",
+   "pdf_page": 25
+  },
+  {
+   "text": "Only TC and USLP (COP-1) and Proximity-1 and USLP (COP-P) have link-level retransmission; TM and AOS rely on higher layers for complete delivery.",
+   "pdf_page": 25
+  },
+  {
+   "text": "Identifier ranges (Table 3-1): TFVN is version 1 for TM and TC, 2 for AOS, 3 for Proximity-1 and 4 for USLP; SCID 0-1023 (TM, TC, Prox-1), 0-255 (AOS), 0-65535 (USLP); VCID 0-7 (TM), 0-63 (TC, AOS, USLP); MAP ID 0-63 (TC), 0-15 (USLP).",
+   "pdf_page": 28
+  },
+  {
+   "text": "Table 3-2 maps data types to services: VC Packet / MAP Packet services for packets, VC/MAP Access services for private data, FSH/OCF/Insert services for short fixed-length data, Bitstream/Octet Stream for streams, and VC/MC Frame services for frames.",
+   "pdf_page": 29
+  },
+  {
+   "text": "Table 3-3: TM coding options are convolutional, Reed-Solomon, concatenated, turbo, LDPC, SCCC and DVB-S2 with a 32-bit or longer ASM; TC uses BCH (optionally with FECF) or LDPC with a 16-bit Start Sequence; Proximity-1 uses a 24-bit ASM.",
+   "pdf_page": 31
+  },
+  {
+   "text": "The TM pseudo-noise randomisation sequence differs from the one used by TC and Proximity-1.",
+   "pdf_page": 31
+  },
+  {
+   "text": "Handling of APIDs along managed data paths is set by management agreement and is not formally part of the Space Packet Protocol; SPP gives no reliability, ordering or duplicate-suppression guarantees.",
+   "pdf_page": 35
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[2]",
+   "doc_id": "ISO/IEC 7498-1:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[3]",
+   "doc_id": null,
+   "title": "Computer Networks (Andrew S. Tanenbaum and David J. Wetherall)",
+   "issue": "5th ed.",
+   "date": "2011",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[4]",
+   "doc_id": "CCSDS 133.0-B-2",
+   "title": "Space Packet Protocol",
+   "issue": "Issue 2",
+   "date": "June 2020",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[5]",
+   "doc_id": "CCSDS 132.0-B-3",
+   "title": "TM Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[6]",
+   "doc_id": "CCSDS 232.0-B-4",
+   "title": "TC Space Data Link Protocol",
+   "issue": "Issue 4",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[7]",
+   "doc_id": "CCSDS 732.0-B-4",
+   "title": "AOS Space Data Link Protocol",
+   "issue": "Issue 4",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[8]",
+   "doc_id": "CCSDS 131.0-B-4",
+   "title": "TM Synchronization and Channel Coding",
+   "issue": "Issue 4",
+   "date": "April 2022",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[9]",
+   "doc_id": "CCSDS 231.0-B-3",
+   "title": "TC Synchronization and Channel Coding",
+   "issue": "Issue 3",
+   "date": "September 2017",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[10]",
+   "doc_id": "CCSDS 401.0-B-32",
+   "title": "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft",
+   "issue": "Issue 32",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[11]",
+   "doc_id": "CCSDS 713.0-B-1-S",
+   "title": "Space Communications Protocol Specification (SCPS)—Network Protocol (SCPS-NP)",
+   "issue": "Issue 1-1",
+   "date": "(May 1999) August 2010",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[12]",
+   "doc_id": "CCSDS 713.5-B-1-S",
+   "title": "Space Communications Protocol Specification (SCPS)—Security Protocol (SCPS-SP)",
+   "issue": "Issue 1-S",
+   "date": "(May 1999) August 2010",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[13]",
+   "doc_id": "CCSDS 714.0-B-2",
+   "title": "Space Communications Protocol Specification (SCPS)—Transport Protocol (SCPS-TP)",
+   "issue": "Issue 2",
+   "date": "October 2006",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[14]",
+   "doc_id": "CCSDS 717.0-B-1-S",
+   "title": "Space Communications Protocol Specification (SCPS)—File Protocol (SCPS-FP)",
+   "issue": "Issue 1-S",
+   "date": "(May 1999) August 2010",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[15]",
+   "doc_id": "CCSDS 727.0-B-5",
+   "title": "CCSDS File Delivery Protocol (CFDP)",
+   "issue": "Issue 5",
+   "date": "July 2020",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[16]",
+   "doc_id": "CCSDS 121.0-B-3",
+   "title": "Lossless Data Compression",
+   "issue": "Issue 3",
+   "date": "August 2020",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[17]",
+   "doc_id": "CCSDS 122.0-B-2",
+   "title": "Image Data Compression",
+   "issue": "Issue 2",
+   "date": "September 2017",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[18]",
+   "doc_id": "CCSDS 211.0-B-6",
+   "title": "Proximity-1 Space Link Protocol—Data Link Layer",
+   "issue": "Issue 6",
+   "date": "July 2020",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[19]",
+   "doc_id": "CCSDS 211.2-B-3",
+   "title": "Proximity-1 Space Link Protocol—Coding and Synchronization Sublayer",
+   "issue": "Issue 3",
+   "date": "October 2019",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[20]",
+   "doc_id": "CCSDS 211.1-B-4",
+   "title": "Proximity-1 Space Link Protocol—Physical Layer",
+   "issue": "Issue 4",
+   "date": "December 2013",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[21]",
+   "doc_id": "ISO/IEC 10731:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the Definition of OSI Services",
+   "issue": null,
+   "date": "1994",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[22]",
+   "doc_id": "STD 5",
+   "title": "Internet Protocol",
+   "issue": null,
+   "date": "September 1981",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[23]",
+   "doc_id": "RFC 2460",
+   "title": "Internet Protocol, Version 6 (IPv6) Specification",
+   "issue": null,
+   "date": "December 1998",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[24]",
+   "doc_id": "STD 7",
+   "title": "Transmission Control Protocol",
+   "issue": null,
+   "date": "September 1981",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[25]",
+   "doc_id": "STD 6",
+   "title": "User Datagram Protocol",
+   "issue": null,
+   "date": "August 1980",
+   "kind": "reference",
+   "pdf_page": 12
+  },
+  {
+   "label": "[26]",
+   "doc_id": "STD 9",
+   "title": "File Transfer Protocol (FTP)",
+   "issue": null,
+   "date": "October 1985",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[27]",
+   "doc_id": "RFC 4301",
+   "title": "Security Architecture for the Internet Protocol",
+   "issue": null,
+   "date": "December 2005",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[28]",
+   "doc_id": null,
+   "title": "Packet Version Number (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/packet_version_number)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[29]",
+   "doc_id": "CCSDS 133.1-B-3",
+   "title": "Encapsulation Packet Protocol",
+   "issue": "Issue 3",
+   "date": "May 2020",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[30]",
+   "doc_id": "CCSDS 232.1-B-2",
+   "title": "Communications Operation Procedure-1",
+   "issue": "Issue 2",
+   "date": "September 2010",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[31]",
+   "doc_id": "CCSDS 130.2-G-3",
+   "title": "Space Data Link Protocols—Summary of Concept and Rationale",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[32]",
+   "doc_id": "CCSDS 210.0-G-2",
+   "title": "Proximity-1 Space Link Protocol—Rationale, Architecture, and Scenarios",
+   "issue": "Issue 2",
+   "date": "December 2013",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[33]",
+   "doc_id": "CCSDS 130.1-G-3",
+   "title": "TM Synchronization and Channel Coding—Summary of Concept and Rationale",
+   "issue": "Issue 3",
+   "date": "June 2020",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[34]",
+   "doc_id": "CCSDS 230.1-G-3",
+   "title": "TC Synchronization and Channel Coding—Summary of Concept and Rationale",
+   "issue": "Issue 3",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[35]",
+   "doc_id": "CCSDS 720.1-G-4",
+   "title": "CCSDS File Delivery Protocol (CFDP)—Part 1: Introduction and Overview",
+   "issue": "Issue 4",
+   "date": "May 2021",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[36]",
+   "doc_id": "CCSDS 120.0-G-4",
+   "title": "Lossless Data Compression",
+   "issue": "Issue 4",
+   "date": "November 2021",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[37]",
+   "doc_id": "CCSDS 350.0-G-3",
+   "title": "The Application of Security to CCSDS Protocols",
+   "issue": "Issue 3",
+   "date": "March 2019",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[38]",
+   "doc_id": "CCSDS 911.1-B-4",
+   "title": "Space Link Extension—Return All Frames Service Specification",
+   "issue": "Issue 4",
+   "date": "August 2016",
+   "kind": "reference",
+   "pdf_page": 13
+  },
+  {
+   "label": "[39]",
+   "doc_id": "CCSDS 911.2-B-3",
+   "title": "Space Link Extension—Return Channel Frames Service Specification",
+   "issue": "Issue 3",
+   "date": "August 2016",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[40]",
+   "doc_id": "CCSDS 911.5-B-3",
+   "title": "Space Link Extension—Return Operational Control Fields Service Specification",
+   "issue": "Issue 3",
+   "date": "August 2016",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[41]",
+   "doc_id": "CCSDS 912.1-B-4",
+   "title": "Space Link Extension—Forward CLTU Service Specification",
+   "issue": "Issue 4",
+   "date": "August 2016",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[42]",
+   "doc_id": "CCSDS 912.3-B-3-S",
+   "title": "Space Link Extension—Forward Space Packet Service Specification",
+   "issue": "Issue 3-S",
+   "date": "(August 2016) September 2022",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[43]",
+   "doc_id": "CCSDS 355.0-B-2",
+   "title": "Space Data Link Security Protocol",
+   "issue": "Issue 2",
+   "date": "July 2022",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[44]",
+   "doc_id": null,
+   "title": "Internet Protocol Extension Header (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/ipe_header)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[45]",
+   "doc_id": "CCSDS 702.1-B-1",
+   "title": "IP over CCSDS Space Links",
+   "issue": "Issue 1",
+   "date": "September 2012",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[46]",
+   "doc_id": "CCSDS 735.1-B-1",
+   "title": "Asynchronous Message Service",
+   "issue": "Issue 1",
+   "date": "September 2011",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[47]",
+   "doc_id": "CCSDS 524.1-B-1",
+   "title": "Mission Operations—MAL Space Packet Transport Binding and Binary Encoding",
+   "issue": "Issue 1",
+   "date": "August 2015",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[48]",
+   "doc_id": null,
+   "title": "Registries (Space Assigned Numbers Authority, https://sanaregistry.org/r)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[49]",
+   "doc_id": "CCSDS 123.0-B-2",
+   "title": "Low-Complexity Lossless and Near-Lossless Multispectral and Hyperspectral Image Compression",
+   "issue": "Issue 2",
+   "date": "February 2019",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[50]",
+   "doc_id": "CCSDS 131.2-B-2",
+   "title": "Flexible Advanced Coding and Modulation Scheme for High Rate Telemetry Applications",
+   "issue": "Issue 2",
+   "date": "February 2023",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[51]",
+   "doc_id": "CCSDS 131.3-B-2",
+   "title": "CCSDS Space Link Protocols over ETSI DVB-S2 Standard",
+   "issue": "Issue 2",
+   "date": "April 2022",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[52]",
+   "doc_id": "CCSDS 320.0-M-7",
+   "title": "CCSDS Spacecraft Identification Field Code Assignment Control Procedures",
+   "issue": "Issue 7",
+   "date": "November 2017",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[53]",
+   "doc_id": "CCSDS 351.0-M-1",
+   "title": "Security Architecture for Space Data Systems",
+   "issue": "Issue 1",
+   "date": "November 2012",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[54]",
+   "doc_id": "CCSDS 352.0-B-2",
+   "title": "CCSDS Cryptographic Algorithms",
+   "issue": "Issue 2",
+   "date": "August 2019",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[55]",
+   "doc_id": "CCSDS 734.1-B-1",
+   "title": "Licklider Transmission Protocol (LTP) for CCSDS",
+   "issue": "Issue 1",
+   "date": "May 2015",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[56]",
+   "doc_id": "CCSDS 734.2-B-1",
+   "title": "CCSDS Bundle Protocol Specification",
+   "issue": "Issue 1",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[57]",
+   "doc_id": "CCSDS 732.1-B-2",
+   "title": "Unified Space Data Link Protocol",
+   "issue": "Issue 2",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[58]",
+   "doc_id": "CCSDS 355.1-B-1",
+   "title": "Space Data Link Security Protocol—Extended Procedures",
+   "issue": "Issue 1",
+   "date": "February 2019",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[59]",
+   "doc_id": "CCSDS 700.1-G-1",
+   "title": "Overview of the Unified Space Data Link Protocol",
+   "issue": "Issue 1",
+   "date": "June 2020",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[60]",
+   "doc_id": "CCSDS 901.1-M-1",
+   "title": "Space Communications Cross Support—Architecture Requirements Document",
+   "issue": "Issue 1",
+   "date": "May 2015",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[61]",
+   "doc_id": "CCSDS 122.1-B-1",
+   "title": "Spectral Preprocessing Transform for Multispectral and Hyperspectral Image Compression",
+   "issue": "Issue 1",
+   "date": "September 2017",
+   "kind": "reference",
+   "pdf_page": 15
+  }
+ ],
+ "topics": [
+  "overview/index.md",
+  "overview/standards-map.md",
+  "ccsds/index.md",
+  "ccsds/space-packet.md",
+  "ccsds/encapsulation.md",
+  "ccsds/tm-sdlp.md",
+  "ccsds/tc-sdlp.md",
+  "ccsds/aos.md",
+  "ccsds/uslp.md",
+  "ccsds/tm-coding.md",
+  "ccsds/tc-coding-cltu.md",
+  "ccsds/cop-1.md",
+  "ccsds/sdls.md",
+  "ccsds/cfdp.md"
+ ],
+ "notes": "The slug's 'e1' is Editorial Change 1 (February 2024), recorded in the Document Control table; page footers still read 'April 2023'. PDF pages 1 and 2 are duplicate cover pages. The extraction has 44 PDF pages (registry: 43). Section 4.1 announces 'five examples' of protocol configurations, but only three subsections (4.2 to 4.4) follow, and 4.3 calls itself 'the fourth example' (apparently a leftover from an earlier issue). In section 2.1 the text cites 'The Application of CCSDS Protocols to Secure Systems' as reference [37], whose list title is 'The Application of Security to CCSDS Protocols'. Figure 4-5 comes out garbled in the extraction; the other figures are reduced to scattered labels. No individual authors are named. Section 1.4 is a plain 'References' list, catalogued here as kind 'reference'."
+}

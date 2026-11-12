@@ -1,0 +1,133 @@
+{
+ "table": "dup",
+ "file": "dup.dat",
+ "icd": false,
+ "name": "Packet duplication to secondary APIDs (inferred title)",
+ "icd_section": null,
+ "pdf_page": null,
+ "family": "mission-specific",
+ "purpose": "Inferred from the data; not documented in any available ICD. Each record links one SCOS-2000 TM packet definition (column 1, a PID_SPID) to a second APID (column 2) in the range 1953-1996. These APIDs do not belong to on-board applications in this MIB: for each of the 41 distinct values the pid table holds many finer packet definitions with the same type/subtype, and the pic table holds a record keyed by that APID (PIC_APID) that places the second identification field PI2 (or PI1) deeper inside the packet. Example: SPID 14177 'On-board Parameters Value Report' (TM(139,3) from APID 163, no extra identification field) maps to APID 1953, where PIC defines a 32-bit PI1 at byte 17 and pid defines 20 specific reports (e.g. 'FSS Thresholds Value Report'). This suggests a ground mechanism that copies (duplicates) generic packets such as event reports (5,x), memory dumps (6,6), monitoring reports (12,9) or parameter reports under a ground-only APID, so that SCOS-2000 can identify and decommutate each variant with its own SPID and layout. The mechanism itself is not described in the available sources.",
+ "keys": [
+  "COL1"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "COL1",
+   "type": "Number (up to 5 digits observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: SCOS-2000 packet ID (SPID) of the original packet definition. All 69 values (2025 release) exist in pid.PID_SPID and are unique. The referenced packets are mostly PUS event reports (5,1), (5,2), (5,3) (38 rows), memory dumps (6,6) (11), and mission-specific report types 12/9, 131/2, 131/128, 132/2, 139/3, 141/3 and 142/11.",
+   "values": [],
+   "references": "pid.PID_SPID",
+   "pdf_page": null,
+   "inferred_name": "source SPID"
+  },
+  {
+   "pos": 2,
+   "name": "COL2",
+   "type": "Number (4 digits observed, 1953-1996)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: the secondary (ground) APID under which the duplicated packet is identified again. 41 distinct values in 2025; several SPIDs can share one APID (e.g. 1961 for six memory-dump SPIDs). Every value has pid records (PID_APID) and pic records (PIC_APID) with the same type/subtype as the source packet but different PI1/PI2 offsets.",
+   "values": [],
+   "references": "pid.PID_APID; pic.PIC_APID",
+   "pdf_page": null,
+   "inferred_name": "duplicate APID"
+  }
+ ],
+ "relationships": [
+  {
+   "field": "COL1",
+   "target": "pid.PID_SPID",
+   "note": "All 69 values match (inferred foreign key)."
+  },
+  {
+   "field": "COL2",
+   "target": "pic.PIC_APID",
+   "note": "All 41 APIDs have APID-specific PIC records defining the secondary identification fields (inferred)."
+  },
+  {
+   "field": "COL2",
+   "target": "pid.PID_APID",
+   "note": "All APIDs have packet definitions; APIDs 1950-1999 carry 2,421 pid records in 2025."
+  }
+ ],
+ "history": "Not part of any ICD issue (5.1, 6.7 Draft A, 6.9, 7.0) nor of the pyscos2000 (7.2) schema. 36 rows in MIB__20200416M10720PFMS001_SOL, 69 rows in MIB__20250916M25925PFMS001_SOL. Not present in the SWA instrument database.",
+ "solo_stats": {
+  "db": "solo-2025-09-16.sqlite",
+  "release": "MIB__20250916M25925PFMS001_SOL",
+  "slug": "mib-20250916m25925pfms001-sol",
+  "rows": 69,
+  "fields": [
+   {
+    "name": "COL1",
+    "filled": 69,
+    "distinct": 69,
+    "max_length": 5,
+    "examples": [
+     "10095",
+     "10103",
+     "10153",
+     "10168",
+     "10169"
+    ]
+   },
+   {
+    "name": "COL2",
+    "filled": 69,
+    "distinct": 41,
+    "max_length": 4,
+    "examples": [
+     "1995",
+     "1989",
+     "1975",
+     "1969",
+     "1960"
+    ]
+   }
+  ]
+ },
+ "other_stats": [
+  {
+   "db": "solo-2020-04-16.sqlite",
+   "release": "MIB__20200416M10720PFMS001_SOL",
+   "slug": "mib-20200416m10720pfms001-sol",
+   "rows": 36,
+   "fields": [
+    {
+     "name": "COL1",
+     "filled": 36,
+     "distinct": 36,
+     "max_length": 5,
+     "examples": [
+      "10153",
+      "10168",
+      "10169",
+      "10173",
+      "14293"
+     ]
+    },
+    {
+     "name": "COL2",
+     "filled": 36,
+     "distinct": 27,
+     "max_length": 4,
+     "examples": [
+      "1975",
+      "1969",
+      "1960",
+      "1954",
+      "1955"
+     ]
+    }
+   ]
+  }
+ ],
+ "sources": [
+  "mib-20250916m25925pfms001-sol",
+  "mib-20200416m10720pfms001-sol",
+  "icd-7-0-final"
+ ],
+ "notes": "Meanings inferred from joins against pid and pic (2025 release). The pic precedence rules of ICD 7.0 section 3.3.2.4.2 (type/subtype/APID first, then type/subtype; PDF p.91-92) explain how an APID-specific PIC record changes the identification of a packet; how and where the duplication is performed is not stated in the available sources. The name 'dup' presumably abbreviates 'duplicate' (inference)."
+}

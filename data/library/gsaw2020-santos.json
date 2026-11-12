@@ -1,0 +1,54 @@
+{
+  "slug": "gsaw2020-santos",
+  "title": "State and evolution of data analytics infrastructure at ESOC",
+  "short_title": "Data analytics infrastructure at ESOC (GSAW 2020)",
+  "doc_id": null,
+  "issue": null,
+  "date": "2020-03-03",
+  "organisation": "European Space Agency, European Space Operations Centre (ESOC); published by The Aerospace Corporation with permission (GSAW 2020)",
+  "authors": [
+    "Rui Santos"
+  ],
+  "doc_type": "Presentation",
+  "status_notes": "Slide deck dated 03/03/2020 (title slide, PDF p. 1). Marked 'ESA UNCLASSIFIED - For Official Use' on every slide and '© 2020 by European Space Agency. Published by The Aerospace Corporation with permission'.",
+  "summary": "A short ESOC slide deck from GSAW 2020 on the off-line data analytics infrastructure that sits beside the mission control systems. It sets out a generic big-data layering (raw, processing, optimised and speed layers) and maps ESOC's tools onto it. **ARES** (Analysis and Reporting System) provides storage and infrastructure. PyARES, the (deep) novelty detection system, the Dependency Finder and long-term data preservation (LTDP) products and collections provide data accessibility.\n\nARES is an off-line analysis system that evolved from ESA's MUST (Mission Utility Support tools) and is built on the EGOS User Desktop framework. It mainly stores spacecraft housekeeping data in engineering format, and also files, parameters and events, optimised for fast retrieval. The architecture slide shows ARES importing [EDDS](../scos2000/edds.md) response files on its own LAN. EDDS in turn draws on the MCS [archives](../scos2000/archives.md) (DARC, PARC) on the OPS-LAN. The deck motivates a multi-mission shared big-data store with Gaia's volume (around 150 million unique HKTM samples per day). It describes PyARES as a Python library for retrieval and user-defined or machine-learning processing on Spark/HBase/Protobuf. Novelty Detection and the Dependency Finder are AI tools for spotting unusual telemetry behaviour and statistical dependencies between parameters; the Dependency Finder was validated by the Mars Express flight control team. The LTDP prototype combines ARES, Elasticsearch and a REST API. Future work listed includes processing live TM streams, migrating legacy missions to Hadoop and building a curated anomaly-detection dataset.",
+  "contents": [
+    {"section": "Slide 1", "title": "State and evolution of data analytics infrastructure at ESOC", "pdf_page": 1},
+    {"section": "Slide 2", "title": "European Space Operations Centre (ESOC)", "pdf_page": 2},
+    {"section": "Slide 3", "title": "Architecture – Big Data Layers", "pdf_page": 3},
+    {"section": "Slide 4", "title": "Architecture – Big Data Layers @ESOC", "pdf_page": 4},
+    {"section": "Slide 5", "title": "Infrastructure: Introduction to ARES", "pdf_page": 5},
+    {"section": "Slide 6", "title": "Displays: Graphical display", "pdf_page": 6},
+    {"section": "Slide 7", "title": "Displays: Alphanumeric display", "pdf_page": 7},
+    {"section": "Slide 8", "title": "Displays: Table displays", "pdf_page": 8},
+    {"section": "Slide 9", "title": "Infrastructure: (Big Data) Multi mission shared storage", "pdf_page": 9},
+    {"section": "Slide 10", "title": "Processing and Retrieval: PyARES", "pdf_page": 10},
+    {"section": "Slide 11", "title": "Processing: (Deep) Novelty Detection", "pdf_page": 11},
+    {"section": "Slide 12", "title": "Processing: Dependency Finder", "pdf_page": 12},
+    {"section": "Slide 13", "title": "Enhancement: LTDP products and collections", "pdf_page": 13},
+    {"section": "Slide 14", "title": "Examples of potential future work", "pdf_page": 14},
+    {"section": "Slide 15", "title": "Conclusions", "pdf_page": 15},
+    {"section": "Slide 16", "title": "Thank you for your attention!", "pdf_page": 16}
+  ],
+  "key_points": [
+    {"text": "The big-data architecture has a raw layer (full fidelity, file/folder structures), a processing layer (distributed computation), an optimised layer (structured, organised by consumer use case) and a speed layer (low latency).", "pdf_page": 3},
+    {"text": "At ESOC, ARES provides storage/infrastructure, while PyARES, the Novelty Detection system, Dependency Finder and LTDP products and collections provide data accessibility.", "pdf_page": 4},
+    {"text": "ARES (Analysis and Reporting System) is an off-line data analysis system that evolved from ESA's Mission Utility Support tools (MUST) and is built on the EGOS User Desktop framework (EUD).", "pdf_page": 5},
+    {"text": "ARES mainly stores spacecraft housekeeping data in engineering format, supports generic storage of files, parameters and events, and imports EDDS response files; the diagram shows EDDS reaching the MCS archives (DARC, PARC) on the OPS-LAN.", "pdf_page": 5},
+    {"text": "Gaia receives around 150 million unique HKTM samples per day, which is used to motivate a multi-mission shared big-data storage.", "pdf_page": 9},
+    {"text": "PyARES is a Python library for ARES metadata and data retrieval, user-defined-function processing and machine-learning jobs (Random Forest), bringing processing to the data with PySpark over Spark, HBase and Protobuf.", "pdf_page": 10},
+    {"text": "The Dependency Finder prototype was developed by the Artificial Intelligence & Operations Innovation Team and validated by the Mars Express Flight Control Team.", "pdf_page": 12},
+    {"text": "The LTDP products and collections platform was prototyped with ARES (Hadoop database cluster), Elasticsearch and a RESTful API.", "pdf_page": 13}
+  ],
+  "references": [
+    {"label": "SpaceOps2018 (novelty detection)", "doc_id": null, "title": "Novelty Detection with Deep Learning, by Jose Martinez and Alessandro Donati (SpaceOps2018 paper)", "issue": null, "date": "2018", "kind": "mentioned", "pdf_page": 11},
+    {"label": "SpaceOps2018 (dependency finder)", "doc_id": null, "title": "Dependency Finder: Surprising Relationships in Telemetry, by Jose Martinez, Luke Lucas and Alessandro Donati (SpaceOps2018 paper)", "issue": null, "date": "2018", "kind": "mentioned", "pdf_page": 12}
+  ],
+  "topics": [
+    "scos2000/archives.md",
+    "scos2000/edds.md",
+    "scos2000/ancillary-and-egs-cc.md",
+    "missions/other-missions.md"
+  ],
+  "notes": "Slide deck; PDF page n is slide n. Slides 2 and 6-8 are mostly images, so little or no text was extracted from them. The title slide credits James Eggleston and Jose Martinez Heras ('Thanks to'), who are not authors. The 'ESA UNCLASSIFIED - For Official Use' marking appears on a deck that was published by The Aerospace Corporation (GSAW proceedings). The extraction reports 17 PDF pages (registry: 16); the last is empty. Rui Santos is also listed among the authors of the EDDS documents (for example cig-v24)."
+}

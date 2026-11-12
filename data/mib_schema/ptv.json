@@ -1,0 +1,126 @@
+{
+ "table": "ptv",
+ "file": "ptv.dat",
+ "icd": true,
+ "name": "Commands pre-transmission validation",
+ "icd_section": "3.3.3.2.4",
+ "pdf_page": 159,
+ "family": "commanding",
+ "purpose": "The ptv table defines the static pre-transmission validation (PTV) of commands: telemetry-based conditions that must hold before SCOS-2000 releases a command. There is one record per check, each check requiring that a given monitoring parameter equals a given value; all checks defined for the same command are implicitly ANDed, and because the key is the command plus the parameter, a parameter can be used only once per command. A PTV expression belongs to exactly one command: if the same condition is needed for another command it must be defined again (one-to-many relationship from CCF to PTV). The validity of the monitoring parameter is taken into account implicitly, so a check passes only if the parameter is valid and has the required value. Only parameters with a numerical raw representation (no strings or times) that are processed by the telemetry model (parameters located in PLF, or synthetic parameters) may be used. Static PTV can be overridden for an individual command inside a sequence with CSS_STAPTV, and is distinct from the dynamic PTV checks (feasibility, time checks, interlocks) that CSS_DYNPTV controls.",
+ "keys": [
+  "PTV_CNAME",
+  "PTV_PARNAM"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "PTV_CNAME",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Name of the command (CCF_CNAME) to which this validation check applies.",
+   "values": [],
+   "references": "ccf.CCF_CNAME",
+   "pdf_page": 160
+  },
+  {
+   "pos": 2,
+   "name": "PTV_PARNAM",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Name of the monitoring parameter (PCF_NAME) tested by the check. It must have a numerical raw representation (not a string or time) and must be processed by the telemetry model library, i.e. be a TM parameter appearing in PLF or a synthetic parameter of any type.",
+   "values": [],
+   "references": "pcf.PCF_NAME",
+   "pdf_page": 160
+  },
+  {
+   "pos": 3,
+   "name": "PTV_INTER",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Representation in which the expected value PTV_VAL is written.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Raw value (import default); for synthetic parameters the raw value is the output of the OL or hard-coded definition."
+    },
+    {
+     "value": "E",
+     "meaning": "Engineering (calibrated) value; only for parameters with a single calibration (PCF_CURTX filled), not for parameters with conditional calibrations defined in CUR."
+    }
+   ],
+   "references": null,
+   "pdf_page": 160
+  },
+  {
+   "pos": 4,
+   "name": "PTV_VAL",
+   "type": "Char(17)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Value that the validation parameter must equal for the check to pass. It is written raw unless PTV_INTER=E: raw values in decimal, compatible with the parameter type (PCF_PTC); engineering values in the parameter's engineering representation (ASCII for textually calibrated parameters, PCF_CATEG=S, or the CAF_ENGFMT of the numeric calibration).",
+   "values": [],
+   "references": null,
+   "pdf_page": 161
+  }
+ ],
+ "relationships": [
+  {
+   "field": "PTV_CNAME",
+   "target": "ccf.CCF_CNAME",
+   "note": "Command being validated; multiple checks per command are ANDed."
+  },
+  {
+   "field": "PTV_PARNAM",
+   "target": "pcf.PCF_NAME",
+   "note": "Monitoring parameter tested; must be in plf or synthetic, numeric raw type."
+  },
+  {
+   "field": "PTV_INTER",
+   "target": "pcf.PCF_CURTX / cur",
+   "note": "Engineering values require a single calibration (PCF_CURTX); not allowed with CUR conditional calibrations."
+  }
+ ],
+ "history": "The four fields are unchanged from ICD 5.1 (section 3.3.3.2.4, PDF p.73-74) through ICD 6.7 Draft A (PDF p.149), ICD 6.9 (PDF p.153-155) and ICD 7.0 (PDF p.159-161), with the same key (PTV_CNAME + PTV_PARNAM), PTV_VAL Char(17) mandatory and PTV_INTER defaulting to R. ICD 6.4 added the clarification that only parameters processed by the TM model can be used (Annex 1, PDF p.254). pyscos2000 (ICD 7.2) has the same columns, keys and default.",
+ "solo_stats": {
+  "rows": 5,
+  "fields": [
+   {
+    "name": "PTV_CNAME",
+    "filled": 5,
+    "examples": [
+     "ZCD00D09",
+     "ZSM00120",
+     "ZSM00125",
+     "ZSM00130",
+     "ZSM00135"
+    ]
+   },
+   {
+    "name": "PTV_PARNAM",
+    "filled": 5,
+    "examples": [
+     "NMAXS005",
+     "NCDXS005"
+    ]
+   },
+   {
+    "name": "PTV_INTER",
+    "filled": 5,
+    "examples": [
+     "R"
+    ]
+   },
+   {
+    "name": "PTV_VAL",
+    "filled": 5,
+    "examples": [
+     "0"
+    ]
+   }
+  ]
+ },
+ "notes": "No column discrepancy (4 columns in ptv.dat). The 2020-04-16 Solar Orbiter release ships an empty ptv.dat (0 records); the 2025-09-16 release has 5 checks: commands ZSM00120, ZSM00125, ZSM00130 and ZSM00135 require monitoring parameter NMAXS005 to equal raw 0, and ZCD00D09 requires NCDXS005 to equal raw 0. Both parameters exist in PCF."
+}

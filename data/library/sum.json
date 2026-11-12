@@ -1,0 +1,497 @@
+{
+ "slug": "sum",
+ "title": "Software User Manual (SUM) — EGOS Data Dissemination System (EDDS)",
+ "short_title": "EDDS Software User Manual (issue 14.0)",
+ "doc_id": "EGOS-GEN-EDDS-SUM-1001",
+ "issue": "Version 14.0",
+ "date": "2018-02-16",
+ "organisation": "European Space Agency, Directorate of Operations and Infrastructure, OPS-GI (ESOC); prepared by the EDDS Team",
+ "authors": [
+  "Rokibul Uddin",
+  "Delphine Thomas",
+  "Rui Santos",
+  "M. Hawkshaw",
+  "M. Lobjakas",
+  "R. Ots",
+  "K. Panitzek"
+ ],
+ "doc_type": "User Manual",
+ "status_notes": "Version 14.0 'Issue for EDDS v.2.3.0i1' (Document Change Log, PDF p. 3). Superseded: the library also holds issue 22.0 (sum-v22).",
+ "summary": "The **EDDS Software User Manual** explains how end users and mission administrators use the [EGOS Data Dissemination System](../scos2000/edds.md) client, release v2.3.0. The client is an Eclipse-RCP application based on the EGOS User Desktop, available standalone or as a web application. It gives access to data from the [SCOS-2000](../scos2000/index.md) archives and related ESOC systems ([archives](../scos2000/archives.md)).\n\nSection 4 covers client requirements (Java 8, Windows 7 or SLES 12, Tomcat port 8080), the mission EDDS web page and the Java client API that wraps the EDDS WSDL. Section 5 is a quick start. Administrators build access rights from data access sets, operation data sets, quota sets (which can restrict SPIDs, APIDs and parameter names), roles and groups. The section then catalogues every **request type**. Batch requests cover FARC files, catalogues and subscriptions; DARC parameters, definitions, previews and statistics; PARC TM, TC and event packets (EDDS-header binary, raw PARC XML, reports, statistics, TM gap reports, OOL records); SMON on-the-fly parameters; file-system catalogues; and SCOS-2000 Data Provision Service requests, which return already-decoded packets. Stream requests cover DARC parameters, with PARC streams defined but not yet submittable.\n\nSection 6 walks through the client views: login, user management, request summary, request forms, live stream viewer, parameter and quota views, file view and message displays. It also covers the web application, Request Submitter and Performance Processor. Appendix A defines the date/time, day-of-year, ISO duration and CRON formats used in forms, and Appendices B and C show every batch and stream request form. For a wiki reader it is the practical companion to the EUICD's formal request and response formats.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 6
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 6
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 6
+  },
+  {
+   "section": "1.3",
+   "title": "Document Overview",
+   "pdf_page": 6
+  },
+  {
+   "section": "2",
+   "title": "References",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.1",
+   "title": "Applicable documents",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.2",
+   "title": "Reference documents",
+   "pdf_page": 7
+  },
+  {
+   "section": "3",
+   "title": "Glossary",
+   "pdf_page": 8
+  },
+  {
+   "section": "3.1",
+   "title": "Acronyms",
+   "pdf_page": 8
+  },
+  {
+   "section": "3.2",
+   "title": "Definition of Terms",
+   "pdf_page": 9
+  },
+  {
+   "section": "4",
+   "title": "Overview",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.1",
+   "title": "EDDS Introduction",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.2",
+   "title": "EDDS Client applications",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.3",
+   "title": "EDDS Web Page",
+   "pdf_page": 12
+  },
+  {
+   "section": "4.4",
+   "title": "EDDS Client APIs",
+   "pdf_page": 12
+  },
+  {
+   "section": "4.5",
+   "title": "Software Scope",
+   "pdf_page": 12
+  },
+  {
+   "section": "5",
+   "title": "Quick Start Guide",
+   "pdf_page": 14
+  },
+  {
+   "section": "5.1",
+   "title": "Setting up user access for a blank mission",
+   "pdf_page": 14
+  },
+  {
+   "section": "5.2",
+   "title": "Batch Request types",
+   "pdf_page": 15
+  },
+  {
+   "section": "5.2.1",
+   "title": "FARC Requests",
+   "pdf_page": 15
+  },
+  {
+   "section": "5.2.2",
+   "title": "DARC Requests",
+   "pdf_page": 15
+  },
+  {
+   "section": "5.2.3",
+   "title": "PARC Requests",
+   "pdf_page": 15
+  },
+  {
+   "section": "5.2.4",
+   "title": "EDDS Reports",
+   "pdf_page": 16
+  },
+  {
+   "section": "5.2.5",
+   "title": "SMON Requests",
+   "pdf_page": 16
+  },
+  {
+   "section": "5.2.6",
+   "title": "File System Requests",
+   "pdf_page": 16
+  },
+  {
+   "section": "5.2.7",
+   "title": "Data Provision Service Requests",
+   "pdf_page": 16
+  },
+  {
+   "section": "5.3",
+   "title": "Stream Request types",
+   "pdf_page": 17
+  },
+  {
+   "section": "5.3.1",
+   "title": "DARC Requests",
+   "pdf_page": 17
+  },
+  {
+   "section": "5.3.2",
+   "title": "PARC Requests",
+   "pdf_page": 17
+  },
+  {
+   "section": "6",
+   "title": "Reference Section",
+   "pdf_page": 18
+  },
+  {
+   "section": "6.1",
+   "title": "EDDS Client",
+   "pdf_page": 18
+  },
+  {
+   "section": "6.2",
+   "title": "EDDS MMI Web Application",
+   "pdf_page": 65
+  },
+  {
+   "section": "6.3",
+   "title": "Request Submitter",
+   "pdf_page": 67
+  },
+  {
+   "section": "6.4",
+   "title": "Performance Processor",
+   "pdf_page": 67
+  },
+  {
+   "section": "APPENDIX A",
+   "title": "Data Types",
+   "pdf_page": 69
+  },
+  {
+   "section": "A.1",
+   "title": "DateTime Data Type",
+   "pdf_page": 69
+  },
+  {
+   "section": "A.2",
+   "title": "DOY DateTime Data Type",
+   "pdf_page": 69
+  },
+  {
+   "section": "A.3",
+   "title": "Duration Data Type",
+   "pdf_page": 70
+  },
+  {
+   "section": "A.4",
+   "title": "CRON Expression Data Type",
+   "pdf_page": 71
+  },
+  {
+   "section": "APPENDIX B",
+   "title": "Batch Request Forms",
+   "pdf_page": 74
+  },
+  {
+   "section": "B.1",
+   "title": "Archive File",
+   "pdf_page": 75
+  },
+  {
+   "section": "B.2",
+   "title": "Archive Catalogue",
+   "pdf_page": 76
+  },
+  {
+   "section": "B.3",
+   "title": "Archive Subscription",
+   "pdf_page": 77
+  },
+  {
+   "section": "B.4",
+   "title": "Parameter",
+   "pdf_page": 78
+  },
+  {
+   "section": "B.5",
+   "title": "SMON Parameter",
+   "pdf_page": 80
+  },
+  {
+   "section": "B.6",
+   "title": "Parameter Definition",
+   "pdf_page": 81
+  },
+  {
+   "section": "B.7",
+   "title": "Parameter Preview",
+   "pdf_page": 82
+  },
+  {
+   "section": "B.8",
+   "title": "Parameter Statistics",
+   "pdf_page": 83
+  },
+  {
+   "section": "B.9",
+   "title": "Packet TM Statistics",
+   "pdf_page": 84
+  },
+  {
+   "section": "B.10",
+   "title": "Packet TC Statistics",
+   "pdf_page": 85
+  },
+  {
+   "section": "B.11",
+   "title": "Packet EV Statistics",
+   "pdf_page": 86
+  },
+  {
+   "section": "B.12",
+   "title": "Packet TM",
+   "pdf_page": 87
+  },
+  {
+   "section": "B.13",
+   "title": "Packet TC",
+   "pdf_page": 88
+  },
+  {
+   "section": "B.14",
+   "title": "Packet EV",
+   "pdf_page": 89
+  },
+  {
+   "section": "B.15",
+   "title": "Packet TM Raw PARC data",
+   "pdf_page": 90
+  },
+  {
+   "section": "B.16",
+   "title": "Packet TC Raw PARC data",
+   "pdf_page": 91
+  },
+  {
+   "section": "B.17",
+   "title": "Packet Ev Raw PARC data",
+   "pdf_page": 92
+  },
+  {
+   "section": "B.18",
+   "title": "Packet TM Report",
+   "pdf_page": 93
+  },
+  {
+   "section": "B.19",
+   "title": "Packet TM Gap Report",
+   "pdf_page": 94
+  },
+  {
+   "section": "B.20",
+   "title": "Packet TC Report",
+   "pdf_page": 95
+  },
+  {
+   "section": "B.21",
+   "title": "Event Record Report",
+   "pdf_page": 96
+  },
+  {
+   "section": "B.22",
+   "title": "OOL Record Report",
+   "pdf_page": 97
+  },
+  {
+   "section": "B.23",
+   "title": "EDDS Usage Report",
+   "pdf_page": 98
+  },
+  {
+   "section": "B.24",
+   "title": "File System File Catalogue and File System Folder Catalogue",
+   "pdf_page": 102
+  },
+  {
+   "section": "B.25",
+   "title": "File System File",
+   "pdf_page": 103
+  },
+  {
+   "section": "B.26",
+   "title": "File System Subscription",
+   "pdf_page": 104
+  },
+  {
+   "section": "APPENDIX C",
+   "title": "Stream Request Forms",
+   "pdf_page": 105
+  },
+  {
+   "section": "C.1",
+   "title": "Schedule Page",
+   "pdf_page": 106
+  },
+  {
+   "section": "C.2",
+   "title": "Parameter Stream",
+   "pdf_page": 107
+  },
+  {
+   "section": "C.3",
+   "title": "Packet TC Stream",
+   "pdf_page": 108
+  },
+  {
+   "section": "C.4",
+   "title": "Packet TM Stream",
+   "pdf_page": 109
+  },
+  {
+   "section": "C.5",
+   "title": "SCOS Event Log Stream",
+   "pdf_page": 110
+  },
+  {
+   "section": "C.6",
+   "title": "Out of Limits Stream",
+   "pdf_page": 111
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The standalone EDDS client is based on EUD and Eclipse RCP, downloaded from the mission's EDDS web page; it needs Java 1.8.0_72 on Windows 7 or SLES 12 and talks to the web server, typically on Tomcat port 8080.",
+   "pdf_page": 11
+  },
+  {
+   "text": "The EDDS Client APIs are a Java library implementing the EDDS WSDL interfaces behind a façade usable by any client application.",
+   "pdf_page": 12
+  },
+  {
+   "text": "User access is configured per mission through Data Access Sets, optional Operation Data Sets and Quota Sets (which can restrict SPIDs, APIDs and parameter names), assigned to roles and then to users or groups.",
+   "pdf_page": 14
+  },
+  {
+   "text": "Batch requests go to three archives (FARC, DARC, PARC) plus EDDS reports; PARC data can be obtained via the PARC Manager, the Data Provision Services or SMON.",
+   "pdf_page": 15
+  },
+  {
+   "text": "DARC requests: Parameter (timestamps and values), Parameter Definition (description, type, unit), Parameter Preview and Parameter Statistics (min, max, average, standard deviation, valid/invalid sample counts).",
+   "pdf_page": 15
+  },
+  {
+   "text": "Packet TM returns raw packets with headers as set in the EDDS header configuration; Packet TM Raw PARC data returns packets exactly as stored in the PARC, one XML element per packet; Packet TM Report gives header fields (SPID, APID, type, subtype, data stream, times) plus raw data.",
+   "pdf_page": 15
+  },
+  {
+   "text": "The RAWSOURCEBINARY output format of the Packet TM Report is a binary file holding the uninterrupted flow of the RawBodyData content; the TM Gap Report requires SCOS 5.4.18 or later, or 5.5.2 or later.",
+   "pdf_page": 15
+  },
+  {
+   "text": "The OOL Record Report returns records with timestamps, record types, parameter states, values and limits, showing raw values only, not engineering values.",
+   "pdf_page": 16
+  },
+  {
+   "text": "Data Provision Services in SCOS (v5.4.21 and later, 5.5.4 and later) let EDDS retrieve packet data from the PARC over CORBA without having to decode it; the Packet TM Report can then include parameter information.",
+   "pdf_page": 16
+  },
+  {
+   "text": "Stream requests are supported for DARC parameters; PARC stream forms (TC, TM, SCOS event log, out of limits) can be saved but not yet submitted in this release.",
+   "pdf_page": 17
+  },
+  {
+   "text": "Form time formats: dateTime 'YYYY-MM-DDThh:mm:ss[.xxxxxxZ]' and day-of-year 'YYYY-DDDThh:mm:ss[.xxxxxxZ]'; durations use the 'PnYnMnDTnHnMnS' form.",
+   "pdf_page": 69
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD-1]",
+   "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+   "title": "Software Requirements Specification (SRS) for the EDDS",
+   "issue": "Issue 18.0",
+   "date": "2018-02-16",
+   "kind": "applicable",
+   "pdf_page": 7
+  },
+  {
+   "label": "[AD-2]",
+   "doc_id": "EGOS-GEN-EDDS-ICD-1001_EUICD",
+   "title": "EXTERNAL USER INTERFACE CONTROL DOCUMENT (EUICD)",
+   "issue": "Issue 15.0",
+   "date": "2018-02-16",
+   "kind": "applicable",
+   "pdf_page": 7
+  },
+  {
+   "label": "[AD-3]",
+   "doc_id": "EGOS-GEN-EDDS-SDD-1001",
+   "title": "SOFTWARE DESIGN DOCUMENT (SDD)",
+   "issue": "Issue 13.0",
+   "date": "2017-05-05",
+   "kind": "applicable",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-1]",
+   "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+   "title": "EDDS Configuration and Installation Guide",
+   "issue": "Issue 14.0",
+   "date": "2018-02-16",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-2]",
+   "doc_id": "S2K-MCS-SRD-0004-TOS-GIC",
+   "title": "SCOS-2000 TM Data Retrieval Services SRD",
+   "issue": "Issue 3.1",
+   "date": "2003-08-29",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-3]",
+   "doc_id": "EGOS-GEN-GEN-SAD-1001-i0r0",
+   "title": "EGOS High Level Architectural Design Document",
+   "issue": "0.0DraftC",
+   "date": "2005-05-15",
+   "kind": "reference",
+   "pdf_page": 7
+  }
+ ],
+ "topics": [
+  "scos2000/edds.md",
+  "scos2000/edds-formats.md",
+  "scos2000/archives.md",
+  "mib/monitoring-checks.md"
+ ],
+ "notes": "Internal cross-reference errors: section 4.4 cites the EUICD as [AD-03] and section 4.5 cites the SDD as [AD-04], while the reference table lists the EUICD as [AD-2] and the SDD as [AD-3]. The document overview (section 1.3) describes the appendices differently from their actual contents (Appendix A is Data Types, B batch request forms, C stream request forms). Appendix A.2 says 'xxxxxx indicates the nanoseconds' where A.1 says microseconds. Appendices B and C consist mostly of form screenshots, which are not in the text extraction. The applicable SDD is cited at Issue 13.0, although an SDD Issue 15.0 of the same date exists in the library (sdd). Printed page numbers are PDF page minus 5. The file name 'SUM.pdf' carries no version; earlier issue of the same document as sum-v22."
+}

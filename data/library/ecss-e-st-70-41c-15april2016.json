@@ -1,0 +1,732 @@
+{
+  "slug": "ecss-e-st-70-41c-15april2016",
+  "title": "Space engineering\nTelemetry and telecommand packet utilization",
+  "short_title": "ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)",
+  "doc_id": "ECSS-E-ST-70-41C",
+  "issue": "Second issue",
+  "date": "2016-04-15",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS-E-ST-70-41C Working Group)",
+  "authors": [
+    "ECSS-E-ST-70-41C Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Second issue, dated 15 April 2016. The change log (p. 3) lists ECSS-E-70-41A (30 January 2003) as the first issue and ECSS-E-70-41B as never issued. This copy does not mention any later revision. The plan's page 'PUS-A vs PUS-C (and the 2024 Rev.1 draft)' refers to a later draft that is not part of this document.",
+  "summary": "**PUS-C**, the second issue of the ECSS Packet Utilization Standard, is the reference for the application-level ground-space interface of most current ESA missions. It sits above the CCSDS Space Packet Protocol and the ECSS-E-ST-50 data link standards. It defines a menu of optional *service types*, each a set of request and report message types carried in CCSDS space packets, tailored per application process. Compared with PUS-A, it was rebuilt on a formal **PUS foundation model** (clause 5), which gives generic rules for service, subservice, capability, message and transaction types and for their deployment onto application processes, on-board parameters, memories, virtual channels and file systems. It also separates semantics (clause 6, system requirements) strictly from syntax (clause 8, interface requirements).\n\nClause 7 defines the **packet field types**: PTC/PFC codes for Boolean, enumerated, integers, reals, strings, absolute and relative time and deduced and packet fields. It also defines the PUS use of the **space packet**: the TM secondary header (PUS version 2, time reference status, service type and subtype, message counter, destination ID, time) and the TC secondary header (PUS version 2, acknowledgement flags, service type and subtype, source ID), padding and the CRC/ISO checksum.\n\nThe standard service types are ST[01] request verification, [02] device access, [03] housekeeping, [04] parameter statistics, [05] events, [06] memory management, [08] function management, [09] time management, [11] time-based scheduling, [12] on-board monitoring, [13] large packet transfer, [14] real-time forwarding control, [15] on-board storage and retrieval, [17] test, [18] OBCPs, [19] event-action, [20] parameter management, [21] request sequencing, [22] position-based scheduling and [23] file management. Each has clause 6 and clause 8 sections, and Annex C summarises every message type with its tailoring rule. Clause 9 covers the CPDU, and the annexes give real-number formats and checksums.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 8
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 9
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 11
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 12
+    },
+    {
+      "section": "4",
+      "title": "Context and background",
+      "pdf_page": 18
+    },
+    {
+      "section": "4.1",
+      "title": "Introduction",
+      "pdf_page": 18
+    },
+    {
+      "section": "4.2",
+      "title": "Modelling the PUS",
+      "pdf_page": 21
+    },
+    {
+      "section": "5",
+      "title": "The PUS foundation model",
+      "pdf_page": 25
+    },
+    {
+      "section": "5.1",
+      "title": "Introduction",
+      "pdf_page": 25
+    },
+    {
+      "section": "5.2",
+      "title": "Convention",
+      "pdf_page": 26
+    },
+    {
+      "section": "5.3",
+      "title": "The generic service type abstraction level",
+      "pdf_page": 26
+    },
+    {
+      "section": "5.4",
+      "title": "The generic service deployment abstraction level",
+      "pdf_page": 38
+    },
+    {
+      "section": "6",
+      "title": "Service type system requirements",
+      "pdf_page": 55
+    },
+    {
+      "section": "6.1",
+      "title": "ST[01] request verification",
+      "pdf_page": 55
+    },
+    {
+      "section": "6.2",
+      "title": "ST[02] device access",
+      "pdf_page": 64
+    },
+    {
+      "section": "6.3",
+      "title": "ST[03] housekeeping",
+      "pdf_page": 78
+    },
+    {
+      "section": "6.4",
+      "title": "ST[04] parameter statistics reporting",
+      "pdf_page": 111
+    },
+    {
+      "section": "6.5",
+      "title": "ST[05] event reporting",
+      "pdf_page": 121
+    },
+    {
+      "section": "6.6",
+      "title": "ST[06] memory management",
+      "pdf_page": 127
+    },
+    {
+      "section": "6.8",
+      "title": "ST[08] function management",
+      "pdf_page": 157
+    },
+    {
+      "section": "6.9",
+      "title": "ST[09] time management",
+      "pdf_page": 160
+    },
+    {
+      "section": "6.11",
+      "title": "ST[11] time-based scheduling",
+      "pdf_page": 168
+    },
+    {
+      "section": "6.12",
+      "title": "ST[12] on-board monitoring",
+      "pdf_page": 198
+    },
+    {
+      "section": "6.13",
+      "title": "ST[13] large packet transfer",
+      "pdf_page": 229
+    },
+    {
+      "section": "6.14",
+      "title": "ST[14] real-time forwarding control",
+      "pdf_page": 237
+    },
+    {
+      "section": "6.15",
+      "title": "ST[15] on-board storage and retrieval",
+      "pdf_page": 265
+    },
+    {
+      "section": "6.17",
+      "title": "ST[17] test",
+      "pdf_page": 318
+    },
+    {
+      "section": "6.18",
+      "title": "ST[18] on-board control procedure",
+      "pdf_page": 321
+    },
+    {
+      "section": "6.19",
+      "title": "ST[19] event-action",
+      "pdf_page": 342
+    },
+    {
+      "section": "6.20",
+      "title": "ST[20] parameter management",
+      "pdf_page": 352
+    },
+    {
+      "section": "6.21",
+      "title": "ST[21] request sequencing",
+      "pdf_page": 358
+    },
+    {
+      "section": "6.22",
+      "title": "ST[22] position-based scheduling",
+      "pdf_page": 369
+    },
+    {
+      "section": "6.23",
+      "title": "ST[23] file management",
+      "pdf_page": 403
+    },
+    {
+      "section": "7",
+      "title": "Space to ground interface requirements",
+      "pdf_page": 425
+    },
+    {
+      "section": "7.1",
+      "title": "Introduction",
+      "pdf_page": 425
+    },
+    {
+      "section": "7.2",
+      "title": "Convention",
+      "pdf_page": 427
+    },
+    {
+      "section": "7.3",
+      "title": "Packet field type code",
+      "pdf_page": 428
+    },
+    {
+      "section": "7.4",
+      "title": "The CCSDS Space Packet",
+      "pdf_page": 438
+    },
+    {
+      "section": "8",
+      "title": "Service type interface requirements",
+      "pdf_page": 445
+    },
+    {
+      "section": "8.1",
+      "title": "ST[01] request verification",
+      "pdf_page": 445
+    },
+    {
+      "section": "8.2",
+      "title": "ST[02] device access",
+      "pdf_page": 451
+    },
+    {
+      "section": "8.3",
+      "title": "ST[03] housekeeping",
+      "pdf_page": 456
+    },
+    {
+      "section": "8.4",
+      "title": "ST[04] parameter statistics reporting",
+      "pdf_page": 473
+    },
+    {
+      "section": "8.5",
+      "title": "ST[05] event reporting",
+      "pdf_page": 477
+    },
+    {
+      "section": "8.6",
+      "title": "ST[06] memory management",
+      "pdf_page": 481
+    },
+    {
+      "section": "8.8",
+      "title": "ST[08] function management",
+      "pdf_page": 492
+    },
+    {
+      "section": "8.9",
+      "title": "ST[09] time management",
+      "pdf_page": 493
+    },
+    {
+      "section": "8.11",
+      "title": "ST[11] time-based scheduling",
+      "pdf_page": 496
+    },
+    {
+      "section": "8.12",
+      "title": "ST[12] on-board monitoring",
+      "pdf_page": 508
+    },
+    {
+      "section": "8.13",
+      "title": "ST[13] large packet transfer",
+      "pdf_page": 526
+    },
+    {
+      "section": "8.14",
+      "title": "ST[14] real-time forwarding control",
+      "pdf_page": 529
+    },
+    {
+      "section": "8.15",
+      "title": "ST[15] on-board storage and retrieval",
+      "pdf_page": 538
+    },
+    {
+      "section": "8.17",
+      "title": "ST[17] test",
+      "pdf_page": 558
+    },
+    {
+      "section": "8.18",
+      "title": "ST[18] on-board control procedure",
+      "pdf_page": 560
+    },
+    {
+      "section": "8.19",
+      "title": "ST[19] event-action",
+      "pdf_page": 568
+    },
+    {
+      "section": "8.20",
+      "title": "ST[20] on-board parameter management",
+      "pdf_page": 573
+    },
+    {
+      "section": "8.21",
+      "title": "ST[21] request sequencing",
+      "pdf_page": 577
+    },
+    {
+      "section": "8.22",
+      "title": "ST[22] position-based scheduling",
+      "pdf_page": 583
+    },
+    {
+      "section": "8.23",
+      "title": "ST[23] file management",
+      "pdf_page": 596
+    },
+    {
+      "section": "9",
+      "title": "Command Pulse Distribution Unit",
+      "pdf_page": 606
+    },
+    {
+      "section": "9.1",
+      "title": "Scope",
+      "pdf_page": 606
+    },
+    {
+      "section": "9.2",
+      "title": "System requirements",
+      "pdf_page": 606
+    },
+    {
+      "section": "9.3",
+      "title": "Interface requirements",
+      "pdf_page": 608
+    },
+    {
+      "section": "Annex A",
+      "title": "IEEE and MIL-STD real formats (informative)",
+      "pdf_page": 610
+    },
+    {
+      "section": "Annex B",
+      "title": "CRC and ISO checksum (informative)",
+      "pdf_page": 615
+    },
+    {
+      "section": "B.1",
+      "title": "The cyclic redundancy code (CRC)",
+      "pdf_page": 615
+    },
+    {
+      "section": "B.2",
+      "title": "The ISO checksum",
+      "pdf_page": 622
+    },
+    {
+      "section": "Annex C",
+      "title": "Summary of requests and reports for PUS standard services (informative)",
+      "pdf_page": 628
+    },
+    {
+      "section": "Annex D",
+      "title": "System and interface specification index (informative)",
+      "pdf_page": 655
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 656
+    }
+  ],
+  "key_points": [
+    {
+      "text": "The update from ECSS-E-70-41A introduced the PUS foundation model (used to produce the standard and the mission-specific service types and the mission services) and a proper separation of system and interface requirements.",
+      "pdf_page": 3
+    },
+    {
+      "text": "All services are optional and implemented at distinct capability levels; PUS is a 'menu' selected per application process. The standard mainly addresses the spacecraft, and it assumes the ground segment implements all standardized capabilities.",
+      "pdf_page": 10
+    },
+    {
+      "text": "Normative references include ECSS-E-ST-70-01 (OBCPs), ECSS-E-ST-70-11 (operability), ECSS-E-ST-70-31 (monitoring and control data definition), CCSDS 133.0-B-1 (Space Packet Protocol, September 2003) and CCSDS 301.0-B-4 (Time Code Formats, November 2010).",
+      "pdf_page": 11
+    },
+    {
+      "text": "Messages from a subservice user to a provider are requests, made of instructions; messages back are reports, made of notifications, and come as verification, data and event reports.",
+      "pdf_page": 19
+    },
+    {
+      "text": "Standard service type IDs (Table 4-1): 1 request verification, 2 device access, 3 housekeeping, 4 parameter statistics reporting, 5 event reporting, 6 memory management, 8 function management, 9 time management, 11 time-based scheduling, 12 on-board monitoring, 13 large packet transfer, 14 real-time forwarding control, 15 on-board storage and retrieval, 17 test, 18 OBCP, 19 event-action, 20 parameter management, 21 request sequencing, 22 position-based scheduling, 23 file management; 7, 10 and 16 are reserved.",
+      "pdf_page": 22
+    },
+    {
+      "text": "Service interdependencies: request verification is accessible to any service in the same application process; event reporting and large packet transfer are accessible to any service; on-board monitoring and event-action require an event reporting service.",
+      "pdf_page": 24
+    },
+    {
+      "text": "Service type IDs are 1-255, with standard ones at most 127 and mission-specific ones at least 128; message subtype IDs are 1-255, with standard ones at most 127 and mission-specific subtypes in a standard service at least 128. A removed standard service type's ID is not reused.",
+      "pdf_page": 26
+    },
+    {
+      "text": "APIDs are unsigned integers up to 2046: APID 2047 is reserved for idle packets, APID 0 for spacecraft time packets, and other values are reserved per the SANA registry.",
+      "pdf_page": 39
+    },
+    {
+      "text": "Absolute time values are offsets from an epoch: CUC may use the CCSDS 1958 epoch or an agency epoch (free-running counter), while CDS must use 1958 January 1; PUS supports CUC coarse time of 1 to 4 octets and fine time of 1 to 10 octets.",
+      "pdf_page": 435
+    },
+    {
+      "text": "Absolute time (PTC 9) PFCs: 0 explicit P-field, 1 CDS without µs (6 octets), 2 CDS with µs (8 octets), 3-18 CUC with coarse octets = (PFC+1) div 4 and fine octets = (PFC+1) mod 4, and 19-46 CUC with longer fine time.",
+      "pdf_page": 436
+    },
+    {
+      "text": "Deduced fields are PTC 11 PFC 0, and their structure may depend only on preceding fields of the same packet and/or mission constants; packet fields are PTC 12 (PFC 0 TM packet, PFC 1 TC packet).",
+      "pdf_page": 437
+    },
+    {
+      "text": "All PUS packets are stand-alone space packets (sequence flags '11'); the TM packet sequence count wraps from 2^14-1 to 0; TC packets carry a sequence count or packet name that, with the source ID, identifies the packet.",
+      "pdf_page": 438
+    },
+    {
+      "text": "TM secondary header: PUS version number (4 bits, set to 2), spacecraft time reference status (4 bits), service type ID (8), message subtype ID (8), message type counter (16), destination ID (16), time (absolute time), optional spare. Version 0 was the ESA PUS (ESA PSS-07-101) and version 1 was ECSS-E-70-41A.",
+      "pdf_page": 439
+    },
+    {
+      "text": "Whether TM packets carry a packet error control field, and whether it is the ISO 16-bit checksum or the 16-bit CRC, is declared at mission tailoring.",
+      "pdf_page": 441
+    },
+    {
+      "text": "TC secondary header: PUS version number (4 bits, 2), acknowledgement flags (4 bits), service type ID (8), message subtype ID (8), source ID (16), optional spare. Ack bit 3 requests success reports for acceptance, bit 2 for start, bit 1 for progress and bit 0 for completion of execution.",
+      "pdf_page": 442
+    },
+    {
+      "text": "Every TC packet carries a checksum (ISO or CRC 16-bit, declared at mission tailoring), computed when all other fields are complete and verified on-board.",
+      "pdf_page": 444
+    },
+    {
+      "text": "A CPDU is a simple unit giving ground direct access to equipment (e.g. resetting a transponder). It has its own APID, a pulse duration unit of 10-15 ms, up to 2^12 addressable outputs and 12 to 504 pulse instructions per request; pulse duration = unit x 2^n with n = 0 to 7.",
+      "pdf_page": 606
+    },
+    {
+      "text": "ST[01] reports: TM[1,1]/[1,2] acceptance success/failure, TM[1,3]/[1,4] start, TM[1,5]/[1,6] progress, TM[1,7]/[1,8] completion, and TM[1,10] failed routing verification.",
+      "pdf_page": 628
+    },
+    {
+      "text": "Examples of message types in Annex C: TM[3,25] housekeeping parameter report, TM[5,1] informative event report, TC[6,2] load raw memory data areas, TC[8,1] perform a function, TM[9,2]/TM[9,3] CUC/CDS time reports, TC[17,1] are-you-alive test, TC[23,1] create a file.",
+      "pdf_page": 630
+    },
+    {
+      "text": "Annex D indexes each service type to its system (clause 6) and interface (clause 8) pages, e.g. ST[03] housekeeping at pp. 78 and 456 and ST[12] on-board monitoring at pp. 198 and 508.",
+      "pdf_page": 655
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system – Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 11
+    },
+    {
+      "label": "ECSS-E-ST-70",
+      "doc_id": "ECSS-E-ST-70",
+      "title": "Space engineering – Ground systems and operations",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 11
+    },
+    {
+      "label": "ECSS-E-ST-70-01",
+      "doc_id": "ECSS-E-ST-70-01",
+      "title": "Space engineering – Spacecraft on-board control procedures",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 11
+    },
+    {
+      "label": "ECSS-E-ST-70-11",
+      "doc_id": "ECSS-E-ST-70-11",
+      "title": "Space engineering – Space segment operability",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 11
+    },
+    {
+      "label": "ECSS-E-ST-70-31",
+      "doc_id": "ECSS-E-ST-70-31",
+      "title": "Space engineering – Ground systems and operations – Monitoring and control data definition",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 11
+    },
+    {
+      "label": "CCSDS 133.0-B-1",
+      "doc_id": "CCSDS 133.0-B-1",
+      "title": "Space Packet Protocol, Blue Book",
+      "issue": null,
+      "date": "September 2003",
+      "kind": "normative",
+      "pdf_page": 11
+    },
+    {
+      "label": "CCSDS 301.0-B-4",
+      "doc_id": "CCSDS 301.0-B-4",
+      "title": "Time Code Formats, Blue Book",
+      "issue": null,
+      "date": "November 2010",
+      "kind": "normative",
+      "pdf_page": 11
+    },
+    {
+      "label": "CCSDS A30.0-G-3",
+      "doc_id": "CCSDS A30.0-G-3",
+      "title": "CCSDS Glossary",
+      "issue": null,
+      "date": "July 1997",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "CCSDS 102.0-B-5",
+      "doc_id": "CCSDS 102.0-B-5",
+      "title": "Packet Telemetry",
+      "issue": "Issue 5",
+      "date": "November 2000",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "CCSDS 200.0-G-6",
+      "doc_id": "CCSDS 200.0-G-6",
+      "title": "Telecommand Summary of Concept and Rationale",
+      "issue": null,
+      "date": "January 1987",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "CCSDS 202.0-B-3",
+      "doc_id": "CCSDS 202.0-B-3",
+      "title": "Telecommand Part 2 – Data Routing Service",
+      "issue": "Issue 3",
+      "date": "June 2001",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "CCSDS 727.0-B-4",
+      "doc_id": "CCSDS 727.0-B-4",
+      "title": "CCSDS File Delivery Protocol (CFDP)",
+      "issue": "Issue 4",
+      "date": "January 2007",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "CCSDS 732.0-B-2",
+      "doc_id": "CCSDS 732.0-B-2",
+      "title": "AOS Space Data Link Protocol",
+      "issue": "issue 2",
+      "date": "23 May 2007",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "CCSDS 910.2-G-1",
+      "doc_id": "CCSDS 910.2-G-1",
+      "title": "Standard Terminology, Conventions and Methodology (TCM) for defining Data Services",
+      "issue": null,
+      "date": "November 1994",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "ECSS-E-ST-50-03",
+      "doc_id": "ECSS-E-ST-50-03",
+      "title": "Space engineering – Space data links – Telemetry transfer frame protocol",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "ECSS-E-ST-50-04",
+      "doc_id": "ECSS-E-ST-50-04",
+      "title": "Space engineering – Space data links – Telecommand protocols synchronization and channel coding",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "ESA PSS-04-151",
+      "doc_id": "ESA PSS-04-151",
+      "title": "Telecommand Decoder Specification",
+      "issue": "Issue 1",
+      "date": "September 1993",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "ESA PSS-07-101",
+      "doc_id": "ESA PSS-07-101",
+      "title": "Packet utilization standard",
+      "issue": "Issue 1",
+      "date": "May 1994",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "ITU-T V.41",
+      "doc_id": "ITU-T V.41",
+      "title": "Code-Independent Error Control System – Data Communication over the Telephone Network (before renaming known as Information Technology - CCITT V.41)",
+      "issue": null,
+      "date": "1989",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "ISO 8473-1:1998",
+      "doc_id": "ISO 8473-1:1998",
+      "title": "Information Technology - Protocol for Providing the Connectionless-Mode Network Service: Protocol specification second edition",
+      "issue": "second edition",
+      "date": "1998",
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": "SANA",
+      "doc_id": null,
+      "title": "Space Assigned Numbers Authority, http://sanaregistry.org",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 656
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50",
+      "title": "ECSS-E-ST-50 series of standards",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 8
+    },
+    {
+      "label": null,
+      "doc_id": "Mil-Std-1553B",
+      "title": "Mil-Std-1553B bus (low-level commanding of a remote terminal)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 64
+    },
+    {
+      "label": null,
+      "doc_id": "ANSI X3.4",
+      "title": "ANSI X3.4 (definition of visible characters)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 434
+    },
+    {
+      "label": "Reference [7]",
+      "doc_id": "IEEE 754",
+      "title": "IEEE 754 Standard for binary floating-point arithmetic",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 610
+    },
+    {
+      "label": "Reference [8]",
+      "doc_id": "MIL-STD-1750a",
+      "title": "Military Standard Sixteen-Bit Computer Instruction Set Architecture",
+      "issue": null,
+      "date": "2nd July 1980",
+      "kind": "mentioned",
+      "pdf_page": 613
+    }
+  ],
+  "topics": [
+    "ecss/pus/index.md",
+    "ecss/pus/packets.md",
+    "ecss/pus/parameter-types.md",
+    "ecss/pus/pus-a-vs-pus-c.md",
+    "ecss/pus/message-types.md",
+    "ecss/pus/st01-request-verification.md",
+    "ecss/pus/st02-device-access.md",
+    "ecss/pus/st03-housekeeping.md",
+    "ecss/pus/st04-parameter-statistics.md",
+    "ecss/pus/st05-event-reporting.md",
+    "ecss/pus/st06-memory-management.md",
+    "ecss/pus/st08-function-management.md",
+    "ecss/pus/st09-time-management.md",
+    "ecss/pus/st11-time-based-scheduling.md",
+    "ecss/pus/st12-onboard-monitoring.md",
+    "ecss/pus/st13-large-packet-transfer.md",
+    "ecss/pus/st14-real-time-forwarding-control.md",
+    "ecss/pus/st15-onboard-storage-retrieval.md",
+    "ecss/pus/st17-test.md",
+    "ecss/pus/st18-onboard-operations-procedure.md",
+    "ecss/pus/st19-event-action.md",
+    "ecss/pus/st20-onboard-parameter-management.md",
+    "ecss/pus/st21-request-sequencing.md",
+    "ecss/pus/st22-position-based-scheduling.md",
+    "ecss/pus/st23-file-management.md",
+    "ccsds/space-packet.md",
+    "ccsds/time-codes.md",
+    "mib/parameter-types.md",
+    "missions/solar-orbiter/pus-usage.md",
+    "ecss/index.md"
+  ],
+  "notes": "This is the largest library item: 656 printed pages, plus a blank PDF page 657 (srcgrep shows 657). Printed page numbers equal PDF page numbers. Unlike other ECSS standards in the library, the extracted text shows no requirement identifiers such as 'ECSS-E-ST-70-41_xxxxxxx', although the change log mentions naming each requirement. The table of contents omits clause 3.4 Nomenclature (p. 17). Service names vary between clauses: ST[18] is 'on-board control procedure' in clauses 6 and 8 but 'on-board operations procedure' in Annexes C and D, and ST[20] is 'parameter management' in clause 6 but 'on-board parameter management' in clause 8 and Annex D. Annex A cites 'Reference [7]' (IEEE 754) and 'Reference [8]' (MIL-STD-1750a) (pp. 610, 613), but the bibliography is unnumbered and lists neither, apparently a leftover from ECSS-E-70-41A. They are recorded above as 'mentioned'. The bibliography's TM and TC data-link entries cite the 2008 ECSS-E-ST-50-03/-04 rather than the later ECSS-E-AS-50-2x adoption notices. Many figures (packet layouts, models) extract as scrambled text, and the time-formula notes use mathematical italic Unicode characters (p. 436)."
+}

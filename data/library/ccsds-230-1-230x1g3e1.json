@@ -1,0 +1,716 @@
+{
+ "slug": "ccsds-230-1-230x1g3e1",
+ "title": "TC Synchronization and Channel Coding—Summary of Concept and Rationale",
+ "short_title": "TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)",
+ "doc_id": "CCSDS 230.1-G-3",
+ "issue": "Informational Report, Issue 3 (Green Book), with Editorial Change 1 (January 2023)",
+ "date": "October 2021",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Informational Report",
+ "status_notes": "The Document Control table (PDF p. 6) lists 230.1-G-1 (June 2006) and 230.1-G-2 (November 2012) as superseded and 230.1-G-3 (October 2021) as the 'Current issue'. Editorial Change 1 (January 2023) restores a missing table. The report states that it is not a Recommended Standard and that CCSDS 231.0-B-4 prevails in case of conflict (PDF p. 13).",
+ "summary": "The CCSDS Green Book that explains and justifies the [TC Synchronization and Channel Coding](../ccsds/tc-coding-cltu.md) Recommended Standard (231.0-B-4). That standard is the sublayer that turns variable-length [TC](../ccsds/tc-sdlp.md) or [USLP](../ccsds/uslp.md) Transfer Frames into **CLTUs** (Communications Link Transmission Units) for the uplink, and back again on board. It is the most practical companion to the Blue Book, for spacecraft telecommand-decoder designers and for ground engineers who build CLTUs (for example behind an [SLE FCLTU](../ccsds/sle/fcltu.md) service).\n\nSection 2 lists what the sublayer does at each end. Section 3 explains the (63,56) BCH code: 56 information bits, 7 inverted parity bits and a filler bit per 64-bit codeword, frames split seven octets at a time, 0x55 fill, and why the older 40, 48 and 56-bit codewords were dropped. Section 4 explains how the short-blocklength (128,64) and (512,256) LDPC codes were chosen. Sections 5 and 6 give the CLTU format for BCH (start sequence 0xEB90, tail C5 C5 C5 C5 C5 C5 C5 79) and for LDPC (64-bit start sequence, optional tail). Section 7 covers the Physical Layer Operations Procedures PLOP-1 and PLOP-2. Section 8 walks through the on-board CLTU reception state machine (Inactive, Search, Decode). Section 9 covers the TC pseudo-randomizer, section 10 systematic retransmission for deep-space links, and section 11 gives extensive performance data: frame rejection and undetected-error rates, and LDPC decoders such as layered BP and most-reliable-basis.\n\nThe annexes give the theory behind the randomizer and tail sequences, performance of obsolete features, a go-back-n analysis with multiple copies, BCH undetected-error calculations and, most usefully, worked hexadecimal examples of real TC Transfer Frames and CLTUs with and without randomization.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.3",
+   "title": "Organization",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.4",
+   "title": "References",
+   "pdf_page": 14
+  },
+  {
+   "section": "2",
+   "title": "Overview",
+   "pdf_page": 17
+  },
+  {
+   "section": "2.1",
+   "title": "Context",
+   "pdf_page": 17
+  },
+  {
+   "section": "2.2",
+   "title": "Purpose",
+   "pdf_page": 18
+  },
+  {
+   "section": "2.3",
+   "title": "Procedures at the Sending End",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.4",
+   "title": "Procedures at the Receiving End",
+   "pdf_page": 21
+  },
+  {
+   "section": "3",
+   "title": "BCH Encoding",
+   "pdf_page": 23
+  },
+  {
+   "section": "3.1",
+   "title": "Introduction",
+   "pdf_page": 23
+  },
+  {
+   "section": "3.2",
+   "title": "Formal Interface to Data Link Protocol Sublayer",
+   "pdf_page": 23
+  },
+  {
+   "section": "3.3",
+   "title": "Format of a BCH Codeword",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.4",
+   "title": "Breaking the Frames into Fixed-Length Pieces",
+   "pdf_page": 25
+  },
+  {
+   "section": "3.5",
+   "title": "The BCH Code",
+   "pdf_page": 26
+  },
+  {
+   "section": "3.6",
+   "title": "BCH Encoding",
+   "pdf_page": 27
+  },
+  {
+   "section": "4",
+   "title": "Short Blocklength LDPC Codes",
+   "pdf_page": 28
+  },
+  {
+   "section": "4.1",
+   "title": "Introduction",
+   "pdf_page": 28
+  },
+  {
+   "section": "4.2",
+   "title": "Code Design and Selection",
+   "pdf_page": 28
+  },
+  {
+   "section": "4.3",
+   "title": "Fill Data and the Pseudorandomizer",
+   "pdf_page": 31
+  },
+  {
+   "section": "4.4",
+   "title": "Impact on the Radio Frequency and Modulation Layer",
+   "pdf_page": 32
+  },
+  {
+   "section": "5",
+   "title": "CLTU Generation with BCH Coding",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.1",
+   "title": "Introduction",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.2",
+   "title": "Length of a CLTU",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.3",
+   "title": "Format of a CLTU",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.4",
+   "title": "Start Sequence",
+   "pdf_page": 35
+  },
+  {
+   "section": "5.5",
+   "title": "Tail Sequence",
+   "pdf_page": 35
+  },
+  {
+   "section": "6",
+   "title": "CLTU Generation with LDPC Coding",
+   "pdf_page": 37
+  },
+  {
+   "section": "6.1",
+   "title": "Introduction",
+   "pdf_page": 37
+  },
+  {
+   "section": "6.2",
+   "title": "Length of a CLTU",
+   "pdf_page": 37
+  },
+  {
+   "section": "6.3",
+   "title": "Format of a CLTU",
+   "pdf_page": 38
+  },
+  {
+   "section": "6.4",
+   "title": "Start Sequence",
+   "pdf_page": 38
+  },
+  {
+   "section": "6.5",
+   "title": "Tail Sequence",
+   "pdf_page": 39
+  },
+  {
+   "section": "7",
+   "title": "Physical Layer Operations Procedures",
+   "pdf_page": 40
+  },
+  {
+   "section": "7.1",
+   "title": "General",
+   "pdf_page": 40
+  },
+  {
+   "section": "7.2",
+   "title": "Elements",
+   "pdf_page": 40
+  },
+  {
+   "section": "7.3",
+   "title": "PLOP-1",
+   "pdf_page": 43
+  },
+  {
+   "section": "7.4",
+   "title": "PLOP-2",
+   "pdf_page": 44
+  },
+  {
+   "section": "7.5",
+   "title": "Selection of PLOP-1 or PLOP-2",
+   "pdf_page": 45
+  },
+  {
+   "section": "7.6",
+   "title": "Formal Interface to Sublayer Above",
+   "pdf_page": 45
+  },
+  {
+   "section": "8",
+   "title": "CLTU Reception Procedures",
+   "pdf_page": 46
+  },
+  {
+   "section": "8.1",
+   "title": "Introduction",
+   "pdf_page": 46
+  },
+  {
+   "section": "8.2",
+   "title": "CLTU Reception Logic",
+   "pdf_page": 47
+  },
+  {
+   "section": "8.3",
+   "title": "Inactive State",
+   "pdf_page": 48
+  },
+  {
+   "section": "8.4",
+   "title": "Search State",
+   "pdf_page": 48
+  },
+  {
+   "section": "8.5",
+   "title": "Decode State",
+   "pdf_page": 50
+  },
+  {
+   "section": "8.6",
+   "title": "Interface to Data Link Protocol Sublayer",
+   "pdf_page": 57
+  },
+  {
+   "section": "8.7",
+   "title": "Relationship to the PLOPs",
+   "pdf_page": 59
+  },
+  {
+   "section": "9",
+   "title": "Pseudo-Randomization",
+   "pdf_page": 61
+  },
+  {
+   "section": "9.1",
+   "title": "Overview",
+   "pdf_page": 61
+  },
+  {
+   "section": "9.2",
+   "title": "Relationship to Other Procedures",
+   "pdf_page": 61
+  },
+  {
+   "section": "9.3",
+   "title": "Randomization Procedure",
+   "pdf_page": 63
+  },
+  {
+   "section": "9.4",
+   "title": "Background",
+   "pdf_page": 65
+  },
+  {
+   "section": "10",
+   "title": "Options for Repeated Transmissions",
+   "pdf_page": 67
+  },
+  {
+   "section": "10.2",
+   "title": "Parameters for Systematic Retransmission",
+   "pdf_page": 67
+  },
+  {
+   "section": "10.3",
+   "title": "Using the Systematic Retransmission",
+   "pdf_page": 68
+  },
+  {
+   "section": "10.4",
+   "title": "Independence of the Systematic Retransmission",
+   "pdf_page": 71
+  },
+  {
+   "section": "11",
+   "title": "Performance Data",
+   "pdf_page": 72
+  },
+  {
+   "section": "11.4",
+   "title": "Factors Affecting Frame Rejection Rate",
+   "pdf_page": 73
+  },
+  {
+   "section": "11.5",
+   "title": "Factors Affecting Frame Undetected Error Rate",
+   "pdf_page": 87
+  },
+  {
+   "section": "11.6",
+   "title": "LDPC Code Performance with Typical Iterative Decoders",
+   "pdf_page": 95
+  },
+  {
+   "section": "11.7",
+   "title": "Layered-BP Decoding",
+   "pdf_page": 99
+  },
+  {
+   "section": "11.8",
+   "title": "Most Reliable Basis Decoding",
+   "pdf_page": 103
+  },
+  {
+   "section": "11.9",
+   "title": "Soft-Symbol Detection of the Start and Tail Sequences",
+   "pdf_page": 105
+  },
+  {
+   "section": "Annex A",
+   "title": "Glossary",
+   "pdf_page": 108
+  },
+  {
+   "section": "Annex B",
+   "title": "Acronyms and Abbreviations",
+   "pdf_page": 111
+  },
+  {
+   "section": "Annex C",
+   "title": "Theoretical Background of the Randomization Sequence",
+   "pdf_page": 114
+  },
+  {
+   "section": "Annex D",
+   "title": "Theoretical Background of the CLTU Tail Sequence",
+   "pdf_page": 119
+  },
+  {
+   "section": "Annex E",
+   "title": "Performance of Obsolete Features",
+   "pdf_page": 128
+  },
+  {
+   "section": "Annex F",
+   "title": "Practical Examples of Frames and CLTUs",
+   "pdf_page": 134
+  },
+  {
+   "section": "Annex G",
+   "title": "Performance Evaluation of a Go-Back-N Scheme with Multiple Copies",
+   "pdf_page": 155
+  },
+  {
+   "section": "Annex H",
+   "title": "Effect of Undetected Errors in Calculating the Probability of Codeword Rejection",
+   "pdf_page": 166
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The report is informational; CCSDS 231.0-B-4 (July 2021) is the controlling Recommended Standard.",
+   "pdf_page": 13
+  },
+  {
+   "text": "TC Synchronization and Channel Coding is used below the TC Space Data Link Protocol or USLP for variable-length frames; TM Synchronization and Channel Coding handles fixed-length frames.",
+   "pdf_page": 17
+  },
+  {
+   "text": "The sending-end sublayer adds error protection, delimits data units, lets the receiver resolve bit ambiguity, and (through the PLOPs) controls acquisition and idle bit patterns.",
+   "pdf_page": 18
+  },
+  {
+   "text": "A CLTU carrying one maximum-length (1024-octet) TC Transfer Frame has 147 BCH codewords and is 1186 octets long.",
+   "pdf_page": 24
+  },
+  {
+   "text": "A BCH codeword is 56 information bits, 7 complemented parity bits and one filler bit (always 0); I0 is transmitted first.",
+   "pdf_page": 24
+  },
+  {
+   "text": "Codeword lengths of 40, 48 and 56 bits were dropped in June 2000 in favour of the 64-bit codeword, which has 14% bandwidth overhead (25% for the old 40-bit option).",
+   "pdf_page": 25
+  },
+  {
+   "text": "Frame data go into BCH codewords seven octets at a time regardless of frame boundaries; the last codeword is padded with alternating 0/1 fill (0x55), up to six octets.",
+   "pdf_page": 25
+  },
+  {
+   "text": "Uplink uses are grouped into four modes (emergency, command/ARQ, file upload, human support); the (128,64) and (512,256) LDPC codes target the first two and can replace BCH with little impact elsewhere.",
+   "pdf_page": 28
+  },
+  {
+   "text": "With BCH coding, the CLTU Start Sequence is 0xEB90 and the 64-bit Tail Sequence is C5 C5 C5 C5 C5 C5 C5 79.",
+   "pdf_page": 35
+  },
+  {
+   "text": "With LDPC coding, the Start Sequence is the 64-bit pattern 0347 76C7 2728 95B0; the tail sequence is optional with the (128,64) code.",
+   "pdf_page": 38
+  },
+  {
+   "text": "PLOP-2 is required for missions whose planning began after September 2010; PLOP-1 sends an acquisition sequence before every CLTU, costing throughput but avoiding missed CLTU boundaries.",
+   "pdf_page": 45
+  },
+  {
+   "text": "The TC randomizer (Bit Transition Generator) is an 8-bit LFSR, h(x) = x^8 + x^6 + x^4 + x^3 + x^2 + x + 1, initialised to all ones; with BCH it randomizes the 56-bit information fields (not the parity, start or tail sequences), and with LDPC it is reset for each codeword after encoding.",
+   "pdf_page": 63
+  },
+  {
+   "text": "Annex F gives worked hexadecimal examples of TC Transfer Frames (with FECF) and the resulting BCH- and LDPC-coded CLTUs, with and without randomization.",
+   "pdf_page": 134
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS 231.0-B-4",
+   "title": "TC Synchronization and Channel Coding",
+   "issue": "Issue 4",
+   "date": "July 2021",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[2]",
+   "doc_id": "CCSDS 130.0-G-3",
+   "title": "Overview of Space Communications Protocols",
+   "issue": "Issue 3",
+   "date": "July 2014",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 232.0-B-4",
+   "title": "TC Space Data Link Protocol",
+   "issue": "Issue 4",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[4]",
+   "doc_id": "CCSDS 732.1-B-2",
+   "title": "Unified Space Data Link Protocol",
+   "issue": "Issue 2",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[5]",
+   "doc_id": "CCSDS 131.0-B-3",
+   "title": "TM Synchronization and Channel Coding",
+   "issue": "Issue 3",
+   "date": "September 2017",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[6]",
+   "doc_id": "CCSDS 401.0-B-32",
+   "title": "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft",
+   "issue": "Issue 32",
+   "date": "October 2021",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[7]",
+   "doc_id": "CCSDS 912.1-B-4",
+   "title": "Space Link Extension—Forward CLTU Service Specification",
+   "issue": "Issue 4",
+   "date": "August 2016",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[8]",
+   "doc_id": "ESA/ESOC Project no. 13.501; CSEM Technical Report 496.I.",
+   "title": "Design and Development of a Very High Speed Reed-Solomon Encoder/Decoder Chip Set: Architectural Design Report (F. Baudin, et al.)",
+   "issue": null,
+   "date": "1992",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[9]",
+   "doc_id": null,
+   "title": "Analysis of a Proposed TCM Coding System (J.C. Morakis) [Not publicly available.]",
+   "issue": null,
+   "date": "n.d.",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[10]",
+   "doc_id": "Kluwer International Series in Engineering and Computer Science",
+   "title": "Finite Field for Scientists and Engineers (R. J. McEliece)",
+   "issue": null,
+   "date": "1987",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[11]",
+   "doc_id": "CCSDS 232.1-B-2",
+   "title": "Communications Operation Procedure-1",
+   "issue": "Issue 2",
+   "date": "September 2010",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[12]",
+   "doc_id": "CCSDS 130.1-G-3",
+   "title": "TM Synchronization and Channel Coding—Summary of Concept and Rationale",
+   "issue": "Issue 3",
+   "date": "June 2020",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[13]",
+   "doc_id": "IEEE Transactions on Communications 34, no. 3 (March 1986): 244-249",
+   "title": "On the Throughput Performance of Some Continuous ARQ Strategies with Repeated Transmissions (H. Bruneel and M. Moeneclaey)",
+   "issue": null,
+   "date": "March 1986",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[14]",
+   "doc_id": "Proceedings of the Fifth International Conference on Space Operations (SpaceOps 1998), Tokyo, Japan, paper 5e006",
+   "title": "Use of Packet Telemetry and telecommand Standards for a Deep-Space Mission: the Rosetta Case (Erik Mose Sørensen and Paolo Ferri)",
+   "issue": null,
+   "date": "1-5 June 1998",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[15]",
+   "doc_id": "IEEE Transactions on Communications 23, no. 4 (April 1975): 436-439",
+   "title": "Improving Automatic Repeat-Request (ARQ) Performance on Satellite Channels Under High Error Rate Conditions (A. Sastry)",
+   "issue": null,
+   "date": "April 1975",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[16]",
+   "doc_id": "Presented at CCSDS Coding and Synchronization Working Group meeting, London",
+   "title": "Input to the Ongoing CCSDS Books Revision (E. Paolini and M. Chiani)",
+   "issue": null,
+   "date": "October 2010",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[17]",
+   "doc_id": "IEEE Transactions on Communications 44, no. 5 (May 1996): 575-580",
+   "title": "Undetected Error Probabilities of Binary Primitive BCH Codes for Both Error Correction and Detection (Min-Goo Kim and Jae Hong Lee)",
+   "issue": null,
+   "date": "May 1996",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[18]",
+   "doc_id": "In Proceedings of MILCOM 2008 (16–19 Nov. 2008, San Diego, CA), 1–6. New York: IEEE, 2008",
+   "title": "Bounded Angle Iterative Decoding of LDPC Codes (S. Dolinar, et al)",
+   "issue": null,
+   "date": "16–19 Nov. 2008",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[19]",
+   "doc_id": "In Proceedings of ISITA 2008 (7–10 Dec. 2008, Auckland, New Zealand), 1–6. New York: IEEE, 2008",
+   "title": "Bounds on Error Probability of Block Codes with Bounded-Angle Maximum-Likelihood Incomplete Decoding (S. Dolinar, et al)",
+   "issue": null,
+   "date": "7–10 Dec. 2008",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[20]",
+   "doc_id": "IPN Progress Report 42-154 (August 15, 2003)",
+   "title": "Low-Density Parity-Check (LDPC) Codes Constructed from Protographs (J. Thorpe)",
+   "issue": null,
+   "date": "August 15, 2003",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[21]",
+   "doc_id": "In Proceedings of the 41st Annual Allerton Conference on Communication, Control, and Computing (1–3 Oct. 2003, Monticello, Illinois), 1425–1435. Urbana-Champaign: University of Illinois, 2003",
+   "title": "Error Floors of LDPC Codes (T. Richardson)",
+   "issue": null,
+   "date": "1–3 Oct. 2003",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[22]",
+   "doc_id": "In Proceedings of 2002 IEEE International Symposium on Information Theory, 480. New York: IEEE, 2002",
+   "title": "Irregular Progressive Edge-Growth (PEG) Tanner Graphs (X.-Y. Hu, E. Eleftheriou, and D.-M. Arnold)",
+   "issue": null,
+   "date": "2002",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[23]",
+   "doc_id": "IEEE Transactions on Communications 61, no. 6 (June 2013): 2201–2211",
+   "title": "Short Turbo Codes over High Order Fields (G. Liva, et al)",
+   "issue": null,
+   "date": "June 2013",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[24]",
+   "doc_id": "IEEE Transactions on Information Theory 60, no. 7 (July 2014): 3913–3941",
+   "title": "Non-Binary Protograph-Based LDPC Codes: Enumerators, Analysis, and Designs (L. Dolecek, et al)",
+   "issue": null,
+   "date": "July 2014",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[25]",
+   "doc_id": "Proceedings of the IEEE 95, no. 11 (November 2007): 2142–2156",
+   "title": "The Development of Turbo and LDPC Codes for Deep-Space Applications (K. S. Andrews, et al)",
+   "issue": null,
+   "date": "November 2007",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[26]",
+   "doc_id": "IEEE Transactions on Communications 50, no. 3 (March 2002): 406–414",
+   "title": "Near Optimum Universal Belief Propagation Based Decoding of Low-Density Parity Check Codes (J. Chen and M.P.C. Fossorier)",
+   "issue": null,
+   "date": "March 2002",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[27]",
+   "doc_id": "EURASIP Journal on Wireless Communications and Networking 2016, no. 1 (December 2016)",
+   "title": "On the Use of Ordered Statistics Decoders for Low-Density Parity-Check Codes in Space Telecommand Links (M. Baldi, et al)",
+   "issue": null,
+   "date": "December 2016",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[28]",
+   "doc_id": "In 6th International Conference on Information and Communication Systems (ICICS) (7–9 April 2015, Amman, Jordan), 1-6. Piscataway, New Jersey: IEEE, 2015",
+   "title": "On the Applicability of the Most Reliable Basis Algorithm for LDPC Decoding in Telecommand Links (M. Baldi, et al)",
+   "issue": null,
+   "date": "7–9 April 2015",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[29]",
+   "doc_id": "IEEE Aerospace and Electronic Systems Magazine 32, no. 6 (June 2017): 4–15",
+   "title": "State-Of-The-Art Space Mission Telecommand Receivers (M. Baldi, et al)",
+   "issue": null,
+   "date": "June 2017",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[30]",
+   "doc_id": "IEEE Transactions on Communications 20, no. 2 (April 1972): 115–119",
+   "title": "Optimum Frame Synchronization (J. Massey)",
+   "issue": null,
+   "date": "April 1972",
+   "kind": "reference",
+   "pdf_page": 16
+  }
+ ],
+ "topics": [
+  "ccsds/tc-coding-cltu.md",
+  "ccsds/tc-sdlp.md",
+  "ccsds/cop-1.md",
+  "ccsds/sle/fcltu.md",
+  "ccsds/uslp.md",
+  "overview/uplink.md",
+  "overview/worked-example-tc.md"
+ ],
+ "notes": "The slug's 'e1' is Editorial Change 1 (January 2023), which 'restores missing table'; the Document Control page footer shows the overlapping dates 'October 2021' and 'January 2023'. PDF pages 1 and 2 are duplicate cover pages. The extraction has 174 PDF pages (registry: 173). Reference [5] is still TM Synchronization and Channel Coding issue 3 (2017) and [2] is the 2014 issue of 130.0-G. Reference [9] is marked 'Not publicly available'. Reference [14] is an ESA paper on the Rosetta use of packet telemetry and telecommand standards. Many performance figures extract as axis labels only. For references with personal authors, the authors are put in parentheses after the title; journal or proceedings details are in doc_id. Section 1.4 is a plain 'References' list (kind 'reference'). No individual authors of the report are named."
+}

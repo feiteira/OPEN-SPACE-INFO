@@ -1,0 +1,176 @@
+{
+ "table": "asw_sw_para",
+ "file": "ASW_sw_para.dat",
+ "icd": false,
+ "name": "Flight-software names of MIB items (inferred title)",
+ "icd_section": null,
+ "pdf_page": null,
+ "family": "mission-specific",
+ "purpose": "Inferred from the data; not documented in any available ICD. Solar Orbiter's MIB delivers this extra file next to the ICD tables, as the ICD allows mission-specific extensions. Each record maps one MIB item name (column 1) to the symbolic name the item has in the on-board application software or instrument software (column 2) and to a longer free-text description (column 3). Most names in column 1 are monitoring parameters (pcf.PCF_NAME, 77,565 of 105,222 rows in the 2025 release); others are command parameters (cpc), commands (ccf), textual calibrations (txf, paf) and range sets (prf). About 21,400 names match no table of the same release; their prefixes (e.g. BCAY, YIU5, YTCV) suggest items of software or instrument databases not delivered in the public MIB. Column 2 holds names such as AOCSCORE_STRUNITA_QUAT_LSB or HKD_TTRCPLR_TTRA_PIO_REGISTER__WATCHDOGASTATUS; when no software name exists, column 1 is repeated. SCOS-2000 itself does not read this file (it is outside the ICD); it is most likely used by mission tools to trace MIB items to software documentation. That last point is an inference.",
+ "keys": [
+  "COL1"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "COL1",
+   "type": "Char (max 10 characters observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: name of the MIB item described by the record. Unique in every release (105,222 distinct values in 105,222 rows of the 2025 release). Matches pcf.PCF_NAME (77,565 rows), cpc.CPC_PNAME (3,676), ccf.CCF_CNAME (2,221), txf.TXF_NUMBR (208), prf.PRF_NUMBR (77) and paf.PAF_NUMBR (52); 21,423 names match none of these tables in the same release.",
+   "values": [],
+   "references": "pcf.PCF_NAME | cpc.CPC_PNAME | ccf.CCF_CNAME | txf.TXF_NUMBR | paf.PAF_NUMBR | prf.PRF_NUMBR (polymorphic, inferred)",
+   "pdf_page": null,
+   "inferred_name": "MIB item name"
+  },
+  {
+   "pos": 2,
+   "name": "COL2",
+   "type": "Char (max 122 characters observed)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Inferred: symbolic name of the item in the flight or instrument software (e.g. data-pool or ICD mnemonic). In 18,984 rows of the 2025 release it simply repeats COL1, apparently when no software name exists. Not unique: 102,326 distinct values for 105,222 rows, because one software item can correspond to several MIB items (e.g. 'ALU' maps to four parameters NIU00362, NIU003E5, PIU51141, PIU51181). Empty in 2,733 rows of the 2020 release, always filled in 2025.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "software name"
+  },
+  {
+   "pos": 3,
+   "name": "COL3",
+   "type": "Char (max 255 characters observed)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Inferred: free-text description of the item, often longer than the 24-character PCF_DESCR (e.g. 'Watchdog A status', or a full sentence for commands). Filled in 89,560 of 105,222 rows (2025). 2,729 rows contain only the placeholder 'a'. 23 values are exactly 255 characters long, which suggests truncation by the generating tool (inference).",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "description"
+  }
+ ],
+ "relationships": [
+  {
+   "field": "COL1",
+   "target": "pcf.PCF_NAME",
+   "note": "Inferred from exact name matches (77,565 rows in 2025)."
+  },
+  {
+   "field": "COL1",
+   "target": "cpc.CPC_PNAME",
+   "note": "Inferred (3,676 rows). The SQLite column is named CPC_NAME (pyscos2000 naming)."
+  },
+  {
+   "field": "COL1",
+   "target": "ccf.CCF_CNAME",
+   "note": "Inferred (2,221 rows); COL3 then holds the long command description."
+  },
+  {
+   "field": "COL1",
+   "target": "txf.TXF_NUMBR / paf.PAF_NUMBR / prf.PRF_NUMBR",
+   "note": "Inferred (208 / 52 / 77 rows); e.g. CCDT0000TC maps to AGP_SUB_SEG_ID."
+  }
+ ],
+ "history": "Not part of any ICD issue (5.1, 6.7 Draft A, 6.9, 7.0) nor of the pyscos2000 (7.2) schema. Present in both Solar Orbiter releases examined: 85,430 rows in MIB__20200416M10720PFMS001_SOL and 105,222 rows in MIB__20250916M25925PFMS001_SOL. The SWA instrument database has a similar three-column file, sw_para.dat (see sw_para.json).",
+ "solo_stats": {
+  "db": "solo-2025-09-16.sqlite",
+  "release": "MIB__20250916M25925PFMS001_SOL",
+  "slug": "mib-20250916m25925pfms001-sol",
+  "rows": 105222,
+  "fields": [
+   {
+    "name": "COL1",
+    "filled": 105222,
+    "distinct": 105222,
+    "max_length": 10,
+    "examples": [
+     "BCAY0000",
+     "BCAY0001",
+     "BCAY0002",
+     "BCAY0004",
+     "BCAY0007"
+    ]
+   },
+   {
+    "name": "COL2",
+    "filled": 105222,
+    "distinct": 102326,
+    "max_length": 122,
+    "examples": [
+     "SSEA_SEGMENTS_END_TIME_C",
+     "AOCSCORE_STRUNITA_TIMEFINELSB",
+     "AOCSCORE_STRUNITA_QUAT_LSB",
+     "SSEA_SEGMENTS_START_TIME_C",
+     "AOCSCORE_STRUNITA_TIMECOARSELSB"
+    ]
+   },
+   {
+    "name": "COL3",
+    "filled": 89560,
+    "distinct": 74039,
+    "max_length": 255,
+    "examples": [
+     "See AOCS SRS, Guidance chapter, Load AOCS AGP Profile Data subchapter",
+     "AOCS profiles",
+     "Close/Open",
+     "Disabled/Enabled status",
+     "Event ID list"
+    ]
+   }
+  ]
+ },
+ "other_stats": [
+  {
+   "db": "solo-2020-04-16.sqlite",
+   "release": "MIB__20200416M10720PFMS001_SOL",
+   "slug": "mib-20200416m10720pfms001-sol",
+   "rows": 85430,
+   "fields": [
+    {
+     "name": "COL1",
+     "filled": 85430,
+     "distinct": 85430,
+     "max_length": 10,
+     "examples": [
+      "CCDT0000TC",
+      "CCDT0001TX",
+      "CCDT0002TM",
+      "CCDT0003TX",
+      "CCDT0004TX"
+     ]
+    },
+    {
+     "name": "COL2",
+     "filled": 82697,
+     "distinct": 81045,
+     "max_length": 122,
+     "examples": [
+      "AGP_SUB_SEG_ID",
+      "AOCS_PROFILE_ID",
+      "CLOSE_OPEN",
+      "DISABLED_ENABLED",
+      "EVENT_ID"
+     ]
+    },
+    {
+     "name": "COL3",
+     "filled": 84008,
+     "distinct": 69942,
+     "max_length": 255,
+     "examples": [
+      "See AOCS SRS, Guidance chapter, Load AOCS AGP Profile Data subchapter",
+      "AOCS profiles",
+      "Close/Open",
+      "Disabled/Enabled status",
+      "Event ID list"
+     ]
+    }
+   ]
+  }
+ ],
+ "sources": [
+  "mib-20250916m25925pfms001-sol",
+  "mib-20200416m10720pfms001-sol",
+  "icd-7-0-final"
+ ],
+ "notes": "All column meanings are inferences from the data (exact name matches against pcf, cpc, ccf, txf, paf and prf of the same release); no document describing this file was found in the library. The file name is mixed case (ASW_sw_para.dat), unlike the lower-case rule of ICD 7.0 section 2.2 for ICD tables (PDF p.22). 'ASW' presumably stands for application software (inference). Each line has exactly 3 TAB-separated fields."
+}

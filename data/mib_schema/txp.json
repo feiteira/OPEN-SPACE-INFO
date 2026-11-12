@@ -1,0 +1,118 @@
+{
+  "table": "txp",
+  "file": "txp.dat",
+  "icd": true,
+  "name": "Textual calibrations definition",
+  "icd_section": "3.3.2.2.5",
+  "pdf_page": 69,
+  "family": "monitoring",
+  "purpose": "txp holds the text strings of the textual calibrations declared in txf: one record per raw-value range and string pair. Any raw value of a status parameter that falls within TXP_FROM to TXP_TO, inclusive, is displayed and processed as the string TXP_ALTXT. A single raw value is expressed by giving the same value as lower and upper bound. Raw bounds are written in decimal in the format declared by TXF_RAWFMT. The key is the pair (TXP_NUMBR, TXP_FROM), so two ranges of one calibration cannot start at the same raw value. The resulting strings are the engineering values used in monitoring displays and, with OCF_INTER = 'C' and OCF_CODIN = 'A', as the expected values of status checks in ocp. A raw value that matches no range is shown as an invalid value '****'.",
+  "keys": [
+    "TXP_NUMBR",
+    "TXP_FROM"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "TXP_NUMBR",
+      "type": "Char(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Identifier of the textual calibration this entry belongs to; must match TXF_NUMBR of an existing txf record.",
+      "values": [],
+      "references": "txf.TXF_NUMBR",
+      "pdf_page": 70
+    },
+    {
+      "pos": 2,
+      "name": "TXP_FROM",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Lower bound of the raw-value range, written in decimal in a format compatible with TXF_RAWFMT.",
+      "values": [],
+      "references": null,
+      "pdf_page": 70
+    },
+    {
+      "pos": 3,
+      "name": "TXP_TO",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Upper bound of the raw-value range, written in decimal in a format compatible with TXF_RAWFMT.",
+      "values": [],
+      "references": null,
+      "pdf_page": 70
+    },
+    {
+      "pos": 4,
+      "name": "TXP_ALTXT",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Alphanumeric string (up to 14 characters) displayed as the engineering value for any raw value in the range TXP_FROM to TXP_TO.",
+      "values": [],
+      "references": null,
+      "pdf_page": 70
+    }
+  ],
+  "relationships": [
+    {
+      "field": "TXP_NUMBR",
+      "target": "txf.TXF_NUMBR",
+      "note": "Many entries per textual calibration."
+    }
+  ],
+  "history": "ICD 5.1 (p. 34) has the same four fields, all mandatory, with TXP_NUMBR as Number(4); the identifier became Char(10) in ICD 6.0 (ICD 7.0 Annex 1, p. 247; also p. 253). Unchanged in ICD 6.7 Draft A (p. 65-66), 6.9 (p. 68-69) and 7.0 (p. 70). pyscos2000 (ICD 7.2) matches: four mandatory fields, key TXP_NUMBR + TXP_FROM.",
+  "solo_stats": {
+    "rows": 35032,
+    "fields": [
+      {
+        "name": "TXP_NUMBR",
+        "filled": 35032,
+        "examples": [
+          "PARAMIDTM",
+          "CCDT0004TX",
+          "CDMTX000TM",
+          "CCDT0384TM",
+          "CTCXZ001TM"
+        ]
+      },
+      {
+        "name": "TXP_FROM",
+        "filled": 35032,
+        "examples": [
+          "1",
+          "0",
+          "2",
+          "3",
+          "4"
+        ]
+      },
+      {
+        "name": "TXP_TO",
+        "filled": 35032,
+        "examples": [
+          "1",
+          "0",
+          "2",
+          "3",
+          "4"
+        ]
+      },
+      {
+        "name": "TXP_ALTXT",
+        "filled": 35032,
+        "examples": [
+          "Error",
+          "DISABLED",
+          "INVALID",
+          "IDLE",
+          "ENABLED"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. Solar Orbiter 2025-09-16: 35,032 entries for 1,003 calibrations; every TXP_NUMBR exists in txf; no TXP_ALTXT exceeds 14 characters. Only 31 entries use a true range (TXP_FROM different from TXP_TO), e.g. CDMTX000TM maps 134217793-134256128 to 'MOTOR 1 CLOSE'; all others map single raw values. The largest set, PARAMIDTM, maps each on-board parameter ID to the ground parameter name (e.g. 167776256 -> NCDT00B0, 0 -> DUMMYVAL), turning a textual calibration into a parameter-ID lookup."
+}

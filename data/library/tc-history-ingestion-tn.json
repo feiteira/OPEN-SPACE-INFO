@@ -1,0 +1,304 @@
+{
+ "slug": "tc-history-ingestion-tn",
+ "title": "TC History Ingestion Technical Note",
+ "short_title": "HCSS TC History Ingestion Technical Note",
+ "doc_id": "SPIRE-ICS-DOC-002314",
+ "issue": "0.2",
+ "date": "2003-03-18",
+ "organisation": "Herschel Common Science System (HCSS) development (organisation not printed; header 'Project Document', archived by SPIRE as SPIRE-ICS-DOC-002314)",
+ "authors": [
+  "M.J. Graham"
+ ],
+ "doc_type": "Technical Note",
+ "status_notes": "Issue 0.2 of 18 March 2003. The change record lists 0.1 (7 September 2001, original version) and 0.2 (17 February 2003, updated as part of release of code into HCSS) (PDF p. 2). It covers only the ILT phase (HCSS 0.1.x); the planned CORBA interface is not described (PDF p. 4).",
+ "summary": "Issue 0.2 (18 March 2003) of a technical note by M.J. Graham on the design of the **TC history ingestion** process in the Herschel Common Science System (HCSS). It covers the instrument level test (ILT) phase, HCSS version 0.1.x. The process fetches telecommand history from [SCOS-2000](../scos2000/index.md), converts it for the HCSS archive and links each record to the telecommand that the HCSS generated.\n\nThe note traces the process to requirement HCSS-UR-3.1-1111 and use case UCF-759 and lists its assumptions. SCOS-2000 produces an ASCII TC history file (THF). Commands from HCSS schedules carry a 32-bit TCID, while manual commands have a null TCID. OBSID and BBID setting commands identify observations and building blocks. TC history times are UT, schedule times TAI, and ILT schedules use only relative times. Event-driven TCs generated on board are out of scope.\n\nThere are two components, joined by TCP/IP. A THF server asks SCOS-2000 for a time window, receives the THF file name, reads the file from the directory SCOS-2000 writes to, and passes it on. A TC history ingestor checks the file and creates a TcHistory object per TC. It links each object to its TC by TCID, updates the success flags of observations and block executions, and reports missing TCs and missing history records. The link to SCOS-2000 uses TCP/IP, with a CORBA interface planned.\n\nSection 3 describes the `nl.esa.herschel.tchingest` package and its FileIngestion API, shared with OOL ingestion. Section 4 records design decisions. Manual TCs are stored without associations (SCR-0119), orphan histories are kept and logged as errors (SPR-0118), and the database is committed once per THF, typically one per day. The operator view is in the [TC history and OOL user manual](tch-ool-user-guide-v2-3.md). See [Herschel/Planck ground segment](../scos2000/herschel-planck-ground.md) and [archives](../scos2000/archives.md).",
+ "contents": [
+  {
+   "section": null,
+   "title": "Change Record",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Table of Contents",
+   "pdf_page": 3
+  },
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose and scope of the document",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.2",
+   "title": "References",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.3",
+   "title": "Document structure",
+   "pdf_page": 4
+  },
+  {
+   "section": "2",
+   "title": "The TC History Ingestion Process",
+   "pdf_page": 5
+  },
+  {
+   "section": "2.1",
+   "title": "Overview",
+   "pdf_page": 5
+  },
+  {
+   "section": "2.1.1",
+   "title": "Requirements",
+   "pdf_page": 5
+  },
+  {
+   "section": "2.1.2",
+   "title": "Assumptions",
+   "pdf_page": 5
+  },
+  {
+   "section": "2.1.3",
+   "title": "Structure",
+   "pdf_page": 5
+  },
+  {
+   "section": "2.1.3.1",
+   "title": "THF server",
+   "pdf_page": 6
+  },
+  {
+   "section": "2.1.3.2",
+   "title": "TC history ingestor",
+   "pdf_page": 6
+  },
+  {
+   "section": "2.2",
+   "title": "Class diagram",
+   "pdf_page": 6
+  },
+  {
+   "section": "3",
+   "title": "Package Structure",
+   "pdf_page": 7
+  },
+  {
+   "section": "3.1",
+   "title": "The nl.esa.herschel.tchingest.api API",
+   "pdf_page": 7
+  },
+  {
+   "section": "3.1.1",
+   "title": "Interface summary",
+   "pdf_page": 7
+  },
+  {
+   "section": "3.1.2",
+   "title": "Class summary",
+   "pdf_page": 7
+  },
+  {
+   "section": "4",
+   "title": "Design Decisions",
+   "pdf_page": 9
+  },
+  {
+   "section": "4.1",
+   "title": "The TC history ingestion API",
+   "pdf_page": 9
+  },
+  {
+   "section": "4.2",
+   "title": "Interfacing with SCOS-2000",
+   "pdf_page": 9
+  },
+  {
+   "section": "4.3",
+   "title": "Validation of TCs and TC history records",
+   "pdf_page": 9
+  },
+  {
+   "section": "4.4",
+   "title": "Interfacing with the database",
+   "pdf_page": 10
+  },
+  {
+   "section": "4.5",
+   "title": "Successful operations",
+   "pdf_page": 11
+  },
+  {
+   "section": "4.6",
+   "title": "Performance",
+   "pdf_page": 11
+  }
+ ],
+ "key_points": [
+  {
+   "text": "This issue covers the ILT mission phase (HCSS 0.1.x), which requests data from SCOS-2000 over a TCP/IP interface; later versions were to use a CORBA interface.",
+   "pdf_page": 4
+  },
+  {
+   "text": "The process retrieves TC history from SCOS-2000, converts it for storage in the HCSS archive and associates each TC history record with its TC.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Requirements: HCSS-UR-3.1-1111 (associate TC history with the commanding requests in the Observations Schedule) and UCF-759 (verify TC history against observation executions and flag failed, missing and additional commands).",
+   "pdf_page": 5
+  },
+  {
+   "text": "Assumptions: the TC history file (THF) is an ASCII file produced by SCOS-2000; HCSS schedule commands are tagged with a 32-bit TCID while manual commands have a null or default TCID; OBSID and BBID commands relate history to observations.",
+   "pdf_page": 5
+  },
+  {
+   "text": "TC history times are UT while schedule times are TAI, and ILT schedules use only relative times, so time conversion is needed; on-board generated event-driven TC packets are out of scope; the THF holds values only for editable command parameters.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Two components communicate via TCP/IP: a THF server, which requests a time period from SCOS-2000, receives the THF name and retrieves the file, and a TC history ingestor, which validates it, creates TCHistory objects and associates them by TCID.",
+   "pdf_page": 6
+  },
+  {
+   "text": "The ingestor checks that the first line of the THF matches the TC History File ICD and that the file covers the requested time window; it runs continuously and requests a new THF after a configured wait.",
+   "pdf_page": 6
+  },
+  {
+   "text": "Package nl.esa.herschel.tchingest has subpackages api, bin, doc, server, test and util; the FileIngestion interface (getFile, checkFile, processFile, initStore, commitData) is shared by TC history and OOL ingestion.",
+   "pdf_page": 7
+  },
+  {
+   "text": "SCOS-2000 places the requested THF in a preconfigured directory, so THFServer must run on the SCOS-2000 host or have access to that directory (e.g. networked disks).",
+   "pdf_page": 9
+  },
+  {
+   "text": "For manual TCs (TCID = 0) the ingestor assigns the Observation and Building Block whose time period contains the record's time stamp.",
+   "pdf_page": 10
+  },
+  {
+   "text": "TC history records for manual commands are made persistent without associations (SCR-0119); a TcHistory with a non-zero TCID whose TC is missing is persisted and an error is logged (SPR-0118).",
+   "pdf_page": 10
+  },
+  {
+   "text": "If all TCs of a Building Block succeed its uplinked status is set to successful; if all TCs of an Observation succeed its executed status is set to successful.",
+   "pdf_page": 11
+  },
+  {
+   "text": "A database commit is done only at the end of processing a THF; typically one THF per day is expected, containing a day's TC history.",
+   "pdf_page": 11
+  }
+ ],
+ "references": [
+  {
+   "label": "[RD1]",
+   "doc_id": "FIRST/FSC/DOC/0146",
+   "title": "FIRST Ground Segment Design Description",
+   "issue": "Issue 1.0, Revision 0",
+   "date": "3rd Nov 2000",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD2]",
+   "doc_id": "FIRST/FSC/DOC/0146",
+   "title": "FIRST Ground Segment Design Description",
+   "issue": "Issue 1.0, Revision 0",
+   "date": "3rd Nov 2000",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD3]",
+   "doc_id": null,
+   "title": "TC History File ICD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD4]",
+   "doc_id": "S2K-MCS-ICD-0008-TOS-GCI",
+   "title": "SCOS-2000 Command History Data Provision Services ICD",
+   "issue": "Issue 1.2",
+   "date": "7th Aug 2000",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD5]",
+   "doc_id": "ICC/2001-001",
+   "title": "Technical Note on Observation and Building Block Identifiers for Herschel",
+   "issue": "Issue 1.0",
+   "date": "6th June 2001",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD6]",
+   "doc_id": "FSCDT/TN/014",
+   "title": "Trading-off Technical solutions for relating TC History and HCSS commanding",
+   "issue": "Issue 0, Revision 1",
+   "date": "14th Feb 2001",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD7]",
+   "doc_id": "FIRST/FSC/DOC/0115",
+   "title": "HCSS User Requirements Document",
+   "issue": "Issue 2.0",
+   "date": "xx May 2001",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD8]",
+   "doc_id": "SCI-OT-ICD-7527",
+   "title": "FIRST/Planck Packet Structure Interface Control Document",
+   "issue": "Issue 1.0, Revision 0",
+   "date": "1st September 2000",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD9]",
+   "doc_id": "FSCDT/TN-012",
+   "title": "Analysis of ILT use-cases",
+   "issue": "Issue 0.5",
+   "date": "20th February 2001",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD10]",
+   "doc_id": "S2K-MCS-SUM-2360-TOS-GCI",
+   "title": "SCOS-2000 Command History Operator User Manual",
+   "issue": "Issue 1.4",
+   "date": "23rd April 2001",
+   "kind": "reference",
+   "pdf_page": 4
+  },
+  {
+   "label": "[RD11]",
+   "doc_id": "FIRST/FSC/DOC/0158",
+   "title": "FIRST Common Science System: Use Case Definitions",
+   "issue": "Issue 1.0",
+   "date": "7th November 2000",
+   "kind": "reference",
+   "pdf_page": 4
+  }
+ ],
+ "topics": [
+  "scos2000/herschel-planck-ground.md",
+  "missions/herschel-planck.md",
+  "scos2000/archives.md",
+  "scos2000/egse.md"
+ ],
+ "notes": "The Table of Contents page (PDF p. 3) is empty. [RD1] and [RD2] are identical entries. Section 4.2.1 cites an unresolved '[RD?]' for the SCOS-2000 interface (PDF p. 9). References are cited inconsistently as [RD7] and [RD-3]. The Section 2.2 class diagram is not in the text layer. A stray 'Table 1' appears in the page-4 header. The tch-ool-user-guide-v2-3 cites this note as RD4 with the placeholder number 'SPIRE-ICS-DOC-000###', issue 0.2, 18th March 2003. The text extraction has a trailing empty page 12."
+}

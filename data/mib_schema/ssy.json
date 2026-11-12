@@ -1,0 +1,45 @@
+{
+ "table": "ssy",
+ "file": "ssy.dat",
+ "icd": false,
+ "name": "ssy (empty in the SWA database; purpose unknown)",
+ "icd_section": null,
+ "pdf_page": null,
+ "family": "mission-specific",
+ "purpose": "Not documented in any available ICD and delivered as an empty (0-byte) file in the SWA instrument database, so neither its columns nor its purpose can be inferred from data. The SQLite table has a single placeholder column COL1 only because the file is empty; the real number of fields is unknown. It is not present in the Solar Orbiter spacecraft MIB releases examined (2020-04-16 and 2025-09-16). Any statement about its meaning would be speculation; the name could relate to synthetic or subsystem definitions, but this is not supported by any source.",
+ "keys": [],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "COL1",
+   "type": "unknown (empty file)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Placeholder column created for an empty file; no data, so no meaning can be inferred.",
+   "values": [],
+   "references": null,
+   "pdf_page": null
+  }
+ ],
+ "relationships": [],
+ "history": "Not part of any ICD issue nor of pyscos2000. SWA database only (empty file dated 2021-12-03).",
+ "solo_stats": {
+  "db": "swa-idb.sqlite",
+  "release": "SWA instrument database (ASCII.zip, files dated 2021-12-03)",
+  "slug": "swa-idb-ascii",
+  "rows": 0,
+  "fields": [
+   {
+    "name": "COL1",
+    "filled": 0,
+    "distinct": 0,
+    "max_length": null,
+    "examples": []
+   }
+  ]
+ },
+ "sources": [
+  "swa-idb-ascii"
+ ],
+ "notes": "Empty file; the solo_stats block describes the SWA instrument database (swa-idb.sqlite)."
+}

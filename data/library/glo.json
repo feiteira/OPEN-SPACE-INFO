@@ -1,0 +1,794 @@
+{
+ "slug": "glo",
+ "title": "EDDS Glossary",
+ "short_title": "EDDS Glossary",
+ "doc_id": "EGOS-GEN-EDDS-GLO-0001",
+ "issue": "Version 7.0",
+ "date": "2017-04-10",
+ "organisation": "European Space Agency, Directorate of Human Spaceflight and Operations, HSO-GI (ESOC); prepared by the EDDS Team",
+ "authors": [
+  "Rokibul Uddin",
+  "Delphine Thomas",
+  "Rui Santos",
+  "Michael Hawkshaw",
+  "Deiwin Sarjas",
+  "Merlin Lobjakas"
+ ],
+ "doc_type": "Other",
+ "status_notes": "Version 7.0 'Updated for EDDS v1.8.0i1' per the Document Change Log (PDF p. 3); the EDDS 2.3.0 Software Release Note lists the Glossary at I7r0, last changed for EDDS 2.2.0 (srn, PDF p. 9). The 2025 CIG issue cites Glossary Version 10.0 of 2021-12-03, so this issue has since been superseded.",
+ "summary": "The **EDDS Glossary** is the common terminology and bibliography volume of the documentation set of the [EGOS Data Dissemination System (EDDS)](../scos2000/edds.md), ESOC's system for disseminating archived and live mission data from [SCOS-2000](../scos2000/index.md) to external users. Every other EDDS document (CIG, SDD, SRS, SUM, EUICD, update guide) refers to it as [GLO] instead of carrying its own lists.\n\nIt has three parts. Section 2 lists the applicable documents of the EDDS project: the ESA BSSC tailoring of the ECSS software standards for ground segments (SETG), the EDDS statement of work and project plans, the ESOC Generic Ground Systems (EGGS) configuration baselines, the EGOS document template guidelines, the ESA network security policy, BSSC Java and XML coding standards, and the early EDDS EUICD and [GDDS](../scos2000/gdds-and-ddids.md) RDM interface documents. Section 3 lists 41 reference documents, which give a useful view of EDDS's lineage: analyses of reusing [TDRS](../scos2000/tdrs.md), WebRM, GDDS and MUST, the SCOS-2000 TM Data Retrieval Services SRD, the TDRS ICD, the Generic Data Delivery Interface Document (GDDID), SCOS-2000 SMF service ICDs, the DARC ICD and SDD, CCSDS SLE and XFDU (CCSDS 661.0-B-1) standards. Sections 4 and 5 define about 140 acronyms (for example PARC, DARC, FARC, RDM, SPID, SCET, OBQ, OBSM) and three terms (smoke test, software predeliveries, virtual appliance).\n\nEngineers use it to decode EDDS acronyms and to trace where EDDS sits among the ESOC ground-segment documents and standards.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.3",
+   "title": "Document Overview",
+   "pdf_page": 4
+  },
+  {
+   "section": "2",
+   "title": "Applicable Documents",
+   "pdf_page": 5
+  },
+  {
+   "section": "3",
+   "title": "Reference documents",
+   "pdf_page": 7
+  },
+  {
+   "section": "4",
+   "title": "Acronyms",
+   "pdf_page": 9
+  },
+  {
+   "section": "5",
+   "title": "Terms",
+   "pdf_page": 13
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The glossary is the single place where EDDS documents define applicable/reference documents, acronyms and terms; it is referenced by all other EDDS documents.",
+   "pdf_page": 4
+  },
+  {
+   "text": "The document follows the SETG standard (ESA BSSC tailoring of ECSS software engineering standards for ground segments) and sits in the SWRR document package beside the SoW, SRS, SDP, SPAP, SCMP and SVVP.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Change log: first issued 2010-01-18 for the Software Requirements Review; issue 7.0 of 2017-04-10 is 'Updated for EDDS v1.8.0i1'.",
+   "pdf_page": 2
+  },
+  {
+   "text": "Among EDDS's predecessors and inputs the reference list cites the SCOS-2000 TM Data Retrieval Services SRD (S2K-MCS-SRD-0004-TOS-GIC), the TDRS External Interfaces Control Document (S2K-MCS-ICD-0017-TOS-GIC) and the Generic Data Delivery Interface Document (EGOS-MCS-GDDS-ICD-1003).",
+   "pdf_page": 7
+  },
+  {
+   "text": "CCSDS standards cited: the SLE Cross Support Reference Model (910.4-B-1) and XML Formatted Data Unit (XFDU) Structure and Construction Rules (CCSDS 661.0-B-1, Blue book, 09.2008).",
+   "pdf_page": 8
+  },
+  {
+   "text": "Acronyms defined include DARC (Data Archive), FARC (File Archive), GDDS (Generic Data Disposition System) and DDID (Data Delivery Interface Document).",
+   "pdf_page": 9
+  },
+  {
+   "text": "PARC is expanded as Packet ARChive and MUST as Mission Utility & Support Tool; OBQ, OBSM and OOL are also defined.",
+   "pdf_page": 10
+  },
+  {
+   "text": "SPID is expanded as 'SCOS- 2000 Packet ID', SCET as Spacecraft Event Time, SSC as Source Sequence Count, RDM as Raw Data Media and TDRS as Telemetry Data Retrieval Service.",
+   "pdf_page": 11
+  },
+  {
+   "text": "Only three terms are defined: smoke test, software predeliveries (mock-ups and intermediate deliveries) and virtual appliance.",
+   "pdf_page": 13
+  }
+ ],
+ "references": [
+  {
+   "label": "[SETG]",
+   "doc_id": "ESA - BSSC 2005(1)",
+   "title": "Tailoring of ECSS Software Engineering Standards for Ground Segments: Part A: Software Engineering; Part B: Product Assurance and Management; Part C: Documents Templates; Part D: Traceability against ECSS standards",
+   "issue": "1.0",
+   "date": "01.06.05",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[SOW]",
+   "doc_id": "EGOS-GEN-EDDS-SOW-1001",
+   "title": "EDDS Statement of Work",
+   "issue": "1.1",
+   "date": "13.01.09",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[SRS]",
+   "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+   "title": "EDDS Software Requirement Specification",
+   "issue": "16.0",
+   "date": "05.05.17",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[SPAP]",
+   "doc_id": "EGOS-GEN-EDDS-SPAP-0001",
+   "title": "EDDS Software Product Assurance Plan",
+   "issue": "1.1",
+   "date": "18.01.10",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[SDP]",
+   "doc_id": "EGOS-GEN-EDDS-SDP-0001",
+   "title": "EDDS Software Development Plan",
+   "issue": "1.1",
+   "date": "18.01.10",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[SCMP]",
+   "doc_id": "EGOS-GEN-EDDS-SCMP-0001",
+   "title": "EDDS Software Configuration Management Plan",
+   "issue": "1.1",
+   "date": "18.01.10",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-SCMP]",
+   "doc_id": "EGOS-GEN-GEN-CMP-1001",
+   "title": "ESOC Software Configuration Management Plan",
+   "issue": "1.1",
+   "date": "09.08.07",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-3PP]",
+   "doc_id": "EGOS-GEN-GEN-TN-1001",
+   "title": "EGOS Preferred 3rd Party Products",
+   "issue": "1.2",
+   "date": "20.12.06",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[GDS]",
+   "doc_id": "OPS-GDS-SOW-0001",
+   "title": "GDS Frame Contract Statement Of Work",
+   "issue": "1.0",
+   "date": "24.06.04",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[EGGS-SRS]",
+   "doc_id": "EGGS-ESOC-GS-SRS-1001",
+   "title": "EGOS Generic Ground Systems: Development Requirements Specification",
+   "issue": "3.0",
+   "date": "18.02.09",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[EGGS-SCD]",
+   "doc_id": "EGGS-ESOC-GS-SCD-1002",
+   "title": "ESOC Generic Ground Systems: System Configuration Baselines: Part 3- Baseline Definitions",
+   "issue": "1.3",
+   "date": "04.08.11",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0010",
+   "title": "EGOS Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0020",
+   "title": "CIG Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0021",
+   "title": "SRN Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0030",
+   "title": "ICD Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0040",
+   "title": "ADD Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0050",
+   "title": "OUM Template Guidelines",
+   "issue": "2.0",
+   "date": "27.10.06",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0060",
+   "title": "EGOS Template Guidelines",
+   "issue": "3.0",
+   "date": "01.11.07",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[E-DOT]",
+   "doc_id": "EGOS-GEN-GEN-TN-0070",
+   "title": "SRD Template Guidelines",
+   "issue": "2.0",
+   "date": "27.10.06",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[ESP]",
+   "doc_id": "EISD-EPNS-00003",
+   "title": "ESA security policy: Implementation Of The ESA Network Security Policy",
+   "issue": "2.2",
+   "date": "28.09.04",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[ESP]",
+   "doc_id": "DOPS-COM-POL-34555-OPS-ECT",
+   "title": "ESA security policy: Implementation Of The ESA Network Security Policy for OPSNET",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[BSSC-Java]",
+   "doc_id": "BSSC 2005(2)",
+   "title": "Java Coding Standards",
+   "issue": "releaseA",
+   "date": "03.03.05",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[BSSC-XML]",
+   "doc_id": "BSSC 2004(3)",
+   "title": "Design &Style Guide for XML Data and Schema",
+   "issue": "10",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-06]",
+   "doc_id": "Proposal for EGOS Namespace Convention",
+   "title": "EGOS namespace conventions",
+   "issue": "1.1",
+   "date": "01.02.08",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-07]",
+   "doc_id": "EGOS-QA-XX-TN-9007",
+   "title": "Software Quality and Coding Rules",
+   "issue": "1.4",
+   "date": "01.12.06",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-08]",
+   "doc_id": "GDS-FC-QA-RD-0010",
+   "title": "Quality Requirements (In case of conflict between [AD-08], [AD-07] and [SETG], the latter has precedence.)",
+   "issue": "1.1",
+   "date": "30.03.07",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-08]",
+   "doc_id": "GDS-FC-QA-RD-0030",
+   "title": "Validation Requirements",
+   "issue": "1.0 Draft C",
+   "date": "03.07",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-09]",
+   "doc_id": "EGOS-STU-BIRF-TN-1002",
+   "title": "EGOS BI Reporting Framework MPR template",
+   "issue": "1.0",
+   "date": "19.03.08",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-10]",
+   "doc_id": "EGGS-ESOC-GS-SCD-1002",
+   "title": "ESOC Generic Ground Systems: System Configuration Baselines: Part 1- Procedures",
+   "issue": "1.0",
+   "date": "16.09.08",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-11]",
+   "doc_id": "EGGS-ESOC-GS-SCD-1002",
+   "title": "ESOC Generic Ground Systems: System Configuration Baselines: Part 3 - Baseline Definitions",
+   "issue": "1.0.1",
+   "date": "19.11.08",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-12]",
+   "doc_id": "EGOS-MDW-EDDS-ICD-1001",
+   "title": "EDDS External User Interface Control Document (EUICD)",
+   "issue": "1.0",
+   "date": "13.04.07",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-13]",
+   "doc_id": "EGOS-MCS-GDDS-ICD-1002",
+   "title": "Generic DDS – Interface Control Document RDM Image Transfer Control Files, GDDS-RDM ITCF ICD",
+   "issue": "1.1",
+   "date": "30.08.04",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-14]",
+   "doc_id": "EGGS-ESOC-GS-SRS-1001",
+   "title": "SOC Generic Ground Systems (EGGS): Development Requirements Specification",
+   "issue": "1.1.1",
+   "date": "31.10.08",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[AD-15]",
+   "doc_id": "GDS-FC-QA-RD-0010",
+   "title": "GDS frame contract: Quality requirements",
+   "issue": "1.0",
+   "date": "07.06.04",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "[RD-1]",
+   "doc_id": "EGOS-STU-BIRF-ICD-1001",
+   "title": "EGOS BI Reporting Framework ICD",
+   "issue": "2.0",
+   "date": "26.03.08",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-2]",
+   "doc_id": "EGOS-GEN-EDDS-SCRUM",
+   "title": "Usage of Scrum in EDDS",
+   "issue": "1.0",
+   "date": "21.10.10",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-3]",
+   "doc_id": "EGOS-GEN-EDDS-ICD-1001_EUICD",
+   "title": "EDDS External User Interface Control Document",
+   "issue": "13.0",
+   "date": "05.05.17",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-4]",
+   "doc_id": "EGOS-MDW-EDDS-TN-1002",
+   "title": "Analysis of Web Services and PARC Enhancements to support EDDS",
+   "issue": "1.0",
+   "date": "13.04.07",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-5]",
+   "doc_id": "EGOS-MDW-EDDS-TN-1001",
+   "title": "Analysis of TDRS, WEBRM, GDDS and MUST for suitability of reuse in implementing EDDS",
+   "issue": "1.0",
+   "date": "22.02.06",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-6]",
+   "doc_id": "EGOS-GEN-EDDS-TN-1001",
+   "title": "Development Open Issues",
+   "issue": "1.0",
+   "date": "13.04.07",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-7]",
+   "doc_id": "EGOS-GEN-GEN-SAD-1001",
+   "title": "EGOS High Level Architecture",
+   "issue": "1.0",
+   "date": "12.12.07",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-GEN-TN-nnnn",
+   "title": "EGOS Definitions and Recommendations",
+   "issue": "Draft C",
+   "date": "15.12.06",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-8]",
+   "doc_id": "EGOS-SDE-VM-SUM-1001-RMF",
+   "title": "DOORS User Manual",
+   "issue": "1.0",
+   "date": "04.02.08",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-9]",
+   "doc_id": "S2K-MCS-TN-9003-TOS-GIC",
+   "title": "SCOS-2000 Technical Note - C++ Naming and Coding Conventions",
+   "issue": "1.2",
+   "date": "04.08.05",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-10]",
+   "doc_id": "S2K-MCS-TN-9004-TOS-GIC",
+   "title": "SCOS-2000 Technical Note - Generic Coding Conventions",
+   "issue": "1.1",
+   "date": "22.10.03",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-11]",
+   "doc_id": "BSSC 2005(2)",
+   "title": "Java Coding Standards",
+   "issue": "releaseA",
+   "date": "03.03.05",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-12]",
+   "doc_id": "BSSC 2004(3)",
+   "title": "Design &Style Guide for XML Data and Schema",
+   "issue": "10",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-13]",
+   "doc_id": null,
+   "title": "METRO (https://metro.dev.java.net/)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-14]",
+   "doc_id": null,
+   "title": "ESA XFDU web page (http://www.gael.fr/xfdu/site/)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-15]",
+   "doc_id": null,
+   "title": "Producer-Archive Interface Specification",
+   "issue": "Draft White Book",
+   "date": "12.2005",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-16]",
+   "doc_id": "EGOS-MCS-GDDS-TN-nnnn-i0r0",
+   "title": "EGOS Data Dissemination System (EDDS) Concepts",
+   "issue": "0.0 Draft C",
+   "date": "26.09.05",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-17]",
+   "doc_id": "S2K-MCS-SRD-0004-TOS-GIC",
+   "title": "SCOS-2000 TM Data Retrieval Services SRD",
+   "issue": "3.1",
+   "date": "29.08.03",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-18]",
+   "doc_id": "EGOS-MCS-GDDS-SRD-5720",
+   "title": "Data Disposition System Software Requirements Document",
+   "issue": "1.4",
+   "date": "30.08.04",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-19]",
+   "doc_id": "ESA/TOS-GIC",
+   "title": "WEB-RM User & Software Requirements Baseline",
+   "issue": "1.4",
+   "date": "24.11.03",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-20]",
+   "doc_id": "No reference",
+   "title": "MUST Repository ICD",
+   "issue": "1.0",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-21]",
+   "doc_id": "No reference",
+   "title": "MUST Rosetta Performance TN",
+   "issue": "1.1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-22]",
+   "doc_id": "No reference",
+   "title": "MUST Server Software Requirements Specification",
+   "issue": "1.0",
+   "date": "04-07-06",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-23]",
+   "doc_id": "No reference",
+   "title": "MUST: Mission Utility & Support Tools, DASIA Paper 2005",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-24]",
+   "doc_id": null,
+   "title": "XML Formatted Data Unit (XFDU) Structure and Construction Rules",
+   "issue": "WHITE BOOK",
+   "date": "15.05.06",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-25]",
+   "doc_id": "EGOS-GEN-GEN-SAD-1001-i0r0",
+   "title": "EGOS High Level Architectural Design Document",
+   "issue": "0.0 Draft C",
+   "date": "15.05.05",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[RD-26]",
+   "doc_id": "S2K-MCS-ICD-0017-TOS-GIC",
+   "title": "TDRS External Interfaces Control Document",
+   "issue": "4.3",
+   "date": "31.03.04",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-27]",
+   "doc_id": "EGOS-MCS-GDDS-ICD-1003",
+   "title": "Generic Data Delivery Interface Document (GDDID)",
+   "issue": "1.2",
+   "date": "30.08.04",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-28]",
+   "doc_id": "910.4-B-1",
+   "title": "CCSDS Definition Cross Support Reference Model – Part 1, Space Link Extension Services",
+   "issue": "1.0",
+   "date": "05.1996",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-29]",
+   "doc_id": null,
+   "title": "ESACERT information including Security Plan template and guidelines (http://forum.esacert.esa.int/guidelines.html)",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-30]",
+   "doc_id": "DOPS-COM-POL-34555-OPS-ECT",
+   "title": "Implementation of the ESA Network Security Policy for OPSNET",
+   "issue": "2.3",
+   "date": "09.11.07",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-31]",
+   "doc_id": "EGOS-GEN-EDDS-SDD-1001",
+   "title": "EDDS SDD",
+   "issue": "13.0",
+   "date": "05.05.17",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-32]",
+   "doc_id": "EGOS-MDW-TN-1002",
+   "title": "Analysis of Web Services and PARC, Enhancements to support EDDS",
+   "issue": "1.0",
+   "date": "13.04.07",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-33]",
+   "doc_id": "EGOS-MDW-TN-1001",
+   "title": "Analysis of TDRS, WEBRM, GDDS and MUST for suitability of reuse in implementing EDDS",
+   "issue": "1.0",
+   "date": "22.02.06",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-34]",
+   "doc_id": "EGOS-MCS-S2K-ICD-1004",
+   "title": "MONITORING & CONTROL SCOS-2000 - SFM SERVICE ICD",
+   "issue": "6",
+   "date": "07.11.08",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-35]",
+   "doc_id": "EGOS-MCS-S2K-ICD-1005",
+   "title": "SYSTEM MANAGEMENT SCOS-2000 - SFM SERVICE ICD",
+   "issue": "5",
+   "date": "07.11.08",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-36]",
+   "doc_id": "CCSDS 661.0-B-1",
+   "title": "XML FORMATTED DATA UNIT (XFDU) STRUCTURE AND CONSTRUCTION RULES",
+   "issue": "Blue book",
+   "date": "09.2008",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-37]",
+   "doc_id": "EGOS-GEN-DARC-ICD-1001",
+   "title": "DARC ICD",
+   "issue": "2.0",
+   "date": "06.06.14",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-38]",
+   "doc_id": "EGOS-GEN-DARC-SDD-1001",
+   "title": "Software Design Document DARC",
+   "issue": "2.0",
+   "date": "06.06.14",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-39]",
+   "doc_id": null,
+   "title": "SCOS-2000 R5.0 Full documentation set",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-40]",
+   "doc_id": "EGOS-MCS-S2K-TN-1101",
+   "title": "SCOS-2000 R5.0 Build and Installation Re-Engineering Technical Note",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-41]",
+   "doc_id": "EGOS-GEN-EDDS-EUG-1001",
+   "title": "EDDS Upgrade Guide",
+   "issue": "10.0",
+   "date": "05.05.17",
+   "kind": "reference",
+   "pdf_page": 8
+  }
+ ],
+ "topics": [
+  "scos2000/edds.md",
+  "scos2000/tdrs.md",
+  "scos2000/gdds-and-ddids.md",
+  "scos2000/archives.md",
+  "scos2000/ancillary-and-egs-cc.md"
+ ],
+ "notes": "The abstract on the approval page (PDF p. 2) wrongly describes the document as the glossary for the 'GNSS Advanced Monitoring Element (GAME)', an apparent template copy-paste error. Dates in the reference tables are printed DD.MM.YY and are recorded as printed. The applicable-document table has an unlabelled group of eight EGOS template guidelines (TN-0010 to TN-0070) printed against the single label [E-DOT]; label [AD-08] is used twice (Quality Requirements and Validation Requirements); [ESP] covers two policies; one reference row (EGOS Definitions and Recommendations) has no label. The DCR (PDF p. 3) quotes the reference as EGOS-GEN-EDDS-GLO-0001-i7r0. Footer reads 'VERSION: 7.0.0 2017-04-10'. The file name GLO.pdf carries no version."
+}

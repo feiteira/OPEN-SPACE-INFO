@@ -1,0 +1,421 @@
+{
+  "table": "vpd",
+  "file": "vpd.dat",
+  "icd": true,
+  "name": "Variable packet definition",
+  "icd_section": "3.3.2.5.2",
+  "pdf_page": 99,
+  "family": "monitoring",
+  "purpose": "vpd defines variable telemetry packets: any packet whose content follows the PUS structure rules, including repeated groups whose repetition count is read from the packet, nested repetitions, and parameters whose identity or type is given by an on-board parameter ID. It is used by the SCOS-2000 Variable Packets Display (VPD) and the related processing together with pcf, and has no relation to plf or to the dpf/gpf/spf display tables. A structure is identified by a TPSD, linked to packets through PID_TPSD, and its records are ordered by VPD_POS; parameter extraction starts PID_DFHSIZE bytes after the start of the source packet. Each parameter begins where the previous one ended, shifted by VPD_OFFSET: positive offsets create gaps, negative ones overlaps. Padding bits before a value are handled through PCF_WIDTH. vpd can also describe fixed packets just to show them in the VPD, one parameter per line with VPD_NEWLINE. Besides extraction, each record carries display attributes: column header, width, justification, new line, what to show and number format. Only packets defined in vpd show their parameters in full mode of the Packet History display. The table must be sorted by VPD_TPSD and VPD_POS.",
+  "keys": [
+    "VPD_TPSD",
+    "VPD_POS"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "VPD_TPSD",
+      "type": "Number(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Telemetry Packet Structure Definition identifier; unsigned integer matching PID_TPSD of the packet(s) interpreted with this structure.",
+      "values": [],
+      "references": "pid.PID_TPSD",
+      "pdf_page": 100
+    },
+    {
+      "pos": 2,
+      "name": "VPD_POS",
+      "type": "Number(4)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Ordinal position of this parameter within the structure definition, used by database editors to deliver the records in the right order. Grey row in the ICD: the ordering is what matters to SCOS-2000, and the table is expected to be sorted by VPD_TPSD and VPD_POS.",
+      "values": [],
+      "references": null,
+      "pdf_page": 100
+    },
+    {
+      "pos": 3,
+      "name": "VPD_NAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the parameter appearing at this position of the variable packet; must match PCF_NAME of the monitoring parameter to be processed and displayed.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 100
+    },
+    {
+      "pos": 4,
+      "name": "VPD_GRPSIZE",
+      "type": "Number(3)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Set only for parameters that are repeat counters (the PUS 'N') or for 'dummy' fixed-repetition parameters (see VPD_FIXREP). It gives the number of parameters in the group to be repeated: the group is formed by the next VPD_GRPSIZE records of the table. The VPD application supports nested structures, i.e. a repeat counter may itself be part of a repeated group.",
+      "values": [],
+      "references": null,
+      "pdf_page": 101
+    },
+    {
+      "pos": 5,
+      "name": "VPD_FIXREP",
+      "type": "Number(3)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Fixed repetition count for arrays of fixed size. A positive value is set on a counter parameter and gives the fixed number of repetitions of the group of VPD_GRPSIZE parameters that follows. Such parameters must be defined in pcf but are not present in the packet: they only declare the fixed array size.",
+      "values": [
+        {
+          "value": "0",
+          "meaning": "No repeat"
+        },
+        {
+          "value": ">0",
+          "meaning": "Fixed number of repetitions of the following VPD_GRPSIZE parameters (the parameter itself is not read from the packet)"
+        },
+        {
+          "value": "-1",
+          "meaning": "Future extension (italic in the ICD): repeat groups of VPD_GRPSIZE until the end of the packet; probably excludes further nesting"
+        }
+      ],
+      "references": null,
+      "pdf_page": 101
+    },
+    {
+      "pos": 6,
+      "name": "VPD_CHOICE",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "N",
+      "description": "Whether the value of this parameter selects the structure of the rest of the packet: if 'Y', the value read is used as a TPSD key to interpret the following entries, and the choice parameter must be the last one of its TPSD group. The row is in italics: per section 3.3.2.5.2 (p. 106), choice structures are not currently supported by the VPD application.",
+      "values": [
+        {
+          "value": "Y",
+          "meaning": "The value is used as the TPSD key for the following part of the packet"
+        },
+        {
+          "value": "N",
+          "meaning": "Not a choice field"
+        }
+      ],
+      "references": null,
+      "pdf_page": 102
+    },
+    {
+      "pos": 7,
+      "name": "VPD_PIDREF",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "N",
+      "description": "Whether the value of this field is an on-board parameter identifier (the PUS 'Parameter#'). If 'Y', the value is compared with PCF_PID values to find the SCOS-2000 name of the parameter, e.g. for the parameter-number column of a monitoring report.",
+      "values": [
+        {
+          "value": "Y",
+          "meaning": "The value is a parameter ID (looked up in pcf.PCF_PID)"
+        },
+        {
+          "value": "N",
+          "meaning": "The value is not a parameter ID"
+        }
+      ],
+      "references": null,
+      "pdf_page": 102
+    },
+    {
+      "pos": 8,
+      "name": "VPD_DISDESC",
+      "type": "Char(16)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Textual description of the parameter value, used in the displays to build the header line (column title).",
+      "values": [],
+      "references": null,
+      "pdf_page": 102
+    },
+    {
+      "pos": 9,
+      "name": "VPD_WIDTH",
+      "type": "Number(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Display width control: 0 hides the value; any number greater than 0 displays it with its full length.",
+      "values": [
+        {
+          "value": "0",
+          "meaning": "Value not displayed"
+        },
+        {
+          "value": ">0",
+          "meaning": "Value displayed with its full length"
+        }
+      ],
+      "references": null,
+      "pdf_page": 102
+    },
+    {
+      "pos": 10,
+      "name": "VPD_JUSTIFY",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "L",
+      "description": "Justification of the value field in the display.",
+      "values": [
+        {
+          "value": "L",
+          "meaning": "Left justified"
+        },
+        {
+          "value": "R",
+          "meaning": "Right justified"
+        },
+        {
+          "value": "C",
+          "meaning": "Centred"
+        }
+      ],
+      "references": null,
+      "pdf_page": 103
+    },
+    {
+      "pos": 11,
+      "name": "VPD_NEWLINE",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "N",
+      "description": "Whether the parameter is displayed or printed on a new line. 'Y' is allowed only for parameters that are not part of structures with repeated groups, since each repetition is automatically aligned on its own row. When set to 'Y', all parameters of the packet are displayed on separate lines.",
+      "values": [
+        {
+          "value": "Y",
+          "meaning": "Display/print on a new line"
+        },
+        {
+          "value": "N",
+          "meaning": "Display/print on the same line"
+        }
+      ],
+      "references": null,
+      "pdf_page": 103
+    },
+    {
+      "pos": 12,
+      "name": "VPD_DCHAR",
+      "type": "Number(1)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "What is displayed for the parameter. Relevant only for packets with a fixed number of parameters (no group repeater). In variable packets the value 2 may only be used for parameters with VPD_PIDREF = 'Y' to show the PCF_NAME and PCF_DESCR of the identified parameter; other parameters show only the value, their description being in the column header.",
+      "values": [
+        {
+          "value": "0",
+          "meaning": "Value only"
+        },
+        {
+          "value": "1",
+          "meaning": "VPD_NAME and value"
+        },
+        {
+          "value": "2",
+          "meaning": "VPD_NAME, PCF_DESCR and value"
+        }
+      ],
+      "references": null,
+      "pdf_page": 104
+    },
+    {
+      "pos": 13,
+      "name": "VPD_FORM",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "N",
+      "description": "Display format of the parameter value.",
+      "values": [
+        {
+          "value": "B",
+          "meaning": "Binary (raw values of unsigned integer parameters only)"
+        },
+        {
+          "value": "O",
+          "meaning": "Octal (raw values of unsigned integer parameters only)"
+        },
+        {
+          "value": "D",
+          "meaning": "Decimal"
+        },
+        {
+          "value": "H",
+          "meaning": "Hexadecimal (raw values of unsigned integer parameters only)"
+        },
+        {
+          "value": "N",
+          "meaning": "Normal: engineering value for parameters with a single calibration (PCF_CURTX not null), raw decimal value otherwise"
+        }
+      ],
+      "references": null,
+      "pdf_page": 104
+    },
+    {
+      "pos": 14,
+      "name": "VPD_OFFSET",
+      "type": "Number(6)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Number of bits between the end of the previous parameter and the start of this one. A positive value leaves a gap, a negative value makes this parameter overlap bits of the previous one(s). Integer from -32768 to 32767.",
+      "values": [],
+      "references": null,
+      "pdf_page": 105
+    }
+  ],
+  "relationships": [
+    {
+      "field": "VPD_TPSD",
+      "target": "pid.PID_TPSD",
+      "note": "Structure used for packets whose PID_TPSD is not -1."
+    },
+    {
+      "field": "VPD_NAME",
+      "target": "pcf.PCF_NAME",
+      "note": "Parameter extracted/displayed; PCF_WIDTH (padding) and PCF_PTC (e.g. deduced 11) affect extraction."
+    },
+    {
+      "field": "VPD_PIDREF",
+      "target": "pcf.PCF_PID",
+      "note": "Values of parameter-ID fields are resolved to parameter names."
+    },
+    {
+      "field": "VPD_CHOICE",
+      "target": "vpd.VPD_TPSD",
+      "note": "A choice value selects another TPSD for the rest of the packet (not currently supported)."
+    }
+  ],
+  "history": "ICD 5.1 (p. 45-48) already has the 14 fields in the same order; VPD_POS is not marked mandatory there. The ICD 7.0 Annex 1 list of changes for all evolution releases records that the VPD application supports nested repetitions (item 4, p. 244). ICD 6.2/6.3 updated the VPD_FORM description (p. 253). ICD 6.7 Draft A (p. 93-98) and 6.9 (p. 97-102) define VPD_FIXREP with values 0 and positive counts only (icd-6-9 p. 99); ICD 7.0 adds '-1' as a future extension (S2K-7750, p. 262). pyscos2000 (ICD 7.2) matches: key VPD_TPSD + VPD_POS, VPD_NAME and VPD_WIDTH mandatory, defaults GRPSIZE '0', FIXREP '0', CHOICE 'N', PIDREF 'N', JUSTIFY 'L', NEWLINE 'N', DCHAR '0', FORM 'N', OFFSET '0'.",
+  "solo_stats": {
+    "rows": 19863,
+    "fields": [
+      {
+        "name": "VPD_TPSD",
+        "filled": 19863,
+        "examples": [
+          "55083",
+          "80020",
+          "55278",
+          "54137",
+          "54117"
+        ]
+      },
+      {
+        "name": "VPD_POS",
+        "filled": 19863,
+        "examples": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      {
+        "name": "VPD_NAME",
+        "filled": 19863,
+        "examples": [
+          "NCD0C095",
+          "NCD05011",
+          "NCD0C094",
+          "NCD0C0B4",
+          "NCD0C0B7"
+        ]
+      },
+      {
+        "name": "VPD_GRPSIZE",
+        "filled": 19863,
+        "examples": [
+          "0",
+          "1",
+          "3",
+          "2",
+          "8"
+        ]
+      },
+      {
+        "name": "VPD_FIXREP",
+        "filled": 19863,
+        "examples": [
+          "0"
+        ]
+      },
+      {
+        "name": "VPD_CHOICE",
+        "filled": 19863,
+        "examples": [
+          "N"
+        ]
+      },
+      {
+        "name": "VPD_PIDREF",
+        "filled": 19527,
+        "examples": [
+          "N",
+          "Y"
+        ]
+      },
+      {
+        "name": "VPD_DISDESC",
+        "filled": 19863,
+        "examples": [
+          "OBCHP_Monitored ",
+          "OBCHP_PTM_EID",
+          "OBCHP_S12_Bit Ma",
+          "OBCHP_S12_Mon_ID",
+          "OBCHP_S12_Curr S"
+        ]
+      },
+      {
+        "name": "VPD_WIDTH",
+        "filled": 19863,
+        "examples": [
+          "1",
+          "0"
+        ]
+      },
+      {
+        "name": "VPD_JUSTIFY",
+        "filled": 6202,
+        "examples": [
+          "L",
+          "R"
+        ]
+      },
+      {
+        "name": "VPD_NEWLINE",
+        "filled": 6697,
+        "examples": [
+          "N"
+        ]
+      },
+      {
+        "name": "VPD_DCHAR",
+        "filled": 19863,
+        "examples": [
+          "0"
+        ]
+      },
+      {
+        "name": "VPD_FORM",
+        "filled": 6205,
+        "examples": [
+          "N",
+          "H"
+        ]
+      },
+      {
+        "name": "VPD_OFFSET",
+        "filled": 19863,
+        "examples": [
+          "0",
+          "-8",
+          "-2",
+          "-6",
+          "-7"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. ICD typo: VPD_FIXREP's '-1' option refers to 'VPD_GRPSIZ'. Solar Orbiter 2025-09-16: 19,863 records describing 2,063 structures (one per TPSD-bearing packet), up to 610 positions in one structure. VPD_FIXREP is always 0 and VPD_CHOICE always 'N', consistent with choice structures being unsupported. VPD_DCHAR is always 0. 711 records are repeat counters (VPD_GRPSIZE > 0, up to 130 for NSM00231 'STO Cat RN' in TPSD 80020). 1,449 records are parameter-ID fields (VPD_PIDREF = 'Y', e.g. NCD0C095 'OBCHP_Monitored Par ID'), and 2,886 records place deduced (PTC 11) parameters. VPD_WIDTH is 1 or 0 (1,983 hidden values). VPD_FORM is 'N', 'H' (613) or empty, VPD_JUSTIFY 'L', 'R' (71) or empty, and VPD_NEWLINE 'N' or empty. 389 records use a negative VPD_OFFSET to overlap the previous field, e.g. -32 for NCDD01S1 'CCSDS Sec Header'. VPD_DISDESC values are cut to the 16-character limit, sometimes keeping a trailing blank (e.g. 'OBCHP_Monitored ')."
+}

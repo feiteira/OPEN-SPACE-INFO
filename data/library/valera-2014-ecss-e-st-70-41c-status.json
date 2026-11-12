@@ -1,0 +1,62 @@
+{
+  "slug": "valera-2014-ecss-e-st-70-41c-status",
+  "title": "Telemetry and Telecommand Packet Utilization\nThe ECSS-E-ST-70-41C\nFeb 2014 ECSS WG Draft",
+  "short_title": "ECSS-E-ST-70-41C status (SAVOIR Mass Memory Day 2014)",
+  "doc_id": null,
+  "issue": null,
+  "date": "2014-02-13",
+  "organisation": "ESA, with Spacebel and TAS (presented at the SAVOIR On-board Mass Memory Day)",
+  "authors": ["Serge Valera", "Arnaud Bourdoux", "Sante Candia"],
+  "doc_type": "Presentation",
+  "status_notes": "A snapshot of the PUS-C (ECSS-E-ST-70-41C) working-group draft of February 2014, before publication. Slides 12-14 mark the large-data and large-packet transfer services as 'TBC'. The final standard was published on 15 April 2016 (see the library item ecss-e-st-70-41c-15april2016).",
+  "summary": "A 25-slide status presentation on the **PUS-C** revision of the ECSS Packet Utilization Standard (ECSS-E-ST-70-41C), given by ESA's working-group convenor Serge Valera, with co-authors from Spacebel and Thales Alenia Space, at the SAVOIR On-board Mass Memory Day on 13 February 2014. It explains why PUS-A was upgraded: 190 change requests, removing PUS-A deficiencies, meeting future mission needs, consistency with newer ECSS and CCSDS standards, ECSS drafting rules with named requirements, and backward compatibility where possible. It lists the working-group members from ESA, Astrium, CNES, DLR, EUMETSAT, Spacebel and TAS.\n\nThe slides present the **new document structure** of about 630 pages: the PUS foundation model, the service type system specification and the service type interface specification, plus Annexes A-D. They explain the foundation model's generic type and generic deployment abstraction levels, and how the standard service type model, the mission-specific service type model and the space-system service model relate. A table lists the standard service types (ST 1-23), with ST 20-23 new and ST 13 and ST 24 'TBC'.\n\nThe mass-memory-related topics are:\n\n* the open options for transferring **large data and large packets** (keep PUS-A service 13, add a new service 24, or leave segmentation to the lower layers);\n* the three subservices of the reworked **ST[06] memory management** (raw, structured and common);\n* the new **ST[23] file management** service and its file-handling and file-copy subservices, which is independent of any file delivery protocol such as CFDP, and how ST18, ST21, ST6 and ST20 interact with files.\n\nBackup slides illustrate request/instruction and report/notification slots, using a [11,4] schedule insertion as the example.",
+  "contents": [
+    {"section": "Slide 1", "title": "Telemetry and Telecommand Packet Utilization - The ECSS-E-ST-70-41C (title)", "pdf_page": 1},
+    {"section": "Slide 2", "title": "ECSS-E-ST-70-41C WG – Main Purpose", "pdf_page": 2},
+    {"section": "Slide 3", "title": "ECSS-E-ST-70-41C WG Members", "pdf_page": 3},
+    {"section": "Slide 4", "title": "PUS C – A new document structure", "pdf_page": 4},
+    {"section": "Slides 5-9", "title": "The PUS Foundation Model", "pdf_page": 5},
+    {"section": "Slide 10", "title": "The Service Type System Requirements", "pdf_page": 10},
+    {"section": "Slide 11", "title": "The Service Type Interface Requirements", "pdf_page": 11},
+    {"section": "Slide 12", "title": "The Standard Service Type Model", "pdf_page": 12},
+    {"section": "Slides 13-15", "title": "Transfer of large data, \"large\" packets", "pdf_page": 13},
+    {"section": "Slides 16-17", "title": "Service Type 6 Memory Management", "pdf_page": 16},
+    {"section": "Slides 18-21", "title": "Service Type 23 File Management", "pdf_page": 18},
+    {"section": "Slide 22", "title": "Any questions?", "pdf_page": 22},
+    {"section": "Slide 23", "title": "A time-based scheduling service interacting with other services", "pdf_page": 23},
+    {"section": "Slide 24", "title": "A specification view of a request", "pdf_page": 24},
+    {"section": "Slide 25", "title": "A specification view of a report", "pdf_page": 25}
+  ],
+  "key_points": [
+    {"text": "The PUS-A to PUS-C upgrade processed 190 change requests, aiming to remove PUS-A deficiencies, meet future mission needs, align with new ECSS/CCSDS standards, apply ECSS drafting rules (named requirements) and keep backward compatibility when possible.", "pdf_page": 2},
+    {"text": "The working group included ESA (S. Valera convenor, M. de Lande Long book captain), Astrium, CNES, DLR, EUMETSAT, Spacebel and TAS.", "pdf_page": 3},
+    {"text": "The PUS-C draft is about 630 pages: foundation model about 30 pages, service type system specification about 320 pages, service type interface specification about 180 pages; Annexes cover CPDU (normative), IEEE/MILBUS real formats, CRC and ISO checksum, and a summary of requests and reports.", "pdf_page": 4},
+    {"text": "The foundation model has a generic type abstraction level (service, subservice and message types; request, instruction, report and notification types; transactions) and a generic deployment abstraction level (the space-system service model obtained by instantiation).", "pdf_page": 8},
+    {"text": "The service type interface requirements specify how requests travel in CCSDS SPP and PUS telecommand packets, and how reports travel in CCSDS SPP and PUS telemetry packets.", "pdf_page": 11},
+    {"text": "Standard service types in the Feb 2014 draft: ST 1-6, 8, 9, 11, 12, 14, 15, 17, 18, 19, plus new ST 20 parameter management, 21 request sequencing, 22 position-based scheduling and 23 file management; ST 13 large data transfer and ST 24 large packet transfer were TBC.", "pdf_page": 12},
+    {"text": "Large transfers raise two issues: packets up to 65 KB (CCSDS packets) and memory areas larger than 65 KB. One option is to keep PUS at the application layer, require support for any CCSDS packet up to 65 KB, and leave segmentation to ECSS-E-50/CCSDS data-link mechanisms.", "pdf_page": 15},
+    {"text": "ST[06] is split into raw data memory, structured data memory (memory objects such as files and tables) and common memory management subservices, supporting 'flat' and 'structured' file systems.", "pdf_page": 17},
+    {"text": "ST[23] has file handling and file copy subservices, and the standard does not impose a file delivery protocol such as CFDP.", "pdf_page": 19},
+    {"text": "ST18 can load an OBCP by reference and ST21 a request sequence by reference; ST6 base-plus-offset addressing is extended to files; ST20 allows dynamic creation of parameters.", "pdf_page": 21},
+    {"text": "Example: an on/off device command instruction is inserted into a time-based schedule by a request carried in a [11,4] TC packet.", "pdf_page": 23}
+  ],
+  "references": [
+    {"label": null, "doc_id": "ECSS-E-ST-70-41C", "title": "Telemetry and Telecommand Packet Utilization (Feb 2014 ECSS WG Draft)", "issue": "Feb 2014 ECSS WG Draft", "date": null, "kind": "mentioned", "pdf_page": 1},
+    {"label": null, "doc_id": null, "title": "PUS-A (ECSS-E-70-41A)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 2},
+    {"label": null, "doc_id": null, "title": "CCSDS Space Packet (SPP)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 4},
+    {"label": null, "doc_id": "ECSS-E-50", "title": "ECSS-E-50 (lower-level transfer and reconstruction of source packets)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 15},
+    {"label": null, "doc_id": null, "title": "CCSDS Space Data Link protocol standards", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 15},
+    {"label": null, "doc_id": null, "title": "CFDP (CCSDS File Delivery Protocol)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 19}
+  ],
+  "topics": [
+    "ecss/pus/index.md",
+    "ecss/pus/pus-a-vs-pus-c.md",
+    "ecss/pus/st06-memory-management.md",
+    "ecss/pus/st23-file-management.md",
+    "ecss/pus/st13-large-packet-transfer.md",
+    "ecss/pus/st11-time-based-scheduling.md",
+    "ecss/pus/message-types.md",
+    "ecss/index.md"
+  ],
+  "notes": "The slides carry no document number or issue. The source file name and URL say 'Issue 1' (registry source_url), but the slides do not print it. Slides 13, 16 and 18 repeat the service-type table of slide 12, labelled 'new services' rather than 'new service types'. Diagram slides (5-9 and 23-25) extract as interleaved text. PDF page 26 is blank, so srcgrep shows 26 pages while the registry gives 25. Every slide carries an 'ESA UNCLASSIFIED – For Official Use' marking. The source is the ESA Indico page of the SAVOIR Mass Memory Day 2014 (Session 2). The ADCSS 2015 talk by the same author (valera-2015-adcss-ecss-e-st-70-41c-status) is a later status of the same work."
+}

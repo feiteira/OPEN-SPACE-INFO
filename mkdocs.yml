@@ -1,0 +1,313 @@
+site_name: OPEN-SPACE-INFO
+site_description: An open, cited, interlinked wiki of spacecraft telemetry & telecommand - CCSDS, ECSS PUS, SLE, SCOS-2000 and the MIB - built from publicly available documents.
+site_url: https://feiteira.github.io/OPEN-SPACE-INFO/
+repo_url: https://github.com/feiteira/OPEN-SPACE-INFO
+repo_name: feiteira/OPEN-SPACE-INFO
+edit_uri: edit/main/docs/
+copyright: Wiki text and code © 2026 OPEN-SPACE-INFO contributors, MIT License. Third-party documents and data remain the property of their owners — see <a href="/OPEN-SPACE-INFO/about/sources-and-copies/">Sources &amp; copies</a>.
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: en
+  logo: assets/images/logo.svg
+  favicon: assets/images/logo.svg
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to system preference
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tooltips
+    - content.footnote.tooltips
+    - content.tabs.link
+    - content.action.edit
+    - announce.dismiss
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - tags
+
+extra_css:
+  - assets/stylesheets/extra.css
+extra_javascript:
+  - assets/javascripts/bitfield.js
+  - assets/javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - docs/includes/abbreviations.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/feiteira/OPEN-SPACE-INFO
+
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+  links:
+    not_found: warn
+    anchors: info
+    unrecognized_links: info
+
+exclude_docs: |
+  includes/
+
+# NAV-BEGIN
+nav:
+  - "Home": index.md
+  - "Start here":
+    - "How it all fits together": overview/index.md
+    - "The standards landscape": overview/standards-map.md
+    - "Downlink walkthrough": overview/downlink.md
+    - "Uplink walkthrough": overview/uplink.md
+    - "Worked example: TM packet": overview/worked-example-tm.md
+    - "Worked example: telecommand": overview/worked-example-tc.md
+  - "CCSDS":
+    - ccsds/index.md
+    - "Packets":
+      - "Space Packet Protocol": ccsds/space-packet.md
+      - "Encapsulation Packet Protocol": ccsds/encapsulation.md
+    - "Data link protocols":
+      - "TM Space Data Link Protocol": ccsds/tm-sdlp.md
+      - "TC Space Data Link Protocol": ccsds/tc-sdlp.md
+      - "COP-1: FOP-1, FARM-1 and the CLCW": ccsds/cop-1.md
+      - "AOS Space Data Link Protocol": ccsds/aos.md
+      - "Unified Space Data Link Protocol": ccsds/uslp.md
+      - "Space Data Link Security": ccsds/sdls.md
+    - "Synchronization & coding":
+      - "TM synchronization and channel coding": ccsds/tm-coding.md
+      - "TC synchronization and channel coding: the CLTU": ccsds/tc-coding-cltu.md
+    - "Time, files & data definition":
+      - "Time code formats": ccsds/time-codes.md
+      - "CCSDS File Delivery Protocol": ccsds/cfdp.md
+      - "XTCE: XML Telemetric and Command Exchange": ccsds/xtce.md
+    - "Space Link Extension":
+      - ccsds/sle/index.md
+      - "SLE return services: RAF, RCF and ROCF": ccsds/sle/return-services.md
+      - "SLE forward service: FCLTU": ccsds/sle/fcltu.md
+      - "SLE over TCP/IP (ISP1) and the SLE API": ccsds/sle/isp1-and-api.md
+  - "ECSS & PUS":
+    - ecss/index.md
+    - "Packet Utilization Standard":
+      - ecss/pus/index.md
+      - "PUS packet structures: TC and TM headers": ecss/pus/packets.md
+      - "PUS parameter types (PTC/PFC)": ecss/pus/parameter-types.md
+      - "PUS-A vs PUS-C (and the 2024 Rev.1 draft)": ecss/pus/pus-a-vs-pus-c.md
+      - "PUS message type catalogue": ecss/pus/message-types.md
+      - "PUS services":
+        - "ST[01] Request verification": ecss/pus/st01-request-verification.md
+        - "ST[02] Device access": ecss/pus/st02-device-access.md
+        - "ST[03] Housekeeping": ecss/pus/st03-housekeeping.md
+        - "ST[04] Parameter statistics reporting": ecss/pus/st04-parameter-statistics.md
+        - "ST[05] Event reporting": ecss/pus/st05-event-reporting.md
+        - "ST[06] Memory management": ecss/pus/st06-memory-management.md
+        - "ST[08] Function management": ecss/pus/st08-function-management.md
+        - "ST[09] Time management": ecss/pus/st09-time-management.md
+        - "ST[11] Time-based scheduling": ecss/pus/st11-time-based-scheduling.md
+        - "ST[12] On-board monitoring": ecss/pus/st12-onboard-monitoring.md
+        - "ST[13] Large packet transfer": ecss/pus/st13-large-packet-transfer.md
+        - "ST[14] Real-time forwarding control": ecss/pus/st14-real-time-forwarding-control.md
+        - "ST[15] On-board storage and retrieval": ecss/pus/st15-onboard-storage-retrieval.md
+        - "ST[17] Test": ecss/pus/st17-test.md
+        - "ST[18] On-board operations procedure": ecss/pus/st18-onboard-operations-procedure.md
+        - "ST[19] Event-action": ecss/pus/st19-event-action.md
+        - "ST[20] On-board parameter management": ecss/pus/st20-onboard-parameter-management.md
+        - "ST[21] Request sequencing": ecss/pus/st21-request-sequencing.md
+        - "ST[22] Position-based scheduling": ecss/pus/st22-position-based-scheduling.md
+        - "ST[23] File management": ecss/pus/st23-file-management.md
+    - "Other ECSS standards":
+      - "ECSS-E-ST-50C communications and the CCSDS adoption notices": ecss/e-st-50-communications.md
+      - "ECSS-E-ST-70-31C: monitoring and control data definition": ecss/e-st-70-31c.md
+      - "ECSS-E-ST-70-11C: space segment operability": ecss/e-st-70-11c.md
+  - "SCOS-2000":
+    - scos2000/index.md
+    - "SCOS-2000 architecture": scos2000/architecture.md
+    - "SCOS-2000 as EGSE and central checkout": scos2000/egse.md
+    - "Time correlation in SCOS-2000": scos2000/time-correlation.md
+    - "Data dissemination & archives":
+      - "EDDS: EGOS Data Dissemination System": scos2000/edds.md
+      - "EDDS request and data formats": scos2000/edds-formats.md
+      - "TDRS: Telemetry Data Retrieval Service": scos2000/tdrs.md
+      - "GDDS and mission data delivery interface documents": scos2000/gdds-and-ddids.md
+      - "Mission archives: PARC, DARC and FARC": scos2000/archives.md
+    - "Ground stations":
+      - "NCTRS, NIS and the ground station interface": scos2000/nctrs-nis.md
+    - "Evolution & case studies":
+      - "Ancillary systems, MICONYS and the move to EGS-CC": scos2000/ancillary-and-egs-cc.md
+      - "Herschel/Planck: SCOS-2000 in a science mission ground segment": scos2000/herschel-planck-ground.md
+  - "The MIB":
+    - mib/index.md
+    - "MIB data model: how the tables relate": mib/data-model.md
+    - "MIB parameter types: PTC/PFC in SCOS-2000": mib/parameter-types.md
+    - "Monitoring":
+      - "Monitoring in the MIB: parameters and packets": mib/monitoring.md
+      - "Calibration in the MIB": mib/calibration.md
+      - "Monitoring checks: limits and out-of-limits": mib/monitoring-checks.md
+      - "Synthetic parameters and the OL language": mib/synthetic-parameters.md
+    - "Commanding":
+      - "Commanding in the MIB: commands and their parameters": mib/commanding.md
+      - "Command verification in the MIB": mib/command-verification.md
+      - "Command sequences and parameter sets": mib/sequences.md
+    - "Display definitions in the MIB": mib/displays.md
+    - "Mission tailoring of the MIB": mib/tailoring.md
+    - "History of the Database Import ICD (issues 5.1 to 7.2)": mib/icd-history.md
+    - "MIB tooling and open-source libraries": mib/tooling.md
+    - "Table reference":
+      - mib/tables/index.md
+      - "asw_sw_para.dat": mib/tables/asw_sw_para.md
+      - "caf.dat": mib/tables/caf.md
+      - "cap.dat": mib/tables/cap.md
+      - "cca.dat": mib/tables/cca.md
+      - "ccf.dat": mib/tables/ccf.md
+      - "ccs.dat": mib/tables/ccs.md
+      - "cdf.dat": mib/tables/cdf.md
+      - "cpc.dat": mib/tables/cpc.md
+      - "cps.dat": mib/tables/cps.md
+      - "csf.dat": mib/tables/csf.md
+      - "csp.dat": mib/tables/csp.md
+      - "css.dat": mib/tables/css.md
+      - "cur.dat": mib/tables/cur.md
+      - "cve.dat": mib/tables/cve.md
+      - "cvp.dat": mib/tables/cvp.md
+      - "cvs.dat": mib/tables/cvs.md
+      - "dpc.dat": mib/tables/dpc.md
+      - "dpf.dat": mib/tables/dpf.md
+      - "dst.dat": mib/tables/dst.md
+      - "dup.dat": mib/tables/dup.md
+      - "gpc.dat": mib/tables/gpc.md
+      - "gpf.dat": mib/tables/gpf.md
+      - "grp.dat": mib/tables/grp.md
+      - "grpa.dat": mib/tables/grpa.md
+      - "grpk.dat": mib/tables/grpk.md
+      - "lgf.dat": mib/tables/lgf.md
+      - "mcf.dat": mib/tables/mcf.md
+      - "ocf.dat": mib/tables/ocf.md
+      - "ocp.dat": mib/tables/ocp.md
+      - "paf.dat": mib/tables/paf.md
+      - "pas.dat": mib/tables/pas.md
+      - "pcdf.dat": mib/tables/pcdf.md
+      - "pcf.dat": mib/tables/pcf.md
+      - "pcf_glob_det.dat": mib/tables/pcf_glob_det.md
+      - "pcpc.dat": mib/tables/pcpc.md
+      - "pic.dat": mib/tables/pic.md
+      - "pid.dat": mib/tables/pid.md
+      - "plf.dat": mib/tables/plf.md
+      - "ppc.dat": mib/tables/ppc.md
+      - "ppf.dat": mib/tables/ppf.md
+      - "prf.dat": mib/tables/prf.md
+      - "prv.dat": mib/tables/prv.md
+      - "psm.dat": mib/tables/psm.md
+      - "pst.dat": mib/tables/pst.md
+      - "psv.dat": mib/tables/psv.md
+      - "ptv.dat": mib/tables/ptv.md
+      - "pvs.dat": mib/tables/pvs.md
+      - "s13a.dat": mib/tables/s13a.md
+      - "s13p.dat": mib/tables/s13p.md
+      - "s13t.dat": mib/tables/s13t.md
+      - "sdf.dat": mib/tables/sdf.md
+      - "spc.dat": mib/tables/spc.md
+      - "spf.dat": mib/tables/spf.md
+      - "ssy.dat": mib/tables/ssy.md
+      - "sw_para.dat": mib/tables/sw_para.md
+      - "tcp.dat": mib/tables/tcp.md
+      - "tpcf.dat": mib/tables/tpcf.md
+      - "txf.dat": mib/tables/txf.md
+      - "txp.dat": mib/tables/txp.md
+      - "vdf.dat": mib/tables/vdf.md
+      - "vpd.dat": mib/tables/vpd.md
+  - "Missions":
+    - missions/index.md
+    - "Solar Orbiter":
+      - missions/solar-orbiter/index.md
+      - "The Solar Orbiter MIB": missions/solar-orbiter/mib.md
+      - "How Solar Orbiter uses PUS": missions/solar-orbiter/pus-usage.md
+      - "Solar Orbiter SWA instrument database": missions/solar-orbiter/swa.md
+    - "Herschel and Planck": missions/herschel-planck.md
+    - "Rosetta, Mars Express and Venus Express": missions/rosetta-mex-vex.md
+    - "Other missions and SCOS-2000 users": missions/other-missions.md
+  - "MIB Explorer": explorer/index.md
+  - "Library":
+    - library/index.md
+    - "Reference catalogue": references/index.md
+    - "Glossary": glossary.md
+    - "Sources & copies": about/sources-and-copies.md
+    - "Third-party notice": third-party/NOTICE.md
+  - "About":
+    - about/index.md
+    - "Methodology": about/methodology.md
+# NAV-END

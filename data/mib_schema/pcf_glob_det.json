@@ -1,0 +1,219 @@
+{
+ "table": "pcf_glob_det",
+ "file": "pcf_glob_det.dat",
+ "icd": false,
+ "name": "Global-to-detailed parameter decomposition (inferred title)",
+ "icd_section": null,
+ "pdf_page": null,
+ "family": "mission-specific",
+ "purpose": "Inferred from the data; not documented in any available ICD. Each record states that a 'detailed' monitoring parameter (column 2) is a bit field inside a 'global' monitoring parameter (column 1), starting column 3 bits after the start of the global parameter. Typical global parameters are whole words or octet strings that the spacecraft reports as one item (for example NAH0Z000 'APMHA_TM_1 [000]', an 8-bit unsigned integer with an on-board parameter ID); the detailed parameters are the flags and small enumerations inside them (NAHD0000 'APMHA_Mode', 3 bits at offset 0; NAHD0001, 1 bit at offset 3; and so on). The relation is consistent with the packet layouts: in all 215,859 cases (2025 release) where both parameters appear in the same packet, PLF bit position of the detailed parameter equals that of the global parameter plus column 3. SCOS-2000 extracts each parameter independently from PLF, so this table is probably used by mission tools, for example to generate PLF entries, to decode on-board parameter reports that carry only the global parameter, or to relate data-pool items to their fields. That use is an inference.",
+ "keys": [
+  "COL2"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "COL1",
+   "type": "Char(8) observed",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: name of the global (container) parameter. Always a pcf.PCF_NAME. 8,704 distinct globals in 2025; they are unsigned integers (3/4, 3/12, 3/13, 3/14) or fixed octet strings (PTC 7, up to 6,448 octets), and 14,016 rows refer to globals that have an on-board parameter ID (PCF_PID).",
+   "values": [],
+   "references": "pcf.PCF_NAME",
+   "pdf_page": null,
+   "inferred_name": "global parameter"
+  },
+  {
+   "pos": 2,
+   "name": "COL2",
+   "type": "Char(8) observed",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: name of the detailed parameter contained in the global one. Always a pcf.PCF_NAME and unique in the table (each detailed parameter belongs to exactly one global parameter). Mostly booleans, enumerations, unsigned integers and reals (e.g. 1/0, 2/n, 3/4, 3/12, 5/1).",
+   "values": [],
+   "references": "pcf.PCF_NAME",
+   "pdf_page": null,
+   "inferred_name": "detailed parameter"
+  },
+  {
+   "pos": 3,
+   "name": "COL3",
+   "type": "Number (0 to 50752 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: bit offset of the detailed parameter from the first (most significant) bit of the global parameter. Verified against PLF: detailed position = global position + offset in every co-located case (215,859 of 215,859 in 2025; 194,375 of 194,375 in 2020). No bit-field detail extends beyond the width of its integer or octet-string global.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "bit offset"
+  }
+ ],
+ "relationships": [
+  {
+   "field": "COL1",
+   "target": "pcf.PCF_NAME",
+   "note": "All rows match (inferred)."
+  },
+  {
+   "field": "COL2",
+   "target": "pcf.PCF_NAME",
+   "note": "All rows match; COL2 is unique (inferred)."
+  },
+  {
+   "field": "COL3",
+   "target": "plf.PLF_OFFBY*8+plf.PLF_OFFBI",
+   "note": "Offset relation verified for every packet containing both parameters (inferred from data)."
+  }
+ ],
+ "history": "Not part of any ICD issue (5.1, 6.7 Draft A, 6.9, 7.0) nor of the pyscos2000 (7.2) schema. 52,417 rows in MIB__20200416M10720PFMS001_SOL, 56,631 rows in MIB__20250916M25925PFMS001_SOL, and 855 rows in the SWA instrument database. All 855 SWA rows also appear in the 2025 spacecraft table.",
+ "solo_stats": {
+  "db": "solo-2025-09-16.sqlite",
+  "release": "MIB__20250916M25925PFMS001_SOL",
+  "slug": "mib-20250916m25925pfms001-sol",
+  "rows": 56631,
+  "fields": [
+   {
+    "name": "COL1",
+    "filled": 56631,
+    "distinct": 8704,
+    "max_length": 8,
+    "examples": [
+     "NAH0Z000",
+     "NAH0Z001",
+     "NAH0Z002",
+     "NAH0Z003",
+     "NAH0Z004"
+    ]
+   },
+   {
+    "name": "COL2",
+    "filled": 56631,
+    "distinct": 56631,
+    "max_length": 8,
+    "examples": [
+     "NAHD0000",
+     "NAHD0001",
+     "NAHD0002",
+     "NAHD0003",
+     "NAHD0004"
+    ]
+   },
+   {
+    "name": "COL3",
+    "filled": 56631,
+    "distinct": 2482,
+    "max_length": 5,
+    "examples": [
+     "0",
+     "3",
+     "4",
+     "5",
+     "6"
+    ]
+   }
+  ]
+ },
+ "other_stats": [
+  {
+   "db": "solo-2020-04-16.sqlite",
+   "release": "MIB__20200416M10720PFMS001_SOL",
+   "slug": "mib-20200416m10720pfms001-sol",
+   "rows": 52417,
+   "fields": [
+    {
+     "name": "COL1",
+     "filled": 52417,
+     "distinct": 7893,
+     "max_length": 8,
+     "examples": [
+      "NAH0Z000",
+      "NAH0Z001",
+      "NAH0Z002",
+      "NAH0Z003",
+      "NAH0Z004"
+     ]
+    },
+    {
+     "name": "COL2",
+     "filled": 52417,
+     "distinct": 52417,
+     "max_length": 8,
+     "examples": [
+      "NAHD0000",
+      "NAHD0001",
+      "NAHD0002",
+      "NAHD0003",
+      "NAHD0004"
+     ]
+    },
+    {
+     "name": "COL3",
+     "filled": 52417,
+     "distinct": 2482,
+     "max_length": 5,
+     "examples": [
+      "0",
+      "3",
+      "4",
+      "5",
+      "6"
+     ]
+    }
+   ]
+  },
+  {
+   "db": "swa-idb.sqlite",
+   "release": "SWA instrument database (ASCII.zip, files dated 2021-12-03)",
+   "slug": "swa-idb-ascii",
+   "rows": 855,
+   "fields": [
+    {
+     "name": "COL1",
+     "filled": 855,
+     "distinct": 166,
+     "max_length": 8,
+     "examples": [
+      "NIAG0703",
+      "NIAG0716",
+      "NIAG0718",
+      "NIAG0727",
+      "NIAG0741"
+     ]
+    },
+    {
+     "name": "COL2",
+     "filled": 855,
+     "distinct": 855,
+     "max_length": 8,
+     "examples": [
+      "NIAD0703",
+      "NIAD0704",
+      "NIAD0705",
+      "NIAD0706",
+      "NIAD0707"
+     ]
+    },
+    {
+     "name": "COL3",
+     "filled": 855,
+     "distinct": 32,
+     "max_length": 2,
+     "examples": [
+      "0",
+      "3",
+      "4",
+      "5",
+      "6"
+     ]
+    }
+   ]
+  }
+ ],
+ "sources": [
+  "mib-20250916m25925pfms001-sol",
+  "mib-20200416m10720pfms001-sol",
+  "swa-idb-ascii",
+  "icd-7-0-final"
+ ],
+ "notes": "All meanings inferred from the data. In the SWA instrument database no detailed parameter has a PLF entry (the global parameter is placed in plf in 841 of the 855 rows), while in the spacecraft MIB 841 of these 855 detailed parameters are placed in plf; this suggests that the spacecraft MIB generation expands global parameters into PLF entries for their details (inference). The name presumably abbreviates 'PCF global/detailed' (inference)."
+}

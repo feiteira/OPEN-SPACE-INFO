@@ -1,0 +1,132 @@
+{
+ "slug": "eug",
+ "title": "EDDS Update Guide",
+ "short_title": "EDDS Update Guide (v2.2.0 to v2.3.0)",
+ "doc_id": "EGOS-GEN-EDDS-EUG-1001",
+ "issue": "Version 12.0",
+ "date": "2018-02-16",
+ "organisation": "European Space Agency, Directorate of Operations and Infrastructure, OPS-GI (ESOC); prepared by the EDDS Team (CS GmbH / CGI contributors)",
+ "authors": [
+  "Rokibul Uddin",
+  "Delphine Thomas",
+  "Rui Santos",
+  "Michael Hawkshaw",
+  "Rauno Ots",
+  "Merlin Lobjakas",
+  "Andrew Brook",
+  "Lauri Kimmel",
+  "Deiwin Sarjas",
+  "Kamill Panitzek"
+ ],
+ "doc_type": "User Manual",
+ "status_notes": "Issue 12.0, 'Issue for EDDS v2.3.0' per the Document Change Log (PDF p. 2); the companion Software Release Note issue 14.0 lists EUG i12r0 as the current upgrade guide for EDDS 2.3.0 (srn, PDF p. 9). Later EUG issues exist (the CIG issue 25.0 cites EUG Version 16.0, 2021-12-03), so this issue is superseded.",
+ "summary": "The **EDDS Update Guide** is a short (six-page) administrator's procedure that explains how to upgrade an existing installation of the [EGOS Data Dissemination System (EDDS)](../scos2000/edds.md) from release v2.2.0 to v2.3.0. EDDS is the ESOC web-service front end through which external users retrieve telemetry, telecommand history, events and parameters from the [SCOS-2000](../scos2000/index.md) archives.\n\nThe guide is meant to be read together with the EDDS Configuration and Installation Guide (CIG), its only applicable document. It tells the administrator to stop all EDDS components except the MariaDB database, delete the previously generated runtime distribution and the old server components (Delivery Manager, Archiver and EDDS Server) while keeping the LDAP and EDDS home directories, and merge any new configuration properties into retained configuration files with a `diff` tool.\n\nThe only migration step specific to this release is an update of the internal EDDS databases, driven by two tickets: missing milliseconds in historical message display logs (Edds#558) and changed privileges in the MySQL creation script (Edds#911). The step uses the EDDS Migrator component: the administrator enters the database root credentials in `migrator.properties` and runs `migrate-db.sh`, which rewrites every stored request into the new database structure. The guide recommends a database backup first and quotes an observed migration rate of about 2000 requests per minute.\n\nFor the wiki it is mainly evidence of how EDDS is deployed and versioned (MariaDB, LDAP, separate Archiver, Delivery Manager and Server processes) rather than a source on data formats.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 4
+  },
+  {
+   "section": "1.3",
+   "title": "Document Overview",
+   "pdf_page": 4
+  },
+  {
+   "section": "2",
+   "title": "Glossary & References",
+   "pdf_page": 5
+  },
+  {
+   "section": "2.1.1",
+   "title": "Applicable documents",
+   "pdf_page": 5
+  },
+  {
+   "section": "3",
+   "title": "Upgrading from EDDS v2.2.0 to EDDS v2.3.0",
+   "pdf_page": 6
+  },
+  {
+   "section": "3.1",
+   "title": "Introduction",
+   "pdf_page": 6
+  },
+  {
+   "section": "3.2",
+   "title": "Migration Changes Needed",
+   "pdf_page": 6
+  },
+  {
+   "section": "3.2.1",
+   "title": "Internal Changes to EDDS databases",
+   "pdf_page": 6
+  },
+  {
+   "section": "3.2.1.1",
+   "title": "Run the migration tool",
+   "pdf_page": 6
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The guide covers a single upgrade path, from EDDS v2.2.0 to EDDS v2.3.0; Issue 12.0 is described in the change log as 'Issue for EDDS v2.3.0'.",
+   "pdf_page": 2
+  },
+  {
+   "text": "Intended readers are EDDS system administrators and end users of EDDS.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Before upgrading, all EDDS components except MariaDB are stopped; the old EDDS_RUNTIME_DIST directory and the DELIVERY_MGR, EDDS_ARCHIVER and EDDS_SERVER components are deleted, while the LDAP and EDDS_HOME directories are kept.",
+   "pdf_page": 6
+  },
+  {
+   "text": "Database changes for v2.3.0 are due to Edds#558 (historical message display logs missing time milliseconds) and Edds#911 (privileges in the EDDS MySQL creation script).",
+   "pdf_page": 6
+  },
+  {
+   "text": "The database migration is run with the EDDS Migrator component: set the root credentials in migrator.properties and run ./migrate-db.sh; each stored request is converted to the new structure, at an observed rate of approximately 2000 requests per minute.",
+   "pdf_page": 6
+  },
+  {
+   "text": "Glossary terms and acronyms are delegated to the separate EDDS Glossary [GLO].",
+   "pdf_page": 5
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD-1]",
+   "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+   "title": "EGOS-GEN-EDDS-CIG-1001",
+   "issue": "Issue 14 Release 0",
+   "date": "2018-02-16",
+   "kind": "applicable",
+   "pdf_page": 5
+  },
+  {
+   "label": "[GLO]",
+   "doc_id": null,
+   "title": "EDDS Glossary (referred to as [GLO])",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 5
+  }
+ ],
+ "topics": [
+  "scos2000/edds.md",
+  "scos2000/ancillary-and-egs-cc.md"
+ ],
+ "notes": "Very short document (3 body pages). The applicable-documents table gives only the document number of the CIG, not its title. The file name 'EUG.pdf' carries no version; the content is Version 12.0 of 2018-02-16 for EDDS v2.3.0, part of the same 2018-02-16 delivery as the library items cig-i14r0 (CIG 14.0), srn (SRN 14.0), sdd (SDD 15.0), sum (SUM 14.0), srs (SRS 18.0) and euicd-i15r0 (EUICD 15.0). Digital-signature blocks on the approval page are dated April-May 2018, after the nominal issue date."
+}

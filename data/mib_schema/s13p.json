@@ -1,0 +1,202 @@
+{
+ "table": "s13p",
+ "file": "s13p.dat",
+ "icd": false,
+ "name": "On-board file partitions for uploads (inferred title)",
+ "icd_section": null,
+ "pdf_page": null,
+ "family": "mission-specific",
+ "purpose": "Inferred from the data; not documented in any available ICD. A lookup table (11 rows) of the on-board memory partitions that can receive uploaded files: the OMM mass-memory partitions for TC files, OBCPs, system files and spare (A and B sides, identifiers 161-164 and 177-180) and the SGM-EEPROM partitions for CSW TC files and default OBCPs (193-195). Each record holds a four-letter short name (e.g. TCFA, OBCA, SYSA), a one-letter class (M, B or N), the numeric partition identifier (twice), the short name again and a description such as 'OMM TC Files (A)'. The identifiers are exactly the values of the textual calibration CCDT0192TX ('Partition') used by command parameters such as PCD0D093 'Partition Id' of TC(13,9) 'Accept First Uplink Part', so this table is presumably used by the ground file-upload tooling to choose and label the destination partition. SCOS-2000 itself does not use it.",
+ "keys": [
+  "COL1"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "COL1",
+   "type": "Char(4) observed",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: short partition name (TCFA, OBCA, SYSA, SPRA, TCFB, OBCB, SYSB, SPRB, CSWA, OBCS, CSWB). Unique; referenced by s13t.COL7.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "partition short name"
+  },
+  {
+   "pos": 2,
+   "name": "COL2",
+   "type": "Char(1) observed",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: partition class. M for OMM TC-file, OBCP and spare partitions, B for the OMM system-file partitions, N for the SGM-EEPROM partitions. Meaning of the letters not determinable.",
+   "values": [
+    {
+     "value": "M",
+     "meaning": "observed for OMM TC files, OBCPs and spare partitions"
+    },
+    {
+     "value": "B",
+     "meaning": "observed for OMM system files (SYSA, SYSB)"
+    },
+    {
+     "value": "N",
+     "meaning": "observed for SGM-EEPROM partitions"
+    }
+   ],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "partition class"
+  },
+  {
+   "pos": 3,
+   "name": "COL3",
+   "type": "Number (3 digits observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: on-board partition identifier (161-164, 177-180, 193-195), equal to the raw values of textual calibration CCDT0192TX ('Partition').",
+   "values": [],
+   "references": "pas.PAS_ALVAL where PAS_NUMBR='CCDT0192TX' (inferred)",
+   "pdf_page": null,
+   "inferred_name": "partition ID"
+  },
+  {
+   "pos": 4,
+   "name": "COL4",
+   "type": "Number (3 digits observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: second copy of the partition identifier; equal to COL3 in all rows.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "partition ID (second)"
+  },
+  {
+   "pos": 5,
+   "name": "COL5",
+   "type": "Char(4) observed",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: partition label; equal to COL1 in all rows.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "label"
+  },
+  {
+   "pos": 6,
+   "name": "COL6",
+   "type": "Char (max 27 observed)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Inferred: description of the partition, e.g. 'OMM TC Files (A)', 'SGM-EEPROM CSW TC Files (B)'.",
+   "values": [],
+   "references": null,
+   "pdf_page": null,
+   "inferred_name": "description"
+  }
+ ],
+ "relationships": [
+  {
+   "field": "COL3",
+   "target": "pas.PAS_ALVAL (PAS_NUMBR = 'CCDT0192TX')",
+   "note": "All 11 identifiers are values of the 'Partition' textual (de-)calibration used by command parameters PCD0D093, PCD85063, PCDP0002 and PCSB018D (inferred)."
+  },
+  {
+   "field": "COL1",
+   "target": "s13t.COL7",
+   "note": "Default partition of file types in s13t (inferred)."
+  }
+ ],
+ "history": "Not part of any ICD issue nor of pyscos2000. Present in MIB__20250916M25925PFMS001_SOL (file dated 2021-06-07); absent from MIB__20200416M10720PFMS001_SOL and from the SWA database.",
+ "solo_stats": {
+  "db": "solo-2025-09-16.sqlite",
+  "release": "MIB__20250916M25925PFMS001_SOL",
+  "slug": "mib-20250916m25925pfms001-sol",
+  "rows": 11,
+  "fields": [
+   {
+    "name": "COL1",
+    "filled": 11,
+    "distinct": 11,
+    "max_length": 4,
+    "examples": [
+     "TCFA",
+     "OBCA",
+     "SYSA",
+     "SPRA",
+     "TCFB"
+    ]
+   },
+   {
+    "name": "COL2",
+    "filled": 11,
+    "distinct": 3,
+    "max_length": 1,
+    "examples": [
+     "M",
+     "B",
+     "N"
+    ]
+   },
+   {
+    "name": "COL3",
+    "filled": 11,
+    "distinct": 11,
+    "max_length": 3,
+    "examples": [
+     "161",
+     "162",
+     "163",
+     "164",
+     "177"
+    ]
+   },
+   {
+    "name": "COL4",
+    "filled": 11,
+    "distinct": 11,
+    "max_length": 3,
+    "examples": [
+     "161",
+     "162",
+     "163",
+     "164",
+     "177"
+    ]
+   },
+   {
+    "name": "COL5",
+    "filled": 11,
+    "distinct": 11,
+    "max_length": 4,
+    "examples": [
+     "TCFA",
+     "OBCA",
+     "SYSA",
+     "SPRA",
+     "TCFB"
+    ]
+   },
+   {
+    "name": "COL6",
+    "filled": 11,
+    "distinct": 11,
+    "max_length": 27,
+    "examples": [
+     "OMM TC Files (A)",
+     "OMM OBCPs (A)",
+     "OMM System Files (A)",
+     "OMM Spare (A)",
+     "OMM TC Files (B)"
+    ]
+   }
+  ]
+ },
+ "sources": [
+  "mib-20250916m25925pfms001-sol",
+  "icd-7-0-final"
+ ],
+ "notes": "All meanings inferred. The descriptions differ slightly from the calibration texts: identifier 164 is 'OMM Spare (A)' here but OMM_PAYLOAD_A in CCDT0192TX (likewise 180). 'p' in the name possibly stands for 'partition' (inference)."
+}

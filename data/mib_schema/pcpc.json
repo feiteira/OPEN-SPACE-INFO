@@ -1,0 +1,100 @@
+{
+ "table": "pcpc",
+ "file": "pcpc.dat",
+ "icd": true,
+ "name": "Packet headers parameters",
+ "icd_section": "3.3.3.1.2",
+ "pdf_page": 128,
+ "family": "commanding",
+ "purpose": "The pcpc table defines the named TC packet header parameters, one record per parameter. A header parameter is a header element whose value is not a constant fixed area but is filled in by SCOS-2000 at encoding time, for example the APID, the PUS service type and subtype, the acknowledgement flags, the packet length or the packet sequence count. PCDF records of type A, T, S, K or P point to a PCPC record through PCDF_PNAME to give such an element a name, and the same header parameter can be used at different positions or in several packet headers (with the constraint stated under PCDF_LEN that every use of a given parameter must have the same length). The only behavioural attribute held here is PCPC_CODE, which states whether the default value written in PCDF_VALUE for this parameter is a signed or an unsigned integer, and therefore whether PCDF_RADIX applies. Operators cannot edit these values on a manual stack: they come from the CCF record of each command or are computed by the command subsystem (packet length, source sequence counter per APID).",
+ "keys": [
+  "PCPC_PNAME"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "PCPC_PNAME",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Unique name of the packet header parameter. PCDF records of type A, T, S, K or P quote this name in PCDF_PNAME to identify which header parameter occupies a given position in a packet header.",
+   "values": [],
+   "references": null,
+   "pdf_page": 128
+  },
+  {
+   "pos": 2,
+   "name": "PCPC_DESC",
+   "type": "Char(24)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Textual description of the header parameter (up to 24 characters). Mandatory in the ICD, although it is descriptive only.",
+   "values": [],
+   "references": null,
+   "pdf_page": 128
+  },
+  {
+   "pos": 3,
+   "name": "PCPC_CODE",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "U",
+   "description": "Format flag telling SCOS-2000 how the value given for this parameter in PCDF_VALUE is written: as a signed integer (then expressed in decimal) or as an unsigned integer (then expressed in the radix given by PCDF_RADIX). If left empty, unsigned is assumed.",
+   "values": [
+    {
+     "value": "I",
+     "meaning": "Signed integer: PCDF_VALUE is decimal and PCDF_RADIX is irrelevant."
+    },
+    {
+     "value": "U",
+     "meaning": "Unsigned integer (import default): PCDF_VALUE is expressed in the radix given by PCDF_RADIX."
+    }
+   ],
+   "references": null,
+   "pdf_page": 129
+  }
+ ],
+ "relationships": [
+  {
+   "field": "PCPC_PNAME",
+   "target": "pcdf.PCDF_PNAME",
+   "note": "Each PCDF element of type A, T, S, K or P names a header parameter; one parameter may appear in several headers."
+  }
+ ],
+ "history": "Unchanged in structure in ICD 5.1 (section 3.3.3.1.2, PDF p.60-61), ICD 6.7 Draft A (PDF p.121), ICD 6.9 (PDF p.125-126) and ICD 7.0 (PDF p.128-129): PCPC_PNAME Char(8) key, PCPC_DESC Char(24) mandatory and PCPC_CODE Char(1) with import default 'U' and values I/U. pyscos2000 (ICD 7.2) has the same three columns, with PCPC_DESC mandatory and PCPC_CODE defaulting to 'U'.",
+ "solo_stats": {
+  "rows": 7,
+  "fields": [
+   {
+    "name": "PCPC_PNAME",
+    "filled": 7,
+    "examples": [
+     "DFH_ACK",
+     "DFH_SRC",
+     "DFH_STPE",
+     "DFH_TYPE",
+     "PH_APID"
+    ]
+   },
+   {
+    "name": "PCPC_DESC",
+    "filled": 7,
+    "examples": [
+     "APID",
+     "Ack",
+     "Packet Length",
+     "Sequence Count",
+     "Service Subtype"
+    ]
+   },
+   {
+    "name": "PCPC_CODE",
+    "filled": 7,
+    "examples": [
+     "U"
+    ]
+   }
+  ]
+ },
+ "notes": "No discrepancy in names, order or optionality between ICD 7.0, pyscos2000 (7.2) and the Solar Orbiter pcpc.dat (3 columns). Solar Orbiter 2025-09-16 defines 7 header parameters, all unsigned: PH_APID, PH_SSC, PH_LEN (primary header) and DFH_ACK, DFH_TYPE, DFH_STPE, DFH_SRC (data field header). DFH_SRC ('Source ID') is new compared with the 2020-04-16 release (6 records), where the source identifier was still a fixed area in PCDF."
+}

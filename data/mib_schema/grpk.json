@@ -1,0 +1,74 @@
+{
+  "table": "grpk",
+  "file": "grpk.dat",
+  "icd": true,
+  "name": "Telemetry packets groups",
+  "icd_section": "3.3.2.6.3",
+  "pdf_page": 109,
+  "family": "monitoring",
+  "purpose": "grpk lists the members of packet groups, one record per telemetry packet (identified by its SCOS-2000 Packet ID) included in a group declared in grp with GRP_GTYPE = 'PK'. A packet may belong to several groups. Enabling or inhibiting the group enables or inhibits every member packet. An inhibited packet is still stored in the archive, but it is neither distributed nor used for parameter extraction. A parameter that is also carried in another, non-inhibited packet keeps being updated from that packet, and the telemetry query display highlights the inhibited packet in red (ICD 7.0 Annex 1, p. 246-247). Group enable/inhibit is simply the repetition of the packet operation over the group content; there is no special handling of packets that belong to several groups and no specific user interface.",
+  "keys": [
+    "GRPK_GNAME",
+    "GRPK_PKSPID"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "GRPK_GNAME",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the monitoring group to which the packet belongs (the ICD's wording says 'parameter', copied from grpa); must match GRP_NAME of a group with GRP_GTYPE = 'PK'.",
+      "values": [],
+      "references": "grp.GRP_NAME",
+      "pdf_page": 109
+    },
+    {
+      "pos": 2,
+      "name": "GRPK_PKSPID",
+      "type": "Number(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "SPID of the telemetry packet belonging to the group; unsigned integer matching PID_SPID.",
+      "values": [],
+      "references": "pid.PID_SPID",
+      "pdf_page": 110
+    }
+  ],
+  "relationships": [
+    {
+      "field": "GRPK_GNAME",
+      "target": "grp.GRP_NAME",
+      "note": "Group must have GRP_GTYPE = 'PK'."
+    },
+    {
+      "field": "GRPK_PKSPID",
+      "target": "pid.PID_SPID",
+      "note": "Packet identified by SCOS-2000 Packet ID."
+    }
+  ],
+  "history": "Not present in ICD 5.1; introduced in ICD 6.0 together with grp and grpa (ICD 7.0 Annex 1, p. 247). ICD 6.7 Draft A (p. 103), 6.9 (p. 107) and 7.0 (p. 109-110) give the same two mandatory key fields. Not modelled by pyscos2000, so no ICD 7.2 comparison is available.",
+  "solo_stats": {
+    "rows": 4,
+    "fields": [
+      {
+        "name": "GRPK_GNAME",
+        "filled": 4,
+        "examples": [
+          "GRPHK"
+        ]
+      },
+      {
+        "name": "GRPK_PKSPID",
+        "filled": 4,
+        "examples": [
+          "58200",
+          "58201",
+          "58202",
+          "58907"
+        ]
+      }
+    ]
+  },
+  "notes": "grpk is not in the pyscos2000 schema; the Solar Orbiter SQLite table uses generic columns COL1 and COL2, mapped here to GRPK_GNAME and GRPK_PKSPID. Solar Orbiter 2025-09-16: 4 records, all in group GRPHK ('Packet for HK monitoring'), SPIDs 58200, 58201, 58202 and 58907, all of which exist in pid. The ICD description of GRPK_GNAME says 'to which this parameter belongs', an editorial copy from grpa."
+}

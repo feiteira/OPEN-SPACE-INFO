@@ -1,0 +1,227 @@
+{
+ "table": "cca",
+ "file": "cca.dat",
+ "icd": true,
+ "name": "Numerical (de-)calibration curves",
+ "icd_section": "3.3.3.6.1",
+ "pdf_page": 206,
+ "family": "commanding",
+ "purpose": "The cca table defines the numerical (de-)calibration curves used for command and sequence parameters, one record per curve; the points of each curve are in CCS. A parameter with calibration category C (CPC_CATEG or CSP_CATEG) references one curve through CPC_CCAREF or CSP_CCAREF, and a curve may be shared by many parameters (many-to-one). Unlike the monitoring calibrations (CAF/CAP, TXF/TXP), the commanding (de-)calibrations work in both directions: engineering to raw, for display and for encoding, and raw to engineering, for display. They can be attached to command parameters (CPC) and to sequence formal parameters (CSP) alike, but only to parameters whose raw value is numerical (not strings or times). The record states the numeric format of the engineering values (signed, unsigned or real) and of the raw values, which must be compatible with the engineering display format and the type of the parameters using the curve, and the radix in which unsigned raw values are written in CCS. To avoid ambiguity when an operator types an engineering value, the ICD requires curves to give a one-to-one correspondence between raw and engineering values. The unit and the number of points are informative, for off-line consistency checks.",
+ "keys": [
+  "CCA_NUMBR"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "CCA_NUMBR",
+   "type": "Char(10)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Alphanumeric name uniquely identifying the commanding numerical (de-)calibration curve; referenced by CPC_CCAREF, CSP_CCAREF and CCS_NUMBR.",
+   "values": [],
+   "references": null,
+   "pdf_page": 206
+  },
+  {
+   "pos": 2,
+   "name": "CCA_DESCR",
+   "type": "Char(24)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Textual description of the (de-)calibration curve.",
+   "values": [],
+   "references": null,
+   "pdf_page": 206
+  },
+  {
+   "pos": 3,
+   "name": "CCA_ENGFMT",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Numeric format of the engineering values given in the CCS records of the curve (CCS_XVALS). It must be compatible with the engineering format (CPC_DISPFMT/CSP_DISPFMT) of the parameters using the curve.",
+   "values": [
+    {
+     "value": "I",
+     "meaning": "Signed integer"
+    },
+    {
+     "value": "U",
+     "meaning": "Unsigned integer"
+    },
+    {
+     "value": "R",
+     "meaning": "Real (import default)"
+    }
+   ],
+   "references": null,
+   "pdf_page": 206
+  },
+  {
+   "pos": 4,
+   "name": "CCA_RAWFMT",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "U",
+   "description": "Numeric format of the raw values given in the CCS records of the curve (CCS_YVALS). It must be compatible with the type (PTC) of the parameters using the curve.",
+   "values": [
+    {
+     "value": "I",
+     "meaning": "Signed integer"
+    },
+    {
+     "value": "U",
+     "meaning": "Unsigned integer (import default)"
+    },
+    {
+     "value": "R",
+     "meaning": "Real"
+    }
+   ],
+   "references": null,
+   "pdf_page": 206
+  },
+  {
+   "pos": 5,
+   "name": "CCA_RADIX",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "D",
+   "description": "Radix in which the raw values (CCS_YVALS) of the curve are written; only applicable when the raw values are unsigned integers (CCA_RAWFMT=U). It may differ from the radix (CPC_RADIX/CSP_RADIX) of the parameters using the curve.",
+   "values": [
+    {
+     "value": "D",
+     "meaning": "Decimal (import default)"
+    },
+    {
+     "value": "H",
+     "meaning": "Hexadecimal"
+    },
+    {
+     "value": "O",
+     "meaning": "Octal"
+    }
+   ],
+   "references": null,
+   "pdf_page": 207
+  },
+  {
+   "pos": 6,
+   "name": "CCA_UNIT",
+   "type": "Char(4)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Engineering unit mnemonic, provided for consistency checking against the unit (CPC_UNIT/CSP_UNIT) of the parameters using the curve. Grey in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 207
+  },
+  {
+   "pos": 7,
+   "name": "CCA_NCURVE",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Number of CCS records (points) defined for this curve. Grey in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 207
+  }
+ ],
+ "relationships": [
+  {
+   "field": "CCA_NUMBR",
+   "target": "ccs.CCS_NUMBR",
+   "note": "Points of the curve (one-to-many); CCA_NCURVE should equal their number."
+  },
+  {
+   "field": "CCA_NUMBR",
+   "target": "cpc.CPC_CCAREF",
+   "note": "Command parameters with CPC_CATEG=C (many-to-one)."
+  },
+  {
+   "field": "CCA_NUMBR",
+   "target": "csp.CSP_CCAREF",
+   "note": "Sequence formal parameters with CSP_CATEG=C."
+  },
+  {
+   "field": "CCA_UNIT",
+   "target": "cpc.CPC_UNIT / csp.CSP_UNIT",
+   "note": "Consistency check only."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.6.1, PDF p.99-100) has the same seven fields and defaults (R, U, D) but CCA_NUMBR is Number(4). The identifier became Char(10) with the Herschel/Planck repatriation in ICD 6.0 (Annex 1 of ICD 7.0, 'Curve ID' item, PDF p.247; field type change and CCA_DESCR update listed for ICD 6.2/6.3, PDF p.253-254). ICD 6.7 Draft A (PDF p.192-194), ICD 6.9 (PDF p.197-199) and ICD 7.0 (PDF p.206-207) are identical. pyscos2000 (ICD 7.2) has the same seven columns, key and defaults.",
+ "solo_stats": {
+  "rows": 99,
+  "fields": [
+   {
+    "name": "CCA_NUMBR",
+    "filled": 99,
+    "examples": [
+     "CAHP0000TC",
+     "CAHP0001TC",
+     "CAHP0002TC",
+     "CAHP0003TC",
+     "CAHP0004TC"
+    ]
+   },
+   {
+    "name": "CCA_DESCR",
+    "filled": 99,
+    "examples": [
+     "AGC constant voltage",
+     "Current value",
+     "Go to Safe angular rate",
+     "K0 parameter",
+     "K1 parameter"
+    ]
+   },
+   {
+    "name": "CCA_ENGFMT",
+    "filled": 99,
+    "examples": [
+     "R",
+     "U"
+    ]
+   },
+   {
+    "name": "CCA_RAWFMT",
+    "filled": 99,
+    "examples": [
+     "U",
+     "I"
+    ]
+   },
+   {
+    "name": "CCA_RADIX",
+    "filled": 82,
+    "examples": [
+     "D"
+    ]
+   },
+   {
+    "name": "CCA_UNIT",
+    "filled": 85,
+    "examples": [
+     "mA",
+     "deg",
+     "degC",
+     "V",
+     "DegC"
+    ]
+   },
+   {
+    "name": "CCA_NCURVE",
+    "filled": 99,
+    "examples": [
+     "2",
+     "3",
+     "41",
+     "10",
+     "14"
+    ]
+   }
+  ]
+ },
+ "notes": "No column discrepancy (7 columns in cca.dat). Solar Orbiter 2025-09-16: 99 curves (100 in 2020); CCA_ENGFMT R 97 and U 2; CCA_RAWFMT U 82 and I 17, CCA_RADIX D for the 82 unsigned curves and empty for the 17 signed ones, as the ICD rule implies. CCA_NCURVE always equals the CCS count and every curve is used by at least one CPC or CSP record. Curve names follow a mission convention ending in 'TC' (97) or 'TM' (2). The interpolation rule applied between curve points is not stated in ICD 7.0 for commanding curves."
+}

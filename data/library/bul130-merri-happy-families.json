@@ -1,0 +1,165 @@
+{
+ "slug": "bul130-merri-happy-families",
+ "title": "Happy Families: Cutting the Cost of ESA Mission Ground Software",
+ "short_title": "Happy Families: mission families and the delta approach",
+ "doc_id": "esa bulletin 130",
+ "issue": null,
+ "date": "2007-05",
+ "organisation": "European Space Agency, ESOC (Directorate of Operations and Infrastructure)",
+ "authors": [
+  "Mario Merri",
+  "Alessandro Ercolani",
+  "Damiano Guerrucci",
+  "Vemund Reggestad",
+  "David Verrier",
+  "Pier Paolo Emanuelli",
+  "Paolo Ferri"
+ ],
+ "doc_type": "Paper",
+ "status_notes": "Published magazine article (esa bulletin 130, May 2007, printed pages 62-69).",
+ "summary": "An eight-page ESA Bulletin article (May 2007) by ESOC's Ground System Engineering and Mission Operations departments explaining how ESA reduced the cost and risk of mission control systems (MCS) and operational simulators. It summarises the lineage of ESOC infrastructure software, from the Multi-Satellite Support System (1970s) through the first SCOS (mid-1980s) to SCOS-2000 (late 1990s) and the SIMSAT simulator kernel, now gathered in the ESA Ground Operations Software (EGOS), and describes what an MCS and an operational simulator do.\n\nThe core idea is the 'mission family': missions with common platforms or operational profiles (interplanetary, Earth observation, observatory, navigation). Ground software is built in layers, each defined only by its differences ('deltas') from the layer below: generic infrastructure software, a family kernel, and a thin mission-specific layer. Requirements documents shrink to delta requirements. The interplanetary family (Rosetta, Mars Express, Venus Express, with BepiColombo and Solar Orbiter to join) used a two-layer MCS, one system reconfigured for the three missions; the Earth observation family (CryoSat, GOCE, Aeolus) added a self-standing Earth Observation Mission Kernel. The article reports quick migrations of the Rosetta and Mars Express systems to a new kernel, combined maintenance by one team, reuse of simulator models through the Simulator Model Portability (SMP) standard, and charts of falling development costs.\n\nFor an engineer it explains why SCOS-2000-based missions share so much configuration and code, and it places Solar Orbiter in the interplanetary family from the start.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Title page",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Introduction",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "The Mission Control System (MCS)",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "The Operational Simulator",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "The ESOC Infrastructure Software",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "Mission Families",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "The interplanetary mission family",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "The Earth observation mission family",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "The Delta Approach",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "Requirements engineering",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "The rest of the lifecycle",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "The delta approach in practice",
+   "pdf_page": 7
+  },
+  {
+   "section": null,
+   "title": "Benefits for the infrastructure software",
+   "pdf_page": 7
+  },
+  {
+   "section": null,
+   "title": "Cost, schedule, quality and risk",
+   "pdf_page": 8
+  },
+  {
+   "section": null,
+   "title": "Conclusions",
+   "pdf_page": 8
+  }
+ ],
+ "key_points": [
+  {
+   "text": "ESOC's first reusable infrastructure software was the Multi-Satellite Support System (MSSS), developed in the 1970s and used for over 20 years; the first SCOS generation followed in the mid-1980s and SCOS-2000 in the late 1990s.",
+   "pdf_page": 3
+  },
+  {
+   "text": "EGOS (ESA Ground Operations Software) covers mission control, simulator infrastructure and ground station back-end software, with SIMSAT and SCOS-2000 as cornerstones; Linux is the operating system of choice for simulators and MCS.",
+   "pdf_page": 3
+  },
+  {
+   "text": "The MCS verification and validation extends to the operational data that configure it, including the database describing the spacecraft telemetry and command data.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Mission families in use at ESOC: interplanetary, Earth observation, observatory and navigation.",
+   "pdf_page": 4
+  },
+  {
+   "text": "The interplanetary family comprises Rosetta, Mars Express and Venus Express; BepiColombo (launch in 2013) and Solar Orbiter (launch in 2015) were under preparation to join it.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Interplanetary operations need allowance for long signal delays in telecommand verification and telemetry time-stamping, file-transfer commanding protocols, and parallel real-time and playback telemetry streams.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Within the Earth observation family on-board time is managed differently: CryoSat uses DORIS beacons, GOCE a simple counter synchronised by ground, and Aeolus a GPS receiver in addition to its counter.",
+   "pdf_page": 5
+  },
+  {
+   "text": "The delta approach uses three layers: infrastructure software reused across families, a family kernel reused within a family, and a mission-specific layer; requirements migrate downwards under a control board.",
+   "pdf_page": 6
+  },
+  {
+   "text": "The interplanetary MCS used a two-layer approach, giving a single system usable for the three missions by reconfiguration; the Earth observation MCS used three layers with an Earth Observation Mission Kernel.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Venus Express was based on SCOS-2000 version 3.1 while Rosetta and Mars Express stayed on the previous version; Rosetta then migrated to the new interplanetary kernel in a few months and Mars Express in a few weeks.",
+   "pdf_page": 8
+  },
+  {
+   "text": "Common tools for spacecraft checkout and operations preparation promote a seamless transition from manufacture to operations, as exploited by Herschel and Planck.",
+   "pdf_page": 7
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "Simulator Model Portability (SMP) standard",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 6
+  }
+ ],
+ "topics": [
+  "scos2000/ancillary-and-egs-cc.md",
+  "scos2000/index.md",
+  "scos2000/architecture.md",
+  "missions/rosetta-mex-vex.md",
+  "missions/solar-orbiter/index.md",
+  "missions/other-missions.md",
+  "missions/index.md"
+ ],
+ "notes": "PDF p. 1 is the title spread (printed p. 62); printed pages 62-69 map to PDF pp. 1-8 (PDF p. 9 empty). The text layer has letter-spacing artefacts ('O p e rating') and interleaved columns; figures (MCS diagram, layer diagrams, apportioned-requirement and cost charts) survive only as captions. Running header 'Merri 21-05-2007 15:35 Pagina 62'. No reference list."
+}

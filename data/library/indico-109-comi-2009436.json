@@ -1,0 +1,54 @@
+{
+ "slug": "indico-109-comi-2009436",
+ "title": "SRDB Translator: A Tool to Transfer Data from S2K to ECHO Databases",
+ "short_title": "SRDB Translator: from S2K MIB to ECHO databases",
+ "doc_id": null,
+ "issue": null,
+ "date": null,
+ "organisation": "Intecs SpA and Thales Alenia Space Italia",
+ "authors": ["Comi D.", "Insinga F.", "Sala R."],
+ "doc_type": "Paper",
+ "status_notes": "Conference paper posted on ESA Indico event 109 (SESP 2010, inferred from the event and from the companion paper indico-109-armitage-2011926); no event, date or status is printed in the paper.",
+ "summary": "A seven-page conference paper by D. Comi and R. Sala (Intecs SpA) and F. Insinga (Thales Alenia Space Italia) on the SRDB Translator, a tool that imports a SCOS-2000 MIB-format Satellite Reference Database (SRDB) into the database of ECHO, the TAS-I central checkout (EGSE) system.\n\nThe paper starts from the observation that SCOS-2000 has become the standard ESA mission control system and that SRDBs are therefore almost always based on the SCOS-2000 runtime database, while industrial checkout systems keep their own data models. It compares the two databases at the level of logical entities (monitoring parameters and calibrations, TM packets, displays, commands, verification and checks), explains why a one-to-one table mapping does not work, and classifies each item into data present in both, only in the SRDB, or only in ECHO. Two tables give concrete conversion rules: TC verification checks (stages not imported, verification window converted to milliseconds, raw-value checks discarded) and numerical calibration (10-character curve identifiers mapped to integers, radix conversion, point limits, polynomial boundaries, logarithmic curves, number of curves per parameter).\n\nIt then describes the tool: a utility of the ECHO Database Manager (MTGP) on MS SQL Server, compliant with SCOS-2000 ICD issue 6.1, with a two-step import (raw copy into staging tables, then stored procedures), merging with locally defined EGSE data and a result log. Applications are Galileo GIOVE-B, Sentinel-1 and BepiColombo (with OBC and SSMM database metrics). Limits (strict column matching across ICD issues) and future work (bidirectional transfer and an XML-based standard database exchange language) close the paper.",
+ "contents": [
+  {"section": null, "title": "Introduction: Motivation", "pdf_page": 1},
+  {"section": null, "title": "Introduction: Contribution", "pdf_page": 1},
+  {"section": null, "title": "Critical issue: The Databases", "pdf_page": 2},
+  {"section": null, "title": "Analysis: Databases Comparison", "pdf_page": 2},
+  {"section": null, "title": "Examples: TC Verification Checks; Numerical Calibration", "pdf_page": 3},
+  {"section": null, "title": "SRDB Translator: Context Environment", "pdf_page": 4},
+  {"section": null, "title": "Requirements", "pdf_page": 5},
+  {"section": null, "title": "Main Features", "pdf_page": 5},
+  {"section": null, "title": "SW Architecture", "pdf_page": 5},
+  {"section": null, "title": "Applications", "pdf_page": 6},
+  {"section": null, "title": "Limits", "pdf_page": 6},
+  {"section": null, "title": "Concluding remarks: Benefits", "pdf_page": 7},
+  {"section": null, "title": "Future Enhancements: Tool Extensions; Virtualized Database", "pdf_page": 7},
+  {"section": null, "title": "References", "pdf_page": 7}
+ ],
+ "key_points": [
+  {"text": "Because SCOS-2000 has become standard in ESA missions for control centres and in most cases EGSE, the Satellite Reference Database (SRDB) is almost always based on the SCOS-2000 run-time database.", "pdf_page": 1},
+  {"text": "The input SRDB covers monitoring data, TM packets (fixed and variable), displays and reports, command packets and sequences, and commanding data (verification, de-calibration, range checks); both databases base TM/TC packet definitions on the ECSS PUS.", "pdf_page": 2},
+  {"text": "A 1-to-1 mapping from one source table to one destination table is described as almost inapplicable; the comparison is made on logical entities.", "pdf_page": 2},
+  {"text": "TC verification conversion: SCOS-2000 verification stages are not imported, the SCOS-2000 window (start time and duration in seconds) becomes an ECHO maximum elapsed time in milliseconds computed as (start + interval) x 1000, and checks expressed as raw values are discarded.", "pdf_page": 3},
+  {"text": "Numerical calibration conversion: SCOS-2000 curve identifiers are Char(10) while ECHO uses Int 1..9999; hex and octal raw values are converted to decimal; ECHO point-by-point curves need 2 to 1000 points; the number of curves per parameter was extended from 4 to 99.", "pdf_page": 4},
+  {"text": "The current SRDB Translator is compliant with SCOS-2000 ICD Issue 6.1 and runs as a utility of the ECHO Database Manager (MTGP) on MS SQL Server.", "pdf_page": 5},
+  {"text": "The import first copies SCOS-2000 tables unchanged into staging tables, then converts them with stored procedures; a missing expected column aborts the whole import, as happened with BepiColombo databases built to an earlier ICD issue.", "pdf_page": 6},
+  {"text": "The first version was developed for Galileo GIOVE-B, whose SCOS-2000 database was delivered as a single MS Access 2000 file; an enhanced version was made for Sentinel-1 and reused on BepiColombo.", "pdf_page": 6},
+  {"text": "BepiColombo database metrics: OBC 3745 parameters, 521 TM packets, 399 TC packets; SSMM 1947 parameters, 1921 TM packets, 535 TC packets (about 10000 records each).", "pdf_page": 6},
+  {"text": "The authors propose a standard satellite-database exchange interface, for example an XML-based mark-up language, to ease data exchange among EGSE systems.", "pdf_page": 7}
+ ],
+ "references": [
+  {"label": "[1]", "doc_id": "ECSS-E-70-41", "title": "Ground systems and operations – Telemetry and telecommand packet utilization", "issue": "Issue A", "date": "January 2003", "kind": "bibliography", "pdf_page": 7},
+  {"label": "[2]", "doc_id": "EGOS-MCS-S2K-ICD-0001", "title": "Scos2000 database Import ICD", "issue": "Version 6.1", "date": "February 2006", "kind": "bibliography", "pdf_page": 7}
+ ],
+ "topics": [
+  "mib/tooling.md",
+  "mib/calibration.md",
+  "mib/command-verification.md",
+  "mib/tailoring.md",
+  "scos2000/egse.md",
+  "missions/other-missions.md"
+ ],
+ "notes": "The PDF metadata title is 'SESP-EGSE author instructions' (the conference template); the paper itself prints no event name or date. The ESA Indico event 109 hosting both this paper and indico-109-armitage-2011926 is SESP 2010 according to the companion paper's title page. Author e-mail addresses on the title page are omitted here. The introduction contains the typo 'mission control canters'. The extracted text has an empty eighth page after a trailing form feed."
+}

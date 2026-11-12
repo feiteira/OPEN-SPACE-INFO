@@ -1,0 +1,668 @@
+{
+ "slug": "h-p-1-aspi-sp-0045-egse-general-req",
+ "title": "EGSE General Requirements Specification",
+ "short_title": "Herschel/Planck EGSE General Requirements Specification",
+ "doc_id": "H-P-1-ASPI-SP-0045",
+ "issue": "03",
+ "date": "2002-06-10",
+ "organisation": "Alcatel Space - Cannes",
+ "authors": [
+  "B. DUBOIS",
+  "J.Y. CHARNIER",
+  "D. MONTET",
+  "C. MASSE",
+  "J.J. JUILLET"
+ ],
+ "doc_type": "Requirements Specification",
+ "status_notes": "Issue 03 dated 10/06/02 (change record: '10/June/02'); earlier issues 01 of 02/10/01 (first issue) and 02 of 12/10/01 (PDF p. 3). Signature fields are empty in this copy (PDF p. 2).",
+ "summary": "Issue 03 (10 June 2002) of Alcatel Space's top-level requirements specification for all Electrical Ground Support Equipment (EGSE) used in the electrical and functional integration, environmental testing and launch operations of the Herschel and Planck satellites. It is the parent of the specifications of the individual EGSE items (CCS, TM/TC DFE, TT&C, power, CDMU and ACMS SCOEs, PLM SCOE, CDMU DFE, Herschel cryo SCOE and the EGSE interface specification), shown in a specification tree. The RF suitcase and the SVF are excluded.\n\nAfter the document lists and definitions (requirements labelled GRQT-xxxx, each with an analysis, review or test check method), section 3.2 sets the functional rules: a modular EGSE, test control centralised in the Central Checkout System (CCS) with backup MMIs in all SCOEs, and commonality between instruments, between checkout and flight control, and between test levels, with both the instrument EGSEs and ESOC's flight control system based on SCOS-2000. It describes each system EGSE item: the CCS (test sequences, satellite database, pre-transmission checks, housekeeping processing, test result archive, HPSDB mirror site), the TM/TC data front end (telemetry up to 3.5 Mbps reconstructed from transfer frames, telecommands up to 4 Kbps encapsulated in CLTUs, hazardous-command filtering, CLCW evaluation, NDIU link to the MOC), the TT&C, power, 1553-bus (CDMU) and AOCS (ACMS) SCOEs, and the launch-pad equipment (COTE, spacecraft simulator).\n\nSections 3.3 to 3.5 give requirements common to every SCOE: archiving and logging, cold and hot start-up with self-test, local and remote modes, safety, maintainability, three 100 Mb/s Ethernet LANs, power, grounding, cable marking, transport and storage. Section 4 defines three acceptance-test levels with a verification matrix, and Annex 1 counts EGSE units per spacecraft model.\n\nIt shows where SCOS-2000-based tools sit in the Herschel/Planck checkout chain.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Title and approval page",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Change records",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "Table of contents and list of figures",
+   "pdf_page": 4
+  },
+  {
+   "section": "1",
+   "title": "SCOPE",
+   "pdf_page": 7
+  },
+  {
+   "section": "2",
+   "title": "DOCUMENTS",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.1",
+   "title": "Standards",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.2",
+   "title": "Reference Documents",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.3",
+   "title": "Applicable Documents",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.4",
+   "title": "Acronyms",
+   "pdf_page": 10
+  },
+  {
+   "section": "3",
+   "title": "REQUIREMENTS",
+   "pdf_page": 11
+  },
+  {
+   "section": "3.1",
+   "title": "General description",
+   "pdf_page": 11
+  },
+  {
+   "section": "3.1.1",
+   "title": "FUNCTIONAL DESCRIPTION",
+   "pdf_page": 11
+  },
+  {
+   "section": "3.1.2",
+   "title": "USE AND MISSION",
+   "pdf_page": 11
+  },
+  {
+   "section": "3.1.3",
+   "title": "EGSE Specification Tree",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.1.4",
+   "title": "SPECIFIC TERMS AND DEFINITION",
+   "pdf_page": 13
+  },
+  {
+   "section": "3.2",
+   "title": "FUNCTIONAL REQUIREMENTS",
+   "pdf_page": 16
+  },
+  {
+   "section": "3.2.1",
+   "title": "BASIC RULES AND CONCEPTS",
+   "pdf_page": 16
+  },
+  {
+   "section": "3.2.2",
+   "title": "COMMONALITY REQUIREMENTS",
+   "pdf_page": 18
+  },
+  {
+   "section": "3.2.3",
+   "title": "GENERALITIES",
+   "pdf_page": 20
+  },
+  {
+   "section": "3.2.4",
+   "title": "SYSTEM EGSE",
+   "pdf_page": 28
+  },
+  {
+   "section": "3.2.4.1",
+   "title": "CCS (Central Checkout System)",
+   "pdf_page": 28
+  },
+  {
+   "section": "3.2.4.2",
+   "title": "TM/TC DFE",
+   "pdf_page": 31
+  },
+  {
+   "section": "3.2.4.3",
+   "title": "TT&C SCOE",
+   "pdf_page": 33
+  },
+  {
+   "section": "3.2.4.4",
+   "title": "POWER SCOE",
+   "pdf_page": 34
+  },
+  {
+   "section": "3.2.4.5",
+   "title": "CDMU SCOE",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.2.4.6",
+   "title": "ACMS SCOE",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.2.5",
+   "title": "PLM EGSE",
+   "pdf_page": 38
+  },
+  {
+   "section": "3.2.6",
+   "title": "Spacecraft Interface Simulator (SIS)",
+   "pdf_page": 39
+  },
+  {
+   "section": "3.2.7",
+   "title": "EGSE SPECIFIC Herschel",
+   "pdf_page": 39
+  },
+  {
+   "section": "3.2.8",
+   "title": "EGSE SPECIFIC Planck",
+   "pdf_page": 39
+  },
+  {
+   "section": "3.2.9",
+   "title": "LAUNCHER INTERFACE",
+   "pdf_page": 40
+  },
+  {
+   "section": "3.2.10",
+   "title": "AUXILIARY EQUIPMENT",
+   "pdf_page": 42
+  },
+  {
+   "section": "3.3",
+   "title": "OPERATIONAL REQUIREMENTS",
+   "pdf_page": 43
+  },
+  {
+   "section": "3.3.1",
+   "title": "GENERAL",
+   "pdf_page": 43
+  },
+  {
+   "section": "3.3.2",
+   "title": "OPERATING MODES",
+   "pdf_page": 45
+  },
+  {
+   "section": "3.3.3",
+   "title": "CREATED ENVIRONMENT",
+   "pdf_page": 45
+  },
+  {
+   "section": "3.3.4",
+   "title": "LIFE TIME REQUIREMENTS",
+   "pdf_page": 46
+  },
+  {
+   "section": "3.3.5",
+   "title": "FUNCTIONAL SAFETY REQUIREMENTS",
+   "pdf_page": 47
+  },
+  {
+   "section": "3.3.6",
+   "title": "INTERCHANGEABILITY REQUIREMENTS",
+   "pdf_page": 51
+  },
+  {
+   "section": "3.4",
+   "title": "INTERFACES REQUIREMENTS",
+   "pdf_page": 52
+  },
+  {
+   "section": "3.4.1",
+   "title": "EGSE to/from SPACECRAFT INTERFACES",
+   "pdf_page": 52
+  },
+  {
+   "section": "3.4.2",
+   "title": "EGSE EXTERNAL INTERFACES",
+   "pdf_page": 53
+  },
+  {
+   "section": "3.4.3",
+   "title": "EGSE INTERNAL INTERFACES",
+   "pdf_page": 54
+  },
+  {
+   "section": "3.5",
+   "title": "DESIGN AND CONSTRUCTION REQUIREMENTS",
+   "pdf_page": 55
+  },
+  {
+   "section": "3.5.1",
+   "title": "GENERAL REQUIREMENTS",
+   "pdf_page": 55
+  },
+  {
+   "section": "3.5.2",
+   "title": "SPECIFIC REQUIREMENTS",
+   "pdf_page": 55
+  },
+  {
+   "section": "3.5.3",
+   "title": "IMPOSED DESIGN",
+   "pdf_page": 60
+  },
+  {
+   "section": "3.5.4",
+   "title": "IMPOSED MATERIAL PROCESS AND COMPONENTS",
+   "pdf_page": 60
+  },
+  {
+   "section": "3.5.5",
+   "title": "PRODUCT IDENTIFICATION",
+   "pdf_page": 64
+  },
+  {
+   "section": "4",
+   "title": "VERIFICATION REQUIREMENTS",
+   "pdf_page": 66
+  },
+  {
+   "section": "4.1",
+   "title": "GENERAL REQUIREMENTS",
+   "pdf_page": 66
+  },
+  {
+   "section": "4.2",
+   "title": "GENERAL TEST CONDITION",
+   "pdf_page": 67
+  },
+  {
+   "section": "4.3",
+   "title": "ACCEPTANCE TESTS",
+   "pdf_page": 67
+  },
+  {
+   "section": "5",
+   "title": "ANNEX 1 : EGSE LIST",
+   "pdf_page": 72
+  },
+  {
+   "section": "5.1",
+   "title": "System EGSE",
+   "pdf_page": 72
+  },
+  {
+   "section": "5.2",
+   "title": "PLM EGSE",
+   "pdf_page": 73
+  },
+  {
+   "section": "5.3",
+   "title": "SIS",
+   "pdf_page": 73
+  },
+  {
+   "section": "5.4",
+   "title": "EGSE Specific Herschel",
+   "pdf_page": 73
+  },
+  {
+   "section": "5.5",
+   "title": "EGSE Specific Planck",
+   "pdf_page": 73
+  },
+  {
+   "section": "5.6",
+   "title": "Launcher interface",
+   "pdf_page": 73
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Scope: top-level, implementation and interface requirements for the EGSE used during the whole electrical and functional integration, environmental testing and launch operations of Herschel and Planck; the RF suitcase and SVF are not covered.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Each requirement is labelled GRQT-xxxx and has a check method: Analysis, Review or Test.",
+   "pdf_page": 14
+  },
+  {
+   "text": "GRQT-0000c: the MMIs controlling test execution are centralised in the CCS, with backup MMIs in all SCOEs.",
+   "pdf_page": 16
+  },
+  {
+   "text": "Commonality areas between flight control and checkout systems include the Mission Information Base (spacecraft and instrument databases), MMIs, data archiving and distribution, on-board software management and maintenance, and the user language.",
+   "pdf_page": 18
+  },
+  {
+   "text": "Baseline: the Instrument EGSEs will be based on ESOC's SCOS-2000, and the Flight Control System provided by ESOC will be based on SCOS-2000; ILT test procedures and OBCPs should be reusable in the CCS and in operations.",
+   "pdf_page": 19
+  },
+  {
+   "text": "The CCS shall be compatible with [S2] and [S3]; telecommands are pre-transmission checked against the Satellite Database, and during SVTs commanded from the MOC a facility shall block or veto dangerous commands from ESOC.",
+   "pdf_page": 28
+  },
+  {
+   "text": "'CCS lite' differs from the nominal CCS only in having one server instead of two.",
+   "pdf_page": 28
+  },
+  {
+   "text": "GRQT-0002b: the CCS shall support an HPSDB (Herschel/Planck System DataBase) mirror site; all archived data shall be time-correlated to 1 second (TBC).",
+   "pdf_page": 30
+  },
+  {
+   "text": "GRQT-0003 TM/TC DFE: TM acquisition up to 3.5 Mbps with packet reconstruction from transfer frames and frame-level validation; TC sending up to 4 Kbps with encapsulation into transfer frames (CLTU), hazardous TC filtering and CLCW evaluation; TM/TC exchange with the NDIU.",
+   "pdf_page": 31
+  },
+  {
+   "text": "The CDMU SCOE acts as MIL STD 1553B bus monitor and remote-terminal simulator, including injection of predefined bus errors and quick loading of mass memories.",
+   "pdf_page": 36
+  },
+  {
+   "text": "GRQT-0150: at every start-up each SCOE checks local disk free space, creates a dated directory and opens its archive and log files.",
+   "pdf_page": 44
+  },
+  {
+   "text": "GRQT-0642/0644: TCCs and CCS peripherals on the 'Main CCS LAN', SCOEs and DFE on the 'SCOE/DFE LAN', experiment EGSEs on a separate 'Instrument Station LAN', all 100 Mb/s Ethernet with TCP/IP class B addressing.",
+   "pdf_page": 54
+  },
+  {
+   "text": "GRQT-0650: an EGSE interface compatible with the ESA-provided NDIU carries TM and TC between the satellites and the MOC.",
+   "pdf_page": 54
+  },
+  {
+   "text": "GRQT-0740: EGSE equipment is designed for 230 V (+5%, -10%), 50 Hz mains power.",
+   "pdf_page": 55
+  },
+  {
+   "text": "Acceptance testing has three levels: equipment, system EGSE, and the complete H/P EGSE with the satellite.",
+   "pdf_page": 66
+  },
+  {
+   "text": "Annex 1: three CCS (two servers) and two 'CCS light' units, three TM/TC DFEs and other system SCOEs, all provided by Alenia.",
+   "pdf_page": 72
+  }
+ ],
+ "references": [
+  {
+   "label": "S1",
+   "doc_id": "ECSS-E-40B draft",
+   "title": "Space Engineering : Software",
+   "issue": null,
+   "date": "28 July 2000",
+   "kind": "normative",
+   "pdf_page": 8
+  },
+  {
+   "label": "S2",
+   "doc_id": "ESA-PSS-04-105",
+   "title": "TM Packet Standard",
+   "issue": null,
+   "date": null,
+   "kind": "normative",
+   "pdf_page": 8
+  },
+  {
+   "label": "S3",
+   "doc_id": "ESA-PSS-04-106",
+   "title": "TC Packet Standard",
+   "issue": null,
+   "date": null,
+   "kind": "normative",
+   "pdf_page": 8
+  },
+  {
+   "label": "S4",
+   "doc_id": "ECSS-Q-80B",
+   "title": "Software Product Assurance",
+   "issue": "Issue draft",
+   "date": "3 April 2000",
+   "kind": "normative",
+   "pdf_page": 8
+  },
+  {
+   "label": "RD1",
+   "doc_id": null,
+   "title": "RF suitcase Specification",
+   "issue": "To be issued",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "RD2",
+   "doc_id": null,
+   "title": "SVF Specification",
+   "issue": "To be issued",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "RD3",
+   "doc_id": "H-P-1-ASPI-TN-0100",
+   "title": "SCOS 2000 Evaluation",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "AD1",
+   "doc_id": "CSG-RS-10A-CN",
+   "title": "CSG Safety regulations Volume 1 - General rules (Volume 1 taken precedence)",
+   "issue": "5/1",
+   "date": "03.03.99",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD2",
+   "doc_id": "CSG-RS-21A-CN",
+   "title": "CSG Safety regulations Specific rules Volume 2 Part 1 - Ground Installations",
+   "issue": "5/0",
+   "date": "15.12.97",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD3",
+   "doc_id": "CSG-RS-22A-CN",
+   "title": "CSG Safety regulations Specific rules Volume 2 Part 1 - Spacecraft",
+   "issue": "5/1",
+   "date": "03/03.97",
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD4",
+   "doc_id": "SCI-TP-RS-07430",
+   "title": "System AIV REQUIREMENTS",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD5",
+   "doc_id": "H-P-1-ASPI-SP-0029",
+   "title": "Safety Requirements",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD6",
+   "doc_id": "SCI-PT-IF-07527",
+   "title": "Herschel/Planck Packet Structure Interface Control Document (PS-ICD)",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD7",
+   "doc_id": "H-P-1-ASPI-SP-0037",
+   "title": "EMC Specification",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD8",
+   "doc_id": "SCI-PT-RS-07360",
+   "title": "Operations Interface Requirements Document",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD9",
+   "doc_id": "H-P-1-ASPI-IS-0121",
+   "title": "EGSE INTERFACE REQUIREMENTS SPECIFICATIONS",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD11",
+   "doc_id": "H-P-1-ASPI-SP-0110",
+   "title": "Ground Support Equipment Applicability Matrix of ECSS-E-40B",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": "AD12",
+   "doc_id": "H-P-1-ASPI-SP-0018",
+   "title": "PA Requirements for Subcontractors",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "HP-2-ASED-PS-0013",
+   "title": "Herschel Cryo SCOE Requirements Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0010",
+   "title": "CCS Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-1-ASPI-IS-0121",
+   "title": "EGSE INTERFACE Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0030",
+   "title": "TM/TC DFE Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0028",
+   "title": "POWER SCOE Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0029",
+   "title": "TT&C SCOE Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0013",
+   "title": "ACMS SCOE Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0027",
+   "title": "CDMU SCOE Requirements Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0019",
+   "title": "PLM SCOE Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-SP-AI-0020",
+   "title": "CDMU DFE Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-1-ASPI-SP-xxxx",
+   "title": "THCT SCOE (TBC) Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  },
+  {
+   "label": null,
+   "doc_id": "H-P-1-ASPI-SP-xxxx",
+   "title": "DISSIP SCOE (TBC) Requirement Specification",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 12
+  }
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "missions/herschel-planck.md",
+  "ccsds/tc-coding-cltu.md",
+  "ccsds/cop-1.md",
+  "ccsds/tm-sdlp.md",
+  "scos2000/nctrs-nis.md"
+ ],
+ "notes": "PDF p. 1 is blank; printed page N/73 is PDF p. N+1; PDF p. 75 is blank. The cover logo is garbled in the text layer. 'authors' lists all names on the approval page: written by B. DUBOIS (EGSE Engineer); verified by J.Y. CHARNIER (RAIT), D. MONTET (AIV Manager), C. MASSE (PA Manager); approved by J.J. JUILLET (Project Manager). Applicable-document issue/date strings are printed as 'Issue/Rev/Date : 5/1/03.03.99' etc. and split here into issue and date. Inconsistencies as printed: [S2] ESA-PSS-04-105 is titled 'TM Packet Standard' and [S3] ESA-PSS-04-106 'TC Packet Standard', whereas the OIRD (cosmos-operations-interface-requirements) lists PSS-04-106 as the Packet Telemetry Standard and PSS-04-107 as the Packet Telecommand Standard; AD10 is absent; the body cites RD-1 to RD-4 and RD-7 with meanings (commonality rationale, phased implementation, CCS requirements versus SCOS 2000) that do not match the RD list (RD1 RF suitcase, RD2 SVF, RD3 SCOS 2000 Evaluation), apparently text inherited from an ESA document; '[AD09]' is written for AD9. Section 3.2.6 (SIS) and 5.3 are 'Deleted'. Footnotes say the THCT and DISSIP SCOEs are neither specified, procured nor used by Alenia. Requirements carry AIVE-/AICO- cross-references to an unnamed higher-level requirement set. AD8 is library item cosmos-operations-interface-requirements."
+}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block announce %}
+  <div class="osi-announce">
+    <strong>Sourced from public documents.</strong>
+    Everything on this site was compiled from sources publicly available online.
+    <a href="{{ 'about/sources-and-copies/' | url }}">See every source, its original link and when we copied it&nbsp;→</a>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <div id="osi-provenance" class="osi-modal" role="dialog" aria-modal="true" aria-labelledby="osi-provenance-title" hidden>
+    <div class="osi-modal__backdrop" data-osi-close></div>
+    <div class="osi-modal__card" tabindex="-1">
+      <div class="osi-modal__badge">About this information</div>
+      <h2 id="osi-provenance-title">Everything here comes from public sources</h2>
+      <p>
+        All information on this site was retrieved from sources that are publicly available online.
+        They include CCSDS and ECSS standards, ESA/ESOC documents, conference papers, and a
+        Solar Orbiter MIB release posted by an instrument team. Every page cites the documents it
+        relies on.
+      </p>
+      <p>
+        The <a href="{{ 'about/sources-and-copies/' | url }}">Sources &amp; copies</a> page lists each document
+        with a link back to its original location and the date and time we copied it.
+      </p>
+      <p class="osi-modal__fine">
+        This is an independent, community wiki. It is not affiliated with or endorsed by ESA, CCSDS, ECSS
+        or any mission team. Third-party documents remain the property of their owners.
+      </p>
+      <div class="osi-modal__actions">
+        <a class="osi-btn osi-btn--primary" href="{{ 'about/sources-and-copies/' | url }}" data-osi-ack>View the sources</a>
+        <button type="button" class="osi-btn" data-osi-close>Got it</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var KEY = "osi-provenance-ack-v1", box = document.getElementById("osi-provenance");
+      if (!box) return;
+      function seen() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+      function remember() { try { localStorage.setItem(KEY, "1"); } catch (e) { /* storage unavailable */ } }
+      function close() { remember(); box.hidden = true; document.removeEventListener("keydown", onKey); }
+      function onKey(e) { if (e.key === "Escape") close(); }
+      box.querySelectorAll("[data-osi-close]").forEach(function (el) { el.addEventListener("click", close); });
+      box.querySelectorAll("[data-osi-ack]").forEach(function (el) { el.addEventListener("click", remember); });
+      if (!seen() && !/[?&]noprovenance\b/.test(location.search)) {
+        box.hidden = false;
+        document.addEventListener("keydown", onKey);
+        var btn = box.querySelector("button[data-osi-close]");
+        if (btn) setTimeout(function () { btn.focus(); }, 50);
+      }
+    })();
+  </script>
+{% endblock %}

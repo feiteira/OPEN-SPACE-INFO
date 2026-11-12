@@ -1,0 +1,367 @@
+{
+ "slug": "srn",
+ "title": "Software Release Note — EGOS Data Dissemination System (EDDS)",
+ "short_title": "EDDS Software Release Note (v2.3.0)",
+ "doc_id": "EGOS-GEN-EDDS-SRN-1001",
+ "issue": "Version 14.0",
+ "date": "2018-02-16",
+ "organisation": "European Space Agency, OPS-GI (ESOC); prepared by the EDDS Team",
+ "authors": [
+  "Rokibul Uddin",
+  "Delphine Thomas",
+  "Rui Santos",
+  "Michael Hawkshaw",
+  "Rauno Ots",
+  "Kamill Panitzek"
+ ],
+ "doc_type": "Technical Note",
+ "status_notes": "Issue 14.0 'Update for EDDS v2.3.0i1' (Document Change Log, PDF p. 3). It describes delivery EDDS-R2.3.0i1 only; later EDDS releases (v2.4.0 to v3.6.1, per the 2025 CIG change log) have their own release notes, which are not in the library.",
+ "summary": "This **Software Release Note (SRN)** accompanies delivery EDDS-R2.3.0i1 of the [EGOS Data Dissemination System](../scos2000/edds.md), ESOC's service for giving external users access to telemetry, telecommand and event packets, parameters and reports from the [SCOS-2000](../scos2000/index.md) mission control system and its archives.\n\nIt records what was delivered and what it depends on. Section 2.2 lists the systems the release was verified against: SCOS 6.0.1 with its integrated packet archive (PARC), the DARC data archive 3.0.0, the FARC file archive 3.1.0, the EGOS User Desktop (EUD) 3.1.8 on which the EDDS MMI is built, and the ESOC SLES 12 platform baseline. Section 2.3 describes a known limitation in the file-system view when thousands of files are handled at once (ticket EDDS-938). Section 2.4 tabulates 43 problem reports and change requests fixed in v2.3.0; several concern packet decoding, for example command-parameter decoding for SCOS-2000 6.2.0 and later, TM header decoding for non-standard headers, a request for pure spacecraft packets, and a packet TM stream client.\n\nSections 2.5 and 2.6 give the inventory of the three delivery CDs and the issue of every EDDS document in the baseline (CIG, glossary, EUICD, SDD, SRS, SUM, upgrade guide and five technical notes). Section 2.9 lists requirements de-scoped in earlier releases, for example duplicate-packet filtering by APID with SSC, SCET or OBT, calibration choices, RDM media production, and several SMF-based report filters. Use it to date a given EDDS document set and to see which SCOS-2000 and archive versions it matches.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 5
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 5
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 5
+  },
+  {
+   "section": "1.3",
+   "title": "Glossary",
+   "pdf_page": 5
+  },
+  {
+   "section": "1.3.1",
+   "title": "Acronyms",
+   "pdf_page": 5
+  },
+  {
+   "section": "1.3.2",
+   "title": "Definition of Terms",
+   "pdf_page": 6
+  },
+  {
+   "section": "1.4",
+   "title": "References",
+   "pdf_page": 6
+  },
+  {
+   "section": "1.4.1",
+   "title": "Applicable documents",
+   "pdf_page": 6
+  },
+  {
+   "section": "1.4.2",
+   "title": "Reference documents",
+   "pdf_page": 6
+  },
+  {
+   "section": "1.5",
+   "title": "Document Overview",
+   "pdf_page": 6
+  },
+  {
+   "section": "2",
+   "title": "Software Release Information",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.1",
+   "title": "Upgrade Notes",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.2",
+   "title": "Software Dependencies",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.3",
+   "title": "Known Limitations",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.4",
+   "title": "Delivered SPRs/SCRs/DCRs",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.4.1",
+   "title": "SPRs/SCRs/DCRs for 2.3.0",
+   "pdf_page": 7
+  },
+  {
+   "section": "2.5",
+   "title": "Inventory of Software Contents",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.6",
+   "title": "Software Baseline Description",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.6.1",
+   "title": "Software Documentation",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.7",
+   "title": "Software Test Report",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.8",
+   "title": "Delivery Information",
+   "pdf_page": 10
+  },
+  {
+   "section": "2.9",
+   "title": "Historical Information",
+   "pdf_page": 10
+  },
+  {
+   "section": "2.9.1",
+   "title": "De-Scoped Requirements",
+   "pdf_page": 10
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The release described is EDDS v2.3.0 (delivery EDDS-R2.3.0i1), organised on three CDs (documentation, COTS and source code).",
+   "pdf_page": 5
+  },
+  {
+   "text": "EDDS interfaces with the DARC, FARC and PARC systems, and its MMI is based on the EGOS EUD software.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Verified against SCOS 6.0.1 (PARC integrated with 6.0), DARC 3.0.0, FARC 3.1.0, EUD 3.1.8 and SLES 12 platform baseline SLES12-064-ESOCL01-I1R0; EDDS needs the DARC-dataprovision-3.0.0.jar library even with older DARC versions.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Known limitation EDDS-938: processing a large number of files together (for example erasing thousands) causes a file-system error attributed to LDAP connections that Tomcat fails to handle.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Fixes in v2.3.0 include EDDS-970 'Decode of command parameters fail for S2K 6.2.0+', EDDS-979 'Incorrect decoding of TM header when it's not the vanilla one' and EDDS-934 'EDDS Packet TM stream client'.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Further changes include EDDS-958 'Request to provide pure spacecraft packet', EDDS-966 on BIT parameters in Protobuf response files and EDDS-935 on request status when an SPID is not in pid.dat.",
+   "pdf_page": 8
+  },
+  {
+   "text": "The baseline document set at this release: CIG i14r0, Glossary i7r0, EUICD i15r0, SDD i13r0, SRN i14r0, SRS i18r0, SUM i14r0, EDDS Upgrade Guide i12r0, plus FAT report, SVTD and technical notes TN-1001 to TN-1006.",
+   "pdf_page": 9
+  },
+  {
+   "text": "De-scoped requirement EDDS-SR-07690 would have let a mission choose the duplicate-packet key (APID and SSC, APID and SCET, or APID and OBT).",
+   "pdf_page": 10
+  },
+  {
+   "text": "De-scoped requirements on calibration (EDDS-SR-00720, -05550) note that data retrieved from the DARC are processed as received, with no calibration required or possible.",
+   "pdf_page": 10
+  },
+  {
+   "text": "RDM (Raw Data Media) delivery requirements for TM, TC and EV packets, MCS reports, archived files and TM parameters were de-scoped.",
+   "pdf_page": 11
+  }
+ ],
+ "references": [
+  {
+   "label": "AD-1",
+   "doc_id": "EGOS-GEN-GEN-CMP-1001",
+   "title": "EGOS-GEN-GEN-CMP-1001",
+   "issue": "v1.2",
+   "date": "2009-09-11",
+   "kind": "applicable",
+   "pdf_page": 6
+  },
+  {
+   "label": "RD-1",
+   "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+   "title": "EDDS Configuration and Installation Guide",
+   "issue": "Issue 14.0",
+   "date": "2018-02-16",
+   "kind": "reference",
+   "pdf_page": 6
+  },
+  {
+   "label": "RD-2",
+   "doc_id": "SLES12-064-ESOCL01-i1r0",
+   "title": "ESOC Generic Ground Systems: System Configuration Baselines: Part 3- Baseline Definitions",
+   "issue": "Version 1.0",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 6
+  },
+  {
+   "label": "RD-3",
+   "doc_id": "EGOS-GEN-EDDS-EUG-1001",
+   "title": "EDDS Upgrade Guide",
+   "issue": "Issue 12.0",
+   "date": "2018-02-16",
+   "kind": "reference",
+   "pdf_page": 6
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+   "title": "Configuration and Installation Guide",
+   "issue": "I14r0",
+   "date": "2018-02-16",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-FAT-1001",
+   "title": "Factory Acceptance Test Report",
+   "issue": "i2r3",
+   "date": "2013-03-21",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-GLO-0001",
+   "title": "Glossary",
+   "issue": "I7r0",
+   "date": "2017-05-05",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-ICD-1001_EUICD",
+   "title": "EDDS Interface Control Document",
+   "issue": "I15r0",
+   "date": "2018-02-16",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-SDD-1001",
+   "title": "System Design Document",
+   "issue": "I13r0",
+   "date": "2017-05-05",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-SRN-1001",
+   "title": "Software Release Notes",
+   "issue": "I14r0",
+   "date": "2018-02-16",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+   "title": "System Requirements Specification",
+   "issue": "i18r0",
+   "date": "2018-02-16",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-SUM-1001",
+   "title": "Software User Manual",
+   "issue": "I14r0",
+   "date": "2018-02-16",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-EUG-1001",
+   "title": "EDDS Upgrade Guide",
+   "issue": "I12r0",
+   "date": "2018-02-16",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-SVTD-1001",
+   "title": "Software Validation Test Document",
+   "issue": "i1r0",
+   "date": "2010-10-11",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-TN-1001",
+   "title": "EDDS LDAP Configuration Technical Note",
+   "issue": "i1r0",
+   "date": "2010-10-11",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-TN-1002",
+   "title": "EDDS MCS Report Technical Note",
+   "issue": "i1r0",
+   "date": "2010-10-11",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-TN-1003",
+   "title": "EDDS XFDU Packet Formatting Technical Note",
+   "issue": "i1r0",
+   "date": "2010-10-11",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-TN-1004",
+   "title": "EDDS Streaming Technical Note",
+   "issue": "i1r0",
+   "date": "2011-09-12",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-TN-1005",
+   "title": "EDDS Security Technical Note",
+   "issue": "i1r0",
+   "date": "2011-09-12",
+   "kind": "mentioned",
+   "pdf_page": 9
+  },
+  {
+   "label": null,
+   "doc_id": "EGOS-GEN-EDDS-TN-1006",
+   "title": "EDDS Central LDAP Technical Note",
+   "issue": "i1r0",
+   "date": "2014-05-13",
+   "kind": "mentioned",
+   "pdf_page": 9
+  }
+ ],
+ "topics": [
+  "scos2000/edds.md",
+  "scos2000/archives.md",
+  "scos2000/ancillary-and-egs-cc.md"
+ ],
+ "notes": "The title page and approval table print 'Software Release Note' in the Reference field instead of a document number; the number EGOS-GEN-EDDS-SRN-1001 is taken from the document's own software documentation table (PDF p. 9). The change log dates issue 14.0 as 2017-02-16, which conflicts with the 2018-02-16 date on the title page and footers (apparent typo). Section 2.3 heading is duplicated ('2.3' printed alone on PDF p. 7), as is '2.5'. Issue 9.0, 11.0 and 13.0 are absent from the change log. Mentioned documents in the 2.6.1 table are recorded with kind 'mentioned'. This SRN matches the 2018 document set of library items cig-i14r0, eug and euicd-i15r0."
+}

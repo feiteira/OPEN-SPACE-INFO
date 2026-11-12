@@ -1,0 +1,209 @@
+{
+  "table": "plf",
+  "file": "plf.dat",
+  "icd": true,
+  "name": "Parameters location in fixed packets",
+  "icd_section": "3.3.2.5.1",
+  "pdf_page": 97,
+  "family": "monitoring",
+  "purpose": "plf describes the layout of fixed-format telemetry packets: for each SCOS-2000 packet (SPID) it lists which monitoring parameters are extracted and where. Each record places one parameter in one packet by byte offset and bit offset of its first occurrence; the length follows from the parameter's PTC/PFC. Super-commutated parameters, which appear several times in a packet, are described in the same single record by the number of occurrences, the bit distance between them and the time spacing used to time-stamp each sample. A parameter may appear in many packets. Overlapping entries (two parameters from the same bits) and gaps are allowed, but a parameter may have only one record per packet. Offsets count from the end of the SCOS-2000 TM header; with the SCOS-2000 packetiser this is the first byte of the source packet header, because the whole source packet is stored in the packet body. The standard monitoring displays (ANDs, GRDs, SCDs) and the telemetry model use plf to extract parameter values. Internally generated packets (constants packet, MISC packet, synthetic packets) also need plf entries.",
+  "keys": [
+    "PLF_NAME",
+    "PLF_SPID"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "PLF_NAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Name of the monitoring parameter to be extracted; must match PCF_NAME.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 97
+    },
+    {
+      "pos": 2,
+      "name": "PLF_SPID",
+      "type": "Number(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "SCOS-2000 Packet ID of the packet from which the parameter values are extracted; a positive integer matching PID_SPID.",
+      "values": [],
+      "references": "pid.PID_SPID",
+      "pdf_page": 97
+    },
+    {
+      "pos": 3,
+      "name": "PLF_OFFBY",
+      "type": "Number(5)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Byte offset of the first occurrence of the parameter, counted from the end of the SCOS-2000 TM header. With the SCOS-2000 telemetry packetiser this coincides with the start of the TM source packet header. Integer starting from 0 (negative values not allowed).",
+      "values": [],
+      "references": null,
+      "pdf_page": 97
+    },
+    {
+      "pos": 4,
+      "name": "PLF_OFFBI",
+      "type": "Number(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Bit number, within the byte given by PLF_OFFBY, of the first bit of the first occurrence; bit 0 is the leftmost (most significant) bit of the byte. Integer from 0 to 7.",
+      "values": [],
+      "references": null,
+      "pdf_page": 98
+    },
+    {
+      "pos": 5,
+      "name": "PLF_NBOCC",
+      "type": "Number(4)",
+      "mandatory": "O",
+      "default": "1",
+      "description": "Number of occurrences of the parameter in the packet, from 1 to 9999. Use 1 for parameters that are not super-commutated.",
+      "values": [],
+      "references": null,
+      "pdf_page": 98
+    },
+    {
+      "pos": 6,
+      "name": "PLF_LGOCC",
+      "type": "Number(5)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Distance in bits between the starts of two consecutive occurrences of a super-commutated parameter, from 0 to 32767. Irrelevant when PLF_NBOCC = 1.",
+      "values": [],
+      "references": null,
+      "pdf_page": 98
+    },
+    {
+      "pos": 7,
+      "name": "PLF_TIME",
+      "type": "Number(9)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Time offset in milliseconds of the first occurrence relative to the packet time, used to adjust the time stamp of the extracted sample (for super-commutated and non-commutated parameters alike). Integer from -4080000 to 4080000. Together with PLF_TDOCC it is used by graphic displays to plot super-commutated samples and to show sample times on scrolling displays and printouts (Note 1, p. 98).",
+      "values": [],
+      "references": null,
+      "pdf_page": 98
+    },
+    {
+      "pos": 8,
+      "name": "PLF_TDOCC",
+      "type": "Number(9)",
+      "mandatory": "O",
+      "default": "1",
+      "description": "Time delay in milliseconds between two consecutive occurrences of a super-commutated parameter, from 1 to 4080000. Irrelevant when PLF_NBOCC = 1. Since ICD 6.1 the default is 1 and 0 is not an allowed value.",
+      "values": [],
+      "references": null,
+      "pdf_page": 98
+    }
+  ],
+  "relationships": [
+    {
+      "field": "PLF_NAME",
+      "target": "pcf.PCF_NAME",
+      "note": "Many-to-many link between parameters and fixed packets (section 3.3.2, p. 39)."
+    },
+    {
+      "field": "PLF_SPID",
+      "target": "pid.PID_SPID",
+      "note": "Fixed packet structure identified by SPID."
+    }
+  ],
+  "history": "ICD 5.1 (p. 44-45) has the same eight fields, with PLF_TDOCC default '0'. ICD 6.0 added the ability to display super-commutated parameters in ANDs (DCR-2422, ICD 7.0 Annex 1, p. 246). ICD 6.1 corrected PLF_TDOCC: its default is 1, not 0, and 0 is not allowed (S2K-40-DCR-847, p. 251). Unchanged in ICD 6.7 Draft A (p. 91-93), 6.9 (p. 95-97) and 7.0 (p. 97-99). pyscos2000 (ICD 7.2) matches: key PLF_NAME + PLF_SPID, defaults NBOCC '1', LGOCC '0', TIME '0', TDOCC '1'.",
+  "solo_stats": {
+    "rows": 400792,
+    "fields": [
+      {
+        "name": "PLF_NAME",
+        "filled": 400792,
+        "examples": [
+          "NCD05011",
+          "NIU00043",
+          "NIU00044",
+          "NIU00045",
+          "NIU00046"
+        ]
+      },
+      {
+        "name": "PLF_SPID",
+        "filled": 400792,
+        "examples": [
+          "80028",
+          "33542",
+          "33543",
+          "50215",
+          "33508"
+        ]
+      },
+      {
+        "name": "PLF_OFFBY",
+        "filled": 400792,
+        "examples": [
+          "16",
+          "18",
+          "22",
+          "20",
+          "26"
+        ]
+      },
+      {
+        "name": "PLF_OFFBI",
+        "filled": 400792,
+        "examples": [
+          "0",
+          "4",
+          "6",
+          "2",
+          "1"
+        ]
+      },
+      {
+        "name": "PLF_NBOCC",
+        "filled": 400792,
+        "examples": [
+          "1",
+          "1024",
+          "8",
+          "16",
+          "100"
+        ]
+      },
+      {
+        "name": "PLF_LGOCC",
+        "filled": 400792,
+        "examples": [
+          "0",
+          "16",
+          "744",
+          "672",
+          "608"
+        ]
+      },
+      {
+        "name": "PLF_TIME",
+        "filled": 400792,
+        "examples": [
+          "0",
+          "-875",
+          "-1875",
+          "-12375",
+          "-4875"
+        ]
+      },
+      {
+        "name": "PLF_TDOCC",
+        "filled": 400792,
+        "examples": [
+          "1",
+          "0",
+          "125"
+        ]
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. Solar Orbiter 2025-09-16: 400,792 records placing 107,792 parameters in 9,056 packets. NCD05011 ('OBCHP_PTM_EID', the event identifier at byte 16) appears in 2,322 packets. 725 records are super-commutated (PLF_NBOCC from 8 to 2,046, most often 1,024), e.g. NCA3Z001 in SPID 29540 with 16 occurrences every 744 bits, PLF_TIME -1875 ms and PLF_TDOCC 125 ms. 487 non-super-commutated records give PLF_TDOCC = 0, a value the ICD has disallowed since issue 6.1; it is irrelevant for single occurrences. PLF_TIME is non-zero in 91 records (all negative). 239 records have PLF_OFFBY < 16, mostly in internally generated packets (e.g. SPID 36997 'OBC_HPTM_packet', TM(0,0) APID 34, and SPIDs 66980-66982 'Good/Bad/Idle mini-transfer frame', TM(161,5/4/3) APID 1966) or header fields; saved synthetic parameters use offsets 0 and 13 in SPID 66838. One record (NYM0796V in SPID 66028 'LMS_MLG High Frequency') names a parameter missing from pcf; per ICD section 2.4 (p. 23) the importer would reject it for relational inconsistency. 15,067 raw (PCF_NATUR 'R') parameters have neither a plf nor a vpd entry (1,192 of them have a PCF_PID)."
+}

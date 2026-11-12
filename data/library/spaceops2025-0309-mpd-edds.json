@@ -1,0 +1,292 @@
+{
+  "slug": "spaceops2025-0309-mpd-edds",
+  "title": "CCSDS Mission Product Distribution Services - New interoperability standard for exchanging mission data products",
+  "short_title": "CCSDS Mission Product Distribution vs EDDS (SpaceOps 2025)",
+  "doc_id": "SpaceOps-2025, ID # 309",
+  "issue": null,
+  "date": "2025",
+  "organisation": "European Space Agency, European Space Operations Centre (ESOC), with CGI Deutschland and NASA Jet Propulsion Laboratory (California Institute of Technology)",
+  "authors": [
+    "Dominik Marszk",
+    "Daniel Fischer",
+    "Mehran Sarkarati",
+    "Cesar Coelho",
+    "Rob Tapella",
+    "Wai Phyo",
+    "Paul Ramirez"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "SpaceOps 2025 paper, ID # 309. It describes MPD as being 'in the final stages of CCSDS Agency Review', with the draft cited as CCSDS 522.2-R-2 (Red Book, July 2024), a Prototype Report (Yellow Book) in preparation and Blue Book publication expected in Q3–Q4 2025 (PDF p. 11). Whether the Blue Book has since been published is not stated in the source.",
+  "summary": "A SpaceOps 2025 paper by ESA/ESOC, CGI and NASA JPL presenting the CCSDS **Mission Product Distribution (MPD)** services. MPD is a draft CCSDS Mission Operations (MO) standard from the Spacecraft Monitoring and Control working group for querying, retrieving and subscribing to mission data products across agencies. It is specified with the MO Message Abstraction Layer (MAL), and consumer and provider interfaces can be auto-generated for Java, C, C++ and Go.\n\nThe information model separates ProductType (with attribute definitions) from Product instances (creation and content dates, source, attributes, body). StandingOrder captures a subscription, with ProductFilter, TimeWindow and AttributeFilter (value range, value set, string pattern) for selection. There are three services. **Product Retrieval** offers listProducts, getProducts and deliverProductFiles. **Order Management** offers list, submit and cancel for standing orders. **Product Order Delivery** offers notifyProductDelivery and deliverProducts. Use cases cover on-demand retrieval, scripted pulling, subscriptions, and delivery by service message or file transfer to a URI.\n\nFor this wiki the main interest is section 3.1, which maps ESA's [EDDS](../scos2000/edds.md) onto MPD (see [EDDS request and data formats](../scos2000/edds-formats.md)). The EDDS interface is a SOAP/WSDL service with XML schema plus a REST service. Its batch and stream requests correspond to standing orders, getResponse to delivery notifications, getJobs and getStatus to listStandingOrders, and getCatalogue to listProducts. The paper notes that EDDS lacks advanced metadata filtering and live delivery notifications, and that EDDS product types such as PktTm, PktTc and PktEv are specific to the SCOS and EGS-CC data models. NASA AMMOS DataDrive is mapped in the same way. An ESA/JPL prototype built during 2024 on ESA's Java MO stack validated the draft and found naming, nullability and field-type issues. The paper closes with future applications and enhancements.",
+  "contents": [
+    {
+      "section": "Abstract",
+      "title": "Abstract and Acronyms/Abbreviations",
+      "pdf_page": 1
+    },
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 2
+    },
+    {
+      "section": "2",
+      "title": "Overview of the CCSDS Mission Product Distribution (MPD) Standard",
+      "pdf_page": 3
+    },
+    {
+      "section": "2.1",
+      "title": "MPD Information Model Overview",
+      "pdf_page": 4
+    },
+    {
+      "section": "2.2",
+      "title": "MPD Service Specifications",
+      "pdf_page": 5
+    },
+    {
+      "section": "2.2.1",
+      "title": "Product Retrieval Service",
+      "pdf_page": 5
+    },
+    {
+      "section": "2.2.2",
+      "title": "Order Management Service",
+      "pdf_page": 5
+    },
+    {
+      "section": "2.2.3",
+      "title": "Product Order Delivery Service",
+      "pdf_page": 6
+    },
+    {
+      "section": "2.3",
+      "title": "Use Cases",
+      "pdf_page": 6
+    },
+    {
+      "section": "3",
+      "title": "Comparison with Existing Interfaces",
+      "pdf_page": 6
+    },
+    {
+      "section": "3.1",
+      "title": "EGOS Data Disposition System (EDDS)",
+      "pdf_page": 6
+    },
+    {
+      "section": "3.1.1",
+      "title": "Key Differences and Observations",
+      "pdf_page": 6
+    },
+    {
+      "section": "3.2",
+      "title": "NASA AMMOS DataDrive",
+      "pdf_page": 7
+    },
+    {
+      "section": "3.2.1",
+      "title": "Key Differences and Observations",
+      "pdf_page": 7
+    },
+    {
+      "section": "3.3",
+      "title": "Summary of Comparison",
+      "pdf_page": 8
+    },
+    {
+      "section": "4",
+      "title": "Inter-Agency Prototyping and Validation",
+      "pdf_page": 8
+    },
+    {
+      "section": "5",
+      "title": "Potential Future Applications and Integrations",
+      "pdf_page": 9
+    },
+    {
+      "section": "5.1",
+      "title": "Application Scenarios",
+      "pdf_page": 9
+    },
+    {
+      "section": "5.2",
+      "title": "Benefits of MPD for New Missions",
+      "pdf_page": 10
+    },
+    {
+      "section": "5.3",
+      "title": "Future Enhancements and Considerations",
+      "pdf_page": 10
+    },
+    {
+      "section": "6",
+      "title": "Conclusions",
+      "pdf_page": 10
+    },
+    {
+      "section": "References",
+      "title": "References",
+      "pdf_page": 11
+    }
+  ],
+  "key_points": [
+    {
+      "text": "MPD is being standardised by the CCSDS Spacecraft Monitoring and Control (SM&C) Working Group on top of the CCSDS Mission Operations (MO) framework, whose core is the Message Abstraction Layer (MAL); machine-readable service specifications are published in the SANA registry.",
+      "pdf_page": 2
+    },
+    {
+      "text": "MPD defines three services: Product Retrieval, Order Management and Product Order Delivery; use of MO MAL is the default but not mandatory.",
+      "pdf_page": 3
+    },
+    {
+      "text": "Information model: ProductType (name, description, AttributeDef list), Product (type, creationDate, contentDate, source, attributes, file metadata, body) and StandingOrder (filter, delivery method, validity window, target).",
+      "pdf_page": 4
+    },
+    {
+      "text": "Filtering uses ProductFilter (type, domain, sources, attribute filters), TimeWindow and AttributeFilter variants ValueRange, ValueSet and StringPattern.",
+      "pdf_page": 5
+    },
+    {
+      "text": "Product Retrieval operations: listProducts, getProducts (progress interaction) and deliverProductFiles (transfer to a URI with per-file status); Order Management: listStandingOrders, submitStandingOrder, cancelStandingOrder.",
+      "pdf_page": 5
+    },
+    {
+      "text": "Product Order Delivery publishes notifyProductDelivery for file-transfer deliveries and deliverProducts for full product instances via publish-subscribe.",
+      "pdf_page": 6
+    },
+    {
+      "text": "The EDDS interface is a SOAP-based WSDL service with XML schema (data requests, job submission and tracking, catalogue queries, user account management); EDDS also offers a REST-based service.",
+      "pdf_page": 6
+    },
+    {
+      "text": "EDDS-to-MPD mapping: batchRequest()/streamRequest() to submitStandingOrder(); getResponse() to notifyProductDelivery()/deliverProducts(); getJobs()/getStatus() to listStandingOrders(); getCatalogue() to listProducts() + ProductFilter; FileServerDelivery/ServerDelivery to FILETRANSFER/SERVICE_COMPLETE.",
+      "pdf_page": 6
+    },
+    {
+      "text": "EDDS has no advanced filtering and metadata search, does not typically forward live delivery notifications (job status is polled) and uses login credentials yielding authorisation tokens; EDDS product types PktEv, PktTc and PktTm are specific to SCOS and EGS-CC data models.",
+      "pdf_page": 7
+    },
+    {
+      "text": "ESA and NASA/JPL each built an independent MPD provider prototype during 2024 (completing in 2025) against a shared Java MO test harness with file:// transfers only, a mandatory step before Blue Book publication.",
+      "pdf_page": 8
+    },
+    {
+      "text": "Prototyping found structural naming inconsistencies, misapplied nullable attributes and inappropriate field types, which were fixed in the data model.",
+      "pdf_page": 9
+    },
+    {
+      "text": "MPD was expected to be published as a CCSDS Blue Book in Q3–Q4 2025, with a Prototype Report (Yellow Book) in preparation.",
+      "pdf_page": 11
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 522.2-R-2",
+      "title": "Mission Operations - Mission Data Product Distribution Services, CCSDS Red Book",
+      "issue": "R-2",
+      "date": "July 2024",
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 520.0-G-3",
+      "title": "Mission Operations Services Concept, CCSDS Green Book",
+      "issue": "G-3",
+      "date": "December 2010",
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[3]",
+      "doc_id": null,
+      "title": "SANA Registry for MO Schemas: http://sanaregistry.org/r/moschemas/",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[4]",
+      "doc_id": null,
+      "title": "SANA Registry Link for MPD XML Definition: https://beta.sanaregistry.org/r/moschemas/area009-v001-MPD.xml",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[5]",
+      "doc_id": "CCSDS 521.0-B-3",
+      "title": "Mission Operations Message Abstraction Layer, CCSDS Blue Book",
+      "issue": "B-3",
+      "date": "March 2024",
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[6]",
+      "doc_id": null,
+      "title": "OPS-SAT: Preparing for the Operations of ESA's First NanoSat, D Evans, AT Lange, JL Feiteirinha, J Nörtemann, C Coelho, 14th International Conference on Space Operations",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[7]",
+      "doc_id": null,
+      "title": "Φ-Sat-2: Onboard AI Apps for Earth Observation, A Marin, C Coelho, F Deconinck, I Babkina, N Longepe, M Pastena, Space and Artificial Intelligence 2021",
+      "issue": null,
+      "date": "2021",
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[8]",
+      "doc_id": null,
+      "title": "CCSDS Mission Operations Directory service: Paving the road for a new world of services' discoverability, C Coelho, S Cooper, M Sarkarati, M Merri, O Koudelka, 4S Symposium",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[9]",
+      "doc_id": "RFC 3986",
+      "title": "T. Berners-Lee, R. Fielding, and L. Masinter, Uniform Resource Identifier (URI): Generic Syntax, RFC 3986, Reston, Virginia, ISOC",
+      "issue": null,
+      "date": "January 2005",
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[10]",
+      "doc_id": null,
+      "title": "CCSDS SM&C WG Issue Tracker: https://github.com/ccsdsmo/smc-backlog/issues",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 11
+    },
+    {
+      "label": "[11]",
+      "doc_id": "CCSDS A02.1-Y-4",
+      "title": "Organization and Processes for the Consultative Committee for Space Data Systems, CCSDS Yellow Book",
+      "issue": "Y-4",
+      "date": "April 2014",
+      "kind": "bibliography",
+      "pdf_page": 11
+    }
+  ],
+  "topics": [
+    "scos2000/edds.md",
+    "scos2000/edds-formats.md",
+    "scos2000/ancillary-and-egs-cc.md",
+    "scos2000/gdds-and-ddids.md",
+    "overview/standards-map.md"
+  ],
+  "notes": "The corresponding author's e-mail address is omitted here. The paper expands EDDS as 'EGOS Data Disposition System' and EGOS as 'ESA Ground Operation System'; other library items use 'EGOS Data Dissemination System'. The standard's title is printed as 'Mission Data Product Distribution Services' in reference [1] and as 'Mission Product Distribution (MPD) Services' in the text. The year 2025 is the conference year (SpaceOps 2025, Montreal, 26-30 May 2025, from the page header that the extraction carries); no other date is printed. Figures 1-3 and 5 are reproduced from the CCSDS standard or are diagrams without extracted text. The extraction reports 12 PDF pages (registry: 11); the last is empty."
+}

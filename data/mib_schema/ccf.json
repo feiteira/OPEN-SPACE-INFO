@@ -1,0 +1,607 @@
+{
+ "table": "ccf",
+ "file": "ccf.dat",
+ "icd": true,
+ "name": "Command characteristics",
+ "icd_section": "3.3.3.2.1",
+ "pdf_page": 132,
+ "family": "commanding",
+ "purpose": "The ccf table is the master list of telecommands, one record per command, and is the central entity of the SCOS-2000 commanding data. A command may target the spacecraft or another control domain such as ground equipment, and since SCOS-2000 R5.0 it may also be an SLE or NIS throw event. The record gives the command name and descriptions, the packet header to use (CCF_PKTID), the values that fill the header placeholders (service type and subtype, APID, acknowledgement flags), special command types such as control frames, control segments or packets without error control, and the default operational attributes applied when the command is loaded on a command source: criticality, plannability by external sources, stand-alone loading, interlock scope and stage, high priority with forced MAP ID, default parameter value set, redundant APID and default on-board sub-schedule. The layout of the application data is given by CDF (elements) and CPC (parameters); static pre-transmission validation by PTV; verification stages through CVP/CVS/CVE; parameter sets through PSM. Only parameter values, not fixed areas, appear in the command history. Encoded commands are limited by the MISCconfig variable CMDP_MAX_BLOCK_SIZE (default 248 bytes), from which the header, the CRC (CMD_CRC_SIZE, default 2 bytes) and, for time-tagged commands, the TC(11,4) wrapper defined by CMD_LOAD_TT_NAME (default 20 bytes) are deducted; that wrapper command must itself be defined in CCF and CDF.",
+ "keys": [
+  "CCF_CNAME"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "CCF_CNAME",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Unique name (mnemonic) of the command. It is the key referenced by CDF_CNAME (command structure), PTV_CNAME (pre-transmission validation), CVP_TASK (verification profile), PSM_NAME (parameter sets), CSS_ELEMID (use of the command in a sequence) and by the default values of command or sequence parameters of type 'Command ID'.",
+   "values": [],
+   "references": null,
+   "pdf_page": 133
+  },
+  {
+   "pos": 2,
+   "name": "CCF_DESCR",
+   "type": "Char(24)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Short textual description of the command, up to 24 characters, shown alongside the command name in SCOS-2000 displays.",
+   "values": [],
+   "references": null,
+   "pdf_page": 133
+  },
+  {
+   "pos": 3,
+   "name": "CCF_DESCR2",
+   "type": "Char(64)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Detailed description of the command, up to 64 characters. Printed with a grey background in ICD 7.0, meaning that SCOS-2000 does not use the field for any processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 133
+  },
+  {
+   "pos": 4,
+   "name": "CCF_CTYPE",
+   "type": "Char(8)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Command type. For missions following the Packet Telecommand Standard it flags special commands that are not ordinary TC packets. For control segments (R) and control frames (F) the PCDF/CDF entries of the command describe the frame data field instead of a packet header plus application data; the ICD strongly recommends giving BC frames (Unlock, Set V(R)) a global interlock (CCF_ILSCOPE='G') waiting at least on the uplink stage (CCF_ILSTAGE='U'), so that no further command is released before the releaser has completed the AD-mode set-up. Type S marks a command packet without Packet Error Control field, whereas for normal commands the releaser appends a 16-bit CRC; this is typically used by EGSE systems for non-spacecraft commands. Types T and N are throw events (since R5.0): they are never uplinked, and their PCDF/CDF entries define the event identifier and following fields of the throw-event data unit described in the SLE and NIS interface documents; throw events cannot be blocked with other entries in a sequence or command source. For any other command the field may be empty or contain any mission-specific string that does not match R, F, S, T or N.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Control Segment (Reset Map command); PCDF/CDF define the frame data field."
+    },
+    {
+     "value": "F",
+     "meaning": "Control Frame (BC frame, e.g. Unlock or Set V(R)); PCDF/CDF define the frame data field."
+    },
+    {
+     "value": "S",
+     "meaning": "Command packet without Packet Error Control field (no CRC appended by the releaser); typical for EGSE non-spacecraft commands."
+    },
+    {
+     "value": "T",
+     "meaning": "SLE Throw Event: sent to the SLE service provider (ground station equipment), not uplinked; PCDF/CDF define the Event ID and following fields (Table 2-14 of the SLE reference)."
+    },
+    {
+     "value": "N",
+     "meaning": "NIS Throw Event: executed by the NIS and not forwarded to the ground station; PCDF/CDF define the Event ID and following fields (Table 3.2 of the NIS reference)."
+    },
+    {
+     "value": "other / empty",
+     "meaning": "Standard command; any other string may carry a mission-specific meaning."
+    }
+   ],
+   "references": null,
+   "pdf_page": 134
+  },
+  {
+   "pos": 5,
+   "name": "CCF_CRITICAL",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Criticality flag. A critical (also called hazardous) command is flagged Y; the extra processing or protection applied to critical commands is left to mission-specific implementation.",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "Critical (hazardous) command."
+    },
+    {
+     "value": "N",
+     "meaning": "Non-critical (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 135
+  },
+  {
+   "pos": 6,
+   "name": "CCF_PKTID",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Name of the TC packet header (TCP_ID) used when constructing the command packet. The PCDF elements of that header decide which of CCF_TYPE, CCF_STYPE, CCF_APID and CCF_ACK are needed.",
+   "values": [],
+   "references": "tcp.TCP_ID",
+   "pdf_page": 135
+  },
+  {
+   "pos": 7,
+   "name": "CCF_TYPE",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "PUS service type of the command, an integer 0 to 255, copied into the header element of PCDF_TYPE 'T'. It may be empty if the selected packet header has no element of type T.",
+   "values": [],
+   "references": null,
+   "pdf_page": 135
+  },
+  {
+   "pos": 8,
+   "name": "CCF_STYPE",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "PUS service subtype of the command, an integer 0 to 255, copied into the header element of PCDF_TYPE 'S'. It may be empty if the selected packet header has no element of type S.",
+   "values": [],
+   "references": null,
+   "pdf_page": 136
+  },
+  {
+   "pos": 9,
+   "name": "CCF_APID",
+   "type": "Number(5)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Application process identifier of the command, copied into the header element of PCDF_TYPE 'A'. Allowed range 0 to 2047 for spacecraft commands and 2048 to 65535 for non-spacecraft commands. It may be empty if the header has no element of type A. The APID also selects the routing defined in DST (commands whose APID is not in DST go to the NCTRS) and must be present whenever CCF_RAPID is set.",
+   "values": [],
+   "references": "dst.DST_APID",
+   "pdf_page": 136
+  },
+  {
+   "pos": 10,
+   "name": "CCF_NPARS",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Number of elements (parameters and fixed areas) of the command, provided so that the off-line database can check it against the number of CDF records of the command. Grey background in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 136
+  },
+  {
+   "pos": 11,
+   "name": "CCF_PLAN",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Identifies which external sources may reference this command directly in a planning file.",
+   "values": [
+    {
+     "value": "A",
+     "meaning": "Plannable by all sources."
+    },
+    {
+     "value": "F",
+     "meaning": "Plannable by flight dynamics only."
+    },
+    {
+     "value": "S",
+     "meaning": "Plannable by the SOC only."
+    },
+    {
+     "value": "N",
+     "meaning": "Not plannable by any source (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 136
+  },
+  {
+   "pos": 12,
+   "name": "CCF_EXEC",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "Y",
+   "description": "Controls whether the command may be loaded on SCOS-2000 manual stacks on its own, or only as part of a command sequence.",
+   "values": [
+    {
+     "value": "N",
+     "meaning": "Cannot be loaded stand-alone (only inside sequences)."
+    },
+    {
+     "value": "Y",
+     "meaning": "No restriction (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 136
+  },
+  {
+   "pos": 13,
+   "name": "CCF_ILSCOPE",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Default interlock scope applied when the command is loaded on a SCOS-2000 command source, i.e. which commanding is blocked while the command waits for the verification stage given by CCF_ILSTAGE. The subsystem-based options use CCF_SUBSYS. A sequence element can override it with CSS_ILSCOPE.",
+   "values": [
+    {
+     "value": "G",
+     "meaning": "Global interlock: the whole system is interlocked."
+    },
+    {
+     "value": "L",
+     "meaning": "Only the local commanding source is interlocked."
+    },
+    {
+     "value": "S",
+     "meaning": "Local commanding is interlocked for the subsystem the command belongs to."
+    },
+    {
+     "value": "B",
+     "meaning": "Global commanding is interlocked only for the subsystem the command belongs to (printed in italics in ICD 7.0, i.e. not currently supported by SCOS-2000)."
+    },
+    {
+     "value": "F",
+     "meaning": "Only the local commanding source is interlocked, and only if verification fails (no WAIT state)."
+    },
+    {
+     "value": "T",
+     "meaning": "Local commanding for the subsystem is interlocked, and only if verification fails (no WAIT state)."
+    },
+    {
+     "value": "N",
+     "meaning": "No interlock (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 137
+  },
+  {
+   "pos": 14,
+   "name": "CCF_ILSTAGE",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "C",
+   "description": "Default verification stage that an interlock raised by this command waits for. Option O is handled as U when commanding in BD mode. The importer checks this field against the command verification profile: if a CEV stage (A or C) is requested but the command has no such stage in CVP/CVS, the importer replaces the value with the highest stage applicable to that command (A or O). A sequence element can override it with CSS_ILSTAGE.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Reception/acceptance at the ground station."
+    },
+    {
+     "value": "U",
+     "meaning": "Uplink, also called radiation or transmission."
+    },
+    {
+     "value": "O",
+     "meaning": "On-board reception/acceptance (final uplink verification, also called transfer); handled as U when commanding in BD mode."
+    },
+    {
+     "value": "A",
+     "meaning": "Application acceptance (a CEV stage)."
+    },
+    {
+     "value": "C",
+     "meaning": "Completion (a CEV stage; import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 138
+  },
+  {
+   "pos": 15,
+   "name": "CCF_SUBSYS",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Identifier of the subsystem the command belongs to, an integer 1 to 255. It is used by the subsystem-scoped interlock options (S, B, T), to derive the on-board subsystem mnemonic shown by TC SPACON for redundant APIDs, and as the default sub-schedule identifier when CCF_SUBSCHEDID is empty.",
+   "values": [],
+   "references": null,
+   "pdf_page": 138
+  },
+  {
+   "pos": 16,
+   "name": "CCF_HIPRI",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Flags a command implemented on board as high priority: its MAP ID is forced to the fixed value given in CCF_MAPID and it cannot be execution time-tagged on board (typically CPDU commands of a packet-based mission). High-priority commands cannot be aggregated, i.e. they cannot be part of a command block (see CSS_BLOCK).",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "High-priority command."
+    },
+    {
+     "value": "N",
+     "meaning": "Not high priority (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 139
+  },
+  {
+   "pos": 17,
+   "name": "CCF_MAPID",
+   "type": "Number(2)",
+   "mandatory": "O",
+   "default": null,
+   "description": "MAP identifier to be used for a high-priority command, an integer 0 to 63. Irrelevant unless CCF_HIPRI is Y.",
+   "values": [],
+   "references": null,
+   "pdf_page": 139
+  },
+  {
+   "pos": 18,
+   "name": "CCF_DEFSET",
+   "type": "Char(8)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Name of the parameter value set (PSV_PVSID) applied by default to the command parameters when the command is loaded.",
+   "values": [],
+   "references": "psv.PSV_PVSID",
+   "pdf_page": 139
+  },
+  {
+   "pos": 19,
+   "name": "CCF_RAPID",
+   "type": "Number(5)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Redundant APID of the command, for redundant on-board units that accept the same command under a different APID. The TC SPACON application can dynamically force the use of the redundant APID for a selected prime APID; when this field is set, TC SPACON offers an entry showing the subsystem mnemonic (from CCF_SUBSYS) and the prime APID (CCF_APID), which must then also be set. Range 1 to 2047 (zero not allowed) for spacecraft commands and 2048 to 65535 for non-spacecraft commands. All commands sharing a prime APID must declare the same redundant APID.",
+   "values": [],
+   "references": null,
+   "pdf_page": 140
+  },
+  {
+   "pos": 20,
+   "name": "CCF_ACK",
+   "type": "Number(2)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Default acknowledgement flags of the command: the decimal value (0 to 15) of the complete 4-bit Ack field of the packet data field header, copied into the header element of PCDF_TYPE 'K'. It may be empty if the header has no element of type K. Since R4.0 the flags can be changed when the command is loaded on a command source, which is also the way to disable dynamically a report-based verification stage defined in CVP/CVS.",
+   "values": [],
+   "references": null,
+   "pdf_page": 140
+  },
+  {
+   "pos": 21,
+   "name": "CCF_SUBSCHEDID",
+   "type": "Number(5)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Identifier (1 to 65535) of the default on-board sub-schedule used when the command is loaded as an execution time-tagged command. If empty, the value of CCF_SUBSYS is used as default. A sequence can impose its own default with CSF_SUBSCHEDID. The ICD 7.0 text wraps the field name over two lines as 'CCF_SUBSCHED ID'.",
+   "values": [],
+   "references": null,
+   "pdf_page": 140
+  }
+ ],
+ "relationships": [
+  {
+   "field": "CCF_PKTID",
+   "target": "tcp.TCP_ID",
+   "note": "Packet header used to encode the command; its PCDF elements of type A/T/S/K are filled from CCF_APID/CCF_TYPE/CCF_STYPE/CCF_ACK."
+  },
+  {
+   "field": "CCF_CNAME",
+   "target": "cdf.CDF_CNAME",
+   "note": "Command structure: one CDF record per element; CDF maps the command to its CPC parameters (many-to-many)."
+  },
+  {
+   "field": "CCF_CNAME",
+   "target": "ptv.PTV_CNAME",
+   "note": "Static pre-transmission validation checks of the command (one-to-many, ANDed)."
+  },
+  {
+   "field": "CCF_CNAME",
+   "target": "cvp.CVP_TASK",
+   "note": "Verification profile: CVP maps the command to shared CVS verification stages (many-to-many)."
+  },
+  {
+   "field": "CCF_CNAME",
+   "target": "psm.PSM_NAME",
+   "note": "Parameter sets usable with the command (many-to-many through PSM)."
+  },
+  {
+   "field": "CCF_CNAME",
+   "target": "css.CSS_ELEMID",
+   "note": "Use of the command as an element (CSS_TYPE=C) of command sequences."
+  },
+  {
+   "field": "CCF_DEFSET",
+   "target": "psv.PSV_PVSID",
+   "note": "Default parameter value set."
+  },
+  {
+   "field": "CCF_APID",
+   "target": "dst.DST_APID",
+   "note": "Optional routing of all commands with this APID; absent APIDs go to the NCTRS."
+  },
+  {
+   "field": "CCF_SUBSYS",
+   "target": "ccf.CCF_SUBSCHEDID",
+   "note": "CCF_SUBSYS is the fallback default sub-schedule when CCF_SUBSCHEDID is empty."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.2.1, PDF p.62-66) defines the first 20 fields with the same names, sizes and defaults, but CCF_CTYPE only has the special values R, F and S and CCF_ILSCOPE only G, L, S, B, N. CCF_SUBSCHEDID (field 21) was added in ICD 6.0 together with CSF_SUBSCHEDID (Annex 1 of ICD 7.0, PDF p.249) and is present in ICD 6.7 Draft A (PDF p.124-131) and ICD 6.9 (PDF p.129-135). The throw-event types were added to CCF_CTYPE for R5.0: SLE throw events in ICD 6.4 and NIS throw events in ICD 6.5 (Annex 1, PDF p.254 and p.256). ICD 6.0 also documented that acknowledgement flags can be changed to disable report-based verification (PDF p.250); ICD 6.6 added that high-priority commands cannot be blocked (S2K-50-DCR-1023, PDF p.257). ICD 7.0 (PDF p.132-140) added options F and T to CCF_ILSCOPE, which the software already supported (S2K-8560, PDF p.262), and added the explanations of the maximum command size and of the TC(11,4) time-tag wrapper MISC variables (S2K-8063, S2K-8226, PDF p.262-263). pyscos2000 (ICD 7.2) has the same 21 columns in the same order, names the last one CCF_SUBSCHEDID, marks CCF_CNAME, CCF_DESCR and CCF_PKTID as mandatory and keeps the defaults N, N, Y, N, C and N for CCF_CRITICAL, CCF_PLAN, CCF_EXEC, CCF_ILSCOPE, CCF_ILSTAGE and CCF_HIPRI.",
+ "solo_stats": {
+  "rows": 5454,
+  "fields": [
+   {
+    "name": "CCF_CNAME",
+    "filled": 5454,
+    "examples": [
+     "EGENRTCC",
+     "EGENRTCO",
+     "EGENRTMC",
+     "EGENRTMO",
+     "ESESIONC"
+    ]
+   },
+   {
+    "name": "CCF_DESCR",
+    "filled": 5454,
+    "examples": [
+     "Dummy commands",
+     "Add Func Mon to the Mon List",
+     "Add HK Paras to Existing HK Def",
+     "Add param monitor exp.value (sint16)",
+     "Add param monitor exp.value (sint32)"
+    ]
+   },
+   {
+    "name": "CCF_DESCR2",
+    "filled": 2554,
+    "examples": [
+     "Defined by user",
+     "This telecommand clears the Monitoring List contents."
+    ]
+   },
+   {
+    "name": "CCF_CTYPE",
+    "filled": 11,
+    "examples": [
+     "N",
+     "R",
+     "F"
+    ]
+   },
+   {
+    "name": "CCF_CRITICAL",
+    "filled": 5448,
+    "examples": [
+     "N"
+    ]
+   },
+   {
+    "name": "CCF_PKTID",
+    "filled": 5454,
+    "examples": [
+     "NOM_TC",
+     "HPC1_TC",
+     "NOS2KHDR",
+     "NO_HDR"
+    ]
+   },
+   {
+    "name": "CCF_TYPE",
+    "filled": 5324,
+    "examples": [
+     "2",
+     "131",
+     "3",
+     "12",
+     "132"
+    ]
+   },
+   {
+    "name": "CCF_STYPE",
+    "filled": 5324,
+    "examples": [
+     "1",
+     "128",
+     "3",
+     "2",
+     "5"
+    ]
+   },
+   {
+    "name": "CCF_APID",
+    "filled": 5449,
+    "examples": [
+     "172",
+     "236",
+     "188",
+     "1532",
+     "1164"
+    ]
+   },
+   {
+    "name": "CCF_NPARS",
+    "filled": 5443,
+    "examples": [
+     "6",
+     "2",
+     "3",
+     "0",
+     "4"
+    ]
+   },
+   {
+    "name": "CCF_PLAN",
+    "filled": 5454,
+    "examples": [
+     "N",
+     "A"
+    ]
+   },
+   {
+    "name": "CCF_EXEC",
+    "filled": 5448,
+    "examples": [
+     "Y"
+    ]
+   },
+   {
+    "name": "CCF_ILSCOPE",
+    "filled": 5454,
+    "examples": [
+     "N"
+    ]
+   },
+   {
+    "name": "CCF_ILSTAGE",
+    "filled": 5448,
+    "examples": [
+     "C",
+     "N"
+    ]
+   },
+   {
+    "name": "CCF_SUBSYS",
+    "filled": 5304,
+    "examples": [
+     "1",
+     "8",
+     "2",
+     "4",
+     "104"
+    ]
+   },
+   {
+    "name": "CCF_HIPRI",
+    "filled": 5454,
+    "examples": [
+     "N",
+     "Y"
+    ]
+   },
+   {
+    "name": "CCF_MAPID",
+    "filled": 330,
+    "examples": [
+     "1",
+     "0",
+     "54"
+    ]
+   },
+   {
+    "name": "CCF_DEFSET",
+    "filled": 0,
+    "examples": []
+   },
+   {
+    "name": "CCF_RAPID",
+    "filled": 0,
+    "examples": []
+   },
+   {
+    "name": "CCF_ACK",
+    "filled": 5324,
+    "examples": [
+     "9",
+     "1",
+     "0"
+    ]
+   },
+   {
+    "name": "CCF_SUBSCHEDID",
+    "filled": 5304,
+    "examples": [
+     "1",
+     "8",
+     "2",
+     "4",
+     "104"
+    ]
+   }
+  ]
+ },
+ "notes": "Columns of ICD 7.0, pyscos2000 (7.2) and the Solar Orbiter ccf.dat (21 tab-separated columns in all 5454 lines) match one to one; the only naming difference is that the ICD 7.0 PDF text splits the last name as 'CCF_SUBSCHED ID'. Observations on the 2025-09-16 Solar Orbiter data: (1) CCF_DESCR exceeds the ICD 7.0 size of 24 characters in 2876 records (up to 40 characters); according to ICD 7.0 section 2.4 (PDF p.23) the importer truncates over-long fields with a warning, so either the target system accepts longer descriptions or the text is truncated on import (not stated in the available sources). (2) CCF_ILSTAGE='N' appears in the 5 NO_HDR directives (UNLOCK, SETVR, RESET, REIN_TTR, TC_ONLY); 'N' is not an ICD 7.0 option for this field. (3) CCF_CTYPE is used only for 2 control frames ('F': UNLOCK, SETVR), 3 control segments ('R': RESET, REIN_TTR, TC_ONLY) and 6 NIS throw events ('N': link and session open/close, APID 1964, type 251 subtype 1, header NOS2KHDR); these 6 throw events leave CCF_CRITICAL, CCF_EXEC and CCF_ILSTAGE empty and are the only commands with CCF_PLAN='A'. (4) CCF_MAPID is filled in 205 records with CCF_HIPRI='N' (values 1 and 54), where the ICD says it is irrelevant; the 125 HPC1_TC commands are high priority with MAP ID 0 and have no type, subtype or ack (their header has no T/S/K elements). (5) CCF_SUBSCHEDID equals CCF_SUBSYS in every record. (6) CCF_DEFSET and CCF_RAPID are never used (PST/PSV are empty). (7) 443 commands have no CDF record, consistent with CCF_NPARS=0. In the 2020-04-16 release ccf has 5238 records."
+}

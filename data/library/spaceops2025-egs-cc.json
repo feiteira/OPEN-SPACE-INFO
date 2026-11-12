@@ -1,0 +1,60 @@
+{
+  "slug": "spaceops2025-egs-cc",
+  "title": "Towards EGS-CC at ESOC — A New Era for Satellite Monitoring and Control",
+  "short_title": "Towards EGS-CC at ESOC (SpaceOps 2025)",
+  "doc_id": "SpaceOps-2025, ID # 477",
+  "issue": null,
+  "date": "2025-05-26",
+  "organisation": "European Space Operations Centre, European Space Agency; 18th International Conference on Space Operations (SpaceOps 2025), Montreal, Canada, 26 - 30 May 2025",
+  "authors": [
+    "Vemund Reggestad",
+    "Klara Widegård"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "SpaceOps 2025 conference paper, ID # 477, 'Copyright 2025 by European Space Agency', published by the Canadian Space Agency on behalf of SpaceOps (PDF p. 1). The date given here is the first day of the conference. It reports the April 2024 reconfirmation that ESOC's next-generation MCS will be based on EGS-CC.",
+  "summary": "A short ESOC status paper (SpaceOps 2025) on replacing [SCOS-2000](../scos2000/index.md) and the rest of the MICONYS suite with an MCS based on the European Ground Systems Common Core (EGS-CC), called MCS-CC ([ancillary systems and the move to EGS-CC](../scos2000/ancillary-and-egs-cc.md)). The authors give the timeline: EGS-CC is first expected to enter operations in 2026, the migration of more than 40 ESOC missions will take at least seven years, and SCOS-2000 therefore reaches end of life no earlier than 2033. In April 2024 ESOC reconfirmed that the next MCS will be EGS-CC based. Swarm (three satellites, launched 2013) was chosen as the pilot migration of a flying mission, followed by Ariel (first SVTs in 2027, launch in 2029) as the first mission to launch on EGS-CC, and later a fully TDM-native ground segment.\n\nThe most useful part for MIB readers is the **tailoring-data migration path**. Category 1 missions, such as Swarm, keep their SCOS-2000 [MIB](../mib/index.md) and the existing tools (MOIS, ProToS, MATIS, DABYS, FOPPER). OPEN-M sits in between, and an S2K-MIB-to-EGS-CC-TDM converter imports the data into the MCS. Category 2 missions (Ariel expected) migrate all tailoring data to OPEN-M with converters and drop the MIB-based tools. Category 3 missions receive data from industry directly in the EGS-CC Tailoring Data Model. The paper also discusses the challenges: a new archive that must hold frames, packets, parameters, events, logs, alarm states and activities efficiently, an extensive test campaign, and user-interface issues in a large community. Recent Swarm-driven work covers pre-release checks in the commanding chain, playback TM, a user interface for SLE links, historical retrieval, a refurbished [time correlation](../scos2000/time-correlation.md) and on-board queue modelling. The next features are file-based operations, on-board software maintenance, security and [PUS-C](../ecss/pus/pus-a-vs-pus-c.md), with an operational solution targeted for 2027.",
+  "contents": [
+    {"section": "Abstract", "title": "Abstract and Acronyms/Abbreviations", "pdf_page": 1},
+    {"section": "1", "title": "Introduction", "pdf_page": 2},
+    {"section": "1", "title": "The Need for Transition", "pdf_page": 2},
+    {"section": "1", "title": "Benefits of EGS-CC Integration", "pdf_page": 2},
+    {"section": "1", "title": "Major Milestone: Confirmation of EGS-CC", "pdf_page": 3},
+    {"section": "1", "title": "Focus on SWARM Mission", "pdf_page": 4},
+    {"section": "2", "title": "Adoption at ESOC", "pdf_page": 4},
+    {"section": "2", "title": "Path towards an EGS-CC TDM based operations", "pdf_page": 4},
+    {"section": "2", "title": "Challenges and Solutions", "pdf_page": 6},
+    {"section": "2", "title": "Recent activities", "pdf_page": 6},
+    {"section": "2", "title": "Way Forward", "pdf_page": 6},
+    {"section": "3", "title": "Conclusion", "pdf_page": 7},
+    {"section": "Acknowledgements", "title": "Acknowledgements", "pdf_page": 7}
+  ],
+  "key_points": [
+    {"text": "SCOS-2000 and complementary systems form the MICONYS (MIssion CONtrol sYStem) suite at ESOC; in April 2024 ESOC re-confirmed that the next generation MCS will be based on EGS-CC.", "pdf_page": 1},
+    {"text": "The transition is predicted to take at least 7 years from EGS-CC first entering operations in 2026, putting the SCOS end of life no earlier than 2033; more than 40 missions at ESOC are involved.", "pdf_page": 2},
+    {"text": "Expected benefits include a common data model for TM/TC artefacts across pre- and post-launch phases, a common code base for ESOC missions, a common solution for MCS and ground station M&C, native automation and installation-free web access.", "pdf_page": 3},
+    {"text": "Swarm (three satellites launched in 2013 to study Earth's magnetic field) is the pilot mission, allowing a risk-free transition while the S2K system remains available.", "pdf_page": 4},
+    {"text": "Adoption phases: design and development (largely completed), testing and validation (migrate Swarm, prepare Ariel with first SVTs in 2027 and launch in 2029, then a TDM-native ground segment) and operational roll-out, expected to complete in the early 2030s.", "pdf_page": 4},
+    {"text": "Category 1 missions natively use an S2K MIB (e.g. Swarm) with S2K tools such as MOIS, ProToS, MATIS, DABYS and FOPPER; OPEN-M is the intermediate and an S2K MIB to EGS-CC TDM converter imports the tailoring data into the MCS.", "pdf_page": 5},
+    {"text": "Category 2 missions (Ariel expected, to be confirmed) migrate all tailoring data to OPEN-M using converters for the S2K MIB, MOIS and ProToS procedures and the FOPPER database; Category 3 missions receive tailoring data directly in EGS-CC TDM format from industry.", "pdf_page": 5},
+    {"text": "The EGS-CC archive must store telemetry frames, packets, parameters, events, log messages, alarm states and control activities while balancing storage speed and volume against retrieval performance.", "pdf_page": 6},
+    {"text": "Recent Swarm-driven enhancements: commanding chain pre-release checks, playback TM processing, a UI for SLE links, historical data retrieval, refurbished time correlation and on-board queue modelling, delivered partly in EGS-CC and partly in the MCS-CC layer.", "pdf_page": 6},
+    {"text": "Next features: file based operations, on-board software maintenance, security and PUS-C including support for the Generic Operational Interface Requirements; validation through most of 2026 towards a fully operational solution in 2027.", "pdf_page": 6}
+  ],
+  "references": [
+    {"label": "S2K MIB", "doc_id": null, "title": "SCOS-2000 MIB format (S2K MIB database)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 4},
+    {"label": "EGS-CC TDM", "doc_id": null, "title": "Tailoring Data Model (TDM) of EGS-CC", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 4},
+    {"label": "PUS-C", "doc_id": null, "title": "PUS-C", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 6},
+    {"label": "GOIR", "doc_id": null, "title": "Generic Operational Interface Requirements", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 6},
+    {"label": "SLE", "doc_id": null, "title": "Space Link Extension (SLE)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 6}
+  ],
+  "topics": [
+    "scos2000/ancillary-and-egs-cc.md",
+    "scos2000/index.md",
+    "mib/index.md",
+    "mib/tooling.md",
+    "scos2000/archives.md",
+    "scos2000/time-correlation.md",
+    "ecss/pus/pus-a-vs-pus-c.md"
+  ],
+  "notes": "The paper has no reference list; the 'Acknowledgements' heading on PDF p. 7 is empty. Author e-mail addresses are omitted here. The acronym list expands the TDM as 'Tailoring Data Model (TMD)' (typo) and MIB as 'Mission Information Database'. The text refers to 'categories shown in Figure 2' where Figure 3 (data model categorisation) is meant. Figures 1-4 (transition simulation, common code base, data model categorisation, Swarm tailoring data process) are images without extracted text. The extraction reports 8 PDF pages (registry: 7); the last is empty. Vemund Reggestad is also a co-author of library item gsaw2005-guerrucci, and Klara Widegård of airdrive-b8b986f."
+}

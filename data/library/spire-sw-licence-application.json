@@ -1,0 +1,101 @@
+{
+ "slug": "spire-sw-licence-application",
+ "title": "FIRST / PLANCK Software License Support and Service",
+ "short_title": "FIRST/Planck software licence, support and service note",
+ "doc_id": null,
+ "issue": "draft-1",
+ "date": "2000-04-19",
+ "organisation": "European Space Agency, ESOC (TOS)",
+ "authors": [
+  "JFK"
+ ],
+ "doc_type": "Other",
+ "status_notes": "Draft: the footer reads 'TOS 1/2 19.04.2000 JFK draft-1' (PDF pp. 1-2).",
+ "summary": "Two-page note from ESOC's TOS directorate, initialled JFK and marked draft-1 (19 April 2000). It tells FIRST/Planck instrument groups how to apply for ESA software and what support they could buy. The minutes of the same meeting record J-F. Kaufeler's action to provide such a licence-application template.\n\nThe note lists the software TOS could offer for payload EGSEs. First is [SCOS-2000](../scos2000/index.md) itself. Next is the PROBA EGSE system: a router with SCOS gateway and TM and TC modules, a Tcl/Tk automation tool with SCOS interfaces, and an ORACLE database for SCOE and spacecraft data. The list ends with the MS-Access-based Integral database and the MS-Access-based Winfops/Mois procedure preparation system. Under ESA's convention for operational software, any body of an ESA member state could apply for a free licence. A request names the organisation, the software items, the licence type (documentation only, a time-limited trial, run-time, or source code) and the purpose of use. The licence is non-exclusive and ESA keeps ownership. The requester learns which COTS products are needed and whether an ESOC contract gives preferential terms.\n\nThe second page separates chargeable **support** from **service**. Support covers installation, teaching, design courses and consultancy. Service is a maintenance phase for software the customer has not modified, with a help desk, SPR fixes, CRQ planning, systematic updates and membership of the user group. The customer buys hardware and COTS licences. Contracts could be Fixed Unit Time (FUP) or Firm Fixed Price (FFP), and the cost figures in the 18 April presentation were declared indicative. The note is a primary source on how SCOS-2000 was distributed outside ESOC ([SCOS-2000 as EGSE](../scos2000/egse.md)).",
+ "contents": [
+  {
+   "section": null,
+   "title": "Software License",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Support and Service",
+   "pdf_page": 2
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Software items proposed by TOS for payload EGSEs: SCOS-2000; the PROBA EGSE system (Router with SCOS gateway and TM & TC modules, a TCL/TK-based Automation Tool, and an ORACLE database for SCOE and spacecraft data); the MS-Access-based Integral DB; and the MS-Access-based Winfops/Mois procedure preparation system.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Per ESA convention for operational software, any ESA member state body may apply for a licence to any of these items free of charge.",
+   "pdf_page": 1
+  },
+  {
+   "text": "A request identifies the organisation, the software items, the licence type (documentation only, trial version of limited duration, run-time version, or source code) and the purpose of use.",
+   "pdf_page": 1
+  },
+  {
+   "text": "The licence is non-exclusive and ESA retains ownership; the software cannot be sold to a third party.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Where underlying COTS are needed, the requester receives their product identification and vendor and, if applicable, a reference to an ESOC contract allowing deployment at preferential conditions.",
+   "pdf_page": 1
+  },
+  {
+   "text": "The customer procures the necessary hardware and COTS licences.",
+   "pdf_page": 2
+  },
+  {
+   "text": "Support (initial phase): installation, installation with teaching, a course on the software design and use, or consultancy on specific requirements.",
+   "pdf_page": 2
+  },
+  {
+   "text": "Service (maintenance, software untouched by the customer): help desk, Software Problem Reports fixed in later releases, discussion and planning of Change ReQuests, systematic updates, and membership of the software user group.",
+   "pdf_page": 2
+  },
+  {
+   "text": "Contracts may be Fixed Unit Time (FUP, e.g. labour) or Firm Fixed Price (FFP); cost figures shown in the presentation on 18.04.2000 are indicative.",
+   "pdf_page": 2
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "License contract (non-exclusive SCOS-2000 / TOS software licence)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 1
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "ESOC contract with the COTS vendor authorising deployment at preferential conditions",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 1
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "The presentation on 18.04.2000 (cost figures)",
+   "issue": null,
+   "date": "18.04.2000",
+   "kind": "mentioned",
+   "pdf_page": 2
+  }
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "scos2000/index.md",
+  "missions/herschel-planck.md",
+  "scos2000/herschel-planck-ground.md"
+ ],
+ "notes": "The same two pages appear as PDF pp. 45-46 of scos2000-complete-presentation-2000 and tos-gc-first-planck-presentation-2000. The file name says 'Licence application', but the text uses the spelling 'License' and is a note on licences, support and service, not an application form. The only author attribution is the initials 'JFK'; the minutes (scos2000-and-first-planck-mom, PDF p. 4) assign the licence template action to JFK (J F Kaufeler). The note names ESOC contact persons with e-mail addresses, which are omitted here. The text extraction has a trailing empty page 3."
+}

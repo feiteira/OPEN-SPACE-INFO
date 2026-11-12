@@ -1,0 +1,593 @@
+{
+ "slug": "euicd-unversioned",
+ "title": "External User Interface Control Document (EUICD) — EGOS Data Dissemination System (EDDS)",
+ "short_title": "EDDS External User ICD (issue 7.0)",
+ "doc_id": "EGOS-GEN-EDDS-ICD-1001",
+ "issue": "Version 7.0",
+ "date": "2014-12-17",
+ "organisation": "European Space Agency, Directorate of Human Spaceflight and Operations, HSO-GI (ESOC); prepared by the EDDS Team",
+ "authors": [
+  "Michael Hawkshaw",
+  "Miriam Saltzer",
+  "Rui Santos",
+  "M. Hawkshaw",
+  "R. Ots",
+  "L. Kimmel",
+  "D. Sarjas"
+ ],
+ "doc_type": "Interface Control Document",
+ "status_notes": "Version 7.0 'Issue for EDDS v1.5.0i1' (Document Change Log, PDF p. 3). The oldest EUICD issue in the library; superseded by issues 13.0 (euicd-v13), 15.0 (euicd-i15r0) and 24.0 (euicd-v25).",
+ "summary": "This is issue 7.0 (December 2014) of the **EDDS External User Interface Control Document**, the interface specification of the [EGOS Data Dissemination System](../scos2000/edds.md) at release v1.5.0, published when ESOC's ground-segment group still belonged to the Directorate of Human Spaceflight and Operations. It defines the authentication, batch, stream and user-management services through which external users and programs obtain [SCOS-2000](../scos2000/index.md) mission data, and the XML schemas, file formats and web-service operations involved.\n\nThe content and chapter structure match the later issues. Services and client applications come first, then data types (PARC TM, TC and event packets, DARC and SMON parameters, MCS and EDDS reports, FARC files, file-system data, acknowledgements) with the request-to-response mapping. The output formats follow: the self-describing EDDS binary with its 21 optional TM header fields and the TC and event fields, a GDDS-compatible example, XML/XSLT, XFDU, the TDRS spreadsheet, ASCII including the command-history-style TC report, and Google Protocol Buffers. The rest covers naming conventions, delivery, WSDL/SOAP port types, messages and bindings, the e-mail and file-server interfaces, the Java client API, and schema appendices A to N.\n\nIt is useful mainly as a historical baseline. In this issue packets come only from the PARC Manager interface (the SCOS-2000 Data Provision Services appear only from issue 13.0), live streaming is limited to DARC parameters with the SLES 11 DARC 2.1.1 or later, there is no RawSourceBinary format, and out-of-limit report packet versions are not yet listed. Comparing it with issues 13.0, 15.0 and 24.0 shows how the EDDS interface grew between 2014 and 2025.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.3",
+   "title": "Document Overview",
+   "pdf_page": 13
+  },
+  {
+   "section": "2",
+   "title": "References",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.1",
+   "title": "Applicable documents",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.2",
+   "title": "Reference documents",
+   "pdf_page": 15
+  },
+  {
+   "section": "3",
+   "title": "Glossary",
+   "pdf_page": 16
+  },
+  {
+   "section": "3.1",
+   "title": "Acronyms",
+   "pdf_page": 16
+  },
+  {
+   "section": "3.2",
+   "title": "Definition of Terms",
+   "pdf_page": 17
+  },
+  {
+   "section": "4",
+   "title": "Software Overview",
+   "pdf_page": 18
+  },
+  {
+   "section": "4.1",
+   "title": "EDDS Services Overview",
+   "pdf_page": 18
+  },
+  {
+   "section": "4.2",
+   "title": "EDDS Interface Overview",
+   "pdf_page": 19
+  },
+  {
+   "section": "4.3",
+   "title": "Client Applications Overview",
+   "pdf_page": 20
+  },
+  {
+   "section": "5",
+   "title": "Data Types",
+   "pdf_page": 27
+  },
+  {
+   "section": "5.1",
+   "title": "Packet",
+   "pdf_page": 27
+  },
+  {
+   "section": "5.2",
+   "title": "Parameter",
+   "pdf_page": 28
+  },
+  {
+   "section": "5.3",
+   "title": "Report",
+   "pdf_page": 28
+  },
+  {
+   "section": "5.4",
+   "title": "Archived Files",
+   "pdf_page": 28
+  },
+  {
+   "section": "5.5",
+   "title": "Acknowledgement",
+   "pdf_page": 29
+  },
+  {
+   "section": "5.6",
+   "title": "Request and Response Mappings",
+   "pdf_page": 29
+  },
+  {
+   "section": "6",
+   "title": "Formats",
+   "pdf_page": 30
+  },
+  {
+   "section": "6.1",
+   "title": "EDDS Binary",
+   "pdf_page": 32
+  },
+  {
+   "section": "6.2",
+   "title": "XML",
+   "pdf_page": 40
+  },
+  {
+   "section": "6.3",
+   "title": "XML Transform",
+   "pdf_page": 42
+  },
+  {
+   "section": "6.4",
+   "title": "XFDU",
+   "pdf_page": 42
+  },
+  {
+   "section": "6.5",
+   "title": "TDRS Spreadsheet",
+   "pdf_page": 42
+  },
+  {
+   "section": "6.6",
+   "title": "ASCII",
+   "pdf_page": 42
+  },
+  {
+   "section": "6.7",
+   "title": "Binary",
+   "pdf_page": 44
+  },
+  {
+   "section": "7",
+   "title": "Naming Conventions",
+   "pdf_page": 54
+  },
+  {
+   "section": "7.1",
+   "title": "Request ID Convention",
+   "pdf_page": 54
+  },
+  {
+   "section": "7.2",
+   "title": "Response ID Convention",
+   "pdf_page": 54
+  },
+  {
+   "section": "8",
+   "title": "Delivery",
+   "pdf_page": 55
+  },
+  {
+   "section": "8.1",
+   "title": "Delivery Mechanism",
+   "pdf_page": 55
+  },
+  {
+   "section": "9",
+   "title": "Web Services Description",
+   "pdf_page": 56
+  },
+  {
+   "section": "9.1",
+   "title": "Web Service Introduction",
+   "pdf_page": 56
+  },
+  {
+   "section": "9.2",
+   "title": "PortTypes",
+   "pdf_page": 56
+  },
+  {
+   "section": "9.3",
+   "title": "Messages",
+   "pdf_page": 70
+  },
+  {
+   "section": "9.4",
+   "title": "Bindings",
+   "pdf_page": 92
+  },
+  {
+   "section": "10",
+   "title": "E-mail Interface",
+   "pdf_page": 99
+  },
+  {
+   "section": "10.1",
+   "title": "Data Elements",
+   "pdf_page": 99
+  },
+  {
+   "section": "10.2",
+   "title": "Message Description",
+   "pdf_page": 99
+  },
+  {
+   "section": "10.3",
+   "title": "Communication Protocol",
+   "pdf_page": 99
+  },
+  {
+   "section": "10.4",
+   "title": "Errors",
+   "pdf_page": 99
+  },
+  {
+   "section": "11",
+   "title": "File Server Interface",
+   "pdf_page": 100
+  },
+  {
+   "section": "11.1",
+   "title": "Data Elements",
+   "pdf_page": 100
+  },
+  {
+   "section": "11.2",
+   "title": "Message Description",
+   "pdf_page": 100
+  },
+  {
+   "section": "11.3",
+   "title": "Communication Protocol",
+   "pdf_page": 100
+  },
+  {
+   "section": "11.4",
+   "title": "Errors",
+   "pdf_page": 100
+  },
+  {
+   "section": "12",
+   "title": "Client API",
+   "pdf_page": 101
+  },
+  {
+   "section": "12.1",
+   "title": "Edds Web Services Client API",
+   "pdf_page": 102
+  },
+  {
+   "section": "12.2",
+   "title": "EDDS Push notifications client",
+   "pdf_page": 111
+  },
+  {
+   "section": "12.3",
+   "title": "EDDS Utility methods",
+   "pdf_page": 112
+  },
+  {
+   "section": "12.4",
+   "title": "Dependencies",
+   "pdf_page": 112
+  },
+  {
+   "section": "APPENDIX A",
+   "title": "Acknowledgement Data Type",
+   "pdf_page": 114
+  },
+  {
+   "section": "APPENDIX B",
+   "title": "Authentication Data Type",
+   "pdf_page": 119
+  },
+  {
+   "section": "APPENDIX C",
+   "title": "Batch Request Data Type",
+   "pdf_page": 120
+  },
+  {
+   "section": "APPENDIX D",
+   "title": "Common Data Types",
+   "pdf_page": 162
+  },
+  {
+   "section": "APPENDIX E",
+   "title": "Delivery Data Type",
+   "pdf_page": 175
+  },
+  {
+   "section": "APPENDIX F",
+   "title": "File System Data Types",
+   "pdf_page": 179
+  },
+  {
+   "section": "APPENDIX G",
+   "title": "Filter Data Type",
+   "pdf_page": 186
+  },
+  {
+   "section": "APPENDIX H",
+   "title": "Format Data Type",
+   "pdf_page": 213
+  },
+  {
+   "section": "APPENDIX I",
+   "title": "Report Data Type",
+   "pdf_page": 221
+  },
+  {
+   "section": "APPENDIX J",
+   "title": "Schedule Data Type",
+   "pdf_page": 237
+  },
+  {
+   "section": "APPENDIX K",
+   "title": "User Management Data Type",
+   "pdf_page": 241
+  },
+  {
+   "section": "APPENDIX L",
+   "title": "Stream Request Data Type",
+   "pdf_page": 261
+  },
+  {
+   "section": "APPENDIX M",
+   "title": "EDDS Parameter Spreadsheet",
+   "pdf_page": 266
+  },
+  {
+   "section": "APPENDIX N",
+   "title": "Google Protocol Buffers",
+   "pdf_page": 267
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Mission-specific Data Definition Interface Documents (DDIDs) are expected to be created from the EUICD, which covers only elements common to all missions.",
+   "pdf_page": 13
+  },
+  {
+   "text": "Batch responses can be zip, tar (USTAR) or tar.gz compressed and optionally AES-encrypted at mission level.",
+   "pdf_page": 18
+  },
+  {
+   "text": "Only streaming of DARC parameters is supported; it requires the SLES 11 DARC version 2.1.1 or later, which publishes samples on an ActiveMQ topic with headers such as ValueType, Value, Validity (0 Valid, 1 Invalid, 2 Unknown, 3 Expired), GenerationTime and Name.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Packets are extracted only through the PARC Manager interface of the packet archive; raw requests return the PARC hexadecimal packet strings wrapped in XML.",
+   "pdf_page": 27
+  },
+  {
+   "text": "Supported formats: Binary, EDDS Binary, XML and XML Transform, SFDU (from the GDDS DDID) and ASCII.",
+   "pdf_page": 30
+  },
+  {
+   "text": "EDDS Binary files start with an EDDS Raw Header (field count N followed by N one-octet sizes), and each data element is preceded by the selected header fields.",
+   "pdf_page": 32
+  },
+  {
+   "text": "21 optional TM header fields are defined (Table 6) and each TM data element carries a 1-byte EDDS sequence count reset after 255.",
+   "pdf_page": 34
+  },
+  {
+   "text": "A worked example shows a GDDS TM packet binary file expressed with EDDS header fields (SCET, packet length, ground station, virtual channel, SLE service, time quality).",
+   "pdf_page": 37
+  },
+  {
+   "text": "ASCII TC report stage columns follow the SCOS-2000 Command History: R (release to NCTRS/NIS), G, T, O, A, SS, execution steps and CC.",
+   "pdf_page": 43
+  },
+  {
+   "text": "Protocol Buffers binary files begin with an ASCII header line starting with '# ' and listing Type and Version.",
+   "pdf_page": 44
+  },
+  {
+   "text": "Request ID format: [RequestType].[Subtype].[Mission].[Domain].[yyyy.DDD.hh.mm.ss.SSS], with response files suffixed @[time].[Counter].[Extension].",
+   "pdf_page": 54
+  },
+  {
+   "text": "Web services are defined in WSDL with SOAP bindings onto the XML schemas.",
+   "pdf_page": 56
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD-1]",
+   "doc_id": "661.0-B.1",
+   "title": "CCSDS, XML Formatted Data Unit (XFDU) Structure and Construction Rules.",
+   "issue": "BLUE BOOK 661.0-B.1",
+   "date": "Set 2008",
+   "kind": "applicable",
+   "pdf_page": 15
+  },
+  {
+   "label": "[AD-2]",
+   "doc_id": "EGOS-MCS-GDDS-1003",
+   "title": "Generic Data Disposition System (GDDS) Generic Data Delivery Interface Document DDID Appendix F",
+   "issue": "Issue 1.4",
+   "date": "2008-04-11",
+   "kind": "applicable",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-1]",
+   "doc_id": "EGOS-GEN-EDDS-SUM-1001",
+   "title": "EDDS Client Software User Manual",
+   "issue": "Version 6.0",
+   "date": "2014-12-17",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-2]",
+   "doc_id": "RFC 2045",
+   "title": "Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies",
+   "issue": null,
+   "date": "November 1996",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-3]",
+   "doc_id": null,
+   "title": "Web Services Definition Language (WSDL) 1.1 (http://www.w3.org/TR/wsdl)",
+   "issue": null,
+   "date": "2001-03-15",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-4]",
+   "doc_id": "no reference",
+   "title": "MUST Architectural Design Document",
+   "issue": "Version 1.1",
+   "date": "2006-01-13",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-5]",
+   "doc_id": null,
+   "title": "XSL Transforms (XSLT) Version 1.0 (http://www.w3.org/TR/xslt)",
+   "issue": null,
+   "date": "1999-11-16",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-6]",
+   "doc_id": null,
+   "title": "Extensible Markup Language (XML) 1.0 (Fourth Edition) (http://www.w3.org/TR/xml)",
+   "issue": null,
+   "date": "2006-09-29",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-7]",
+   "doc_id": null,
+   "title": "SOAP Version 1.2 Part 1: Messaging Framework (http://www.w3.org/TR/soap12-part1/)",
+   "issue": null,
+   "date": "2003-06-24",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-8]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": "Deleted",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-9]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": "Deleted",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-10]",
+   "doc_id": "EGOS-MCS-S2K-GLO-0001",
+   "title": "SCOS-2000 Glossary, Definitions and Acronyms",
+   "issue": "Version 1.7",
+   "date": "2007-03-20",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-11]",
+   "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+   "title": "Software Requirements Specification (SRS), EGOS Data Dissemination System (EDDS)",
+   "issue": "Version 10.0",
+   "date": "2014-12-17",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-12]",
+   "doc_id": "EGOS-GEN-EDDS-SDD-1001",
+   "title": "Software Design Document (SDD), EGOS Data Dissemination System (EDDS)",
+   "issue": "Version 7.0",
+   "date": "2014-12-17",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-13]",
+   "doc_id": "EGOS-MCS-GDDS-1003",
+   "title": "Generic Data Disposition System (GDDS) Generic Data Delivery Interface Document (DDID)",
+   "issue": "Version 1.4",
+   "date": "2008-04-11",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-14]",
+   "doc_id": "EGOS-MCS-S2K-ICD-0017",
+   "title": "TDRS External Interfaces Control Document",
+   "issue": "Version 5.1",
+   "date": "2008-08-22",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-15]",
+   "doc_id": "EGOS-GEN-EDDS-CIG-1001",
+   "title": "EDDS Configuration and Installation Guide",
+   "issue": "Version 6.0",
+   "date": "2014-12-17",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[RD-16]",
+   "doc_id": null,
+   "title": "Google Protocol Buffers (https://developers.google.com/protocol-buffers/)",
+   "issue": null,
+   "date": "2012-09-17",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "SCOS 2000 Command History Operator User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 42
+  }
+ ],
+ "topics": [
+  "scos2000/edds-formats.md",
+  "scos2000/edds.md",
+  "scos2000/gdds-and-ddids.md",
+  "scos2000/tdrs.md"
+ ],
+ "notes": "File-name vs content: published as 'EGOS-GEN-EDDS-EUICD.pdf' with no version (slug euicd-unversioned); the content is Version 7.0 of 2014-12-17 for EDDS v1.5.0i1. The approval table names the preparer as 'EDDS Team' (with a digital signature by Michael Hawkshaw), verification by Miriam Saltzer and approval by Rui Santos. The Document Change Record is an empty template (DCR No 00). The appendix overview on PDF p. 14 does not mention Appendix F, although Appendix F (File System Data Types) exists on PDF p. 179. Table 2 maps packet statistics responses to C.23 and PktTmReportResponse to I.24. The reference list cites the SRS at Version 10.0, the SDD at 7.0, and the SUM and CIG at 6.0. Typos shared with later issues: 'filted.xsd' and line feed 'byte value A0'. Printed page numbers are PDF page minus 12. Same document as euicd-v13, euicd-i15r0 and euicd-v25."
+}

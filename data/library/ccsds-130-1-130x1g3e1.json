@@ -1,0 +1,998 @@
+{
+ "slug": "ccsds-130-1-130x1g3e1",
+ "title": "TM Synchronization and Channel Coding—Summary of Concept and Rationale",
+ "short_title": "TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)",
+ "doc_id": "CCSDS 130.1-G-3",
+ "issue": "Informational Report, Issue 3 (Green Book), with Editorial Change 1 (October 2024)",
+ "date": "June 2020",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Informational Report",
+ "status_notes": "The Document Control table (PDF p. 6) lists 130.1-G-1 (June 2006) and 130.1-G-2 (November 2012) as superseded and 130.1-G-3 (June 2020) as the 'Current issue'. Editorial Change 1 (October 2024) corrects text in figures 7-9 and 7-10. The report states that it is not a Recommended Standard and that the Blue Book (reference [3], CCSDS 131.0-B-3) prevails in case of conflict (PDF p. 13).",
+ "summary": "The CCSDS Green Book that explains the concepts behind the [TM Synchronization and Channel Coding](../ccsds/tm-coding.md) Blue Book and the rationale for its choices. It is a tutorial and performance reference, not a specification. Section 2 places channel coding in the layered CCSDS telemetry model: packets go into fixed-length [TM Transfer Frames](../ccsds/tm-sdlp.md), an Attached Sync Marker precedes each frame or codeblock, and coding protects the frames. Section 3 introduces the recommended code families and the BER, WER and FER performance measures on the AWGN channel, with Shannon capacity and sphere-packing bounds for comparison.\n\nOne chapter covers each code family:\n\n* **Convolutional codes**: the (7,1/2) code, its punctured rates (2/3, 3/4, 5/6, 7/8), Viterbi decoding, soft quantisation and truncation length.\n* **Reed-Solomon codes**: the (255,223) E=16 and (255,239) E=8 codes over GF(2^8), symbol interleaving, virtual fill and shortening, and hard algebraic decoding.\n* **Concatenated RS + convolutional coding**, including frame lengths for each interleaving depth.\n* **Turbo codes**: the encoder, the iterative decoder, performance for rates 1/2 to 1/6, error floors and burst erasures.\n* **LDPC codes**: the near-Earth C2 code and the deep-space AR4JA family, their encoders and decoders.\n\nChapter 9 covers the ancillary functions an implementer of a ground decoder or frame synchroniser needs: the pseudo-randomiser (h(x) = x^8+x^7+x^5+x^3+1) and its spectral problems at high data rates, frame synchronisation for each code, the CCSDS CRC-16 used as the FECF, code transparency and NRZ-L/NRZ-M conversion. Annexes give a glossary, soft-decision quantisation strategies and the rationale for the turbo-code parameters. The 72-entry bibliography is the classic coding literature behind the standard.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Document Purpose, Scope, and Organization",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.3",
+   "title": "Organization",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.4",
+   "title": "References",
+   "pdf_page": 14
+  },
+  {
+   "section": "2",
+   "title": "Overview of CCSDS Telemetry System",
+   "pdf_page": 20
+  },
+  {
+   "section": "2.1",
+   "title": "Introduction",
+   "pdf_page": 20
+  },
+  {
+   "section": "2.2",
+   "title": "Telemetry System Concept",
+   "pdf_page": 22
+  },
+  {
+   "section": "3",
+   "title": "TM Synchronization and Channel Coding",
+   "pdf_page": 25
+  },
+  {
+   "section": "3.1",
+   "title": "Introduction",
+   "pdf_page": 25
+  },
+  {
+   "section": "3.2",
+   "title": "Recommended Codes",
+   "pdf_page": 26
+  },
+  {
+   "section": "3.3",
+   "title": "Channel Coding Performance",
+   "pdf_page": 27
+  },
+  {
+   "section": "4",
+   "title": "Convolutional Codes",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.1",
+   "title": "Introduction",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.2",
+   "title": "Encoder for the (7,1/2) Recommended Code",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.3",
+   "title": "Encoder for the Recommended Punctured Convolutional Codes",
+   "pdf_page": 34
+  },
+  {
+   "section": "4.4",
+   "title": "Soft Maximum Likelihood Decoding of Convolutional Codes",
+   "pdf_page": 35
+  },
+  {
+   "section": "4.5",
+   "title": "Performance of the Recommended (7,1/2) Convolutional Code",
+   "pdf_page": 38
+  },
+  {
+   "section": "4.6",
+   "title": "Performance of the Recommended Punctured Convolutional Codes",
+   "pdf_page": 41
+  },
+  {
+   "section": "4.7",
+   "title": "Effect of the Truncation Length on Performance",
+   "pdf_page": 42
+  },
+  {
+   "section": "5",
+   "title": "Reed-Solomon Code",
+   "pdf_page": 45
+  },
+  {
+   "section": "5.1",
+   "title": "Introduction",
+   "pdf_page": 45
+  },
+  {
+   "section": "5.2",
+   "title": "Encoder",
+   "pdf_page": 46
+  },
+  {
+   "section": "5.3",
+   "title": "Interleaving of the Reed-Solomon Symbols",
+   "pdf_page": 48
+  },
+  {
+   "section": "5.4",
+   "title": "Hard Algebraic Decoding of Reed-Solomon Codes",
+   "pdf_page": 49
+  },
+  {
+   "section": "5.5",
+   "title": "Performance of the Recommended Reed-Solomon Codes",
+   "pdf_page": 50
+  },
+  {
+   "section": "6",
+   "title": "Concatenated Codes: Reed-Solomon and Convolutional",
+   "pdf_page": 55
+  },
+  {
+   "section": "6.1",
+   "title": "Introduction",
+   "pdf_page": 55
+  },
+  {
+   "section": "6.2",
+   "title": "Encoding and Decoding a Concatenated Code",
+   "pdf_page": 57
+  },
+  {
+   "section": "6.3",
+   "title": "Performance of the Recommended Concatenated Coding Systems",
+   "pdf_page": 59
+  },
+  {
+   "section": "7",
+   "title": "Turbo Codes",
+   "pdf_page": 68
+  },
+  {
+   "section": "7.1",
+   "title": "Introduction",
+   "pdf_page": 68
+  },
+  {
+   "section": "7.2",
+   "title": "Turbo Encoder",
+   "pdf_page": 69
+  },
+  {
+   "section": "7.3",
+   "title": "Turbo Decoder",
+   "pdf_page": 71
+  },
+  {
+   "section": "7.4",
+   "title": "Performance of the Recommended Turbo Codes",
+   "pdf_page": 74
+  },
+  {
+   "section": "8",
+   "title": "LDPC Codes",
+   "pdf_page": 84
+  },
+  {
+   "section": "8.1",
+   "title": "General",
+   "pdf_page": 84
+  },
+  {
+   "section": "8.2",
+   "title": "Applications of LDPC Codes",
+   "pdf_page": 85
+  },
+  {
+   "section": "8.3",
+   "title": "Parity Check and Generator Matrices for the LDPC Codes",
+   "pdf_page": 87
+  },
+  {
+   "section": "8.4",
+   "title": "LDPC Encoders",
+   "pdf_page": 89
+  },
+  {
+   "section": "8.5",
+   "title": "LDPC Decoders",
+   "pdf_page": 91
+  },
+  {
+   "section": "8.6",
+   "title": "Performance of the Recommended LDPC Codes",
+   "pdf_page": 92
+  },
+  {
+   "section": "8.7",
+   "title": "Improving Performance in the Error Floor Region",
+   "pdf_page": 93
+  },
+  {
+   "section": "9",
+   "title": "Important Ancillary Aspects of the Coding System",
+   "pdf_page": 95
+  },
+  {
+   "section": "9.1",
+   "title": "General",
+   "pdf_page": 95
+  },
+  {
+   "section": "9.2",
+   "title": "Randomization of the Coded Output",
+   "pdf_page": 95
+  },
+  {
+   "section": "9.3",
+   "title": "Frame Synchronization",
+   "pdf_page": 101
+  },
+  {
+   "section": "9.4",
+   "title": "Certification of the Decoded Data (Frame Integrity Checks)",
+   "pdf_page": 109
+  },
+  {
+   "section": "9.5",
+   "title": "Code Transparency",
+   "pdf_page": 115
+  },
+  {
+   "section": "9.6",
+   "title": "Remappings of the Bits",
+   "pdf_page": 116
+  },
+  {
+   "section": "Annex A",
+   "title": "Glossary",
+   "pdf_page": 118
+  },
+  {
+   "section": "Annex B",
+   "title": "Acronyms and Abbreviations",
+   "pdf_page": 121
+  },
+  {
+   "section": "Annex C",
+   "title": "Quantization Strategies for Soft-Decoding",
+   "pdf_page": 123
+  },
+  {
+   "section": "Annex D",
+   "title": "Rationale for Turbo Code Parameter Selections",
+   "pdf_page": 126
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The report is informational only; in case of conflict the TM Synchronization and Channel Coding Recommended Standard (CCSDS 131.0-B-3, its reference [3]) prevails.",
+   "pdf_page": 13
+  },
+  {
+   "text": "The TM Transfer Frame is fixed-length to ease synchronisation on weak space-ground signals and to suit block-oriented codes; an Attached Synchronization Marker signals the start of each frame.",
+   "pdf_page": 23
+  },
+  {
+   "text": "Recommended codes: the constraint-length-7 rate-1/2 convolutional code and its punctured versions; the (255,223) and (255,239) Reed-Solomon codes and their shortenings; RS+convolutional concatenations; and families of Turbo and LDPC codes.",
+   "pdf_page": 26
+  },
+  {
+   "text": "Code performance is reported on the AWGN channel against Eb/N0 using three measures: BER, WER (codeword error rate) and FER.",
+   "pdf_page": 27
+  },
+  {
+   "text": "The (7,1/2) convolutional code achieves free distance dfree = 10, which no other rate-1/2 code with K <= 7 matches.",
+   "pdf_page": 32
+  },
+  {
+   "text": "Both RS codes use the field generator polynomial F(x) = x^8+x^7+x^2+x+1; their code generator polynomials are self-reciprocal, which simplifies the encoder.",
+   "pdf_page": 47
+  },
+  {
+   "text": "Frame lengths for RS interleaving depths I = 1, 2, 3, 4, 5 and 8 are 1784 to 14272 bits for E=16 and 1912 to 15296 bits for E=8 (Table 6-1).",
+   "pdf_page": 58
+  },
+  {
+   "text": "Turbo-code performance is shown for rates 1/2, 1/3, 1/4 and 1/6 with information block lengths 1784, 3568, 7136 and 8920 bits (10 decoder iterations).",
+   "pdf_page": 74
+  },
+  {
+   "text": "Two LDPC sets were chosen: a quasi-cyclic high-rate code (C2, a modified regular (4,32) code) for near-Earth links and nine AR4JA codes (rates 1/2, 2/3, 4/5; k = 1024, 4096, 16384) for deep space.",
+   "pdf_page": 84
+  },
+  {
+   "text": "The pseudo-randomiser uses h(x) = x^8+x^7+x^5+x^3+1, repeats every 255 bits and is reset to all ones at the start of each codeblock, codeword or frame; its first 40 bits are 1111 1111 0100 1000 0000 1110 1100 0000 1001 1010.",
+   "pdf_page": 98
+  },
+  {
+   "text": "At high data rates, the short (N = 255) standard randomiser applied to zero-filled idle frames can produce spectral spurs that break ITU power-flux-density limits, so a longer LFSR may be needed.",
+   "pdf_page": 98
+  },
+  {
+   "text": "The CCSDS CRC-16 used for the Frame Error Control Field has generator polynomial G(X) = X^16 + X^12 + X^5 + 1.",
+   "pdf_page": 111
+  },
+  {
+   "text": "Optional NRZ-L to NRZ-M conversion at the transmitter (and its inverse at the receiver) resolves phase ambiguity: NRZ-M represents a '1' by a change of level.",
+   "pdf_page": 116
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[2]",
+   "doc_id": "CCSDS 132.0-B-2",
+   "title": "TM Space Data Link Protocol",
+   "issue": "Issue 2",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 131.0-B-3",
+   "title": "TM Synchronization and Channel Coding",
+   "issue": "Issue 3",
+   "date": "September 2017",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[4]",
+   "doc_id": "ISO/IEC 7498-1:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[5]",
+   "doc_id": "CCSDS 732.0-B-3",
+   "title": "AOS Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[6]",
+   "doc_id": "CCSDS 120.0-G-3",
+   "title": "Lossless Data Compression",
+   "issue": "Issue 3",
+   "date": "April 2013",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[7]",
+   "doc_id": "CCSDS 133.0-B-2",
+   "title": "Space Packet Protocol",
+   "issue": "Issue 2",
+   "date": "June 2020",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[8]",
+   "doc_id": "Bell System Technical Journal 27, no. 3 (July 1948): 379–423",
+   "title": "A Mathematical Theory of Communication (C.E. Shannon)",
+   "issue": null,
+   "date": "July 1948",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[9]",
+   "doc_id": "Final Report, Linkabit Corporation for the Jet Propulsion Laboratory, Contract 953866",
+   "title": "Concatenated Reed-Solomon/Viterbi Channel Coding for Advanced Planetary Missions: Analysis, Simulations, and Tests (Joseph P. Odenwalder)",
+   "issue": null,
+   "date": "December 1, 1974",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[10]",
+   "doc_id": "JPL Publication 81-62",
+   "title": "The Effects of Receiver Tracking Phase Error on the Performance of Concatenated Reed-Solomon/Viterbi Channel Coding System (K. Y. Liu)",
+   "issue": null,
+   "date": "September 1, 1981",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[11]",
+   "doc_id": "Final Report, Linkabit Corporation for NASA-Ames Research Center, Contract NAS2-6722",
+   "title": "Hybrid Coding Systems Study (J. P. Odenwalder, et al)",
+   "issue": null,
+   "date": "September 1972",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[12]",
+   "doc_id": "JPL Publication 82-71",
+   "title": "Reed-Solomon Encoders—Conventional vs. Berlekamp's Architecture (M. Perlman and J. J. Lee)",
+   "issue": null,
+   "date": "December 1, 1982",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[13]",
+   "doc_id": "TDA Progress Report 42-94, April–June 1988 (August 15, 1988): 201–209",
+   "title": "Node Synchronization of Viterbi Decoders Using State Metrics (U. Cheng)",
+   "issue": null,
+   "date": "August 15, 1988",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[14]",
+   "doc_id": "TDA Progress Report 42-120, October–December 1994 (February 15, 1995): 29–39",
+   "title": "Turbo Codes for Deep-Space Communications (D. Divsalar and F. Pollara)",
+   "issue": null,
+   "date": "February 15, 1995",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[15]",
+   "doc_id": "TDA Progress Report 42-122, Apri–June 1995 (August 15, 1995): 44–55",
+   "title": "Transfer Function Bounds on the Performance of Turbo Codes (D. Divsalar, et al)",
+   "issue": null,
+   "date": "August 15, 1995",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[16]",
+   "doc_id": "TMO Progress Report 42-133, January–March 1998 (May 15, 1998): 1–23",
+   "title": "Code Performance as a Function of Block Size (S. Dolinar, D. Divsalar, and F. Pollara)",
+   "issue": null,
+   "date": "May 15, 1998",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[17]",
+   "doc_id": "In Proceedings of IEEE International Conference on Communications, 1064–1070. Geneva: IEEE, 1993",
+   "title": "Near Shannon Limit Error-Correcting Coding and Decoding: Turbo codes (C. Berrou, A. Glavieux, and P. Thitimajshima)",
+   "issue": null,
+   "date": "1993",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[18]",
+   "doc_id": "TDA Progress Report 42-124, October-December 1995 (February 15, 1996): 63-87",
+   "title": "Soft-Output Decoding Algorithms in Iterative Decoding of Turbo Codes (S. Benedetto, et al)",
+   "issue": null,
+   "date": "February 15, 1996",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[19]",
+   "doc_id": "TDA Progress Report 42-127, July-September 1996 (November 15, 1996): 1–20",
+   "title": "A Soft-Input Soft-Output Maximum A Posteriori (MAP) Module to Decode Parallel and Serial Concatenated Codes (S. Benedetto, et al)",
+   "issue": null,
+   "date": "November 15, 1996",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[20]",
+   "doc_id": "In Proceedings of IEEE Inernational Symposium on Information Theory, 381–381. Geneva: IEEE, 2003",
+   "title": "Coupled Receiver-Decoders for Low Rate Turbo Codes (J. Hamkins and D. Divsalar)",
+   "issue": null,
+   "date": "2003",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[21]",
+   "doc_id": null,
+   "title": "Principles of Digital Communication and Coding (A. J. Viterbi and J. K. Omura; McGraw-Hill)",
+   "issue": null,
+   "date": "1979",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[22]",
+   "doc_id": "SIAM Journal on Applied Mathematics 8, no. 2 (1960): 300–304",
+   "title": "Polynomial Codes Over Certain Finite Fields (I. S. Reed and G. Solomon)",
+   "issue": null,
+   "date": "1960",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[23]",
+   "doc_id": "TDA Progress Report 42-84, October-December 1985 (February 15, 1986): 66–72",
+   "title": "On the Decoder Error Probability for Reed-Solomon Codes (R. J. McEliece and L. Swanson)",
+   "issue": null,
+   "date": "February 15, 1986",
+   "kind": "reference",
+   "pdf_page": 15
+  },
+  {
+   "label": "[24]",
+   "doc_id": "TDA Progress Report 42-95, July-September 1988 (November 15, 1988): 153–157",
+   "title": "The Decoding of Reed-Solomon Codes (R. J. McEliece)",
+   "issue": null,
+   "date": "November 15, 1988",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[25]",
+   "doc_id": "Proceedings of the IEEE 61, no. 3 (March 1973): 268–278",
+   "title": "The Viterbi Algorithm (G. D. Forney, Jr)",
+   "issue": null,
+   "date": "March 1973",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[26]",
+   "doc_id": null,
+   "title": "Concatenated Codes (G. D. Forney, Jr.; MIT Press)",
+   "issue": null,
+   "date": "1966",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[27]",
+   "doc_id": "JPL Publication 81-9",
+   "title": "On the Error Statistics of Viterbi Decoding and the Performance of Concatenated Codes (R. L. Miller, L. J. Deutsch, and S. A. Butman)",
+   "issue": null,
+   "date": "September 1, 1981",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[28]",
+   "doc_id": "TDA Progress Report 42-95, July-September 1988 (November 15, 1988): 148–152",
+   "title": "Performance of Galileo's Concatenated Codes With Nonideal Interleaving (K.-M. Cheung and S. J. Dolinar, Jr)",
+   "issue": null,
+   "date": "November 15, 1988",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[29]",
+   "doc_id": "TMO Progress Report 42-139, July-September 1999 (November 15, 1999): 1–35",
+   "title": "A Simple Tight Bound on Error Probability of Block Codes with Application to Turbo Codes (D. Divsalar)",
+   "issue": null,
+   "date": "November 15, 1999",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[30]",
+   "doc_id": "Journal on Selected Areas in Communications 19, no. 5 (May 2001): 800–812",
+   "title": "Computing the Free Distance of Turbo Codes and Serially Concatenated Codes with Interleavers: Algorithms and Applications (R. Garello, P. Pierleoni, and S. Benedetto)",
+   "issue": null,
+   "date": "May 2001",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[31]",
+   "doc_id": "TDA Progress Report 42-77, January-March 1984 (May 15, 1984): 33–40",
+   "title": "Effects of NRZ-M Modulation on Convolutional Codes Performance (L. Deutsch, F. Pollara, and L. Swanson)",
+   "issue": null,
+   "date": "May 15, 1984",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[32]",
+   "doc_id": "In Turbo Code Applications: A Journey from a Paper to Realization, edited by Keattisak Sripimanwat, 321–344. Dordrecht: Springer, 2005",
+   "title": "Turbo Code Applications on Telemetry and Deep Space Communications (Gian Paolo Calzolari, et al)",
+   "issue": null,
+   "date": "2005",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[33]",
+   "doc_id": "Electronics Letters 32, no. 18 (August 1996): 1645–1646",
+   "title": "Near Shannon Limit Performance of Low Density Parity Check Codes (D.J.C. MacKay and R.M. Neal)",
+   "issue": null,
+   "date": "August 1996",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[34]",
+   "doc_id": "IRE Transactions on Information Theory 8, no. 1 (January 1962): 21–28",
+   "title": "Low-Density Parity-Check Codes (R. Gallager)",
+   "issue": null,
+   "date": "January 1962",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[35]",
+   "doc_id": "IEEE Transactions on Information Theory 47, no. 2 (February 2001): 619–637",
+   "title": "Design of Capacity-Approaching Irregular Low-Density Parity-Check Codes (T. J. Richardson, M. A. Shokrollahi, and R. L. Urbanke)",
+   "issue": null,
+   "date": "February 2001",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[36]",
+   "doc_id": "IEEE Transactions on Information Theory 47, no. 7 (November 2001): 2711–2736",
+   "title": "Low-Density Parity-Check Codes Based on Finite Geometries: A Rediscovery and New Results (Y. Kou, S. Lin, and M. P. C. Fossorier)",
+   "issue": null,
+   "date": "November 2001",
+   "kind": "reference",
+   "pdf_page": 16
+  },
+  {
+   "label": "[37]",
+   "doc_id": "Presented at CCSDS Subpanel 1B Channel Coding Meeting, Houston, Texas",
+   "title": "White Paper for Low Density Parity Check (LDPC) Codes for CCSDS Channel Coding Blue Book (W. Fong)",
+   "issue": null,
+   "date": "October 2002",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[38]",
+   "doc_id": "IEEE Transactions on Communications 54, no. 1 (January 2006): 71–81",
+   "title": "Efficient Encoding of Quasi-Cyclic Low-Density Parity-Check Codes (Z. Li, et al)",
+   "issue": null,
+   "date": "January 2006",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[39]",
+   "doc_id": "Electronics Letters 39, no. 2 (January 2003): 219–221",
+   "title": "Analysis of Scaling Soft Information on Low Density Parity Check Code (J. Heo)",
+   "issue": null,
+   "date": "January 2003",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[40]",
+   "doc_id": null,
+   "title": "Error Control Coding (Shu Lin and Daniel J. Costello, Jr.; Prentice Hall)",
+   "issue": "2nd ed.",
+   "date": "2004",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[41]",
+   "doc_id": "In Proceedings of the IEEE International Symposium on Information Theory (Adelaide, Australia), 2300–2304. Piscataway, New Jersey: IEEE, September 2005",
+   "title": "Encoders for Block-Circulant LDPC Codes (K. Andrews, S. Dolinar, and J. Thorpe)",
+   "issue": null,
+   "date": "September 2005",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[42]",
+   "doc_id": "In Proceedings of the IEEE International Symposium on Information Theory (Adelaide, Australia), 459– 463. Piscataway, New Jersey: IEEE, September 2005",
+   "title": "Memory-Efficient Decoding of LDPC Codes (J. Lee and J. Thorpe)",
+   "issue": null,
+   "date": "September 2005",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[43]",
+   "doc_id": "IPN Progress Report 42-168 (February 2007)",
+   "title": "Performance and Decoder Complexity Estimates for Families of Low-Density Parity-Check Codes (S. Dolinar and K. Andrews)",
+   "issue": null,
+   "date": "February 2007",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[44]",
+   "doc_id": "In Proceedings of GLOBECOM '04 (Dallas, Texas), 1-509–1-513. Piscataway, New Jersey: IEEE, 29 Nov–3 Dec 2004",
+   "title": "Accumulate Repeat Accumulate Codes (A. Abbasfar, D. Divsalar, and K. Yao)",
+   "issue": null,
+   "date": "29 Nov–3 Dec 2004",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[45]",
+   "doc_id": "In Proceedings of the IEEE International Symposium on Information Theory (Adelaide, Australia), 1622–1626. Piscataway, New Jersey: IEEE, September 2005",
+   "title": "Low-Rate LDPC Codes with Simple Protograph Structure (D. Divsalar, S. Dolinar, and C. Jones)",
+   "issue": null,
+   "date": "September 2005",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[46]",
+   "doc_id": "In Proceedings of the IEEE International Symposium on Information Theory (Seattle, Washington). Piscataway, New Jersey: IEEE, July 2006",
+   "title": "Construction of Protograph LDPC Codes with Linear Minimum Distance (D. Divsalar, S. Dolinar, and C. Jones)",
+   "issue": null,
+   "date": "July 2006",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[47]",
+   "doc_id": "DSN Progress Report 42-22, May-June 1974 (August 15, 1974): 78–80",
+   "title": "The Ultimate Limits of Binary Coding for a Wideband Gaussian Channel (S. A. Butman and R. J. McEliece)",
+   "issue": null,
+   "date": "August 15, 1974",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[48]",
+   "doc_id": "IEEE Transactions on Communications 52, no. 8 (August 2004): 1242–1247",
+   "title": "Selective Avoidance of Cycles in Irregular LDPC Code Construction (T. Tian, et al)",
+   "issue": null,
+   "date": "August 2004",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[49]",
+   "doc_id": "Presented at CCSDS Coding and Synchronization Working Group Meeting, College Park, Maryland",
+   "title": "Quasi-Cyclic LDPC Codes (Shu Lin, et al)",
+   "issue": null,
+   "date": "October 24, 2003",
+   "kind": "reference",
+   "pdf_page": 17
+  },
+  {
+   "label": "[50]",
+   "doc_id": "US Patent 7499490",
+   "title": "Encoders for Block-Circulant LDPC Codes (Dariush Divsalar, et al)",
+   "issue": null,
+   "date": "filed June 24, 2005, and issued March 3, 2009",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[51]",
+   "doc_id": "Proceedings of the IEEE 95, no. 11 (November 2007): 2142–2156",
+   "title": "The Development of Turbo and LDPC Codes for Deep-Space Applications (K. S. Andrews, et al)",
+   "issue": null,
+   "date": "November 2007",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[52]",
+   "doc_id": "In 2008 Information Theory and Applications Workshop (January 27–February 1, 2008, San Diego, California), 523–530. Piscataway, New Jersey: IEEE, 2008",
+   "title": "Buffering Requirements for Variable-Iterations LDPC Decoders (Sarah L. Sweatlock, Sam Dolinar, and Kenneth Andrews)",
+   "issue": null,
+   "date": "January 27–February 1, 2008",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[53]",
+   "doc_id": "IEEE Transactions on Communications 20, no. 2 (April 1972): 115–119",
+   "title": "Optimum Frame Synchronization (J. Massey)",
+   "issue": null,
+   "date": "April 1972",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[54]",
+   "doc_id": "IPN Progress Report 42-184, February 2011 (February 15, 2011)",
+   "title": "Performance of Low-Density Parity-Check Coded Modulation (Jon Hamkins)",
+   "issue": null,
+   "date": "February 15, 2011",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[55]",
+   "doc_id": "CCSDS 232.0-B-3",
+   "title": "TC Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "September 2015",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[56]",
+   "doc_id": "Proceedings of the IRE 49, no. 1 (January 1961): 228–235",
+   "title": "Cyclic Codes for Error Detection (W. W. Peterson and D. T. Brown)",
+   "issue": null,
+   "date": "January 1961",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[57]",
+   "doc_id": null,
+   "title": "Error-Correcting Codes (W. W. Peterson and E. J. Weldon; MIT Press)",
+   "issue": "2nd ed.",
+   "date": "1972",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[58]",
+   "doc_id": "ACM SIGCOMM Computer Communication Review 20, no. 5 (October 1990): 12–17",
+   "title": "A Note on the Modified CRC (T. G. Berry)",
+   "issue": null,
+   "date": "October 1990",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[59]",
+   "doc_id": "ACM SIGCOMM Computer Communication Review 24, no. 5 (October 1994): 61–80",
+   "title": "Can We Trust in HDLC? (D. Fiorini, et al)",
+   "issue": null,
+   "date": "October 1994",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[60]",
+   "doc_id": "IEEE Transactions on Communications 40, no. 3 (March 1992): 494–499",
+   "title": "Computing the Probability of Undetected Error for Shortened Cyclic Codes (V. K. Agarwal and A. Ivanov)",
+   "issue": null,
+   "date": "March 1992",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[61]",
+   "doc_id": "IEEE Transactions on Communications 42, no. 1 (January 1994): 11–13",
+   "title": "The Single Burst Error Detection Performance of Binary Cyclic Codes (J. K. Wolf and D. Chun)",
+   "issue": null,
+   "date": "January 1994",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[62]",
+   "doc_id": "Presented at Joint Meeting of the CCSDS RF & Modulation and Coding and Synchronization Working Groups, Rome, Italy",
+   "title": "Pseudo-Random Codes for High Data Rate Telemetry: Analysis and New Proposal (O. Alvarez and G. Lesthievent)",
+   "issue": null,
+   "date": "June 12, 2006",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[63]",
+   "doc_id": "ITU Radio Regulations—Volume 1: Articles, RR21-1",
+   "title": "Terrestrial and Space Services Sharing Frequency Bands above 1 GHz",
+   "issue": "Edition of 2004",
+   "date": "2004",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[64]",
+   "doc_id": "ECSS-E-ST-50-05C",
+   "title": "Space Engineering: Radio Frequency and Modulation",
+   "issue": "Rev. 1",
+   "date": "March 2009",
+   "kind": "reference",
+   "pdf_page": 18
+  },
+  {
+   "label": "[65]",
+   "doc_id": "ESA Contract Report, ESOC Contract No. 20959/07/D/MRP",
+   "title": "Randomizer for High Data Rates (R. Garello, M. Baldi, and F. Chiaraluce)",
+   "issue": null,
+   "date": "March 2009",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[66]",
+   "doc_id": "IEEE Transactions on Signal Processing 58, no. 12 (December 2010): 6284-6297",
+   "title": "On the Autocorrelation Properties of Truncated Maximum-Length Sequences and Their Effect on the Power Spectrum (M. Baldi, et al)",
+   "issue": null,
+   "date": "December 2010",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[67]",
+   "doc_id": "IEEE Transactions on Communications 55, no. 11 (November 2007): 2056–2060",
+   "title": "Analysis of Optimum Frame Synchronization Based on Periodically Embedded Sync Words (M. Chiani and M. Martini)",
+   "issue": null,
+   "date": "November 2007",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[68]",
+   "doc_id": null,
+   "title": "Digital Transmission Systems (David R. Smith; Kluwer)",
+   "issue": "3rd ed.",
+   "date": "2003",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[69]",
+   "doc_id": "IEEE Transactions on Communications 58, no. 5 (May 2010): 1536–1545",
+   "title": "Noncoherent Frame Synchronization (M. Chiani)",
+   "issue": null,
+   "date": "May 2010",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[70]",
+   "doc_id": "In Proceedings of the Information Theory and Applications Workshop (January 27 2008-February 1 2008, San Diego, California), 555–557. New York: IEEE, 2008",
+   "title": "A Truncation Depth Rule of Thumb for Convolutional Codes (B. Moision)",
+   "issue": null,
+   "date": "January 27 2008-February 1 2008",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[71]",
+   "doc_id": "IEEE Transactions on Information Theory 54, no. 4 (April 2008): 1765–1773",
+   "title": "Turbo Codes in Binary Erasure Channel (J. Lee, R. Urbanke, and R. Blahut)",
+   "issue": null,
+   "date": "April 2008",
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "[72]",
+   "doc_id": "IEEE Transactions on Information Theory 53, no. 11 (November 2007): 4059–4075",
+   "title": "Turbo Decoding on the Binary Erasure Channel: Finite-Length Analysis and Turbo Stopping Sets (E. Rosnes and O. Ytrehus)",
+   "issue": null,
+   "date": "November 2007",
+   "kind": "reference",
+   "pdf_page": 19
+  }
+ ],
+ "topics": [
+  "ccsds/tm-coding.md",
+  "ccsds/tm-sdlp.md",
+  "ccsds/aos.md",
+  "ccsds/index.md",
+  "overview/downlink.md",
+  "overview/standards-map.md"
+ ],
+ "notes": "The slug's 'e1' is Editorial Change 1 (October 2024); the Document Control page footer carries an extra 'October 2024' date. PDF pages 1 and 2 are duplicate cover pages. The extraction has 131 PDF pages (registry: 130). Although this is the June 2020 issue, it cites TM Synchronization and Channel Coding issue 3 (131.0-B-3, September 2017) as its reference [3], not the later 131.0-B-4 or 131.0-B-5. Many figures (performance curves, block diagrams) extract as scattered labels. Reference [15] prints 'Apri–June 1995' and [20] prints 'Inernational' (typos in the source). In references with personal authors, the authors are put in parentheses after the title; journal or report details are recorded in doc_id. Section 1.4 is a plain 'References' list, catalogued as kind 'reference'. No individual authors of the report are named."
+}

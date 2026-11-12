@@ -1,0 +1,663 @@
+{
+ "slug": "srs",
+ "title": "Software Requirements Specification (SRS) — EGOS Data Dissemination System (EDDS)",
+ "short_title": "EDDS Software Requirements Specification (issue 18.0)",
+ "doc_id": "EGOS-GEN-EDDS-SRS-1001",
+ "issue": "Version 18.0",
+ "date": "2018-02-16",
+ "organisation": "European Space Agency, Directorate of Operations and Infrastructure, OPS-GI (ESOC); prepared by the EDDS Team",
+ "authors": [
+  "Rokibul Uddin",
+  "Delphine Thomas",
+  "Rui Santos",
+  "Dave Beaven",
+  "Michael Hawkshaw"
+ ],
+ "doc_type": "Requirements Specification",
+ "status_notes": "Version 18.0 'Updates for EDDS 2.3.0' (Document Change Log, PDF p. 3). Superseded: the 2025 CIG and SDD cite SRS Issue 23.0 of 2021-12-03, which is not in the library.",
+ "summary": "The **EDDS Software Requirements Specification** defines what the [EGOS Data Dissemination System](../scos2000/edds.md) must do, at the level of release 2.3.0. It is the richest source in the EDDS set on *why* EDDS exists and what data it serves.\n\nSection 4 gives the background. EDDS replaces and merges three ESOC ground-segment subsystems that gave users outside the control room access to [SCOS-2000](../scos2000/index.md) data: the [Telemetry Data Retrieval System (TDRS)](../scos2000/tdrs.md), Web Remote Monitoring (WebRM) and the [Generic Data Disposition System (GDDS)](../scos2000/gdds-and-ddids.md). It also takes ideas from the MUST parameter-analysis prototype. Section 4 then defines the data types (TM, TC and event packets with statistics; TM parameters from the DARC parameter archive or generated on the fly by SMON; MCS and EDDS reports; FARC archived files; acknowledgements), the delivery mechanisms (file server over SFTP, EDDS server download, stream in timely or complete mode, e-mail) and the formats (binary with a configurable EDDS header, XFDU, XML with mission XSLT, TDRS-style spreadsheet, ASCII, GDDS binary). A further subsection explains the ESOC network security domains (OPS, Office, Relay, PISA LANs, public Internet).\n\nSection 5 holds about 400 numbered requirements (EDDS-SR-xxxxx), each with need, priority, stability, verification method and source. Many trace back to the TDRS SRD, the GDDS SRD or the WebRM baseline. They specify, for example, the TM packet filters (type, subtype, APID, PI1/PI2, virtual channel, SPID, SSC, spacecraft ID, on-board or reception time), the content of EDDS TM and TC binary packet headers, duplicate-packet handling, CCSDS ASCII time codes in spreadsheet output, quotas, roles, scheduling, security and MMI.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 7
+  },
+  {
+   "section": "2",
+   "title": "Applicable and reference documents",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.1",
+   "title": "Applicable documents",
+   "pdf_page": 8
+  },
+  {
+   "section": "2.2",
+   "title": "Reference documents",
+   "pdf_page": 8
+  },
+  {
+   "section": "3",
+   "title": "Terms, definitions and abbreviated terms",
+   "pdf_page": 10
+  },
+  {
+   "section": "3.1",
+   "title": "Acronyms",
+   "pdf_page": 10
+  },
+  {
+   "section": "3.2",
+   "title": "Definition of Terms",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.3",
+   "title": "Requirement terms",
+   "pdf_page": 12
+  },
+  {
+   "section": "4",
+   "title": "General Description",
+   "pdf_page": 13
+  },
+  {
+   "section": "4.1",
+   "title": "Relationship to Current Projects",
+   "pdf_page": 13
+  },
+  {
+   "section": "4.2",
+   "title": "Relationship to Predecessor and Successor Projects",
+   "pdf_page": 13
+  },
+  {
+   "section": "4.3",
+   "title": "Function and Purpose",
+   "pdf_page": 14
+  },
+  {
+   "section": "4.3.1",
+   "title": "Data Types",
+   "pdf_page": 15
+  },
+  {
+   "section": "4.3.2",
+   "title": "Delivery Mechanism",
+   "pdf_page": 17
+  },
+  {
+   "section": "4.3.3",
+   "title": "Formatting",
+   "pdf_page": 17
+  },
+  {
+   "section": "4.3.4",
+   "title": "Services",
+   "pdf_page": 19
+  },
+  {
+   "section": "4.4",
+   "title": "Environmental Considerations",
+   "pdf_page": 21
+  },
+  {
+   "section": "4.5",
+   "title": "Relation to Other Systems",
+   "pdf_page": 22
+  },
+  {
+   "section": "4.6",
+   "title": "General Constraints",
+   "pdf_page": 23
+  },
+  {
+   "section": "4.7",
+   "title": "Logical Model Description",
+   "pdf_page": 23
+  },
+  {
+   "section": "4.7.1",
+   "title": "General Use Case",
+   "pdf_page": 26
+  },
+  {
+   "section": "4.7.2",
+   "title": "Batch Service Use Case",
+   "pdf_page": 27
+  },
+  {
+   "section": "4.7.3",
+   "title": "Stream Services Use case",
+   "pdf_page": 30
+  },
+  {
+   "section": "4.7.4",
+   "title": "Account Management Use Case",
+   "pdf_page": 31
+  },
+  {
+   "section": "5",
+   "title": "Specific Requirements",
+   "pdf_page": 33
+  },
+  {
+   "section": "5.1",
+   "title": "Functional Requirements",
+   "pdf_page": 33
+  },
+  {
+   "section": "5.1.1",
+   "title": "Data Types",
+   "pdf_page": 33
+  },
+  {
+   "section": "5.1.2",
+   "title": "Formatting",
+   "pdf_page": 58
+  },
+  {
+   "section": "5.1.3",
+   "title": "Delivery Mechanism",
+   "pdf_page": 62
+  },
+  {
+   "section": "5.1.4",
+   "title": "Services",
+   "pdf_page": 74
+  },
+  {
+   "section": "5.2",
+   "title": "Performance and Budget Requirements",
+   "pdf_page": 100
+  },
+  {
+   "section": "5.3",
+   "title": "Interface Requirements",
+   "pdf_page": 104
+  },
+  {
+   "section": "5.4",
+   "title": "Operational Requirements",
+   "pdf_page": 108
+  },
+  {
+   "section": "5.5",
+   "title": "Resources Requirements",
+   "pdf_page": 110
+  },
+  {
+   "section": "5.5.1",
+   "title": "Computer Hardware Requirements",
+   "pdf_page": 111
+  },
+  {
+   "section": "5.5.2",
+   "title": "Computer Hardware Resources Utilisation",
+   "pdf_page": 111
+  },
+  {
+   "section": "5.5.3",
+   "title": "Computer Software Requirements",
+   "pdf_page": 111
+  },
+  {
+   "section": "5.6",
+   "title": "Development Constraints",
+   "pdf_page": 112
+  },
+  {
+   "section": "5.7",
+   "title": "Security and Privacy Requirements",
+   "pdf_page": 112
+  },
+  {
+   "section": "5.8",
+   "title": "Portability Requirements",
+   "pdf_page": 115
+  },
+  {
+   "section": "5.9",
+   "title": "Software Quality Requirements",
+   "pdf_page": 116
+  },
+  {
+   "section": "5.10",
+   "title": "Software Reliability Requirements",
+   "pdf_page": 116
+  },
+  {
+   "section": "5.11",
+   "title": "Software Maintainability Requirements",
+   "pdf_page": 116
+  },
+  {
+   "section": "5.12",
+   "title": "Safety Requirements",
+   "pdf_page": 117
+  },
+  {
+   "section": "5.13",
+   "title": "Software Configuration and Delivery Requirements",
+   "pdf_page": 117
+  },
+  {
+   "section": "5.14",
+   "title": "Personnel-related Requirements",
+   "pdf_page": 118
+  },
+  {
+   "section": "5.15",
+   "title": "Data Definition and Database Requirements",
+   "pdf_page": 118
+  },
+  {
+   "section": "5.16",
+   "title": "MMI Specifications",
+   "pdf_page": 118
+  },
+  {
+   "section": "5.17",
+   "title": "(no title printed)",
+   "pdf_page": 121
+  },
+  {
+   "section": "5.18",
+   "title": "Reuse & Reusability Requirements",
+   "pdf_page": 121
+  },
+  {
+   "section": "5.19",
+   "title": "Interface Management Requirements",
+   "pdf_page": 122
+  },
+  {
+   "section": "5.20",
+   "title": "Observability Requirements",
+   "pdf_page": 122
+  },
+  {
+   "section": "5.21",
+   "title": "Other Requirements",
+   "pdf_page": 122
+  },
+  {
+   "section": "6",
+   "title": "Verification, Validation, and Acceptance Requirements",
+   "pdf_page": 123
+  },
+  {
+   "section": "6.1",
+   "title": "Validation Approach and Requirements",
+   "pdf_page": 123
+  },
+  {
+   "section": "6.2",
+   "title": "Acceptance Requirement",
+   "pdf_page": 123
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Parameter data: ESA mission control systems generate parameters on the fly from packets, so a dedicated parameter archive (DARC) was developed to meet EDDS performance criteria, alongside the new packet archive (PARC).",
+   "pdf_page": 13
+  },
+  {
+   "text": "EDDS requirements are based on three existing subsystems, TDRS (parameter extraction from SCOS-2000 history files into MVDA or spreadsheet files), WebRM (remote monitoring over CORBA external interfaces) and GDDS (web and FTP front end to MCS archive data), plus the MUST analysis prototype.",
+   "pdf_page": 13
+  },
+  {
+   "text": "EDDS is multi-mission: user accounts and privileges group users by mission and domain, behind a single authentication entry point.",
+   "pdf_page": 14
+  },
+  {
+   "text": "Data-type/format matrix: TM and TC packets in EDDS binary, XFDU, GDDS_BINARY and SFDU; reports in XML/ASCII; parameters additionally in TDRS spreadsheet format; formats marked * support splitting responses into chunks and suspend/resume.",
+   "pdf_page": 15
+  },
+  {
+   "text": "Packets are delivered as processed by the MCS in network byte order; parameters come either from the DARC (fast, configurable subset) or from SMON, generated on the fly from the packet archive (slower but all parameters).",
+   "pdf_page": 16
+  },
+  {
+   "text": "MCS reports follow SCOS-2000 release 5 reports: TM packet, TM gap, TM parameter, TC packet, OBEV, OOL, OBQ, event record, command record and OBSM reports, provided in XML with mission XSLT for final formatting.",
+   "pdf_page": 16
+  },
+  {
+   "text": "Stream delivery supports offline (archived) and online data; online mode is either 'timely' (drops data to meet latency) or 'complete' (delivers everything, possibly late).",
+   "pdf_page": 17
+  },
+  {
+   "text": "Binary format means data as received from the MCS in network endian order with a configurable EDDS header prepended to each packet; the spreadsheet format follows the TDRS External ICD.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Requirement terms: Need (E, D1, D2, D3), Priority 1-3, Stability S/N and Type codes; a 'domain' is an instance of an MCS or data archive.",
+   "pdf_page": 12
+  },
+  {
+   "text": "EDDS-SR-00320 lists TM packet filters: type, subtype, APID (including PID and PCAT), P1, P2, virtual channel, domain, on-board or reception time, quality flag, database version, ground station ID, SPID, SSC and spacecraft ID.",
+   "pdf_page": 36
+  },
+  {
+   "text": "EDDS-SR-00780 lets each mission choose the EDDS TM packet header fields (SSC, APID, P1, P2, virtual channel, OBT, reception time, validity, SPID, PID, ground station, data unit type, type, subtype, time quality, mnemonic).",
+   "pdf_page": 39
+  },
+  {
+   "text": "Duplicate packets can be defined per mission as APID+SSC, APID+SCET or APID+OBT.",
+   "pdf_page": 40
+  },
+  {
+   "text": "Spreadsheet output offers CCSDS ASCII time code A and B formats (EDDS-SR-00650).",
+   "pdf_page": 62
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD-18]",
+   "doc_id": "SLES12-064-ESOCL01",
+   "title": "ESOC SuSE Linux Enterprise Server (SLES12) Baseline Definition",
+   "issue": "Issue 0.0",
+   "date": "TBR",
+   "kind": "applicable",
+   "pdf_page": 8
+  },
+  {
+   "label": "[AD-39]",
+   "doc_id": "EGOS-MDW-EDDS-ICD-1001",
+   "title": "EDDS External User Interface Control Document (EUICD)",
+   "issue": "Version as part of this release",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 8
+  },
+  {
+   "label": "[AD-40]",
+   "doc_id": "EGOS-MCS-GDDS-ICD-1002",
+   "title": "Generic DDS – Interface Control Document RDM Image Transfer Control Files, GDDS-RDM ITCF ICD",
+   "issue": "Issue 1.1",
+   "date": "2004-08-30",
+   "kind": "applicable",
+   "pdf_page": 8
+  },
+  {
+   "label": "[AD-41]",
+   "doc_id": "EGGS-ESOC-GS-SRS-1001",
+   "title": "ESOC Generic Ground Systems (EGGS): Development Requirements Specification",
+   "issue": "Issue 1.1.1",
+   "date": "2008-10-31",
+   "kind": "applicable",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-1]",
+   "doc_id": null,
+   "title": "Producer-Archive Interface Specification",
+   "issue": "Draft White Book",
+   "date": "December-2005",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-2]",
+   "doc_id": "EGOS-MCS-GDDS-TN-nnnn-i0r0",
+   "title": "EGOS Data Dissemination System (EDDS) Concepts",
+   "issue": "0.0 Draft C",
+   "date": "2005-09-26",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-3]",
+   "doc_id": "S2K-MCS-SRD-0004-TOS-GIC",
+   "title": "SCOS-2000 TM Data Retrieval Services SRD",
+   "issue": "Issue 3.1",
+   "date": "2003-08-29",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-4]",
+   "doc_id": "EGOS-MCS-GDDS-SRD-5720",
+   "title": "Data Disposition System Software Requirements Document",
+   "issue": "Issue 1.4",
+   "date": "2004-08-30",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-5]",
+   "doc_id": "ESA/TOS-GIC",
+   "title": "WEB-RM User & Software Requirements Baseline",
+   "issue": "Issue 1.4",
+   "date": "2003-11-24",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-6]",
+   "doc_id": "No reference",
+   "title": "MUST Repository ICD",
+   "issue": "Draft 1.0",
+   "date": "(No Date)",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-7]",
+   "doc_id": "No reference",
+   "title": "MUST Rosetta Performance TN",
+   "issue": "Issue 1.1",
+   "date": "(No Date)",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-8]",
+   "doc_id": "No reference",
+   "title": "MUST Server Software Requirements Specification",
+   "issue": "Issue 1.0",
+   "date": "2006-07-04",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-9]",
+   "doc_id": null,
+   "title": "XML Formatted Data Unit (XFDU) Structure and Construction Rules",
+   "issue": "WHITE BOOK",
+   "date": "2006-05-15",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-10]",
+   "doc_id": "EGOS-GEN-GEN-SAD-1001-i0r0",
+   "title": "EGOS High Level Architectural Design Document",
+   "issue": "0.0DraftC",
+   "date": "2005-05-15",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-11]",
+   "doc_id": "S2K-MCS-ICD-0017-TOS-GIC",
+   "title": "TDRS External Interfaces Control Document",
+   "issue": "Issue 4.3",
+   "date": "2004-03-31",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-12]",
+   "doc_id": "EGOS-MCS-GDDS-ICD-1003",
+   "title": "Generic Data Delivery Interface Document (GDDID)",
+   "issue": "Issue 1.2",
+   "date": "2004-08-30",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-13]",
+   "doc_id": "910.4-B-1",
+   "title": "CCSDS Definition Cross Support Reference Model – Part 1, Space Link Extension Services",
+   "issue": "Issue 1",
+   "date": "May-1996",
+   "kind": "reference",
+   "pdf_page": 8
+  },
+  {
+   "label": "[RD-14]",
+   "doc_id": null,
+   "title": "ESACERT information including Security Plan template and guidelines: http://forum.esacert.esa.int/guidelines.html",
+   "issue": "N/A",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-15]",
+   "doc_id": "DOPS-COM-POL-34555-OPS-ECT",
+   "title": "Implementation of the ESA Network Security Policy for OPSNET",
+   "issue": "Issue 2 Revision 3",
+   "date": "2007-11-09",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-16]",
+   "doc_id": "EGOS-GEN-EDDS-ICD-1001",
+   "title": "EGOS ICD Raw Data Media Production System",
+   "issue": "Issue 1",
+   "date": "2007-04-13",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-17]",
+   "doc_id": "EGOS-MDW-EDDS-SDD-1001",
+   "title": "EDDS SDD",
+   "issue": "Issue 1",
+   "date": "2007-04-13",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-18]",
+   "doc_id": "EGOS-MDW-TN-1002",
+   "title": "Analysis of Web Services and PARC, Enhancements to support EDDS",
+   "issue": "Issue 1",
+   "date": "2007-04-13",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-19]",
+   "doc_id": "EGOS-MDW-TN-1001",
+   "title": "Analysis of TDRS, WEBRM, GDDS and MUST for suitability of reuse in implementing EDDS",
+   "issue": "Issue 1",
+   "date": "2006-02-22",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-20]",
+   "doc_id": "EGOS-MCS-S2K-SRS-1001",
+   "title": "SCOS-2000 SMF SRS",
+   "issue": "Issue 1 Revision 3",
+   "date": "2008-11-07",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-21]",
+   "doc_id": "EGOS-MCS-S2K-ICD-1004",
+   "title": "MONITORING & CONTROL SCOS-2000 - SFM SERVICE ICD",
+   "issue": "Issue 6",
+   "date": "2008-11-07",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-22]",
+   "doc_id": "EGOS-MCS-S2K-ICD-1005",
+   "title": "SYSTEM MANAGEMENT SCOS-2000 - SFM SERVICE ICD",
+   "issue": "Issue 5",
+   "date": "2008-11-07",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-23]",
+   "doc_id": "CCSDS 661.0-B-1",
+   "title": "XML FORMATTED DATA UNIT (XFDU) STRUCTURE AND CONSTRUCTION RULES - Blue book",
+   "issue": null,
+   "date": "September 2008",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-24]",
+   "doc_id": "EGOS-GEN-DARC-ICD-1001",
+   "title": "DARC ICD",
+   "issue": "Issue 1.1",
+   "date": "2009-01-08",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-25]",
+   "doc_id": "EGOS-GEN-DARC-SDD-0040",
+   "title": "Software Design Document DARC",
+   "issue": "Issue 1.0",
+   "date": "2009-01-09",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-26]",
+   "doc_id": "EGOS-MDW-UDK-ICD-0001",
+   "title": "EGOS USER DESKTOP ICD",
+   "issue": "Issue 2.2",
+   "date": "2008-11-25",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-27]",
+   "doc_id": "EGOS-MDW-UDK-SDD-0001",
+   "title": "EGOS USER DESKTOP SDD",
+   "issue": "Issue 2.1",
+   "date": "2008-07-28",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-28]",
+   "doc_id": "EGOS-MDW-LLC-ICD-1005",
+   "title": "Session Manager ICD",
+   "issue": "Issue 1.3a",
+   "date": "2008-12-12",
+   "kind": "reference",
+   "pdf_page": 9
+  },
+  {
+   "label": "[RD-29]",
+   "doc_id": "EGOS-MDW-COR-SDD-1005",
+   "title": "Session Manager SDD",
+   "issue": "Issue 1.3a",
+   "date": "2008-12-12",
+   "kind": "reference",
+   "pdf_page": 9
+  }
+ ],
+ "topics": [
+  "scos2000/edds.md",
+  "scos2000/edds-formats.md",
+  "scos2000/tdrs.md",
+  "scos2000/gdds-and-ddids.md",
+  "scos2000/archives.md",
+  "ccsds/time-codes.md"
+ ],
+ "notes": "Cross-reference inconsistencies inside the document: the text calls the DARC documents [RD-25] and [RD-26] (PDF p. 13) although [RD-26] is the EUD ICD, and cites XFDU as [RD-24] (PDF p. 19) although XFDU is [RD-9]/[RD-23] and [RD-24] is the DARC ICD; requirements cite sources such as '[RD-6] R-WEB-0315', where [RD-6] is now the MUST Repository ICD, apparently from an older numbering. Applicable documents are numbered [AD-18] and [AD-39] to [AD-41] only (others removed). Section 1 has no subsections. Section 5.17 has a number but no title (TOC PDF p. 5, body PDF p. 121). Many TOC page numbers are truncated in the text extraction. RID and 'eddsdswr#' markers are embedded in requirement texts. About 400 requirement IDs (EDDS-SR-xxxxx) appear in the text. Printed page numbers are PDF page minus 6. The file name 'SRS.pdf' carries no version."
+}

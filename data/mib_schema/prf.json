@@ -1,0 +1,238 @@
+{
+ "table": "prf",
+ "file": "prf.dat",
+ "icd": true,
+ "name": "Parameter range sets",
+ "icd_section": "3.3.3.7.1",
+ "pdf_page": 210,
+ "family": "commanding",
+ "purpose": "The prf table defines range sets, i.e. named sets of allowed values or value ranges that SCOS-2000 uses to check the values of command parameters (through CPC_PRFREF) and of sequence formal parameters (through CSP_PRFREF), one record per set; the individual ranges and discrete values are in PRV. A set may be shared by many parameters. Only parameters whose raw value is numerical or a time can be range checked; strings cannot. The record states whether the limits are written as raw or engineering values, the representation type of the limits (ASCII, signed or unsigned integer, real, absolute or relative time) and, for unsigned integers, their radix; these must be compatible with the type or engineering format of every parameter using the set. When a command sequence is loaded on a manual stack only the formal parameter values are checked against their range sets, not every value of the contained commands and sequences, although SCOS-2000 can be configured to check all parameter values at sequence loading time. The unit and the number of ranges are informative, for off-line consistency checks.",
+ "keys": [
+  "PRF_NUMBR"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "PRF_NUMBR",
+   "type": "Char(10)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Alphanumeric name uniquely identifying the range set; referenced by CPC_PRFREF, CSP_PRFREF and PRV_NUMBR.",
+   "values": [],
+   "references": null,
+   "pdf_page": 211
+  },
+  {
+   "pos": 2,
+   "name": "PRF_DESCR",
+   "type": "Char(24)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Textual description of the range set.",
+   "values": [],
+   "references": null,
+   "pdf_page": 211
+  },
+  {
+   "pos": 3,
+   "name": "PRF_INTER",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Representation in which the limits PRV_MINVAL and PRV_MAXVAL of this set are written.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Raw values (import default)."
+    },
+    {
+     "value": "E",
+     "meaning": "Engineering values; allowed only if every parameter using the set is calibrated (CPC_CATEG/CSP_CATEG T or C)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 211
+  },
+  {
+   "pos": 4,
+   "name": "PRF_DSPFMT",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "U",
+   "description": "Representation type of the limit values in PRV, whose value formats are given in Appendix A. It must be compatible with the parameters using the set: with their PTC when PRF_INTER=R, and with their DISPFMT when PRF_INTER=E or for time parameters.",
+   "values": [
+    {
+     "value": "A",
+     "meaning": "ASCII."
+    },
+    {
+     "value": "I",
+     "meaning": "Signed integer."
+    },
+    {
+     "value": "U",
+     "meaning": "Unsigned integer (import default)."
+    },
+    {
+     "value": "R",
+     "meaning": "Real."
+    },
+    {
+     "value": "T",
+     "meaning": "Absolute time."
+    },
+    {
+     "value": "D",
+     "meaning": "Delta/relative time."
+    }
+   ],
+   "references": null,
+   "pdf_page": 212
+  },
+  {
+   "pos": 5,
+   "name": "PRF_RADIX",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "D",
+   "description": "Radix of the limit values in PRV; only applicable for unsigned integers (PRF_DSPFMT=U). It may differ from the radix (CPC_RADIX/CSP_RADIX) of the parameters using the set.",
+   "values": [
+    {
+     "value": "D",
+     "meaning": "Decimal (import default)"
+    },
+    {
+     "value": "H",
+     "meaning": "Hexadecimal"
+    },
+    {
+     "value": "O",
+     "meaning": "Octal"
+    }
+   ],
+   "references": null,
+   "pdf_page": 212
+  },
+  {
+   "pos": 6,
+   "name": "PRF_NRANGE",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Number of PRV records defined for this set. Grey in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 212
+  },
+  {
+   "pos": 7,
+   "name": "PRF_UNIT",
+   "type": "Char(4)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Engineering unit mnemonic, for consistency checking against the unit (CPC_UNIT/CSP_UNIT) of the parameters using the set. Grey in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 213
+  }
+ ],
+ "relationships": [
+  {
+   "field": "PRF_NUMBR",
+   "target": "prv.PRV_NUMBR",
+   "note": "Allowed values/ranges of the set (one-to-many); PRF_NRANGE should equal their number."
+  },
+  {
+   "field": "PRF_NUMBR",
+   "target": "cpc.CPC_PRFREF",
+   "note": "Command parameters checked against the set (many-to-one)."
+  },
+  {
+   "field": "PRF_NUMBR",
+   "target": "csp.CSP_PRFREF",
+   "note": "Sequence formal parameters checked against the set."
+  },
+  {
+   "field": "PRF_UNIT",
+   "target": "cpc.CPC_UNIT / csp.CSP_UNIT",
+   "note": "Consistency check only."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.7.1, PDF p.102-103) has the same seven fields and defaults (R, U, D) with PRF_NUMBR Number(4). The range set identifier became Char(10) in ICD 6.0 (Annex 1 of ICD 7.0, 'Range Set ID' item, PDF p.247); ICD 6.7 Draft A (PDF p.197-199), ICD 6.9 (PDF p.202-204) and ICD 7.0 (PDF p.210-213) are identical in structure. pyscos2000 (ICD 7.2) has the same seven columns and key, but gives PRF_DSPFMT the default R instead of the ICD's U.",
+ "solo_stats": {
+  "rows": 565,
+  "fields": [
+   {
+    "name": "PRF_NUMBR",
+    "filled": 565,
+    "examples": [
+     "CACP4901TC",
+     "VCD00147",
+     "VCD00149",
+     "VCD00150",
+     "VCD00153"
+    ]
+   },
+   {
+    "name": "PRF_DESCR",
+    "filled": 565,
+    "examples": [
+     "Range Definition",
+     "Integer between 0 and 23",
+     "Integer between 1 and 23",
+     "Integer between 0 and 22",
+     "Integer between 0 and 25"
+    ]
+   },
+   {
+    "name": "PRF_INTER",
+    "filled": 565,
+    "examples": [
+     "R",
+     "E"
+    ]
+   },
+   {
+    "name": "PRF_DSPFMT",
+    "filled": 565,
+    "examples": [
+     "U",
+     "R",
+     "A",
+     "I"
+    ]
+   },
+   {
+    "name": "PRF_RADIX",
+    "filled": 549,
+    "examples": [
+     "D",
+     "H"
+    ]
+   },
+   {
+    "name": "PRF_NRANGE",
+    "filled": 564,
+    "examples": [
+     "1",
+     "2",
+     "20",
+     "5",
+     "58"
+    ]
+   },
+   {
+    "name": "PRF_UNIT",
+    "filled": 100,
+    "examples": [
+     "s",
+     "ms",
+     "#/nT",
+     "B",
+     "V"
+    ]
+   }
+  ]
+ },
+ "notes": "Default discrepancy: PRF_DSPFMT import default is 'U' in ICD 5.1, 6.9 and 7.0 but 'R' in pyscos2000 (7.2); a file leaving the field empty would be interpreted differently. Solar Orbiter always fills it, so the data are not affected. Solar Orbiter 2025-09-16: 565 range sets (531 in 2020); PRF_INTER R 549 and E 16; PRF_DSPFMT U 457, R 88, I 4 and A 16 (the 16 ASCII sets are exactly the engineering ones, holding lists of allowed alias texts); PRF_RADIX D 529, H 20, empty for the 16 ASCII sets. PRF_NRANGE disagrees with the PRV count for VCTX0001 (declares 104, has 101) and is empty for VNISLP01. Five sets are not referenced by any CPC or CSP record, while CSP_PRFREF 'VSM00001' points to a set that does not exist."
+}

@@ -1,0 +1,53 @@
+{
+ "slug": "ro-esc-if-5003-appendix-i-c3",
+ "title": "Rosetta/Mars Express/Venus Express Mission Control System (RMCS) Data Delivery Interface Document (Appendix I) XML Schema",
+ "short_title": "Rosetta/MEX/VEX DDID Appendix I: GDDS XML schema",
+ "doc_id": "RO-ESC-IF-5003, MEX-ESC-IF-5003, VEX-ESC-IF-5003",
+ "issue": "Issue C3",
+ "date": "2007-08-21",
+ "organisation": "European Space Agency, ESOC",
+ "authors": [],
+ "doc_type": "Data Delivery Interface Document",
+ "status_notes": "Issue C3, 21/08/2007 (PDF p. 1). Approval and distribution are 'As per main DDID document' (PDF p. 3). The change record shows issues B1 (20/07/01) to C3, the C3 re-issue adding event keywords under DCR 417 (PDF p. 5).",
+ "summary": "Appendix I of the Data Delivery Interface Document (DDID) shared by the Rosetta, Mars Express and Venus Express Mission Control System (RMCS), issue C3 of 21 August 2007, published by ESOC. The main DDID is the ICD that governs delivery of mission data from the control centre to the Principal Investigators; this appendix defines the XML schema for the file-based request mechanism of the data delivery system, which is based on ESOC's Generic Data Disposition System (GDDS). Its stated scope is the format of on-line data requests, acknowledgements and catalogue entries, and it notes that XML might one day replace SFDU for the data themselves.\n\nThe appendix reproduces six XSD files, each with a description, include list, table of types and full definition. GDDSCommon.xsd holds the basic types: a non-empty string, a date-time or duration time choice, delivery methods (RDM raw data media, FTP, Online with hex-binary inline response), compression (NONE or ZIP), user, format (including an SFDU-required flag), data and request information. GDDSMission.xsd holds the mission-specific keyword types: request keywords (sample rate, maximum volume, time type, application, event type, severity, workstation, message filter), filter keywords (source and SCOS-2000 packet generation time, PUS type and subtype, P1/P2 identification values, name, creation, uplink, execution and event times, MIB release and issue, validity, volume) and catalogue keywords, plus event types (LOG, MIB, SOFTWARE, SYSTEM) and severities. MissionDataDef.xsd lists the high-level data types TLM, CMH, EVT and AUX and the format option RMCS_SPECIAL. GDDSCatalogue.xsd, GDDSRequest.xsd (a recursive filter-expression tree with leaf comparisons and AND, OR and NOT nodes) and GDDSAcknowledgement.xsd define the catalogue, request and acknowledgement documents.\n\nIt is the concrete schema behind the GDDS 'recursive query language defined in XML' and the predecessor of the EDDS request formats.",
+ "contents": [
+  {"section": "1", "title": "Introduction", "pdf_page": 9},
+  {"section": "1.1", "title": "Purpose", "pdf_page": 9},
+  {"section": "1.2", "title": "Scope", "pdf_page": 9},
+  {"section": "1.3", "title": "Summary", "pdf_page": 9},
+  {"section": "1.4", "title": "Amendment History", "pdf_page": 9},
+  {"section": "1.5", "title": "Change Forecast", "pdf_page": 9},
+  {"section": "1.6", "title": "Applicable and Reference Documents", "pdf_page": 9},
+  {"section": "1.7", "title": "Abbreviation", "pdf_page": 9},
+  {"section": "2", "title": "Schema", "pdf_page": 10},
+  {"section": "2.1", "title": "GDDSCommon.xsd", "pdf_page": 10},
+  {"section": "2.2", "title": "GDDSMission.xsd", "pdf_page": 14},
+  {"section": "2.3", "title": "MissionDataDef.xsd", "pdf_page": 17},
+  {"section": "2.4", "title": "GDDSCatalogue.xsd", "pdf_page": 19},
+  {"section": "2.5", "title": "GDDSRequest.xsd", "pdf_page": 21},
+  {"section": "2.6", "title": "GDDSAcknowledgement.xsd", "pdf_page": 24}
+ ],
+ "key_points": [
+  {"text": "The appendix defines the XML schema for the data delivery interfaces, covering on-line data requests, acknowledgements and catalogue entries, for use by external users.", "pdf_page": 9},
+  {"text": "It was introduced together with a file-based request mechanism based on XML; the change forecast notes that XML may replace SFDU 'in the distant future'.", "pdf_page": 9},
+  {"text": "Delivery methods are RDM, FTP and Online; Online delivery returns the data inline as xsd:hexBinary with a displayAsHex flag, and compression is NONE or ZIP.", "pdf_page": 11},
+  {"text": "Filter keywords include SourcePktsGenTime, S2KPktsGenTime, Type, SubType, P1Val and P2Val, Name, CreationTime, UplinkTime, ExecutionTime, EventTime, Release, Issue and Validity.", "pdf_page": 15},
+  {"text": "Event types for filtering are LOG, MIB, SOFTWARE and SYSTEM, and severities are INFORMATION, WARNING, ERROR and FATAL ERROR.", "pdf_page": 16},
+  {"text": "High-level data types are TLM, CMH, EVT and AUX, with the mission-specific format option RMCS_SPECIAL.", "pdf_page": 17},
+  {"text": "Requests are an onlineRequest with general request information and one or more data items, each with a data type, data source, catalogue-request flag, keywords, optional onEvent trigger and a recursive filter expression.", "pdf_page": 23},
+  {"text": "Filter expressions are trees of leaf nodes (OP_GT, OP_LT, OP_EQ, OP_GTE, OP_LTE on a keyword value pair), unary nodes (OP_NOT) and binary nodes (OP_AND, OP_OR).", "pdf_page": 22},
+  {"text": "Acknowledgements report the actual start time, operating hardware and software, DDS version, error message and, per item, the actual volume.", "pdf_page": 25}
+ ],
+ "references": [
+  {"label": null, "doc_id": "RO-ESC-IF-5003/MEX-ESC-IF-5003/VEX-ESC-IF-5003", "title": "Rosetta / Mars Express / Venus Express Data Delivery Interface Document", "issue": "Issue C3", "date": "21st August 2007", "kind": "applicable", "pdf_page": 9},
+  {"label": "A-1", "doc_id": null, "title": "Main DDID document (Applicable Document A-1)", "issue": null, "date": null, "kind": "applicable", "pdf_page": 3},
+  {"label": "A-5", "doc_id": null, "title": "Applicable Document A-5 (abbreviations and acronyms)", "issue": null, "date": null, "kind": "applicable", "pdf_page": 9}
+ ],
+ "topics": [
+  "scos2000/gdds-and-ddids.md",
+  "scos2000/edds-formats.md",
+  "missions/rosetta-mex-vex.md",
+  "scos2000/archives.md"
+ ],
+ "notes": "The PDF has roman-numbered front matter: printed page 1 is PDF p. 9, so PDF page = printed page + 8 in the body. PDF pp. 4, 6, 18 and 20 are blank or nearly blank. The text layer contains Word track-change marginalia ('Deleted: 1', 'Deleted: July', 'Deleted: 5') next to the parent-document reference (PDF p. 9). The section 1.4 text still says 'This is the first issue of this appendix' although the change record lists issues B1 to C3. Some schema definitions use '<include ...>' without the xsd: prefix (PDF pp. 19, 21, 24), and 'Ernumeration' is misspelled (PDF p. 17). GDDSCommon.xsd lists the type 'DeliveryType' twice in its type table, once with description 'TBD'. Downloaded from the PDS Small Bodies Node (Rosetta RSI archive volume); the parent DDID is the library item ro-esc-if-5003-ddid-c2 (issue C2) and its MEX copy is mex-esc-if-5003-b5. The issue of this appendix (C3) is newer than the registered main DDID issue C2."
+}

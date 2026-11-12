@@ -1,0 +1,199 @@
+{
+ "slug": "s2k-guide-for-the-impatient",
+ "title": "SCOS 2000 User Guide for the impatient",
+ "short_title": "SCOS 2000 User Guide for the impatient (PACS)",
+ "doc_id": "PICC-ME-MN-001",
+ "issue": "V 2.0",
+ "date": "2004-04-20",
+ "organisation": "Herschel PACS instrument team (organisation not printed; the running header shows 'Herschel' and 'PACS')",
+ "authors": [],
+ "doc_type": "User Manual",
+ "status_notes": "Issue V 2.0 of 04/20/04, 'Update for SCOS 2000 V2.3e Patch 3'. It replaces V 1.0 of 22-Oct-03, the initial version (Document Change Record, PDF p. 2).",
+ "summary": "A seven-page quick-start from the Herschel **PACS** instrument team (reference PICC-ME-MN-001, V 2.0, 20 April 2004) for running the [SCOS-2000](../scos2000/index.md)-based instrument EGSE used during PACS instrument level tests (ILT). Version 2.0 updates the October 2003 original for SCOS 2000 V2.3e Patch 3.\n\nIt gives the start-up order of the [EGSE](../scos2000/egse.md) software. First the operator starts the EGSE router and EGSE gateway together, then a single TeiGateway instance. Next comes the SCOS 2000 task launcher (`s2.start`, which must be run from a csh rather than a tcsh terminal). There the 'EGSEsrv' button selects all server applications and the 'Client' button the standard client applications used during PACS ILT. The operator then logs in through the 'Users' button of the desktop top bar. The Test and Operations Procedure Environment (TOPE) has its own launcher (`exif.start`), with the external-interface tasks EXIF_TMM, EXIF_TM1, EXIF_CHM, EXIF_CH1 and TOPE1.\n\nA short table maps launcher names to SCOS-2000 applications: MON (telemetry desktop with alphanumeric, strip-chart, scrolling and mimic displays), VPD (variable packet display), MSTK (manual command stack), TCHIST (telecommand history), OOL (out-of-limits display) and EVLOG (message display). The guide also explains that starting a second TOPE procedure suspends the running one. To run procedures in parallel, the operator opens another TOPE window with its own EXIF_CHx task. The 'Useful Documents' list names the TOS-GCI user manual of each SCOS-2000 operator application, so the guide also serves as an index of the 2.3e manual set used on [Herschel/Planck](../missions/herschel-planck.md).",
+ "contents": [
+  {
+   "section": "0",
+   "title": "Preface",
+   "pdf_page": 2
+  },
+  {
+   "section": "0.1",
+   "title": "Document Change Record",
+   "pdf_page": 2
+  },
+  {
+   "section": "0.2",
+   "title": "Table of Contents",
+   "pdf_page": 2
+  },
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 3
+  },
+  {
+   "section": "1.1",
+   "title": "Useful Documents",
+   "pdf_page": 3
+  },
+  {
+   "section": "1.2",
+   "title": "Acronyms",
+   "pdf_page": 3
+  },
+  {
+   "section": "2",
+   "title": "Login",
+   "pdf_page": 3
+  },
+  {
+   "section": "3",
+   "title": "Starting Up EGSE software",
+   "pdf_page": 4
+  },
+  {
+   "section": "3.1",
+   "title": "Starting the Router, EGSEgateway and TeiGateway",
+   "pdf_page": 4
+  },
+  {
+   "section": "3.2",
+   "title": "Starting SCOS 2000",
+   "pdf_page": 4
+  },
+  {
+   "section": "3.3",
+   "title": "Starting TOPE",
+   "pdf_page": 6
+  },
+  {
+   "section": "4",
+   "title": "Using SCOS 2000",
+   "pdf_page": 7
+  },
+  {
+   "section": "5",
+   "title": "Using TOPE",
+   "pdf_page": 7
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Acronyms defined: EXIF (SCOS External Interface services), ILT (Instrument Level Test), TCL (Tool Command Language) and TOPE (Test and Operations Procedure Environment).",
+   "pdf_page": 3
+  },
+  {
+   "text": "SCOS 2000 and TOPE are not started at login; both are started manually.",
+   "pdf_page": 3
+  },
+  {
+   "text": "The EGSErouter and EGSEgateway are started together with one command and log to two pop-up terminal windows; only one TeiGateway instance is allowed.",
+   "pdf_page": 4
+  },
+  {
+   "text": "The SCOS 2000 task launcher must be started from a plain csh login terminal, not tcsh; the 'EGSEsrv' button selects all SCOS 2000 server applications, and start-up takes a few minutes.",
+   "pdf_page": 4
+  },
+  {
+   "text": "The SCOS 2000 desktop has a top bar with the workstation settings and a bottom bar showing the three most recent log messages; the alarm tone can be switched off from the top bar.",
+   "pdf_page": 5
+  },
+  {
+   "text": "The 'Client' button of the task launcher starts the standard SCOS 2000 client applications used during PACS ILT.",
+   "pdf_page": 6
+  },
+  {
+   "text": "TOPE is started from its own launcher with the tasks EXIF_TMM, EXIF_TM1, EXIF_CHM, EXIF_CH1 and TOPE1.",
+   "pdf_page": 6
+  },
+  {
+   "text": "Application names: MON telemetry desktop, VPD variable TM packet display, MSTK manual command stack, TCHIST telecommand history, OOL out-of-limit display, EVLOG message display; the digit after the name gives the screen.",
+   "pdf_page": 7
+  },
+  {
+   "text": "A TOPE procedure started while another is running suspends the active one until it ends; parallel procedures need another TOPE window and another EXIF_CHx task.",
+   "pdf_page": 7
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-0100-TOS-GCI",
+   "title": "EXTERNAL INTERFACE & TOPE SOFTWARE USER MANUAL",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-2110-TOS-GCI",
+   "title": "SCOS-2000 Desktop Operator User Manual",
+   "issue": "V1.2",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-2120-TOS-GCI",
+   "title": "SCOS-2000 Event Logger Software User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-2210-TOS-GCI",
+   "title": "SCOS-2000 Telemetry Desktop Software User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-2220-TOS-GCI",
+   "title": "SCOS-2000 Out of Limits Display Operator User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-2230-TOS-GCI",
+   "title": "SCOS-2000 Variable Packet Display Operator User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-2310-TOS-GCI",
+   "title": "SCOS-2000 Manual Stack Operator User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "S2K-MCS-SUM-2360-TOS-GCI",
+   "title": "SCOS-2000 Command History Operator User Manual",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 3
+  }
+ ],
+ "topics": [
+  "scos2000/egse.md",
+  "scos2000/herschel-planck-ground.md",
+  "missions/herschel-planck.md",
+  "scos2000/architecture.md"
+ ],
+ "notes": "PDF p. 1 carries the SPIRE archive stamp SPIRE-PAC-DOC-002288. The archive folder is named '002288_MOM_PAC', although the document is a user guide, not minutes. No author is printed. The date is printed as 'April 20, 2004' in the header and '04/20/04' in the change record. The guide gives a local Unix account and the SCOS 2000 desktop user name and password used at the PACS test site, which this catalogue does not reproduce. Screenshots (Illustrations 1-6) survive only as captions. The text extraction has a trailing empty page 8."
+}

@@ -1,0 +1,539 @@
+{
+ "slug": "cosmos-operations-interface-requirements",
+ "title": "Herschel/Planck Operations Interface Requirements Document",
+ "short_title": "Herschel/Planck Operations Interface Requirements (OIRD)",
+ "doc_id": "SCI-PT-RS-07360",
+ "issue": "Issue 2.2",
+ "date": "31 September 2003",
+ "organisation": "European Space Agency, ESOC (with the ESTEC Herschel/Planck Project Office)",
+ "authors": [
+  "S. J. Dodsworth",
+  "S. Matussi",
+  "T. Paßvogel",
+  "J_J. Juillet",
+  "G. Pilbrat",
+  "J. Tauber",
+  "T. de Graauw",
+  "M. Griffin",
+  "A. Poglitsch",
+  "J-L. Puget",
+  "N. Mandolesi"
+ ],
+ "doc_type": "Requirements Specification",
+ "status_notes": "Issue 2.2. Change record: issue 1.0 31-8-2000, 2.0 12-7-2001, 2.1 31-12-2001, 2.2 22-05-2003 (PDF p. 4). To be approved by ESOC and the ESTEC Project Office and controlled by the ESTEC Project Office (PDF p. 10). The signature fields of the approval page are empty in this copy (PDF p. 2).",
+ "summary": "The Herschel/Planck Operations Interface Requirements Document (OIRD), issue 2.2 of 2003, prepared at ESOC by S. J. Dodsworth and S. Matussi. It identifies the requirements on the Herschel and Planck spacecraft and their payloads that are needed to conduct mission operations, and the operational data and documentation that industry and the instrument teams must deliver to the Mission Operations Centre (MOC).\n\nSection 2 gives operability and autonomy requirements: no need for ground reactions faster than 3 minutes, two independent telecommands for hazardous functions, self-contained telemetry values in contiguous bits, contributing parameters of synthetic parameters in the same packet, one on-board central time reference with on-ground correlation to UTC, and 48 hours of operation without ground contact. Section 3, derived from the draft ECSS Packet Utilisation Standard, begins with a table of PUS services mandatory, optional or not applicable to the instruments and then states requirements per service: APID and SID allocation rules, telecommand verification, device commanding, housekeeping, event reporting with a critical events log, memory management, function and time management, the on-board mission timeline, on-board monitoring, packet transmission control, packet stores, test, OBCP management and science data transfer. Requirements marked P apply to spacecraft and payloads, PO to the spacecraft with possible relevance to payloads.\n\nSection 4 and the annexes define the Satellite Users Manual, the Satellite Database (complying with the SCOS-2000 Database Import ICD issue 5.1, with configuration-control and spacecraft-configuration files and versioned deliveries up to launch), the Flight Dynamics Database, on-board software deliveries, and naming conventions for procedures and timelines.\n\nFor this wiki it links PUS, the SCOS-2000 MIB and the Herschel/Planck operations concept.",
+ "contents": [
+  {
+   "section": null,
+   "title": "DOCUMENT APPROVAL",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "CHANGE RECORD",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "CONTENTS",
+   "pdf_page": 7
+  },
+  {
+   "section": "1",
+   "title": "INTRODUCTION",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose and Scope",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.2",
+   "title": "Structure of the Document",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.3",
+   "title": "Applicable Documents",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.4",
+   "title": "Reference Documents",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.5",
+   "title": "General Operations Concepts",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.5.1",
+   "title": "Packet Telecommand Delivery",
+   "pdf_page": 11
+  },
+  {
+   "section": "1.5.2",
+   "title": "Telemetry Collection and Storage",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.5.3",
+   "title": "Solid State Mass Memory Resources",
+   "pdf_page": 12
+  },
+  {
+   "section": "1.5.4",
+   "title": "Telemetry Packetisation by the CDMS",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.5.5",
+   "title": "On-Board Monitoring and Response to Events",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.5.6",
+   "title": "On-Board Procedures",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.5.7",
+   "title": "Functions",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.5.8",
+   "title": "Synchronisation with Spacecraft Time",
+   "pdf_page": 14
+  },
+  {
+   "section": "2",
+   "title": "SATELLITE OPERATIONS AND FUNCTIONAL REQUIREMENTS",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.1",
+   "title": "Spacecraft Control",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.1.1",
+   "title": "General",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.1.2",
+   "title": "Telecommands",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.1.3",
+   "title": "Telemetry",
+   "pdf_page": 17
+  },
+  {
+   "section": "2.1.4",
+   "title": "Timing",
+   "pdf_page": 18
+  },
+  {
+   "section": "2.2",
+   "title": "Spacecraft Autonomy",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.2.1",
+   "title": "General",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.2.2",
+   "title": "Attitude and Orbit Control",
+   "pdf_page": 21
+  },
+  {
+   "section": "2.2.3",
+   "title": "Payload",
+   "pdf_page": 21
+  },
+  {
+   "section": "2.2.4",
+   "title": "In-Flight Testing",
+   "pdf_page": 22
+  },
+  {
+   "section": "2.2.5",
+   "title": "On-board Control Procedures",
+   "pdf_page": 22
+  },
+  {
+   "section": "3",
+   "title": "PACKET FUNCTIONAL REQUIREMENTS",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.1",
+   "title": "General",
+   "pdf_page": 25
+  },
+  {
+   "section": "3.2",
+   "title": "Telecommand Verification (Service 1)",
+   "pdf_page": 26
+  },
+  {
+   "section": "3.3",
+   "title": "Device Commanding (Service 2)",
+   "pdf_page": 27
+  },
+  {
+   "section": "3.4",
+   "title": "Spacecraft Status Reporting",
+   "pdf_page": 27
+  },
+  {
+   "section": "3.4.1",
+   "title": "Periodic Reporting (Service 3)",
+   "pdf_page": 27
+  },
+  {
+   "section": "3.4.2",
+   "title": "Statistics Reporting (Service 4)",
+   "pdf_page": 28
+  },
+  {
+   "section": "3.4.3",
+   "title": "Event Reporting (Service 5)",
+   "pdf_page": 28
+  },
+  {
+   "section": "3.5",
+   "title": "Memory Management (Service 6)",
+   "pdf_page": 29
+  },
+  {
+   "section": "3.6",
+   "title": "On-Board Software Management",
+   "pdf_page": 30
+  },
+  {
+   "section": "3.6.1",
+   "title": "Task Management (Service 7)",
+   "pdf_page": 30
+  },
+  {
+   "section": "3.7",
+   "title": "Function Management (Service 8)",
+   "pdf_page": 31
+  },
+  {
+   "section": "3.8",
+   "title": "Time Management (Services 9)",
+   "pdf_page": 31
+  },
+  {
+   "section": "3.9",
+   "title": "On-Board Mission Time line (Service 11)",
+   "pdf_page": 32
+  },
+  {
+   "section": "3.10",
+   "title": "On-Board Monitoring (Service 12)",
+   "pdf_page": 33
+  },
+  {
+   "section": "3.11",
+   "title": "Packet Transmission Control (Service 14)",
+   "pdf_page": 34
+  },
+  {
+   "section": "3.12",
+   "title": "On-Board Storage and Retrieval (Service 15)",
+   "pdf_page": 34
+  },
+  {
+   "section": "3.13",
+   "title": "On-Board Traffic Management (Service 16)",
+   "pdf_page": 35
+  },
+  {
+   "section": "3.14",
+   "title": "In-Flight Testing (Service 17)",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.15",
+   "title": "OBCP Management (Service18)",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.16",
+   "title": "Event/Action Service (Service 19)",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.17",
+   "title": "Information Distribution CDMS - User (Service 20)",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.18",
+   "title": "Science Data Transfer (Service 21)",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.19",
+   "title": "Context Saving (Service 22)",
+   "pdf_page": 37
+  },
+  {
+   "section": "4",
+   "title": "OPERATIONS DATA",
+   "pdf_page": 39
+  },
+  {
+   "section": "4.1",
+   "title": "Satellite Users Manual",
+   "pdf_page": 39
+  },
+  {
+   "section": "4.2",
+   "title": "Satellite Database",
+   "pdf_page": 40
+  },
+  {
+   "section": "4.3",
+   "title": "Flight Dynamics Database",
+   "pdf_page": 42
+  },
+  {
+   "section": "4.4",
+   "title": "On-Board Software",
+   "pdf_page": 43
+  },
+  {
+   "section": "A1",
+   "title": "ANNEX A1 : SATELLITE USERS MANUAL CONTENTS",
+   "pdf_page": 45
+  },
+  {
+   "section": "A2",
+   "title": "ANNEX A2: SATELLITE DATABASE CONTENTS",
+   "pdf_page": 60
+  },
+  {
+   "section": "A3",
+   "title": "ANNEX A3: FLIGHT DYNAMICS DATABASE CONTENTS",
+   "pdf_page": 62
+  },
+  {
+   "section": "A4",
+   "title": "ANNEX A4: OPERATIONAL DATABASE NAMING CONVENTIONS",
+   "pdf_page": 70
+  },
+  {
+   "section": "A5",
+   "title": "ANNEX A5 : LIST OF ACRONYMS",
+   "pdf_page": 71
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Section 3 is derived from the ECSS Packet Utilisation Standard [AD-1]; the Space/Ground ICD [AD-2] and the Packet Structure ICD (PSICD) [AD-5] contain the full TM/TC frame and packet details.",
+   "pdf_page": 10
+  },
+  {
+   "text": "Requirements marked 'P' apply to the spacecraft and the payloads, 'PO' to the spacecraft with possible (non-mandatory) relevance to payloads; unmarked requirements apply to the spacecraft only.",
+   "pdf_page": 10
+  },
+  {
+   "text": "In routine science operations ground contact lasts a few hours per day, during which about 24 hours of stored telemetry are downlinked and the next schedule uplinked; operations use the same TM/TC database as the EGSE.",
+   "pdf_page": 11
+  },
+  {
+   "text": "A specific telecommand instance is identified by the application ID and sequence control fields; its meaning by type and subtype in the data field header; an acknowledgement field selects the verification reports required.",
+   "pdf_page": 11
+  },
+  {
+   "text": "On-board monitoring reports limit or expected-status transitions with event packets, which the document notes is not in accordance with the PUS transition reporting list.",
+   "pdf_page": 13
+  },
+  {
+   "text": "CTRL-1: in no mission phase shall the MOC need to send telecommands with a response time of less than 3 minutes.",
+   "pdf_page": 15
+  },
+  {
+   "text": "TC-1: execution of hazardous functions is implemented by means of two independent telecommands.",
+   "pdf_page": 15
+  },
+  {
+   "text": "TC-4: a telecommand packet contains one and only one telecommand function; TC-9/TC-10: on-board data changes and readouts use dedicated telecommands, not multi-purpose software load/dump commands.",
+   "pdf_page": 16
+  },
+  {
+   "text": "TM-12: a parameter value is transmitted in contiguous bits within one packet; TM-16: all contributing parameters of a synthetic parameter should be in the same packet; TM-17: all packets include the time field in the data field header.",
+   "pdf_page": 18
+  },
+  {
+   "text": "TIM-1: all on-board timing (TC time-tagging, application software, TM time-stamping) is synchronised with a single on-board Central Time Reference.",
+   "pdf_page": 18
+  },
+  {
+   "text": "TIM-2/TIM-4: telemetry timing allows on-ground correlation of on-board time with UTC, and after switch-on or reset a unit flags in each timed packet that its time is not yet synchronised.",
+   "pdf_page": 19
+  },
+  {
+   "text": "AUT-1: the spacecraft operates 48 hours without ground contact without interrupting mission product generation, and survives 7 days in safe mode without ground intervention.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Applicable PUS services for instruments: mandatory 1, 3, 5, 6, 9, 14, 17, 21; optional 8 and 18; not applicable 2, 11, 12, 15, 16, 19; 4, 7, 10, 13, 20 and 22 not used.",
+   "pdf_page": 24
+  },
+  {
+   "text": "PACK-3/4/6/7: the location of an HK parameter is derivable from APID, type/subtype and SID; SIDs are unique within an APID; subcommutation is not used; supercommutation is allowed under regular sampling conditions.",
+   "pdf_page": 25
+  },
+  {
+   "text": "TCV-6: telecommand verification packets indicate the TC source (ground, mission timeline, OBCP), encoded in the packet sequence control field per the PSICD.",
+   "pdf_page": 26
+  },
+  {
+   "text": "EVRP-1 defines three event report types (normal/progress, exceptions needing on-board action, errors needing ground action); EVRP-9 stores types 2 and 3 in a Critical Events Log accessible regardless of SSMM state.",
+   "pdf_page": 28
+  },
+  {
+   "text": "MTL-12: mission timeline execution accuracy is 1 s; MTL-13: commands with the same execution time execute in uplink order.",
+   "pdf_page": 33
+  },
+  {
+   "text": "OBSR-2.1/3/4: telemetry storage uses packet stores selectable by APID and packet type, circular or linear, sized for at least 48 hours of packets.",
+   "pdf_page": 34
+  },
+  {
+   "text": "SDBC-1/2: the prime contractor and instrument developers deliver one common Satellite Database for system engineering, AIV and operations; SDBC-4: its content complies with AD-8 (SCOS-2000 Database Import ICD).",
+   "pdf_page": 40
+  },
+  {
+   "text": "SDBD-1/5: SDB deliveries are versions 0 to 4 plus a pre-launch update at L-1 month, delivered as a set of ORACLE data files with field-level configuration control files.",
+   "pdf_page": 41
+  },
+  {
+   "text": "Annex A2: the spacecraft database is delivered according to AD-8 with a Configuration Control File and a Spacecraft Configuration File.",
+   "pdf_page": 60
+  },
+  {
+   "text": "Annex A4: database naming follows RD 1 (H-P-1-ASPI-SP-0141); flight control procedures are named FCP_<subsystem>_nnnn (e.g. FCP_AOC_0001) and timelines TDoyFfNn.",
+   "pdf_page": 70
+  }
+ ],
+ "references": [
+  {
+   "label": "AD-1",
+   "doc_id": "ECSS-E-70/41",
+   "title": "Telemetry and Telecommand Packet Utilisation Standard",
+   "issue": "Draft 5.3",
+   "date": "April 2001",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-2",
+   "doc_id": "SCI-PT-ICD-07418",
+   "title": "Herschel/Planck Space / Ground Interface Control Document (SG-ICD)",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-3",
+   "doc_id": "SCI-PT-IIDA-04624",
+   "title": "FIRST/Planck Instrument Interface Document (IID-A)",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-4",
+   "doc_id": "SCI-PT-RS-05991",
+   "title": "FIRST/Planck System Requirements Specification(SRS)",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-5",
+   "doc_id": "SCI-PT-IF-07527",
+   "title": "Herschel/Planck Packet Structure Interface Control Document (PS-ICD)",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-6",
+   "doc_id": "ESA PSS/04-106",
+   "title": "Packet Telemetry Standard",
+   "issue": "Issue 1",
+   "date": "1988",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-7",
+   "doc_id": "ESA PSS-04-107",
+   "title": "Packet Telecommand Standard",
+   "issue": "Issue 2",
+   "date": "1992",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-8",
+   "doc_id": "S2K-MCS-ICD-0001-TOS-GCI",
+   "title": "SCOS-2000 Database Import ICD",
+   "issue": "Issue 5.1",
+   "date": "Oct. 2001",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "AD-9",
+   "doc_id": "FIRST-FSC-DOC-0200",
+   "title": "Herschel Science Ground Segment to Instruments ICD",
+   "issue": "issue 1.0",
+   "date": "July 2001",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "RD 1",
+   "doc_id": "H-P-1-ASPI-SP-0141",
+   "title": "Naming Convention Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 10
+  }
+ ],
+ "topics": [
+  "ecss/pus/index.md",
+  "ecss/pus/message-types.md",
+  "ecss/e-st-70-11c.md",
+  "ecss/pus/st01-request-verification.md",
+  "ecss/pus/st03-housekeeping.md",
+  "ecss/pus/st05-event-reporting.md",
+  "ecss/pus/st11-time-based-scheduling.md",
+  "ecss/pus/st12-onboard-monitoring.md",
+  "ecss/pus/st15-onboard-storage-retrieval.md",
+  "mib/tailoring.md",
+  "missions/herschel-planck.md",
+  "scos2000/herschel-planck-ground.md"
+ ],
+ "notes": "The issue date is printed '31 September 2003' on the cover and '31 Sept 2003' in the page headers, a non-existent calendar date; the latest change-record entry is 22-05-2003. The cover also carries 'Copyright: © 1999 European Space Agency'. Names in 'authors' are all those on the approval page: prepared by S. J. Dodsworth and S. Matussi; approved by T. Paßvogel (SCI-PT) and S. J. Dodsworth (TOS-OGH); agreed by J_J. Juillet (ASPI), G. Pilbrat (as printed), J. Tauber (SCI-SA), T. de Graauw (SRON), M. Griffin (U. Cardiff), A. Poglitsch (MPE), J-L. Puget (IAS) and N. Mandolesi (TESRE-CNR). PDF p. 3 is blank; the change-record table header is garbled by a font-encoding problem (PDF p. 4). Printed pages: roman i-vii on PDF pp. 2-9 and arabic page N on PDF p. N+9. Annex A1 is adapted from the XMM users manual (PDF p. 45). Many requirements are marked 'deleted'. AD-8 is available in this library as icd-5-1-tos-gci; RD 1 is applied to SPIRE in spire-mib-naming-convention-1-2. AD-6 is printed 'ESA PSS/04-106' (slash) while AD-7 uses 'PSS-04-107'."
+}

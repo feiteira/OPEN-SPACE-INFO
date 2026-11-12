@@ -1,0 +1,664 @@
+{
+  "table": "pcf",
+  "file": "pcf.dat",
+  "icd": true,
+  "name": "Monitoring parameters characteristics",
+  "icd_section": "3.3.2.1.1",
+  "pdf_page": 40,
+  "family": "monitoring",
+  "purpose": "pcf is the central monitoring table: it holds one record for every monitoring parameter known to SCOS-2000, whether it is a raw telemetry parameter extracted from TM packets, a user defined constant, or a synthetic parameter computed on ground (OL, SPEL, hard-coded or saved synthetic). Each record gives the parameter's name, description, on-board identifier, unit, PUS type and format codes (PTC/PFC), calibration category and calibration link, validity condition, nature, display hints and time/endianness handling. Most other monitoring tables hang off it: cur, caf, txf, mcf and lgf for calibration, ocf/ocp for limit and status checks, plf and vpd for the location of the parameter inside fixed and variable packets, grpa for parameter groups and the display tables for ANDs, graphics and scrolling displays. SCOS-2000 evaluates a parameter's state validity as TRUE only when its validity criterion holds and the validity parameter is itself valid. In addition, parameters carried in periodic packets are automatically flagged 'expired' when no new packet arrives within the packet period (PID_INTER) plus a global margin set in MISCconfig and adjustable through TM SPACON. Fields 20 to 23 are optional for backwards compatibility, so the importer accepts records with 19, 20, 21, 22 or 23 fields.",
+  "keys": [
+    "PCF_NAME"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "PCF_NAME",
+      "type": "Char(8)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Alphanumeric name that uniquely identifies the monitoring parameter; it is the key used by every other table that refers to a monitoring parameter. Because the Operations Language (OL) recognises the nature of a component from its leading characters, no parameter name may start with 'VAR', 'GVAR' or '$'. The names NNOiiii, CEBiiii, KRUiiii, MSPiiii, VL2iiii, PERiiii, REDiiii and MLGiiii (iiii being four digits from 0000 to 9999) are reserved for ground-station telemetry and must not be used for spacecraft parameters. For dynamic synthetic parameters (PCF_NATUR 'D' or 'P') the expression file must carry exactly this name. As for all ICD names, uniqueness is case-insensitive (A1000 and a1000 may not coexist, section 3.3, p. 35).",
+      "values": [],
+      "references": null,
+      "pdf_page": 41
+    },
+    {
+      "pos": 2,
+      "name": "PCF_DESCR",
+      "type": "Char(24)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Free textual description of the parameter (up to 24 characters). It is displayed alongside the parameter name, for example in the Variable Packets Display when VPD_DCHAR = 2.",
+      "values": [],
+      "references": null,
+      "pdf_page": 41
+    },
+    {
+      "pos": 3,
+      "name": "PCF_PID",
+      "type": "Number(10)",
+      "mandatory": "O",
+      "default": null,
+      "description": "On-board identifier of the telemetry parameter, i.e. the PUS 'Parameter#'. It creates a one-to-one mapping between the ground name and the on-board ID, and is used to recognise which parameter a value belongs to when values are delivered in a PUS variable packet (for example a parameter-ID field flagged with VPD_PIDREF = 'Y', or the ID field that drives a deduced parameter). On-board IDs must be unique; if two parameters share a PCF_PID, SCOS-2000 uses the last one imported. Leave it null when no on-board identifier exists, e.g. for ground-only parameters defined by the user. Unsigned integer in the range 0 to 2^32-1.",
+      "values": [],
+      "references": null,
+      "pdf_page": 42
+    },
+    {
+      "pos": 4,
+      "name": "PCF_UNIT",
+      "type": "Char(4)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Engineering unit mnemonic, for example 'VOLT'. Monitoring displays show it next to the calibrated value for parameters that have a calibration (see PCF_CURTX), or next to the raw value for parameters that have none.",
+      "values": [],
+      "references": null,
+      "pdf_page": 42
+    },
+    {
+      "pos": 5,
+      "name": "PCF_PTC",
+      "type": "Number(2)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Parameter Type Code: the PUS encoding format of the parameter. SCOS-2000 uses it to decode values extracted from TM packets (PCF_NATUR 'R' or 'C'). Synthetic parameters must also be given a valid PTC that matches the format in which their value is computed (integer, real, string, ...), otherwise the import rejects them; saved synthetic parameters (PCF_NATUR = 'S') must use PTC 13. Integer in the range 1 to 13; the supported PTC/PFC combinations are listed in Appendix A, Table 4 (PDF p. 214-224), which has no row for PTC 12.",
+      "values": [
+        {
+          "value": "1",
+          "meaning": "Boolean: unsigned integer of 1 bit (PFC 0)"
+        },
+        {
+          "value": "2",
+          "meaning": "Enumerated: unsigned integer of PFC bits (PFC 1 to 32)"
+        },
+        {
+          "value": "3",
+          "meaning": "Unsigned integer; PFC 0-12 give 4-16 bits, 13 = 24 bits, 14 = 32 bits (48/64-bit PFC 15/16 not supported)"
+        },
+        {
+          "value": "4",
+          "meaning": "Signed integer (two's complement); same PFC-to-length mapping as PTC 3"
+        },
+        {
+          "value": "5",
+          "meaning": "Real: PFC 1 IEEE single (32 bits), 2 IEEE double (64 bits), 3 MIL-STD-1750A 32-bit, 4 MIL-STD-1750A 48-bit (commands only)"
+        },
+        {
+          "value": "6",
+          "meaning": "Bit string: handled by SCOS-2000 as an unsigned integer of PFC bits (1-32), monitoring side only; PFC 0 (variable) not supported"
+        },
+        {
+          "value": "7",
+          "meaning": "Octet string: PFC = fixed length in octets; PFC 0 (variable length) only for command/sequence parameters"
+        },
+        {
+          "value": "8",
+          "meaning": "ASCII character string: PFC = fixed length in octets; PFC 0 (variable length) only for command/sequence parameters"
+        },
+        {
+          "value": "9",
+          "meaning": "Absolute time: PFC 1 CDS without microseconds, 2 CDS with microseconds (commands only), 3-18 CUC with 1-4 coarse and 0-3 fine octets, 30 Unix time (seconds + microseconds); PFC 0 (with p-field) not supported"
+        },
+        {
+          "value": "10",
+          "meaning": "Relative time in CUC format (PFC 3-18)"
+        },
+        {
+          "value": "11",
+          "meaning": "Deduced: the actual type is taken from the parameter whose on-board ID is given by the PCF_RELATED parameter"
+        },
+        {
+          "value": "13",
+          "meaning": "Saved synthetic parameter: value characteristics derived from the related synthetic parameter (PCF_RELATED)"
+        }
+      ],
+      "references": null,
+      "pdf_page": 43
+    },
+    {
+      "pos": 6,
+      "name": "PCF_PFC",
+      "type": "Number(5)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Parameter Format Code. Together with PCF_PTC it fixes the length (and sub-format) of the parameter. SCOS-2000 only uses it for parameters extracted from TM packets (PCF_NATUR 'R' or 'C'), but a valid PFC must still be given for synthetic parameters or the import rejects them. The allowed range depends on the PTC as specified in Appendix A.",
+      "values": [],
+      "references": null,
+      "pdf_page": 43
+    },
+    {
+      "pos": 7,
+      "name": "PCF_WIDTH",
+      "type": "Number(6)",
+      "mandatory": "O",
+      "default": null,
+      "description": "'Padded' width of the parameter in bits. It is used only when samples are extracted with the VPD definition (variable packets): if set, the SCOS-2000 VPD application uses it to find the bit where the next parameter starts. This matters when the slot reserved for a parameter is wider than the length implied by its PTC/PFC, for example when padding bits byte-align the next field. For deduced parameters (PTC 11) it can be used in two ways: (a) if a width is given, the value is always extracted from a field of that fixed width; (b) if no width is given, the width follows the type of the parameter actually being downlinked, padded according to that parameter's own width if it has one. It is not used for fixed packets described in plf, where the length always follows from PTC/PFC.",
+      "values": [],
+      "references": null,
+      "pdf_page": 44
+    },
+    {
+      "pos": 8,
+      "name": "PCF_VALID",
+      "type": "Char(8)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Name of the parameter that determines this parameter's state validity; PCF_VALPAR gives the value it is compared with, and SCOS-2000 also requires the validity parameter itself to be valid. Only parameters whose raw value is a signed or unsigned integer and that are processed by the telemetry model library (TM parameters with a plf entry, or synthetic parameters of any kind) may be used. For a synthetic parameter (PCF_NATUR other than 'R') the overall validity is the logical AND of the validity derived from its contributing parameters and this explicit criterion. Circular dependencies are forbidden: a parameter must not be, or feed a synthetic parameter that is, its own validity parameter, directly or through a chain of validity parameters.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 45
+    },
+    {
+      "pos": 9,
+      "name": "PCF_RELATED",
+      "type": "Char(8)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Name of another monitoring parameter, used for one of two purposes. For saved synthetic parameters (PCF_NATUR = 'S') it names the synthetic parameter whose computed value is stored in the synthetic parameter packets: a saved synthetic parameter has no expression of its own, it borrows the expression of this parameter. For deduced telemetry parameters (PCF_PTC = 11) it names the telemetry parameter (the PUS 'Parameter#') whose value gives the on-board parameter ID that tells SCOS-2000 how to interpret the deduced value in variable TM packets.",
+      "values": [],
+      "references": "pcf.PCF_NAME",
+      "pdf_page": 46
+    },
+    {
+      "pos": 10,
+      "name": "PCF_CATEG",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Calibration category of the parameter, which decides what kind of calibration PCF_CURTX or cur may point to and how checks are interpreted.",
+      "values": [
+        {
+          "value": "N",
+          "meaning": "Numerical: numerical parameters with one or more numerical, polynomial or logarithmic calibrations or with none, and also parameters with PTC 6, 7, 9 or 10 (all non-numerical types except character strings)"
+        },
+        {
+          "value": "S",
+          "meaning": "Status: only for parameters associated with a textual calibration"
+        },
+        {
+          "value": "T",
+          "meaning": "Text: only for character-string parameters (PTC 8)"
+        }
+      ],
+      "references": null,
+      "pdf_page": 47
+    },
+    {
+      "pos": 11,
+      "name": "PCF_NATUR",
+      "type": "Char(1)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Nature of the parameter, i.e. where its source value comes from. Dynamic OL and SPEL parameters need an ASCII expression file named after the parameter (directories IMPT_EXPR_DIR and IMPT_SPEL_DIR); saved synthetic parameters are computed centrally by the SPPG process and need a plf entry in a synthetic packet; static constants take their value from PCF_PARVAL. The description continues on PDF p. 49.",
+      "values": [
+        {
+          "value": "R",
+          "meaning": "Raw telemetry parameter whose value is extracted from TM packets (also used for 'dynamic' user defined constants carried in the constants TM packet)"
+        },
+        {
+          "value": "D",
+          "meaning": "Dynamic OL synthetic parameter: Operations Language expression, not compiled, evaluated locally on demand"
+        },
+        {
+          "value": "P",
+          "meaning": "SPEL-based dynamic synthetic parameter (Synthetic Parameters Expression Language); per section 3.3.2.1.2 supported only by the EGSE delivery of SCOS-2000"
+        },
+        {
+          "value": "H",
+          "meaning": "Hard-coded synthetic parameter: written in C++ or compiled from OL and linked into the relevant library"
+        },
+        {
+          "value": "S",
+          "meaning": "Saved synthetic parameter: computed from the expression of the PCF_RELATED parameter and stored in synthetic packets"
+        },
+        {
+          "value": "C",
+          "meaning": "Constant ('static' user defined constant) whose value is PCF_PARVAL; must not also have a plf entry in the constants TM packet"
+        }
+      ],
+      "references": null,
+      "pdf_page": 48
+    },
+    {
+      "pos": 12,
+      "name": "PCF_CURTX",
+      "type": "Char(10)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Identifier of the calibration to apply when the parameter has exactly one calibration definition. A monitoring parameter may have zero, one or several calibrations; several (conditional) calibrations are defined in cur instead. Depending on the category the value must match TXF_NUMBR (PCF_CATEG = 'S') or CAF_NUMBR, MCF_IDENT or LGF_IDENT (PCF_CATEG = 'N') of an existing textual, numerical, polynomial or logarithmic calibration. It cannot be null for status parameters, and it must be null for textual parameters ('T'), string parameters (PTC 7 or 8), time parameters (PTC 9 or 10) and any parameter that appears as CUR_PNAME in cur.",
+      "values": [],
+      "references": "txf.TXF_NUMBR | caf.CAF_NUMBR | mcf.MCF_IDENT | lgf.LGF_IDENT",
+      "pdf_page": 49
+    },
+    {
+      "pos": 13,
+      "name": "PCF_INTER",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "F",
+      "description": "Extrapolation flag for parameters calibrated with a numerical curve: what to do with a raw value outside the curve. Only relevant with a numerical calibration; for textual calibrations a raw value with no text yields an invalid engineering value shown as '****'. ICD 7.0 states that SCOS-2000 ignores PCF_INTER and uses CAF_INTER of the calibration curve instead, so all parameters sharing a curve extrapolate the same way, while different curves of one parameter may differ. The row is shaded grey in the ICD (not used by SCOS-2000).",
+      "values": [
+        {
+          "value": "P",
+          "meaning": "Extrapolate a valid engineering value from the first two (below range) or last two (above range) calibration points"
+        },
+        {
+          "value": "F",
+          "meaning": "Return an invalid engineering value for raw values outside the curve"
+        }
+      ],
+      "references": null,
+      "pdf_page": 50
+    },
+    {
+      "pos": 14,
+      "name": "PCF_USCON",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "N",
+      "description": "Enables status consistency checking of the parameter (comparison of the telemetry value with a reference value maintained from the expected effect of commands). It must be 'Y' when ocp contains a status-consistency check (OCP_TYPE = 'C') for the parameter. The number of parameters that can be status-consistency checked is limited by the maximum size of the SCOS-2000 packet holding the snapshot of all status consistency checks; from release 4.1 the limit can be changed with the MISCconfig variable MAX_SCC_MESSAGE_LENGTH (a 4-byte integer).",
+      "values": [
+        {
+          "value": "Y",
+          "meaning": "Parameter is status-consistency checked"
+        },
+        {
+          "value": "N",
+          "meaning": "Parameter is not status-consistency checked"
+        }
+      ],
+      "references": null,
+      "pdf_page": 51
+    },
+    {
+      "pos": 15,
+      "name": "PCF_DECIM",
+      "type": "Number(3)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Number of decimal places used when displaying real values of the parameter.",
+      "values": [],
+      "references": null,
+      "pdf_page": 51
+    },
+    {
+      "pos": 16,
+      "name": "PCF_PARVAL",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Default raw value of a constant parameter. It applies only to 'static' user defined constants (PCF_NATUR = 'C'), for which it is mandatory. The value must be written in a format compatible with the parameter type (PTC/PFC, Appendix A). Static constants are initialised from this value unless a permanent change has been made with the OL editor since the last import (section 3.3.2.1.3, p. 59).",
+      "values": [],
+      "references": null,
+      "pdf_page": 51
+    },
+    {
+      "pos": 17,
+      "name": "PCF_SUBSYS",
+      "type": "Char(8)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Name of the group (subsystem) to which the parameter belongs, intended for organising and filtering parameters in a future extension. The row is shaded grey and in italics in the ICD: not used and not currently supported by SCOS-2000.",
+      "values": [],
+      "references": null,
+      "pdf_page": 52
+    },
+    {
+      "pos": 18,
+      "name": "PCF_VALPAR",
+      "type": "Number(5)",
+      "mandatory": "O",
+      "default": "1",
+      "description": "Raw value of the validity parameter (PCF_VALID) for which this parameter is valid; the validity expression is PCF_VALID = PCF_VALPAR. Defaults to 1 when left null.",
+      "values": [],
+      "references": null,
+      "pdf_page": 52
+    },
+    {
+      "pos": 19,
+      "name": "PCF_SPTYPE",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Output view of a synthetic parameter's calculation. If a synthetic parameter has a calibration, the value returned by its expression is treated as the raw value and the engineering view is obtained through the calibration. SCOS-2000 does not import this field (grey row); it exists so that the off-line consistency checker can verify that synthetic parameters which already return an engineering value are not wrongly given a calibration.",
+      "values": [
+        {
+          "value": "E",
+          "meaning": "Engineering"
+        },
+        {
+          "value": "R",
+          "meaning": "Raw"
+        }
+      ],
+      "references": null,
+      "pdf_page": 52
+    },
+    {
+      "pos": 20,
+      "name": "PCF_CORR",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "Y",
+      "description": "Whether absolute time parameters are time-correlated (on-board time converted to ground time with the applicable time correlation coefficients) when the raw data are interpreted. It must be set explicitly to 'N' for relative time parameters (PTC 10). PCF_OBTID selects which on-board time format and correlation coefficients apply. Without correlation the OBT format is still needed to know the time reference (the absolute time that corresponds to zero); if no OBT ID is given and PCF_CORR = 'N', the epoch is defined by the MISC variable TCO_ESA_EPOCH. Optional field (one of fields 20-23).",
+      "values": [
+        {
+          "value": "Y",
+          "meaning": "Apply time correlation to the time parameter"
+        },
+        {
+          "value": "N",
+          "meaning": "Extract the time value without time correlation"
+        }
+      ],
+      "references": null,
+      "pdf_page": 53
+    },
+    {
+      "pos": 21,
+      "name": "PCF_OBTID",
+      "type": "Number(5)",
+      "mandatory": "O",
+      "default": null,
+      "description": "OBT ID used when extracting time parameters, either to apply time correlation or to define the time format and in particular its epoch. The OBT ID is a SCOS-2000 configuration identifier of an on-board clock: with N clocks it takes values 1 to N. If not specified, the mission's default OBT ID applies, set by the MISCconfig variable TCO_DEFAULT_OBT_ID.",
+      "values": [],
+      "references": null,
+      "pdf_page": 54
+    },
+    {
+      "pos": 22,
+      "name": "PCF_DARC",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Controls whether the parameter is recorded by the Parameter Archive (DARC). SCOS-2000 itself does not import the field; it is used only by DARC (the description is printed in italics in ICD 7.0).",
+      "values": [
+        {
+          "value": "0",
+          "meaning": "No change to the current Parameter Archive configuration (a parameter already recorded is not removed)"
+        },
+        {
+          "value": "1",
+          "meaning": "Add the parameter to the Parameter Archive recording list if it is not there yet"
+        }
+      ],
+      "references": null,
+      "pdf_page": 54
+    },
+    {
+      "pos": 23,
+      "name": "PCF_ENDIAN",
+      "type": "Char(1)",
+      "mandatory": "O",
+      "default": "B",
+      "description": "Byte order of the raw value, applicable to types whose length is a whole number of bytes. Conversion is possible for signed and unsigned integers, character strings, octet strings, absolute times and relative times.",
+      "values": [
+        {
+          "value": "B",
+          "meaning": "Big endian: most significant byte first"
+        },
+        {
+          "value": "L",
+          "meaning": "Little endian: least significant byte first"
+        }
+      ],
+      "references": null,
+      "pdf_page": 55
+    }
+  ],
+  "relationships": [
+    {
+      "field": "PCF_NAME",
+      "target": "plf.PLF_NAME, vpd.VPD_NAME, cur.CUR_PNAME, ocf.OCF_NAME, grpa.GRPA_PANAME, dpc/gpc/spc display contents",
+      "note": "Referenced by the packet-location, calibration-selection, monitoring-check, group and display tables (section 3.3.2, p. 38-39)."
+    },
+    {
+      "field": "PCF_VALID",
+      "target": "pcf.PCF_NAME",
+      "note": "Many-to-one self-relationship: each parameter has at most one validity parameter, which may be shared by many parameters (p. 38)."
+    },
+    {
+      "field": "PCF_RELATED",
+      "target": "pcf.PCF_NAME",
+      "note": "Saved synthetic parameter -> source synthetic parameter, or deduced parameter -> on-board parameter-ID parameter."
+    },
+    {
+      "field": "PCF_CURTX",
+      "target": "caf.CAF_NUMBR / mcf.MCF_IDENT / lgf.LGF_IDENT (PCF_CATEG 'N') or txf.TXF_NUMBR (PCF_CATEG 'S')",
+      "note": "Single calibration. Many-to-one: each parameter references one curve, a curve can be shared (p. 39). Conditional/multiple calibrations go through cur instead."
+    },
+    {
+      "field": "PCF_PID",
+      "target": "values of parameter-ID fields in variable packets (vpd.VPD_PIDREF = 'Y') and of deduced-parameter ID fields",
+      "note": "Maps the PUS on-board Parameter# to the ground parameter name."
+    },
+    {
+      "field": "PCF_NAME",
+      "target": "synthetic expression file named PCF_NAME (OL or SPEL)",
+      "note": "Required for PCF_NATUR 'D' (directory IMPT_EXPR_DIR) and 'P' (directory IMPT_SPEL_DIR) (section 3.3.2.1.2, p. 55-56). In the wiki's SQLite copy these files are in table synthetic(NAME, SOURCE)."
+    }
+  ],
+  "history": "ICD 5.1 (2001, p. 23-28) defines 19 fields; differences from 7.0: PCF_DESCR is Char(16), PCF_CURTX is Number(4) and refers only to textual, numerical or polynomial calibrations, PCF_NATUR has no 'P' option, and PCF_INTER has no import default. ICD 6.0 (SCOS-2000 R4.0, Annex 1 of ICD 7.0, p. 246-250) widened the PCF_PID range from 2^31-1 to 2^32-1 (DCR-2421), changed calibration identifiers from Number(4) to Char(10), introduced multiple/conditional calibrations (cur) and logarithmic curves, and added the SPEL option 'P' for the EGSE delivery. ICD 6.2/6.3 (R4.1) updated the descriptions of PCF_USCON, PCF_VALID, PCF_INTER and PCF_SPTYPE and removed the mandatory flag of PCF_NATUR (p. 253); ICD 6.7 restored the 'M' (S2K-SPR-4787, p. 258). ICD 6.4 limited PCF_VALID to parameters processed by the TM model and clarified PCF_WIDTH for deduced parameters (p. 254-255). ICD 6.7 (R5.2) widened PCF_DESCR to 24 characters (S2K-SPR-3797) and added fields 20-23: PCF_CORR and PCF_OBTID (S2K-SCR-4917), PCF_DARC (S2K-DCR-5146, S2K-SPR-5711) and PCF_ENDIAN (S2K-DCR-5192) (p. 258-259). ICD 6.9 updated PCF_OBTID (S2K-DCR-5743, p. 260) and printed an import default '0' for it (icd-6-9 p. 53), which ICD 7.0 no longer shows (p. 54). ICD 7.0 (2017, Annex 2, p. 261-263) states that PCF_INTER is ignored in favour of CAF_INTER (S2K-8325), rewrites PCF_ENDIAN (S2K-8353; in 6.9 it was a 'future extension' for integers longer than 16 bits, icd-6-9 p. 54), lists the reserved ground-station names in PCF_NAME (S2K-6884) and requires PCF_CORR = 'N' for relative times (S2K-8572). pyscos2000 (ICD 7.2) adds a 24th optional field PCF_DESCR2 (default empty string).",
+  "solo_stats": {
+    "rows": 126745,
+    "fields": [
+      {
+        "name": "PCF_NAME",
+        "filled": 126745,
+        "examples": [
+          "DUMMYVAL",
+          "NACSXN12",
+          "NACSXN13",
+          "NACSXN14",
+          "NACSXNE2"
+        ]
+      },
+      {
+        "name": "PCF_DESCR",
+        "filled": 126745,
+        "examples": [
+          "PADDING 32 bit",
+          "Spare",
+          "SPARE",
+          "Reserved",
+          "timeStep"
+        ]
+      },
+      {
+        "name": "PCF_PID",
+        "filled": 19803,
+        "examples": [
+          "0",
+          "167776256",
+          "167776257",
+          "167776258",
+          "167776259"
+        ]
+      },
+      {
+        "name": "PCF_UNIT",
+        "filled": 5124,
+        "examples": [
+          "DegC",
+          "A",
+          "V",
+          "degC",
+          "ms"
+        ]
+      },
+      {
+        "name": "PCF_PTC",
+        "filled": 126745,
+        "examples": [
+          "3",
+          "5",
+          "2",
+          "7",
+          "1"
+        ]
+      },
+      {
+        "name": "PCF_PFC",
+        "filled": 126745,
+        "examples": [
+          "1",
+          "12",
+          "4",
+          "14",
+          "8"
+        ]
+      },
+      {
+        "name": "PCF_WIDTH",
+        "filled": 7,
+        "examples": [
+          "64",
+          "104",
+          "32"
+        ]
+      },
+      {
+        "name": "PCF_VALID",
+        "filled": 20692,
+        "examples": [
+          "NCSD0PC3",
+          "NCSD0PD3",
+          "NCSD0PE3",
+          "NCSD0PF3",
+          "NCSD0PC4"
+        ]
+      },
+      {
+        "name": "PCF_RELATED",
+        "filled": 10,
+        "examples": [
+          "NCD0C095",
+          "NCAB0NU0",
+          "NCD12904",
+          "NTTSX030",
+          "NTTSX031"
+        ]
+      },
+      {
+        "name": "PCF_CATEG",
+        "filled": 126745,
+        "examples": [
+          "N",
+          "S",
+          "T"
+        ]
+      },
+      {
+        "name": "PCF_NATUR",
+        "filled": 126745,
+        "examples": [
+          "R",
+          "D",
+          "S"
+        ]
+      },
+      {
+        "name": "PCF_CURTX",
+        "filled": 30936,
+        "examples": [
+          "CCDT0006TM",
+          "CCDT0004TX",
+          "PARAMIDTM",
+          "CCDT0078TM",
+          "CCDT0003TX"
+        ]
+      },
+      {
+        "name": "PCF_INTER",
+        "filled": 126745,
+        "examples": [
+          "F"
+        ]
+      },
+      {
+        "name": "PCF_USCON",
+        "filled": 126745,
+        "examples": [
+          "N",
+          "Y"
+        ]
+      },
+      {
+        "name": "PCF_DECIM",
+        "filled": 39738,
+        "examples": [
+          "3",
+          "2",
+          "5",
+          "4",
+          "0"
+        ]
+      },
+      {
+        "name": "PCF_PARVAL",
+        "filled": 4,
+        "examples": [
+          "0",
+          "10",
+          "11"
+        ]
+      },
+      {
+        "name": "PCF_SUBSYS",
+        "filled": 108135,
+        "examples": [
+          "2",
+          "1",
+          "6",
+          "4",
+          "101"
+        ]
+      },
+      {
+        "name": "PCF_VALPAR",
+        "filled": 18256,
+        "examples": [
+          "1",
+          "2",
+          "0",
+          "80",
+          "32"
+        ]
+      },
+      {
+        "name": "PCF_SPTYPE",
+        "filled": 6,
+        "examples": [
+          "R"
+        ]
+      },
+      {
+        "name": "PCF_CORR",
+        "filled": 50,
+        "examples": [
+          "N"
+        ]
+      },
+      {
+        "name": "PCF_OBTID",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "PCF_DARC",
+        "filled": 49330,
+        "examples": [
+          "1"
+        ]
+      },
+      {
+        "name": "PCF_ENDIAN",
+        "filled": 1,
+        "examples": [
+          "L"
+        ]
+      }
+    ]
+  },
+  "notes": "ICD 7.0 vs pyscos2000 (7.2): names, order, optionality, keys and defaults of fields 1-23 agree; pyscos2000 adds PCF_DESCR2 as field 24, which ICD 7.0 does not define (its size and meaning are not stated in the available sources). Solar Orbiter 2025-09-16: all 126,745 records have exactly 23 fields, so PCF_DESCR2 is empty everywhere (the SQLite column exists only because the loader follows pyscos2000). PCF_NATUR values are R (125,161), D (1,582) and S (2); no H, P or C parameters. The 1,582 'D' parameters match the 1,582 expression files in table synthetic. PCF_CATEG: N 100,087, S 26,538, T 120 (all T parameters have PTC 8). PCF_PARVAL is filled for 4 parameters (NDSZ0001, NDSZ0002, NPWZ0000, NRUZ0000) whose PCF_NATUR is 'R', although the ICD defines PCF_PARVAL only for PCF_NATUR 'C'. Three of them (NDSZ0001 'DST1_MODEL', NDSZ0002, NPWZ0000 'PCDU_MODEL') are dynamic user defined constants located in SPID 66830 (TM(160,3), APID 1966, 'Dynamic UDCs') and serve as CUR_RLCHK model selectors in cur; NRUZ0000 has no plf entry. Inference: Solar Orbiter uses PCF_PARVAL to document an initial value of dynamic UDCs, which the ICD does not describe. PCF_INTER is 'F' in every record (ignored by SCOS-2000 anyway); PCF_OBTID is never filled (mission default OBT ID); PCF_DARC is '1' for 49,330 parameters and empty (default '0') otherwise; PCF_ENDIAN is 'L' for a single parameter (NYG02201 'GS Packet Size') and empty (default 'B') elsewhere. PCF_SUBSYS holds small numeric codes ('2', '1', '6', '4', '101', ...) rather than subsystem names. PCF_WIDTH is set for 7 parameters: 5 deduced parameters (PTC 11, 32 or 64 bits) and the 2 saved synthetic parameters NTTSS030/NTTSS031 (PTC 13, PFC 0, width 104 bits = the 13-byte slot required by section 3.3.2.1.2, related to NTTSX030/NTTSX031 and located at offsets 0 and 13 of SPID 66838, TM(251,2) APID 1966 'Saved Synthetics'). All 47 relative-time parameters (PTC 10) have PCF_CORR = 'N' as ICD 7.0 requires; 3 absolute-time parameters also have 'N'. Parameter NYG02204 uses PTC 9 / PFC 2 (CDS with microseconds), which Appendix A (p. 219) lists as supported for command parameters only, and NYG02101/NYG02102 use Unix time (9, 30). PCF_PID is filled for 19,803 parameters with no duplicates (DUMMYVAL 'ALWAYS_VALID' has PCF_PID 0). 2,436 parameters have PCF_VALID but no PCF_VALPAR (import default 1 applies); all validity parameters exist and have PTC 1, 2 or 3. No parameter has both PCF_CURTX and cur entries; the 5 status parameters without PCF_CURTX all use cur, consistent with the ICD. No names start with VAR, GVAR or $, and none match the reserved ground-station patterns. 15,067 raw parameters (PCF_NATUR 'R') have neither a plf nor a vpd entry (1,192 of them have a PCF_PID). ICD typo: the PCF_WIDTH description (p. 44) says 'PCD_WIDTH' where PCF_WIDTH of the downlinked parameter is meant."
+}

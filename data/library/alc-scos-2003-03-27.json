@@ -1,0 +1,113 @@
+{
+ "slug": "alc-scos-2003-03-27",
+ "title": "Herschel / Planck - SCOS - Limitation to naming convention",
+ "short_title": "Alcatel fax: SCOS MIB naming limits, part 2 (Mar 2003)",
+ "doc_id": "H-P-ASP-LT-2905",
+ "issue": null,
+ "date": "2003-03-27",
+ "organisation": "Alcatel Space Industries, Herschel Planck project office (OS/M/H), Etablissement de Cannes",
+ "authors": [
+  "F. Chatte"
+ ],
+ "doc_type": "Letter/Fax",
+ "status_notes": "Not stated. Project fax that adds requirements 5 and 6 to those of REF3 (H-P-ASP-LT-2607) and announces that REF2 (naming convention specification H-P-1-ASPI-SP-0141) will be updated accordingly (PDF p. 2).",
+ "summary": "A two-page fax sent on 27 March 2003 by the Alcatel Space Industries Herschel/Planck project office in Cannes to the five Herschel and Planck instrument teams (HIFI, SPIRE, PACS, HFI and LFI), with copies to ESTEC and ESOC. It follows up the January 2003 fax on the same subject (its REF3, library item `alc-scos-fax-2003-01-27`) and adds two further constraints that the instrument teams must respect when they build their SCOS-2000 Mission Information Base (MIB) files, so that instrument-level databases can be carried forward to module-level testing (the 'smooth transition').\n\nThe first rule concerns the `pid` table: each packet's `PID_SPID` must equal its `PID_TPSD`. The stated reason is the mapping between the Herschel/Planck System Database (HPSDB) and the SCOS 'bridge' files: different SCOS packets (SPIDs) will no longer be able to address the same variable packet structure definition (VPSD). The second rule concerns the `pcf` table: the width field (printed 'PCF-WIDTH') must not be null, because it is considered indirectly redundant with `VPD_OFFSET` and the HPSDB will only support `VPD_OFFSET`.\n\nFor an engineer the fax is a compact, real example of how a prime contractor tailored the generic SCOS-2000 Database Import ICD (issue 5.1, REF1) and the project naming convention (REF2) for a multi-instrument programme, and of the constraints that a central system database imposes on instrument MIBs. It asks the teams to report if the new requirements are incompatible with their implementation.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Header, distribution list, object and references (REF1-REF3)",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Requirements (items 5 and 6)",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Justification",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Document impacts",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Signatures (author, authorised by)",
+   "pdf_page": 2
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Purpose: support the 'smooth transition' from instrument test level to module test level; the requirements are additional to those listed in REF3 (H-P-ASP-LT-2607).",
+   "pdf_page": 1
+  },
+  {
+   "text": "Requirement 5: in table 'pid' the fields PID_SPID and PID_TPSD shall be such that PID_SPID = PID_TPSD.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Justification 5: only to facilitate the mapping between HPSDB and the SCOS bridge files; different SCOS packets (SPID) will no longer be able to address the same variable packet structure definition (VPSD).",
+   "pdf_page": 2
+  },
+  {
+   "text": "Requirement 6: in table 'pcf' the field 'PCF-WIDTH' shall not be set to 'Null'.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Justification 6: the field (printed 'PCF_WIDFT') is (indirectly) redundant with VPD_OFFSET, and HPSDB will only support VPD_OFFSET.",
+   "pdf_page": 2
+  },
+  {
+   "text": "REF1 is the SCOS-2000 Data base import ICD S2K-MCS-ICD-0001-TOS-GCI issue 5.1; REF2 is the naming convention specification H-P-1-ASPI-SP-0141 issue 01/02.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Addressed to HIFI (K. Wafelbakker), SPIRE (K. King), PACS (O. Bauer), HFI (J. Charra) and LFI (C. Butler), with external copies to ESTEC and ESOC.",
+   "pdf_page": 1
+  },
+  {
+   "text": "Document impact: REF2 will be updated accordingly.",
+   "pdf_page": 2
+  }
+ ],
+ "references": [
+  {
+   "label": "REF1",
+   "doc_id": "S2K-MCS-ICD-0001-TOS-GCI",
+   "title": "SCOS-2000 - Data base import ICD",
+   "issue": "Issue 5.1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "REF2",
+   "doc_id": "H-P-1-ASPI-SP-0141",
+   "title": "Naming convention specification",
+   "issue": "Issue 01/02",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  },
+  {
+   "label": "REF3",
+   "doc_id": "H-P-ASP-LT-2607",
+   "title": "herschel / planck - SCOS - limitation to naming convention",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 1
+  }
+ ],
+ "topics": [
+  "mib/tailoring.md",
+  "mib/monitoring.md",
+  "mib/icd-history.md",
+  "missions/herschel-planck.md",
+  "scos2000/egse.md"
+ ],
+ "notes": "Scanned two-page fax with no text layer; catalogued from rendered page images. Stamped SPIRE-ALC-COM-001586 (SPIRE archive number). The fax transmission line reads approximately '28-03-2003 14:35 DE HERSCHEL PLANCK A SPIRE' (partly illegible). REF3 is library item alc-scos-fax-2003-01-27, whose requirement list ends at 5, so both faxes contain a requirement numbered 5. The field is printed 'PCF-WIDTH' in the requirement and 'PCF_WIDFT' in the justification (the ICD column is PCF_WIDTH). The 'Authorised by' entry is a handwritten signature that appears to read Rideau (P. Rideau is on the internal copy list); this reading is uncertain. REF1 is available in this library as icd-5-1-tos-gci. A telephone extension printed in the closing is omitted here."
+}

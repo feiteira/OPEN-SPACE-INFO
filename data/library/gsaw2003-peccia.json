@@ -1,0 +1,280 @@
+{
+ "slug": "gsaw2003-peccia",
+ "title": "SCOS-2000 ESA’s Spacecraft Control for the 21st Century",
+ "short_title": "SCOS-2000: ESA's Spacecraft Control for the 21st Century",
+ "doc_id": null,
+ "issue": null,
+ "date": "4th – 6th March 2003",
+ "organisation": "European Space Agency (ESA)",
+ "authors": [
+  "Nestor Peccia"
+ ],
+ "doc_type": "Presentation",
+ "status_notes": "Presentation to GSAW 2003, 4th – 6th March 2003 (title slide, PDF p. 1).",
+ "summary": "A 30-slide presentation by Nestor Peccia (ESA) at GSAW 2003 (4-6 March 2003) giving an overview of SCOS-2000, ESA's generic spacecraft control system. It opens with ESA's objectives (reusable infrastructure for any class of orbit or mission, reused for MCS, EGSE and station control), its working methodology linking studies, prototypes, products and ECSS/CCSDS standards, and its product-line licensing model (free, non-exclusive licences for European companies; 54 SCOS-2000 licences in 3 years). It characterises geostationary, low-Earth-orbit and deep-space missions and traces ESA control systems from MSSS (frame telemetry) through SCOS-I (packet telemetry) and SCOS-II to SCOS-2000.\n\nFurther slides place SCOS-2000 in the ground segment (NCTRS, ESA ground stations, SLE, flight dynamics, mission planning, a LEOP room layout and the INTEGRAL MCS as an example), list ESA and external client missions, including the Herschel/Planck central checkout system and instrument EGSE, and give the version roadmap: Classic (Solaris, ObjectStore, Orbix, up to 2.4.1), Evolution 2.1.e/2.3.e (Linux SUSE 7.3, POST, OmniOrb), 3.0 (January 2003), 3.1 and 4.0 (multi-mission, full EGSE compliance). Architecture slides cover the object-oriented component design, enabling technology and standards (CCSDS packet TM/TC, ECSS PUS, SLE), client and server processes, software layers, system interfaces and top-level components.\n\nThe functional slides are the most useful for this wiki: manual stack and autostack commanding, static and dynamic PTV, release dependencies, interlocking, the on-board queue model and multi-stage verification; the packetiser, CLCW extraction, synthetic parameters, calibration, limit and status checks and display types (AND, GRD, mimics, scrolling); and SPID-based packet filing. It ends with lessons learned and the EGOS product family.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Title slide",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Overview",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "ESA Objectives",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "ESA working methodology",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "The challenges",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "Product Line",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "ESA Missions Characteristics",
+   "pdf_page": 8
+  },
+  {
+   "section": null,
+   "title": "History of ESA control systems",
+   "pdf_page": 9
+  },
+  {
+   "section": null,
+   "title": "Characteristics of a good MCS : ESA's view",
+   "pdf_page": 10
+  },
+  {
+   "section": null,
+   "title": "Complete system overview",
+   "pdf_page": 11
+  },
+  {
+   "section": null,
+   "title": "Spacecraft control systems - LEOP system",
+   "pdf_page": 12
+  },
+  {
+   "section": null,
+   "title": "An S2K based MCS in a GS Context",
+   "pdf_page": 13
+  },
+  {
+   "section": null,
+   "title": "S2K Client missions (ESA)",
+   "pdf_page": 14
+  },
+  {
+   "section": null,
+   "title": "S2K Client missions (External Users)",
+   "pdf_page": 15
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Versions",
+   "pdf_page": 16
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Architecture concepts",
+   "pdf_page": 17
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Enabling Technology",
+   "pdf_page": 18
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Client / Server",
+   "pdf_page": 19
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Architecture Context",
+   "pdf_page": 20
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 Software Layers",
+   "pdf_page": 21
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 System Overview",
+   "pdf_page": 22
+  },
+  {
+   "section": null,
+   "title": "System interfaces",
+   "pdf_page": 23
+  },
+  {
+   "section": null,
+   "title": "Top level components",
+   "pdf_page": 24
+  },
+  {
+   "section": null,
+   "title": "Commanding functions",
+   "pdf_page": 25
+  },
+  {
+   "section": null,
+   "title": "Monitoring functions",
+   "pdf_page": 26
+  },
+  {
+   "section": null,
+   "title": "Monitoring functions (displays, TM processing control)",
+   "pdf_page": 27
+  },
+  {
+   "section": null,
+   "title": "Distribution and filing",
+   "pdf_page": 28
+  },
+  {
+   "section": null,
+   "title": "Lessons learned",
+   "pdf_page": 29
+  },
+  {
+   "section": null,
+   "title": "A vision for the future",
+   "pdf_page": 30
+  }
+ ],
+ "key_points": [
+  {
+   "text": "ESA's operational-software licence is free of charge for any ESA member state company, non-exclusive, not resaleable and for peaceful purposes only; SCOS-2000 had 54 licences in 3 years.",
+   "pdf_page": 7
+  },
+  {
+   "text": "History: MSSS 1984-1996 (centralised, frame TM/TC, FORTRAN/Assembler); SCOS-I since 1989 (packet telemetry, no generic TC chain, FORTRAN/VMS); SCOS-II 1995-1999 (distributed, C++/UNIX), superseded by SCOS-2000.",
+   "pdf_page": 9
+  },
+  {
+   "text": "SCOS-2000 interfaces NCTRS over OPSNET/ESANET to the ESA ground stations, with SLE and a planned migration to TCP/IP.",
+   "pdf_page": 11
+  },
+  {
+   "text": "A LEOP configuration has prime and backup S2K servers and NCTRS, with 15 client workstations in the Main Control Room.",
+   "pdf_page": 12
+  },
+  {
+   "text": "Client missions in development included Rosetta, Mars Express, SMART-1, Venus Express, CryoSat (first ESA mission on the evolution platform), GOCE, ADM, Herschel/Planck MCS and the Herschel/Planck Central Checkout System (Red Hat 7.2); external users included 20 European scientific institutes using Herschel/Planck instrument EGSE (SUSE 7.3).",
+   "pdf_page": 14
+  },
+  {
+   "text": "Versions: Classic (Sun, Solaris 2.6, ObjectStore, Orbix, culminating in 2.4.1); Evolution 2.1.e/2.3.e (PC, Linux SUSE 7.3 or Solaris 2.6, POST and OmniOrb); 3.0 January 2003 (lines merged, Solaris 8); 3.1 September 2003; 4.0 June 2004 (multi-mission, full EGSE compliant).",
+   "pdf_page": 16
+  },
+  {
+   "text": "Enabling standards: CCSDS packet telemetry and telecommand, the ECSS Packet Utilisation Standard and CCSDS SLE; COTS include ILOG Views, Ctree+ for the packet archive; Flex/Bison parse the OL and zlib compresses packets.",
+   "pdf_page": 18
+  },
+  {
+   "text": "Server processes include the TM packetiser, limits checker, synthetic parameter packet generator, TC multiplexer, releaser, verifier and OBQM, archive, and events and actions servers.",
+   "pdf_page": 19
+  },
+  {
+   "text": "NCTRS ground-station interfaces listed: TMP4, TCE, MKII, MPTS MKIII and STC II; FOP production tool command sequences are imported into the MIB.",
+   "pdf_page": 23
+  },
+  {
+   "text": "Commanding: manual stack (encoding, de-calibration, time-tagging, release dependencies, interlocking, static/dynamic PTV, sequences), autostack, multiplexer, releaser to NCTRS, on-board queue model and multi-stage command verifier.",
+   "pdf_page": 25
+  },
+  {
+   "text": "Monitoring: packet reconstruction from frames, CLCW extraction, quality and sequence checks, supercommutated parameter extraction, OL/compiled/hard-coded synthetic parameters, calibration, limits, expected status and status consistency checks.",
+   "pdf_page": 26
+  },
+  {
+   "text": "Displays: alphanumeric (AND) with 32 or 64 parameters, graphics (GRD) with 1-8 parameters, mimics, scrolling (SCD), telemetry query display and packet history displays.",
+   "pdf_page": 27
+  },
+  {
+   "text": "All received packets are filed centrally with C-Tree+ by type (TM, TC, event), SPID, datastream and time, with retrievals independent of real-time handling and hot switch to the backup server.",
+   "pdf_page": 28
+  },
+  {
+   "text": "EGOS product family includes NCTRS/SLE, SIMSAT, GFTS, GDDS (Generic Data Disposition System), ADAS, APES, EVA, EGSE, MPS and FDS.",
+   "pdf_page": 30
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "European and International standards (ECSS, CCSDS)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 4
+  },
+  {
+   "label": null,
+   "doc_id": "ECSS-E40",
+   "title": "Project control and documentation (ECSS-E40)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 5
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "CCSDS standards for Packet Telemetry and Telecommands",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 18
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "ECSS Packet Utilisation Standards",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 18
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "Space Link Extension (SLE) standard, an CCSDS standard",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 18
+  }
+ ],
+ "topics": [
+  "scos2000/index.md",
+  "scos2000/architecture.md",
+  "scos2000/egse.md",
+  "scos2000/nctrs-nis.md",
+  "scos2000/archives.md",
+  "scos2000/ancillary-and-egs-cc.md",
+  "mib/synthetic-parameters.md",
+  "mib/displays.md",
+  "mib/command-verification.md",
+  "missions/other-missions.md"
+ ],
+ "notes": "Slide deck; one slide per PDF page (30 slides, plus an empty trailing page in the text). Diagram slides (system overview, LEOP rooms, INTEGRAL ground segment, layers, components) extract as scattered labels, and slide 4 duplicates words from shadow text. 'GSAW' is not expanded in the slides. Slide 16 prints 'POST' and slide 18 'POST++'. 'superceded' and 'Itallian' are as printed. No reference list."
+}

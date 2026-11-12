@@ -1,0 +1,141 @@
+{
+  "table": "lgf",
+  "file": "lgf.dat",
+  "icd": true,
+  "name": "Logarithmic calibrations definitions",
+  "icd_section": "3.3.2.2.7",
+  "pdf_page": 71,
+  "family": "monitoring",
+  "purpose": "lgf defines logarithmic calibrations, one record per definition, by giving up to five coefficients. SCOS-2000 computes the engineering value Y of a raw value X as Y = 1 / [A0 + A1*ln(X) + A2*ln^2(X) + A3*ln^3(X) + A4*ln^4(X)], where A0 is LGF_POL1 and A4 is LGF_POL5. Unspecified coefficients default to 0. According to the ICD change annex, this curve type was introduced to compute temperatures from resistance readings of platinum thermistors. It was built to resemble the polynomial mcf calibrations, which is why it also accepts up to five coefficients. Parameters use a logarithmic calibration by naming it in PCF_CURTX or CUR_SELECT (numerical parameters); the result is real. Logarithmic identifiers share the name space of the other non-textual calibrations, so an LGF_IDENT may not equal any CAF_NUMBR or MCF_IDENT.",
+  "keys": [
+    "LGF_IDENT"
+  ],
+  "fields": [
+    {
+      "pos": 1,
+      "name": "LGF_IDENT",
+      "type": "Char(10)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Alphanumeric identifier that uniquely names the logarithmic calibration; used in PCF_CURTX and CUR_SELECT. It must not overlap with CAF_NUMBR or MCF_IDENT values.",
+      "values": [],
+      "references": null,
+      "pdf_page": 72
+    },
+    {
+      "pos": 2,
+      "name": "LGF_DESCR",
+      "type": "Char(32)",
+      "mandatory": "O",
+      "default": null,
+      "description": "Free textual description of the logarithmic calibration.",
+      "values": [],
+      "references": null,
+      "pdf_page": 72
+    },
+    {
+      "pos": 3,
+      "name": "LGF_POL1",
+      "type": "Char(14)",
+      "mandatory": "M",
+      "default": null,
+      "description": "Coefficient A0, a numerical value in real format (Appendix A).",
+      "values": [],
+      "references": null,
+      "pdf_page": 72
+    },
+    {
+      "pos": 4,
+      "name": "LGF_POL2",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A1 of the first-order logarithmic term ln(X), in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 72
+    },
+    {
+      "pos": 5,
+      "name": "LGF_POL3",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A2 of the second-order term ln^2(X), in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 72
+    },
+    {
+      "pos": 6,
+      "name": "LGF_POL4",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A3 of the third-order term ln^3(X), in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 72
+    },
+    {
+      "pos": 7,
+      "name": "LGF_POL5",
+      "type": "Char(14)",
+      "mandatory": "O",
+      "default": "0",
+      "description": "Coefficient A4 of the fourth-order term ln^4(X), in real format; defaults to 0.",
+      "values": [],
+      "references": null,
+      "pdf_page": 72
+    }
+  ],
+  "relationships": [
+    {
+      "field": "LGF_IDENT",
+      "target": "pcf.PCF_CURTX, cur.CUR_SELECT",
+      "note": "Shareable among parameters; must be unique across caf.CAF_NUMBR and mcf.MCF_IDENT."
+    }
+  ],
+  "history": "Not present in ICD 5.1. The logarithmic curve type was added in ICD 6.0 with the repatriation of Herschel/Planck CCS functions (ICD 7.0 Annex 1, p. 248), which also notes that the H-P CCS project explicitly excluded patching of the curve definition. ICD 6.7 Draft A (p. 67-68), 6.9 (p. 70-71) and 7.0 (p. 71-72) give the same seven fields. pyscos2000 (ICD 7.2) matches, including the '0' defaults for LGF_POL2 to LGF_POL5.",
+  "solo_stats": {
+    "rows": 0,
+    "fields": [
+      {
+        "name": "LGF_IDENT",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "LGF_DESCR",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "LGF_POL1",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "LGF_POL2",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "LGF_POL3",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "LGF_POL4",
+        "filled": 0,
+        "examples": []
+      },
+      {
+        "name": "LGF_POL5",
+        "filled": 0,
+        "examples": []
+      }
+    ]
+  },
+  "notes": "No discrepancy between ICD 7.0 and pyscos2000. ICD 7.0 p. 72 prints 'Logarithmic Logarithmic coefficient' for LGF_POL4 (editorial duplication). The formula takes ln(X), so it is only defined for positive raw values; the ICD does not say what SCOS-2000 returns for X <= 0 (not stated in the available sources). Solar Orbiter 2025-09-16: lgf.dat is present but empty (0 records), so Solar Orbiter uses no logarithmic calibrations; the 2020 release and the SWA instrument database are also empty."
+}

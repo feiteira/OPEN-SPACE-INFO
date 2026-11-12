@@ -1,0 +1,580 @@
+{
+ "table": "css",
+ "file": "css.dat",
+ "icd": true,
+ "name": "Command sequences definition",
+ "icd_section": "3.3.3.3.2",
+ "pdf_page": 168,
+ "family": "sequence",
+ "purpose": "The css table lists the elements of each command sequence, one record per element, in the order given by CSS_ENTRY (consecutive, without gaps). An element is a command, a nested sequence or (future extension) a formal parameter standing for a command or sequence chosen later. For each element the table defines the release timing - a delta release time relative either to the previous command of the expanded sequence (or to its manual dispatch time) or to the start of the sequence - and the execution time tag, relative either to the previous time-tagged command or to the execution start of the sequence; whether a command needs its own manual dispatch (ARM and GO) on the stack; grouping (commands released as an uninterrupted batch) and blocking (commands aggregated into a single segment); the interlock scope and stage, overriding the command defaults; and flags to override dynamic PTV, static PTV and CEV checks for individual commands. All these attributes are defaults: the command requests can still be edited on a manual stack after the sequence is loaded. CSS_NPARS gives the number of SDF entries holding the element's parameter values. Since SCOS-2000 R5.0 these tables are converted on request into XML sequence definitions held in the FARC rather than the run-time MIB, imported as a delta without re-importing the TM/TC database.",
+ "keys": [
+  "CSS_SQNAME",
+  "CSS_ENTRY"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "CSS_SQNAME",
+   "type": "Char(8)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Name of the sequence (CSF_NAME) the element belongs to.",
+   "values": [],
+   "references": "csf.CSF_NAME",
+   "pdf_page": 169
+  },
+  {
+   "pos": 2,
+   "name": "CSS_COMM",
+   "type": "Char(32)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Free comment attached to the element; for elements of type T (textual comment) this is the text that command sources would display. The whole row is printed in italics in ICD 7.0, i.e. the field is not currently supported by SCOS-2000.",
+   "values": [],
+   "references": null,
+   "pdf_page": 169
+  },
+  {
+   "pos": 3,
+   "name": "CSS_ENTRY",
+   "type": "Number(5)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Entry number of the element, giving its position in the sequence. Entries must be consecutive (no gaps). Part of the key.",
+   "values": [],
+   "references": null,
+   "pdf_page": 169
+  },
+  {
+   "pos": 4,
+   "name": "CSS_TYPE",
+   "type": "Char(1)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Type of the element.",
+   "values": [
+    {
+     "value": "C",
+     "meaning": "Command."
+    },
+    {
+     "value": "S",
+     "meaning": "Sequence (nested)."
+    },
+    {
+     "value": "T",
+     "meaning": "Textual comment, non-uplinkable entry (not supported by SCOS-2000)."
+    },
+    {
+     "value": "F",
+     "meaning": "Formal parameter representing a command (future extension)."
+    },
+    {
+     "value": "P",
+     "meaning": "Formal parameter representing a sequence (future extension)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 169
+  },
+  {
+   "pos": 5,
+   "name": "CSS_ELEMID",
+   "type": "Char(8)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Identifier of the element: for type C a valid command name (CCF_CNAME), which ICD 7.0 says must not contain group repeater parameters (but see the SDF section, which since R4.2 allows commands with fully defined repeated groups); for type S a valid sequence name (CSF_NAME); for types F and P a formal parameter name (CSP_FPNAME) of this sequence; for type T it must be empty.",
+   "values": [],
+   "references": "ccf.CCF_CNAME / csf.CSF_NAME / csp.CSP_FPNAME",
+   "pdf_page": 169
+  },
+  {
+   "pos": 6,
+   "name": "CSS_NPARS",
+   "type": "Number(3)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Number of editable parameters of the element, i.e. the number of SDF records for this element; only relevant for elements of type C or S. Grey in ICD 7.0: not used by SCOS-2000 processing.",
+   "values": [],
+   "references": null,
+   "pdf_page": 170
+  },
+  {
+   "pos": 7,
+   "name": "CSS_MANDISP",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Whether the command needs its own manual dispatch (ARM and GO) on a manual stack. Must be left empty for commands inside a group or block (CSS_GROUP or CSS_BLOCK = M or E) except the first command of the group/block. Irrelevant for non-command elements.",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "The command requires a separate manual dispatch."
+    },
+    {
+     "value": "N",
+     "meaning": "The element is dispatched together with the previous command (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 170
+  },
+  {
+   "pos": 8,
+   "name": "CSS_RELTYPE",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Reference used with CSS_RELTIME to compute the command release time tag, or the release start time of a nested sequence.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Relative to the release time of the previous command in the expanded sequence, or to the command's own dispatch time if it has a manual dispatch flag (import default)."
+    },
+    {
+     "value": "A",
+     "meaning": "Relative to the start time of the sequence the element belongs to; for the top-level sequence the start time is given by the user at load time (printed in italics in ICD 7.0)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 170
+  },
+  {
+   "pos": 9,
+   "name": "CSS_RELTIME",
+   "type": "Char(8)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Delta release time of the element, written as hh.mm.ss up to 23.59.59 (other separators such as ':' are accepted). For a command with RELTYPE=R and manual dispatch, the release time is the dispatch time plus this delta; for a command with RELTYPE=R without manual dispatch, it is the release time of the last command before it in the expanded top-level sequence (if the previous element is a nested sequence, its last command) plus the delta; with RELTYPE=A it is the release start time of the current sequence plus the delta. For a nested sequence the same rules give its release start time. An empty value means no release time tag (release as soon as possible) for a command, and a zero delta for a nested sequence. It must be empty for commands inside a group or block other than the first one.",
+   "values": [],
+   "references": null,
+   "pdf_page": 170
+  },
+  {
+   "pos": 10,
+   "name": "CSS_EXTIME",
+   "type": "Char(17)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Delta execution time tag of the element, written [+][ddd.]hh.mm.ss[.mmm] for positive and -[ddd.]hh.mm.ss[.mmm] for negative intervals (other separators accepted). With PREVREL=R the execution time of a command (or the execution start of a nested sequence) is the execution time of the last execution time-tagged command before it in the expanded top-level sequence plus the delta; with PREVREL=A it is the execution start time of the current sequence plus the delta. An empty value means a command is not execution time-tagged (executed on board on receipt) and a nested sequence has zero delta execution start time. (ICD 7.0 prints the first part of this description twice.)",
+   "values": [],
+   "references": null,
+   "pdf_page": 172
+  },
+  {
+   "pos": 11,
+   "name": "CSS_PREVREL",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "R",
+   "description": "Reference used with CSS_EXTIME to compute the execution time tag of a command or the execution start time of a nested sequence.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Relative to the execution time tag of the previous time-tagged command in the expanded sequence (import default)."
+    },
+    {
+     "value": "A",
+     "meaning": "Relative to the start time of the sequence the element belongs to; for the top-level sequence the user gives it at load time."
+    }
+   ],
+   "references": null,
+   "pdf_page": 175
+  },
+  {
+   "pos": 12,
+   "name": "CSS_GROUP",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Grouping condition (commands only): grouped commands are released as one batch that cannot be interleaved with commands released by other command sources. A group has at least a start and an end command, with a configurable maximum number of middle commands; only the first command (S) may have a manual dispatch flag or a release time tag. Empty when the command is not grouped; irrelevant for non-command elements.",
+   "values": [
+    {
+     "value": "S",
+     "meaning": "Start of the group."
+    },
+    {
+     "value": "M",
+     "meaning": "Middle of a group."
+    },
+    {
+     "value": "E",
+     "meaning": "End of the group."
+    }
+   ],
+   "references": null,
+   "pdf_page": 175
+  },
+  {
+   "pos": 13,
+   "name": "CSS_BLOCK",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Blocking condition (commands only): blocked commands are released in a single data unit by aggregating their packets into one segment data field. A block has at least a start and an end command, with a configurable maximum number of middle commands; a block may sit inside a group but not a group inside a block; only the first command may have a manual dispatch flag or release time tag. The total block length must stay within a mission-configurable limit, and high-priority commands (CCF_HIPRI=Y) are not allowed in a block. Empty when not blocked.",
+   "values": [
+    {
+     "value": "S",
+     "meaning": "Start of the block."
+    },
+    {
+     "value": "M",
+     "meaning": "Middle of a block."
+    },
+    {
+     "value": "E",
+     "meaning": "End of the block."
+    }
+   ],
+   "references": null,
+   "pdf_page": 176
+  },
+  {
+   "pos": 14,
+   "name": "CSS_ILSCOPE",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Interlock scope for this command element, overriding CCF_ILSCOPE. For commands inside a block or group, G and L are only allowed on the last command (E). If empty, the command definition applies. Irrelevant for non-command elements.",
+   "values": [
+    {
+     "value": "G",
+     "meaning": "Global interlock of the whole system."
+    },
+    {
+     "value": "L",
+     "meaning": "Interlock of the local commanding source only."
+    },
+    {
+     "value": "S",
+     "meaning": "Interlock of local commanding for the subsystem of the command."
+    },
+    {
+     "value": "B",
+     "meaning": "Interlock of global commanding for the subsystem only (italic in ICD 7.0: not currently supported)."
+    },
+    {
+     "value": "F",
+     "meaning": "Local commanding source interlocked only on verification failure (no WAIT state)."
+    },
+    {
+     "value": "T",
+     "meaning": "Local subsystem commanding interlocked only on verification failure (no WAIT state)."
+    },
+    {
+     "value": "N",
+     "meaning": "No interlock."
+    },
+    {
+     "value": "empty",
+     "meaning": "Interlock scope taken from the command definition (CCF_ILSCOPE)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 176
+  },
+  {
+   "pos": 15,
+   "name": "CSS_ILSTAGE",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": null,
+   "description": "Verification stage that the interlock of this command element waits for, overriding CCF_ILSTAGE. O is handled as U in BD mode. The importer prevents requesting a CEV stage (A or C) not foreseen in the command's CVP/CVS profile and substitutes the highest applicable stage (A or O). If empty, the command definition applies.",
+   "values": [
+    {
+     "value": "R",
+     "meaning": "Reception/acceptance at the ground station."
+    },
+    {
+     "value": "U",
+     "meaning": "Uplink (radiation/transmission)."
+    },
+    {
+     "value": "O",
+     "meaning": "On-board reception/acceptance (transfer); handled as U in BD mode."
+    },
+    {
+     "value": "A",
+     "meaning": "Application acceptance."
+    },
+    {
+     "value": "C",
+     "meaning": "Completion."
+    },
+    {
+     "value": "empty",
+     "meaning": "Stage taken from the command definition (CCF_ILSTAGE)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 177
+  },
+  {
+   "pos": 16,
+   "name": "CSS_DYNPTV",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Whether the dynamic PTV checks (feasibility checks, time checks, interlocks) are overridden for this command element. Irrelevant for non-command elements.",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "Dynamic PTV overridden for this command."
+    },
+    {
+     "value": "N",
+     "meaning": "Dynamic PTV applied (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 178
+  },
+  {
+   "pos": 17,
+   "name": "CSS_STAPTV",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Whether the static, telemetry-based PTV check (PTV table) is overridden for this command element. Irrelevant for non-command elements.",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "Static PTV overridden for this command."
+    },
+    {
+     "value": "N",
+     "meaning": "Static PTV applied (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 178
+  },
+  {
+   "pos": 18,
+   "name": "CSS_CEV",
+   "type": "Char(1)",
+   "mandatory": "O",
+   "default": "N",
+   "description": "Whether the command execution verification (CEV) checks are disabled for this command element. Irrelevant for non-command elements.",
+   "values": [
+    {
+     "value": "Y",
+     "meaning": "CEV checks disabled for this command."
+    },
+    {
+     "value": "N",
+     "meaning": "CEV checks performed (import default)."
+    }
+   ],
+   "references": null,
+   "pdf_page": 179
+  }
+ ],
+ "relationships": [
+  {
+   "field": "CSS_SQNAME",
+   "target": "csf.CSF_NAME",
+   "note": "Sequence owning the element."
+  },
+  {
+   "field": "CSS_ELEMID",
+   "target": "ccf.CCF_CNAME (type C) / csf.CSF_NAME (type S) / csp.CSP_FPNAME (types F, P)",
+   "note": "Element identity depends on CSS_TYPE."
+  },
+  {
+   "field": "CSS_SQNAME + CSS_ENTRY",
+   "target": "sdf.SDF_SQNAME + sdf.SDF_ENTRY",
+   "note": "Parameter values of the element; CSS_NPARS should equal the number of SDF records."
+  },
+  {
+   "field": "CSS_ILSCOPE / CSS_ILSTAGE",
+   "target": "ccf.CCF_ILSCOPE / ccf.CCF_ILSTAGE",
+   "note": "Overrides; empty means the command defaults apply."
+  },
+  {
+   "field": "CSS_ILSTAGE",
+   "target": "cvp.CVP_CVSID / cvs",
+   "note": "Requested CEV stages must exist in the command verification profile."
+  },
+  {
+   "field": "CSS_STAPTV",
+   "target": "ptv",
+   "note": "Overrides the static PTV checks of the command."
+  },
+  {
+   "field": "CSS_BLOCK",
+   "target": "ccf.CCF_HIPRI",
+   "note": "High-priority commands cannot be blocked."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.3.2, PDF p.78-86) already defines the 18 fields with the same names and defaults (CSS_ILSCOPE including F and T), except that CSS_EXTIME is Char(16). ICD 6.7 Draft A (PDF p.157-168), ICD 6.9 (PDF p.161-171) and ICD 7.0 (PDF p.168-179) have CSS_EXTIME as Char(17). ICD 6.5 split the long CSS_RELTIME and CSS_EXTIME descriptions over two pages (Annex 1, PDF p.256) and the evolution-line changes clarified their input formats (Annex 1 item 8, PDF p.244). pyscos2000 (ICD 7.2) has 18 columns in the same order but names field 17 CSS_STATPTV, marks only CSS_SQNAME as key (not CSS_ENTRY), and treats CSS_NPARS as mandatory; defaults N, R, R, N, N, N for CSS_MANDISP, CSS_RELTYPE, CSS_PREVREL, CSS_DYNPTV, CSS_STATPTV and CSS_CEV match the ICD.",
+ "solo_stats": {
+  "rows": 13879,
+  "fields": [
+   {
+    "name": "CSS_SQNAME",
+    "filled": 13879,
+    "examples": [
+     "AIPF981A",
+     "ASYF100K",
+     "ASYS500I",
+     "ASYF100D",
+     "ASYF100E"
+    ]
+   },
+   {
+    "name": "CSS_COMM",
+    "filled": 13879,
+    "examples": [
+     "Report Current Monitoring List",
+     "Report Current FMON Status List",
+     "Disable HK Para Rpt Gen",
+     "Unprotect Func Mon Parameters",
+     "Protect Func Mon Parameters"
+    ]
+   },
+   {
+    "name": "CSS_ENTRY",
+    "filled": 13879,
+    "examples": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5"
+    ]
+   },
+   {
+    "name": "CSS_TYPE",
+    "filled": 13879,
+    "examples": [
+     "C",
+     "S"
+    ]
+   },
+   {
+    "name": "CSS_ELEMID",
+    "filled": 13879,
+    "examples": [
+     "ZCL00C08",
+     "ZCL08E0A",
+     "ZCD00F91",
+     "ZCX08401",
+     "ZIM00336"
+    ]
+   },
+   {
+    "name": "CSS_NPARS",
+    "filled": 13879,
+    "examples": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4"
+    ]
+   },
+   {
+    "name": "CSS_MANDISP",
+    "filled": 13879,
+    "examples": [
+     "Y",
+     "N"
+    ]
+   },
+   {
+    "name": "CSS_RELTYPE",
+    "filled": 13879,
+    "examples": [
+     "R",
+     "A"
+    ]
+   },
+   {
+    "name": "CSS_RELTIME",
+    "filled": 13835,
+    "examples": [
+     "00.00.01",
+     "00.00.00",
+     "00.00.01.000",
+     "00.00.02",
+     "00.00.05"
+    ]
+   },
+   {
+    "name": "CSS_EXTIME",
+    "filled": 13784,
+    "examples": [
+     "00.00.01",
+     "00.00.00",
+     "00.00.01.000",
+     "00.00.02",
+     "00.00.05"
+    ]
+   },
+   {
+    "name": "CSS_PREVREL",
+    "filled": 13879,
+    "examples": [
+     "R",
+     "A"
+    ]
+   },
+   {
+    "name": "CSS_GROUP",
+    "filled": 56,
+    "examples": [
+     "E",
+     "S",
+     "M"
+    ]
+   },
+   {
+    "name": "CSS_BLOCK",
+    "filled": 76,
+    "examples": [
+     "E",
+     "S",
+     "M"
+    ]
+   },
+   {
+    "name": "CSS_ILSCOPE",
+    "filled": 12500,
+    "examples": [
+     "N"
+    ]
+   },
+   {
+    "name": "CSS_ILSTAGE",
+    "filled": 12494,
+    "examples": [
+     "C"
+    ]
+   },
+   {
+    "name": "CSS_DYNPTV",
+    "filled": 13879,
+    "examples": [
+     "N"
+    ]
+   },
+   {
+    "name": "CSS_STATPTV",
+    "filled": 13879,
+    "examples": [
+     "N"
+    ]
+   },
+   {
+    "name": "CSS_CEV",
+    "filled": 13879,
+    "examples": [
+     "N",
+     "Y"
+    ]
+   }
+  ]
+ },
+ "notes": "Name discrepancy: ICD 7.0 (and 5.1/6.7/6.9) field 17 is CSS_STAPTV, pyscos2000 and the Solar Orbiter SQLite use CSS_STATPTV. Optionality: CSS_NPARS carries no M in ICD 7.0 but is mandatory in pyscos2000. Key: pyscos2000 omits CSS_ENTRY from the key. Solar Orbiter 2025-09-16 (18 columns, 13879 records; 9089 in 2020): only types C (12629) and S (1250) are used; every sequence starts with entry 1 having CSS_RELTYPE='A' and CSS_PREVREL='A' and all other entries 'R'; entries are consecutive from 1 in every sequence and CSS_NPARS always matches the SDF count. CSS_RELTIME exceeds the declared Char(8) and the hh.mm.ss format in 1107 records, which carry milliseconds (e.g. '00.00.01.000'); CSS_EXTIME values use the same style and are never negative. CSS_COMM is filled in every record although the ICD marks it unsupported. 234 distinct commands containing group repeaters are used in 2467 sequence elements, which ICD 7.0 allows since R4.2 only for fully defined repeated groups although its CSS_ELEMID description still forbids them. In the 46 group/block members that are not the first (M or E), CSS_MANDISP is 'N' instead of empty and CSS_RELTIME is filled, contrary to the ICD rule. Groups (24) and blocks (34) never contain high-priority commands. CSS_ILSCOPE is 'N' or empty and CSS_ILSTAGE 'C' or empty; CSS_DYNPTV and CSS_STATPTV are always N, CSS_CEV is Y for 17 elements."
+}

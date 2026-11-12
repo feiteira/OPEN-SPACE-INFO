@@ -1,0 +1,146 @@
+{
+ "slug": "esa-bulletin-108-ch8",
+ "title": "Promoting ESA Software as a European Product: The SCOS-2000 Example",
+ "short_title": "Promoting ESA software: the SCOS-2000 example",
+ "doc_id": "esa bulletin 108",
+ "issue": null,
+ "date": "2001-11",
+ "organisation": "European Space Agency, ESOC (Directorate of Technical and Operational Support; Directorate of Industrial Matters and Technology Programmes)",
+ "authors": [
+  "J-F. Kaufeler",
+  "M. Jones",
+  "H-U. Karl"
+ ],
+ "doc_type": "Paper",
+ "status_notes": "Published magazine article (bulletin 108, november 2001, printed pages 72-77).",
+ "summary": "An ESA Bulletin article (November 2001) by J-F. Kaufeler and M. Jones of ESOC's Ground Segment Engineering Department and H-U. Karl of the ESOC Contracts Service on the initiative to promote SCOS-2000 as a supported ESA software product, not only as licensed in-house software.\n\nIt explains why ESOC bases every mission's control system on one generic system and lists the four strategic aims of SCOS-2000: ease of configuration, functional richness, scalability and vendor independence. It gives history and numbers: work started in about 1992, the first missions (Huygens, Meteosat MTP LEOP and Teamsat) were supported in 1997, the telecommanding chain was re-engineered in 1998-2000, about 15 MEuro had been invested, and control-system costs fell by a factor of two to three. It describes the port from Solaris to Linux and the replacement of the commercial ObjectStore and Orbix by the open-source POST++ and Omniorb, with ILOGViews kept for the user interface for now.\n\nMuch of the article is about licensing: ESA's 'operational software' IPR clause, free non-exclusive licences to Member State bodies, the three licence types (run-time, development, full), and a move towards open-source-style terms under which licensees hand back kernel improvements. It compares SCOS-2000 with US commercial products, lists the support set up (user organisation, FTP documentation server, help desk), and reports early results: the first users workshop (April 2001), adoption by DLR's German Space Operations Centre, use by the Herschel/Planck payload teams for instrument checkout (checkout changes pioneered on Proba), about 30 licences, and plans for certification and a Windows port.\n\nIt documents why and how SCOS-2000 spread beyond ESOC, including into EGSE.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Introduction and ESOC software products and their marketing",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "SCOS-2000 as a software product",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Pre-conditions",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Licensing aspects: the current ESA licensing scheme",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "The future ESA licensing scheme",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "Open-source licensing",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "Market aspects",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "Support requirements",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "Experience so far",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "Conclusion",
+   "pdf_page": 6
+  }
+ ],
+ "key_points": [
+  {
+   "text": "ESOC has used a generic mission control system as the basis for each mission's control system for over 25 years; SCOS-2000 is its latest generic system.",
+   "pdf_page": 1
+  },
+  {
+   "text": "SCOS-2000 strategic aims: ease of configuration/customisation, functional richness, scalability and vendor independence; all four were achieved and ESOC control-system costs came down by a factor of between two and three.",
+   "pdf_page": 2
+  },
+  {
+   "text": "Work on SCOS started in about 1992; its first ESA missions, Huygens, Meteosat (MTP) LEOP and Teamsat, were supported in 1997; the telecommanding chain was re-engineered in 1998-2000; total investment was of the order of 15 MEuro.",
+   "pdf_page": 2
+  },
+  {
+   "text": "SCOS-2000 originally ran on Sun Solaris; it was modified to run under Linux, and of its three COTS products (ObjectStore, Orbix, ILOGViews) the first two were replaced by POST++ and Omniorb.",
+   "pdf_page": 3
+  },
+  {
+   "text": "SCOS-2000 was to be used for all future ESA missions, for example Rosetta, which extends up to 2013.",
+   "pdf_page": 3
+  },
+  {
+   "text": "ESOC uses three licence types: run-time licences (temporary use and trial), development licences (upgrades of operational software under ESA contract) and full licences (developments based on the software).",
+   "pdf_page": 4
+  },
+  {
+   "text": "The main competing products came from US suppliers such as Integral Systems, Storm and Braxton Technologies.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Nearly 100 people from outside ESA attended the first SCOS-2000 Users Workshop in April 2001.",
+   "pdf_page": 5
+  },
+  {
+   "text": "DLR's German Space Operations Centre chose SCOS-2000 for its control centre infrastructure, and the Herschel Planck payload PIs chose it for their instrument checkout equipment; checkout support was pioneered for Proba and introduced into the evolution version.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Some 30 SCOS-2000 licences were granted in a little over two years, making it the best-selling product licensed through ESOC's Contracts Service.",
+   "pdf_page": 5
+  },
+  {
+   "text": "A certification activity with the ESA Quality Department was starting, using a method customised from ISO 9126 and developed with TUV Cologne; a study showed a Windows port to be feasible.",
+   "pdf_page": 6
+  },
+  {
+   "text": "From ESOC alone, 93 software products had been licensed in 94 Member State bodies, with more than 220 licences in total.",
+   "pdf_page": 6
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "The Cathedral and the Bazaar (book by Eric S. Raymond)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 4
+  },
+  {
+   "label": null,
+   "doc_id": "ISO 9126",
+   "title": "Information Technology: Software Quality Characteristics and Metrics",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 6
+  }
+ ],
+ "topics": [
+  "scos2000/index.md",
+  "scos2000/architecture.md",
+  "scos2000/egse.md",
+  "missions/other-missions.md"
+ ],
+ "notes": "Printed pages 72-77 map to PDF pp. 1-6; PDF p. 6 also carries an unrelated Serco recruitment advertisement (the contact details are omitted here). Figures (ESOC Main Control Room, SCOS-2000 architecture, external interfaces, cumulative licences chart) survive only as captions. Two-column layout is interleaved in the text layer. No reference list."
+}

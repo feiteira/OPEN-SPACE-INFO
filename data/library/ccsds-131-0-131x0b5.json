@@ -1,0 +1,544 @@
+{
+ "slug": "ccsds-131-0-131x0b5",
+ "title": "TM Synchronization and Channel Coding",
+ "short_title": "TM Synchronization and Channel Coding (CCSDS 131.0-B-5)",
+ "doc_id": "CCSDS 131.0-B-5",
+ "issue": "Recommended Standard, Issue 5 (Blue Book)",
+ "date": "September 2023",
+ "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+ "authors": [],
+ "doc_type": "Standard",
+ "status_notes": "The Document Control table (PDF p. 7) lists 131.0-B-1 (September 2003), B-2 (August 2011), B-3 (September 2017) and B-4 (April 2022) as superseded. 131.0-B-5 (September 2023) is the 'Current issue'; it provides a revised pseudo-randomizer (section 10) to avoid spectral spikes on high-data-rate links. Changes from the previous issue are marked with change bars.",
+ "summary": "The CCSDS Recommended Standard for the **Synchronization and Channel Coding Sublayer** on return (and optionally forward) links that carry fixed-length [TM](../ccsds/tm-sdlp.md), [AOS](../ccsds/aos.md) or [USLP](../ccsds/uslp.md) Transfer Frames. It sits between the data link protocol and the RF and modulation layer, and it defines three functions: error-control coding with frame validation, synchronization, and pseudo-randomization. This is the document a ground-station or decoder engineer uses to turn a stream of coded symbols back into Transfer Frames. The rationale is in the companion Green Book [130.1-G-3](ccsds-130-1-130x1g3e1.md).\n\nThe coding sections specify:\n\n* the rate-1/2, K=7 convolutional code (G1 = 171 octal, G2 = 133 octal, G2 inverted) and its punctured rates 2/3 to 7/8;\n* the (255,223) E=16 and (255,239) E=8 Reed-Solomon codes in Berlekamp dual-basis representation, with interleaving depths 1, 2, 3, 4, 5 and 8 and virtual fill;\n* concatenated RS outer and convolutional inner coding;\n* Turbo codes (rates 1/2 to 1/6, information blocks of 1784 to 8920 bits);\n* LDPC coding of a Transfer Frame: the (8160,7136) rate-223/255 code and the AR4JA family with rates 1/2, 2/3 and 4/5 and k = 1024, 4096 or 16384;\n* LDPC coding of a stream of Sync-Marked Transfer Frames, with Code Sync Markers.\n\nSection 9 defines the Attached Sync Marker (0x1ACFFC1D, plus longer markers for turbo and LDPC) and the CADU. Section 10 makes the new 131071-bit randomizer (h(x) = x^17+x^14+1) the default and keeps the legacy 255-bit sequence for backward compatibility. Section 11 fixes the allowed frame lengths for each coding option, section 12 tabulates the managed parameters, and section 13 covers use on ground-to-space and space-to-space links. Annexes give the ChannelAccess service primitives, patent notices, the LDPC generator circulants and the Berlekamp-to-conventional RS transformation.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.3",
+   "title": "Applicability",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.4",
+   "title": "Rationale",
+   "pdf_page": 14
+  },
+  {
+   "section": "1.5",
+   "title": "Document Structure",
+   "pdf_page": 14
+  },
+  {
+   "section": "1.6",
+   "title": "Conventions and Definitions",
+   "pdf_page": 15
+  },
+  {
+   "section": "1.7",
+   "title": "Patented Technologies",
+   "pdf_page": 19
+  },
+  {
+   "section": "1.8",
+   "title": "References",
+   "pdf_page": 20
+  },
+  {
+   "section": "2",
+   "title": "Overview",
+   "pdf_page": 21
+  },
+  {
+   "section": "2.1",
+   "title": "Architecture",
+   "pdf_page": 21
+  },
+  {
+   "section": "2.2",
+   "title": "Summary of Functions",
+   "pdf_page": 21
+  },
+  {
+   "section": "2.3",
+   "title": "Internal Organization of Sublayer",
+   "pdf_page": 23
+  },
+  {
+   "section": "3",
+   "title": "Convolutional Coding",
+   "pdf_page": 26
+  },
+  {
+   "section": "3.3",
+   "title": "Basic Convolutional Code Specification",
+   "pdf_page": 27
+  },
+  {
+   "section": "3.4",
+   "title": "Punctured Convolutional Codes",
+   "pdf_page": 29
+  },
+  {
+   "section": "4",
+   "title": "Reed-Solomon Coding",
+   "pdf_page": 30
+  },
+  {
+   "section": "4.3",
+   "title": "Specification",
+   "pdf_page": 30
+  },
+  {
+   "section": "4.4",
+   "title": "Discussion",
+   "pdf_page": 35
+  },
+  {
+   "section": "5",
+   "title": "Concatenated Coding",
+   "pdf_page": 38
+  },
+  {
+   "section": "6",
+   "title": "Turbo Coding",
+   "pdf_page": 39
+  },
+  {
+   "section": "6.3",
+   "title": "Specification",
+   "pdf_page": 39
+  },
+  {
+   "section": "7",
+   "title": "Low-Density Parity-Check Coding of a Transfer Frame",
+   "pdf_page": 48
+  },
+  {
+   "section": "7.3",
+   "title": "Low-Density Parity-Check Code with Rate 223/255",
+   "pdf_page": 49
+  },
+  {
+   "section": "7.4",
+   "title": "Low-Density Parity-Check Code Family with Rates 1/2, 2/3, and 4/5",
+   "pdf_page": 54
+  },
+  {
+   "section": "8",
+   "title": "Low-Density Parity-Check Coding of a Stream of Sync-Marked Transfer Frames",
+   "pdf_page": 59
+  },
+  {
+   "section": "8.1",
+   "title": "Overview",
+   "pdf_page": 59
+  },
+  {
+   "section": "8.2",
+   "title": "Synchronization",
+   "pdf_page": 60
+  },
+  {
+   "section": "8.3",
+   "title": "Randomization",
+   "pdf_page": 62
+  },
+  {
+   "section": "9",
+   "title": "Frame Synchronization",
+   "pdf_page": 64
+  },
+  {
+   "section": "9.2",
+   "title": "The Attached Sync Marker (ASM)",
+   "pdf_page": 65
+  },
+  {
+   "section": "9.3",
+   "title": "ASM Bit Patterns",
+   "pdf_page": 65
+  },
+  {
+   "section": "9.4",
+   "title": "Location of ASM",
+   "pdf_page": 67
+  },
+  {
+   "section": "9.5",
+   "title": "Relationship of ASM to Reed-Solomon, Turbo, and LDPC Codeblocks and Codewords",
+   "pdf_page": 68
+  },
+  {
+   "section": "9.6",
+   "title": "ASM for Embedded Data Stream",
+   "pdf_page": 68
+  },
+  {
+   "section": "10",
+   "title": "Pseudo-Randomizer",
+   "pdf_page": 69
+  },
+  {
+   "section": "10.2",
+   "title": "Pseudo-Randomizer Description",
+   "pdf_page": 69
+  },
+  {
+   "section": "10.3",
+   "title": "Synchronization and Application of Pseudo-Randomizer",
+   "pdf_page": 70
+  },
+  {
+   "section": "10.4",
+   "title": "Sequence Specification",
+   "pdf_page": 70
+  },
+  {
+   "section": "10.5",
+   "title": "Logic Diagram",
+   "pdf_page": 71
+  },
+  {
+   "section": "11",
+   "title": "Transfer Frame Lengths",
+   "pdf_page": 73
+  },
+  {
+   "section": "11.3",
+   "title": "Case 1: Uncoded",
+   "pdf_page": 73
+  },
+  {
+   "section": "11.4",
+   "title": "Case 2: Convolutional Only",
+   "pdf_page": 73
+  },
+  {
+   "section": "11.5",
+   "title": "Case 3: Reed-Solomon Only",
+   "pdf_page": 74
+  },
+  {
+   "section": "11.6",
+   "title": "Case 4: Concatenated",
+   "pdf_page": 74
+  },
+  {
+   "section": "11.7",
+   "title": "Case 5: Turbo",
+   "pdf_page": 75
+  },
+  {
+   "section": "11.8",
+   "title": "Case 6: LDPC Applied to a Transfer Frame (Section 7)",
+   "pdf_page": 75
+  },
+  {
+   "section": "11.9",
+   "title": "Case 7: LDPC Applied to a Stream of SMTFs (Section 8)",
+   "pdf_page": 75
+  },
+  {
+   "section": "12",
+   "title": "Managed Parameters",
+   "pdf_page": 76
+  },
+  {
+   "section": "12.3",
+   "title": "Managed Parameters for Selected Options",
+   "pdf_page": 76
+  },
+  {
+   "section": "12.4",
+   "title": "Managed Parameters for Convolutional Code",
+   "pdf_page": 77
+  },
+  {
+   "section": "12.5",
+   "title": "Managed Parameters for Reed-Solomon Code",
+   "pdf_page": 77
+  },
+  {
+   "section": "12.6",
+   "title": "Managed Parameters for Turbo Code",
+   "pdf_page": 78
+  },
+  {
+   "section": "12.7",
+   "title": "Managed Parameters for Low-Density Parity-Check Coding of a Transfer Frame",
+   "pdf_page": 78
+  },
+  {
+   "section": "12.8",
+   "title": "Managed Parameters for Low-Density Parity-Check Coding of a Stream of SMTFs",
+   "pdf_page": 78
+  },
+  {
+   "section": "12.9",
+   "title": "Managed Parameters for Frame Synchronization",
+   "pdf_page": 79
+  },
+  {
+   "section": "13",
+   "title": "Use of Telecommunications Channel Codes for Ground-to-Space and Space-to-Space Links",
+   "pdf_page": 80
+  },
+  {
+   "section": "Annex A",
+   "title": "Service (Normative)",
+   "pdf_page": 82
+  },
+  {
+   "section": "Annex B",
+   "title": "Security, SANA, and Patent Considerations (Informative)",
+   "pdf_page": 85
+  },
+  {
+   "section": "Annex C",
+   "title": "Annex to Subsection 7.3, Low-Density Parity-Check Code with Rate 223/255 (Informative)",
+   "pdf_page": 87
+  },
+  {
+   "section": "Annex D",
+   "title": "Abbreviations and Acronyms (Informative)",
+   "pdf_page": 89
+  },
+  {
+   "section": "Annex E",
+   "title": "Informative References (Informative)",
+   "pdf_page": 90
+  },
+  {
+   "section": "Annex F",
+   "title": "Transformation between Berlekamp and Conventional Representations (Informative)",
+   "pdf_page": 91
+  },
+  {
+   "section": "Annex G",
+   "title": "Expansion of Reed-Solomon Coefficients (Informative)",
+   "pdf_page": 99
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Issue 5 (September 2023) replaces issue 4 (April 2022); its substantive change is a revised pseudo-randomizer to avoid spectral spikes on high-data-rate links.",
+   "pdf_page": 7
+  },
+  {
+   "text": "Scope: synchronization and channel coding for TM, AOS and USLP Transfer Frames over the CCSDS RF physical layer (401.0-B), on space-to-ground, space-to-space or ground-to-space links.",
+   "pdf_page": 13
+  },
+  {
+   "text": "Bit numbering: Bit 0 is the first transmitted bit and the MSB of any binary field.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Frame validation uses the RS or LDPC decoder's own decision; if neither code is used, the TM/AOS/USLP Frame Error Control Field must be present.",
+   "pdf_page": 23
+  },
+  {
+   "text": "Basic convolutional code: non-systematic, rate 1/2, K = 7, connection vectors G1 = 1111001 (171 octal) and G2 = 1011011 (133 octal), with inversion on the G2 output; punctured rates 2/3, 3/4, 5/6 and 7/8 use no inversion.",
+   "pdf_page": 27
+  },
+  {
+   "text": "Reed-Solomon E=16 gives the (255,223) code and E=8 the (255,239) code; allowable interleaving depths are I = 1, 2, 3, 4, 5 and 8, normally fixed on a Physical Channel for a Mission Phase.",
+   "pdf_page": 32
+  },
+  {
+   "text": "The 32-bit ASM 0x1ACFFC1D is used for uncoded, convolutional, RS, concatenated, rate-7/8 LDPC and SMTF-stream LDPC data; 64-bit 0x034776C7272895B0 for rate-1/2 turbo and rate-1/2, 2/3, 4/5 LDPC; longer markers for rate-1/3, 1/4 and 1/6 turbo.",
+   "pdf_page": 66
+  },
+  {
+   "text": "The embedded-data-stream ASM (for example frames played back inside another stream) is 0x352EF853.",
+   "pdf_page": 68
+  },
+  {
+   "text": "The ASM is never presented to the RS, turbo or LDPC encoder or decoder, and it is not randomized.",
+   "pdf_page": 68
+  },
+  {
+   "text": "Randomization is required unless the designer verifies proper operation without it; its presence is fixed per Physical Channel and known a priori by the receiver.",
+   "pdf_page": 69
+  },
+  {
+   "text": "The default pseudo-random sequence is 131071 bits long, generated by h(x) = x^17 + x^14 + 1 and seeded with '11000111000111000'; the legacy 255-bit sequence h(x) = x^8+x^7+x^5+x^3+1 (all-ones seed) may still be used for backward compatibility.",
+   "pdf_page": 70
+  },
+  {
+   "text": "Frame lengths: uncoded or convolutional-only frames may be any number of octets up to 2048 (TM/AOS) or 65536 (USLP); RS frames are L = (255-2E-q)*I octets; turbo frames are 223, 446, 892 or 1115 octets; rate-7/8 LDPC frames are 892 octets and rate-1/2, 2/3, 4/5 LDPC frames 128, 512 or 2048 octets.",
+   "pdf_page": 73
+  },
+  {
+   "text": "All managed parameters are fixed for all Transfer Frames on a Physical Channel during a Mission Phase.",
+   "pdf_page": 76
+  },
+  {
+   "text": "The service (Annex A) is ChannelAccess.request/indication; the receiving end gets a Quality Indicator (uncorrectable error) and a Sequence Indicator (frames lost through loss of frame sync).",
+   "pdf_page": 83
+  },
+  {
+   "text": "The turbo-code patent (US 5,446,747, France Telecom/TDF) expired in 2012; the rate-1/2, 2/3 and 4/5 LDPC codes are covered by US Patent 7,343,539 (Caltech).",
+   "pdf_page": 86
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS 132.0-B-3",
+   "title": "TM Space Data Link Protocol",
+   "issue": "Issue 3",
+   "date": "October 2021",
+   "kind": "normative",
+   "pdf_page": 20
+  },
+  {
+   "label": "[2]",
+   "doc_id": "CCSDS 732.0-B-4",
+   "title": "AOS Space Data Link Protocol",
+   "issue": "Issue 4",
+   "date": "October 2021",
+   "kind": "normative",
+   "pdf_page": 20
+  },
+  {
+   "label": "[3]",
+   "doc_id": "ISO/IEC 7498-1:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+   "issue": "2nd ed.",
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 20
+  },
+  {
+   "label": "[4]",
+   "doc_id": "ISO/IEC 10731:1994",
+   "title": "Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the Definition of OSI Services",
+   "issue": null,
+   "date": "1994",
+   "kind": "normative",
+   "pdf_page": 20
+  },
+  {
+   "label": "[5]",
+   "doc_id": "CCSDS 401.0-B-32",
+   "title": "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft",
+   "issue": "Issue 32",
+   "date": "October 2021",
+   "kind": "normative",
+   "pdf_page": 20
+  },
+  {
+   "label": "[6]",
+   "doc_id": "CCSDS 732.1-B-2",
+   "title": "Unified Space Data Link Protocol",
+   "issue": "Issue 2",
+   "date": "October 2021",
+   "kind": "normative",
+   "pdf_page": 20
+  },
+  {
+   "label": "[E1]",
+   "doc_id": "CCSDS A02.1-Y-4",
+   "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+   "issue": "Issue 4",
+   "date": "April 2014",
+   "kind": "informative",
+   "pdf_page": 90
+  },
+  {
+   "label": "[E2]",
+   "doc_id": "CCSDS 101.0-B-6-S",
+   "title": "Telemetry Channel Coding",
+   "issue": "Issue 6-S",
+   "date": "(October 2002) August 2005",
+   "kind": "informative",
+   "pdf_page": 90
+  },
+  {
+   "label": "[E3]",
+   "doc_id": "CCSDS 701.0-B-3-S",
+   "title": "Advanced Orbiting Systems, Networks and Data Links: Architectural Specification",
+   "issue": "Issue 3-S",
+   "date": "(June 2001) August 2005",
+   "kind": "informative",
+   "pdf_page": 90
+  },
+  {
+   "label": "[E4]",
+   "doc_id": "JPL Publication 82-71",
+   "title": "Reed-Solomon Encoders—Conventional vs. Berlekamp's Architecture (M. Perlman and J. J. Lee)",
+   "issue": null,
+   "date": "December 1, 1982",
+   "kind": "informative",
+   "pdf_page": 90
+  },
+  {
+   "label": "[E5]",
+   "doc_id": "CCSDS 131.4-M-1-S",
+   "title": "TM Channel Coding Profiles",
+   "issue": "Issue 1-S",
+   "date": "(July 2011) December 2017",
+   "kind": "informative",
+   "pdf_page": 90
+  },
+  {
+   "label": "[E6]",
+   "doc_id": "CCSDS 131.2-B-2",
+   "title": "Flexible Advanced Coding and Modulation Scheme for High Rate Telemetry Applications",
+   "issue": "Issue 2",
+   "date": "February 2023",
+   "kind": "informative",
+   "pdf_page": 90
+  },
+  {
+   "label": "[E7]",
+   "doc_id": "CCSDS 131.3-B-2",
+   "title": "CCSDS Space Link Protocols over ETSI DVB-S2 Standard",
+   "issue": "Issue 2",
+   "date": "April 2022",
+   "kind": "informative",
+   "pdf_page": 90
+  },
+  {
+   "label": null,
+   "doc_id": "US Patent 5,446,747",
+   "title": "Turbo coding patent of France Télécom and Télédiffusion de France (expired in 2012)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 86
+  },
+  {
+   "label": null,
+   "doc_id": "US Patent 7,343,539",
+   "title": "Patent covering the rate-1/2, 2/3 and 4/5 LDPC codes (licensing via California Institute of Technology)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 86
+  }
+ ],
+ "topics": [
+  "ccsds/tm-coding.md",
+  "ccsds/tm-sdlp.md",
+  "ccsds/aos.md",
+  "ccsds/uslp.md",
+  "ccsds/sle/return-services.md",
+  "overview/downlink.md",
+  "ecss/e-st-50-communications.md"
+ ],
+ "notes": "PDF pages 1 and 2 are duplicate cover pages. The extraction has 101 PDF pages (registry: 100). Internal inconsistencies in the source: 2.2.2 lists 'Turbo coding (section 5)' and the note in 11.7 refers to 'Turbo Codes specified in section 5', but Turbo coding is section 6 (section 5 is Concatenated Coding). Annex E's note says 'Normative references are listed in 1.7', but they are in 1.8. Reference [E5] is called 'Mission Profiles for TM Synchronization and Channel Coding' in 2.2.2 but 'TM Channel Coding Profiles' in the list. The patent contact details in Annex B3 (names, addresses, telephone numbers, e-mail addresses) are deliberately not reproduced here. Section 1.8 references 'constitute provisions of this Recommended Standard' (kind 'normative'); Annex E lists informative references. The two patents are recorded as 'mentioned'. The SCCC (131.2-B) and DVB-S2 (131.3-B) options are only referenced, not specified, here. No individual authors are named."
+}

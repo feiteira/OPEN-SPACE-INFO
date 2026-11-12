@@ -1,0 +1,96 @@
+{
+ "table": "ccs",
+ "file": "ccs.dat",
+ "icd": true,
+ "name": "Numerical (de-)calibration curves definition",
+ "icd_section": "3.3.3.6.2",
+ "pdf_page": 207,
+ "family": "commanding",
+ "purpose": "The ccs table holds the points of the commanding numerical (de-)calibration curves declared in CCA, one record per engineering/raw value pair. Each pair links an engineering value to the raw value that is encoded in the command; SCOS-2000 uses the set of pairs of a curve to convert an engineering value entered by the user into the raw value to be encoded, and raw values back to engineering values for display. Contrary to the monitoring calibration tables (CAP), where the raw value comes first, here the engineering value is in the X column (CCS_XVALS) and the raw value in the Y column (CCS_YVALS). Engineering values are always written in decimal, whereas unsigned raw values use the radix declared for the curve (CCA_RADIX). Because the curve must be invertible without ambiguity, each engineering value should correspond to exactly one raw value and vice versa; the key (curve name plus raw value) prevents the same raw value from appearing twice in a curve. The value fields have no fixed size: their maximum length follows from the maximum command size.",
+ "keys": [
+  "CCS_NUMBR",
+  "CCS_YVALS"
+ ],
+ "fields": [
+  {
+   "pos": 1,
+   "name": "CCS_NUMBR",
+   "type": "Char(10)",
+   "mandatory": "M",
+   "default": null,
+   "description": "Name (CCA_NUMBR) of the curve to which this value pair belongs.",
+   "values": [],
+   "references": "cca.CCA_NUMBR",
+   "pdf_page": 207
+  },
+  {
+   "pos": 2,
+   "name": "CCS_XVALS",
+   "type": "Char",
+   "mandatory": "M",
+   "default": null,
+   "description": "Engineering value of the point, in a format compatible with CCA_ENGFMT. All values, unsigned integers included, are written in decimal whatever the curve radix (CCA_RADIX). Maximum length depends on the maximum command size.",
+   "values": [],
+   "references": null,
+   "pdf_page": 208
+  },
+  {
+   "pos": 3,
+   "name": "CCS_YVALS",
+   "type": "Char",
+   "mandatory": "M",
+   "default": null,
+   "description": "Raw value of the point, in a format compatible with CCA_RAWFMT; unsigned integer raw values (CCA_RAWFMT=U) are written in the radix CCA_RADIX. Part of the key. Maximum length depends on the maximum command size.",
+   "values": [],
+   "references": null,
+   "pdf_page": 208
+  }
+ ],
+ "relationships": [
+  {
+   "field": "CCS_NUMBR",
+   "target": "cca.CCA_NUMBR",
+   "note": "Curve owning the point; formats and radix come from CCA."
+  }
+ ],
+ "history": "ICD 5.1 (2001, section 3.3.3.6.2, PDF p.100-101): CCS_NUMBR Number(4), CCS_XVALS and CCS_YVALS Char(17), key CCS_NUMBR + CCS_YVALS. ICD 6.7 Draft A (PDF p.194-195) and ICD 6.9 (PDF p.199-200): CCS_NUMBR Char(10), values still Char(17). ICD 7.0 (PDF p.207-208): values without fixed size, bounded by the maximum command size (S2K-8073, Annex 2, PDF p.261). pyscos2000 (ICD 7.2) has the same three mandatory columns but marks all three, including CCS_XVALS, as key.",
+ "solo_stats": {
+  "rows": 1226,
+  "fields": [
+   {
+    "name": "CCS_NUMBR",
+    "filled": 1226,
+    "examples": [
+     "CITP1091TC",
+     "CICPCMS0TC",
+     "CTC4Z101TC",
+     "CTC4Z106TC",
+     "CIWP0069TC"
+    ]
+   },
+   {
+    "name": "CCS_XVALS",
+    "filled": 1226,
+    "examples": [
+     "0",
+     "1",
+     "4",
+     "0.25",
+     "0.999984741"
+    ]
+   },
+   {
+    "name": "CCS_YVALS",
+    "filled": 1226,
+    "examples": [
+     "0",
+     "255",
+     "65535",
+     "-32768",
+     "32767"
+    ]
+   }
+  ]
+ },
+ "notes": "Key discrepancy: ICD 7.0 keys on CCS_NUMBR + CCS_YVALS only, pyscos2000 on all three columns. The ICD remark preceding the table speaks of 'CCA_XVALS', an evident slip for CCS_XVALS. Solar Orbiter 2025-09-16 has 1226 points (1233 in 2020) for 99 curves, all curve names resolving to CCA; longest values are 17 characters (XVALS) and 10 (YVALS). Curve CPWP8010TM maps engineering value 0 to two raw values (0 and 430), which contradicts the one-to-one requirement stated in the section introduction (ICD 7.0 section 3.3.3.6, PDF p.205) although it does not violate the table key."
+}

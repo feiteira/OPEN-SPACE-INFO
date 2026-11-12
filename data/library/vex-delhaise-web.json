@@ -1,0 +1,277 @@
+{
+  "slug": "vex-delhaise-web",
+  "title": "Spacecraft and Payload Data Handling",
+  "short_title": "Venus Express data handling (ESA SP-1295)",
+  "doc_id": "SP-1295",
+  "issue": null,
+  "date": null,
+  "organisation": "European Space Agency (ESOC Ground Systems Engineering Department; ESTEC and ESAC Research and Scientific Support Department)",
+  "authors": [
+    "F. Delhaise",
+    "A. Ercolani",
+    "J. Zender",
+    "M. Barthelemy",
+    "R. Trautner",
+    "C. Arviset"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "A chapter printed in the ESA Special Publication volume SP-1295 (running header on even pages, e.g. PDF p. 2); the publication date is not printed. The text says the first scientific data from Venus Express were distributed in May 2007 (PDF p. 12), and the newest reference is from 2006, so it was written in or after 2007.",
+  "summary": "A chapter from ESA SP-1295 that follows Venus Express data from the ground station to the scientific archive. It defines processing levels 0 to 3: Level-1 is cleaned, merged, time-ordered frame data from NCTRS, and Level-1a is Level-1 separated per instrument for the DDS. It then describes the ESOC data processing systems, a delta development of the joint Rosetta and Mars Express systems. The **Venus Express Mission Control System** (VMCS), based on [SCOS-2000](../scos2000/index.md), handles TM/TC, command verification, out-of-limit detection, calibration and a full command history, and converts on-board time to UTC to better than 2 ms ([time correlation](../scos2000/time-correlation.md)). Other parts are the Mission Planning System, the offline FOP system that imports procedures and sequences into the operational database, and [NCTRS](../scos2000/nctrs-nis.md), which receives ERT-stamped telemetry from the ground stations, forwards telecommands and collects tracking data.\n\nThe core of the chapter for this wiki is raw-data dissemination. The **VDDS**, based on the [GDDS](../scos2000/gdds-and-ddids.md), takes XML requests (standing orders, web interface or FTP request files) in a recursive query language. It retrieves from the SCOS-2000 packet archive and file archive ([archives](../scos2000/archives.md)) through a CORBA interface and delivers results over the web, by FTP or on DVD. The VDDS also produces DVDs in the CCSDS Standard Formatted Data Unit format. **TDRS** ([TDRS](../scos2000/tdrs.md)) extracts parameters from fixed-length packets in the history archive, with optional calibration and validity/OOL evaluation, and delivers spreadsheets. The second half covers the science side: PDS standard concepts (ODL keyword = value labels, catalogue files, VOLDESC.CAT), the archive process (Archive Plan, EAICD, DAWG, a validation tool, three-month data-collection and six-month preparation phases, peer review), conversion of auxiliary data to NAIF SPICE kernels by Perl scripts polling the DDS, Level-1b quicklook with QBTool, and the Planetary Science Archive online services.",
+  "contents": [
+    {
+      "section": "Abstract",
+      "title": "Abstract",
+      "pdf_page": 1
+    },
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 1
+    },
+    {
+      "section": "2",
+      "title": "The Ground Segment",
+      "pdf_page": 2
+    },
+    {
+      "section": "2.1",
+      "title": "Overview",
+      "pdf_page": 2
+    },
+    {
+      "section": "2.2",
+      "title": "Collection of telemetry",
+      "pdf_page": 4
+    },
+    {
+      "section": "2.3",
+      "title": "Dissemination of raw data",
+      "pdf_page": 4
+    },
+    {
+      "section": "2.3.1",
+      "title": "Dissemination of the mission raw data via the DDS",
+      "pdf_page": 5
+    },
+    {
+      "section": "2.3.2",
+      "title": "Dissemination of the raw data via the TDRS",
+      "pdf_page": 6
+    },
+    {
+      "section": "3",
+      "title": "Scientific Processing and Data Archiving",
+      "pdf_page": 7
+    },
+    {
+      "section": "3.1",
+      "title": "Overview",
+      "pdf_page": 7
+    },
+    {
+      "section": "3.2",
+      "title": "The Planetary Data System standard",
+      "pdf_page": 7
+    },
+    {
+      "section": "3.3",
+      "title": "The scientific archive process",
+      "pdf_page": 10
+    },
+    {
+      "section": "4",
+      "title": "The Auxiliary Data Conversion system",
+      "pdf_page": 11
+    },
+    {
+      "section": "5",
+      "title": "Science Quicklook",
+      "pdf_page": 12
+    },
+    {
+      "section": "6",
+      "title": "Online Archive Services",
+      "pdf_page": 12
+    },
+    {
+      "section": "7",
+      "title": "Conclusion",
+      "pdf_page": 12
+    },
+    {
+      "section": "References",
+      "title": "References",
+      "pdf_page": 12
+    },
+    {
+      "section": "Acknowledgements",
+      "title": "Acknowledgements",
+      "pdf_page": 13
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Each instrument team retrieves spacecraft, ancillary and instrument data from the Data Distribution System (DDS) at ESOC; ESOC removes errors arising in the space-to-ground transmission.",
+      "pdf_page": 1
+    },
+    {
+      "text": "Processing levels: Level-0 raw TM; Level-1 cleaned, merged, time-ordered frame data created by NCTRS; Level-1a separated by instrument as requested by the DDS; Level-1b sorted by data type and mode (uncalibrated); Level-2 calibrated; Level-3 higher-level products.",
+      "pdf_page": 2
+    },
+    {
+      "text": "The Venus Express control concept was inherited from Rosetta and Mars Express, with a single control centre and the ESA deep space antennas at New Norcia and Cebreros; the VEX data systems are a delta development of the shared Rosetta/Mars Express systems.",
+      "pdf_page": 3
+    },
+    {
+      "text": "The VMCS, based on SCOS-2000, performs command verification and out-of-limit detection, timestamps TM by converting on-board time to UTC with better than 2 ms accuracy, and also manages the operational database and on-board software maintenance.",
+      "pdf_page": 3
+    },
+    {
+      "text": "The Venus Express Data Disposition System (VDDS) is based on the GDDS and produces daily Raw Data Media and instrument DVDs sent to VSOC.",
+      "pdf_page": 3
+    },
+    {
+      "text": "The MCS receives TM via NCTRS after the ground station has time-stamped it with Earth Reception Time; NCTRS also stores tracking data (antenna angles, range, Doppler) for FDS via FTS and for PIs via the DDS, and forwards files such as station schedules to the station.",
+      "pdf_page": 4
+    },
+    {
+      "text": "DVDs are formatted using the CCSDS Standard Formatted Data Unit concept; the OCC archives all Level-1 data for 10 years after end of mission; external access is only via the VDDS and TDRS.",
+      "pdf_page": 4
+    },
+    {
+      "text": "The SCOS-2000 mission archive has a packet archive (historical TM, TC and derived data) and a file archive (flight dynamics and planning data); DDS requests come as standing orders, via the web or as FTP request files in a recursive XML query language, and are served through a CORBA interface to the VMCS.",
+      "pdf_page": 5
+    },
+    {
+      "text": "DDS online retrieval is for previewing small amounts of data, embedded as a byte stream in the XML response; full deliveries go via FTP, http or DVD.",
+      "pdf_page": 6
+    },
+    {
+      "text": "TDRS is a SCOS-2000 external interface retrieving parameters from the History File Archive, with optional calibration, validity and out-of-limit evaluation; it supports only fixed-length packets.",
+      "pdf_page": 6
+    },
+    {
+      "text": "PDS labels use the Object Description Language with keyword = value pairs defined in the Planetary Science Data Dictionary; datasets need catalogue files under CATALOG and a top-level VOLDESC.CAT.",
+      "pdf_page": 7
+    },
+    {
+      "text": "The Auxiliary Data Conversion System (Perl scripts) polls the ESOC DDS several times a day for orbit, attitude and time-correlation data and converts them into SPICE SPK, CK and SCLK kernels and ORBNUM files.",
+      "pdf_page": 11
+    },
+    {
+      "text": "The first scientific data from Venus Express were distributed in May 2007.",
+      "pdf_page": 12
+    }
+  ],
+  "references": [
+    {
+      "label": "(2002) DDID",
+      "doc_id": "RO-ESC-IF-5003",
+      "title": "Venus Express, MEX, Rosetta Data Delivery Interface Document",
+      "issue": null,
+      "date": "June 2002",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": "(2002) GDDS SUM",
+      "doc_id": "DTOS-INFR-UM-1001",
+      "title": "Generic Data Disposition System Operator User Manual",
+      "issue": "Issue1.1",
+      "date": "March 2002",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": "(2000) TDRS SUM",
+      "doc_id": "s2k-mcs-sum-2280-tos-gci",
+      "title": "Telemetry Data Retrieval System Operator User Manual",
+      "issue": "Issue 2.0",
+      "date": "17 July 2000",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": "(2004) VEX SRD",
+      "doc_id": "VEX-RSSD-SP-002",
+      "title": "Venus Express, Science Requirements Document",
+      "issue": null,
+      "date": "March 2004",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": "(1989) ESA Council",
+      "doc_id": "ESA/C(89)95, rev 1",
+      "title": "ESA Council, Rules Concerning Information and Data",
+      "issue": "rev 1",
+      "date": "21 December 1989",
+      "kind": "bibliography",
+      "pdf_page": 13
+    },
+    {
+      "label": "(1992) PSDD",
+      "doc_id": "JPL D-7116",
+      "title": "Planetary Science Data Dictionary Document",
+      "issue": "Rev C",
+      "date": "November 1992",
+      "kind": "bibliography",
+      "pdf_page": 13
+    },
+    {
+      "label": "(2006) PDS Standards Reference",
+      "doc_id": "JPL D-7669, Part 2",
+      "title": "Planetary Data System Data Standards Reference",
+      "issue": "Version 3.7",
+      "date": "February 2006",
+      "kind": "bibliography",
+      "pdf_page": 13
+    },
+    {
+      "label": "(2002) PSA URD",
+      "doc_id": "SOP-RSSD-RS-006",
+      "title": "ESA's Planetary Missions Science Data Archive, User Requirement Document",
+      "issue": null,
+      "date": "June 2002",
+      "kind": "bibliography",
+      "pdf_page": 13
+    },
+    {
+      "label": "(2002) PSA URD Issue 1",
+      "doc_id": "SOP-RSSD-RS-006",
+      "title": "PSA User Requirement Document",
+      "issue": "Issue 1",
+      "date": "17 April 2002",
+      "kind": "bibliography",
+      "pdf_page": 13
+    },
+    {
+      "label": "(2004) Archive Plan",
+      "doc_id": "VEX-RSSD-PL-001",
+      "title": "Venus Express Data Generation, Validation and Transfer Plan",
+      "issue": "Issue 1.1",
+      "date": "7 June 2004",
+      "kind": "bibliography",
+      "pdf_page": 13
+    },
+    {
+      "label": "SFDU",
+      "doc_id": null,
+      "title": "Standard Formatted Data Unit concept as recommended by the CCSDS",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 4
+    }
+  ],
+  "topics": [
+    "missions/rosetta-mex-vex.md",
+    "scos2000/gdds-and-ddids.md",
+    "scos2000/tdrs.md",
+    "scos2000/archives.md",
+    "scos2000/nctrs-nis.md",
+    "scos2000/time-correlation.md",
+    "scos2000/edds.md"
+  ],
+  "notes": "The extraction interleaves the two-column layout (side headings and figure captions appear mid-sentence). The ODL and label examples ('the block on the opposite page') and Figures 1-5 are images or boxes that were not extracted; PDF p. 9 is effectively empty. The archive size is printed as 'of the order of 109 bytes', where the superscript of 10^9 is lost. NCTRS is expanded as 'Network Controller and Telemetry Receiver System', which differs from 'Network Control and TM/TC Router System' used elsewhere. The term 'Telemetry Data Retrieval System' is used for TDRS, and the DDS is described as 'based on the Generic Data Disposition System'. Fabienne Delhaise's e-mail address is omitted here. The extraction reports 14 PDF pages (registry: 13); the last is empty. Two references share the ID SOP-RSSD-RS-006 with different titles and dates. A. Ercolani and F. Delhaise also appear on the approval page of library item mex-esc-id-5003-fds-icd."
+}

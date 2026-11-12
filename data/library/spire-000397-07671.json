@@ -1,0 +1,132 @@
+{
+ "slug": "spire-000397-07671",
+ "title": "SCOS - 2000 EVALUATION",
+ "short_title": "SCOS-2000 Evaluation: FIRST/Planck project position",
+ "doc_id": "PT - 07671",
+ "issue": null,
+ "date": "18-19 April 2000",
+ "organisation": "European Space Agency, FIRST/Planck Project",
+ "authors": [
+  "P. Estaria"
+ ],
+ "doc_type": "Presentation",
+ "status_notes": "Seven slides presented at ESOC on 18-19 April 2000 (title slide and footers, PDF pp. 1-7).",
+ "summary": "Seven slides presented by P. Estaria for the ESA FIRST/Planck project at the SCOS-2000 meeting at ESOC on 18-19 April 2000 (reference PT - 07671). They give the project's formal position on whether the instrument teams should use [SCOS-2000](../scos2000/index.md).\n\nThe history slide gives the background. The RTA CWG evaluated SCOS-2000 version 0.2 on 3-5 November 1999 as a possible framework for a common real-time assessment (RTA) system for the FIRST and Planck instruments. Since then the instrument groups had widened the scope to using SCOS-2000 as an EGSE kernel. PACS had gathered the extra requirements, covering missing RTA functions and expected EGSE features, in a 'consolidated' Delta URD of 4 April 2000. The slide warns that this URD could not yet be considered consolidated. ESOC had provided a draft software licence agreement, a service and support proposal and a description of the PROBA EGSE elements. The aim of the meeting was to give the PI groups everything they needed to decide.\n\nThe project position follows ESA science directorate policy. EGSEs are provided by industry under the spacecraft contract (ESA/IPC(89)126), the Agency delivers as little as possible to industry, the ground segment is part of the overall system trade-off, and commonality between flight control and checkout systems is to be pursued (also a goal for Rosetta and MEX). The choice of SCOS-2000 is entirely a PI decision. The project can supply no technical support, hardware, software or funding for direct or indirect costs, and accepts no responsibility for problems. Its coordination role ended with the termination of the RTA CWG. See [SCOS-2000 as EGSE](../scos2000/egse.md) and [Herschel and Planck](../missions/herschel-planck.md).",
+ "contents": [
+  {
+   "section": null,
+   "title": "Title: SCOS - 2000 EVALUATION, ESOC 18 - 19 April 2000, P. ESTARIA",
+   "pdf_page": 1
+  },
+  {
+   "section": null,
+   "title": "Introduction: History",
+   "pdf_page": 2
+  },
+  {
+   "section": null,
+   "title": "Meeting objectives",
+   "pdf_page": 3
+  },
+  {
+   "section": null,
+   "title": "FIRST/Planck Project Position",
+   "pdf_page": 4
+  }
+ ],
+ "key_points": [
+  {
+   "text": "SCOS-2000 (version 0.2) was evaluated on 3-5 November 1999 by the RTA CWG as a possible 'framework' for a common RTA system for the FIRST and Planck instruments.",
+   "pdf_page": 2
+  },
+  {
+   "text": "The instrument groups then considered an expanded scope for SCOS-2000: its use as an EGSE kernel.",
+   "pdf_page": 2
+  },
+  {
+   "text": "PACS captured the additional requirements in a 'consolidated' Delta URD (04/04/00), which the slide notes cannot yet be considered consolidated.",
+   "pdf_page": 2
+  },
+  {
+   "text": "ESOC provided a draft SCOS-2000 software licence agreement proposal, a service and support proposal, and a description of existing EGSE elements from PROBA.",
+   "pdf_page": 3
+  },
+  {
+   "text": "ESA (D/SCI) policy: EGSEs are provided by industry as part of the spacecraft procurement contract (ESA/IPC(89)126), with a minimum of Agency deliverables to industry.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Commonality and compatibility between the Flight Control System and the Check Out System is to be pursued within project constraints, also a goal for Rosetta and MEX.",
+   "pdf_page": 4
+  },
+  {
+   "text": "Selecting SCOS-2000 as instrument EGSE kernel or for any other function is entirely a PI decision; the project can provide no technical support, hardware, software or financing.",
+   "pdf_page": 5
+  },
+  {
+   "text": "Costs not covered include direct costs (hardware, licences, Delta URD developments, installation, maintenance, training) and indirect costs via an increase of the MOC CaC.",
+   "pdf_page": 6
+  },
+  {
+   "text": "The project's coordination of the SCOS-2000 evaluation ended with the termination of the RTA CWG.",
+   "pdf_page": 6
+  },
+  {
+   "text": "The benefits of commonality and compatibility are expected to be substantial but have not been quantified.",
+   "pdf_page": 7
+  }
+ ],
+ "references": [
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "Delta URD (PACS, \"consolidated\" 04/04/00)",
+   "issue": null,
+   "date": "04/04/00",
+   "kind": "mentioned",
+   "pdf_page": 2
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "Draft SCOS-2000 S/W licence agreement proposal (ESOC)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "SCOS-2000 Service and Support proposal (ESOC)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 3
+  },
+  {
+   "label": null,
+   "doc_id": "ESA/IPC(89)126",
+   "title": "ESA (D/SCI) policy: EGSEs provided by Industry as part of the spacecraft procurement contract",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 4
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "AIV specifications (part of the ITT)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 5
+  }
+ ],
+ "topics": [
+  "missions/herschel-planck.md",
+  "scos2000/egse.md",
+  "scos2000/herschel-planck-ground.md"
+ ],
+ "notes": "The same seven slides appear as PDF pp. 38-44 of scos2000-complete-presentation-2000 and tos-gc-first-planck-presentation-2000, with identical text. The PDF metadata title is 'Microsoft PowerPoint - 07671', created 8 May 2000. The slide header 'FIRST/Planck' extracts as font-shifted characters ('),5673ODQFN'). The acronyms RTA CWG and CaC are not expanded in the document. The text extraction has a trailing empty page 8."
+}
