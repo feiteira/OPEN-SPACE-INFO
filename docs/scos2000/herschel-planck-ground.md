@@ -1,8 +1,8 @@
 ---
 title: "Herschel/Planck: SCOS-2000 in a science mission ground segment"
-description: Case study of how SCOS-2000 and its MIB were used across the Herschel/Planck ground segment - the April 2000 decision to base the instrument EGSE on SCOS-2000, the licence and cost terms, the operations interface requirements, the HPSDB system database and naming convention, the HCSS MIB tailoring note, TC history and out-of-limits ingestion, SPIRE database configuration control and the ACMS database experience.
+description: Case study of how SCOS-2000 and its MIB were used across the Herschel/Planck ground segment - the April 2000 decision to base the instrument EGSE on SCOS-2000, the licence and cost terms, the operations interface requirements, the HPSDB system database and naming convention, the HCSS MIB tailoring note, TC history and out-of-limits ingestion, SPIRE database configuration control, the ACMS database experience, the HPSDB in use (user manual, release notes, update files from the checkout system) and its afterlife as a reference database for later programmes.
 tags: [SCOS-2000, Herschel, Planck, HCSS, HPSDB, MIB, EGSE, Case study]
-sources: [scos2000-and-first-planck-mom, scos2000-complete-presentation-2000, tos-gc-first-planck-presentation-2000, spire-000397-07671, spire-sw-licence-application, scos2000-meeting-agenda-2000, tc-history-ingestion-tn, tch-ool-user-guide-v2-3, hcss-mib-clarification-tailoring-note, spire-db-management-1-0, h-p-1-asp-tn-1060-mib-processing-hpsdb, cosmos-operations-interface-requirements, nlr-report-e0d9e9a5, cosmos-herschel-egse-integration-plan, alc-scos-fax-2003-01-27, spire-mib-naming-convention-1-2, icd-7-0-final, esa-bulletin-108-ch8, bul130-merri-happy-families, cosmos-common-egse-document-overview, mib-20250916m25925pfms001-sol]
+sources: [scos2000-and-first-planck-mom, scos2000-complete-presentation-2000, tos-gc-first-planck-presentation-2000, spire-000397-07671, spire-sw-licence-application, scos2000-meeting-agenda-2000, tc-history-ingestion-tn, tch-ool-user-guide-v2-3, hcss-mib-clarification-tailoring-note, spire-db-management-1-0, h-p-1-asp-tn-1060-mib-processing-hpsdb, cosmos-operations-interface-requirements, nlr-report-e0d9e9a5, cosmos-herschel-egse-integration-plan, alc-scos-fax-2003-01-27, spire-mib-naming-convention-1-2, icd-7-0-final, esa-bulletin-108-ch8, bul130-merri-happy-families, cosmos-common-egse-document-overview, mib-20250916m25925pfms001-sol, h-p-1-aspi-sp-0045-egse-general-req, cosmos-tei-tmtc-packet-icd, ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d, herschel-planck-space-ground-interface-control-document-sgicd, h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual, h-p-2-asp-li-1441-09-herschel-hpsdb-release-note, hifi-user-manual-annex-3-mib-139-aspi-11-7-overview, rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd, herschel-egse-packet-router-icd, rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification, 02-sesp-2015-from-hpsdb-to-egs-cc-presentation, tc-history-icd]
 ---
 
 # Herschel/Planck: SCOS-2000 in a science mission ground segment
@@ -25,7 +25,14 @@ requirements) and from related papers. It covers the decision of April 2000, the
 operations interface requirements, the system database and naming rules, the MIB tailoring for
 the Herschel Common Science System (HCSS), the ingestion of SCOS-2000 command history and
 out-of-limits files, SPIRE's database configuration control, and the experience of the
-attitude control subsystem team. The [Herschel and Planck mission page](../missions/herschel-planck.md)
+attitude control subsystem team. A second set of documents, copied on 12 November 2026, adds
+the programme's interface control documents (the Packet Structure and Space/Ground ICDs, the
+instrument test router, the EGSE interface requirements, the CCS external interfaces and the
+TC History ICD), the
+HPSDB user manual, one HPSDB release note, a printed HIFI MIB and a 2015 retrospective by the
+prime; this page uses them where they show how the MIB moved between the parties, and
+[Herschel/Planck interface documents](herschel-planck-interfaces.md) reads them bit by
+bit.[^ps-cover][^um-cover][^rn-cover][^thf-cover][^sesp-intro] The [Herschel and Planck mission page](../missions/herschel-planck.md)
 covers the missions themselves.
 
 !!! info "At a glance"
@@ -40,6 +47,12 @@ covers the missions themselves.
       from instrument to spacecraft level.[^naming-hdr][^fax-req][^tn1060-scope]
     * **2003-2008**: the HCSS ingests MIBs, telecommand history and out-of-limits files from
       SCOS-2000 into its own archive.[^hcss-bg][^tch-overview]
+    * **2002-2008**: the checkout system reads HPSDB "bridge files" in an extended ICD 5.1
+      format and returns "update files" listing what each test validated; the HPSDB delivers
+      validated models with release notes, change records and checksums (the library holds
+      one such note, for a delivery to ASED in April 2008).[^ccs-over][^ccs-upd][^rn-intro][^rn-files]
+    * **2015**: the prime presents the HPSDB concept, adapted as a System Reference Data Base
+      for a later programme, as validated by Herschel/Planck.[^sesp-intro][^sesp-concl]
     * **Archive**: the Herschel MIB releases are listed in the ESA Herschel Science Archive,
       but this wiki could not copy them (see [below](#the-herschel-mib-in-the-archive)).
 
@@ -48,16 +61,18 @@ timeline
     title Herschel/Planck ground segment documents in the library
     1999 : SCOS-2000 v0.2 evaluated by the RTA CWG (3-5 Nov)
     2000 : PACS delta URD (4 Apr) : ESOC meeting with the instrument groups (18-19 Apr)
-    2001 : TC history ingestion TN 0.1 (7 Sep) : Herschel EGSE integration plan issue 1 (6 Nov)
-    2002 : SPIRE MIB naming convention 1.2 (11 Mar) : SPID uniqueness e-mails (Sep) : ESOC answers on the import ICD (5 Dec)
-    2003 : HCSS MIB note 0.1 (14 Jan) : Alcatel naming limits fax (27 Jan) : TC history TN 0.2 (18 Mar) : OIRD issue 2.2 (Sep) : TCH/OOL user manual 1.0 (24 Oct)
-    2004 : IST support in the ingestion software (2 Apr) : HCSS MIB note 1.5 (21 Dec)
-    2006 : HPSDB MIB processing TN issue 1 (7 Feb) : ACMS database paper at SpaceOps (Jun)
-    2007 : SPIRE database management 1.0 (19 Feb) : NLR report (Apr)
-    2008 : TCH/OOL user manual 2.3 with DDS OOL files (13 Nov)
+    2001 : TC history ingestion TN 0.1 (7 Sep) : Packet router ICD 1.1 (23 Oct) : Herschel EGSE integration plan issue 1 (6 Nov) : EGSE interface requirements issue 01 (7 Nov)
+    2002 : SPIRE MIB naming convention 1.2 (11 Mar) : CCS External ICD 1.0 for the PDR (17 May) : SPID uniqueness e-mails (Sep) : TC History ICD 1.0 (30 Oct) : ESOC answers on the import ICD (5 Dec)
+    2003 : HCSS MIB note 0.1 (14 Jan) : Alcatel naming limits fax (27 Jan) : TC history TN 0.2 (18 Mar) : HPSDB user manual 1.0 (18 Jul) : OIRD issue 2.2 (Sep) : TCH/OOL user manual 1.0 (24 Oct)
+    2004 : IST support in the ingestion software (2 Apr) : Space/Ground ICD 3.2 (1 Dec) : EGSE interface requirements 4.1 (14 Dec) : HCSS MIB note 1.5 (21 Dec)
+    2005 : HPSDB user manual 2.6 (15 Sep)
+    2006 : CCS External ICD 1.8 (18 Jan) : HPSDB MIB processing TN issue 1 (7 Feb) : ACMS database paper at SpaceOps (Jun)
+    2007 : SPIRE database management 1.0 (19 Feb) : NLR report (Apr) : Herschel HPSDB release note 1.0 (10 Oct)
+    2008 : PS-ICD 6.0 (25 Jan) : HPSDB release note 9.0 (7 Apr) : HIFI MIB 139 listing (11 Jul) : TCH/OOL user manual 2.3 with DDS OOL files (13 Nov)
+    2015 : "SRDB - From H/P to EGS-CC" at SESP (24-26 Mar)
 ```
 
-The dates are those printed on the documents.[^pres-eval][^mom-hdr][^tchtn-cr][^iplan-hdr][^naming-hdr][^hcss-spid][^hcss-esoc][^fax-hdr][^hcss-cr][^oird-hdr][^tch-cr][^tn1060-cr][^nlr-sum][^spiredb-hdr]
+The dates are those printed on the documents.[^pres-eval][^mom-hdr][^tchtn-cr][^iplan-hdr][^naming-hdr][^hcss-spid][^hcss-esoc][^fax-hdr][^hcss-cr][^oird-hdr][^tch-cr][^tn1060-cr][^nlr-sum][^spiredb-hdr][^rtr-cover][^irs-cr][^ccs-cover][^thf-cover][^um-cover][^sg-cover][^rn-cr][^ps-cr60][^hmib-cover][^sesp-intro]
 
 ## Who did what
 
@@ -72,8 +87,12 @@ The documents name the organisations and their products as follows.
 | Alcatel Space Industries (2003), Alcatel Alenia Space France (AAS-F) in 2006 | Prime for both satellites; manages the instrument interfaces; procured the HPSDB | [^fax-hdr][^nlr-team] |
 | Alcatel Alenia Space Italia (AAS-I) | Service module | [^nlr-team] |
 | Dutch Space with Sener and Analyticon | Attitude Control and Measurement System (ACMS) | [^nlr-team] |
-| Terma | ACMS application software; Herschel/Planck Central Checkout System (HPCCS) | [^nlr-team] |
-| GMV | Herschel/Planck System Data Base (HPSDB) | [^nlr-team] |
+| Terma | ACMS application software; Herschel/Planck Central Checkout System (HPCCS) and its External ICD (author L. R. Hansen, authorised by A. Armitage) | [^nlr-team][^ccs-cover] |
+| GMV | Herschel/Planck System Data Base (HPSDB) and its software user manual | [^nlr-team][^um-cover] |
+| SRON (HIFI) | The ICD of the EGSE packet router used in instrument level tests, the test equipment interface ICD, and the HIFI MIB with its printed overview | [^rtr-cover][^tei-hdr][^hmib-cover] |
+| Thales Alenia Space France (2007-2008) | Supplier of the Herschel database deliveries from the HPSDB central site; its data base manager wrote the release note | [^rn-cover][^rn-intro] |
+| ASED (Friedrichshafen) | Receives the Herschel flight model database in CCS format, filtered for AIT, for the Herschel IRR | [^rn-intro] |
+| Vitrociset, Siemens | Named in the change record of the CCS External ICD (drafts B and C of April-May 2002 "for agreement"); their role is not stated in the available sources | [^ccs-cover] |
 
 ```mermaid
 flowchart LR
@@ -91,9 +110,10 @@ flowchart LR
   subgraph HSC["Science ground segment"]
     HCSS["HCSS<br/>(MIB, TC history and OOL ingestion)"]
   end
+  IM -->|"S2K bridge files<br/>+ configuration files"| HP
   IM --> IE
-  IM --> HP
-  HP --> CCS
+  HP -->|"CCS bridge files<br/>+ release note"| CCS
+  CCS -->|"update files<br/>(validated TCs, parameters)"| HP
   HP --> MCS
   IM --> HCSS
   IE -->|"TC history (THF),<br/>OOL (ORF)"| HCSS
@@ -105,8 +125,12 @@ flowchart LR
     CCS MIB files, generates them again), the NLR paper (HPSDB exports SCOS-2000 files for AIT
     and operations), the HCSS MIB note (HCSS ingests ASCII MIB files) and the ingestion user
     manual (files from SCOS-2000, and DDS files from the MOC in routine phase).[^tn1060-scope][^nlr-hpsdb][^hcss-bg][^tch-overview]
-    No single source draws this picture, and the exact delivery paths of MIB versions between
-    the parties are not stated in the available sources.
+    The bridge, configuration, update-file and release-note labels come from the HPSDB user
+    manual, the CCS External ICD and the Herschel release note.[^um-bridge][^ccs-over][^rn-intro]
+    No single source draws this picture. One delivery path is documented end to end (the
+    Herschel flight model from the HPSDB central site to ASED in April 2008, see
+    [below](#the-hpsdb-in-use)); how instrument MIB versions reached the MOC and the HCSS is not
+    stated in the available sources.
 
 ## The decision of April 2000
 
@@ -342,7 +366,8 @@ The OIRD's table of applicable PUS services for the instruments (see
 ### Packet rules that shape the MIB
 
 Several OIRD requirements decide what the MIB tables can express. APIDs are allocated by the
-project in the Packet Structure ICD (PSICD); telemetry from a subsystem uses the same APID as
+project in the Packet Structure ICD (PSICD; see the
+[APID structure](../missions/herschel-planck.md#apids-prime-and-redundant)); telemetry from a subsystem uses the same APID as
 its telecommands where possible; the location of a housekeeping parameter must follow from
 APID, type, subtype and structure ID (SID); SIDs are unique within an APID and few per APID;
 housekeeping subcommutation is forbidden and supercommutation allowed only with regular
@@ -422,6 +447,35 @@ standard TM packets described in `plf`.[^fax-req][^i70-udc]
 | Command verification stage identifiers limited to Number(4) | The ICD allows Number(5) |
 | Dynamic user-defined constants in fixed ranges of the unique "constant packet" in `plf`: system 0000-0099, SVM 0100-0199, PLM 0200-0299, HIFI (Herschel) and HFI (Planck) 0300-0399, PACS and LFI 0400-0499, 0500-0599 labelled HIFI again for Herschel and "not used" for Planck (SPIRE is not named in the list as printed), spare 0600-1023 | The constant packet is unique, so allocations must not overlap at integration |
 | The SPID of the constant packet supports 1024 octets | All levels produce the same archive format, at the cost of disc space at instrument level |
+
+### Identifiers in the checkout system and the EGSE
+
+The checkout system went the other way. Terma's CCS External ICD, whose issue 1.5 of July 2003
+introduced the changes labelled ECP 1 and ECP 3, widened calibration curve and range set
+identifiers from Number(4) to Char(10) and verification stage identifiers from Number(5) to
+Number(10) in the CCS bridge files, although its field tables still print the range set
+fields (`PRF_NUMBR`, `PRV_NUMBR`, `CPC_PRFREF`, `CSP_PRFREF`) as Char(8).[^ccs-cover][^ccs-ecp1] It also reserved names and numbers
+for the test system: no parameter name may begin with `YZ` (`Y` being the EGSE subsystem and
+`Z` marking system parameters), none with `VAR`, `GVAR` or `$` (which the OL expression
+language uses), and SPIDs 100 to 999 are reserved for internal EGSE use.[^ccs-sys]
+
+!!! warning "Inference"
+    The two rules of 2003 fit together if the short numbers belong to the instrument S2K files
+    and the character identifiers to the CCS files generated by HPSDB: the HPSDB configuration
+    files map S2K curve, stage and range set numbers to naming-convention items (for example
+    SCOS curve 900 to the generic curve `000900`).[^um-cfg][^um-ex] No source states this
+    division of labour explicitly.
+
+The EGSE Interface Requirement Specification placed the test equipment itself in the naming
+convention. The EGSE subsystem is `Y` (written 25 in RM packet names, Y being the 25th letter); every EGSE item has a
+range of positions, from the ACMS SCOE (920-939) and the CCS (940-941) through the front ends,
+SCOEs and cryo equipment to the instrument EGSEs (HIFI 962-963, PACS 964-965, SPIRE 966-967,
+HFI 968-969, LFI 970-971). Remote command names are `YC`, their parameters `YP` and remote
+monitoring parameters `YM`, each followed by a three-character function and the position.[^irs-names][^irs-names2]
+Identifiers may contain only digits, the underscore and the upper-case letters other than `I`,
+`O` and `Q`.[^irs-names] That is stricter than requirement NMCVT-0100-C as the HCSS note reports
+it, which forbids those three letters only as leading characters, where the instrument
+centres used them for their EGSE-ILT parameters.[^hcss-nmcvt][^hcss-com]
 
 ### HPSDB: MIB files processing (H-P-1-ASP-TN-1060)
 
@@ -506,6 +560,59 @@ back. Some points matter for every MIB user:
     listed in ICD issue 7.0. The second header, `HPC1_TC`, has 7 rows (primary header only,
     data field header flag 0); 5 318 commands use `NOM_TC`, 125 use `HPC1_TC`, 6 `NOS2KHDR`
     and 5 `NO_HDR`.[^mib25]
+
+### The HPSDB in use
+
+The processing note says what HPSDB did to MIB files; GMV's user manual (version 2.6,
+September 2005) and a Herschel release note (issue 9.0, April 2008) show how the files moved.
+A user zips the SCOS-2000 bridge files of an instrument with configuration files that place
+them in the object model (elements, subsystem positions, a copy of `pid.dat` with
+naming-convention identifiers, and maps from short SCOS curve, stage and range set numbers to
+generic items) and loads them into the **working area**; the loader "is not a SCOS bridge
+file validator". Only the schema manager **validates**, which moves objects to the
+**reference area** and older copies to the **archive area**.[^um-bridge][^um-cfg][^um-areas][^um-val]
+Bridge files for the SCOS or the CCS format can then be generated from any box, the manager
+choosing the user category they are generated for.[^um-gen] On the checkout side, the CCS writes **update files**: tab-separated lines
+naming each telecommand (`c`) or parameter (`p`) that a test sequence validated, with time,
+sequence name and issue and the host, to be read together with the MIB issue in `vdf.dat`; the
+user manual's verification file has the same columns with a site instead of a host and is
+written straight into the reference area.[^ccs-upd][^um-ver]
+
+```mermaid
+sequenceDiagram
+  participant I as Instrument team
+  participant H as HPSDB central site
+  participant C as CCS at the AIT site
+  I->>H: zip of S2K bridge files and configuration files
+  H->>H: load into working area, manager validates into reference area
+  H->>C: CCS bridge files (zip) with release note and MD5 checksum
+  C->>C: import MIB, run test sequences
+  C->>H: update files (validated TCs and parameters, sequence and issue)
+  H->>H: verification data attached to the items in the reference area
+```
+
+!!! warning "Inference"
+    The loop is this wiki's assembly of the user manual, the CCS External ICD and the
+    release note; no source draws it as one cycle, and how often update files actually
+    travelled back to the HPSDB is not stated in the available sources.[^um-ver][^ccs-upd][^rn-intro]
+
+The release note documents one delivery in that loop. The central site (HPSDB 3.3.1.30) delivered
+the theoretical model `HERSCH_FM9`, as CCS files filtered for the "AIT User", to ASED in
+Friedrichshafen for the Herschel IRR, as `R_TM_HERSCH_FM9_C_804071709.zip` with an MD5
+checksum, by e-mail on 9 April 2008.[^rn-intro][^rn-files][^rn-deliv] The note's change record
+(issues 1.0 of 10 October 2007 to 9.0) lists the `DBAMN-H-...` items (the abbreviation is not expanded in the note) and the data
+validation requests behind them: loading new CDMU, ACMS and OBCP software data, new HIFI and
+SPIRE MIB versions, changes to `sco.dat` and `tcd.dat` for the flight-model cryo SCOE, a change
+of the TC sub-schedule and, in issue 6.0, switching all telecommands to "ground low priority"
+by default.[^rn-cr] Open non-conformance reports against the instrument EGSE delivery (files
+not compatible with Windows, extra spaces in `cpc.dat`, a missing `tpcf.dat`) show the kind of
+file-level problems the integration met.[^rn-ncrin] The model tree, the file naming convention
+and how it decodes the archive's file names are on the
+[mission page](../missions/herschel-planck.md#a-real-delivery-hpsdb-release-note-90).
+
+Sites never exchanged data automatically. The central site holds all valid objects; mirror
+sites, one of which the system EGSE specification required at the Central Checkout System, may
+change only real objects, and managers move XML transfer and log files between sites by hand.[^um-sites][^sp45-mirror]
 
 ## The HCSS MIB clarification and tailoring note
 
@@ -788,11 +895,18 @@ wrong length). Appendix B lists warnings such as "already in database", unknown 
 outside the time tolerance, unassociated histories, unsuccessful TCs and missing
 histories.[^tch-err][^tch-warn]
 
-!!! warning "Inference"
-    The record names in the error messages (header, command data, bit pattern and parameter
-    data records) suggest how the SCOS-2000 THF is structured; its own ICD (TC History ICD,
-    SPIRE-ICS-DOC-000900) is not in the library. The format of the THF and ORF files is not
-    stated in the available sources.[^tch-err][^tch-overview]
+!!! note "The THF format"
+    The record names in these error messages (header, command data, bit pattern and parameter
+    data records) are those of the THF's own ICD, the *TC History ICD* (SPIRE-ICS-DOC-000900,
+    issue 1.0, 30 October 2002, prepared by M. J. Graham), which is now in the library: an
+    ASCII file named `THF_yymmdd_cccc.DAT`, made of a header record and fixed-length records
+    that end with a new-line but have no field delimiters, each command record (`C`) followed
+    by a bit pattern record (`B`) and zero or more parameter records (`P`); the bit pattern is
+    not applicable to ILT, where it is available through SCOS-2000.[^thf-cover][^thf-name][^thf-file]
+    The record layouts are on
+    [the interface documents page](herschel-planck-interfaces.md#the-tc-history-file). The
+    format of the out-of-limits files (ORF) is still not stated in the available
+    sources.[^tch-err][^tch-overview]
 
 ## SPIRE database management and configuration control
 
@@ -873,7 +987,12 @@ issues 2 to 13 (July 2009 to October 2011, issue 7 three times) and an earlier, 
 May 2009. According to that page the database reached version 13, with changes added as new SID
 versions so that version 13 can reprocess all mission telemetry, and its format references are
 the Database Import ICD issue 6.6 (2008-08-25) and the HCSS MIB Clarification and Tailoring Note
-issue 1.9 (2007-09-14), later than the issue 1.5 described above.[^hsa-sdb]
+issue 1.9 (2007-09-14), later than the issue 1.5 described above.[^hsa-sdb] Read with the file
+naming convention printed in the 2008 release note, the oldest of these names
+(`HPSDB_R_TM_HERSCH_FM1_M_903062241`) would be a reference-area theoretical model `HERSCH_FM1`
+in MCS format, generated on 6 March 2009; the MOC issues use another pattern. This decoding is
+this wiki's reading, not stated by any source; it is explained on the
+[mission page](../missions/herschel-planck.md#the-hpsdb-mib-releases-at-the-herschel-science-archive).[^rn-files][^hsa-sdb]
 
 !!! warning "Not verified by this page"
     This wiki's page plan (`tools/plan.json`) records that the archive currently answers HTTP 403
@@ -895,6 +1014,13 @@ issue 1.9 (2007-09-14), later than the issue 1.5 described above.[^hsa-sdb]
   description character sets were set by one programme for its own smooth transition. A modern
   MIB such as Solar Orbiter's follows different conventions (see
   [mission tailoring of the MIB](../mib/tailoring.md)).[^mib25]
+* **Configuration control was explicit.** The one delivery documented in the library travelled
+  as a zip with a release note listing its inputs, change records, open non-conformances and an MD5 checksum, and
+  test results flowed back as update files naming each validated command and
+  parameter.[^rn-files][^rn-cr][^ccs-upd]
+* **The model outlived the missions.** In 2015 the prime presented the HPSDB, adapted as a
+  System Reference Data Base for a later programme, as a validated concept and planned to map
+  it onto the [EGS-CC](ancillary-and-egs-cc.md) data model.[^sesp-intro][^sesp-egscc][^sesp-concl]
 
 ## Related pages
 
@@ -903,13 +1029,18 @@ issue 1.9 (2007-09-14), later than the issue 1.5 described above.[^hsa-sdb]
 * [The MIB](../mib/index.md), [MIB data model](../mib/data-model.md),
   [history of the import ICD](../mib/icd-history.md), [MIB tooling](../mib/tooling.md)
 * [GDDS and data delivery interface documents](gdds-and-ddids.md) for the DDS used by the HCSS
+* [Operations preparation](operations-preparation.md) (the HPSDB/SRDB database views, MOIS and
+  the move to OPEN) and [ECSS-E-ST-70-01C](../ecss/e-st-70-01c.md#herschel-an-obcp-as-fault-management)
+  (a Herschel OBCP)
+* [Herschel/Planck interface documents](herschel-planck-interfaces.md): packets, frames, the
+  router, PIPE, the CCS external interfaces and the TC history file in detail
 
 ## Sources and copies
 
 Each footnote links the library page of its source, which gives the original URL, the SHA-256
 of the copy and the time of copy. Most documents come from the SPIRE folder of the ESA Herschel
-Science Archive (`archives.esac.esa.int/hsa/legacy/ADP/SPIRE/`). All were copied on 5 November
-2026:
+Science Archive (`archives.esac.esa.int/hsa/legacy/ADP/SPIRE/`). The first set was copied on
+5 November 2026 and the second on 12 November 2026:
 
 | Library page | Document | Copied (UTC) |
 |---|---|---|
@@ -933,6 +1064,18 @@ Science Archive (`archives.esac.esa.int/hsa/legacy/ADP/SPIRE/`). All were copied
 | [icd-7-0-final](../library/icd-7-0-final.md) | SCOS-2000 Database Import ICD issue 7.0 | 2026-11-05 13:53:46 |
 | [esa-bulletin-108-ch8](../library/esa-bulletin-108-ch8.md), [bul130-merri-happy-families](../library/bul130-merri-happy-families.md) | ESA Bulletins 108 (2001) and 130 (2007) | 2026-11-05 14:10 |
 | [mib-20250916m25925pfms001-sol](../library/mib-20250916m25925pfms001-sol.md) | Solar Orbiter MIB release of 16 September 2025 | 2026-11-05 14:24:03 |
+| [h-p-1-aspi-sp-0045-egse-general-req](../library/h-p-1-aspi-sp-0045-egse-general-req.md) | EGSE General Requirements Specification, H-P-1-ASPI-SP-0045 issue 03 | 2026-11-05 14:06:52 |
+| [cosmos-tei-tmtc-packet-icd](../library/cosmos-tei-tmtc-packet-icd.md) | TEI TMTC packet ICD, SRON-U/HIFI/SP/2001-011 issue 1.0 (ESA COSMOS) | 2026-11-05 14:07:20 |
+| [ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) | Packet Structure ICD, SCI-PT-ICD-07527 issue 6.0 | 2026-11-12 17:45:14 |
+| [herschel-planck-space-ground-interface-control-document-sgicd](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) | Space/Ground ICD, SCI-PT-ICD-07418 issue 3.2 (ESA COSMOS) | 2026-11-12 17:45:16 |
+| [herschel-egse-packet-router-icd](../library/herschel-egse-packet-router-icd.md) | Herschel EGSE Packet Router ICD, SRON-G/HIFI/ICD/2001-001 issue 1.1 (ESA COSMOS) | 2026-11-12 17:48:45 |
+| [rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) | EGSE Interface Requirement Specification, H-P-1-ASPI-IS-0121 issue 4.1 | 2026-11-12 17:48:52 |
+| [rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) | CCS External ICD, H-P-4-TE-ID-8020 issue 1.8 | 2026-11-12 17:48:43 |
+| [h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md) | HPSDB Software User Manual, H-P-1-GMV-MA-20487 version 2.6 | 2026-11-12 17:45:06 |
+| [h-p-2-asp-li-1441-09-herschel-hpsdb-release-note](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) | Herschel HPSDB release note, H-P-2-ASP-LI-1441 issue 9.0 | 2026-11-12 17:52:35 |
+| [hifi-user-manual-annex-3-mib-139-aspi-11-7-overview](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md) | HIFI User Manual Annex, MIB 139 (ASPI 11.7) overview (ESA COSMOS) | 2026-11-12 17:49:05 |
+| [tc-history-icd](../library/tc-history-icd.md) | TC History ICD, SPIRE-ICS-DOC-000900 issue 1.0 | 2026-11-12 17:48:33 |
+| [02-sesp-2015-from-hpsdb-to-egs-cc-presentation](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md) | Thales Alenia Space, "SRDB - From H/P to EGS-CC", SESP 2015 (indico.esa.int) | 2026-11-12 17:49:15 |
 
 [^agenda]: [Agenda for the SCOS 2000 Meeting](../library/scos2000-meeting-agenda-2000.md), ESOC room H1, 18-19 April 2000, PDF p. 1.
 [^mom-hdr]: [Minutes "SCOS 2000 and FIRST/PLANCK"](../library/scos2000-and-first-planck-mom.md), header (meeting 19 April 2000, minutes 20 April 2000, ref. TOS-OF/2000/318/SJD/HS) and participants, PDF pp. 1 and 5.
@@ -1057,4 +1200,40 @@ Science Archive (`archives.esac.esa.int/hsa/legacy/ADP/SPIRE/`). All were copied
 [^i70-udc]: [SCOS-2000 Database Import ICD, issue 7.0](../library/icd-7-0-final.md), §3.1 Relationship between the ASCII tables and the database items (User Defined Constants: definition in pcf, saving in plf), PDF p. 26.
 [^i70-pic]: [SCOS-2000 Database Import ICD, issue 7.0](../library/icd-7-0-final.md), §3.3.2.4.2 field `PIC_PI1_OFF`, PDF p. 92.
 [^mib25]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pid`, `pic`, `pcf`, `ocf`, `cpc`, `ccf`, `txp`, `cdf` and `pcdf`, queried by this wiki on 2026-11-12.
-[^hsa-sdb]: Web pages not in the library: <https://archives.esac.esa.int/hsa/legacy/operations/moc/sdb/> and <https://archives.esac.esa.int/hsa/legacy/operations/moc/sdb/data/>, as surveyed for this project on 2026-11-05 (project research index); not re-checked on 2026-11-12.
+[^hsa-sdb]: Web pages not in the library: <https://archives.esac.esa.int/hsa/legacy/operations/moc/sdb/> and <https://archives.esac.esa.int/hsa/legacy/operations/moc/sdb/data/>, as surveyed for this project on 2026-11-05 (project research index); the file names of the `data/` listing were re-checked on 2026-11-12, the `sdb/` page was not.
+[^ps-cover]: [Herschel/Planck Packet Structure ICD, SCI-PT-ICD-07527 issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), page header (25 January 2008) and distribution record, PDF p. 2.
+[^ps-cr60]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), change record, issue 6.0 "Formal release for application", PDF p. 32.
+[^sg-cover]: [Herschel/Planck Space/Ground ICD, SCI-PT-ICD-07418 issue 3.2](../library/herschel-planck-space-ground-interface-control-document-sgicd.md), page header (1 December 2004) and change record, PDF pp. 2-4.
+[^rtr-cover]: [Herschel EGSE Packet Router ICD, SRON-G/HIFI/ICD/2001-001 issue 1.1](../library/herschel-egse-packet-router-icd.md), title page (prepared by A. de Jonge, SRON; 23 October 2001) and change record, PDF pp. 1-3.
+[^tei-hdr]: [TEI TMTC packet ICD, SRON-U/HIFI/SP/2001-011 issue 1.0](../library/cosmos-tei-tmtc-packet-icd.md), §2.1 and §3.1, PDF pp. 3-4.
+[^irs-cr]: [EGSE Interface Requirement Specification, H-P-1-ASPI-IS-0121 issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), change records (issue 01 of 7 November 2001 to 4.1 of 14 December 2004), PDF pp. 3-4.
+[^irs-names]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.12.10 Naming Convention Rules for EGSE items, IFRQT-0888-1 to IFRQT-0888-4 (subsystem Y and 25, position allocation, authorised characters), PDF p. 84.
+[^irs-names2]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), IFRQT-0888-5 to IFRQT-0888-15, Tables 18 to 21, PDF pp. 85-88.
+[^ccs-cover]: [Herschel Planck Central Checkout System External ICD, H-P-4-TE-ID-8020 issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), cover ("Space Division"; author L. R. Hansen, authorised by A. Armitage) and document change record (drafts A to D and issues 1.0 to 1.8), PDF pp. 1-2.
+[^ccs-over]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §4 Interface Overview, Figure 3.2-1 (HPSDB bridge files and update files), and §9 introduction, PDF pp. 8-9.
+[^ccs-upd]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §8 Interface Herschel Plank Update files, PDF p. 9.
+[^ccs-sys]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.5 Changes due to System Parameters, Tables 9.5-1 (PCF_NAME) and 9.5-2 (PID_SPID), PDF p. 14.
+[^ccs-ecp1]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.10 Changes due to ECP #1 and ECP #3 and §9.10.1-9.10.18, PDF pp. 15-19.
+[^um-cover]: [HPSDB Software User Manual, H-P-1-GMV-MA-20487 version 2.6 (GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), cover and document status sheet (version 1.0 of 18/07/03 to 2.6 of 15/09/05), PDF pp. 1-4.
+[^um-areas]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.1.1 HPSDB Areas, PDF pp. 29-30.
+[^um-sites]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.1.3 HPSDB Central/Mirror Sites, PDF pp. 32-33.
+[^um-bridge]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.1.1 and §3.4.5.1.4 Load bridge files, PDF pp. 69 and 75.
+[^um-cfg]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.1.2 Configuration files description, PDF pp. 69-73.
+[^um-ex]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.1.3 Example (S2K_CUR.txt: curves 900, 901, 905 as generic curves 000900, 000901, 000905), PDF pp. 73-75.
+[^um-gen]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.2 Generate bridge files, PDF pp. 76-78.
+[^um-val]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.8 Validation, PDF pp. 86-88.
+[^um-ver]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.5.7 TM parameter and TC items verification, PDF pp. 129-131, and Annex F Data verification file format, PDF p. 201.
+[^rn-cover]: [Herschel/Planck HPSDB Release Note, H-P-2-ASP-LI-1441 issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), cover page (Thales Alenia Space; written by the data base manager, approved by the deputy project manager), PDF p. 1.
+[^rn-cr]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), change records of issues 1.0 (10/10/2007) to 9.0 (07/04/2008), DBAMN-H-208 to DBAMN-H-232 and data validation requests, PDF pp. 3-4.
+[^rn-intro]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), §1 Introduction to §5 Input (central site HPSDB v 3.3.1.30 to ASED, theoretical model HERSCH_FM9, CCS files, AIT User filter, Herschel IRR; supplier Thales Alenia Space - France), PDF p. 8.
+[^rn-ncrin]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), §5.2.2 HIEGSE (NCR 3666, 3668 and 3669), PDF p. 9.
+[^rn-files]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), §7.2-7.7 (output compliance, HPSDB version, MD5 checksum, delivered files and file naming convention), PDF pp. 16-18.
+[^rn-deliv]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), §11 Delivery, PDF p. 19.
+[^hmib-cover]: [HIFI User Manual Annex, MIB 139 (ASPI 11.7) overview, SRON-U/HIF/UM/2004-001 (Annex)](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md), cover page (prepared by L. Dubbeldam, 11 July 2008) and §1, PDF pp. 1 and 4.
+[^thf-cover]: [TC History Interface Control Document, SPIRE-ICS-DOC-000900 issue 1.0](../library/tc-history-icd.md), title page (prepared by M. J. Graham, 30 October 2002), PDF p. 1.
+[^thf-name]: [TC History ICD issue 1.0](../library/tc-history-icd.md), file naming convention `THF_yymmdd_cccc.DAT`, PDF p. 12.
+[^thf-file]: [TC History ICD issue 1.0](../library/tc-history-icd.md), §7.1-7.3.3 file structure, header, command data, bit pattern and parameter data records, Tables 1 to 4, PDF pp. 15-18.
+[^sp45-mirror]: [H-P-1-ASPI-SP-0045 EGSE General Requirements Specification, issue 03](../library/h-p-1-aspi-sp-0045-egse-general-req.md), §3.2.4.1 CCS, GRQT-0002b (support of an HPSDB mirror site), PDF pp. 28-30.
+[^sesp-intro]: [Thales Alenia Space, "System Reference Data Base - From H/P to EGS-CC", SESP 2015](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md), slide "Introduction", PDF p. 2.
+[^sesp-egscc]: [SESP 2015, "SRDB - From H/P to EGS-CC"](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md), slide "EGS-CC mapping", PDF p. 13.
+[^sesp-concl]: [SESP 2015, "SRDB - From H/P to EGS-CC"](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md), slide "Conclusion", PDF p. 16.

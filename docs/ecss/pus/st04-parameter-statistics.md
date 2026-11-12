@@ -559,7 +559,7 @@ such a service.[^hp-s4] See [Herschel and Planck](../../missions/herschel-planck
 [^icd-cpc]: [SCOS-2000 Database Import ICD 7.0](../../library/icd-7-0-final.md), §3.3.3.2.2 (cpc), CPC_CATEG = 'P' for parameters of type 'Parameter ID', PDF p. 146.
 [^icd-vpd]: [SCOS-2000 Database Import ICD 7.0](../../library/icd-7-0-final.md), §3.3.2.5.2 (vpd: VPD_GRPSIZE, VPD_CHOICE, VPD_PIDREF), PDF pp. 101-102; PCF_PID, PDF p. 42.
 [^edds-stats]: [EDDS Software User Manual, version 22](../../library/sum-v22.md), §5.2.4 DARC Requests ("Parameter Statistics"), PDF p. 17.
-[^solo-s4]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter space/ground ICD](../../library/sol-s-astr-tn-00079-07.md), §5.5, PDF p. 66.
+[^solo-s4]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../../library/sol-s-astr-tn-00079-07.md), §5.5, PDF p. 66.
 [^solo-ad1]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §1.1 and §2.1 (AD1 = ECSS-E-70-41A, 30 January 2003), PDF pp. 11 and 13.
 [^mib-s4]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md), tables pid, pic, ccf, pcf and cpc, queried by this wiki.
 [^mib2020-s4]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../../library/mib-20200416m10720pfms001-sol.md), tables pid, pic and ccf, queried by this wiki.

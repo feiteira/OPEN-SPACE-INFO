@@ -355,7 +355,7 @@ identified by a 4-bit type from the SANA "Checksum Identifiers" registry:[^cksum
 | Type | Algorithm | Requirement |
 |---|---|---|
 | 0 | Modular checksum | mandatory |
-| 1 | Proximity-1 CRC32 (CCSDS 211.2-B-3 annex C) | optional |
+| 1 | [Proximity-1](proximity-1.md) CRC32 (CCSDS 211.2-B-3 annex C) | optional |
 | 2 | CRC-32C (RFC 4960 appendix B) | optional |
 | 3 | IEEE 802.3-2018 FCS | optional |
 | 4-14 | reserved for CFDP | |
@@ -811,6 +811,7 @@ Mapping Report (133,12).[^mib]
 ## Related pages
 
 * [CCSDS protocol stack overview](index.md), [Space Packet Protocol](space-packet.md), [Encapsulation](encapsulation.md).
+* [Space link identifiers](space-link-identifiers.md) (CFDP entity IDs and the APID once reserved for CFDP) and [Security in CCSDS space links](security.md) (security for CFDP comes from the layers below or above).
 * [ST[13] Large packet transfer](../ecss/pus/st13-large-packet-transfer.md), [ST[23] File management](../ecss/pus/st23-file-management.md), [PUS message type catalogue](../ecss/pus/message-types.md).
 * [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md).
 

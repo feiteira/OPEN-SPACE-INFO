@@ -1,8 +1,8 @@
 ---
 title: "Space Link Extension (SLE): concept and architecture"
-description: Why CCSDS Space Link Extension exists, how cross support is organised (functional groups, SLE complexes, service management), the catalogue of SLE transfer services, the operations, states, delivery modes, identifiers and security common to all of them, and how ESA's ground segment (NCTRS/NIS, SCOS-2000, the Solar Orbiter MIB) uses them.
-tags: [CCSDS, SLE, Cross support, Ground segment, NCTRS, Solar Orbiter]
-sources: [ccsds-910x3g3-sle-cross-support, ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ccsds-912-1-912x1b5e1, ccsds-913-1-913x1b2, ccsds-914-0-914x0m2c1, ecss-e-hb-50a-15november2008, gsaw2005-guerrucci, gsaw2003-peccia, spaceops2021-dlr-mobile-mcs, 4s-2024-egscc-bruegge, pecchioli-egs-cc-esoc, mex-esc-if-5003-b5, euicd-v25, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+description: Why CCSDS Space Link Extension exists, how cross support is organised (the cross support reference model with its ports, functional groups, SLE complexes, data channels and service management), the catalogue of SLE transfer services, the operations, states, delivery modes, identifiers and security common to all of them, and how ESA's ground segment (NCTRS/NIS, SCOS-2000, the Solar Orbiter MIB, open-source SLE APIs) uses them.
+tags: [CCSDS, SLE, Cross support, Reference model, Ground segment, NCTRS, Solar Orbiter]
+sources: [ccsds-910x3g3-sle-cross-support, ccsds-910-4-910x4b2e1s, ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ccsds-912-1-912x1b5e1, ccsds-912-3-912x3b3s, ccsds-913-1-913x1b2, ccsds-914-0-914x0m2c1, ccsds-915-1-915x1m2, ccsds-916-3-916x3m2, ecss-e-hb-50a-15november2008, gsaw2005-guerrucci, gsaw2003-peccia, spaceops2021-dlr-mobile-mcs, 4s-2024-egscc-bruegge, pecchioli-egs-cc-esoc, mex-esc-if-5003-b5, euicd-v25, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, swa-idb-v6-5-0, stix-idb-v2-26-38-raw]
 ---
 
 # Space Link Extension (SLE): concept and architecture
@@ -13,15 +13,18 @@ packets) between the ground station that terminates the radio link and the missi
 centre that actually uses the data. CCSDS defines cross support as one organisation lending part
 of its space data system to serve another organisation's mission, and SLE is the standard
 interface where most of that cross support happens: between the tracking stations of one agency
-and the mission-specific ground systems of another.[^csc-purpose][^csc-rationale] With SLE, a
+and the mission-specific ground systems of another.[^csc-purpose][^csc-rationale][^csrm-xs] With SLE, a
 control centre can bind to a station it does not own, ask for "all frames from this antenna" or
 "radiate this CLTU at 12:00:03", and receive annotated, time-stamped data over an ordinary
 terrestrial network, without a mission-specific gateway.[^csc-benefits]
 
 This page explains the concept and architecture common to all SLE services. The individual
 services have their own pages: [return services RAF, RCF and ROCF](return-services.md), the
-[forward CLTU service](fcltu.md), and the wire protocol and software interface,
-[ISP1 and the SLE API](isp1-and-api.md). In the protocol stack, SLE sits above the
+[forward CLTU service](fcltu.md), the [Forward Space Packet service](fsp.md), and the wire
+protocol and software interface, [ISP1 and the SLE API](isp1-and-api.md). The formal
+architecture model and the management of agreements and service packages are treated in depth on
+[the cross support reference model and service management](service-management.md); this page
+summarises what every SLE reader needs from them. In the protocol stack, SLE sits above the
 [TM](../tm-sdlp.md), [AOS](../aos.md), [USLP](../uslp.md) and [TC](../tc-sdlp.md) data link
 protocols and their [channel coding](../tm-coding.md) and [CLTU](../tc-coding-cltu.md) layers; see
 the [CCSDS overview](../index.md) and the [standards map](../../overview/standards-map.md).
@@ -30,9 +33,10 @@ the [CCSDS overview](../index.md) and the [standards map](../../overview/standar
     | Item | Value |
     |---|---|
     | Concept document | CCSDS 910.3-G-3, *Cross Support Concept—Part 1: Space Link Extension Services*, Green Book, March 2006[^csc-ctl] |
-    | Transfer service specifications in this library | RAF 911.1-B-5, RCF 911.2-B-4, ROCF 911.5-B-4, FCLTU 912.1-B-5 (all July 2023 issues)[^raf-ctl][^rcf-ctl][^rocf-ctl][^cltu-ctl] |
+    | Reference model | CCSDS 910.4-B-2, *Cross Support Reference Model—Part 1: Space Link Extension Services*, Blue Book, October 2005, Editorial Correction 1 (July 2007); the library copy carries the CCSDS "Historical Document" banner[^csrm-ctl][^csrm-hist] |
+    | Transfer service specifications in this library | RAF 911.1-B-5, RCF 911.2-B-4, ROCF 911.5-B-4, FCLTU 912.1-B-5 (all July 2023 issues);[^raf-ctl][^rcf-ctl][^rocf-ctl][^cltu-ctl] FSP 912.3-B-3 (August 2016, historical copy)[^fsp-ctl] |
     | Wire protocol | ISP1, CCSDS 913.1-B-2 (September 2015): ASN.1 BER over TCP/IP[^isp-purpose] |
-    | Programming interface | SLE API core, CCSDS 914.0-M-2 (September 2015), a C++ component API[^api-purpose] |
+    | Programming interface | SLE API core, CCSDS 914.0-M-2 (September 2015), a C++ component API,[^api-purpose] with service-specific books such as the RAF API 915.1-M-2 and the FSP API 916.3-M-2 (both September 2015)[^rafapi-ctl][^fspapi-ctl] |
     | Roles | *Provider* = the object closer to the space link (station); *user* = the object farther away (control centre)[^raf-roles] |
     | Directions | Return (space to ground, e.g. telemetry) and forward (ground to space, e.g. telecommand)[^csc-defs] |
     | Phases | Definition phase (service management) and utilization phase (data transfer)[^csc-what] |
@@ -57,7 +61,7 @@ the same point from the European side. Two CCSDS-compliant implementations may s
 interoperate because they chose different options, and the handbook says that SLE has "to a great
 extent" resolved this problem for ground-segment cross support.[^hb-interop]
 
-CCSDS divides cross support services into three kinds:[^csc-applic]
+CCSDS divides cross support services into three kinds:[^csc-applic][^csrm-xs]
 
 | Kind | Scope | CCSDS document part |
 |---|---|---|
@@ -65,14 +69,105 @@ CCSDS divides cross support services into three kinds:[^csc-applic]
 | Ground communications services | The communications that underlie the ground element, for example relaying operational data | Part 2 (no plans to produce it in 2006) |
 | Ground domain services | Services that do not use space link data structures: tracking, spacecraft database exchange, mission planning | Part 3 (under consideration in 2006) |
 
-The part numbers in this table follow the 2006 concept report. The 2015 SLE API book numbers
-them the other way round (Part 2 Ground Domain Services, Part 3 Ground Communications
-Services).[^api-tree]
+The part numbers in this table follow the 2006 concept report and the 2005 reference model, which
+plans Part 2 for ground communications services and Part 3 for ground domain services.[^csrm-xs]
+The 2015 SLE API books, both the core and the RAF book, number them the other way round (Part 2
+Ground Domain Services, Part 3 Ground Communications Services).[^api-tree][^rafapi-tree]
 
 The SLE services themselves have two parts. **Data transfer services** move space link data
 units between stations, control centres and end users. **Management services** schedule and
 provision the transfer services.[^csc-what] Management happens mostly in a *definition phase*;
 data flows in a *utilization phase*, either in real time or offline with respect to the pass.[^csc-what]
+
+## The cross support reference model
+
+The concept report explains SLE. The normative baseline is a separate Recommended Standard,
+CCSDS 910.4-B-2, *Cross Support Reference Model—Part 1: Space Link Extension Services*. It
+provides the common basis and the reference against which every SLE service specification is
+written and kept consistent.[^csrm-purpose] Its framework has four parts: the identification of an
+SLE system and its environment; an architecture model with a functional view and a management
+(cross support) view; the common characteristics of SLE services together with a template for
+their specifications; and the identification of the SLE transfer services, each of which is
+specified in its own Recommended Standard.[^csrm-purpose] Ground systems that provide services
+complying with the SLE specifications are called **SLE systems**.[^csrm-purpose]
+
+The model makes four simplifying assumptions: one space mission, one spacecraft, telemetry and
+telecommand that comply with the CCSDS space link standards, and ground end users that all belong
+to one mission management entity. Sharing ground systems between missions is not modelled, but it
+is not ruled out either. Processing of the contents of packet data fields, services that do not
+transport CCSDS space link data, and the ground communications underneath SLE are all outside the
+model.[^csrm-scope] It is explicitly not a specification or design of a real SLE system.[^csrm-scope]
+
+The library copy is issue 2 of October 2005, which added subsections on cross support security
+and on the time span of agreements and packages to issue 1 of May 1996. Editorial Correction 1 of
+July 2007 repaired two figures.[^csrm-ctl] The copy carries the CCSDS "Historical Document"
+banner, which means the document has either been replaced by a newer issue or withdrawn; which of
+the two applies is not stated in the available sources.[^csrm-hist] The 2015 API books for RAF and
+FSP still cite issue 2 as a normative reference.[^rafapi-refs][^fspapi-refs] The reference model is
+also older than some of the services it frames. The 2023 RCF and ROCF standards each note that
+910.4 defines separate Master Channel and Virtual Channel services, which RCF and ROCF merge, and
+that a future issue of the reference model is expected to follow.[^rcf-purpose][^rocf-purpose]
+
+### The SLE documentation set
+
+The reference model sits at the root of the SLE documentation tree. The 2015 API books redraw the
+tree with the documents added since 2005.[^csrm-tree][^rafapi-tree]
+
+```mermaid
+flowchart TB
+    RM["Cross Support Reference Model Part 1<br/>910.4-B-2 (Blue)"]
+    CC["Cross Support Concept Part 1<br/>910.3-G-3 (Green)"]
+    ES["SLE Executive Summary<br/>(Yellow)"]
+    SM["SLE Service Management suite<br/>(Blue)"]
+    RM --- CC
+    RM --- ES
+    RM --> TS["SLE transfer services"]
+    RM --> SM
+    TS --> FWD["Forward service specifications (Blue)<br/>FCLTU 912.1, FSP 912.3"]
+    TS --> RTN["Return service specifications (Blue)<br/>RAF 911.1, RCF 911.2, ROCF 911.5"]
+    TS --> ISP["Internet Protocol for Transfer Services<br/>ISP1 913.1 (Blue)"]
+    TS --> API["SLE API core specification<br/>914.0-M-2 (Magenta)"]
+    API --> CR["API Summary of Concept and Rationale<br/>914.1-G-1 (Green)"]
+    API --> PG["API Application Programmer's Guide<br/>914.2-G-2 (Green)"]
+    API --> FAPI["Forward service API books (Magenta)<br/>FCLTU 916.1, FSP 916.3"]
+    API --> RAPI["Return service API books (Magenta)<br/>RAF 915.1, RCF 915.2, ROCF 915.5"]
+```
+
+Diagram based on figure 2-1 of the reference model and figure 1-1 of the RAF API book; document
+numbers from the RAF API informative references and the API core references.[^csrm-tree][^rafapi-tree][^rafapi-c][^api-refs-core]
+The 2005 figure shows only the transfer service specifications, the API and the service
+management suite under the reference model. ISP1, the API concept and programmer's guides and
+the service-specific API books appear in the 2015 drawing.[^csrm-tree][^rafapi-tree]
+
+### Vocabulary of the model
+
+The architecture model is object oriented. Its objects have **ports**, through which they provide
+services to other objects.[^csrm-defs][^csrm-ports] Many of the terms used throughout the SLE
+specifications are defined here:
+
+| Term | Definition in the reference model |
+|---|---|
+| Port type | Ports involved in providing different services are of different types |
+| Symmetric / asymmetric ports | Symmetric ports each offer all operations of the service; asymmetric ports offer different operations, one acting as **consumer** and the other as **supplier**. All SLE services use asymmetric ports. |
+| Consumer / supplier | Direction of data transfer: from the supplier port to the consumer port |
+| Service user / provider | The provider offers a service through its ports. Of two objects, the one **closer to the space link** is the provider, whatever the direction of data flow |
+| Invoker / performer | One object invokes an operation, the other performs it; most objects do both |
+| Binding, initiator, responder | Two ports of the same type with an association are bound. The initiator requests the binding and the responder completes it |
+| Physical channel | The capability to transfer one stream of bits in one direction |
+| Space link | One forward and/or one return RF carrier, each with one or more physical channels |
+| Space link session | A continuous period in which an SLE system lets one or more physical channels of a space link be used |
+| SL-DU | A data structure defined by the space link standards (frame, packet, CLTU, OCF, ...) |
+| Space link data channel | A uniquely identifiable stream of SL-DUs of one type |
+| SLE-SDU | An annotated SL-DU and/or control information about processing and transfer. In the forward direction an SLE-SDU may carry control alone, for example a COP directive. For the RF signals the SLE-SDU equals the SL-DU |
+| SLE data channel | A uniquely identifiable stream of SLE-SDUs of one type, derived from a space link data channel |
+
+Sources: definitions, environment and data exchange of the reference model.[^csrm-defs][^csrm-ports][^csrm-env][^csrm-data]
+Annex A of the model refines the data units. Data-bearing SLE-SDUs carry data, annotation and,
+possibly, channel status, which reports changes in the condition of the channel. Separate channel
+status SLE-SDUs exist for the times when no data unit is available to carry the status. SLE-PDUs
+are either data-bearing (encapsulating SLE-SDUs) or stand-alone protocol control messages. Annotation and channel status remain valid
+across several user-provider associations, while protocol control information belongs to one
+association only.[^csrm-sdu]
 
 ## The cross support environment
 
@@ -81,9 +176,18 @@ subsystems) and a **ground element**, linked by the space link.[^csc-sds] The gr
 contains an **SLE System**, which extends the transfer of forward and return data between the
 ground termination of the space link and the **Mission Data Operation System** (MDOS), the
 mission-dedicated system that sources forward data and sinks return data. In a mission, the MDOS
-manages the SLE System.[^csc-env] The SLE System performs RF modulation and demodulation, ground
+manages the SLE System.[^csc-env] The SLE System performs RF modulation and demodulation ([RF and ranging](../rf-and-ranging.md)), ground
 termination of the space link protocols, annotation of the data, terrestrial networking, and the
 interfaces to ground-side protocol processing.[^csc-env]
+
+The reference model adds precise roles inside the MDOS. **Mission User Entities** (MUEs) are the
+sources of forward data and the sinks of return data; one MUE may receive several transfer
+service instances. The MDOS holds exactly one **SLE Utilization Management** (SLE-UM) and one or
+more MUEs, and it may work with several SLE systems at once, harmonising them itself. The SLE-UM
+manages only what concerns the SLE system, not the whole MDOS or the spacecraft. It is part of
+the Mission Management Entity, which coordinates space and ground for the mission. The MDOS is a
+logical model: its MUEs may be spread over several sites or belong to several agencies.[^csrm-env][^csrm-cx]
+In a multi-spacecraft mission each spacecraft is a separate space element.[^csrm-env]
 
 ```mermaid
 flowchart LR
@@ -137,6 +241,21 @@ A complex has a service provision component and a management component, and it i
 collection of resources under a single management authority: one station, a network of stations,
 or, for packet services delivered to payload control centres, a spacecraft control centre.[^csc-gloss][^csc-cm]
 
+The reference model makes this formal. There are exactly eight SLE-FG types in three categories:
+three return SLE-FGs, two forward AOS SLE-FGs and three forward telecommand SLE-FGs.[^csrm-fg]
+Each SLE-FG has transfer ports of two kinds, **Transfer User** (T-U) and **Transfer Provider**
+(T-P), and exactly one **Function-Management Provider** port (FM-P) for set-up and
+configuration. A T-U port is bound to a T-P port of the same type on another SLE-FG or on the
+space element. A T-P port is bound to a T-U port of another SLE-FG or of an MUE. Every service
+instance uses its own pair of port instances.[^csrm-fg] At the complex level, an SLE complex
+exposes at least one user and one provider transfer port, plus a single **Complex Management**
+port bound to SLE Utilization Management. A real system that supports several missions exposes one
+Complex Management port per mission. A complex need not expose every SLE-FG port: for a Return
+Space Packet service produced from the RF signal, several SLE-FGs are cascaded inside the complex,
+and only the RF input and the packet output are visible outside.[^csrm-cxm] Complex Management
+negotiates service packages with SLE-UM, distributes set-up and configuration parameters to its
+SLE-FGs, and collects and consolidates their reports.[^csrm-cxm]
+
 A return service instance is produced by a chain of up to three functional groups, and a forward
 service instance likewise. The table shows what an organisation must implement to offer each kind
 of service:[^csc-ret-fg][^csc-fwd-fg][^csc-aos-fg]
@@ -185,6 +304,90 @@ an SLE System of two complexes in which a ground terminal complex does only spac
 while a remote complex does frame processing, packet extraction, CLTU generation and VC data
 insertion.[^csc-scen]
 
+### Ports and operation types
+
+In the reference model an SLE service is described by the set of operations that can be invoked
+and performed through one bound pair of ports of the same type.[^csrm-optypes] Each SLE service is
+provided between exactly one port instance of one object and one port instance of another.[^csrm-ports]
+The model names four generic operation types for transfer ports. Who invokes each one depends on
+the direction, because the roles of supplier and consumer swap:[^csrm-optypes][^csrm-rtnports][^csrm-fwdports]
+
+| Operation type | Purpose | Return port (provider = supplier) | Forward port (provider = consumer) |
+|---|---|---|---|
+| Transfer_Data | Carries an SLE-SDU with space link data | invoked by the provider | invoked by the user |
+| Transfer_Set | Initialises or updates the service attributes and configuration options of the user's instance | invoked by the user | invoked by the user |
+| Transfer_Get | Retrieves status and configuration of the instance | invoked by the user | invoked by the user |
+| Transfer_Notification | Reports status (periodic or on event) and accounting information | invoked by the provider | invoked by the provider |
+
+Port-type-specific operation names append the type to the port name, for example
+`Rtn-Bit-TransferData` or `Fwd-Bit-TransferSet`.[^csrm-rtnports][^csrm-fwdports] Two further port
+types face the space element and have no user or provider in this sense: `Rtn-RF-Transfer`
+(the space element supplies the RF signal) and `Fwd-RF-Transfer` (the SLE system supplies it), each
+with a single `...TransferData` operation.[^csrm-fwdports]
+
+!!! warning "Inference"
+    The concrete operations of today's specifications fit these types: TRANSFER-DATA (and the RAF
+    transfer buffer) is a Transfer_Data, START and SCHEDULE-STATUS-REPORT are Transfer_Set
+    operations, GET-PARAMETER is a Transfer_Get, and SYNC-NOTIFY, ASYNC-NOTIFY and STATUS-REPORT
+    are Transfer_Notification operations. The reference model does not make this mapping, and it
+    describes binding (BIND, UNBIND) as a relation between ports rather than as one of the four
+    types.
+
+Management ports follow the same pattern. Each SLE-FG supplies one management port, through which
+Complex Management configures and monitors production. The SLE-FG (supplier) invokes
+`Management_Notification`; Complex Management (consumer) invokes `Management_Set` and
+`Management_Get`.[^csrm-mgmtports]
+
+| Management port | Supplier SLE-FG |
+|---|---|
+| `Rtn-SpLinkProc-Mgmt` | Return Space Link Processing |
+| `Rtn-FrameProc-Mgmt` | Return Frame Processing |
+| `Rtn-FrameData-Mgmt` | Return Frame Data Extraction |
+| `Fwd-AOSSpLinkProc-Mgmt` | Forward AOS Space Link Processing |
+| `Fwd-AOSData-Mgmt` | Forward AOS VC Data Insertion |
+| `TCSpLinkProc-Mgmt` | TC Space Link Processing |
+| `CLTUGen-Mgmt` | CLTU Generation |
+| `TCData-Mgmt` | TC VC Data Insertion |
+
+Source: table 5-3 of the reference model.[^csrm-mgmtports] Every SLE service specification must
+contain the operations with their parameters and ASN.1 definitions, the behaviour of the SLE system
+in response, the space data channel the service needs, the quality of service required from the
+underlying communications, and the initialisation and configuration parameters.[^csrm-spec] The
+[RAF](return-services.md) and [FCLTU](fcltu.md) standards each state that they define their service
+in conformance with the reference model.[^raf-conform][^cltu-conform]
+
+### SLE data channels and their identifiers
+
+Annex A of the reference model lists every SLE data channel with its data unit and the identifier
+that makes it unique. Any one mission implements only a subset of these channel trees.[^csrm-chan]
+
+| Direction | SLE data channel | SL-DU | Unique identifier | SLE service |
+|---|---|---|---|---|
+| Return | Physical channel | baseband symbol stream | physical channel ID | (none) |
+| Return | Return All Frames channel | TM or AOS transfer frame | RAF channel ID | RAF |
+| Return | Insert channel (AOS master channels only) | insert zone | RAF channel ID | Return Insert |
+| Return | Master Channel | transfer frame | MCID (frame version number + SCID) | Master Channel |
+| Return | MC-OCF / MC-FSH channel (TM master channels only) | OCF / FSH | MCID | MC-OCF / MC-FSH |
+| Return | Virtual Channel | transfer frame | GVCID (MCID + VCID) | Virtual Channel |
+| Return | VC-OCF channel; VC-FSH channel (TM only) | OCF / FSH | GVCID | VC-OCF / VC-FSH |
+| Return | Return Bitstream channel (AOS VCs only) | Bitstream PDU | GVCID | Return Bitstream |
+| Return | Return Space Packet channel | Space Packet | GVCID + APID (APID 0–2046 on TM VCs; 0–2031 and 2046 on AOS VCs) | Return Space Packet |
+| Forward | Physical channel (TC asynchronous, AOS synchronous) | baseband symbol stream | physical channel ID | not exposed |
+| Forward | CLTU channel (TC only) | CLTU | CLTU ID | Forward CLTU |
+| Forward | TC Transfer Frame channel | TC frame | GVCID | Forward TC Frame |
+| Forward | TC-VCA channel | Frame Data Unit | GVCID | Forward TC-VCA |
+| Forward | TC Multiplex channel | segment | GVCID + MAP identifier | not exposed |
+| Forward | Forward All Frames, Coded Transfer Frame, proto Transfer Frame, Insert, VCA and Bitstream channels (AOS only) | coded or proto frames, insert zones, VCA-SDUs, B-PDUs | FAF channel ID, GVCID or physical channel ID | FAF, Forward Coded TF, Forward Proto TF, Forward Insert, Forward VCA, Forward Bitstream |
+| Forward | Forward Space Packet channel | Space Packet | GVCID + APID (same ranges as return) | Forward Space Packet |
+
+Sources: tables A-4 and A-5.[^csrm-chan] The space link itself, below the physical channel, is not
+standardised as part of SLE: its structure depends on each mission's coding and modulation, so a
+link-specific part of the tree must be defined for every mission, with physical channel IDs for use
+by service management.[^csrm-chan] The packet channel identifier is also called the **Space Packet
+Channel ID** (SPCID): frame version number, SCID, VCID and APID together.[^csrm-rsp] The GVCID and
+MCID are the same identifiers that RCF and ROCF use to select channels (see
+[selecting channels](return-services.md#selecting-channels-the-global-vcid)).
+
 ## The SLE transfer services
 
 The concept report and the ASN.1 of the current service specifications together name the
@@ -201,14 +404,38 @@ missions.[^csc-why]
 | Return Operational Control Fields (ROCF) | Return | MC or VC OCFs (CLCWs and other reports) | RFP-FG | CCSDS 911.5-B-4 ([page](return-services.md)) | `rtnChOcf (4)` |
 | Return Bitstream (R-Bitstream) | Return | AOS bitstream (not yet defined in 2006) | RFDE-FG | not in this library | `rtnBitstr (5)` |
 | Return Space Packet (RSP) | Return | Packets with selected APIDs from one VC | RFDE-FG | not in this library | `rtnSpacePkt (6)` |
-| Forward Space Packet (FSP) | Forward | Packets from one user, uplinked without coordinating with other users | TC VC Data Insertion FG | not in this library | `fwdTcSpacePkt (13)` |
+| Forward Space Packet (FSP) | Forward | Packets from one user, uplinked without coordinating with other users | TC VC Data Insertion FG | CCSDS 912.3-B-3 ([page](fsp.md)) | `fwdTcSpacePkt (13)` |
 | Forward TC Virtual Channel Access (FTCVCA) | Forward | Complete TC VCs | TC VC Data Insertion FG | not in this library | `fwdTcVca (14)` |
 | Forward TC Frame (FTCF) | Forward | TC frames, turned into CLTUs by the provider | CLTU Generation FG | not in this library | `fwdTcFrame (15)` |
 | Forward CLTU (FCLTU) | Forward | CLTUs radiated bit for bit | FTC Space Link Processing FG | CCSDS 912.1-B-5 ([page](fcltu.md)) | `fwdCltu (16)` |
 | Forward AOS services (F-AOSSP, F-AOSVCA, F-Bitstream, F-pVCDU, F-cVCDU, F-VCDU, F-Insert) | Forward | AOS packets, VCs, bitstreams, VCDUs, inserts | Forward AOS FGs | not yet defined in 2006 | `fwdAosSpacePkt (7)` to `fwdCVcdu (12)` |
 
 Sources: service list and definitions from the concept report,[^csc-ret-list][^csc-fwd-list][^csc-aos-list]
-application identifiers from the common BIND types module.[^raf-appid] The concept report also
+application identifiers from the common BIND types module,[^raf-appid] and the FSP issue from its document control.[^fsp-ctl]
+
+The 2005 reference model names the services slightly differently, and gives each a transfer port
+type. Reading its tables against the current specifications shows how the catalogue has
+evolved:[^csrm-svc][^csrm-rtnports][^csrm-fwdports][^csrm-prod]
+
+| Reference model service (910.4-B-2) | Port type | Provider SLE-FG | Users named by the model | Specification today |
+|---|---|---|---|---|
+| Return All Frames | `Rtn-AF-Transfer` | Return Space Link Processing | Return Frame Processing FG, MUE | RAF 911.1-B-5 |
+| Return Insert (online only)[^csrm-rslp] | `Rtn-Insert-Transfer` | Return Space Link Processing | MUE | not in this library |
+| Return Master Channel Frames; Return Virtual Channel Frames | `Rtn-MCF-Transfer`; `Rtn-VCF-Transfer` | Return Frame Processing | MUE (VC frames also feed Return Frame Data Extraction) | merged into RCF 911.2-B-4[^rcf-purpose] |
+| Return MC-OCF; Return VC-OCF | `Rtn-MCOCF-Transfer`; `Rtn-VCOCF-Transfer` | Return Frame Processing | Forward TC VC Data Insertion FG, Forward TC Space Link Processing FG, MUE | merged into ROCF 911.5-B-4[^rocf-purpose] |
+| Return MC-FSH; Return VC-FSH | `Rtn-MCFSH-Transfer`; `Rtn-VCFSH-Transfer` | Return Frame Processing | MUE | not in this library |
+| Return Bitstream; Return Space Packet | `Rtn-Bit-Transfer`; `Rtn-SP-Transfer` | Return Frame Data Extraction | MUE | not in this library |
+| Forward CLTU | `CLTU-Transfer` | Forward TC Space Link Processing | Forward CLTU Generation FG, MUE | FCLTU 912.1-B-5 |
+| Forward Telecommand Frame | `TCFrame-Transfer` | Forward CLTU Generation | Forward TC VC Data Insertion FG, MUE | no Recommended Standard yet (2016)[^fsp-fg] |
+| Forward TC Virtual Channel Access | `TCVCA-Transfer` | Forward TC VC Data Insertion | MUE | not in this library |
+| Forward Space Packet (AOS or TC profile) | `Fwd-SP-Transfer` | Forward AOS VC Data Insertion or Forward TC VC Data Insertion | MUE | FSP 912.3-B-3, TC profile only[^fsp-scope] |
+| Forward Coded Transfer Frame, Forward Proto Transfer Frame, Forward Insert | `Fwd-Coded Transfer Frame-Transfer`, `Fwd-Proto Transfer Frame-Transfer`, `Fwd-Insert-Transfer` | Forward AOS Space Link Processing | MUE (proto frames also from Forward AOS VC Data Insertion) | not in this library |
+| Forward VCA, Forward Bitstream | `Fwd-VCA-Transfer`, `Fwd-Bit-Transfer` | Forward AOS VC Data Insertion | MUE | not in this library |
+
+The user column matters for cross support inside a station: it is the reference model that names the
+forward TC functional groups as consumers of the OCF services, which is how the CLCW reaches the
+uplink equipment.[^csrm-rtnports] A *proto Transfer Frame* is an AOS frame whose insert zone is not
+yet filled and which is not yet coded.[^csrm-svc] The concept report also
 mentions future transfer services for non-CCSDS space links and for radiometric, monitoring and
 return unformatted data.[^csc-future] ESA's EGS-CC paper describes the Cross-Support Transfer
 Services (CSTS) as the new generation of SLE, which adds monitoring data from the ground station
@@ -281,10 +508,34 @@ service agreement period and may relate to sessions of other service packages.[^
 concept report's glossary defines online as transfer during the associated space link session and
 offline as transfer at any other time.[^csc-gloss]
 
+### Delivery modes in the reference model
+
+The reference model defines the same three modes (complete online, timely online and offline) more
+abstractly, for both directions. Its definitions differ in detail from what the service
+specifications later standardised:[^csrm-modes]
+
+| Aspect | Reference model 910.4-B-2 (2005) | Transfer service specifications |
+|---|---|---|
+| Forward online | Two qualities: *complete and in sequence* (routing instructions respected, sequence kept, no ground-induced errors, nothing omitted or duplicated) and *expedited* (in sequence and without ground-induced errors, but data may be lost). Never extends beyond the end of the space link session. | FCLTU and FSP are forward online only.[^cltu-modes][^fsp-scope] FSP offers the user two transmission modes, sequence-controlled (AD) and expedited (BD).[^fsp-modes] |
+| Return complete online | Delivered in sequence, without ground-induced errors and without omission, even when reception is faster than delivery; may run past the end of the session; needs reserved buffering. | A large online frame buffer that keeps filling for the whole provision period ([details](return-services.md#complete-online)). |
+| Return timely online | Two user-settable mechanisms: a notification when the delivery delay exceeds T<sub>delay-notify</sub> (and another when it recovers), and deletion of the queued SLE-SDUs when it exceeds T<sub>delete</sub>, with a notice that says how many were deleted. The user may disable both. | One `latency-limit` set by service management. On backpressure the provider discards a whole transfer buffer and inserts a 'data discarded due to excessive backlog' notification, which carries no count.[^raf-timely2][^raf-notify] |
+| Forward offline | A complete, in-sequence data set whose transfer into the SLE system must be complete before it is transmitted to the spacecraft during the session, at a time defined by SLE management; storage reserved in advance. | Outside the FCLTU scope; "the subject of further study" for FSP.[^cltu-modes][^fsp-scope] |
+| Return offline | Storage either of all user data of the session (selection deferred until retrieval) or of the service data chosen in advance; the model notes that real systems may not afford the first. | Offline frame buffer, ideally one per service agreement; any ERT window ([details](return-services.md#offline)). |
+
+Sources: §3.4.2 of the reference model;[^csrm-modes] for the right-hand column, the clauses cited in
+the cells and the [delivery modes table](#delivery-modes) above.
+
+!!! warning "Inference"
+    The two forward qualities of the reference model look like the COP-1 sequence-controlled and
+    expedited services, which FSP exposes as AD and BD transmission modes. The return timely
+    online mechanism of the RAF, RCF and ROCF standards is simpler than the reference model's
+    (one latency limit, no recovery notice, no count). Neither document comments on the
+    difference.
+
 ## Service instances
 
 A **service instance** is the provision by one SLE complex of the capability to transfer one or
-more SLE data channels of one type, all related to the same space link session.[^csc-gloss] The
+more SLE data channels of one type, all related to the same space link session.[^csc-gloss][^csrm-cx] The
 provision of RAF from one physical channel to one user is one instance; the same channel served to
 two users, or several channels served concurrently, are several instances.[^raf-ovw] For FCLTU only
 one instance may exist per physical forward channel at a time.[^cltu-ovw]
@@ -560,6 +811,26 @@ parameter of a PDU. FCLTU adds one integrity check of its own (the monotonically
 to subvert or destroy a spacecraft.[^raf-threat][^cltu-threat] These pages describe the
 standards' protections; they do not discuss attack techniques.
 
+### The six security areas of the reference model
+
+Issue 2 of the reference model added a cross support security section. It walks through the six
+areas that CCSDS requires every Recommended Standard to address, for the transfer services and for
+service management separately:[^csrm-sec]
+
+| Area | SLE transfer services | SLE service management |
+|---|---|---|
+| Data privacy (confidentiality) | Not provided. Left to the mission applications, to the underlying communications, or both; encrypting the SLE PDU is one option. | Consider XML encryption. |
+| Data integrity | Relies on the in-sequence, complete, duplicate-free transfer of the communications service, which does not stop an intermediary altering content. One remedy is for user and provider to agree on credentials computed over the whole PDU. The strict operation sequence makes it hard to inject operations or seize an active service unnoticed. | Sequence numbers support integrity. |
+| Authentication | Credentials carried in the PDUs; the procedure is in the concept report, the algorithms are outside the transfer specifications (for TCP/IP see [ISP1](isp1-and-api.md#authentication-layer)). Secret keys must be distributed securely. | Digital signatures are recommended. |
+| Access control | `initiator-identifier` and `responder-identifier` in the operations. | Unique identification parameters, created by SLE-UM and carried in each message, control access to Complex Management. |
+| Availability of resources | Not provided; depends on the underlying technology and environment. The configuration files describe the resources Complex Management declares available. | Service requests may be rejected if resources are short; denial-of-service protection is left to the network (routers, firewalls). |
+| Auditing | No requirements; to be agreed bilaterally. Logging access attempts is, however, a standard feature of the SLE API. | No requirements; agencies are assumed to keep an audit trail of management messages and of breach attempts. |
+
+Source: §2.4 of the reference model.[^csrm-sec] The 2015 RAF API book repeats this analysis for
+RAF and adds that the credential mechanism, and with it the choice between simple and strong
+protection against masquerading, can be chosen according to the results of a threat analysis.[^rafapi-sec] Threats and
+consequences specific to one service are left to that service's specification.[^csrm-sec]
+
 ## SLE service management
 
 SLE service management collects and exchanges the information needed to agree, schedule, prepare
@@ -598,10 +869,59 @@ periods in between, and ends with a debrief from CM to UM.[^csc-phases][^csc-uti
 reporting during execution and near-real-time service control existed in some providers but were
 not standardised in 2006.[^csc-ext-sm]
 
-!!! note "Not in this library"
-    The normative service management specification (CCSDS 910.11) and the cross support
-    reference model (CCSDS 910.4-B-2) are cited by all SLE documents but are not part of this
-    wiki's library. The statements above come from the concept report's summary of them.
+### Agreements, packages and provision periods
+
+The reference model fixes the vocabulary for how long each management object lives:[^csrm-sa][^csrm-span][^csrm-phases]
+
+* An **SLE Service Agreement** states which transfer and management services one SLE complex
+  provides to one mission, and on what conditions. Only one agreement is in force between a given
+  complex and a given mission at any time, but a mission may have several over its lifetime. The
+  **agreement period** often covers the spacecraft's whole operational life, with several packages
+  a day and hundreds or thousands in all; it can also be short, for example launch support, one
+  orbit manoeuvre or an emergency.
+* An **SLE Service Package** is the set of transfer service instances, with the specification of
+  their production, that one complex provides to one or more users. Its **lifetime** has a
+  definition phase and a utilization phase. A package has at most one online period, tied to one
+  space link session. Its offline instances may serve that session or sessions of other packages.
+* The **service instance provision period** is the time during which one instance's capability is
+  provided. Online instances may start before and end after their session.
+
+```mermaid
+flowchart LR
+    subgraph SA["Service agreement period (one complex, one mission)"]
+        direction LR
+        P1["Package a<br/>(session 1, online)"] --> P2["Package b<br/>(session 2 online<br/>+ offline)"]
+        P2 --> P3["Package c<br/>(offline only)"]
+        P3 --> P4["Package d<br/>(session 3)"]
+    end
+    subgraph PK["Lifetime of one package"]
+        direction LR
+        D["Definition phase:<br/>SLE-UM creates the<br/>servicePackage managed<br/>object at the complex"] --> DOR["dormant period<br/>(optional)"]
+        DOR --> U1["Utilization phase:<br/>online provision period<br/>(one space link session)"]
+        U1 --> U2["offline provision<br/>periods, possibly<br/>separated by dormant periods"]
+        U2 --> DB["debrief from Complex<br/>Management to SLE-UM"]
+    end
+```
+
+Diagram based on figures 4-13 to 4-16 of the reference model.[^csrm-span][^csrm-phases]
+
+During the definition phase, SLE-UM creates a `servicePackage` managed object at the complex,
+together with the lower-level managed objects it contains, and chooses parameter values within the
+limits of the agreement. The attributes of these objects select the transfer services, identify the
+interfaces where they are offered and the services that this or other complexes must provide,
+carry the mission-specific information Complex Management needs to configure production, name the
+eventual users (MUEs or other complexes), schedule the online and offline instances, and define the
+reporting from Complex Management to SLE-UM.[^csrm-phases] During utilization, provision is
+controlled in two ways: MUEs invoke control operations on their instances, and SLE-UM invokes
+management operations. Debrief reports may follow any provision period.[^csrm-phases] When a
+mission uses two complexes, it holds two agreements and negotiates a package with each; each
+package then specifies only the part of production that its complex performs.[^csrm-sa][^csrm-cx]
+
+!!! note "What is and is not in this library"
+    The reference model (CCSDS 910.4-B-2) is now in the library and is summarised above. The
+    normative service management specification (CCSDS 910.11), which all SLE documents cite, is
+    not. The newer extensible cross support service management documents and their data formats
+    are described on [the cross support reference model and service management](service-management.md).
 
 ## The SLE API and ISP1 in one paragraph
 
@@ -611,7 +931,10 @@ TCP connection, encodes PDUs with ASN.1 BER, frames them in 8-octet-header TML m
 heartbeat, and defines the hashed-password credentials.[^isp-arch] The **SLE API** (CCSDS 914.0)
 defines C++ components (API Proxy, API Service Element, SLE Operations, SLE Utilities) that hide
 the communications technology and enforce the state tables, so that SLE applications can be
-written once and products can be exchanged.[^api-purpose][^csc-api] Both are explained on
+written once and products can be exchanged.[^api-purpose][^csc-api] Service-specific API books add
+the classes, interfaces and checks of one service each; the RAF book (915.1-M-2), for example,
+adds the RAF service instance classes and operation objects, and the FSP book (916.3-M-2) adds
+FOP monitoring for the provider side.[^rafapi-ovw][^fspapi-ovw] Both layers are explained on
 [ISP1 and the SLE API](isp1-and-api.md).
 
 ## How ESA's ground segment uses SLE
@@ -622,7 +945,7 @@ Router System) as the interface between the mission control system and the groun
 network, using SLE for non-ESA stations.[^gsaw05-nctrs] A 2003 ESOC presentation shows the NCTRS
 between SCOS-2000 and the stations (Kiruna, Redu, Perth, Villafranca, Kourou, New Norcia, Cebreros
 and the DSN), labels the link SLE, and lists SLE-conformant ground station interface software among
-SCOS-2000's enabling technologies.[^peccia-net][^peccia-tech] The planned page on
+SCOS-2000's enabling technologies.[^peccia-net][^peccia-tech] The page on
 [NCTRS, NIS and the ground station interface](../../scos2000/nctrs-nis.md) covers these systems.
 
 ```mermaid
@@ -699,34 +1022,77 @@ The ECSS communications handbook points to the ESA ground operations software po
 includes "the ESA SLE Gateway".[^hb-gw] ESA's role in the SLE API is described on the
 [ISP1 and SLE API page](isp1-and-api.md#esa-and-the-sle-api).
 
+Two open-source Java implementations are public on GitHub (web sources, not in this library). ESA's
+**SLE Java API** (`esa/sleapi-j`) describes itself as an SLE API package supporting RAF (911.1),
+RCF (911.2), ROCF (911.5), FCLTU (912.1) and FSP (912.3).[^web-sleapij] **jsle** (`yamcs/jsle`),
+from the Yamcs project, implements the user and provider sides of FCLTU, RAF and RCF.[^web-jsle]
+Their details are on the [ISP1 and SLE API page](isp1-and-api.md#esa-and-the-sle-api).
+
+In the Solar Orbiter databases of this library, the NIS throw events and the ground-generated
+packets exist only in the spacecraft MIB. The instrument databases ([SWA](../../missions/solar-orbiter/swa.md)
+and [STIX](../../missions/solar-orbiter/stix.md)) have no throw-event commands at
+all (every `CCF_CTYPE` is empty), no commands on APID 1964, which carries the six NIS throw events in
+the spacecraft MIB, and no packets on APID 1966. In the spacecraft MIB, APID 1966 holds 18
+MCS-internal packets, among them good, bad and idle mini transfer frames, bad telemetry packets,
+time correlation packets and a "TM Packet used by the Releaser G/S response".[^idb-te][^mib-te][^mib-1966]
+
+??? example "SQL used (instrument databases)"
+    ```sql
+    -- swa-idb.sqlite (2021 ASCII set), swa-idb-v6.5.0.sqlite, stix-idb-2.26.38.sqlite
+    SELECT quote(CCF_CTYPE), count(*) FROM ccf GROUP BY CCF_CTYPE;
+    -- -> '' 198 (SWA 2021), '' 201 (SWA v6.5.0), '' 100 (STIX 2.26.38)
+    SELECT count(*) FROM ccf WHERE CCF_APID IN ('1964', '1966');   -- 0 in all three
+    SELECT count(*) FROM pid WHERE PID_APID = '1966';               -- 0 in all three
+    -- for comparison, solo-2025-09-16.sqlite: 6 ccf rows on APID 1964 (the NIS throw
+    -- events) and 18 pid rows on APID 1966
+    SELECT PID_TYPE, PID_STYPE, PID_SPID, PID_DESCR FROM pid WHERE PID_APID = '1966';
+    -- -> 18 rows: types 160, 161, 162, 164, 165, 166 and 251; SPIDs 101-103 and 66810-66999
+    ```
+
 ## Document history and versions
 
 | Document | Issue history in the library copy |
 |---|---|
 | CCSDS 910.3-G | G-1 May 1995, G-2 April 2002, G-3 March 2006 (current)[^csc-ctl] |
+| CCSDS 910.4-B (reference model) | B-1 May 1996, B-2 October 2005 (adds cross support security and the time span of agreements and packages), EC 1 July 2007 (repairs figures 3-4 and 3-5); library copy marked historical[^csrm-ctl][^csrm-hist] |
 | CCSDS 911.1-B (RAF) | B-1 April 2002, B-2 November 2004, B-3 January 2010, B-4 August 2016, B-5 July 2023 (adds USLP), EC 1 (October 2024)[^raf-ctl] |
 | CCSDS 911.2-B (RCF) | B-1 November 2004, B-2 January 2010, B-3 August 2016, B-4 July 2023 (adds USLP), EC 1 (October 2024)[^rcf-ctl] |
 | CCSDS 911.5-B (ROCF) | B-1 November 2004, B-2 January 2010, B-3 August 2016, B-4 July 2023 (adds USLP), EC 1 (October 2024)[^rocf-ctl] |
 | CCSDS 912.1-B (FCLTU) | B-1 April 2002, B-2 November 2004, B-3 July 2010, B-4 August 2016, B-5 July 2023 (adds USLP), EC 1 (October 2024)[^cltu-ctl] |
+| CCSDS 912.3-B (FSP) | B-1 November 2004, B-2 July 2010, B-3 August 2016 ("adds clarifications and corrections"); library copy marked historical[^fsp-ctl] |
 | CCSDS 913.1-B (ISP1) | B-1 September 2008 (now historical 913.1-B-1-S), B-2 September 2015 (hash changed from SHA-1 to SHA-256)[^isp-ctl][^isp-hist] |
 | CCSDS 914.0-M (API core) | M-1 October 2008, M-2 September 2015, Technical Corrigendum 1 August 2016[^api-cor] |
+| CCSDS 915.1-M (RAF API) | M-1 October 2008, M-2 September 2015 (updated to the then-current RAF issue, provisions split by generation)[^rafapi-ctl] |
+| CCSDS 916.3-M (FSP API) | M-1 October 2008, M-2 September 2015 (same kind of update)[^fspapi-ctl] |
 
 The 2006 concept report references earlier issues of the service standards (for example RAF
-911.1-B-2 and FCLTU 912.1-B-2 of December 2004).[^csc-refs] Where it describes services that were
-"not yet defined" in 2006, this wiki has no later source in its library.
+911.1-B-2 and FCLTU 912.1-B-2 of December 2004).[^csc-refs] The 2005 reference model in turn
+references the 2002 issue of the concept report (910.3-G-2) and the 2003 issues of the space link
+standards.[^csrm-refs] The two 2015 API books are built on older service issues than the ones in
+this library: the RAF API on RAF 911.1-B-3 (January 2010) and the FSP API on FSP 912.3-B-2 (July
+2010).[^rafapi-refs][^fspapi-refs] Where the concept report describes services that were "not yet
+defined" in 2006 (the forward AOS services, Return Insert, Return Bitstream), this wiki still has
+no later source in its library. FSP, which the concept report already lists, now has its
+[own page](fsp.md) based on the 2016 issue.
 
 ## Related pages
 
 * [SLE return services: RAF, RCF and ROCF](return-services.md)
 * [SLE forward service: FCLTU](fcltu.md)
+* [SLE forward service: Forward Space Packet (FSP)](fsp.md)
 * [SLE over TCP/IP (ISP1) and the SLE API](isp1-and-api.md)
+* [SLE cross support reference model and service management](service-management.md)
+* [Space link identifiers](../space-link-identifiers.md) (the SCIDs and VCIDs inside GVCIDs), [Security in CCSDS space links](../security.md#impact-on-sle-cross-support) and [SDLS](../sdls.md)
 * [NCTRS, NIS and the ground station interface](../../scos2000/nctrs-nis.md)
 * [Uplink: from operator command to on-board execution](../../overview/uplink.md) and
   [Downlink](../../overview/downlink.md)
 * Library: [CCSDS 910.3-G-3](../../library/ccsds-910x3g3-sle-cross-support.md),
+  [910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md),
   [911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), [911.2-B-4](../../library/ccsds-911-2-911x2b4e1.md),
   [911.5-B-4](../../library/ccsds-911-5-911x5b4e1.md), [912.1-B-5](../../library/ccsds-912-1-912x1b5e1.md),
-  [913.1-B-2](../../library/ccsds-913-1-913x1b2.md), [914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md);
+  [912.3-B-3](../../library/ccsds-912-3-912x3b3s.md),
+  [913.1-B-2](../../library/ccsds-913-1-913x1b2.md), [914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md),
+  [915.1-M-2](../../library/ccsds-915-1-915x1m2.md), [916.3-M-2](../../library/ccsds-916-3-916x3m2.md);
   all sources in the [reference catalogue](../../references/index.md); terms in the [glossary](../../glossary.md).
 
 [^csc-purpose]: [CCSDS 910.3-G-3, Cross Support Concept—Part 1: SLE Services](../../library/ccsds-910x3g3-sle-cross-support.md), §1.1 Purpose, PDF p. 9.
@@ -848,9 +1214,9 @@ The 2006 concept report references earlier issues of the service standards (for 
 [^gsaw05-nctrs]: [Guerrucci, GSAW 2005, ESOC ground segment](../../library/gsaw2005-guerrucci.md), slide "The Network Control and TM/TC Router System (NCTRS)", PDF p. 5.
 [^peccia-net]: [Peccia, GSAW 2003, SCOS-2000](../../library/gsaw2003-peccia.md), slide "Complete system overview", PDF p. 11.
 [^peccia-tech]: [Peccia, GSAW 2003](../../library/gsaw2003-peccia.md), slide "SCOS-2000 Enabling Technology", PDF p. 18.
-[^euicd-rel]: [EDDS External User ICD v25](../../library/euicd-v25.md), §6.6 ASCII, table 26 TC report verification stages, PDF pp. 52–53.
+[^euicd-rel]: [EDDS External User ICD, version 24.0 (file named v25)](../../library/euicd-v25.md), §6.6 ASCII, table 26 TC report verification stages, PDF pp. 52–53.
 [^mex-sle]: [Rosetta/Mars Express DDID MEX-ESC-IF-5003 issue B5](../../library/mex-esc-if-5003-b5.md), §7.6.2 Header records (DDS packet header, SLE Type), PDF pp. 62–63.
-[^euicd-sle]: [EDDS External User ICD v25](../../library/euicd-v25.md), §6.1.1 EDDS raw header, field 17 `SleServiceID`, PDF p. 41.
+[^euicd-sle]: [EDDS External User ICD, version 24.0 (file named v25)](../../library/euicd-v25.md), §6.1.1 EDDS raw header, field 17 `SleServiceID`, PDF p. 41.
 [^icd-ctype]: [SCOS-2000 Database Import ICD issue 7.0](../../library/icd-7-0-final.md), §3.3.3.2.1 Command characteristics: ccf, field 4 CCF_CTYPE, PDF pp. 132 and 134–135.
 [^dlr-ssb]: [DLR, SpaceOps 2021, mobile mission control system](../../library/spaceops2021-dlr-mobile-mcs.md), discussion of figures 1 and 2 (SSB translating the NCTRS protocol to SLE) and the SLE Switchboard description, PDF pp. 5–6 and 8.
 [^4s-ssb]: [Brügge et al., 4S 2024, small satellites with EGS-CC](../../library/4s-2024-egscc-bruegge.md), §2 (GECCOS and SSB), PDF p. 3.
@@ -861,3 +1227,57 @@ The 2006 concept report references earlier issues of the service standards (for 
 [^api-cor]: [CCSDS 914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md), Document Control, PDF p. 7.
 [^isp-ctl]: [CCSDS 913.1-B-2](../../library/ccsds-913-1-913x1b2.md), Document Control, PDF p. 7.
 [^csc-refs]: [CCSDS 910.3-G-3](../../library/ccsds-910x3g3-sle-cross-support.md), §1.7 References, PDF pp. 12–13.
+[^csrm-hist]: [CCSDS 910.4-B-2, Cross Support Reference Model—Part 1: SLE Services](../../library/ccsds-910-4-910x4b2e1s.md), Historical-document cover sheet, PDF p. 1.
+[^csrm-ctl]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), Authority page and Document Control (B-1 May 1996, B-2 October 2005, EC 1 July 2007), PDF pp. 3 and 7.
+[^csrm-purpose]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §1.1.1–1.1.5 Purpose, SLE services, SLE systems and framework, PDF pp. 11–12.
+[^csrm-scope]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §1.2 Scope and §1.3.2 Limit of applicability, PDF p. 13.
+[^csrm-xs]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §2.2–2.2.2 Cross support context, services and documentation, PDF p. 20.
+[^csrm-tree]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §2.3 SLE services documentation set and figure 2-1, PDF p. 21.
+[^csrm-defs]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §1.6 Definitions a)–j) and notes 1–4, PDF pp. 15–16.
+[^csrm-ports]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.2.2–4.2.3 Provision and production; ports of an SLE system, PDF pp. 40–41.
+[^csrm-env]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §3.2 SLE system environment, items a)–i) and notes, PDF pp. 25–27.
+[^csrm-data]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §3.3 SLE system data and services, items a)–f), figures 3-4 and 3-5 and notes, PDF pp. 28–31.
+[^csrm-sdu]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), Annex A2.2 SLE service data units and A2.3 SLE protocol data units, PDF pp. 84–85.
+[^csrm-cx]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.4.1 Cross support view concepts (SLE complexes, SLE Utilization Management, definitions of transfer service instance and service package), PDF pp. 55–57.
+[^csrm-fg]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.3.1 Functional view concepts (SLE-FG object, tables 4-1 to 4-3, ports and binding rules, figures 4-2 and 4-3), PDF pp. 41–44.
+[^csrm-cxm]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.4.2 Model of SLE complex (complex management, ports, binding rules, figure 4-9), PDF pp. 58–60.
+[^csrm-optypes]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.2 Abstract model of SLE service and transfer port operation types, PDF pp. 68–69.
+[^csrm-spec]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.3 SLE service specification, PDF pp. 69–70.
+[^csrm-rtnports]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.4.2 Return transfer ports and table 5-1, PDF pp. 70–72.
+[^csrm-fwdports]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.4.3 Forward transfer ports, table 5-2, and §5.4.4 RF carrier transfer ports, PDF pp. 72–74.
+[^csrm-mgmtports]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.5 SLE management service ports and table 5-3, PDF pp. 74–75.
+[^csrm-prod]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.6 SLE transfer service production (5.6.1.1–5.6.2.9.2), PDF pp. 75–82.
+[^csrm-chan]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), Annex A3 Space data channels, tables A-4 and A-5 and figures A-1, A-2, PDF pp. 86–92.
+[^csrm-rsp]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.3.2.1.3 Return Frame Data Extraction SLE-FG (Space Packet Channel ID), PDF pp. 48–49.
+[^csrm-svc]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §3.4.1 Overview of SLE transfer services (3.4.1.1–3.4.1.3), PDF pp. 31–33.
+[^raf-conform]: [CCSDS 911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), §1.1 Purpose, PDF p. 9.
+[^cltu-conform]: [CCSDS 912.1-B-5](../../library/ccsds-912-1-912x1b5e1.md), §1.1 Purpose, PDF p. 10.
+[^csrm-rslp]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.3.2.1.1 a) 2) Return Space Link Processing SLE-FG (Return Insert delivered in online mode only), PDF p. 45.
+[^csrm-modes]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §3.4.2 SLE transfer service delivery modes (3.4.2.1–3.4.2.2), PDF pp. 33–37.
+[^csrm-sec]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §2.4.1–2.4.8 Cross support security, PDF pp. 22–24.
+[^csrm-sa]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.4.3 SLE service agreement and figure 4-12, PDF pp. 61–62.
+[^csrm-span]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.5.1 Time span definitions and figures 4-13 to 4-15, PDF pp. 62–64.
+[^csrm-phases]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.5.2 Phases of SLE service package lifetime, figures 4-16 and 4-17, PDF pp. 65–67.
+[^csrm-refs]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §1.8 References [1]–[10], PDF pp. 18–19.
+[^rafapi-tree]: [CCSDS 915.1-M-2, SLE API for the Return All Frames Service](../../library/ccsds-915-1-915x1m2.md), §1.5.2 SLE service documentation tree and figure 1-1, PDF pp. 11–13.
+[^rafapi-ctl]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Document Control, PDF p. 7.
+[^rafapi-refs]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §1.7 References ([1] = 910.4-B-2, [2] = 911.1-B-3), PDF p. 16.
+[^rafapi-c]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex C informative references [C6] and [C7], PDF p. 66.
+[^rafapi-sec]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.4.2.4 Authentication, PDF p. 25.
+[^rafapi-ovw]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.1–2.3 Overview, packages RAF Service Instances and RAF Operations, PDF pp. 17–22.
+[^api-refs-core]: [CCSDS 914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md), §1.7 normative references (915.1, 915.2, 915.5, 916.1, 916.3), PDF pp. 21–22.
+[^fspapi-ctl]: [CCSDS 916.3-M-2, SLE API for the Forward Space Packet Service](../../library/ccsds-916-3-916x3m2.md), Document Control, PDF p. 7.
+[^fspapi-refs]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §1.7 References ([2] = 910.4-B-2, [3] = 912.3-B-2), PDF p. 17.
+[^fspapi-ovw]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §2.2.1 Package FSP Service Instances, overview, PDF p. 18.
+[^fsp-ctl]: [CCSDS 912.3-B-3, SLE Forward Space Packet Service](../../library/ccsds-912-3-912x3b3s.md), Historical-document cover sheet and Document Control, PDF pp. 1 and 8.
+[^fsp-scope]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §1.2 Scope (Space Packets on the TC stack only; online delivery; offline "the subject of further study"), PDF pp. 12–13.
+[^fsp-modes]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §3.1.8.1 Forward online delivery (transmission modes AD and BD), PDF p. 52.
+[^fsp-fg]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §2.4.1.1 and figure 2-1, note 2 (no Recommended Standard for the FTCF service), PDF pp. 29–30.
+[^rcf-purpose]: [CCSDS 911.2-B-4](../../library/ccsds-911-2-911x2b4e1.md), §1.1 Purpose and note (RCF replaces the Rtn MC Frames and Rtn VC Frames services of the reference model), PDF p. 9.
+[^rocf-purpose]: [CCSDS 911.5-B-4](../../library/ccsds-911-5-911x5b4e1.md), §1.1 Purpose and note (ROCF replaces the Rtn MC-OCF and Rtn VC-OCF services of the reference model), PDF p. 9.
+[^raf-timely2]: [CCSDS 911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), §3.1.9.1.9–3.1.9.1.13 discard in timely online delivery mode, PDF p. 52.
+[^raf-notify]: [CCSDS 911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), §3.7 RAF-SYNC-NOTIFY (notification types and values; §3.7.2.4.4 no value for 'data discarded due to excessive backlog'), PDF pp. 82–85.
+[^web-sleapij]: ESA, *SLE Java API* repository `esa/sleapi-j`, https://github.com/esa/sleapi-j (README and LICENSE on branch 5.1, consulted 2026-11-12 and re-checked the same day through raw.githubusercontent.com). Web source, not in the library.
+[^web-jsle]: Yamcs project, *jsle* repository `yamcs/jsle`, https://github.com/yamcs/jsle (README on branch master, consulted 2026-11-12 and re-checked the same day through raw.githubusercontent.com). Web source, not in the library.
+[^mib-1966]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md), table `pid` (PID_APID = 1966); queries by this wiki.
+[^idb-te]: Solar Orbiter instrument databases [SWA IDB (ASCII set)](../../library/swa-idb-ascii.md), [SWA IDB v6.5.0](../../library/swa-idb-v6-5-0.md) and [STIX IDB 2.26.38](../../library/stix-idb-v2-26-38-raw.md), tables `ccf` and `pid`; queries by this wiki.

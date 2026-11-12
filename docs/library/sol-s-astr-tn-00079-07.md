@@ -41,7 +41,7 @@ Chapter 5, the bulk of the document, lists every service and subservice tailored
 - Ground source IDs are 110 mission timeline, 111 TC sequences, 112 recovery actions, 113 backup mission timeline and 120 direct commands; on-board sources are 15 OBCP, 14 system control and 11 AOCS. *(PDF p. 275)*
 
 
-## Cited by these wiki pages (64)
+## Cited by these wiki pages (70)
 
 - [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../ccsds/aos.md)
 - [CCSDS File Delivery Protocol (CCSDS 727.0-B-5)](../ccsds/cfdp.md)
@@ -52,6 +52,7 @@ Chapter 5, the bulk of the document, lists every service and subservice tailored
 - [Commanding in the MIB: commands and their parameters](../mib/commanding.md)
 - [Downlink: from on-board parameter to operator display](../overview/downlink.md)
 - [ECSS-E-ST-50C communications and the CCSDS adoption notices](../ecss/e-st-50-communications.md)
+- [ECSS-E-ST-70-01C: on-board control procedures](../ecss/e-st-70-01c.md)
 - [ECSS-E-ST-70-11C: space segment operability](../ecss/e-st-70-11c.md)
 - [ECSS: the European space standards system](../ecss/index.md)
 - [EDDS request and data formats](../scos2000/edds-formats.md)
@@ -61,12 +62,14 @@ Chapter 5, the bulk of the document, lists every service and subservice tailored
 - [Missions](../missions/index.md)
 - [Monitoring checks: limits and out-of-limits](../mib/monitoring-checks.md)
 - [Monitoring in the MIB: parameters and packets](../mib/monitoring.md)
+- [Operations preparation: databases, procedures and tools](../scos2000/operations-preparation.md)
 - [Other missions and SCOS-2000 users](../missions/other-missions.md)
 - [PUS message type catalogue](../ecss/pus/message-types.md)
 - [PUS packet structures: TC and TM headers](../ecss/pus/packets.md)
 - [PUS parameter types (PTC/PFC)](../ecss/pus/parameter-types.md)
 - [PUS-A vs PUS-C (and the 2024 Rev.1 draft)](../ecss/pus/pus-a-vs-pus-c.md)
 - [PUS: the Packet Utilization Standard](../ecss/pus/index.md)
+- [Radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md)
 - [SLE forward service: FCLTU](../ccsds/sle/fcltu.md)
 - [SLE return services: RAF, RCF and ROCF](../ccsds/sle/return-services.md)
 - [ST[01] Request verification](../ecss/pus/st01-request-verification.md)
@@ -90,10 +93,13 @@ Chapter 5, the bulk of the document, lists every service and subservice tailored
 - [ST[22] Position-based scheduling](../ecss/pus/st22-position-based-scheduling.md)
 - [ST[23] File management](../ecss/pus/st23-file-management.md)
 - [Solar Orbiter](../missions/solar-orbiter/index.md)
+- [Solar Orbiter STIX instrument database](../missions/solar-orbiter/stix.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
+- [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](../missions/solar-orbiter/instrument-interfaces.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Space Link Extension (SLE): concept and architecture](../ccsds/sle/index.md)
 - [Space Packet Protocol (CCSDS 133.0-B-2)](../ccsds/space-packet.md)
+- [Space link identifiers: SCIDs, VCIDs, APIDs and SANA](../ccsds/space-link-identifiers.md)
 - [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../ccsds/tc-sdlp.md)
 - [TC synchronization and channel coding: the CLTU (CCSDS 231.0-B-4)](../ccsds/tc-coding-cltu.md)
 - [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../ccsds/tm-sdlp.md)
@@ -182,7 +188,7 @@ Chapter 5, the bulk of the document, lists every service and subservice tailored
 | AD3 | [SOL.S.ASTR.RS.00037](../references/index.md#ref-sol-s-astr-rs-00037) | MIL-STD-1553B Bus Protocol Specification |  | applicable |
 | AD4 | [SOL.S.ASTR.RS.00038](../references/index.md#ref-sol-s-astr-rs-00038) | SpaceWire Protocol Specification |  | applicable |
 | RD1 | [ECSS-E-ST-50-03C](../references/index.md#ref-ecss-e-st-50-03c) · [library](ecss-e-st-50-03c-31july2008.md) | TM Transfer Frame Protocol | July 2008 | reference |
-| RD2 | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) | TC Synchronisation and Channel coding | July 2008 | reference |
+| RD2 | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) · [library](ecss-e-st-50-04c31july2008.md) | TC Synchronisation and Channel coding | July 2008 | reference |
 | RD3 | [SO-ESC-RS-05001](../references/index.md#ref-so-esc-rs-05001) | Solar Orbiter OIRD |  | reference |
 | RD4 | [SOL.S.ASTR.TN.00011](../references/index.md#ref-sol-s-astr-tn-00011) | Mission Operations Concept Document |  | reference |
 | RD5 | [SOL.S.ASTR.ICD.00017](../references/index.md#ref-sol-s-astr-icd-00017) | System-SW ICD |  | reference |

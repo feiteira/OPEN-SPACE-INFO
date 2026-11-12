@@ -35,10 +35,11 @@ Chapter 3 covers delivery by GFTS at T-20 weeks for each six-month period and th
 - Resizing SSMM packet stores loses data unless the stores are empty and needs a brief window without SSMM memory operations; how to represent resizing opportunities in the E-FECS is still open. *(PDF p. 48)*
 
 
-## Cited by these wiki pages (6)
+## Cited by these wiki pages (7)
 
 - [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md)
 - [Missions](../missions/index.md)
+- [Radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md)
 - [Solar Orbiter](../missions/solar-orbiter/index.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)

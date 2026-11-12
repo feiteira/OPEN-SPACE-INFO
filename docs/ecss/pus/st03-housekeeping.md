@@ -787,6 +787,8 @@ each.[^mib-vpd] These are the ICD layouts of section 9.4 expressed as `vpd` repe
 - [Worked example: decoding a real Solar Orbiter telemetry packet](../../overview/worked-example-tm.md).
 - [Downlink: from on-board parameter to operator display](../../overview/downlink.md).
 - [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md) and [Solar Orbiter SWA instrument database](../../missions/solar-orbiter/swa.md).
+- Instrument housekeeping: [STIX](../../missions/solar-orbiter/stix.md#housekeeping-and-the-inter-instrument-packet) and the [SWA DPU communications ICD](../../missions/solar-orbiter/instrument-interfaces.md#housekeeping-and-diagnostic-telemetry).
+- [Operations preparation: dynamic housekeeping](../../scos2000/operations-preparation.md#telemetry-definitions-on-the-fly-dynamic-housekeeping), how a ground system follows report structures defined in flight with service 3 commands.
 
 [^c-6311]: [ECSS-E-ST-70-41C, Space engineering - Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §6.3.1.1, PDF p. 78.
 [^c-6312]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §6.3.1.2, PDF pp. 78-79.

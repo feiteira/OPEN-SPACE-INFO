@@ -37,12 +37,13 @@ New in 6.9 compared with 6.7 Draft A: section 3.3.2.1.5 on System Control parame
 - Annex 1 groups changes by release: all evolution releases, R4.0 (6.0), R4.1 (6.2/6.3), R5.0 (6.4/6.5), R4.2 (6.5), clarifications in 6.6, R5.2 (6.7) and 6.9. *(PDF p. 234)*
 
 
-## Cited by these wiki pages (13)
+## Cited by these wiki pages (14)
 
 - [Calibration in the MIB](../mib/calibration.md)
 - [Command sequences and parameter sets](../mib/sequences.md)
 - [Command verification in the MIB](../mib/command-verification.md)
 - [Commanding in the MIB: commands and their parameters](../mib/commanding.md)
+- [Downlink: from on-board parameter to operator display](../overview/downlink.md)
 - [History of the Database Import ICD (issues 5.1 to 7.2)](../mib/icd-history.md)
 - [How it all fits together](../overview/index.md)
 - [MIB parameter types: PTC/PFC in SCOS-2000](../mib/parameter-types.md)
@@ -154,7 +155,7 @@ New in 6.9 compared with 6.7 Draft A: section 3.3.2.1.5 on System Control parame
 | RD-3 | [GLO-0001](../references/index.md#ref-glo-0001) | SCOS-2000 Glossary, Definitions and Acronyms |  | reference |
 | RD-4 | [catalogue](../references/index.md#ref-deleted) | Deleted |  | reference |
 | RD-5 | [catalogue](../references/index.md#ref-deleted) | Deleted |  | reference |
-| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
+| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) · [library](esa-pss-07-101-issue1-may1994.md) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
 | RD-7 | [RO-ESC-IF-5002](../references/index.md#ref-ro-esc-if-5002) | Rosetta Space/Ground ICD | Issue 1 August 1998 | reference |
 | RD-8 | [CCSDS 301.0-B-2](../references/index.md#ref-ccsds-301-0-b-2) | CCSDS Time Code Formats | Issue 2 April 1990 | reference |
 | RD-9 | [SUM-0019](../references/index.md#ref-sum-0019) | SCOS-2000 Synthetic Parameters SUM |  | reference |

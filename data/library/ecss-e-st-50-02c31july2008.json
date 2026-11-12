@@ -1,0 +1,338 @@
+{
+  "slug": "ecss-e-st-50-02c31july2008",
+  "title": "Space engineering\nRanging and Doppler tracking",
+  "short_title": "ECSS Ranging and Doppler Tracking (2008)",
+  "doc_id": "ECSS-E-ST-50-02C",
+  "issue": "Second issue",
+  "date": "2008-07-31",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS E-ST-50-02C Working Group)",
+  "authors": [
+    "ECSS E-ST-50-02C Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Second issue (31 July 2008), following ECSS-E-50-02A (first issue, 24 November 2005); ECSS-E-50-02B was never issued (change log, p. 3). The document does not state that it is superseded, and no later issue is in the library.",
+  "summary": "The 2008 ECSS standard for **ranging and Doppler tracking**: how a ground station measures the distance (range) and radial velocity (range rate) of a spacecraft through its transponder, and what the transponder and the station must do so that the measurements are accurate. It covers direct Earth-station links for the Space Operation, Space Research and Earth Exploration Satellite services, for unprocessed ranging accuracies of 2.5 to 30 ns and Doppler accuracies of 0.1 to 1 mm/s. Data-relay and meteorological missions are out of scope.\n\nClause 4 sets out the requirements:\n\n* the five functions of the system (Earth-to-Space link, transponder, Space-to-Earth link, link control and data acquisition, which includes integrated Doppler, ranging and meteo);\n* frequency assignment and phase modulation. The ranging signal is a sine **tone** (100 kHz to 1.5 MHz) phase-modulated by a series of square-wave **ambiguity-resolution codes** Cn = Q1 xor Q2 xor ... Qn. Rules cover sharing the carrier with telecommand and telemetry and choosing the tone to avoid interference;\n* carrier frequency stability, given as Allan variance curves;\n* Earth-station uplink and downlink parameters such as modulation indices, phase noise and group-delay stability (category A versus category B, that is, closer or farther than 2 million km);\n* the **spacecraft transponder**: coherent turn-around for two-way Doppler, coherent and ranging on/off modes selected by telecommand, group-delay constancy and calibration, telemetered monitoring and technological loss;\n* end-to-end error budgets for Doppler and ranging, and meteo and station-location measurements.\n\nClause 5 lists the RF compatibility tests between transponder and station. The annexes compare the standard with CCSDS 401.0-B tone-ranging assumptions, define the ranging technological loss and explain integrated Doppler measurement. It is the ECSS reference for the radiometric tracking side of the TT&C link.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 6
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 7
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 8
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 9
+    },
+    {
+      "section": "3.1",
+      "title": "Terms from other standards",
+      "pdf_page": 9
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 9
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviated terms",
+      "pdf_page": 9
+    },
+    {
+      "section": "4",
+      "title": "Requirements",
+      "pdf_page": 11
+    },
+    {
+      "section": "4.1",
+      "title": "Functional",
+      "pdf_page": 11
+    },
+    {
+      "section": "4.1.1",
+      "title": "Functional breakdown",
+      "pdf_page": 11
+    },
+    {
+      "section": "4.1.2",
+      "title": "Earth-to-Space link function",
+      "pdf_page": 13
+    },
+    {
+      "section": "4.1.3",
+      "title": "Transponder function",
+      "pdf_page": 13
+    },
+    {
+      "section": "4.1.4",
+      "title": "Space-to-Earth link function",
+      "pdf_page": 14
+    },
+    {
+      "section": "4.1.5",
+      "title": "Link control function",
+      "pdf_page": 15
+    },
+    {
+      "section": "4.1.6",
+      "title": "Data acquisition function",
+      "pdf_page": 15
+    },
+    {
+      "section": "4.2",
+      "title": "Frequency assignment, modulation and spectral sharing",
+      "pdf_page": 16
+    },
+    {
+      "section": "4.2.1",
+      "title": "Frequency assignment",
+      "pdf_page": 16
+    },
+    {
+      "section": "4.2.2",
+      "title": "Modulation",
+      "pdf_page": 17
+    },
+    {
+      "section": "4.2.3",
+      "title": "Spectral sharing",
+      "pdf_page": 19
+    },
+    {
+      "section": "4.3",
+      "title": "Carrier frequency stability",
+      "pdf_page": 23
+    },
+    {
+      "section": "4.4",
+      "title": "Earth station",
+      "pdf_page": 25
+    },
+    {
+      "section": "4.4.1",
+      "title": "Earth-to-Space link",
+      "pdf_page": 25
+    },
+    {
+      "section": "4.4.2",
+      "title": "Space-to-Earth link",
+      "pdf_page": 26
+    },
+    {
+      "section": "4.5",
+      "title": "Spacecraft transponder",
+      "pdf_page": 28
+    },
+    {
+      "section": "4.5.2",
+      "title": "Range and range rate operations",
+      "pdf_page": 28
+    },
+    {
+      "section": "4.5.3",
+      "title": "Range only operations",
+      "pdf_page": 29
+    },
+    {
+      "section": "4.5.4",
+      "title": "Group delay",
+      "pdf_page": 29
+    },
+    {
+      "section": "4.5.5",
+      "title": "Telemetered monitoring",
+      "pdf_page": 30
+    },
+    {
+      "section": "4.5.10",
+      "title": "Ranging technological loss",
+      "pdf_page": 31
+    },
+    {
+      "section": "4.6",
+      "title": "Performance",
+      "pdf_page": 32
+    },
+    {
+      "section": "4.6.2",
+      "title": "Integrated Doppler performance",
+      "pdf_page": 32
+    },
+    {
+      "section": "4.6.3",
+      "title": "Ranging performance",
+      "pdf_page": 33
+    },
+    {
+      "section": "4.6.4",
+      "title": "Ancillary measurements",
+      "pdf_page": 34
+    },
+    {
+      "section": "5",
+      "title": "Compatibility testing",
+      "pdf_page": 36
+    },
+    {
+      "section": "5.1",
+      "title": "General",
+      "pdf_page": 36
+    },
+    {
+      "section": "5.2",
+      "title": "Tests",
+      "pdf_page": 36
+    },
+    {
+      "section": "Annex A",
+      "title": "Compatibility with other ground stations networks (informative)",
+      "pdf_page": 38
+    },
+    {
+      "section": "Annex B",
+      "title": "Transponder ranging technological loss (informative)",
+      "pdf_page": 40
+    },
+    {
+      "section": "Annex C",
+      "title": "Integrated Doppler measurement (informative)",
+      "pdf_page": 41
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 43
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Scope: spacecraft ranged or Doppler-tracked over direct links to Earth stations (not via data relay satellites) in the Space Operation, Space Research and Earth Exploration Satellite services, with unprocessed ranging accuracies of 2,5 ns to 30 ns and Doppler accuracies of 0,1 mm/s to 1 mm/s.",
+      "pdf_page": 7
+    },
+    {
+      "text": "Category A spacecraft are less than 2 × 10^6 km above the Earth's surface; category B are at or beyond that altitude.",
+      "pdf_page": 9
+    },
+    {
+      "text": "The transponder is assumed to carry telecommand and telemetry on the same RF carriers as ranging; the system has five functions: Earth-to-Space link, transponder, Space-to-Earth link, link control and data acquisition.",
+      "pdf_page": 11
+    },
+    {
+      "text": "Ranging modulation on both links shall be phase modulation (PM); the baseband ranging signal is a sine tone phase-modulated by codes Cn = Q1 ⊕ Q2 ⊕ ... ⊕ Qn, where Qi are square waves at 2^-i × ft, with code transitions at tone phase 90°.",
+      "pdf_page": 17
+    },
+    {
+      "text": "Suppressed-carrier telemetry is not compatible with simultaneous ranging; orbit determination then uses time sharing between telemetry and ranging or a separate ranging transponder.",
+      "pdf_page": 17
+    },
+    {
+      "text": "Code acquisition sequence: tone alone, then tone modulated with the sequence of codes, then tone with the final code; deep-space missions may restart the code sequence continuously for faster re-acquisition at reduced accuracy.",
+      "pdf_page": 15
+    },
+    {
+      "text": "Earth-to-Space link: tone frequency selectable 100 kHz – 1,5 MHz, code period 2^n/ft with n = 0 to 20, tone modulation index 45° or 22,5°, group delay variation 20 ns/12 h pp (category A) or 2 ns/12 h pp (category B).",
+      "pdf_page": 25
+    },
+    {
+      "text": "For deep space and two-way Doppler the transponder shall be coherent (downlink carrier derived from the uplink carrier by the turn-around ratio); coherent/non-coherent and ranging on/off shall be selectable by telecommand.",
+      "pdf_page": 28
+    },
+    {
+      "text": "With on-board digital synthesis, the deviation from the ideal turn-around ratio shall not cause a Doppler bias above 0,1 mm/s averaged over 1 s.",
+      "pdf_page": 29
+    },
+    {
+      "text": "For ambiguity resolution the ranging channel group delay shall be constant within ± 1/(5 ft) over 0,3 ft to 1,7 ft; for the measurement itself, constant within ± 30 ns at the tone frequency, as seen from the diplexer interface.",
+      "pdf_page": 29
+    },
+    {
+      "text": "Typical on-board delay calibration accuracies are ± 5 ns for category A and ± 2,5 ns for category B missions.",
+      "pdf_page": 30
+    },
+    {
+      "text": "Ranging measurement quantization shall be at most 1/65536 of the tone period, and station ranging accuracy 1 ns or 1/1000 of the tone period, whichever is larger; Doppler quantization shall be below 1/1000 of the carrier period.",
+      "pdf_page": 34
+    },
+    {
+      "text": "For tropospheric correction the station measures pressure (± 1 hPa), temperature (± 1 °C) and relative humidity (±1%); the antenna phase centre location shall be known better than 0,5 m.",
+      "pdf_page": 34
+    },
+    {
+      "text": "Compatibility tests use at least engineering qualification models of spacecraft equipment, often in a portable compatibility test unit ('suitcase').",
+      "pdf_page": 36
+    },
+    {
+      "text": "Integrated Doppler measures the continuous carrier phase rather than independent velocity samples, giving a high-resolution change in range up to an unknown constant; it can be two-way (coherent) or one-way (non-coherent).",
+      "pdf_page": 41
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system – Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-E-ST-50",
+      "doc_id": "ECSS-E-ST-50",
+      "title": "Space engineering – Communications",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-E-ST-50-05",
+      "doc_id": "ECSS-E-ST-50-05",
+      "title": "Space engineering – Radio frequency and modulation",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 43
+    },
+    {
+      "label": "CCSDS 401.0-B",
+      "doc_id": "CCSDS 401.0-B",
+      "title": "Radio Frequency and Modulation Systems – Part 1: Earth Stations and Spacecraft",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 43
+    }
+  ],
+  "topics": [
+    "ccsds/rf-and-ranging.md",
+    "ecss/e-st-50-communications.md",
+    "ecss/index.md",
+    "overview/standards-map.md"
+  ],
+  "notes": "The extraction uses Unicode non-breaking hyphens (U+2011) in document IDs. Figures 4-1 (functional block diagram, p. 12, partly extracted as loose labels), 4-2 to 4-5 (ranging spectra) and 4-6 (Allan variance curves) are graphics; Annex C's equations (p. 42) are garbled in the text. Superscripts are flattened (for example '2 × 106 km', p. 9; 'code length = 212' for 2^12, p. 5). The introduction's last bullet is printed as a separate paragraph (p. 6). Clause 4.5.2 refers to turn-around ratios 'in Table 5-1 of' ECSS-E-ST-50-05 (p. 28). Telecommand and TM data link aspects are out of scope; the RF companion ECSS-E-ST-50-05C Rev. 2 is in the library as ecss-e-st-50-05c-rev24october2011, and a later issue of CCSDS 401.0-B as ccsds-401-0-401x0b32. Printed page numbers equal PDF page numbers; srcgrep shows 44 PDF pages (the last one blank) while the registry gives 43."
+}

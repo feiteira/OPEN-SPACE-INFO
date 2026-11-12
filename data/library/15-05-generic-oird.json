@@ -1,0 +1,216 @@
+{
+  "slug": "15-05-generic-oird",
+  "title": "Generic Operations Interface Requirements Document (GOIRD)",
+  "short_title": "Generic OIRD (GOIRD), ADCSS 2019",
+  "doc_id": null,
+  "issue": null,
+  "date": "12/11/2019",
+  "organisation": "European Space Agency (ESA)",
+  "authors": [
+    "Ignacio Clerigo"
+  ],
+  "doc_type": "Presentation",
+  "status_notes": "Workshop presentation given at the 13th ESA Workshop on Avionics, Data, Control and Software Systems, dated 12/11/2019 on the title slide. It reports Generic OIRD 1.0 as formally released in July 2019 and already used by several projects (PDF p. 12).",
+  "summary": "A talk on ESA's **Generic Operations Interface Requirements Document (GOIRD)**. An OIRD is the ESA-prepared document that sets the space segment's operability requirements, the functions the spacecraft and payload must offer so that the mission can be operated, as an early input to spacecraft development. Mission OIRDs used to be derived from earlier ones, so lessons learnt were not always propagated, differences between missions were not always justified, the OIRDs had evolved independently of PUS-C and the OBCP standard, and this variability hampered product-oriented on-board software and mission control systems.\n\nIn June 2016 SAVOIR asked ESOC to create a Generic OIRD as the baseline for future missions and for compatible OBSW libraries. Mission OIRDs are then produced from the GOIRD, with only mission-specific deltas, mission constants, PUS-C service sizing and de-scoping. GOIRD 1.0 was released in July 2019 and was already used for the Copernicus high-priority candidate missions, ERO/Mars Sample Return and HERA.\n\nThe GOIRD is a PDF document with Excel/DOORS content in two parts:\n\n* **Part I, functional requirements**: architecture-independent and PUS-agnostic operability requirements traced to ECSS-E-ST-70-11C, grouped by topic (modes, telecommands, telemetry, timing, autonomy, FDIR, safe mode, subsystems);\n* **Part II, a PUS-C tailoring** of ECSS-E-ST-70-41C: one common set of services, subservices and capabilities for all ESA missions. The talk quantifies the full standard (20 services, 33 subservices, 316 TC/TM types of which 88 are mandatory, and 382 'shall be declared' options). It describes added observables, new capabilities (critical event/system log, parameter extraction from HK, backup MTL, file-based operations), architecture rules (service 11 centralized; services 1, 3, 5, 6 and 17 in every packetized unit) and minimal changes to the standard.\n\nOBCPs (ECSS-E-ST-70-01C) are not tailored. The talk notes that PUS-C leaves low-level encoding choices open, hurting interoperability, and calls for PUS-C library developers to coordinate.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Agenda",
+      "pdf_page": 2
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Generic OIRD - Structure",
+      "pdf_page": 7
+    },
+    {
+      "section": null,
+      "title": "Generic OIRD - Format",
+      "pdf_page": 8
+    },
+    {
+      "section": null,
+      "title": "Generic OIRD - Content",
+      "pdf_page": 9
+    },
+    {
+      "section": null,
+      "title": "Mission OIRD generation",
+      "pdf_page": 10
+    },
+    {
+      "section": null,
+      "title": "Generic OIRD - Status",
+      "pdf_page": 12
+    },
+    {
+      "section": null,
+      "title": "Functional requirements - Content",
+      "pdf_page": 14
+    },
+    {
+      "section": null,
+      "title": "Functional requirements - Format",
+      "pdf_page": 16
+    },
+    {
+      "section": null,
+      "title": "PUS-C requirements",
+      "pdf_page": 19
+    },
+    {
+      "section": null,
+      "title": "PUS-C requirements - Format",
+      "pdf_page": 21
+    },
+    {
+      "section": null,
+      "title": "PUS-C requirements – Classification",
+      "pdf_page": 23
+    },
+    {
+      "section": null,
+      "title": "PUS-C requirements - Problems",
+      "pdf_page": 28
+    },
+    {
+      "section": null,
+      "title": "OBCP requirements",
+      "pdf_page": 29
+    },
+    {
+      "section": null,
+      "title": "Conclusions",
+      "pdf_page": 31
+    }
+  ],
+  "key_points": [
+    {
+      "text": "For most ESA missions the operability requirements are captured in a mission-specific OIRD (Operations Interface Requirements Document), prepared by ESA, standalone or integrated in the System Requirements Document, and tightly coupled with CCSDS and ECSS standards.",
+      "pdf_page": 3
+    },
+    {
+      "text": "Problems with per-mission OIRDs: derived from previous OIRDs, lessons learnt not propagated, differences not always justified, evolution independent of PUS-C and OBCP standards, and partial overlap between OIRD and PUS requirements.",
+      "pdf_page": 4
+    },
+    {
+      "text": "SAVOIR entrusted ESOC in June 2016 with establishing a Generic OIRD, to be the baseline specification for future missions and to allow compatible OBSW libraries.",
+      "pdf_page": 5
+    },
+    {
+      "text": "The GOIRD has Part I, on-board functional requirements (space segment operability, ECSS-E-ST-70-11C), and Part II, PUS-C requirements (ECSS-E-ST-70-41C) and OBCP (ECSS-E-ST-70-01C).",
+      "pdf_page": 7
+    },
+    {
+      "text": "The GOIRD is delivered as a PDF with three attached Excel files (functional requirements, PUS-C requirements, changelog); its scope is limited to robotic missions with an avionics-like subsystem in mind.",
+      "pdf_page": 8
+    },
+    {
+      "text": "The GOIRD does not replace mission OIRDs: missions start from all GOIRD requirements and trace only truly mission-specific changes (mission constants, PUS-C service sizing, de-scoping), with no copy and paste from previous mission OIRDs.",
+      "pdf_page": 10
+    },
+    {
+      "text": "Generic OIRD 1.0 was formally released in July 2019 and used to build the OIRDs of the Copernicus high-priority candidate missions, ERO / Mars Sample Return and HERA.",
+      "pdf_page": 12
+    },
+    {
+      "text": "Functional requirements are kept in DOORS with ID, text and notes, relationship to ECSS-E-ST-70-11C (unchanged, new or modified) and clause, justification, and a mission-family flag (interplanetary, astronomy, Earth Observation); TC authentication requirements apply only to Earth Observation missions.",
+      "pdf_page": 16
+    },
+    {
+      "text": "PUS-C is described as a major step forward from PUS-A: a solid foundation model, clear system requirements, interface definition separated from requirements, and new service types (e.g. file management).",
+      "pdf_page": 19
+    },
+    {
+      "text": "PUS-C as is defines 20 services with 33 subservices, 316 TCs and TM reports if all subservices are implemented (only 88 mandatory) and 382 'shall be declared when specifying' statements, so two untailored implementations would have very different interfaces.",
+      "pdf_page": 20
+    },
+    {
+      "text": "The GOIRD PUS-C tailoring fixes a common set of services, subservices, TC/TM types and capabilities for all future ESA missions (about 60% of the GOIRD PUS-C requirements).",
+      "pdf_page": 23
+    },
+    {
+      "text": "New capabilities not in PUS-C (critical event log/system log, parameter extraction from HK, backup MTL, file-based operations) are added as high-level requirements without defined TC/TM interfaces (about 19%), to be raised as change requests.",
+      "pdf_page": 25
+    },
+    {
+      "text": "Architecture rules: some services must be centralized, e.g. service 11 (Mission Timeline); services 1, 3, 5, 6 (if applicable) and 17 must be implemented in all packetized units.",
+      "pdf_page": 26
+    },
+    {
+      "text": "Changes to PUS-C behaviour are kept to under 1% of the requirements, with no modification of defined TC and TM interfaces; clarifications from lessons learnt make up about 12%.",
+      "pdf_page": 27
+    },
+    {
+      "text": "PUS-C leaves key low-level aspects unstandardized, such as the number of bytes used to encode certain packet fields, which matters for interoperability of PUS-C units.",
+      "pdf_page": 28
+    },
+    {
+      "text": "The ECSS OBCP standard is not tailored in the GOIRD; a few extra requirements are added to PUS-C service 18.",
+      "pdf_page": 29
+    }
+  ],
+  "references": [
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-70-11C",
+      "title": "Space segment operability (ECSS Space Segment Operability Standard)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 7
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-70-41C",
+      "title": "PUS-C",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 7
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-70-01C",
+      "title": "OBCP",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 7
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "PUS-A",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 19
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "Generic OIRD 1.0 (released July 2019)",
+      "issue": "1.0",
+      "date": "July 2019",
+      "kind": "mentioned",
+      "pdf_page": 12
+    }
+  ],
+  "topics": [
+    "ecss/e-st-70-11c.md",
+    "ecss/pus/index.md",
+    "ecss/pus/pus-a-vs-pus-c.md",
+    "ecss/pus/message-types.md",
+    "ecss/pus/st11-time-based-scheduling.md",
+    "ecss/e-st-70-01c.md",
+    "scos2000/ancillary-and-egs-cc.md",
+    "missions/other-missions.md"
+  ],
+  "notes": "Slide deck with no reference list; the 'mentioned' entries come from the slides. The title-slide date is printed '12/11/2019' and is kept as printed; read in day/month order it would be 12 November 2019, but that reading is this catalogue's inference. Every slide carries the marking 'ESA UNCLASSIFIED - For Official Use'. The author's affiliation is not printed beyond the ESA marking. Slides 17 and 22 (format examples) are images with no extractable text, and the structure diagram on p. 7 is extracted as loose labels. 'drives', 'standardize' and 'Fix set' are as printed (pp. 4, 23, 28). The GOIRD itself is not in the library; the standards it tailors are (ecss-e-st-70-11c-rev-1-15october2025, ecss-e-st-70-41c-15april2016, ecss-e-st-70-01c16april2010). Other ADCSS talks in the library: valera-2015-adcss-ecss-e-st-70-41c-status. The PDF has 32 slides plus a trailing empty page 33 in the extraction."
+}

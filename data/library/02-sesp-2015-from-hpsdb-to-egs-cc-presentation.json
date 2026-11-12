@@ -1,0 +1,50 @@
+{
+ "slug": "02-sesp-2015-from-hpsdb-to-egs-cc-presentation",
+ "title": "System Reference Data Base: From H/P to EGS-CC",
+ "short_title": "SRDB: from Herschel/Planck HPSDB to EGS-CC (SESP 2015)",
+ "doc_id": "83230919-DOC-TAS-FR-003",
+ "issue": null,
+ "date": "2015-03",
+ "organisation": "Thales Alenia Space",
+ "authors": [],
+ "doc_type": "Presentation",
+ "status_notes": "Slides for SESP 2015 (Workshop on Simulation and EGSE for Space Programmes), dated 24-26/03/2015 on every slide. No issue number is printed.",
+ "summary": "A 16-slide Thales Alenia Space presentation on the lineage of its industrial system reference database. HPSDB (Herschel/Planck System Data Base) became SRDB for Meteosat Third Generation (MTG), and the slides look ahead to adapting SRDB to EGS-CC based systems. HPSDB was specified around two ESA requirements: 'commonality' between the two spacecraft and between database users, met by physical instantiation and category flags, and 'smooth transition' of validated data from AIT to operations, met by logical instantiation and category flags.\n\nMost slides explain the data model with a reaction-wheel example. Objects (equipment, subsystem, model) contain items (TM packets, TM parameters, curves, synthetic parameters, groups, constants), and identifiers are built from a core part (Axxx packets, Cxxxx curves, Dxxx synthetics, Gxxx groups, Kxxx constants, Mxxx TM parameters) prefixed by a position code such as A101. Category flags (AIT, OPS, SW) give each user a consistent view of an object. Physical instantiation separates the 'defined' from the 'realized' part, for example a serial-numbered unit with modified curves. Logical instantiation attaches lower-level objects at positions inside higher-level objects. Further slides cover generic objects, working, reference and archive areas with check-out and check-in, object versioning by environment counter or label, a configurable number of levels, resource parameters that make one parameter's validity depend on another's state, groups, and full versus flat XML export views.\n\nThe mapping slide and the conclusion state that the SRDB high-level model should map onto the EGS-CC product structure, while the low-level items and pseudo-items still need conversion algorithms. For an engineer, it explains the identifier scheme seen in Herschel/Planck MIB exports.",
+ "contents": [
+  {"section": "1", "title": "System Reference Data Base - From H/P to EGS-CC (title)", "pdf_page": 1},
+  {"section": "2", "title": "Introduction", "pdf_page": 2},
+  {"section": "3", "title": "Rules (to understand the next viewgraphs)", "pdf_page": 3},
+  {"section": "4", "title": "Definitions: Object / item / pseudo-item", "pdf_page": 4},
+  {"section": "5", "title": "Physical instantiation", "pdf_page": 5},
+  {"section": "6", "title": "Logical instantiation", "pdf_page": 6},
+  {"section": "7", "title": "Physical and Logical instantiations", "pdf_page": 7},
+  {"section": "8", "title": "Generic object", "pdf_page": 8},
+  {"section": "9", "title": "Areas", "pdf_page": 9},
+  {"section": "10", "title": "Object versionning", "pdf_page": 10},
+  {"section": "11", "title": "Configurable number of levels", "pdf_page": 11},
+  {"section": "12", "title": "Resource", "pdf_page": 12},
+  {"section": "13", "title": "EGS-CC mapping", "pdf_page": 13},
+  {"section": "14", "title": "Groups", "pdf_page": 14},
+  {"section": "15", "title": "Full and flat XML views", "pdf_page": 15},
+  {"section": "16", "title": "Conclusion", "pdf_page": 16}
+ ],
+ "key_points": [
+  {"text": "HPSDB was specified for two ESA requirements: 'commonality' (between the two spacecraft and between database users), achieved via physical instantiation and category flags, and 'smooth transition' (re-use of validated data up to operations), achieved via logical instantiation and category flags.", "pdf_page": 2},
+  {"text": "SRDB is an adaptation of HPSDB for MTG; the one major concept change is the ability to attach a former version of an object, whereas HPSDB can attach only the most recent version.", "pdf_page": 2},
+  {"text": "Item core identifiers: Axxx TM packet, Cxxxx curve, Dxxx synthetic parameter, Gxxx group, Kxxx constant, Mxxx TM parameter; an instantiation part such as a position code (A101) is prefixed, giving identifiers like A101M001.", "pdf_page": 3},
+  {"text": "Category flags (for example AIT, OPS, SW) select per-user views of an object, with the main constraint that every object view is consistent.", "pdf_page": 4},
+  {"text": "Physical instantiation distinguishes the defined part (object type) from realized parts (serial-numbered units) that may physically delete, modify or add items such as a unit-specific curve.", "pdf_page": 5},
+  {"text": "Logical instantiation attaches lower-level objects at positions (for example two reaction wheels at A101 and A102, a gyro at A200) and lets the higher-level object add synthetic parameters such as D001 = A101M002 + A102M002 in a pseudo-position (AZZZ).", "pdf_page": 6},
+  {"text": "Data live in a working area, a reference area and an archive area, with check-out, modification, check-in and archive steps.", "pdf_page": 9},
+  {"text": "A 'resource' parameter lets a parameter's validity depend on another parameter's state, for example A101M001 valid only if the PCDU relay status A200M001 is 'closed' in the exported operations files.", "pdf_page": 12},
+  {"text": "The SRDB high-level data model is expected to map to the EGS-CC product structure package; the low-level items and pseudo-items need conversion algorithms to EGS-CC aspects.", "pdf_page": 13},
+  {"text": "SRDB exports full XML views (generic, element and subsystem objects with attachment lists) and flat XML views (fully instantiated identifiers per object).", "pdf_page": 15},
+  {"text": "Conclusion: the Herschel/Planck experience validated the HPSDB concept; MTG integrated that feedback plus new requirements (resource, owner flag, list of aliases); EGS-CC compatibility was still to be implemented.", "pdf_page": 16}
+ ],
+ "references": [
+  {"label": null, "doc_id": "HPSDB", "title": "Herschel / Planck System Data Base", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 2},
+  {"label": null, "doc_id": "EGS-CC", "title": "European Ground Systems Common Core (product structure package)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 13}
+ ],
+ "topics": ["scos2000/operations-preparation.md", "scos2000/ancillary-and-egs-cc.md", "missions/herschel-planck.md", "mib/tooling.md", "mib/tailoring.md"],
+ "notes": "Slide deck exported to PDF (16 slides; the text extraction shows a seventeenth, empty page). Diagrams are flattened into text, so object/item boxes and their colour coding (blue, green, violet, red borders) cannot be seen in the text layer. No authors are named. Typos as printed include 'fior', 'versionning' and 'EGSE-CC'. Related library items: the HPSDB user manual h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual, the HPSDB release note h-p-2-asp-li-1441-09-herschel-hpsdb-release-note and the HPSDB MIB processing note h-p-1-asp-tn-1060-mib-processing-hpsdb."
+}

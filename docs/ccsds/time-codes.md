@@ -176,7 +176,7 @@ octets. The figures below are this wiki's arithmetic from the counter widths:
 | 3 | $2^{24}$ s ≈ 194 days | | 3 | $2^{-24}$ s ≈ 59.6 ns |
 | 4 | $2^{32}$ s ≈ 136 years | | 4 | $2^{-32}$ s ≈ 0.23 ns |
 
-PUS-A annex C, transcribed from ESA PSS-04-106, describes the classic ESA spacecraft elapsed time
+PUS-A annex C, transcribed from ESA PSS-04-106 (see [From ESA PSS to CCSDS and ECSS](../overview/history.md)), describes the classic ESA spacecraft elapsed time
 in these terms. It is a CUC with 1 to 4 coarse octets and a resolution of $2^0$, $2^{-8}$,
 $2^{-16}$ or $2^{-24}$ s. Its P-field always starts `0b0010` (agency epoch), the unit is the TAI
 second, and the epoch is arbitrary because the ground correlates the count to UTC.[^pusa-annexc]

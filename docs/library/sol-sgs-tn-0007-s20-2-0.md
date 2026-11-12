@@ -36,12 +36,14 @@ The note gives the agreed generation and distribution cadences, a common 4-byte 
 - Platform data offered in TC(20,128) include a thruster-firing-expected flag, a solar-array steering flag, the current AOCS mode (enumerated SASM, WSM, NCM and OCM sub-modes), an AOCS convergence flag, roll rate and roll angle, and the four reaction-wheel speeds with validity flags. *(PDF p. 10)*
 
 
-## Cited by these wiki pages (6)
+## Cited by these wiki pages (8)
 
 - [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md)
 - [ST[20] On-board parameter management](../ecss/pus/st20-onboard-parameter-management.md)
 - [Solar Orbiter](../missions/solar-orbiter/index.md)
+- [Solar Orbiter STIX instrument database](../missions/solar-orbiter/stix.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
+- [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](../missions/solar-orbiter/instrument-interfaces.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [The standards landscape](../overview/standards-map.md)
 

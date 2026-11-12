@@ -40,7 +40,7 @@ The functional slides are the most useful for this wiki: manual stack and autost
 - EGOS product family includes NCTRS/SLE, SIMSAT, GFTS, GDDS (Generic Data Disposition System), ADAS, APES, EVA, EGSE, MPS and FDS. *(PDF p. 30)*
 
 
-## Cited by these wiki pages (19)
+## Cited by these wiki pages (20)
 
 - [Ancillary systems, MICONYS and the move to EGS-CC](../scos2000/ancillary-and-egs-cc.md)
 - [Display definitions in the MIB](../mib/displays.md)
@@ -51,6 +51,7 @@ The functional slides are the most useful for this wiki: manual stack and autost
 - [Missions](../missions/index.md)
 - [Monitoring checks: limits and out-of-limits](../mib/monitoring-checks.md)
 - [NCTRS, NIS and the ground station interface](../scos2000/nctrs-nis.md)
+- [Operations preparation: databases, procedures and tools](../scos2000/operations-preparation.md)
 - [Other missions and SCOS-2000 users](../missions/other-missions.md)
 - [Rosetta, Mars Express and Venus Express](../missions/rosetta-mex-vex.md)
 - [SCOS-2000 architecture](../scos2000/architecture.md)

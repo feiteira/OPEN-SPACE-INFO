@@ -111,7 +111,7 @@ Twelve appendices cover data streams and ADIDs (including Super APIDs), error ha
 | Label | Document | Title | Issue / date | Kind |
 |---|---|---|---|---|
 | A-1 | [CCSDS 620.0-B-2.1](../references/index.md#ref-ccsds-620-0-b-2-1) | Recommendation for Space Data System Standards: Standard Formatted Data Units – Structure and Construction Rules | Blue Book, Issue 2 November 1996 | applicable |
-| A-2 | [ESA-PSS-04-106](../references/index.md#ref-esa-pss-04-106) | ESA Packet Telemetry Standard |  | applicable |
+| A-2 | [ESA-PSS-04-106](../references/index.md#ref-esa-pss-04-106) · [library](esa-pss-04-106-issue1-january1988.md) | ESA Packet Telemetry Standard |  | applicable |
 | A-3 | [MEX-MMT-IF-0936](../references/index.md#ref-mex-mmt-if-0936) | Rosetta/MEX Generic TM/TC ICD | Issue 2, Rev. 2 30th August 2001 | applicable |
 | A-4 | [RO-ESC-IF-5003/MEX-ESC-IF-5003/VEX-ESC-IF-5003 Appendix H](../references/index.md#ref-ro-esc-if-5003-mex-esc-if-5003-vex-esc-if-5003-appendix-h) | Data Delivery FD Products | Issue 3.2 1st July 2006 | applicable |
 | A-5 | [RO-ESC-LI-5001](../references/index.md#ref-ro-esc-li-5001) | Rosetta Project Glossary | Issue A0 15th May 1999 | applicable |

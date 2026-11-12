@@ -567,6 +567,7 @@ from, `PID_DFHSIZE` = 16).[^tn-tcp][^mib]
 * [TM Space Data Link Protocol](../../ccsds/tm-sdlp.md) (VC frame count) and [TM synchronization and channel coding](../../ccsds/tm-coding.md) (ASM).
 * [PUS packet structures](packets.md), [PUS parameter types](parameter-types.md), [ST[11] Time-based scheduling](st11-time-based-scheduling.md) (which consumes on-board time) and [ST[14] Real-time forwarding control](st14-real-time-forwarding-control.md).
 * [ECSS-E-ST-70-11C: space segment operability](../e-st-70-11c.md) and [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md).
+* [Herschel/Planck time packet and idle packet](../../scos2000/herschel-planck-interfaces.md#time-packet-and-idle-packet) and [From ESA PSS to CCSDS and ECSS](../../overview/history.md#time-ground-processing-and-services), the 1988 time packet that service 9 inherits.
 
 ## SQL used
 

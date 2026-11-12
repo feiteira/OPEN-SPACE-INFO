@@ -157,7 +157,7 @@ A new Appendix C explains how SCOS-2000 supports the PUS service by service (1 t
 | RD-3 | [GLO-0001](../references/index.md#ref-glo-0001) | SCOS-2000 Glossary, Definitions and Acronyms |  | reference |
 | RD-4 | [catalogue](../references/index.md#ref-deleted) | Deleted |  | reference |
 | RD-5 | [catalogue](../references/index.md#ref-deleted) | Deleted |  | reference |
-| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
+| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) · [library](esa-pss-07-101-issue1-may1994.md) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
 | RD-7 | [RO-ESC-IF-5002](../references/index.md#ref-ro-esc-if-5002) | Rosetta Space/Ground ICD | Issue 1 August 1998 | reference |
 | RD-8 | [CCSDS 301.0-B-2](../references/index.md#ref-ccsds-301-0-b-2) | CCSDS Time Code Formats | Issue 2 April 1990 | reference |
 | RD-9 | [SUM-0019](../references/index.md#ref-sum-0019) | SCOS-2000 Synthetic Parameters SUM |  | reference |

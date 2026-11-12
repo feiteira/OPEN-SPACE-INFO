@@ -1,0 +1,551 @@
+{
+  "slug": "ecss-e-st-50-04c31july2008",
+  "title": "Space engineering\nSpace data links - Telecommand protocols, synchronization and channel coding",
+  "short_title": "ECSS Telecommand Protocols, Sync and Coding (2008)",
+  "doc_id": "ECSS-E-ST-50-04C",
+  "issue": "Second issue",
+  "date": "2008-07-31",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division",
+  "authors": [],
+  "doc_type": "Standard",
+  "status_notes": "Second issue (31 July 2008), following ECSS-E-50-04A (first issue, 14 November 2007); ECSS-E-50-04B was never issued (change log, p. 3). The document does not state that it is superseded. The library's later ECSS adoption notices state that it is replaced by ECSS-E-AS-50-24C (CCSDS 231.0-B-x), ECSS-E-AS-50-25C (CCSDS 232.0-B-x) and ECSS-E-AS-50-26C (CCSDS 232.1-B-x) (e.g. ECSS-E-AS-50-24C Rev.1, pp. 3 and 6).",
+  "summary": "The 2008 ECSS standard for the whole **telecommand (TC) uplink data link**, from the segment to the radiated carrier. It closely follows CCSDS 231.0-B-1, 232.0-B-1 and 232.1-B-1, and Annex B compares it with the 1992 ESA Packet telecommand standard ESA-PSS-04-107. ECSS has since replaced it with three adoption notices.\n\nIts clauses follow the protocol stack:\n\n* **Segmentation sublayer** (clause 5): the TC Segment, a one-octet header with 2-bit Sequence Flags and a 6-bit MAP Identifier, plus blocking of several packets into one frame, segmentation and reassembly, MAP multiplexing and the optional **Packet Assembly Controller** with lockout and MAP reset;\n* **Transfer sublayer** (clause 6): the variable-length **TC Transfer Frame** (5-octet primary header with version, Bypass and Control Command flags, 10-bit SCID, 6-bit VCID and 10-bit Frame Length; up to 1024 octets; mandatory 16-bit FECF), the 4-octet **CLCW** carried in the TM OCF, and the frame procedures and VC multiplexing;\n* **COP-1** (clause 7): FOP-1 and FARM-1 variables, the sliding window, the service interfaces, the Unlock and Set V(R) control commands and complete state tables;\n* **Synchronization and channel coding** (clause 8): the (63,56) modified **BCH codeblock**, the **CLTU** with Start Sequence 0xEB90 and Tail Sequence 0xC5C5C5C5C5C5C579, the mandatory randomizer, fill, and SEC-only decoding;\n* **Physical layer** (clause 9): acquisition and idle sequences, carrier modulation modes CMM-1 to CMM-4, and **PLOP-1/PLOP-2**.\n\nThe annexes give the FECF algorithm, the changes from ESA-PSS-04-107 (for example frames of 1024 instead of 256 octets, and COP-1B instead of COP-1A), the differences from CCSDS (one frame per CLTU, mandatory FECF and randomizer), frame rejection and undetected-error performance, and the mission configuration parameters. It remains a compact, complete reference for ESA telecommand chains of that generation.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 12
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 13
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 14
+    },
+    {
+      "section": "3.1",
+      "title": "Terms from other standards",
+      "pdf_page": 14
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 14
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviated terms",
+      "pdf_page": 15
+    },
+    {
+      "section": "3.4",
+      "title": "Conventions",
+      "pdf_page": 16
+    },
+    {
+      "section": "4",
+      "title": "Overview",
+      "pdf_page": 17
+    },
+    {
+      "section": "4.1",
+      "title": "Presentation",
+      "pdf_page": 17
+    },
+    {
+      "section": "4.2",
+      "title": "Protocol profiles",
+      "pdf_page": 17
+    },
+    {
+      "section": "4.3",
+      "title": "Segmentation sublayer",
+      "pdf_page": 18
+    },
+    {
+      "section": "4.4",
+      "title": "Transfer sublayer",
+      "pdf_page": 19
+    },
+    {
+      "section": "4.5",
+      "title": "Synchronization and channel coding sublayer",
+      "pdf_page": 19
+    },
+    {
+      "section": "4.6",
+      "title": "Physical layer",
+      "pdf_page": 19
+    },
+    {
+      "section": "4.7",
+      "title": "Virtual channels",
+      "pdf_page": 20
+    },
+    {
+      "section": "5",
+      "title": "Segmentation sublayer",
+      "pdf_page": 21
+    },
+    {
+      "section": "5.1",
+      "title": "Overview",
+      "pdf_page": 21
+    },
+    {
+      "section": "5.2",
+      "title": "TC Segment",
+      "pdf_page": 22
+    },
+    {
+      "section": "5.3",
+      "title": "Transfer notification",
+      "pdf_page": 24
+    },
+    {
+      "section": "5.4",
+      "title": "Blocking of packets",
+      "pdf_page": 26
+    },
+    {
+      "section": "5.5",
+      "title": "Segmentation",
+      "pdf_page": 28
+    },
+    {
+      "section": "5.6",
+      "title": "MAP multiplexing",
+      "pdf_page": 33
+    },
+    {
+      "section": "6",
+      "title": "Transfer sublayer",
+      "pdf_page": 35
+    },
+    {
+      "section": "6.1",
+      "title": "Overview",
+      "pdf_page": 35
+    },
+    {
+      "section": "6.2",
+      "title": "TC Transfer Frame definition",
+      "pdf_page": 37
+    },
+    {
+      "section": "6.3",
+      "title": "CLCW definition",
+      "pdf_page": 45
+    },
+    {
+      "section": "6.4",
+      "title": "Frame header procedure",
+      "pdf_page": 51
+    },
+    {
+      "section": "6.5",
+      "title": "Frame error control procedure at the sending end",
+      "pdf_page": 51
+    },
+    {
+      "section": "6.6",
+      "title": "Frame delimiting and fill removal procedure",
+      "pdf_page": 51
+    },
+    {
+      "section": "6.7",
+      "title": "Frame error control procedure at the receiving end",
+      "pdf_page": 52
+    },
+    {
+      "section": "6.8",
+      "title": "Frame header validation procedure",
+      "pdf_page": 52
+    },
+    {
+      "section": "6.9",
+      "title": "Virtual channel multiplexing",
+      "pdf_page": 53
+    },
+    {
+      "section": "7",
+      "title": "COP-1",
+      "pdf_page": 55
+    },
+    {
+      "section": "7.1",
+      "title": "Overview",
+      "pdf_page": 55
+    },
+    {
+      "section": "7.2",
+      "title": "Internal variables",
+      "pdf_page": 58
+    },
+    {
+      "section": "7.3",
+      "title": "Features of COP-1 interfaces",
+      "pdf_page": 71
+    },
+    {
+      "section": "7.4",
+      "title": "Upper interface of COP-1 at the sending end",
+      "pdf_page": 73
+    },
+    {
+      "section": "7.5",
+      "title": "Upper interface of COP-1 at the receiving end",
+      "pdf_page": 84
+    },
+    {
+      "section": "7.6",
+      "title": "Lower interface of COP-1 at the sending end",
+      "pdf_page": 86
+    },
+    {
+      "section": "7.7",
+      "title": "Lower interface of COP-1 at the receiving end",
+      "pdf_page": 88
+    },
+    {
+      "section": "7.8",
+      "title": "Format of COP-1 control commands",
+      "pdf_page": 89
+    },
+    {
+      "section": "7.9",
+      "title": "Actions",
+      "pdf_page": 90
+    },
+    {
+      "section": "8",
+      "title": "Synchronization and channel coding sublayer",
+      "pdf_page": 113
+    },
+    {
+      "section": "8.1",
+      "title": "Overview",
+      "pdf_page": 113
+    },
+    {
+      "section": "8.2",
+      "title": "BCH codeblock",
+      "pdf_page": 113
+    },
+    {
+      "section": "8.3",
+      "title": "Communications link transmission unit (CLTU)",
+      "pdf_page": 115
+    },
+    {
+      "section": "8.4",
+      "title": "Randomization procedure",
+      "pdf_page": 117
+    },
+    {
+      "section": "8.5",
+      "title": "BCH codeblock encoding procedure",
+      "pdf_page": 118
+    },
+    {
+      "section": "8.6",
+      "title": "Fill bits",
+      "pdf_page": 119
+    },
+    {
+      "section": "8.7",
+      "title": "Channel logic at the receiving end",
+      "pdf_page": 120
+    },
+    {
+      "section": "8.8",
+      "title": "BCH codeblock decoding procedures",
+      "pdf_page": 121
+    },
+    {
+      "section": "9",
+      "title": "Physical layer",
+      "pdf_page": 123
+    },
+    {
+      "section": "9.1",
+      "title": "Overview",
+      "pdf_page": 123
+    },
+    {
+      "section": "9.2",
+      "title": "Physical layer data structures",
+      "pdf_page": 123
+    },
+    {
+      "section": "9.3",
+      "title": "Physical layer procedures",
+      "pdf_page": 124
+    },
+    {
+      "section": "Annex A",
+      "title": "Frame error control (informative)",
+      "pdf_page": 129
+    },
+    {
+      "section": "Annex B",
+      "title": "Changes from ESA-PSS-04-107 (informative)",
+      "pdf_page": 131
+    },
+    {
+      "section": "Annex C",
+      "title": "Differences from CCSDS recommendations (informative)",
+      "pdf_page": 134
+    },
+    {
+      "section": "Annex D",
+      "title": "Performance issues (informative)",
+      "pdf_page": 137
+    },
+    {
+      "section": "Annex E",
+      "title": "Mission configuration parameters (informative)",
+      "pdf_page": 149
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 155
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Scope: data structures and protocols for a telecommand space data link and the physical layer operation procedure; normally ground-to-space, but usable for space-to-space links.",
+      "pdf_page": 12
+    },
+    {
+      "text": "The stack comprises the segmentation sublayer, the transfer sublayer (with COP-1) and the synchronization and channel coding sublayer of the data link layer, plus the physical layer procedures at the sending end; security sublayers may be inserted by tailoring.",
+      "pdf_page": 17
+    },
+    {
+      "text": "The TC Segment Header holds 2-bit Sequence Flags (bits 0-1) and a 6-bit MAP Identifier (bits 2-7), allowing up to 64 MAPs per virtual channel.",
+      "pdf_page": 23
+    },
+    {
+      "text": "The optional Packet Assembly Controller pairs a data MAP (MAP ID MSB '0') with a control MAP (same ID with MSB '1'); on an exception it enters lockout until a MAP reset control segment is received.",
+      "pdf_page": 30
+    },
+    {
+      "text": "A TC Transfer Frame consists of a 5-octet Primary Header, the Data Field and a 2-octet Frame Error Control Field, all always present; its length never exceeds 1024 octets and is at least 8 octets.",
+      "pdf_page": 38
+    },
+    {
+      "text": "TC Primary Header fields: Transfer Frame Version Number 2 bits, Bypass Flag 1, Control Command Flag 1, Reserved Spare 2, Spacecraft Identifier 10, Virtual Channel Identifier 6, Frame Length 10 (bits 22-31), Frame Sequence Number 8.",
+      "pdf_page": 38
+    },
+    {
+      "text": "The CLCW is 4 octets, conveyed in the Operational Control Field of a telemetry transfer frame; the No Bit Lock Flag is bit 17.",
+      "pdf_page": 45
+    },
+    {
+      "text": "COP-1 control commands are carried in type-BC frames: Unlock is a single all-zeros octet; Set V(R) is three octets, '10000010', all zeros, then the new V(R) value.",
+      "pdf_page": 89
+    },
+    {
+      "text": "A BCH codeblock is 8 octets: 56 information bits, 7 complemented parity bits from the (63,56) modified BCH code with g(x) = x^7 + x^6 + x^2 + 1, and a filler bit always '0'.",
+      "pdf_page": 118
+    },
+    {
+      "text": "A CLTU is a 16-bit Start Sequence (EB90), Encoded Data (one or more BCH codeblocks carrying exactly one TC Transfer Frame) and an 8-octet Tail Sequence of seven C5 octets followed by 79.",
+      "pdf_page": 115
+    },
+    {
+      "text": "The randomizer is used in all CLTUs, with h(x) = x^8 + x^6 + x^4 + x^3 + x^2 + x + 1 (period 255 bits); the bit transition generator stays all-ones until the Start Sequence is detected.",
+      "pdf_page": 117
+    },
+    {
+      "text": "Codeblocks shall be decoded in error-correcting (SEC) mode: one bit in error is corrected and two are detected.",
+      "pdf_page": 122
+    },
+    {
+      "text": "The acquisition sequence shall be at least 128 bits of alternating ones and zeros.",
+      "pdf_page": 123
+    },
+    {
+      "text": "The idle sequence shall be at least 8 bits of alternating ones and zeros.",
+      "pdf_page": 124
+    },
+    {
+      "text": "Carrier modulation modes: CMM-1 unmodulated carrier, CMM-2 acquisition sequence, CMM-3 telecommand data (CLTU), CMM-4 idle sequence.",
+      "pdf_page": 125
+    },
+    {
+      "text": "PLOP-2 should be used in preference to PLOP-1 because it supports a higher data throughput; with PLOP-2 a minimum idle sequence of one octet is inserted between CLTUs.",
+      "pdf_page": 126
+    },
+    {
+      "text": "Changes from ESA-PSS-04-107: blocking of packets, VCs without segments, no authentication or Segment Trailer, maximum frame length 1024 instead of 256 octets, COP-1B instead of COP-1A, a different Tail Sequence, randomization added, only 64-bit codeblocks and PLOP-1 added.",
+      "pdf_page": 132
+    },
+    {
+      "text": "Differences from CCSDS: the PAC (so segments can be one octet), exactly one frame per CLTU, mandatory FECF (minimum frame 8 instead of 6 octets), always accepting a one-bit error in the Start Sequence, mandatory randomization and SEC, mandatory idle between CLTUs in PLOP-2 and a defined No Bit Lock Flag.",
+      "pdf_page": 135
+    },
+    {
+      "text": "Annex D gives frame rejection and undetected error performance for channel bit error rates of 10^-4, 10^-5 and 10^-6, assuming PLOP-2 on an AWGN binary symmetric channel.",
+      "pdf_page": 137
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system - Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 13
+    },
+    {
+      "label": "CCSDS 135.0-B-3",
+      "doc_id": "CCSDS 135.0-B-3",
+      "title": "Space Link Identifiers – Blue Book",
+      "issue": "Issue 3",
+      "date": "October 2006",
+      "kind": "normative",
+      "pdf_page": 13
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "ECSS-E-ST-50",
+      "doc_id": "ECSS-E-ST-50",
+      "title": "Space engineering - Communications",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "ECSS-E-ST-50-03",
+      "doc_id": "ECSS-E-ST-50-03",
+      "title": "Space engineering – Space data links – Telemetry transfer frame protocol",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "ECSS-E-ST-50-05",
+      "doc_id": "ECSS-E-ST-50-05",
+      "title": "Space engineering – Radio frequency and modulation",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "ECSS-E-HB-50",
+      "doc_id": "ECSS-E-HB-50",
+      "title": "Space engineering – Communications guidelines",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "CCSDS 230.1-G-1",
+      "doc_id": "CCSDS 230.1-G-1",
+      "title": "TC Synchronization and Channel Coding – Green Book",
+      "issue": "Issue 1",
+      "date": "June 2006",
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "CCSDS 231.0-B-1",
+      "doc_id": "CCSDS 231.0-B-1",
+      "title": "TC Synchronization and Channel Coding – Blue Book",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "CCSDS 232.0-B-1",
+      "doc_id": "CCSDS 232.0-B-1",
+      "title": "TC Space Data Link Protocol – Blue Book",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "CCSDS 232.1-B-1",
+      "doc_id": "CCSDS 232.1-B-1",
+      "title": "Communications Operation Procedure-1 – Blue Book",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "CCSDS 320.0-B-4",
+      "doc_id": "CCSDS 320.0-B-4",
+      "title": "CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures – Blue Book",
+      "issue": "Issue 3",
+      "date": "January 2006",
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "CCSDS 732.0-B-2",
+      "doc_id": "CCSDS 732.0-B-2",
+      "title": "AOS Space Data Link Protocol – Blue Book",
+      "issue": "Issue 2",
+      "date": "July 2006",
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "CCSDS 912.3-B-1",
+      "doc_id": "CCSDS 912.3-B-1",
+      "title": "Space Link Extension – Forward Space Packet Service Specification – Blue Book",
+      "issue": "Issue 1",
+      "date": "November 2004",
+      "kind": "bibliography",
+      "pdf_page": 155
+    },
+    {
+      "label": "ESA-PSS-04-107",
+      "doc_id": "ESA-PSS-04-107",
+      "title": "Packet telecommand standard",
+      "issue": "Issue 2",
+      "date": "April 1992",
+      "kind": "bibliography",
+      "pdf_page": 155
+    }
+  ],
+  "topics": [
+    "ccsds/tc-sdlp.md",
+    "ccsds/cop-1.md",
+    "ccsds/tc-coding-cltu.md",
+    "ecss/e-st-50-communications.md",
+    "ecss/index.md",
+    "overview/uplink.md",
+    "overview/history.md",
+    "overview/standards-map.md"
+  ],
+  "notes": "Unlike its sister standards, the foreword does not name a working group. Superseded by ECSS-E-AS-50-24C, -25C and -26C (all in the library; the CCSDS books they adopt, ccsds-231-0-231x0b4e1, ccsds-232-0-232x0b4e1c1 and ccsds-232-1-232x1b2e2c1, are also in the library). The normative CCSDS 135.0-B-3 is in the library at the later issue CCSDS 135.0-B-4 (ccsds-135-0-135x0b4s), and the FSP book at CCSDS 912.3-B-3 (ccsds-912-3-912x3b3s). Predecessor ESA-PSS-04-107 Issue 2 (April 1992) is in the library as esa-pss-04-107-issue2-april1992. The extraction uses Unicode non-breaking hyphens (U+2011) in document IDs. Figures (frame and CLCW formats, encoder, state diagrams, CMM sequences) are images; the CMM table is on p. 125. Clause 3.3 cites 'ECSS-ST-00-01' (p. 15) for ECSS-S-ST-00-01, and its NOTE names 'AC, CB and BD frames' where AD, BC and BD are meant. The bibliography gives CCSDS 320.0-B-4 as 'Issue 3, January 2006' (p. 155). Annex B prints 'PLOP_2' (p. 133). Superscripts are flattened in the text ('x7 + x6'). Printed page numbers equal PDF page numbers; srcgrep shows 156 PDF pages (the last one blank) while the registry gives 155."
+}

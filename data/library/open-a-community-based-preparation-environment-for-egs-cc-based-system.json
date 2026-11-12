@@ -1,0 +1,52 @@
+{
+ "slug": "open-a-community-based-preparation-environment-for-egs-cc-based-system",
+ "title": "OPEN: A community based preparation environment for EGS-CC based systems",
+ "short_title": "OPEN: community preparation environment for EGS-CC",
+ "doc_id": null,
+ "issue": null,
+ "date": "2019-03",
+ "organisation": "European Space Agency, European Space Operations Centre (ESOC)",
+ "authors": ["François Trifin", "Anthony Walsh"],
+ "doc_type": "Paper",
+ "status_notes": "Paper for the Workshop on Simulation and EGSE for Space Programmes (SESP), 26-28 March 2019, ESA-ESTEC, Noordwijk (PDF p. 1). The implementation status is given as of February 2019 (PDF p. 4).",
+ "summary": "A five-page ESOC paper presenting OPEN (the 'OPEN Preparation Environment'), ESA's software framework for preparing the tailoring data of systems built on the European Ground Systems Common Core (EGS-CC). It is the third in a series by the same authors, after their SESP 2017 and SpaceOps 2018 papers, and focuses on the community and licensing model rather than on functions.\n\nOPEN has two layers. The OPEN layer provides generic data-management services (access control, version control, reporting, consistency checking, scripting, compare and merge, and model visualisation) on the Eclipse Rich Client Platform and the Eclipse Modeling Framework, and knows nothing of EGS-CC except the Configuration Item concept. The OPEN-CC layer adds EGS-CC-aware functions on top of the EGS-CC Conceptual Data Model (CDM). Products built on it are OPEN-M (mission operations preparation for ESOC flight control teams, part of MICONYS-CC), OPEN-S (ground station M&C preparation for GSMC-CC), OPEN-D (EGS-CC system configuration data) and ESTEC's Mission Model Editor (MME) for AIT engineers.\n\nFor MIB readers, the key point is that OPEN-M includes a converter from the SCOS-2000 MIB (ICD 6.9) to the EGS-CC CDM. The paper calls the EGS-CC model semantically richer, and the converter was being validated with data from BepiColombo, ExoMars TGO, Gaia, JUICE and the Sentinels. The paper also explains the ESA Community License with weak copyleft, which allows proprietary extensions, the restriction of redistribution to ESA Member States, the start of development in 2017 with several contractors, and the plan to be fit for operational use by 2020.",
+ "contents": [
+  {"section": null, "title": "Introduction", "pdf_page": 1},
+  {"section": null, "title": "Context", "pdf_page": 1},
+  {"section": null, "title": "OPEN - The Framework", "pdf_page": 2},
+  {"section": null, "title": "OPEN - The Tailoring Data Tool", "pdf_page": 2},
+  {"section": null, "title": "OPEN - The Model Visualisation Tool", "pdf_page": 2},
+  {"section": null, "title": "OPEN - The Basis for a Collection of Harmonised Tools", "pdf_page": 3},
+  {"section": null, "title": "OPEN-M - A Data Converter from SCOS-2000 to EGS-CC", "pdf_page": 3},
+  {"section": null, "title": "Raising the Software Stack - A Market Opportunity", "pdf_page": 3},
+  {"section": null, "title": "Community", "pdf_page": 4},
+  {"section": null, "title": "Implementation Status", "pdf_page": 4},
+  {"section": null, "title": "Call for Interest and Participation", "pdf_page": 5},
+  {"section": null, "title": "References", "pdf_page": 5}
+ ],
+ "key_points": [
+  {"text": "OPEN was already used at ESTEC and ESOC on three ESA projects and is the backbone of the MME (AIT engineers), OPEN-M (ESOC flight control teams on EGS-CC based mission control systems) and OPEN-S (ESOC ground station operators).", "pdf_page": 1},
+  {"text": "Generic OPEN services include access control, version control, reporting, consistency checking, scripting, data compare and merging, plus editors and browsers tailored to the EGS-CC monitoring and control models.", "pdf_page": 1},
+  {"text": "The OPEN layer is built on the Eclipse Rich Client Platform and Eclipse Modeling Framework, has no dependency on OPEN-CC or EGS-CC and, apart from the Configuration Item concept, is agnostic to EGS-CC concepts.", "pdf_page": 2},
+  {"text": "OPEN's source code does not include the EGS-CC Conceptual Data Model; the CDM is defined by the EGS-CC LDM library supplied with the EGS-CC binaries, and any EMF-compatible model or CDM extension can be loaded.", "pdf_page": 2},
+  {"text": "OPEN's non-graphical model visualisation fully replaces the HTML EGS-CC Reference Manual for Data Model.", "pdf_page": 3},
+  {"text": "OPEN-M is the preparation environment product of MICONYS-CC; OPEN-S prepares the GSMC-CC adaptation layer to ground station subsystems; OPEN-D manages EGS-CC system configuration data.", "pdf_page": 3},
+  {"text": "OPEN-M includes a converter from SCOS-2000 MIB 6.9 to the EGS-CC Conceptual Data Model, validated with BepiColombo, ExoMars Trace Gas Orbiter, Gaia, JUICE and Sentinel data.", "pdf_page": 3},
+  {"text": "OPEN and OPEN-M are licensed under the ESA Community License with Weak Copyleft; extensions may be proprietary, and redistribution outside ESA Member States requires authorisation by ESA's Technology Transfer Board.", "pdf_page": 4},
+  {"text": "Implementation of OPEN, OPEN-M and OPEN-S started in 2017 with more than six companies under ESA lead; JUICE and Sentinel flight control engineers were the first OPEN-M users, and OPEN-M was to be fit for operational use by 2020.", "pdf_page": 4},
+  {"text": "Next extensions foreseen: User Defined Display editors, management of constellations and management of the EGS-CC System Configuration.", "pdf_page": 5}
+ ],
+ "references": [
+  {"label": "[1]", "doc_id": null, "title": "Objectives and Concepts of the European Ground Systems Common Core (EGS-CC)", "issue": "SESP 2012, Noordwijk (M. Pecchioli et al.)", "date": "2012", "kind": "bibliography", "pdf_page": 5},
+  {"label": "[2]", "doc_id": null, "title": "The EGS-CC based Mission Control Infrastructure at ESOC", "issue": "SESP 2017, Noordwijk (M. Pecchioli, A. Walsh)", "date": "2017", "kind": "bibliography", "pdf_page": 5},
+  {"label": "[3]", "doc_id": null, "title": "The Next Generation Mission Operations Preparation Environment at ESOC", "issue": "SESP 2017, Noordwijk (F. Trifin, A. Walsh)", "date": "2017", "kind": "bibliography", "pdf_page": 5},
+  {"label": "[4]", "doc_id": null, "title": "Monitoring and Control Operations Preparation Framework for EGS-CC Based Environments", "issue": "SpaceOps 2018, Marseille (F. Trifin, A. Walsh)", "date": "2018", "kind": "bibliography", "pdf_page": 5},
+  {"label": "[5]", "doc_id": null, "title": "About The Linux Foundation", "issue": "The Linux Foundation, retrieved 2019-02-01", "date": "2019-02-01", "kind": "bibliography", "pdf_page": 5},
+  {"label": "[6]", "doc_id": null, "title": "Industry Leaders Announce Open Platform for Mobile Devices", "issue": "Open Handset Alliance", "date": "2007-11-05", "kind": "bibliography", "pdf_page": 5},
+  {"label": "[7]", "doc_id": null, "title": "Eclipse Forms Independent Organization", "issue": "Press Release, archived 2004-04-07", "date": "2004-02-04", "kind": "bibliography", "pdf_page": 5},
+  {"label": null, "doc_id": "ESA Community License v2.3 Type 3 (Weak Copyleft)", "title": "ESA Community License with Weak Copyleft", "issue": "v2.3", "date": null, "kind": "mentioned", "pdf_page": 4},
+  {"label": null, "doc_id": "SCOS-2000 MIB 6.9", "title": "SCOS-2000 MIB (Database Import ICD issue 6.9)", "issue": "6.9", "date": null, "kind": "mentioned", "pdf_page": 3}
+ ],
+ "topics": ["scos2000/ancillary-and-egs-cc.md", "scos2000/operations-preparation.md", "mib/tooling.md", "mib/icd-history.md", "mib/index.md"],
+ "notes": "Clean text-based PDF (5 pages; the text extraction shows a sixth, empty page). The authors' e-mail addresses on PDF p. 1 are omitted. Reference [3] is in the library as 1400-trifin-paper (SESP 2017) and reference [2] as pecchioli-egs-cc-esoc. A 2015 SESP presentation on HPSDB and EGS-CC is in the library as 02-sesp-2015-from-hpsdb-to-egs-cc-presentation. The MIB 6.9 converter refers to the SCOS-2000 Database Import ICD issue 6.9, held as icd-6-9-archive-org. The text contains typos ('cfoster', 'ModelingModelling', 'Rick Client Platform'). The source URL is an anonymous airdrive.eventsair.com object; the workshop name and date are printed on the first page."
+}

@@ -664,6 +664,8 @@ The bytes are constructed for this explanation; the codes and SPIDs are real MIB
 - [Uplink: from operator command to on-board execution](../../overview/uplink.md) - the whole chain.
 - [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md) and [The Solar Orbiter MIB](../../missions/solar-orbiter/mib.md).
 - [ST[02] Device access](st02-device-access.md) and [ST[03] Housekeeping](st03-housekeeping.md).
+- Instrument failure codes: [STIX](../../missions/solar-orbiter/stix.md#failure-codes-and-event-ids-against-the-mission-allocation) and the [SWA DPU verification codes](../../missions/solar-orbiter/instrument-interfaces.md#verification-tarf-and-tecf-codes).
+- [Operations preparation: command verification beyond the database](../../scos2000/operations-preparation.md#command-verification-beyond-the-database).
 
 [^c-611]: [ECSS-E-ST-70-41C, Space engineering - Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §6.1.1.1, PDF p. 55.
 [^c-6112]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §6.1.1.2, PDF pp. 55-56.

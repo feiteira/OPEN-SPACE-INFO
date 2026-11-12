@@ -582,6 +582,15 @@ The data that follows the header is described on
 Sources for the rows: PUS-A clauses 5.3 and 5.4,[^a-53b][^a-54b] PUS-C clause 7.4[^c-7431][^c-7441]
 and Rev.1 DIR1 clause 7.4.[^r-74]
 
+## Related pages
+
+* [Space Packet Protocol](../../ccsds/space-packet.md), the primary header these secondary headers follow, and [space link identifiers](../../ccsds/space-link-identifiers.md) for APIDs and their reserved values
+* [PUS parameter types](parameter-types.md), [PUS-A vs PUS-C](pus-a-vs-pus-c.md) and the [message type catalogue](message-types.md)
+* [From ESA PSS to CCSDS and ECSS](../../overview/history.md#how-the-version-fields-moved), how the version and secondary header fields moved since 1988
+* [Worked example: a real Solar Orbiter telecommand](../../overview/worked-example-tc.md) and [telemetry packet](../../overview/worked-example-tm.md)
+* Real header definitions: [Herschel/Planck packet structure ICD](../../scos2000/herschel-planck-interfaces.md#the-packet-structure-icd), [STIX TC packet header](../../missions/solar-orbiter/stix.md#the-tc-packet-header) and [SWA DPU packet formats](../../missions/solar-orbiter/instrument-interfaces.md#packet-formats)
+* [Commanding in the MIB](../../mib/commanding.md) and [MIB data model](../../mib/data-model.md)
+
 [^c-711]: [ECSS-E-ST-70-41C, Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §7.1.1, PDF p. 425.
 [^c-resp]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §5.4.11.3.2, PDF p. 53.
 [^c-742]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §7.4.2a, PDF p. 439.
@@ -630,7 +639,7 @@ and Rev.1 DIR1 clause 7.4.[^r-74]
 [^r-7432]: [ECSS-E-ST-70-41C Rev.1 DIR1](../../library/ecss-e-st-70-41c-rev1-dir1.md), §7.4.3.2a and d, PDF pp. 490-491.
 [^r-5421]: [ECSS-E-ST-70-41C Rev.1 DIR1](../../library/ecss-e-st-70-41c-rev1-dir1.md), §5.4.2.1b-f, PDF pp. 39-40.
 [^r-noshdr]: [ECSS-E-ST-70-41C Rev.1 DIR1](../../library/ecss-e-st-70-41c-rev1-dir1.md), §7.4.3.1a Note and §7.4.4.1a Note, PDF pp. 488 and 492.
-[^solo-ad1]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter PUS/space-ground ICD](../../library/sol-s-astr-tn-00079-07.md), applicable documents (AD1 = ECSS-E-70-41A), PDF pp. 11 and 13.
+[^solo-ad1]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../../library/sol-s-astr-tn-00079-07.md), applicable documents (AD1 = ECSS-E-70-41A), PDF pp. 11 and 13.
 [^solo-tc]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §3.2.1.3 and §3.2.2.1, PDF p. 16.
 [^solo-tc2]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §3.2.2.1 (PUS-55), PDF p. 17.
 [^solo-src]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §13.2, PDF pp. 275-276.

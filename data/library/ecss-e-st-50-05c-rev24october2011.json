@@ -1,0 +1,461 @@
+{
+  "slug": "ecss-e-st-50-05c-rev24october2011",
+  "title": "Space engineering\nRadio frequency and modulation",
+  "short_title": "ECSS Radio Frequency and Modulation (Rev. 2, 2011)",
+  "doc_id": "ECSS-E-ST-50-05C Rev. 2",
+  "issue": "Second issue revision 2",
+  "date": "2011-10-04",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS-E-ST-50-05C Working Group)",
+  "authors": [
+    "ECSS-E-ST-50-05C Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Rev. 2 of 4 October 2011 ('Second issue revision 2'), following ECSS-E-50-05A (14 November 2007), ECSS-E-50-05B (never issued), ECSS-E-ST-50-05C (31 July 2008) and ECSS-E-ST-50-05C Rev. 1 (6 March 2009); the Rev. 2 changes are marked with revision tracking (change log, p. 3). The document does not state that it is superseded, and no later issue is in the library.",
+  "summary": "The ECSS standard for the **radio-frequency and modulation layer** of the TT&C link. It covers the radio techniques used for telemetry, telecommand and tracking between spacecraft and Earth stations in the Space Operation, Space Research and Earth Exploration-Satellite services (including meteorological satellites, but not data-relay links), and it aligns them with the ITU Radio Regulations and with CCSDS 401.0-B-20.\n\nWhat an engineer finds in it:\n\n* **frequency allocations** (Table 4-1) from S-band (2025-2110 MHz up, 2200-2290 MHz down) to X, K and Ka bands, with deep-space sub-bands, special conditions per band, and the assignment and ITU coordination procedure;\n* **transmitted signal** rules: coherent **turnaround ratios** such as 221/240 (S/S) and 749/880 (X/X), frequency stability, polarization, **occupied bandwidth** limits, spurious emissions, power-flux-density limits and radio-astronomy protection;\n* **residual-carrier phase modulation** (clause 6.1): NRZ-L/NRZ-M/SP-L waveforms and symbol rates (telecommand 4000/2^n sps), 8 or 16 kHz telecommand subcarriers, telemetry subcarriers, a minimum **data transition density** (with the ECSS-E-ST-50-01 randomizer as fallback), modulation index limits and phase noise;\n* **suppressed-carrier modulation** (clause 6.2): BPSK, QPSK, UQPSK, OQPSK, filtered OQPSK, GMSK and 8PSK TCM, mandatory above 1 Msps and restricted to the bandwidth-efficient schemes above 2 Msps;\n* **link acquisition** (clause 7): downlink switched on by on-board automation, uplink carrier sweep values (for example ±150 kHz at 32 kHz/s), and transponder lock reported in the CLCW;\n* the **RF interface control** process (spacecraft-Earth station ICD, link budget tables, compatibility tests), and the GMSK and 4D-8PSK-TCM formats in detail (clause 9).\n\nAnnexes give the ICD DRD, cross-support notes (NASA DSN), Ariane-5 RF constraints, the differences from CCSDS 401 and tailoring guidance.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 8
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 9
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 10
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 11
+    },
+    {
+      "section": "3.1",
+      "title": "Terms from other standards",
+      "pdf_page": 11
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 11
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviated terms",
+      "pdf_page": 13
+    },
+    {
+      "section": "4",
+      "title": "Frequency allocations, assignment and use",
+      "pdf_page": 16
+    },
+    {
+      "section": "4.1",
+      "title": "Frequency allocations to the Space Operation, Space Research and Earth Exploration-Satellite services",
+      "pdf_page": 16
+    },
+    {
+      "section": "4.2",
+      "title": "Specific conditions for the use of certain frequency bands",
+      "pdf_page": 18
+    },
+    {
+      "section": "4.3",
+      "title": "Frequency assignment procedure",
+      "pdf_page": 21
+    },
+    {
+      "section": "5",
+      "title": "Transmitted signals",
+      "pdf_page": 23
+    },
+    {
+      "section": "5.1",
+      "title": "Turnaround frequency ratio for coherent transponders",
+      "pdf_page": 23
+    },
+    {
+      "section": "5.2",
+      "title": "Carrier frequency stability",
+      "pdf_page": 25
+    },
+    {
+      "section": "5.3",
+      "title": "Polarization",
+      "pdf_page": 27
+    },
+    {
+      "section": "5.4",
+      "title": "Occupied bandwidth considerations",
+      "pdf_page": 27
+    },
+    {
+      "section": "5.5",
+      "title": "Emissions",
+      "pdf_page": 29
+    },
+    {
+      "section": "6",
+      "title": "Modulation",
+      "pdf_page": 37
+    },
+    {
+      "section": "6.1",
+      "title": "Phase modulation with residual carriers",
+      "pdf_page": 37
+    },
+    {
+      "section": "6.2",
+      "title": "Suppressed carrier modulation",
+      "pdf_page": 45
+    },
+    {
+      "section": "6.3",
+      "title": "Spectral roll-off",
+      "pdf_page": 53
+    },
+    {
+      "section": "7",
+      "title": "Link acquisition procedures",
+      "pdf_page": 54
+    },
+    {
+      "section": "7.1",
+      "title": "Space-Earth",
+      "pdf_page": 54
+    },
+    {
+      "section": "7.2",
+      "title": "Earth-space",
+      "pdf_page": 55
+    },
+    {
+      "section": "8",
+      "title": "RF interface control",
+      "pdf_page": 58
+    },
+    {
+      "section": "8.1",
+      "title": "RF interface control documents",
+      "pdf_page": 58
+    },
+    {
+      "section": "8.2",
+      "title": "Spacecraft-Earth station interface control document",
+      "pdf_page": 58
+    },
+    {
+      "section": "8.3",
+      "title": "Link budget tables",
+      "pdf_page": 59
+    },
+    {
+      "section": "8.4",
+      "title": "Spacecraft-ground network compatibility test",
+      "pdf_page": 62
+    },
+    {
+      "section": "9",
+      "title": "GMSK and 8PSK TCM modulation formats",
+      "pdf_page": 64
+    },
+    {
+      "section": "9.1",
+      "title": "GMSK modulation format",
+      "pdf_page": 64
+    },
+    {
+      "section": "9.2",
+      "title": "8PSK TCM modulation format",
+      "pdf_page": 65
+    },
+    {
+      "section": "Annex A",
+      "title": "Spacecraft-Earth station interface control document - DRD (normative)",
+      "pdf_page": 72
+    },
+    {
+      "section": "Annex B",
+      "title": "Cross-support from other networks (informative)",
+      "pdf_page": 73
+    },
+    {
+      "section": "Annex C",
+      "title": "Protection of Ariane-5 RF system (informative)",
+      "pdf_page": 74
+    },
+    {
+      "section": "Annex D",
+      "title": "Differences from CCSDS recommendations (informative)",
+      "pdf_page": 77
+    },
+    {
+      "section": "Annex E",
+      "title": "Tailoring guidelines (informative)",
+      "pdf_page": 79
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 80
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Rev. 2 removes filtered-OQPSK from the 8 400 MHz - 8 450 MHz band and aligns Annex D.2.2 and the bibliography with CCSDS 401.0-B-20 (April 2009) instead of 401.0-B-17.",
+      "pdf_page": 3
+    },
+    {
+      "text": "Scope: radio communication techniques for spacecraft-Earth station links in both directions and for tracking; applicable to spacecraft supported by Earth stations (not by data relay satellites) in the Space Operation, Space Research and Earth Exploration-Satellite services, the latter including Meteorological Satellite.",
+      "pdf_page": 9
+    },
+    {
+      "text": "Category A: altitude less than 2 × 10^6 km; category B and 'deep space': 2 × 10^6 km or more [ITU/RR/1.177].",
+      "pdf_page": 11
+    },
+    {
+      "text": "Primary allocations include 2 025–2 110 MHz (SR, SO, EES, Earth-space), 2 200–2 290 MHz (SR, SO, EES, space-Earth), 7 145–7 190 MHz and 8 400–8 450 MHz (deep space), 8 025–8 400 MHz (EES space-Earth) and 31 800–32 300 / 34 200–34 700 MHz (deep space).",
+      "pdf_page": 17
+    },
+    {
+      "text": "Coherent turnaround ratios (fup/fdown) include 221/240 for S-band up/S-band down and 749/880 for X-band up/X-band down; band pairs should come from Table 5-1, otherwise Table 5-2 shall be used. The ratios derive from CCSDS 401.0-B-20.",
+      "pdf_page": 24
+    },
+    {
+      "text": "Telecommand PCM symbol rates are 4 000/2^n sps (n = 0..9, NRZ-L or NRZ-M on a subcarrier) or 4 000 × 2^n sps (n = 1..6, SP-L); NRZ-M is not used for category B, and 4 ksps only with the 16 kHz subcarrier.",
+      "pdf_page": 38
+    },
+    {
+      "text": "SP-L shall only be used for direct modulation of the RF carrier (no subcarrier), and NRZ waveforms only on a subcarrier; SP-L is also known as bi-phase or Manchester encoding.",
+      "pdf_page": 39
+    },
+    {
+      "text": "Telecommand subcarriers are 8 or 16 kHz sine waves; above 4 ksps telecommand symbols are SP-L encoded directly on the carrier.",
+      "pdf_page": 40
+    },
+    {
+      "text": "For NRZ telemetry above 60 ksps no subcarrier is used: SP-L direct modulation up to 1 Msps at S and X band, or suppressed-carrier modulation per clause 6.2.",
+      "pdf_page": 41
+    },
+    {
+      "text": "Data transition density shall be at least 125 (category A) or 275 (category B) per 1 000 consecutive symbols, with runs of ones or zeros limited to 64 symbols; otherwise the ECSS-E-ST-50-01 clause 9 pseudo-randomizer shall be used.",
+      "pdf_page": 42
+    },
+    {
+      "text": "Peak modulation index limits: telecommand NRZ 0,2-1,4 rad, telecommand SP-L 0,2-1,0 rad, telemetry sine subcarrier max 1,5 rad, ranging Earth-space 0,1-1,4 rad, ranging space-Earth 0,01-0,7 rad; combined Earth-space index should not exceed 1,75 rad.",
+      "pdf_page": 43
+    },
+    {
+      "text": "Residual carrier power shall exceed -15 dBc (space-Earth) and -10 dBc (Earth-space).",
+      "pdf_page": 44
+    },
+    {
+      "text": "Suppressed-carrier modulation shall be used for telemetry above 1 Msps; above 2 Msps (bands below 8 500 MHz) or 20 Msps (31,8-32,3 GHz) only TCM 8PSK, filtered OQPSK or GMSK shall be used.",
+      "pdf_page": 45
+    },
+    {
+      "text": "If the ground network can resolve phase ambiguity from the sync marker, no differential encoding is used for BPSK/QPSK/OQPSK/UQPSK; otherwise differential encoding shall be performed.",
+      "pdf_page": 46
+    },
+    {
+      "text": "Uplink acquisition at 2 025-2 110 MHz (category A): unmodulated carrier swept with a symmetrical triangular waveform; recommended max sweep rate 32 kHz/s, max discontinuity 10 Hz, max sweep range ±150 kHz for a 2BL = 800 Hz transponder PLL; transponder lock reported in telemetry (CLCW).",
+      "pdf_page": 55
+    },
+    {
+      "text": "The spacecraft-Earth station ICD is drafted in Phase B and follows the normative DRD of Annex A (stations, equipment configuration, performances, applicable TT&C standards and waivers, link parameter choices, TT&C operational modes).",
+      "pdf_page": 72
+    },
+    {
+      "text": "Annex D: unlike CCSDS 401 (2.2.3), only NRZ-L is recommended for category B telecommand; filtered OQPSK is restricted to specific filters, and SRRC-4D 8PSK TCM only to 2,0 and 2,5 b/s/Hz.",
+      "pdf_page": 77
+    },
+    {
+      "text": "ITU Radio Regulations cannot be tailored; tailoring should be supported by the frequency coordinator.",
+      "pdf_page": 79
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system – Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 10
+    },
+    {
+      "label": "ECSS-E-ST-10-03",
+      "doc_id": "ECSS-E-ST-10-03",
+      "title": "Space engineering – Testing",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 10
+    },
+    {
+      "label": "ECSS-E-ST-50",
+      "doc_id": "ECSS-E-ST-50",
+      "title": "Space engineering – Communications",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 10
+    },
+    {
+      "label": "ECSS-E-ST-50-01",
+      "doc_id": "ECSS-E-ST-50-01",
+      "title": "Space engineering – Space data links - Telemetry synchronization and channel coding",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 10
+    },
+    {
+      "label": "ITU/RR:2004",
+      "doc_id": "ITU/RR:2004",
+      "title": "ITU Radio Regulations",
+      "issue": null,
+      "date": "2004",
+      "kind": "normative",
+      "pdf_page": 10
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "ECSS-E-ST-10-02",
+      "doc_id": "ECSS-E-ST-10-02",
+      "title": "Space engineering – Verification",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "ECSS-E-ST-50-02",
+      "doc_id": "ECSS-E-ST-50-02",
+      "title": "Space engineering – Ranging and Doppler tracking",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "ECSS-E-ST-50-04",
+      "doc_id": "ECSS-E-ST-50-04",
+      "title": "Space engineering – Space data links – Telecommand protocols, synchronization and channel coding",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "ECSS-E-HB-50A",
+      "doc_id": "ECSS-E-HB-50A",
+      "title": "Space engineering – Communications guidelines",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "SFCG/HB 19, Edition 2007",
+      "doc_id": "SFCG/HB",
+      "title": "Space frequency coordination group, Hand book",
+      "issue": "Edition 2007",
+      "date": "2007",
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "SFCG Recommendation 14-1",
+      "doc_id": "SFCG Recommendation 14-1",
+      "title": "Protection of deep space research Earth Stations from line-of-sight interference in the bands 2290-2300 MHz, 8400-8450 MHz and 31.8-32.3 GHz",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "SFCG Administrative Resolution A12-1R2",
+      "doc_id": "SFCG Administrative Resolution A12-1R2",
+      "title": "Establishment of procedures for inter-agency frequency coordination",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "SFCG Recommendation 12-4R3",
+      "doc_id": "SFCG Recommendation 12-4R3",
+      "title": "Methods for reduction of potential interference between systems in the space science services in densely occupied bands",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "CCSDS 401.0-B-20, Edition April 2009",
+      "doc_id": "CCSDS 401.0-B-20",
+      "title": "CCSDS Radio Frequency and Modulation Systems, Part 1: Earth Stations and Spacecraft, Blue Book",
+      "issue": "Edition April 2009",
+      "date": "April 2009",
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "JPL document 810-005, Rev. E",
+      "doc_id": "JPL 810-005",
+      "title": "JPL Deep Space Mission Systems Telecommunication Link Design Handbook",
+      "issue": "Rev. E",
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": "A5-SG-1-X-35-ASAI Edition 4, Rev 1",
+      "doc_id": "A5-SG-1-X-35-ASAI",
+      "title": "Specifications générales de compatibilité electromagnétique",
+      "issue": "Edition 4, Rev 1",
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 80
+    },
+    {
+      "label": null,
+      "doc_id": "Recommendation ITU-R RA.769-2",
+      "title": "Threshold levels of interference detrimental to radio astronomy (cited in Tables 5-7 and 5-8)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 7
+    }
+  ],
+  "topics": [
+    "ccsds/rf-and-ranging.md",
+    "ecss/e-st-50-communications.md",
+    "ecss/index.md",
+    "ccsds/tm-coding.md",
+    "ccsds/tc-coding-cltu.md",
+    "overview/downlink.md",
+    "overview/uplink.md",
+    "overview/standards-map.md"
+  ],
+  "notes": "Slug 'rev24october2011' means 'Rev. 2, 4 October 2011'. The extraction uses Unicode non-breaking hyphens (U+2011) in document IDs; many Greek letters and symbols (degrees, alpha, less-or-equal) are dropped from the text, e.g. '±5 of that of a perfect PSK signal' (p. 42) and the GMSK/TCM equations in clause 9 (p. 64) and Annex C (p. 74) are garbled. Footnote 16 still cites 'ECSS-E-50-02A' for ranging (p. 45), and the bibliography lists the companion standards ECSS-E-ST-50-02 and -50-04 undated; the bibliography footnote notes that SFCG/HB is in fact a normative publication (p. 80). Annex C reproduces a table numbered 'Table 1' inside Figure C-1 (p. 76). Companions in the library: ECSS-E-ST-50-02C (ecss-e-st-50-02c31july2008), ECSS-E-ST-50-01C (ecss-e-st-50-01c31july2008), ECSS-E-ST-50-04C (ecss-e-st-50-04c31july2008), ECSS-E-HB-50A (ecss-e-hb-50a-15november2008). CCSDS 401.0-B is in the library at a later issue (ccsds-401-0-401x0b32), not at the -20 issue cited here. Printed page numbers equal PDF page numbers; srcgrep shows 81 PDF pages (the last one blank) while the registry gives 80."
+}

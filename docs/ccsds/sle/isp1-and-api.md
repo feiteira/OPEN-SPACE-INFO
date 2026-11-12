@@ -1,8 +1,8 @@
 ---
 title: "SLE over TCP/IP (ISP1) and the SLE API"
-description: How SLE transfer services actually travel over the network and how software implements them. Covers the Internet SLE Protocol One (ISP1, CCSDS 913.1) with its authentication, data encoding and transport mapping layers, TML messages, heartbeat, connection, abort and state table, the hashed-password credentials and BER encoding, and the CCSDS SLE API (914.0), with its components, interfaces, flow control, threading models and ESA heritage.
+description: How SLE transfer services actually travel over the network and how software implements them. Covers the Internet SLE Protocol One (ISP1, CCSDS 913.1) with its authentication, data encoding and transport mapping layers, TML messages, heartbeat, connection, abort and state table, the hashed-password credentials and BER encoding, the CCSDS SLE API core (914.0) with its components, interfaces, flow control and threading models, the service-specific API books for RAF (915.1) and FSP (916.3), and ESA heritage and open-source Java implementations.
 tags: [CCSDS, SLE, ISP1, TCP/IP, ASN.1, SLE API, Ground segment]
-sources: [ccsds-913-1-913x1b2, ccsds-914-0-914x0m2c1, ccsds-911-1-911x1b5e1, ccsds-910x3g3-sle-cross-support, ecss-e-hb-50a-15november2008]
+sources: [ccsds-913-1-913x1b2, ccsds-914-0-914x0m2c1, ccsds-915-1-915x1m2, ccsds-916-3-916x3m2, ccsds-911-1-911x1b5e1, ccsds-912-3-912x3b3s, ccsds-910-4-910x4b2e1s, ccsds-910x3g3-sle-cross-support, ecss-e-hb-50a-15november2008]
 ---
 
 # SLE over TCP/IP (ISP1) and the SLE API
@@ -20,7 +20,9 @@ communications technology beneath an API Service Element for the service logic.[
 
 The SLE concepts used here (associations, BIND, PEER-ABORT, credentials) are introduced on the
 [SLE overview](index.md). The services carried are described on
-[return services](return-services.md) and [FCLTU](fcltu.md).
+[return services](return-services.md), [FCLTU](fcltu.md) and [FSP](fsp.md). Where these documents
+sit in the SLE documentation tree is shown on the
+[overview](index.md#the-sle-documentation-set).
 
 !!! info "At a glance"
     | Item | ISP1 | SLE API |
@@ -31,6 +33,7 @@ The SLE concepts used here (associations, BIND, PEER-ABORT, credentials) are int
     | Layers / components | Authentication Layer, Data Encoding Layer, Transport Mapping Layer over TCP/IP[^isp-arch] | API Proxy, API Service Element, SLE Operations, SLE Utilities, plus the SLE Application[^api-pkgs] |
     | Encoding | ASN.1 BER (credentials hashed over DER)[^isp-del][^isp-al] | Technology hidden in the Proxy[^api-proxy] |
     | One association = | one TCP connection[^isp-arch] | one Association object in the Proxy[^api-proxy] |
+    | Service-specific books in this library | — | RAF API 915.1-M-2 and FSP API 916.3-M-2, both September 2015[^rafapi-ctl][^fspapi-ctl] |
 
 ## ISP1 architecture
 
@@ -364,13 +367,17 @@ their functions, their interfaces and their externally visible behaviour, but no
 internal design or the communications technology.[^api-scope] Service-specific API books
 complement the core:[^api-scope][^api-refs]
 
-| Book | Service |
-|---|---|
-| CCSDS 915.1-M-2 | RAF API |
-| CCSDS 915.2-M-2 | RCF API |
-| CCSDS 915.5-M-2 | ROCF API |
-| CCSDS 916.1-M-2 | FCLTU API |
-| CCSDS 916.3-M-2 | FSP API |
+| Book | Service | In this library |
+|---|---|---|
+| CCSDS 915.1-M-2 | RAF API | yes ([library](../../library/ccsds-915-1-915x1m2.md); see [RAF with the SLE API](return-services.md#implementing-raf-with-the-sle-api-ccsds-9151-m-2)) |
+| CCSDS 915.2-M-2 | RCF API | no |
+| CCSDS 915.5-M-2 | ROCF API | no |
+| CCSDS 916.1-M-2 | FCLTU API | no |
+| CCSDS 916.3-M-2 | FSP API | yes ([library](../../library/ccsds-916-3-916x3m2.md); see [the FSP API](fsp.md#the-fsp-api-ccsds-9163-m-2)) |
+
+Two companion Reports belong to the same family: *Summary of Concept and Rationale* (914.1-G-1,
+January 2006) and *Application Programmer's Guide* (914.2-G-2, October 2008), the latter with
+guidance and source code examples for developers. Neither is in this library.[^rafapi-tree][^rafapi-c]
 
 Two optional features of the service standards are deliberately left out. BIND version negotiation
 is not supported: an unsupported version is simply rejected. Provider-initiated binding is not
@@ -385,13 +392,21 @@ supported either, although the management parameters for it exist.[^api-scope2]
 | 3 | RAF, RCF, ROCF, FCLTU and FSP version 4 | ISP1 (913.1) |
 
 Generations 1 and 2 are kept only for backward compatibility and may be dropped. Provisions are
-marked [Gn:] in the text.[^api-gen]
+marked [Gn:] in the text.[^api-gen] The service-specific books state which generations they
+support for their own service, and which issue of the service specification each one follows:
+
+| Book | Generation 1 | Generation 2 | Generation 3 | Service issue it is written against |
+|---|---|---|---|---|
+| RAF API 915.1-M-2 | version 1 (draft 911.1-R-1.7, ESOC TML) | version 2 (911.1-B-2-S) | version 4 | 911.1-B-3, January 2010[^rafapi-gen][^rafapi-refs] |
+| FSP API 916.3-M-2 | not valid: FSP first appeared with generation 2 | version 1 (912.3-B-1-S) | version 4 | 912.3-B-2, July 2010[^fspapi-gen][^fspapi-refs] |
 
 !!! warning "Not covered by the library"
-    The 2023 service issues used elsewhere on these pages define BIND version 6 (see the
-    [overview](index.md#bind-unbind-and-peer-abort-in-detail)). This 2015 API book lists
-    generations only up to version 4. Whether a later API issue covers versions 5 and 6 is
-    not stated in the available sources.
+    The 2023 RAF, RCF, ROCF and FCLTU issues used elsewhere on these pages define BIND version 6
+    (see the [overview](index.md#bind-unbind-and-peer-abort-in-detail)), and the 2016 FSP issue
+    defines version 5.[^fsp-version] The 2015 API books list generations only up to version 4.
+    Whether a later API issue covers versions 5 and 6 is not stated in the available sources. For
+    RAF, the [return services page](return-services.md#what-changed-after-the-issue-the-api-is-based-on)
+    lists concrete differences between the API and the 2023 issue.
 
 ### Components
 
@@ -448,6 +463,35 @@ Diagram based on figures 2-2 and 2-3 and §2.3 of CCSDS 914.0-M-2.[^api-pkgs][^a
 All interfaces derive from a COM-style `IUnknown`, so objects are navigated with
 `QueryInterface()`. Each interface has a GUID. Compatibility between applications built against
 different API issues is guaranteed only for interfaces with the same GUID.[^api-com][^api-gen-compat]
+
+### Service-specific extensions: the RAF and FSP books
+
+The core uses placeholders such as `I<SRV>_SI User`, `I<SRV>_SI Provider`, `I<SRV>_SIAdmin` and
+`I<SRV>_SIUpdate`. Each service book fills them in. Both books in this library follow the same
+pattern: the API Service Element and SLE Operations components are extended, and the API Proxy must
+in addition encode and decode the service's PDUs.[^rafapi-ovw][^fspapi-ovw]
+
+| Aspect | RAF API (915.1-M-2) | FSP API (916.3-M-2) |
+|---|---|---|
+| User-side class | RAF SI User: handles the RAF operation objects, nothing more | FSP SI User: same |
+| Provider-side configuration | `IRAF_SIAdmin`: delivery mode, transfer buffer size, latency limit, initial production and lock status | `IFSP_SIAdmin` for the FSP configuration, plus `IFSP_FOPMonitor` for the FOP-1 parameters (the core's `I<SRV>_SIAdmin` is split in two because there are so many parameters) |
+| Provider-side status updates | `IRAF_SIUpdate`: production status and four lock statuses, reported at every change | `IFSP_SIUpdate`: production events such as packet started, radiated, acknowledged, buffer empty, VC aborted, directive completed |
+| Done by the provider service instance itself | GET-PARAMETER returns, STATUS-REPORT generation, transfer buffer handling, frame counters | GET-PARAMETER returns, STATUS-REPORT generation, and optionally the ASYNC-NOTIFY invocations triggered by `IFSP_SIUpdate` events |
+| Service-specific operation objects | `IRAF_Start`, `IRAF_TransferData`, `IRAF_SyncNotify`, `IRAF_StatusReport`, `IRAF_GetParameter` | `IFSP_Start`, `IFSP_TransferData`, `IFSP_AsyncNotify`, `IFSP_StatusReport`, `IFSP_GetParameter`, `IFSP_ThrowEvent`, `IFSP_InvokeDirective` |
+| Core operation objects reused | BIND, UNBIND, PEER-ABORT, STOP, SCHEDULE-STATUS-REPORT, transfer buffer | BIND, UNBIND, PEER-ABORT, STOP, SCHEDULE-STATUS-REPORT |
+| Checks left to the application | production status, offline processing latency | production status, time windows against the current time, APID, packet version and type |
+
+Sources: the package and operation sections of both books.[^rafapi-pkg][^rafapi-ops][^rafapi-start][^fspapi-ovw][^fspapi-resp][^fspapi-ops][^fspapi-nh]
+In both books, when the service element makes some of the specification's checks itself, the
+book documents the resulting split of the diagnostic order between service element and
+application, because a provider that does not check in the order of the diagnostic codes must
+document the order it uses (the RAF book attributes this rule to the API core, the FSP book to
+the FSP specification).[^rafapi-seq][^fspapi-seq] For the provider application, the obligations are simple to state:
+configure every instance through the core and the service `SIAdmin` interface before
+`ConfigCompleted()`, then keep the `SIUpdate` interface informed for the instance's whole
+lifetime.[^rafapi-app][^api-config] The RAF details are on
+[return services](return-services.md#implementing-raf-with-the-sle-api-ccsds-9151-m-2) and the FSP
+details on [FSP](fsp.md#the-fsp-api-ccsds-9163-m-2).
 
 ### Flow control and buffering
 
@@ -541,18 +585,49 @@ The ECSS communications handbook points to the ESA ground operations software po
 includes "the ESA SLE Gateway".[^hb-gw] SCOS-2000 reaches SLE providers through the NCTRS and NIS
 rather than by embedding an SLE API directly, as described on the [SLE overview](index.md#how-esas-ground-segment-uses-sle).
 
+The reference model adds one point about auditing: although the transfer service specifications
+define no security auditing, logging attempts at access is a standard feature of the SLE API, on
+top of what firewall logs provide.[^csrm-audit]
+
+### Open-source Java implementations
+
+Two SLE implementations in Java are public on GitHub. Neither is in this library, so the facts
+below come from the repositories themselves, consulted on 2026-11-12.
+
+| Item | ESA SLE Java API (`esa/sleapi-j`) | jsle (`yamcs/jsle`) |
+|---|---|---|
+| What the repository says it is | An "SLE API package" that supports five SLE transfer services | A "Java implementation for the CCSDS SLE (Space Link Extension) protocol", plus a stand-alone SLE-to-UDP bridge for testing against a simulator |
+| Services | RAF (911.1), RCF (911.2), ROCF (911.5), Forward CLTU (912.1), Forward Space Packet (912.3) | Forward CLTU, RAF, RCF |
+| Roles | not stated on the repository page | user (client) and provider (server) |
+| Dependencies and build | Maven; prerequisites listed as OpenJDK 11, Maven 3.8.5 and SUSE Linux Enterprise Server 15 | Maven; Netty for networking and the jasn1 library for ASN.1 encoding and decoding |
+| Version shown | branch 5.1; project version 5.1.8 in the Maven POM | master branch; version 1.1.2-SNAPSHOT in the Maven POM |
+| Licence | European Space Agency Public License (ESA-PL), Weak Copyleft (Type 2), v2.4 (LICENSE file) | not stated in the README; the Maven POM declares the GNU Lesser General Public License, linking to version 3 |
+| Stated limitations | none stated | adding automated tests is listed as a to-do; "RCF works effectively as RAF", because the provider does no VCID filtering |
+| Context | Maven group `esa.sle.java`, with modules such as `esa.sle.java.api.core` | independent of Yamcs; the separate yamcs-sle package builds Yamcs data links on it |
+
+Sources: READMEs, the `esa/sleapi-j` licence file and both Maven POMs.[^web-sleapij][^web-jsle] The jsle bridge
+sits between a mission control system and a simulator: it offers RAF, RCF or FCLTU on the SLE
+side, and exchanges CLTUs and AOS or TM frames over UDP on the simulator side.[^web-jsle]
+
 !!! warning "Inference"
     "ESA SLE API" usually refers to an ESA-developed implementation of this Recommended Practice.
-    Its version history, licensing and use inside NIS are not stated in the available sources.
+    The `esa/sleapi-j` repository is an ESA-published implementation in Java, whereas 914.0-M-2
+    specifies a C++ interface, so it cannot be a literal binding of the C++ headers; how closely
+    its classes follow the CCSDS interfaces is not stated on the repository page. Neither
+    repository states which BIND versions it supports. The version history of ESA's SLE API
+    products, and which implementation the NIS uses, are not stated in the available sources.
 
 ## Related pages
 
-* [SLE overview](index.md), [return services](return-services.md), [FCLTU](fcltu.md)
+* [SLE overview](index.md), [return services](return-services.md), [FCLTU](fcltu.md), [FSP](fsp.md)
+* [Cross support reference model and service management](service-management.md)
 * [NCTRS, NIS and the ground station interface](../../scos2000/nctrs-nis.md),
   [SCOS-2000 architecture](../../scos2000/architecture.md)
 * [Time codes](../time-codes.md) for the CDS time used in credentials
 * Library: [CCSDS 913.1-B-2](../../library/ccsds-913-1-913x1b2.md),
-  [CCSDS 914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md); all sources in the
+  [CCSDS 914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md),
+  [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md),
+  [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md); all sources in the
   [reference catalogue](../../references/index.md); terms in the [glossary](../../glossary.md)
 
 [^raf-comms]: [CCSDS 911.1-B-5, SLE RAF Service](../../library/ccsds-911-1-911x1b5e1.md), §1.3.1 Applicability (communications service requirements), PDF pp. 9–10.
@@ -624,3 +699,27 @@ rather than by embedding an SLE API directly, as described on the [SLE overview]
 [^raf-conf]: [CCSDS 911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), Annex C table C-2 (transfer buffer minimum 200 invocations), PDF p. 141.
 [^hb-gw]: [ECSS-E-HB-50A Communications guidelines](../../library/ecss-e-hb-50a-15november2008.md), §7.3 Ground components, PDF p. 142.
 [^csc-api]: [CCSDS 910.3-G-3, Cross Support Concept Part 1](../../library/ccsds-910x3g3-sle-cross-support.md), §4.7 The SLE application program interface, PDF pp. 37–38.
+[^rafapi-ctl]: [CCSDS 915.1-M-2, SLE API for the Return All Frames Service](../../library/ccsds-915-1-915x1m2.md), Document Control, PDF p. 7.
+[^fspapi-ctl]: [CCSDS 916.3-M-2, SLE API for the Forward Space Packet Service](../../library/ccsds-916-3-916x3m2.md), Document Control, PDF p. 7.
+[^rafapi-tree]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §1.5.2 SLE service documentation tree, items h)–l) and figure 1-1, PDF pp. 12–13.
+[^rafapi-c]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex C informative references [C6] and [C7], PDF p. 66.
+[^rafapi-gen]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §1.3 Applicability (generations 1 to 3, ESOC TML for generation 1), PDF p. 10.
+[^rafapi-refs]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §1.7 References ([2] = 911.1-B-3) and Annex C [C2], [C3], PDF pp. 16 and 66.
+[^fspapi-gen]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §1.3 Applicability (generations 2 and 3; generation 1 not valid), PDF p. 11.
+[^fspapi-refs]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §1.7 References ([3] = 912.3-B-2) and Annex C [C8] (912.3-B-1-S), PDF pp. 17 and 154.
+[^fsp-version]: [CCSDS 912.3-B-3, SLE Forward Space Packet Service](../../library/ccsds-912-3-912x3b3s.md), §3.2.2.8.7 version-number (value 5), PDF p. 60.
+[^rafapi-ovw]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.1 Introduction, PDF p. 17.
+[^fspapi-ovw]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §2.1 Introduction and §2.2.1 Package FSP Service Instances, figure 2-1, PDF pp. 18–19.
+[^rafapi-pkg]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.2.1–2.2.5 Package RAF Service Instances, figure 2-1, tables 2-1 and 2-2, PDF pp. 17–21, and §3.1.1.2–3.1.1.3 configuration parameters of `IRAF_SIAdmin` (including the initial production and lock status), PDF p. 28.
+[^rafapi-ops]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.3 Package RAF Operations and table 2-3, PDF pp. 21–22.
+[^rafapi-start]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.1.3.1 RAF START checks and notes, PDF p. 32.
+[^fspapi-resp]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §2.2.3.1.1–2.2.3.1.7 Responsibilities of FSP SI Provider, PDF pp. 20–21.
+[^fspapi-ops]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §2.3 Package FSP Operations, PDF pp. 33–34.
+[^fspapi-nh]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §2.2.9 Features not handled by the provider side service instance, PDF pp. 30–33.
+[^rafapi-seq]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.4 Sequence of diagnostic codes, PDF pp. 34–35.
+[^fspapi-seq]: [CCSDS 916.3-M-2](../../library/ccsds-916-3-916x3m2.md), §3.4 Sequence of diagnostic codes, PDF pp. 64–65.
+[^rafapi-app]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.3 SLE application, PDF p. 34.
+[^api-config]: [CCSDS 914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md), §3.3.2.2 Configuration of service instances, PDF pp. 109–110.
+[^csrm-audit]: [CCSDS 910.4-B-2, Cross Support Reference Model—Part 1](../../library/ccsds-910-4-910x4b2e1s.md), §2.4.6 Auditing, PDF p. 24.
+[^web-sleapij]: ESA, *SLE Java API* repository `esa/sleapi-j`, https://github.com/esa/sleapi-j (repository page, README, LICENSE and pom.xml on branch 5.1, consulted 2026-11-12; README, LICENSE and pom.xml re-checked the same day through raw.githubusercontent.com). Web source, not in the library.
+[^web-jsle]: Yamcs project, *jsle* repository `yamcs/jsle`, https://github.com/yamcs/jsle (repository page, README and pom.xml on branch master, consulted 2026-11-12; README and pom.xml re-checked the same day through raw.githubusercontent.com). Web source, not in the library.

@@ -1,8 +1,8 @@
 ---
 title: The Solar Orbiter MIB
-description: A data-driven tour of the real, publicly posted Solar Orbiter SCOS-2000 Mission Information Base - release naming, files and row counts, subsystems and name prefixes, the APID catalogue, packets, calibrations, checks, synthetic parameters, commands, mission-specific files and the changes between the April 2020 and September 2025 releases.
+description: A data-driven tour of the real, publicly posted Solar Orbiter SCOS-2000 Mission Information Base - release naming, files and row counts, subsystems and name prefixes, the APID catalogue, packets, calibrations, checks, synthetic parameters, commands, mission-specific files, the instrument databases (SWA, STIX) inside the release and the changes between the April 2020 and September 2025 releases.
 tags: [MIB, Solar Orbiter, SCOS-2000, Data analysis]
-sources: [mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final, sol-s-astr-tn-00079-07, solo-ddid-i1r2, swa-idb-ascii, spire-mib-naming-convention-1-2]
+sources: [mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final, sol-s-astr-tn-00079-07, solo-ddid-i1r2, swa-idb-ascii, swa-idb-v6-5-0, stix-idb-v2-26-38-raw, so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2, 12-3-solarorbiter-eid-a-issue-1-0-2007-10-09, spire-mib-naming-convention-1-2]
 ---
 
 # The Solar Orbiter MIB
@@ -42,8 +42,12 @@ releases on 2026-11-05:
 | `MIB__20200416M10720PFMS001_SOL` | 4 735 907 bytes | 2026-11-05 14:26:42 | `a524903135d0a62c8aec3f83f58483b4f996e6c0fe966eb12c7e18cda2fb0ec7` |
 
 The original URLs are `https://solarorbiter.irap.omp.eu/MIB/MIBs/<release>.zip`.[^reg-mib]
-The SWA instrument database posted on the same server is analysed separately on
-[Solar Orbiter SWA instrument database](swa.md).
+The **instrument databases** of two instruments are also publicly posted in the same table
+format: SWA on the same server (this wiki copied versions 6.3.4 and 6.5.0) and STIX on a separate server
+(version 2.26.38).[^reg-idb] They are analysed on
+[Solar Orbiter SWA instrument database](swa.md) and
+[Solar Orbiter STIX instrument database](stix.md); how their definitions sit inside the
+spacecraft release is summarised in [Instrument databases inside the release](#instrument-databases-inside-the-release).
 
 ### Decoding the release name
 
@@ -202,6 +206,10 @@ stands for:[^mib25][^icd-pid]
     Instrument subsystems 101-110 are not in alphabetical order (MAG, EUI, EPD, PHI, STIX,
     RPW, SOLOHI, SPICE, SWA, METIS).
 
+Two of the readings are supported by the instrument teams' own databases: the SWA database gives
+`PCF_SUBSYS` = 109 to all its parameters except four fillers, and the STIX database gives 105 to
+673 of its 681 parameters and uses 105 as the domain identifier of its `vdf` record.[^swa65][^stix]
+
 ### Name prefixes
 
 Parameter names have at most 8 characters (126 502 have 8, 243 have 7); 126 740 of them begin
@@ -252,6 +260,10 @@ third letters group the parameters:
     `C` SPICE, `A` SWA and `T` METIS, the same letters as in the commands (`ZIA...` goes to
     the SWA APID 1532, `ZIT...` to METIS APID 1084). Other ESA projects used different
     conventions, for example SPIRE's `SM`/`SC` prefixes.[^spire]
+
+The instrument databases support the instrument letters for two cases: every SWA database
+parameter but four `ZZPAD` fillers is named `NIA...` and every SWA command `ZIA...`, and every
+STIX parameter but four fillers is `NIX...` and every STIX command `ZIX...`.[^swa65][^stix]
 
 ??? example "SQL used (parameters)"
     ```sql
@@ -306,6 +318,12 @@ can be decoded:[^icd-cat]
 | PHI (72-74) | 11 | 10 | 112 | 117 |
 | OBC hardware, time, frames (0, 2) | 3 | 3 | 5 | 5 |
 | Non-spacecraft APIDs 2048-2065 | 0 | 6 | 0 | 6 |
+
+The SWA row can be checked against the instrument's own interface document: the 13 SWA APIDs of
+the 2020 release are exactly the 13 process ID and category pairs of Table 1 of the SWA DPU
+Communications ICD issue 8.2 (2019), and the two added by 2025, 1542 and 1545, date from SWA
+database 6.3.3 (October 2021), whose release note cites an ICD issue 8.3 that is not in the
+library.[^dpu-apid][^rn][^mib20][^mib25]
 
 By packet category (for on-board APIDs below 1792), events dominate: category 7 holds 5 694
 packet definitions on 27 APIDs, category 1 (verification) 1 804 on 31 APIDs, category 12
@@ -605,8 +623,10 @@ Where the growth went:
   read reports).[^mib25]
 * **SWA reports.** New APIDs 1542 and 1545, to which the 2025 release moves (with their
   SPIDs) nine SWA parameter and debug reports and 54 memory dump and check packets that the
-  2020 release had on APID 1593; nine new report packets of the same names replace them on 1593
-  (see [the SWA page](swa.md#how-the-idb-relates-to-the-spacecraft-mib)).[^mib25][^mib20]
+  2020 release had on APID 1593; nine new report packets of the same names replace them on 1593.
+  The SWA database release notes date the move to version 6.3.3 (11/10/2021) and the nine copies
+  on APID 1593 to 6.3.3_wa (04/11/2021)
+  (see [the SWA page](swa.md#how-the-idb-relates-to-the-spacecraft-mib)).[^mib25][^mib20][^rn]
 * **Ground packets.** Six non-spacecraft `LMS_` packets on APIDs 2048-2065 and their 486
   `NYN`/`NYC`/`NYM` parameters.[^mib25]
 * **Commands.** 88 new SSMM commands, 44 new data management, 30 AOCS and 22 system control
@@ -618,7 +638,10 @@ two thermal snapshot events, an SGM group report on APID 1955, an SSMM direct re
 EUI reports.[^mib25] Among the 23 removed
 commands are the four TC(9,128) "Set OBT" variants and every TC(9,129) "Accept time update"
 command of the instruments and the SSMM (EPD, MAG, METIS, PHI, EUI, STIX, SPICE, SWA, SSMM,
-SSMM A and B).[^mib25] The time services are discussed on
+SSMM A and B).[^mib25] The instrument-side definitions kept the command: the SWA DPU ICD lists
+TC(9,129) "Accept Time update" among the PUS services the DPU handles, and the SWA database 6.5.0
+of June 2025 and the STIX database 2.26.38 still define `ZIA58057` and `ZIX09129`, so the removal
+was made on the spacecraft database side.[^dpu-tc][^swa65][^stix] The time services are discussed on
 [How Solar Orbiter uses PUS](pus-usage.md#service-9-time-management).
 
 ??? example "SQL used (2020-2025 differences)"
@@ -644,6 +667,67 @@ SSMM A and B).[^mib25] The time services are discussed on
      WHERE PID_APID NOT IN (SELECT PID_APID FROM o.pid) GROUP BY 1;
     SELECT CCF_CNAME, CCF_APID, CCF_TYPE, CCF_STYPE, CCF_DESCR FROM o.ccf
      WHERE CCF_CNAME NOT IN (SELECT CCF_CNAME FROM main.ccf);
+    ```
+
+## Instrument databases inside the release
+
+The SWA and STIX instrument databases are publicly posted in the same table format, so their
+definitions can be compared row by row with the September 2025 release. Both are almost
+entirely contained in it:[^swa65][^stix][^mib25]
+
+| Comparison with the 2025 release | SWA database 6.5.0 (2025-06-17) | STIX database 2.26.38 (files of 2024-02-02) |
+|---|---:|---:|
+| Parameters present, with the same description, PTC/PFC and calibration | 2 885 of 2 885 | 681 of 681 |
+| ... of which with a different unit | 243 | 10 |
+| ... of which the release flags for DARC (`PCF_DARC` = 1), a field the databases lack | 335 | 300 |
+| Packets with the same APID, type, subtype, identification value and description | 613 of 613 | 246 of 246 |
+| Fixed layout entries (`plf`) with the same SPID and offsets | 6 535 of 6 535 | 926 of 927 |
+| Commands present | 200 of 201 | 99 of 100 |
+| Command elements (`cdf`) identical | 1 147 of 1 184 | 1 373 of 1 377 |
+| Polynomial calibrations numerically equal | 80 of 80 | 7 of 7 |
+| Limit checks (`ocp`) with the same limits | 325 of 325 | 32 of 32 |
+| Synthetic parameters | none in the database | 3 of 3, identical OL source |
+
+What the spacecraft release adds or changes is small and mission-level: the DARC flags; for SWA,
+applicability conditions on four limit checks, the spacecraft verification stages 11 and 17 for
+the cadence command `ZIA58950` and the synthetic `NIASX001` "PAS_IN_SCIENCE"; for STIX, ten
+`NIX?Z40x` parameters and the command `ZIXX0128` "STIX Information Distribution Aligned"; and for
+both, the removal of the TC(9,129) command.[^swa65][^stix][^mib25] Every SWA packet and command of
+the release is in the 6.5.0 database, and every STIX packet is in 2.26.38.[^swa65][^stix][^mib25]
+The details are on [the SWA page](swa.md#how-the-idb-relates-to-the-spacecraft-mib) and
+[the STIX page](stix.md#how-the-idb-relates-to-the-spacecraft-mib).
+
+!!! warning "Inference"
+    The comparison indicates that the spacecraft MIB is assembled by importing each instrument
+    team's database and adding mission-level fields and decisions on top. How and by whom this is
+    done is not stated in the available sources; the 2007 Experiment Interface Document Part A
+    leaves its section on instrument inputs to the satellite database to be written
+    (TBW).[^eida-db] The other eight instruments' databases are not in the library.
+
+??? example "SQL used (instrument databases against the 2025 release)"
+    ```sql
+    -- run on swa-idb-v6.5.0.sqlite and on stix-idb-2.26.38.sqlite
+    ATTACH 'file:solo-2025-09-16.sqlite?mode=ro' AS m;
+    SELECT count(*), sum(ifnull(a.PCF_UNIT, '') <> ifnull(b.PCF_UNIT, '')) FROM main.pcf a JOIN m.pcf b USING (PCF_NAME)
+     WHERE a.PCF_DESCR = b.PCF_DESCR AND a.PCF_PTC = b.PCF_PTC AND a.PCF_PFC = b.PCF_PFC
+       AND a.PCF_CURTX IS b.PCF_CURTX;                                          -- 2885 | 243; 681 | 10
+    SELECT count(*) FROM m.pcf WHERE PCF_DARC = '1' AND PCF_NAME IN (SELECT PCF_NAME FROM main.pcf);  -- 335; 300
+    SELECT count(*) FROM main.pid a JOIN m.pid b USING (PID_SPID)
+     WHERE a.PID_APID = b.PID_APID AND a.PID_TYPE = b.PID_TYPE AND a.PID_STYPE = b.PID_STYPE
+       AND a.PID_DESCR = b.PID_DESCR AND a.PID_PI1_VAL IS b.PID_PI1_VAL;         -- 613; 246
+    SELECT count(*) FROM main.plf a JOIN m.plf b ON a.PLF_NAME = b.PLF_NAME AND a.PLF_SPID = b.PLF_SPID
+       AND a.PLF_OFFBY = b.PLF_OFFBY AND a.PLF_OFFBI = b.PLF_OFFBI;              -- 6535; 926
+    SELECT CCF_CNAME FROM main.ccf WHERE CCF_CNAME NOT IN (SELECT CCF_CNAME FROM m.ccf);   -- ZIA58057; ZIX09129
+    SELECT count(*) FROM (SELECT * FROM main.cdf INTERSECT SELECT * FROM m.cdf);          -- 1147; 1373
+    SELECT count(*) FROM main.mcf a JOIN m.mcf b USING (MCF_IDENT)
+     WHERE CAST(a.MCF_POL1 AS REAL) = CAST(b.MCF_POL1 AS REAL) AND CAST(a.MCF_POL2 AS REAL) = CAST(b.MCF_POL2 AS REAL)
+       AND CAST(a.MCF_POL3 AS REAL) = CAST(b.MCF_POL3 AS REAL) AND CAST(a.MCF_POL4 AS REAL) = CAST(b.MCF_POL4 AS REAL)
+       AND CAST(a.MCF_POL5 AS REAL) = CAST(b.MCF_POL5 AS REAL);                          -- 80; 7
+    SELECT count(*) FROM (SELECT OCP_NAME, OCP_POS, OCP_TYPE, OCP_LVALU, OCP_HVALU FROM main.ocp
+                INTERSECT SELECT OCP_NAME, OCP_POS, OCP_TYPE, OCP_LVALU, OCP_HVALU FROM m.ocp);  -- 325; 32
+    SELECT count(*) FROM main.synthetic a JOIN m.synthetic b USING (NAME) WHERE a.SOURCE = b.SOURCE;  -- 0; 3
+    SELECT CCF_CNAME, CCF_DESCR FROM m.ccf WHERE CCF_CNAME LIKE 'ZIX%'
+       AND CCF_CNAME NOT IN (SELECT CCF_CNAME FROM main.ccf);                  -- ZIXX0128 (STIX run)
     ```
 
 ## Quality notes
@@ -688,11 +772,14 @@ SSMM A and B).[^mib25] The time services are discussed on
 | [Sequence ASYF100K](../../explorer/index.md#/solo/sequence/ASYF100K) | the spacecraft "Any to SAFE" TM mode sequence |
 | [Calibration CCDT0006TM](../../explorer/index.md#/solo/calib/txt/CCDT0006TM) | the most widely used textual calibration |
 | [2020 release](../../explorer/index.md#/solo2020/search/NSM) | the same data for April 2020 |
+| [SWA 6.5.0, APID 1585](../../explorer/index.md#/swa65/apid/1585) | the SWA database's verification reports, including the four TM(1,8) codes added in 2025 |
+| [STIX command ZIX20128](../../explorer/index.md#/stix/command/ZIX20128) | the STIX database's TC(20,128); compare [ZIXX0128](../../explorer/index.md#/solo/command/ZIXX0128), which exists only in the spacecraft release |
 
 ## Related pages
 
 * [Solar Orbiter](index.md), [How Solar Orbiter uses PUS](pus-usage.md),
-  [Solar Orbiter SWA instrument database](swa.md)
+  [Solar Orbiter SWA instrument database](swa.md), [Solar Orbiter STIX instrument database](stix.md),
+  [Solar Orbiter instrument interfaces](instrument-interfaces.md)
 * [The MIB](../../mib/index.md), [MIB data model](../../mib/data-model.md),
   [Monitoring in the MIB](../../mib/monitoring.md), [Commanding in the MIB](../../mib/commanding.md),
   [History of the ICD](../../mib/icd-history.md), [MIB tooling](../../mib/tooling.md)
@@ -707,7 +794,7 @@ SSMM A and B).[^mib25] The time services are discussed on
 [^reg-mib]: Source registry entries (`data/sources.json`) of [mib-20250916m25925pfms001-sol](../../library/mib-20250916m25925pfms001-sol.md) and [mib-20200416m10720pfms001-sol](../../library/mib-20200416m10720pfms001-sol.md): original URL, copy time, size and SHA-256.
 [^i70-vdf]: [SCOS-2000 Database Import ICD, issue 7.0](../../library/icd-7-0-final.md), §3.3.1.1 Database version: vdf, PDF pp. 37-38.
 [^ddid-dbrel]: [Solar Orbiter DDID, SOL-ESC-IF-05011 issue 1 rev. 2](../../library/solo-ddid-i1r2.md), §7.1.1, fields DB Rel and DB Iss, PDF pp. 21-22.
-[^mib25]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md), tables `vdf`, `pcf`, `plf`, `vpd`, `pid`, `pic`, `tpcf`, `caf`, `txf`, `mcf`, `cur`, `ocf`, `ocp`, `ccf`, `csf`, `pcdf`, `synthetic` and the mission files `ASW_sw_para`, `pcf_glob_det`, `dup`, `s13a`, `s13p`, `s13t`, queried by this wiki on 2026-11-12.
+[^mib25]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md), tables `vdf`, `pcf`, `plf`, `vpd`, `pid`, `pic`, `tpcf`, `caf`, `txf`, `mcf`, `cur`, `ocf`, `ocp`, `ccf`, `cdf`, `cvp`, `csf`, `pcdf`, `synthetic` and the mission files `ASW_sw_para`, `pcf_glob_det`, `dup`, `s13a`, `s13p`, `s13t`, queried by this wiki on 2026-11-12.
 [^mib20]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../../library/mib-20200416m10720pfms001-sol.md), the same tables, queried by this wiki on 2026-11-12.
 [^icd-acr]: [SOL.S.ASTR.TN.00079 issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../../library/sol-s-astr-tn-00079-07.md), §12.1 (Annex 7.1) Acronyms, PDF p. 270.
 [^i70-22]: [SCOS-2000 Database Import ICD, issue 7.0](../../library/icd-7-0-final.md), §2.2 Location and naming convention of the ASCII files, PDF pp. 21-22.
@@ -730,3 +817,10 @@ SSMM A and B).[^mib25] The time services are discussed on
 [^ddid-s13]: [Solar Orbiter DDID](../../library/solo-ddid-i1r2.md), §8.3.1 Command History Report (custom fields `s13ObFileId`, `s13ObFileAttribute`), PDF p. 28.
 [^icd-s13]: [SOL.S.ASTR.TN.00079 issue 7](../../library/sol-s-astr-tn-00079-07.md), §5.14 Service 13: Large Data Transfer, file attribute table, PDF pp. 132-133.
 [^spire]: [SPIRE MIB Naming Convention, issue 1.2](../../library/spire-mib-naming-convention-1-2.md), §2 Naming convention, PDF pp. 1-2.
+[^swa65]: [Solar Orbiter SWA instrument database v6.5.0](../../library/swa-idb-v6-5-0.md), tables `vdf`, `pcf`, `pid`, `plf`, `ccf`, `cdf`, `cvp`, `mcf`, `ocp`, queried by this wiki on 2026-11-12.
+[^stix]: [Solar Orbiter STIX instrument database v2.26.38](../../library/stix-idb-v2-26-38-raw.md), tables `vdf`, `pcf`, `pid`, `plf`, `ccf`, `cdf`, `mcf`, `ocp` and `synthetic`, queried by this wiki on 2026-11-12.
+[^rn]: [SWA IDB v6.5.0](../../library/swa-idb-v6-5-0.md), file `IDB_relNotes.txt` (Planetek Italia release notes), entries 6.3.3 (11/10/2021) and 6.3.3_wa (04/11/2021); a plain-text file without page numbers.
+[^reg-idb]: Source registry (`data/sources.json`) entries of [swa-idb-ascii](../../library/swa-idb-ascii.md), [swa-idb-v6-5-0](../../library/swa-idb-v6-5-0.md) (solarorbiter.irap.omp.eu) and [stix-idb-v2-26-38-raw](../../library/stix-idb-v2-26-38-raw.md) (pub099.cs.technik.fhnw.ch).
+[^dpu-apid]: [SO-SWA-DPU_CD-IC-003 SWA DPU Communications ICD, issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), §5, Table 1 SWA DPU APID characterization, PDF pp. 33-35.
+[^dpu-tc]: [SO-SWA-DPU_CD-IC-003 issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), §6.1, Table 2 SWA DPU FSW PUS Manager Handled Telecommands (TC(9,129) "TC Accept Time update"), PDF p. 35.
+[^eida-db]: [SOL-EST-IF-0050 Solar Orbiter Experiment Interface Document Part A, issue 1 rev. 0](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §5.3.3.2 Inputs to Satellite Database ("TBW"), PDF p. 89.

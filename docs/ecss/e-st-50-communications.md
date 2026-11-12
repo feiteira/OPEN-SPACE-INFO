@@ -1,8 +1,8 @@
 ---
 title: ECSS-E-ST-50C communications and the CCSDS adoption notices
-description: ECSS-E-ST-50C Rev.1 in full (scope, architecture, engineering process, DRDs and every functional and performance requirement), what the adoption notices ECSS-E-AS-50-25C Rev.1 (TC SDLP, with the Packet Assembly Controller) and ECSS-E-AS-50-26C (COP-1) change in the CCSDS books, the superseded TM transfer frame standard ECSS-E-ST-50-03C, and the link design guidance of the handbook ECSS-E-HB-50A, with Solar Orbiter examples.
+description: ECSS-E-ST-50C in full (scope, architecture, engineering process, DRDs and every functional and performance requirement, with what Rev.2 of December 2024 changed), what all six CCSDS adoption notices ECSS-E-AS-50-21 to -26 change in the CCSDS books (TM and TC coding, TM, AOS and TC data link, the Packet Assembly Controller, COP-1), the superseded 2008 standards ECSS-E-ST-50-03C (TM frame) and ECSS-E-ST-50-04C (TC) with their ESA PSS heritage, and the link design guidance of the handbook ECSS-E-HB-50A, with Solar Orbiter examples.
 tags: [ECSS, Communications, Data link layer, Telecommand, Telemetry, COP-1, Solar Orbiter]
-sources: [ecss-e-st-50c-rev-1-1march2021, ecss-e-as-50-25c-rev-1-13january2023, ecss-e-as-50-26c-1march2021, ecss-e-st-50-03c-31july2008, ecss-e-hb-50a-15november2008, sol-s-astr-tn-00079-07, icd-7-0-final, mib-20250916m25925pfms001-sol]
+sources: [ecss-e-st-50c-rev-1-1march2021, ecss-e-st-50c-rev-2-5december2024, ecss-e-as-50-21c-rev-2-5december2024, ecss-e-as-50-22c-rev-1-13january2023, ecss-e-as-50-23c-rev-1-13january2023, ecss-e-as-50-24c-rev-1-13january2023, ecss-e-as-50-25c-rev-1-13january2023, ecss-e-as-50-26c-1march2021, ecss-e-st-50-01c31july2008, ecss-e-st-50-02c31july2008, ecss-e-st-50-03c-31july2008, ecss-e-st-50-04c31july2008, ecss-e-st-50-05c-rev24october2011, ecss-e-hb-50a-15november2008, ecss-trees-nov2025, esa-pss-04-107-issue2-april1992, esa-pss-04-151-issue1-september1992, ccsds-131-0-131x0b6ec1, ccsds-732-0-732x0b5ec1, ccsds-320-0-320x0m7c1, ccsds-135-0-135x0b4s, ccsds-401-0-401x0b32, sol-s-astr-tn-00079-07, icd-7-0-final, mib-20250916m25925pfms001-sol]
 ---
 
 # ECSS-E-ST-50C communications and the CCSDS adoption notices
@@ -12,24 +12,46 @@ end-to-end data communication system of a spacecraft. It does not define frame f
 the vocabulary, the engineering process with its documents and reviews, and the functional and
 performance requirements that the chosen protocols must satisfy; the protocols themselves are
 specified by lower-level ECSS standards, by ECSS **adoption notices** of CCSDS standards and by the
-CCSDS books.[^intro][^scope] This page covers revision 1 of 1 March 2021, the two adoption notices
-in this wiki's library (for the [TC Space Data Link Protocol](../ccsds/tc-sdlp.md) and for
-[COP-1](../ccsds/cop-1.md)), the superseded TM frame standard ECSS-E-ST-50-03C, and the
-communications guidelines handbook ECSS-E-HB-50A. The general ECSS context is on the
-[ECSS overview](index.md) page.
+CCSDS books.[^intro][^scope] The current issue is **Revision 2 of 5 December 2024**. It changes
+no requirement of Revision 1 (1 March 2021) beyond correcting a typing error in requirement
+5.2.5.3c: it deletes twelve definitions, fixes that typo and stops naming the issue of each adopted
+CCSDS book, so that the standard need not be revised every time CCSDS updates one of them.[^r2-cl]
+This page therefore follows Rev.1 and says where Rev.2 differs. The clause numbers and requirement
+identifiers are the same in both, but from clause 3.3 onwards each clause sits one PDF page earlier
+in Rev.2 (see [What Rev.2 changed](#what-rev2-changed)). It also
+covers all six adoption notices, ECSS-E-AS-50-21 to -26 (for [TM coding](../ccsds/tm-coding.md),
+the [TM](../ccsds/tm-sdlp.md), [AOS](../ccsds/aos.md) and [TC](../ccsds/tc-sdlp.md) Space Data
+Link Protocols, [TC coding](../ccsds/tc-coding-cltu.md) and [COP-1](../ccsds/cop-1.md)), the
+superseded 2008 standards ECSS-E-ST-50-03C (TM transfer frame) and ECSS-E-ST-50-04C (telecommand),
+and the communications guidelines handbook ECSS-E-HB-50A. The general ECSS context is on the
+[ECSS overview](index.md) page, and the PSS standards from which the European choices descend are
+on the [history](../overview/history.md) page.
 
 !!! info "At a glance"
     | Document | Date | Nature | What it does |
     |---|---|---|---|
-    | ECSS-E-ST-50C Rev.1 | 1 March 2021 | Standard | Process (clause 5.2), system requirements (5.3 to 5.8), eight DRDs (Annexes A to H) |
+    | ECSS-E-ST-50C Rev.2 | 5 December 2024 | Standard (current) | Same requirements as Rev.1 (one typo corrected); adopted CCSDS books named without issue |
+    | ECSS-E-ST-50C Rev.1 | 1 March 2021 | Standard, superseded by Rev.2 | Process (clause 5.2), system requirements (5.3 to 5.8), eight DRDs (Annexes A to H) |
+    | ECSS-E-AS-50-21C Rev.2 | 5 December 2024 | Adoption notice | Applies CCSDS 131.0-B-5 (September 2023): soft decisions of at least 3 bits mandatory, Reed-Solomon E=8 only with 4D-8PSK-TCM |
+    | ECSS-E-AS-50-22C Rev.1 | 13 January 2023 | Adoption notice | Applies CCSDS 132.0-B-3 (October 2021) and adds the ESA extended virtual channel frame count |
+    | ECSS-E-AS-50-23C Rev.1 | 13 January 2023 | Adoption notice | Applies CCSDS 732.0-B-4 (October 2021); the AOS Replay Flag is always '0' |
+    | ECSS-E-AS-50-24C Rev.1 | 13 January 2023 | Adoption notice | Applies CCSDS 231.0-B-4 (July 2021): one frame per CLTU, BCH always in single-error-correction mode, randomization always on |
     | ECSS-E-AS-50-25C Rev.1 | 13 January 2023 | Adoption notice | Applies CCSDS 232.0-B-4 (October 2021): FECF mandatory, data field up to 1017 octets, No Bit Lock Flag always used, adds the Packet Assembly Controller |
     | ECSS-E-AS-50-26C | 1 March 2021 | Adoption notice | Applies CCSDS 232.1-B-2 (September 2010): the FARM-1 "FDU Arrived Indication" always carries an "FDU aborted indication" parameter |
     | ECSS-E-ST-50-03C | 31 July 2008 | Standard, superseded | TM Transfer Frame, with the ECSS-only extended virtual channel frame count |
+    | ECSS-E-ST-50-04C | 31 July 2008 | Standard, superseded | TC segmentation, transfer frame, COP-1, CLTU coding and physical layer procedures in one document |
     | ECSS-E-HB-50A | 15 November 2008 | Handbook | Option selection and recommended practice for the E-50 series |
 
-    Sources: the documents' title pages, change logs and scopes.[^cl-50][^as25-cl][^as26-scope][^5003-cl][^hb-cl]
+    Sources: the documents' title pages, change logs and scopes.[^r2-cl][^cl-50][^as21-cl][^as22-cl][^as23-cl][^as24-cl][^as25-cl][^as26-scope][^5003-cl][^5004-cl][^hb-cl]
 
-## ECSS-E-ST-50C Rev.1
+The ECSS Trees chart of the E-50 discipline (status as of May 2025) shows all six notices in these
+revisions as published, together with ECSS-E-ST-50C Rev.2, ECSS-E-ST-50-02C (ranging and Doppler
+tracking), ECSS-E-ST-50-05C Rev.2 (radio frequency and modulation) and the on-board data bus
+standards (SpaceFibre, SpaceWire, MIL-STD-1553B, discrete interfaces, CAN bus, time-triggered
+ethernet).[^trees-e50] The RF, modulation, ranging and Doppler standards are described on
+[Radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md); the on-board data bus standards are not covered by this wiki.
+
+## ECSS-E-ST-50C (Rev.1 and Rev.2)
 
 ### Scope
 
@@ -56,13 +78,18 @@ standards for a link is project-dependent, and ECSS-E-HB-50 gives guidance and e
 | essential function | Term from ECSS-E-ST-20 | "vital function" of ECSS-E-ST-70-11 |
 | frame | Service data unit passed at the sending end from the protocol sublayer to the coding and synchronization sublayer | see the [TM](../ccsds/tm-sdlp.md) and [TC](../ccsds/tc-sdlp.md) data link pages |
 | isochronous service | Transfer with a defined maximum deviation from a nominal end-to-end delay | |
-| telecommand link / uplink | Ground-to-space link by which a spacecraft is commanded | forward link |
-| telemetry link / downlink | Space-to-ground link carrying data generated on board | return link |
-| cross support | Use by one party of part of another party's data system resources | |
+| telecommand link / uplink | Ground-to-space link by which a spacecraft is commanded ("uplink" kept in Rev.2 only as a synonym in the note) | forward link |
+| telemetry link / downlink | Space-to-ground link carrying data generated on board (Rev.1 only; deleted in Rev.2) | return link |
+| cross support | Use by one party of part of another party's data system resources (Rev.1 only; deleted in Rev.2) | see the [cross support reference model](../ccsds/sle/service-management.md) |
 
-Sources: clauses 3.1 and 3.2.[^terms-31][^terms-32] The synonymy table matters because the
-operability standard [ECSS-E-ST-70-11C](e-st-70-11c.md) defines the same ideas under different
-names; the two standards point at each other.
+Sources: clauses 3.1 and 3.2 of Rev.1 and of Rev.2.[^terms-31][^terms-32][^r2-terms] The synonymy table
+matters because the operability standard [ECSS-E-ST-70-11C](e-st-70-11c.md) defines the same ideas
+under different names; the two standards point at each other. Rev.2 removed twelve definitions on a
+change request of the ECSS Glossary Task Force (communication service, cross support, downlink,
+service-provider, service-user, sink, telecommand, telemetry, telemetry link, uplink, user, user
+application) and renumbered the rest, so its clause 3.2 runs from 3.2.1 "channel" to 3.2.13
+"telecommand link".[^r2-cl][^r2-terms] The deleted words are still used in the requirements; the
+available sources do not say where their definitions now live.
 
 ### Architecture: elements, domains and the protocol stack
 
@@ -87,7 +114,12 @@ and AOS Space Data Link Protocols (each with the optional [SDLS](../ccsds/sdls.m
 frequency and modulation. Upper layers include the [Space Packet Protocol](../ccsds/space-packet.md),
 the [Encapsulation Packet Protocol](../ccsds/encapsulation.md), [CFDP](../ccsds/cfdp.md), IP over
 CCSDS, the Bundle Protocol and LTP, and compression standards. The figure names ECSS-E-ST-70-41C
-(the [PUS](pus/index.md)) as the example of an application-specific source and sink.[^fig42]
+(the [PUS](pus/index.md)) as the example of an application-specific source and sink.[^fig42] Its
+notes add that CCSDS has its own physical layer standard, CCSDS 401.0-B, with more options than
+ECSS-E-50-05 (see [Radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md)), that the
+[Proximity-1](../ccsds/proximity-1.md) suite is only one possible choice for proximity links, and
+that the optical communications standards CCSDS 141.0-B and 142.0-B are not shown. Figure 4-2 and
+its notes are the same in Rev.2.[^fig42][^r2-fig]
 
 ```mermaid
 flowchart TB
@@ -297,27 +329,244 @@ documentation summary, adds requirements 5.2.5.3c, 5.4.9a, 5.4.10a, 5.5.7a and t
 network clauses 5.7.3 and 5.7.4, modifies some 40 requirements, and deletes 5.4.6b, 5.6.12.4b,
 5.7.1.7a and 5.7.2.2a.[^cl-50]
 
+### What Rev.2 changed
+
+Rev.2 (5 December 2024) was prepared by the same ECSS-E-ST-50C Revision Working Group. Its change
+log gives one reason for the revision: to stop having to update ECSS-E-ST-50 whenever one of the
+adopted CCSDS standards is updated.[^r2-fw][^r2-cl] A line-by-line comparison of the two copies
+held by this wiki finds no other technical change than the ones the change log lists:
+
+| Part | Rev.1 (1 March 2021) | Rev.2 (5 December 2024) |
+|---|---|---|
+| Foreword | Opens by calling the standard one of a series meant to be applied together for management, engineering, product assurance and sustainability | That sentence is gone; the rest is unchanged |
+| Clause 3.2 | 25 terms | 13 terms (twelve deleted, see [above](#terms-that-matter-downstream)) |
+| Requirement 5.2.5.3c | The CSPD DRD is misprinted "(CDPD)" | Corrected to "(CSPD)" (the change log calls the typo "CSDP") |
+| Table of adoption notices in 4.2 | Each notice with the CCSDS issue and date it is based on, e.g. "CCSDS 131.0-B-3 (Sept. 2017)" | Book number and title only, e.g. "CCSDS 131.0-B - TM Synchronization and Channel Coding" |
+| Bibliography | Notices listed with the adopted CCSDS issue | Notices listed with the book number only |
+| Requirements 5.2 to 5.8, Annexes A to I | Baseline | Same text and same identifiers, e.g. ECSS-E-ST-50_0970031 for in-sequence telecommand delivery (§5.4.2) |
+
+Sources: the change logs, forewords, clause 3.2, §4.2, §5.2.5.3, §5.4.2 and bibliographies of both
+revisions.[^r2-cl][^r2-fw][^r2-terms][^r2-table][^r2-5253][^r2-542][^r2-bib][^cl-50][^as-table]
+
+!!! warning "Inference"
+    That Rev.2 changes nothing beyond what its change log lists is this wiki's finding, from a
+    normalised text diff of the two extracted copies; ECSS does not state it. The diff also shows
+    the expected side effects: the remaining terms of clause 3.2 are renumbered and the bullet
+    layout of some lists differs.
+
+Because the deleted definitions shorten clause 3, every clause of Rev.2 from 3.3 onwards sits one
+PDF page earlier than in Rev.1: §5.4.2 is on p. 37 of Rev.1 and p. 36 of Rev.2, requirement 5.2.5.3c on p. 34 and
+p. 33.[^req-542-r1][^r2-542][^r2-5253] The page numbers in the footnotes of this page are those of
+Rev.1.
+
+### Companion standards: radio frequency and ranging
+
+Two clauses of ECSS-E-ST-50C point to companion standards that ECSS did not replace by adoption
+notices: the overview of 5.6.1 says that suitable modulation schemes are defined in ECSS-E-ST-50-05,
+and the note to requirement 5.6.14.7a (ranging or Doppler tracking capability) says that suitable
+methods are defined in ECSS-E-ST-50-02.[^p561][^p5614c] Both are in the library and are described on
+[Radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md).
+
+| Standard | Issues | Scope (paraphrased) |
+|---|---|---|
+| [ECSS-E-ST-50-05C Rev.2](../library/ecss-e-st-50-05c-rev24october2011.md), Radio frequency and modulation | ECSS-E-50-05A (14 Nov. 2007); B never issued; C (31 July 2008); Rev.1 (6 March 2009); Rev.2 (4 October 2011) | Radio techniques between spacecraft and Earth stations in both directions and for orbit-determination tracking: frequency allocation and use, signal requirements such as spectral occupation and power, permissible modulations, the spacecraft–Earth station interface, acquisition and cross-support; for the Space Operation, Space Research and Earth Exploration-Satellite services, not for data-relay satellites |
+| [ECSS-E-ST-50-02C](../library/ecss-e-st-50-02c31july2008.md), Ranging and Doppler tracking | ECSS-E-50-02A (24 Nov. 2005); B never issued; C (31 July 2008) | Transponder and Earth station requirements for ranging with unprocessed accuracies of 2.5 ns to 30 ns and Doppler of 0.1 mm/s to 1 mm/s; for less demanding projects CCSDS 401.0-B may suffice |
+
+Sources: change logs and scopes.[^5005-cl][^5005-scope][^5002-cl][^5002-scope] Rev.2 of
+ECSS-E-ST-50-05C aligned the standard with CCSDS 401.0-B-20 (April 2009): it removed filtered OQPSK
+from the 8400–8450 MHz band, dropped FQPSK-B and shaped OQPSK from Annex D.2.2 and corrected the
+change log, which had called the 2008 and 2009 issues "First issue".[^5005-cl] The library's CCSDS
+copy is the much later 401.0-B-32 (October 2021).[^dc-401]
+
 ## The adoption notices
 
 An adoption notice applies a CCSDS Recommended Standard as an ECSS standard "with a minimum set of
 modifications", listed in an applicability table that shows each modified clause with its new
-wording, a comment and the original CCSDS text.[^as25-ctx][^as25-req] ECSS-E-ST-50C Rev.1 lists six:[^as-table]
+wording, a comment and the original CCSDS text.[^as25-ctx][^as25-req] In the 2023 and 2024
+notices, clause 4 holds one labelled requirement saying that the CCSDS book applies with the
+amendments of table 4-1 (ECSS-E-AS-50-21_1520001, -22_1530001, -23_1540001, -24_1550001,
+-25_1560001) and a second labelled requirement carrying the table; ECSS-E-AS-50-26C of 2021 states
+the same requirement without a label. All but -23, whose AOS frame had no 2008 ECSS predecessor,
+close with an informative Annex A listing the remaining differences from the superseded ECSS
+standard.[^as21-req][^as22-req][^as23-req][^as24-req][^as25-req][^as26-t1]
+ECSS-E-ST-50C lists six notices; the table below adds the revision of each that this wiki holds:[^as-table][^r2-table]
 
-| Adoption notice | Based on (as listed in ECSS-E-ST-50C Rev.1) | Supersedes | Wiki page |
-|---|---|---|---|
-| ECSS-E-AS-50-21 | CCSDS 131.0-B-3 (Sept. 2017), TM Synchronization and Channel Coding | ECSS-E-ST-50-01C, whole standard | [TM coding](../ccsds/tm-coding.md) |
-| ECSS-E-AS-50-22 | CCSDS 132.0-B-2 (Sept. 2015), TM Space Data Link Protocol | ECSS-E-ST-50-03C, "TM Transfer Frame" | [TM SDLP](../ccsds/tm-sdlp.md) |
-| ECSS-E-AS-50-23 | CCSDS 732.0-B-3 (Aug. 2016), AOS Space Data Link Protocol | nothing (ECSS-E-ST-50-03 had no AOS frame) | [AOS](../ccsds/aos.md) |
-| ECSS-E-AS-50-24 | CCSDS 231.0-B-3 (Sept. 2017), TC Synchronization and Channel Coding | ECSS-E-ST-50-04C clauses 8 and 9 | [CLTU](../ccsds/tc-coding-cltu.md) |
-| ECSS-E-AS-50-25 | CCSDS 232.0-B-3 (Sept. 2015), TC Space Data Link Protocol | ECSS-E-ST-50-04C clauses 5 and 6 | [TC SDLP](../ccsds/tc-sdlp.md) |
-| ECSS-E-AS-50-26 | CCSDS 232.1-B-2 (Sept. 2010), COP-1 | ECSS-E-ST-50-04C clause 7 | [COP-1](../ccsds/cop-1.md) |
+| Adoption notice | Based on (as listed in ECSS-E-ST-50C Rev.1, 2021) | Latest revision in the library and the CCSDS issue it adopts | Supersedes | Wiki page |
+|---|---|---|---|---|
+| ECSS-E-AS-50-21 | CCSDS 131.0-B-3 (Sept. 2017), TM Synchronization and Channel Coding | [-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md) (5 Dec. 2024): 131.0-B-5, Sept. 2023 | ECSS-E-ST-50-01C, whole standard | [TM coding](../ccsds/tm-coding.md) |
+| ECSS-E-AS-50-22 | CCSDS 132.0-B-2 (Sept. 2015), TM Space Data Link Protocol | [-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md) (13 Jan. 2023): 132.0-B-3, Oct. 2021 | ECSS-E-ST-50-03C, "TM Transfer Frame" | [TM SDLP](../ccsds/tm-sdlp.md) |
+| ECSS-E-AS-50-23 | CCSDS 732.0-B-3 (Aug. 2016 per ECSS; the CCSDS document control dates Issue 3 September 2015, see [AOS](../ccsds/aos.md)), AOS Space Data Link Protocol | [-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md) (13 Jan. 2023): 732.0-B-4, Oct. 2021 | nothing (ECSS-E-ST-50-03 had no AOS frame) | [AOS](../ccsds/aos.md) |
+| ECSS-E-AS-50-24 | CCSDS 231.0-B-3 (Sept. 2017), TC Synchronization and Channel Coding | [-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md) (13 Jan. 2023): 231.0-B-4, July 2021 | ECSS-E-ST-50-04C clauses 8 and 9 | [CLTU](../ccsds/tc-coding-cltu.md) |
+| ECSS-E-AS-50-25 | CCSDS 232.0-B-3 (Sept. 2015), TC Space Data Link Protocol | [-25C Rev.1](../library/ecss-e-as-50-25c-rev-1-13january2023.md) (13 Jan. 2023): 232.0-B-4, Oct. 2021 | ECSS-E-ST-50-04C clauses 5 and 6 | [TC SDLP](../ccsds/tc-sdlp.md) |
+| ECSS-E-AS-50-26 | CCSDS 232.1-B-2 (Sept. 2010), COP-1 | [-26C](../library/ecss-e-as-50-26c-1march2021.md) (1 Mar. 2021): 232.1-B-2, Sept. 2010 | ECSS-E-ST-50-04C clause 7 | [COP-1](../ccsds/cop-1.md) |
+
+Sources for the last column: the scope clause of each notice.[^as21-scope][^as22-scope][^as23-scope][^as24-scope][^as25-scope][^as26-scope]
 
 The adoption notices are revised when CCSDS revises the book, and the applicable CCSDS issue is the
-one stated in the latest revision of each notice.[^as25-ctx] The bibliography of ECSS-E-AS-50-25C
-Rev.1 already lists Rev.1 issues of the other notices: -21C Rev.1 for CCSDS 131.0-B-4, -22C Rev.1
-for CCSDS 132.0-B-3, -24C Rev.1 for CCSDS 231.0-B-4 and -25C Rev.1 for CCSDS 232.0-B-4; it lists
--23C Rev.1 as an adoption of "CCSDS 232.0-B-4, AOS Space Data Link Protocol", which is evidently a
-typing error for a 732.0 issue.[^as25-bib] Only -25C Rev.1 and -26C are in this wiki's library.
+one stated in the latest revision of each notice; every notice of 2023 and 2024 repeats this rule
+under its mapping table, which itself names the books only as "CCSDS 131.0-B-x" and so on. The 2021
+ECSS-E-AS-50-26C still lists the issues in its table (for example "CCSDS 232.1-B-2 (Sept. 2010)")
+and has no such note.[^as25-ctx][^as21-ctx][^as26-ctx]
+ECSS-E-ST-50C Rev.2 applied the same idea to the parent standard by dropping the issue numbers from
+its own table.[^r2-cl][^r2-table] The first issues of -21 to -26 all date from 1 March 2021; -21
+to -25 were revised on 13 January 2023 and -21 again on 5 December 2024.[^as21-cl][^as22-cl][^as23-cl][^as24-cl][^as25-cl]
+
+The bibliographies cross-check one another. Those of -22C, -23C, -24C and -25C Rev.1 (all January
+2023) list -21C Rev.1 as the adoption of CCSDS 131.0-B-4; the bibliography of -21C Rev.2 lists
+itself as the adoption of 131.0-B-5. The bibliography of -25C Rev.1 lists -23C Rev.1 as an adoption
+of "CCSDS 232.0-B-4, AOS Space Data Link Protocol"; -23C Rev.1 itself, and the other bibliographies,
+give 732.0-B-4, so that entry is a typing error.[^as25-bib][^as22-bib][^as23-scope][^as21-bib]
+All six notices are held in the revisions that the ECSS Trees of May 2025 show as published; the
+earlier revisions (the first issues of -21 to -25 of 1 March 2021 and ECSS-E-AS-50-21C Rev.1 of
+13 January 2023) are not held.[^trees-e50][^as21-cl]
+
+!!! warning "Newer CCSDS issues than the adopted ones"
+    The library also holds CCSDS 131.0-B-6 (April 2026), whose document control marks 131.0-B-5
+    as superseded, and CCSDS 732.0-B-5 (October 2025), which marks 732.0-B-4 as
+    superseded.[^dc-1316][^dc-7325] The latest notices in the library still adopt 131.0-B-5 and
+    732.0-B-4. Whether ECSS has since revised ECSS-E-AS-50-21 or -23 is not stated in the
+    available sources; by the rule above, the issue named in the latest notice remains the one
+    that applies.
+
+### ECSS-E-AS-50-21C Rev.2: TM synchronization and channel coding
+
+The notice applies CCSDS 131.0-B-5 (September 2023), which it calls similar to ECSS-E-ST-50-01C, the
+2008 telemetry coding standard it supersedes. Its first issue (1 March 2021) replaced
+ECSS-E-ST-50-01C; Rev.1 (13 January 2023) followed a CCSDS issue that added support for the
+[Unified Space Data Link Protocol](../ccsds/uslp.md) and for ground-to-space links; Rev.2
+(5 December 2024) follows 131.0-B-5, whose revised pseudo-randomizer avoids spectral spikes on
+high-rate links, and adds differences from ECSS-E-ST-50-01C (USLP, turbo code rates, attached sync
+marker patterns) that earlier revisions had missed.[^as21-cl][^as21-scope][^as21-ctx] Its table 4-1
+modifies five CCSDS clauses (in six rows: 5.1 has one for the requirement and one for a new
+note):[^as21-t1][^as21-t2]
+
+| CCSDS clause | CCSDS 131.0-B-5 | ECSS (ECSS-E-AS-50-21C Rev.2) | Effect |
+|---|---|---|---|
+| 3.2.4 | Soft-decision decoding with at least 3-bit quantization "should" be used when decoder complexity permits | It shall be used for the convolutional decoder | No hard-decision convolutional decoding |
+| 4.3.1c (new) | — | Reed-Solomon with E=8 only with 4-dimensional 8PSK trellis-coded modulation (4D-8PSK-TCM) | E=8 restricted to one modulation |
+| 4.3.5.1 | Interleaving depth I = 1, 2, 3, 4, 5 or 8 | E=16: I = 1, 2, 3, 4, 5 or 8; E=8: I = 8 only | Depth tied to the code |
+| 4.3.5.2 | Depth "normally" fixed on a physical channel for a mission phase | Always fixed | |
+| 5.1 and new note | Concatenated codes combine a Reed-Solomon code of section 4 with a convolutional code | Only the E=16 Reed-Solomon code; E=8 is never concatenated | |
+
+Annex A lists what ECSS-E-ST-50-01C lacked compared with CCSDS 131.0-B-5:[^as21-a1][^as21-a2]
+
+| Topic | ECSS-E-ST-50-01C (2008) | CCSDS 131.0-B-5 as adopted |
+|---|---|---|
+| LDPC codes | none | several, for a frame or a stream of sync-marked frames |
+| Turbo code rates | 1/2 and 1/4 | 1/2, 1/3, 1/4 and 1/6, with matching ASM patterns |
+| Pseudo-randomizer | 255-bit sequence | 131 071-bit sequence (section 10), the old one only for backward compatibility |
+| Frame lengths per code | informative (Annex C) | normative (section 11) |
+| USLP frames | not mentioned | supported beside TM and AOS frames |
+| Managed parameters | informative "mission configuration parameters" (Annex G) | normative (section 12) |
+| Ground-to-space and space-to-space use | not covered | normative (section 13) |
+| Service interface and security discussion | none | Annexes A and B |
+| Coding scheme selection guidance | Annex D application profiles | none in the book; CCSDS 130.1-G-3 gives performance data |
+
+The 2008 standard is in the library as [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md):
+issue A of 6 November 2007, B never issued, C of 31 July 2008, which says it establishes a common
+implementation of telemetry channel coding without quantifying coding gain.[^5001-cl][^5001-scope]
+CCSDS has meanwhile issued 131.0-B-6 (April 2026), which adds an interleaver for turbo codewords,
+allows slicing for all block codes and makes the pseudo-randomizer mandatory.[^dc-1316] Code details
+are on the [TM coding](../ccsds/tm-coding.md) page.
+
+### ECSS-E-AS-50-22C Rev.1: TM Space Data Link Protocol
+
+The notice applies CCSDS 132.0-B-3 (October 2021). Together with ECSS-E-AS-50-23 it supersedes
+ECSS-E-ST-50-03C; its Rev.1 change log summarises the new CCSDS issue (support for the SDLS Extended
+Procedures of CCSDS 355.1-B-1, a normative PICS proforma, and informative options for randomizing
+the data field of Only Idle Data frames), which, as with -25C Rev.1, are annexes of the CCSDS book,
+not of the notice.[^as22-cl][^as22-scope][^as22-ctx][^as22-a1] Its only modification is an addition:
+it carries the ESA **extended virtual channel frame count** of ECSS-E-ST-50-03C over into the CCSDS
+frame as new clauses 4.1.3.1.7 and 4.1.3.4.[^as22-t1][^as22-t2][^as22-t3]
+
+| New clause | Requirement (paraphrased) |
+|---|---|
+| 4.1.3.1.7 | The Transfer Frame Secondary Header may carry an extended virtual channel frame count |
+| 4.1.3.4.2.1 | The secondary header is then 32 bits long (Secondary Header Length field = 3) |
+| 4.1.3.4.2.2 | Its data field holds a 24-bit extension of the Virtual Channel Frame Count |
+| 4.1.3.4.2.3 | The extension counts the roll-overs of the 8-bit count in the primary header, giving a 32-bit count whose 8 least significant bits stay in the primary header |
+| 4.1.3.4.2.4 | It is associated with a master channel (every frame carries the count of its own VC) or with one virtual channel (other VCs may omit the secondary header or use it otherwise) |
+| 4.1.3.4.2.5 | The choice is static on that channel throughout a mission phase |
+
+The rules are those of ECSS-E-ST-50-03C §5.3.4; the bit layout is drawn
+[below](#secondary-header-and-the-extended-virtual-channel-frame-count), where Solar Orbiter's use of
+the count is shown.[^5003-534a][^5003-534b] Annex A of the notice lists the other differences from the
+2008 standard:[^as22-a1][^as22-a2]
+
+* CCSDS 132.0-B-3 specifies service interfaces (section 3) and sending and receiving procedures
+  (4.2, 4.3); ECSS-E-ST-50-03 specified only packet processing and extraction.
+* It provides optional interfaces to [SDLS](../ccsds/sdls.md) and the SDLS Extended Procedures,
+  including the SDLS Frame Security Report, a new Type-2 Report in the Operational Control Field
+  (4.1.5.5); ECSS-E-ST-50-03 had no SDLS support (see [Security](../ccsds/security.md)).
+* A frame count may not be reset before 255 "unless it is unavoidable" (CCSDS) instead of "unless
+  there is a major system reset" (ECSS-E-ST-50-03).
+* A Synchronization Flag of '1' marks a frame carrying a Virtual Channel Access SDU (CCSDS), while
+  ECSS-E-ST-50-03 used '1' for any frame not meeting the conditions for '0', including frames
+  carrying asynchronously inserted data.
+* Managed parameters (sections 5 and 6.6) and the PICS requirements list (Annex A) are normative;
+  the 2008 standard had informative "mission configuration parameters" and no PICS.
+* The data field of an Only Idle Data frame may be randomized (4.1.4.6.2, with two implementation
+  options in Annex D); the 2008 standard had no such specification.
+
+### ECSS-E-AS-50-23C Rev.1: AOS Space Data Link Protocol
+
+The notice applies CCSDS 732.0-B-4 (October 2021), which it describes as having a similar purpose to
+the TM Space Data Link Protocol with some extra features. Because ECSS-E-ST-50-03 covered only the
+TM frame, it has no annex of differences. Its change log repeats the CCSDS changes listed for -22C
+Rev.1; its first row labels the first issue "ECSS-E-AS-50-23C Rev.1 ... 13 January 2023", evidently
+a typing error, since the next row lists the changes of Rev.1 with respect to the issue of 1 March
+2021.[^as23-cl][^as23-scope][^as23-ctx] Its table 4-1 touches three CCSDS clauses, on two topics, the
+Replay Flag and the Frame Header Error Control:[^as23-t1][^as23-t2][^as23-t3]
+
+| CCSDS clause | CCSDS 732.0-B-4 | ECSS-E-AS-50-23C Rev.1 |
+|---|---|---|
+| 4.1.2.5.2 | The Replay Flag tells the receiver whether a frame is realtime or replayed, so that both kinds can share a virtual channel | The Replay Flag shall be '0'; a new note says ECSS does not allow '1' because other means of replaying frames exist and '1' adds processing complexity at the receiving end |
+| 4.1.2.5.3 and notes | '0' realtime, '1' replay; interpretation (for example a decreasing VC count in reverse playback) negotiated per project | Deleted |
+| 4.1.2.6.1 | One note | Existing note numbered 1 (content unchanged); new note 2: the Frame Header Error Control may be restricted to physical channels without an error-correcting code, and with Reed-Solomon coding it brings no benefit and is strongly discouraged |
+
+!!! note "A reversal of the 2008 advice"
+    The 2008 handbook presented the AOS Replay Flag as the way AOS frames handle playback of
+    recorded data.[^hb-playback] The 2023 notice forbids the value '1' in ECSS missions and only
+    says that alternative means of replaying frames exist, without naming them. The newer CCSDS
+    732.0-B-5 (October 2025) widens the AOS Spacecraft Identifier to 10 bits and the M_PDU First
+    Header Pointer to 16 bits, for frames up to 65 536 octets; no notice in the library adopts
+    it.[^dc-7325] See the [AOS](../ccsds/aos.md) page.
+
+### ECSS-E-AS-50-24C Rev.1: TC synchronization and channel coding
+
+The notice applies CCSDS 231.0-B-4 (July 2021), which it calls similar to clauses 8 and 9 of
+ECSS-E-ST-50-04C. With -25C and -26C it replaced that standard on 1 March 2021; Rev.1 aligns with
+231.0-B-4, which supports USLP frames, and corrects informative notes that still called the
+randomizer optional with BCH coding.[^as24-cl][^as24-scope][^as24-ctx] Most of the European choices
+that the 2008 handbook explained (see [below](#european-telecommand-choices-and-their-rationale))
+reappear here as modifications:[^as24-t1][^as24-t2][^as24-t3][^as24-t4][^as24-t5][^as24-t6][^as24-t7]
+
+| Topic | CCSDS 231.0-B-4 | ECSS-E-AS-50-24C Rev.1 | Clauses modified |
+|---|---|---|---|
+| Frames per CLTU | One or more TC Transfer Frames, or one USLP frame | Exactly one TC Transfer Frame, or one USLP frame | Note 2 to the definition in 1.6.1.3; Annex A3 |
+| BCH decoding mode | Error-detecting (Triple Error Detection, TED) or error-correcting (Single Error Correction, SEC), per mission | Always SEC: one bit corrected, two detected | 2.2.2, 3.5, table 8-2 |
+| Frame Error Control Field | "may be used", particularly with SEC | "is used" (made mandatory by -25C) | 2.2.2 |
+| Randomization | Optional and managed with BCH, always with LDPC | Always, with BCH and with LDPC | 2.2.4, 3.4.3, note 2 to 5.2.3, table 5-1 state S3, 6.1, note 2 to 6.3.1 deleted, table 8-2 |
+| Errors allowed in the CLTU Start Sequence | 0 (TED) or 1 (SEC) | 1 with BCH | Note 1 below table 5-2, table 8-2 |
+| Acquisition Sequence | Preferred minimum 16 octets | Minimum 16 octets (128 bits), alternating ones and zeros | 7.2.2 |
+| Idle Sequence | Unconstrained length | At least 8 bits; only the maximum is unconstrained | 7.2.4 |
+| Idle Sequence between CLTUs with PLOP-2 | At least one octet "recommended" | At least one octet mandatory, against synchronization lockout | 7.5.2 |
+| Repetitions parameter of the CLTU service | Optional; if above 1, no Type-BD frames | Unchanged, apart from the one-frame rule | Annex A3 |
+
+Annex A adds the differences from ECSS-E-ST-50-04C that are not modifications: CCSDS 231.0-B-4 has
+LDPC codes (section 4) beside the modified BCH code, normative managed parameters (section 8)
+instead of informative mission configuration parameters, a formal service interface (Annex A) with
+the optional Repetitions parameter, and USLP support; the performance data of the 2008 Annex D now
+live in the Green Book CCSDS 230.1-G-3.[^as24-a1][^as24-a2] The coding details are on the
+[CLTU](../ccsds/tc-coding-cltu.md) page.
+
+!!! example "What the ECSS physical layer settings mean in bits (illustrative)"
+    With the minimum values of the notice, a PLOP-2 uplink session starts with at least 128 bits of
+    alternating ones and zeros (16 octets of acquisition), sends a CLTU holding exactly one TC
+    frame, then at least 8 bits of idle sequence before the next CLTU. The receiver searches for
+    the CLTU Start Sequence accepting one bit error and decodes every BCH codeblock in SEC
+    mode.[^as24-t1][^as24-t3][^as24-t4][^as24-t6][^as24-t7] The bit counts are the notice's; the sequence of events is
+    this wiki's illustration.
 
 ### ECSS-E-AS-50-25C Rev.1: TC Space Data Link Protocol
 
@@ -354,7 +603,8 @@ A TC frame therefore has a 5-octet primary header, at most 1017 octets of data a
 
 The Packet Assembly Controller (PAC) is an ESA feature inherited from the PSS standards. CCSDS
 232.0-B does not include it, and the 2008 handbook noted that because of it ECSS segments could be
-one octet long whereas CCSDS segments had at least two.[^hb-diff2] The notice re-introduces it as
+one octet long whereas CCSDS segments had at least two.[^hb-diff2] ECSS-E-ST-50-04C had defined it
+in its segmentation sublayer (§5.5.4) and listed it among its differences from CCSDS.[^5004-toc][^5004-c] The notice re-introduces it as
 an optional function used by the MAP Packet Extraction Function (for packets) and by the MAP
 Reception Function (for MAP_SDUs); despite its name it handles both.[^pac-ov]
 
@@ -412,7 +662,8 @@ status.[^pac-b4]
 Why keep it? The handbook gives the reasons: backward compatibility with the PSS standard and with
 European decoder hardware, which used the PAC for segmentation, although European missions generally
 did not use segmentation; it also warned that the one-octet control segment could affect
-interoperability, for example with SLE forward services.[^hb-diff2] The notice's own note on MAP Reset
+interoperability, for example with SLE forward services (see [FCLTU](../ccsds/sle/fcltu.md) and
+[FSP](../ccsds/sle/fsp.md)).[^hb-diff2] The notice's own note on MAP Reset
 gives the operational use: recovery after breaks in the sequence of received frames caused by link
 problems or by an unplanned end of the transfer service.[^pac-b4]
 
@@ -478,7 +729,8 @@ ECSS-E-ST-50-03C ("Space data links – Telemetry transfer frame protocol", 31 J
 TM Transfer Frame as a fixed-length structure sent at a constant frame rate. It was the European
 counterpart of CCSDS 132.0-B-1 and is now superseded by ECSS-E-AS-50-22 (and, for AOS, -23).[^5003-scope][^hb-5003][^as-table]
 It is still worth knowing: Solar Orbiter's frame ICD cites it,[^solo-docs] and it is where the
-ESA-specific *extended virtual channel frame count* is defined.
+ESA-specific *extended virtual channel frame count* was first defined in ECSS form, before
+ECSS-E-AS-50-22C carried it into the CCSDS frame (see [above](#ecss-e-as-50-22c-rev1-tm-space-data-link-protocol)).[^as22-t1]
 
 ### Frame and primary header
 
@@ -604,6 +856,73 @@ configuration:[^5003-d1][^5003-d2][^5003-d3]
 | Virtual channel | Spacecraft and VC identifiers; secondary header use and length; Synchronization Flag; OCF presence |
 | VC with Synchronization Flag 0 | Valid packet version numbers; maximum packet length; handling of incomplete packets (deliver or discard) |
 
+## The superseded telecommand standard: ECSS-E-ST-50-04C
+
+ECSS-E-ST-50-04C ("Space data links – Telecommand protocols synchronization and channel coding",
+31 July 2008) specified the data structures and protocols of a telecommand space data link and the
+physical layer operation procedures, normally from ground to space but usable space to space. Its
+first issue, ECSS-E-50-04A, dates from 14 November 2007; issue B was never published, and issue C
+made editorial changes for consistency with CCSDS and other ECSS standards.[^5004-cl][^5004-scope]
+Where CCSDS splits the telecommand link over three books, this one standard held all of it, which is
+why three adoption notices were needed to replace it:[^hb-rel50][^5004-toc][^as-table]
+
+| Clause of ECSS-E-ST-50-04C | Content | Replaced by |
+|---|---|---|
+| 5 Segmentation sublayer | TC Segment, transfer notification, blocking of packets, segmentation with the optional Packet Assembly Controller (5.5.4), MAP multiplexing | ECSS-E-AS-50-25 ([TC SDLP](../ccsds/tc-sdlp.md)) |
+| 6 Transfer sublayer | TC Transfer Frame, CLCW, frame header, error control, delimiting and validation procedures, virtual channel multiplexing | ECSS-E-AS-50-25 |
+| 7 COP-1 | Internal variables, interfaces of the sending and receiving ends, control command formats, actions | ECSS-E-AS-50-26 ([COP-1](../ccsds/cop-1.md)) |
+| 8 Synchronization and channel coding sublayer | BCH codeblock, CLTU, randomization, encoding, fill bits, channel logic and decoding at the receiving end | ECSS-E-AS-50-24 ([CLTU](../ccsds/tc-coding-cltu.md)) |
+| 9 Physical layer | Data structures and procedures, including PLOP-1 and PLOP-2 | ECSS-E-AS-50-24 |
+| Annexes A to E (informative) | Frame error control; changes from ESA PSS-04-107; differences from CCSDS 231.0-B-1, 232.0-B-1 and 232.1-B-1; performance issues; mission configuration parameters | Notices' Annex A and the CCSDS books |
+
+Its TC Transfer Frame Primary Header is drawn below; compare the CCSDS frame on the
+[TC SDLP](../ccsds/tc-sdlp.md) page.[^5004-hdr1][^5004-hdr2][^5004-hdr3]
+
+<div class="bitfield" data-title="TC Transfer Frame Primary Header, ECSS-E-ST-50-04C §6.2.2 (40 bits)" data-width="16"
+     data-fields='[{"n":"Version","b":2,"v":"00","d":"Bits 0-1: version 1 of the TC frame"},{"n":"Bypass Flag","b":1,"d":"Bit 2: 0 type-A (sequence-controlled), 1 type-B (bypasses FARM-1 sequence checks)"},{"n":"Control Command Flag","b":1,"d":"Bit 3: 0 type-D (data), 1 type-C (control command)"},{"n":"Reserved Spare","b":2,"v":"00","d":"Bits 4-5"},{"n":"Spacecraft Identifier","b":10,"d":"Bits 6-15: destination spacecraft, static in all mission phases"},{"n":"Virtual Channel Identifier","b":6,"d":"Bits 16-21"},{"n":"Frame Length","b":10,"d":"Bits 22-31: total frame octets minus 1, range 7 to 1023"},{"n":"Frame Sequence Number","b":8,"d":"Bits 32-39: N(S) in type-A frames, zero in type-B frames"}]'></div>
+
+| Bypass Flag | Control Command Flag | Frame type |
+|---|---|---|
+| 0 | 0 | AD: data, sequence-controlled service |
+| 0 | 1 | reserved |
+| 1 | 0 | BD: data, expedited service |
+| 1 | 1 | BC: control command |
+
+Sources: §6.2.2.1 to §6.2.2.9 and table 6-3.[^5004-hdr1][^5004-hdr2][^5004-hdr3]
+
+### What changed from ESA PSS-04-107
+
+Annex B lists, for checking the compatibility of existing systems, the technical differences from
+ESA PSS-04-107, the ESA Packet Telecommand Standard (issue 2, April 1992), which had a wider
+scope:[^5004-b1][^5004-b2][^5004-b3]
+
+| Area | ESA PSS-04-107 (1992) | ECSS-E-ST-50-04C (2008) |
+|---|---|---|
+| Layer names | "Segmentation Layer", "Transfer Layer" | segmentation sublayer, transfer sublayer |
+| Packets per frame | No blocking function | Blocking: several packets in one frame |
+| Segments | TC Segments on every virtual channel | Virtual channels without segments allowed |
+| Layer below segmentation | Assumed to be the transfer layer | No specific sublayer assumed |
+| Authentication | Defined, with an optional Segment Trailer for its data | Out of scope; no Segment Trailer |
+| Maximum frame length | 256 octets; Frame Length in bits 24–31, bits 22–23 reserved | 1024 octets; Frame Length in bits 22–31 |
+| COP-1 | Older version, now called COP-1A | Modified version COP-1B; differences affect only FOP-1 |
+| CLCW Status Field (bits 3–5) | Always zero | May be used for mission-specific purposes |
+| CLCW sampling in telemetry | Standard Insertion Schemes 1 and 2 | Project-specific |
+| CLTU Tail Sequence | One bit pattern | A different pattern |
+| Randomization | None | Included |
+| Codeblocks | "TC codeblock" of 64, 56, 48 or 40 bits | "BCH codeblock" of 64 bits only |
+| Acquisition and idle sequences | Acquisition ends with "one" before idle; idle starts with "zero" | Neither constrained |
+| Physical layer procedures | PLOP-2 only | PLOP-1 and PLOP-2 |
+| Names | Command Operation Procedure, Command Link Control Word, Command Link Transmission Unit; Frame Header; Reserved Field A; Reserved Field B | Communications Operation Procedure, Communications Link Control Word, Communications Link Transmission Unit; Transfer Frame Primary Header; Reserved Spare; part of the Frame Length |
+
+Because the old 2-bit reserved field held zeros, the standard notes that frames built to the earlier
+256-octet definition are still valid under the current one.[^5004-hdr3] The PSS standard itself is
+now in the library as [ESA PSS-04-107](../library/esa-pss-04-107-issue2-april1992.md), whose change
+record says issue 2 only made editorial changes to issue 1 of June 1990; its origins are on the
+[history](../overview/history.md) page.[^pss107-cr] Annex C lists the differences from the CCSDS
+books of the time (231.0-B-1, 232.0-B-1, 232.1-B-1), starting with the same two that the handbook
+explains below: no assumption about the sublayer below segmentation, and the optional Packet
+Assembly Controller.[^5004-c]
+
 ## The communications guidelines handbook: ECSS-E-HB-50A
 
 ECSS-E-HB-50A (15 November 2008) helps implementers of the E-50 series: it gives an overview of the
@@ -615,21 +934,21 @@ practices remain relevant.
 
 ### European telecommand choices and their rationale
 
-The handbook lists fourteen differences between ECSS-E-ST-50-04 and the CCSDS TC books. Several
-survive in the adoption notices.[^hb-diffs1][^hb-diffs2][^hb-diffs3][^hb-diffs4][^hb-diff13]
+The handbook lists fourteen differences between ECSS-E-ST-50-04 and the CCSDS TC books. Eleven of
+them survive in the adoption notices of 2021 and 2023, as the last column notes.[^hb-diffs1][^hb-diffs2][^hb-diffs3][^hb-diffs4][^hb-diff13][^as24-t1][^as24-t2][^as24-t3][^as24-t4][^as24-t5][^as24-t6][^as24-t7]
 
 | # | ECSS-E-ST-50-04 (2008) | CCSDS | Rationale given |
 |---|---|---|---|
 | 1 | Does not assume the adjacent sublayer is the segmentation or transfer sublayer | Assumes it | Forward compatibility, easy insertion of layers such as security |
 | 2 | Optional Packet Assembly Controller; minimum segment length 1 octet | No PAC; minimum 2 octets | Backward compatibility with PSS and European hardware (now in ECSS-E-AS-50-25C Rev.1) |
-| 3 | Exactly one frame per CLTU | Several allowed | Fewer BCH codeblocks per CLTU, better performance; European frame delimiting hardware |
+| 3 | Exactly one frame per CLTU | Several allowed | Fewer BCH codeblocks per CLTU, better performance; European frame delimiting hardware (now in ECSS-E-AS-50-24C Rev.1) |
 | 4 | FECF always present; minimum frame 8 octets | Optional; minimum 6 | BCH in correction mode lacks detection power; European hardware always checks the CRC (now in ECSS-E-AS-50-25C Rev.1) |
-| 5 | CLTU start sequence with one bit error always accepted | Optional | Fewer CLTU rejections |
-| 6 | Randomization always used | Optional | Past problems with frames of all zeros, which give codeblocks without transitions |
-| 7 | BCH always decoded in single error correction (SEC) | SEC or triple error detection (TED) | Fewer CLTU rejections |
-| 8 | Idle sequence of at least 8 bits between CLTUs in PLOP-2 always used | Optional | Avoids synchronization lockout that can lose the next frame |
-| 9 | Acquisition sequence at least 128 bits | 128 bits preferred | Adapted to transponder performance |
-| 10 | Idle sequence at least 8 bits | No minimum | As 8 |
+| 5 | CLTU start sequence with one bit error always accepted | Optional | Fewer CLTU rejections (now in ECSS-E-AS-50-24C Rev.1) |
+| 6 | Randomization always used | Optional | Past problems with frames of all zeros, which give codeblocks without transitions (now in ECSS-E-AS-50-24C Rev.1) |
+| 7 | BCH always decoded in single error correction (SEC) | SEC or triple error detection (TED) | Fewer CLTU rejections (now in ECSS-E-AS-50-24C Rev.1) |
+| 8 | Idle sequence of at least 8 bits between CLTUs in PLOP-2 always used | Optional | Avoids synchronization lockout that can lose the next frame (now in ECSS-E-AS-50-24C Rev.1) |
+| 9 | Acquisition sequence at least 128 bits | 128 bits preferred | Adapted to transponder performance (now in ECSS-E-AS-50-24C Rev.1, as 16 octets) |
+| 10 | Idle sequence at least 8 bits | No minimum | As 8 (now in ECSS-E-AS-50-24C Rev.1) |
 | 11 | No Bit Lock Flag defined and always used | Optional, mission-specific | Observability; used by the PLOP carrier modulation modes (now in ECSS-E-AS-50-25C Rev.1) |
 | 12 | Names TC Segment, user data unit, Segment Data Field | Segment, Service Data Unit, User Data | Backward compatibility and clarity |
 | 13, 14 | FDU Arrived Indication always carries "FDU aborted"; single back-end buffer FARM-1 procedures | Optional parameter; case not considered | European hardware with single-buffer FARM-1 (the first now in ECSS-E-AS-50-26C) |
@@ -650,7 +969,9 @@ survive in the adoption notices.[^hb-diffs1][^hb-diffs2][^hb-diffs3][^hb-diffs4]
   where an additional mechanism was being studied in 2008.
 * Prefer PLOP-2 to PLOP-1 for its higher throughput.
 * There is no ECSS telecommand decoder specification; the withdrawn ESA PSS-04-151 contained important
-  information, and the PUS has an annex on the CPDU and its interaction with PSS decoders.
+  information, and the PUS has an annex on the CPDU and its interaction with PSS decoders. The PSS
+  specification, issue 1 of September 1992, is now in the library as
+  [ESA PSS-04-151](../library/esa-pss-04-151-issue1-september1992.md).[^pss151-cover]
 
 **The transponder "dual lock" issue.** Near-Earth and Lagrange-point spacecraft such as Cryosat-2
 combine the uplink from both low-gain antennas with a 3 dB hybrid so that both transponders see the
@@ -701,10 +1022,13 @@ MIB follows the PUS reservations: the time report TM(9,2) is on APID 0 and the i
 2047.[^mib-apid]
 
 **Security, interoperability and conformance.** In 2008 neither ECSS nor CCSDS specified security
-methods for these protocols; the handbook pointed to CCSDS 350.0-G.[^hb-sec] Today ECSS-E-ST-50C Rev.1
-points to the SDLS option in the adoption notices.[^p54b] Cross support needs agreement on service,
-physical, communications and enterprise aspects, not just protocols; SLE had largely solved
-ground-station cross support, while space-to-space cross support still had to be negotiated case by
+methods for these protocols; the handbook pointed to CCSDS 350.0-G.[^hb-sec] Today ECSS-E-ST-50C
+(Rev.1 and Rev.2) points to the SDLS option in the adoption notices, and ECSS-E-AS-50-22C and -23C
+Rev.1 also open the SDLS Extended Procedures of CCSDS 355.1-B-1 to TM and AOS frames; the CCSDS
+security books are summarised on the [Security](../ccsds/security.md) page.[^p54b][^as22-cl][^as23-cl] Cross support needs agreement on service,
+physical, communications and enterprise aspects, not just protocols; [SLE](../ccsds/sle/index.md) had largely solved
+ground-station cross support (the architecture is on
+[cross support reference model and service management](../ccsds/sle/service-management.md)), while space-to-space cross support still had to be negotiated case by
 case.[^hb-interop] Draft PICS proformas for ECSS-E-ST-50-01, -03 and -04 (sending and receiving ends)
 fill Annexes A to F; a PICS records which options an implementation supports and lets incompatible
 implementations be spotted early.[^hb-pics]
@@ -717,17 +1041,23 @@ apply to all missions; the TM frame standard to return links except where AOS ap
 links with very large data volumes per contact; Proximity-1 to lander–orbiter links; ECSS-E-ST-70-41 to
 all ESA missions; CFDP to file transfer and reliable return links.[^hb-guide1][^hb-guide2] It also
 notes that AOS is sometimes chosen for high-rate downlinks where TM frame counters would roll over
-during a pass, after the ISS-driven ambitions for symmetric high-rate links faded.[^hb-aos]
+during a pass, after the ISS-driven ambitions for symmetric high-rate links faded.[^hb-aos] The
+identifier books are covered on [Space link identifiers](../ccsds/space-link-identifiers.md): the
+library holds CCSDS 320.0-M-7 (November 2017), which turned the spacecraft identifier procedures from
+a Blue Book into a Magenta Book Recommended Practice, and the Space Link Identifiers book 135.0-B-4
+(October 2009), whose copy is stamped "Historical".[^dc-320][^dc-135] Proximity-1 has its own
+[page](../ccsds/proximity-1.md).
 
 ## How it fits together
 
 ```mermaid
 flowchart LR
-    E50["ECSS-E-ST-50C Rev.1<br/>requirements"] -->|"5.4.2 in-sequence delivery"| COP["COP-1 AD service<br/>E-AS-50-26C"]
+    E50["ECSS-E-ST-50C Rev.1 / Rev.2<br/>requirements"] -->|"5.4.2 in-sequence delivery"| COP["COP-1 AD service<br/>E-AS-50-26C"]
     E50 -->|"5.4.3 erroneous TC below 10^-2/N"| FECF["Mandatory FECF<br/>E-AS-50-25C Rev.1"]
     E50 -->|"5.4.4 essential TCs"| CPDU["Hardware decoder<br/>and CPDU"]
     E50 -->|"5.5.3, 5.4.10 identification"| SCID["Spacecraft ID<br/>in every frame"]
     E50 -->|"5.4.9 dual lock"| NBL["No Bit Lock Flag<br/>always used"]
+    E50 -->|"5.6.11.6 frame rejection"| SEC["SEC decoding, one frame per CLTU,<br/>randomization always<br/>E-AS-50-24C Rev.1"]
     COP --> MIB["SCOS-2000 MIB:<br/>UNLOCK, SETVR, RESET"]
     CPDU --> MIBH["MIB: high-priority<br/>commands on MAP 0"]
 ```
@@ -762,6 +1092,8 @@ MIB. The links are this wiki's synthesis of the sources cited above.*
 * [TC Space Data Link Protocol](../ccsds/tc-sdlp.md), [COP-1](../ccsds/cop-1.md), [CLTU](../ccsds/tc-coding-cltu.md)
 * [TM Space Data Link Protocol](../ccsds/tm-sdlp.md), [TM coding](../ccsds/tm-coding.md), [AOS](../ccsds/aos.md), [SDLS](../ccsds/sdls.md)
 * [Uplink chain](../overview/uplink.md) and [downlink chain](../overview/downlink.md)
+* [Radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md), [Proximity-1](../ccsds/proximity-1.md), [Space link identifiers](../ccsds/space-link-identifiers.md), [Security in CCSDS space links](../ccsds/security.md)
+* [From ESA PSS to CCSDS and ECSS](../overview/history.md), [The standards landscape](../overview/standards-map.md)
 
 [^intro]: [ECSS-E-ST-50C Rev.1, Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), Introduction, PDF p. 8.
 [^scope]: [ECSS-E-ST-50C Rev.1](../library/ecss-e-st-50c-rev-1-1march2021.md), clause 1 "Scope", PDF p. 9.
@@ -898,3 +1230,76 @@ MIB. The links are this wiki's synthesis of the sources cited above.*
 [^hb-guide1]: [ECSS-E-HB-50A](../library/ecss-e-hb-50a-15november2008.md), §6.2, table 6-1, PDF p. 140.
 [^hb-guide2]: [ECSS-E-HB-50A](../library/ecss-e-hb-50a-15november2008.md), §6.2, tables 6-2 to 6-4, PDF p. 141.
 [^hb-aos]: [ECSS-E-HB-50A](../library/ecss-e-hb-50a-15november2008.md), §6.1.3 "Later standards: AOS, Proximity-1 and CFDP", PDF p. 137.
+[^r2-cl]: [ECSS-E-ST-50C Rev.2, Communications](../library/ecss-e-st-50c-rev-2-5december2024.md), Change log (Rev.2 row: purpose, modified parts, deleted terms, typo in 5.2.5.3c), PDF p. 3.
+[^r2-fw]: [ECSS-E-ST-50C Rev.2](../library/ecss-e-st-50c-rev-2-5december2024.md), Foreword and publisher block, PDF p. 2.
+[^r2-terms]: [ECSS-E-ST-50C Rev.2](../library/ecss-e-st-50c-rev-2-5december2024.md), §3.1 and §3.2 "Terms specific to the present standard" (3.2.1 to 3.2.13), PDF pp. 11–13.
+[^r2-table]: [ECSS-E-ST-50C Rev.2](../library/ecss-e-st-50c-rev-2-5december2024.md), §4.2, table of ECSS adoption notices (books named without issue), PDF pp. 18–19.
+[^r2-fig]: [ECSS-E-ST-50C Rev.2](../library/ecss-e-st-50c-rev-2-5december2024.md), §4.2, figure 4-2 and its notes, PDF p. 20.
+[^r2-bib]: [ECSS-E-ST-50C Rev.2](../library/ecss-e-st-50c-rev-2-5december2024.md), Bibliography, PDF p. 88.
+[^r2-5253]: [ECSS-E-ST-50C Rev.2](../library/ecss-e-st-50c-rev-2-5december2024.md), §5.2.5.3, requirement c, PDF p. 33.
+[^r2-542]: [ECSS-E-ST-50C Rev.2](../library/ecss-e-st-50c-rev-2-5december2024.md), §5.4.2, requirement ECSS-E-ST-50_0970031, PDF p. 36.
+[^req-542-r1]: [ECSS-E-ST-50C Rev.1](../library/ecss-e-st-50c-rev-1-1march2021.md), §5.4.2 (requirement ECSS-E-ST-50_0970031), PDF p. 37, and §5.2.5.3c ("(CDPD)"), PDF p. 34.
+[^trees-e50]: [ECSS Trees, November 2025](../library/ecss-trees-nov2025.md), chart "E-50 discipline – Communications" (status as of May 2025), PDF p. 6.
+[^as21-cl]: [ECSS-E-AS-50-21C Rev.2, Adoption Notice of CCSDS 131.0-B-5](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Change log, PDF p. 3.
+[^as21-scope]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), clause 1 "Scope", PDF p. 5.
+[^as21-ctx]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), clause 2 "Context information" and the mapping of superseded standards, PDF p. 6.
+[^as21-req]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), clause 4, requirements ECSS-E-AS-50-21_1520001 and _1520002, PDF p. 8.
+[^as21-t1]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), table 4-1, row 3.2.4, PDF p. 8.
+[^as21-t2]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), table 4-1, rows 4.3.1c, 4.3.5.1, 4.3.5.2 and 5.1, PDF p. 9.
+[^as21-a1]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Annex A, §A.2.1 to §A.2.4, PDF p. 10.
+[^as21-a2]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Annex A, §A.2.5 to §A.2.11, PDF p. 11.
+[^as21-bib]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Bibliography, PDF p. 12.
+[^as22-cl]: [ECSS-E-AS-50-22C Rev.1, Adoption Notice of CCSDS 132.0-B-3](../library/ecss-e-as-50-22c-rev-1-13january2023.md), Change log, PDF p. 3.
+[^as22-scope]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), clause 1 "Scope", PDF p. 5.
+[^as22-ctx]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), clause 2 "Context information", PDF p. 6.
+[^as22-req]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), clause 4, requirements ECSS-E-AS-50-22_1530001 and _1530002, PDF p. 8.
+[^as22-t1]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), table 4-1, rows 4.1.3.1.7 to 4.1.3.4.2, PDF p. 8.
+[^as22-t2]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), table 4-1, rows 4.1.3.4.2.1 to 4.1.3.4.2.3, PDF p. 9.
+[^as22-t3]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), table 4-1, rows 4.1.3.4.2.4 and 4.1.3.4.2.5 with notes, PDF p. 10.
+[^as22-a1]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), Annex A, §A.2.1 to §A.2.3, PDF p. 11.
+[^as22-a2]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), Annex A, §A.2.4 to §A.2.8, PDF p. 12.
+[^as22-bib]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), Bibliography, PDF p. 13; the same list is in the bibliographies of [-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), PDF p. 11, and [-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), PDF p. 19.
+[^as23-cl]: [ECSS-E-AS-50-23C Rev.1, Adoption Notice of CCSDS 732.0-B-4](../library/ecss-e-as-50-23c-rev-1-13january2023.md), Change log, PDF p. 3.
+[^as23-scope]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), clause 1 "Scope", PDF p. 5.
+[^as23-ctx]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), clause 2 "Context information", PDF p. 6.
+[^as23-req]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), clause 4, requirements ECSS-E-AS-50-23_1540001 and _1540002, PDF p. 8.
+[^as23-t1]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), table 4-1, row 4.1.2.5.2, PDF p. 8.
+[^as23-t2]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), table 4-1, new note to 4.1.2.5.2 and deleted 4.1.2.5.3, PDF p. 9.
+[^as23-t3]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), table 4-1, deleted notes to 4.1.2.5.3 and notes to 4.1.2.6.1, PDF p. 10.
+[^as24-cl]: [ECSS-E-AS-50-24C Rev.1, Adoption Notice of CCSDS 231.0-B-4](../library/ecss-e-as-50-24c-rev-1-13january2023.md), Change log, PDF p. 3.
+[^as24-scope]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), clause 1 "Scope", PDF p. 5.
+[^as24-ctx]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), clause 2 "Context information", PDF p. 6.
+[^as24-req]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), clause 4, requirements ECSS-E-AS-50-24_1550001 and _1550002, PDF p. 8.
+[^as24-t1]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, row "Note 2 to Transfer Frame definition in 1.6.1.3", PDF p. 8, and row A3, PDF p. 16.
+[^as24-t2]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 2.2.2 (two rows), 2.2.4 and 3.4.3, PDF p. 9.
+[^as24-t3]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 3.5 and note 2 in 5.2.3, PDF p. 10.
+[^as24-t4]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows table 5-1 (state S3) and note 1 below table 5-2, PDF p. 11.
+[^as24-t5]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 6.1 and note 2 in 6.3.1, PDF p. 12.
+[^as24-t6]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 7.2.2 and 7.2.4, PDF p. 13.
+[^as24-t7]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 7.5.2 and table 8-2 (decoding mode, allowed errors in the Start Sequence, randomizer), PDF pp. 14–15.
+[^as24-a1]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), Annex A, §A.2.1 to §A.2.3, PDF p. 17.
+[^as24-a2]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), Annex A, §A.2.4 to §A.2.6, PDF p. 18.
+[^dc-1316]: [CCSDS 131.0-B-6, TM Synchronization and Channel Coding](../library/ccsds-131-0-131x0b6ec1.md), Document Control (131.0-B-5 superseded; changes of issue 6; EC 1 of May 2026), PDF p. 7.
+[^dc-7325]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol](../library/ccsds-732-0-732x0b5ec1.md), Document Control (732.0-B-4 superseded; changes of issue 5; EC 1), PDF p. 7.
+[^dc-320]: [CCSDS 320.0-M-7, Spacecraft Identification Field Code Assignment Control Procedures](../library/ccsds-320-0-320x0m7c1.md), cover and Document Control (issues 320.0-B-1 to -B-6, change to Recommended Practice, Cor. 1 of July 2019), PDF pp. 1 and 7–8.
+[^dc-135]: [CCSDS 135.0-B-4, Space Link Identifiers](../library/ccsds-135-0-135x0b4s.md), "CCSDS Historical Document" cover and Document Control, PDF pp. 1 and 8.
+[^dc-401]: [CCSDS 401.0-B-32, Radio Frequency and Modulation Systems—Part 1](../library/ccsds-401-0-401x0b32.md), cover and Document Control (issues 31 and 32), PDF pp. 1 and 11.
+[^5001-cl]: [ECSS-E-ST-50-01C, Telemetry synchronization and channel coding](../library/ecss-e-st-50-01c31july2008.md), Change log, PDF p. 3.
+[^5001-scope]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), clause 1 "Scope", PDF p. 8.
+[^5002-cl]: [ECSS-E-ST-50-02C, Ranging and Doppler tracking](../library/ecss-e-st-50-02c31july2008.md), Change log, PDF p. 3.
+[^5002-scope]: [ECSS-E-ST-50-02C](../library/ecss-e-st-50-02c31july2008.md), clause 1 "Scope", PDF p. 7.
+[^5005-cl]: [ECSS-E-ST-50-05C Rev.2, Radio frequency and modulation](../library/ecss-e-st-50-05c-rev24october2011.md), Change log, PDF p. 3.
+[^5005-scope]: [ECSS-E-ST-50-05C Rev.2](../library/ecss-e-st-50-05c-rev24october2011.md), clause 1 "Scope" and its footnotes, PDF p. 9.
+[^5004-cl]: [ECSS-E-ST-50-04C, Telecommand protocols synchronization and channel coding](../library/ecss-e-st-50-04c31july2008.md), Change log, PDF p. 3.
+[^5004-scope]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), clause 1 "Scope", PDF p. 12.
+[^5004-toc]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), Table of contents (clauses 5 to 9, Annexes A to E), PDF pp. 4–8.
+[^5004-hdr1]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.2.2.1 to §6.2.2.4, PDF pp. 38–39.
+[^5004-hdr2]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.2.2.4 to §6.2.2.6 and table 6-3, PDF p. 40.
+[^5004-hdr3]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.2.2.7 to §6.2.2.9 (including the note on the earlier 256-octet definition), PDF pp. 41–42.
+[^5004-b1]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), Annex B "Changes from ESA-PSS-04-107", §B.1 and §B.2, PDF p. 131.
+[^5004-b2]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), Annex B, §B.2 (continued), PDF p. 132.
+[^5004-b3]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), Annex B, §B.2 (end), tables B-1 and B-2, PDF p. 133.
+[^5004-c]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), Annex C "Differences from CCSDS recommendations", §C.1 and §C.2, PDF p. 134.
+[^pss107-cr]: [ESA PSS-04-107 Issue 2, Packet telecommand standard](../library/esa-pss-04-107-issue2-april1992.md), Document change record (scanned; read from the OCR text), PDF p. 6.
+[^pss151-cover]: [ESA PSS-04-151 Issue 1, Telecommand decoder specification](../library/esa-pss-04-151-issue1-september1992.md), cover (OCR text of a scan), PDF p. 1.
+[^hb-rel50]: [ECSS-E-HB-50A](../library/ecss-e-hb-50a-15november2008.md), §3.1.4 "Relationship of ECSS standards to CCSDS standards", PDF p. 26.

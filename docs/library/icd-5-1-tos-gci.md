@@ -44,7 +44,7 @@ Appendix A gives the PTC/PFC parameter type codes SCOS-2000 supports, mapped to 
 - DCR-266 (EGSE) widens CCF_APID, CCF_RAPID and PID_APID from num(4) to num(5): 0 to 2047 identify on-board APIDs and 2048 to 65535 ground process IDs. DCR-241 adds a command category (CCF_TYPE='S') for which the Releaser appends no CRC. *(PDF p. 120)*
 
 
-## Cited by these wiki pages (17)
+## Cited by these wiki pages (18)
 
 - [Command sequences and parameter sets](../mib/sequences.md)
 - [Display definitions in the MIB](../mib/displays.md)
@@ -58,6 +58,7 @@ Appendix A gives the PTC/PFC parameter type codes SCOS-2000 supports, mapped to 
 - [Monitoring checks: limits and out-of-limits](../mib/monitoring-checks.md)
 - [PUS packet structures: TC and TM headers](../ecss/pus/packets.md)
 - [Rosetta, Mars Express and Venus Express](../missions/rosetta-mex-vex.md)
+- [Solar Orbiter STIX instrument database](../missions/solar-orbiter/stix.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Synthetic parameters and the OL language](../mib/synthetic-parameters.md)
@@ -151,7 +152,7 @@ Appendix A gives the PTC/PFC parameter type codes SCOS-2000 supports, mapped to 
 | RD-3 | [S2K-MCS-GLO-0001-TOS-GCI](../references/index.md#ref-s2k-mcs-glo-0001-tos-gci) | SCOS-2000 Glossary, Definitions and Acronyms |  | reference |
 | RD-4 | [TERMA/SSSL/IMCS/MAN/0002](../references/index.md#ref-terma-sssl-imcs-man-0002) | Integral Mission Control System Database Subsystem SUM | Issue 1.0 | reference |
 | RD-5 | [catalogue](../references/index.md#ref-deleted) | Deleted |  | reference |
-| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
+| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) · [library](esa-pss-07-101-issue1-may1994.md) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
 | RD-7 | [RO-ESC-IF-5002](../references/index.md#ref-ro-esc-if-5002) | Rosetta Space/Ground ICD | Issue 1 August 1998 | reference |
 | RD-8 | [CCSDS 301.0-B-2](../references/index.md#ref-ccsds-301-0-b-2) | CCSDS Time Code Formats | Issue 2 April 1990 | reference |
 | RD-9 | [S2K-MCS-SUM-0019-TOS-GCI](../references/index.md#ref-s2k-mcs-sum-0019-tos-gci) | SCOS-2000 Synthetic Parameters SUM |  | reference |

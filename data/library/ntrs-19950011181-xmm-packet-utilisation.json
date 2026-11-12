@@ -1,0 +1,53 @@
+{
+ "slug": "ntrs-19950011181-xmm-packet-utilisation",
+ "title": "Packet Utilisation Definitions for the ESA XMM Mission",
+ "short_title": "Packet Utilisation Definitions for XMM (Nye)",
+ "doc_id": "NTRS 19950011181 (N95-17596)",
+ "issue": null,
+ "date": null,
+ "organisation": "European Space Operations Centre (ESOC), ESA",
+ "authors": ["H. R. Nye"],
+ "doc_type": "Paper",
+ "status_notes": "Historical conference paper written before launch (XMM is described as due for launch on Ariane 5 at the end of 1999) and while the ESA Packet Utilisation Standard (PSS-07-101) was 'not yet approved' (reference 3, PDF p. 6). The service type numbers it uses are the XMM pre-PUS 'missionisation' and do not match the later PSS-07-101 or ECSS-E-70-41 numbering.",
+ "summary": "An eight-page ESOC paper, scanned in the NASA Technical Reports Server, on how the XMM (X-ray Multi-Mirror) project chose which parts of the draft ESA Packet Utilisation Standard (PUS) to implement. The author calls this selection and tailoring of PUS services and packet structures to a mission 'missionisation'. XMM was to be the first ESA science spacecraft to use the ESA packet telemetry and telecommand standards and the first ESOC science mission on the new object-oriented, distributed flight control system infrastructure.\n\nThe paper first sets out the operations concept: real-time control from ESOC through a single ground station with up to 22 hours of contact per day, no bulk on-board storage of science or housekeeping data, and safety during non-contact periods handled by time-tagged commands, limited on-board monitoring and a history of on-board events. It then lists the selected services in three groups. On-line control covers periodic housekeeping, device commands, TC verification, non-periodic event reports, task management and science telemetry. Safety management covers time-tag commands, on-board monitoring of up to 30 parameters and storage of non-periodic packets. Operations maintenance covers memory maintenance, telemetry management, telemetry definition and test commands. For each service it gives the subtypes.\n\nThe closing figures show the TM source packet and TC packet headers of the ESA packet standards and the XMM data field headers, which are only partly legible in the scan. For an engineer it is an early, concrete example of PUS tailoring, and it shows service numbering from before the PUS was approved.",
+ "contents": [
+  {"section": null, "title": "Abstract", "pdf_page": 1},
+  {"section": null, "title": "Introduction", "pdf_page": 1},
+  {"section": null, "title": "XMM Operations Concept", "pdf_page": 2},
+  {"section": null, "title": "XMM Flight Control Systems", "pdf_page": 2},
+  {"section": null, "title": "XMM Services", "pdf_page": 3},
+  {"section": null, "title": "1) On-line Control", "pdf_page": 3},
+  {"section": null, "title": "2) Safety Management", "pdf_page": 4},
+  {"section": null, "title": "3) Operations Maintenance", "pdf_page": 5},
+  {"section": null, "title": "Data Structures", "pdf_page": 5},
+  {"section": null, "title": "Conclusion", "pdf_page": 6},
+  {"section": null, "title": "References", "pdf_page": 6},
+  {"section": null, "title": "Figure 1. Telemetry Source Packet Fields (from Ref 1)", "pdf_page": 7},
+  {"section": null, "title": "Figure 2. Telemetry Packet: Data Field Header (from Ref 5)", "pdf_page": 7},
+  {"section": null, "title": "Figure 3. Telecommand Packet Fields (From Ref 2)", "pdf_page": 8},
+  {"section": null, "title": "Figure 4. Telecommand Packet: Data Field Header (from Ref 5)", "pdf_page": 8}
+ ],
+ "key_points": [
+  {"text": "XMM was to be the first ESA scientific spacecraft to implement the ESA packet telecommand and telemetry standards, and the first ESOC-controlled science mission to use the new object-oriented, distributed flight control system infrastructure due for deployment in 1995.", "pdf_page": 1},
+  {"text": "The paper defines 'missionisation' as selecting services from the PUS and tailoring the related packet structures to the needs of a particular mission.", "pdf_page": 2},
+  {"text": "XMM operations concept: real-time control from ESOC via a single ground station with up to 22 hours of contact per day; all science and housekeeping data transmitted in real time, with no bulk storage on board.", "pdf_page": 2},
+  {"text": "Safety during non-contact periods relies on time-tagged commands, a low degree of on-board monitoring and a history of on-board events.", "pdf_page": 2},
+  {"text": "The PUS reserves two fixed fields in the data field header for packet type and packet subtype, so that every packet is identifiable by its function and required processing.", "pdf_page": 3},
+  {"text": "XMM numbering: periodic housekeeping is TM Type 1, device commands TC Type 2 (pulse subtype 1, register load subtype 2), TC verification TM Type 3 (subtypes 1 to 4 for acceptance and execution success or failure), non-periodic telemetry TM Type 4 (event, exception and major anomaly reports).", "pdf_page": 3},
+  {"text": "Task management is TC Type 5 (start, stop, load task parameters, mode transition) and science telemetry is TM Type 15.", "pdf_page": 4},
+  {"text": "Time-tag commands are TC and TM Type 7, with six subtypes from loading a command into the time-tag buffer to deleting all commands; on-board monitoring is TC and TM Type 8 and covers at most 30 parameters.", "pdf_page": 4},
+  {"text": "Non-periodic packet storage (TC Type 11) keeps TC verification, event, exception and major anomaly reports in a cyclic buffer for retrieval after non-coverage periods.", "pdf_page": 5},
+  {"text": "Operations maintenance uses memory maintenance (Type 6: load, dump, checksum), telemetry management (Type 9: enable or disable generation of all or specific TM packets), telemetry definition (Type 10: define new housekeeping packets for satellite systems only) and test commands (TC Type 13).", "pdf_page": 5},
+  {"text": "Missionisation ends with expanding each packet type and subtype down to field level (purpose, length and format agreed between satellite and ground developers), documented in the XMM Packet Structure Definition (RS-PX-0032).", "pdf_page": 5},
+  {"text": "The TM source packet header is shown as 48 bits: version number 3, type 1, data field header flag 1, application process ID 11, segmentation flags 2, source sequence count 14, followed by a 16-bit packet length.", "pdf_page": 7}
+ ],
+ "references": [
+  {"label": "1", "doc_id": "PSS-04-106", "title": "ESA Packet Telemetry Standard", "issue": "Issue 1", "date": "January 1988", "kind": "bibliography", "pdf_page": 6},
+  {"label": "2", "doc_id": "PSS-04-107", "title": "ESA Packet Telecommand Standard", "issue": "Issue 2", "date": "April 1992", "kind": "bibliography", "pdf_page": 6},
+  {"label": "3", "doc_id": "PSS-07-101", "title": "ESA Packet Utilisation Standard", "issue": "not yet approved", "date": null, "kind": "bibliography", "pdf_page": 6},
+  {"label": "4", "doc_id": "RS-PX-0028", "title": "XMM Operations Interface Requirements Document", "issue": "Issue 2a", "date": "March 1994", "kind": "bibliography", "pdf_page": 6},
+  {"label": "5", "doc_id": "RS-PX-0032", "title": "XMM Packet Structure Definition", "issue": "Issue 2", "date": "1994-06-29", "kind": "bibliography", "pdf_page": 6}
+ ],
+ "topics": ["missions/other-missions.md", "overview/history.md", "ecss/pus/index.md", "ecss/pus/pus-a-vs-pus-c.md", "ecss/pus/packets.md", "ecss/pus/message-types.md", "ccsds/space-packet.md"],
+ "notes": "Poor OCR of a scanned two-column conference paper: columns are interleaved in the text layer, and the data field header diagrams (Figures 2 and 4) are unreadable noise. The printed proceedings page numbers are 1235 to 1242, but the proceedings volume and date are not printed on the scanned pages. The NTRS accession number N95-17596 appears on PDF p. 1. The PDF has 8 pages; the text extraction shows a ninth, empty page. References 1, 2 and 3 are in the library as esa-pss-04-106-issue1-january1988, esa-pss-04-107-issue2-april1992 and (in its approved form) esa-pss-07-101-issue1-may1994. A companion ESOC paper on the PUS itself is in the library as ntrs-19950011180-esa-pus-paper."
+}

@@ -34,9 +34,10 @@ The most useful part for MIB readers is the **tailoring-data migration path**. C
 - Next features: file based operations, on-board software maintenance, security and PUS-C including support for the Generic Operational Interface Requirements; validation through most of 2026 towards a fully operational solution in 2027. *(PDF p. 6)*
 
 
-## Cited by these wiki pages (5)
+## Cited by these wiki pages (6)
 
 - [Ancillary systems, MICONYS and the move to EGS-CC](../scos2000/ancillary-and-egs-cc.md)
+- [ECSS-E-ST-70-32C: PLUTO test and operations procedure language](../ecss/e-st-70-32c.md)
 - [Missions](../missions/index.md)
 - [Other missions and SCOS-2000 users](../missions/other-missions.md)
 - [SCOS-2000: ESA's mission control system](../scos2000/index.md)

@@ -1,0 +1,704 @@
+{
+ "slug": "esa-pss-04-107-issue2-april1992",
+ "title": "Packet telecommand standard",
+ "short_title": "ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)",
+ "doc_id": "ESA PSS-04-107",
+ "issue": "Issue 2",
+ "date": "April 1992",
+ "organisation": "European Space Agency (ESA), PSS-04 Space Data Communications branch; prepared by the Standards Approval Board (STAB) for Space Data Communications, approved by the Inspector General, ESA, and published by ESA Publications Division, ESTEC, Noordwijk",
+ "authors": [
+  "The Standards Approval Board (STAB) for Space Data Communications"
+ ],
+ "doc_type": "Standard",
+ "status_notes": "According to the Document Change Record (PDF p. 6), Issue 1 (June 1990) was a new document directly derived from the CCSDS telecommand recommendations (its references [1] to [4]). Issue 2 (April 1992) changes sections 4.3.2, 6.3.3, Tables 6.2 and 6.3, 7.3.3 and 10.2, marks the changes with change bars, and says they are only editorial, so that Issue 2 is otherwise identical to Issue 1. Clause 1.2 says the standard supersedes the PCM Telecommand Standard TTC-A-01 (p. 15). The document names no successor. ECSS-E-ST-50-04C (31 July 2008) contains an informative Annex B, 'Changes from ESA-PSS-04-107', which lists technical differences such as the renamed segmentation sublayer and packet blocking (library item ecss-e-st-50-04c31july2008, PDF p. 131). The companion decoder specification is ESA PSS-04-151 (library item esa-pss-04-151-issue1-september1992). This copy was downloaded from ecss.nl.",
+ "summary": "ESA's **Packet Telecommand Standard**, Issue 2 (April 1992), is derived from the 1987 CCSDS telecommand recommendations. Issue 2 only makes editorial changes to Issue 1 of June 1990. It is the forerunner of the [TC Space Data Link Protocol](../ccsds/tc-sdlp.md), [COP-1](../ccsds/cop-1.md) and [CLTU coding](../ccsds/tc-coding-cltu.md) specifications (see the [history page](../overview/history.md)). The library copy is a scanned PDF and its text comes from OCR, so the values here were checked against the page images.\n\nThe uplink is described as five layers. The **physical layer** defines the acquisition and idle sequences, four carrier modulation modes and the physical layer operation procedure (PLOP). The **coding layer** wraps each frame in a CLTU: the start sequence `0xEB90`, 8-octet codeblocks (shorter ones allowed) protected by a (63,56) modified BCH code, and a tail sequence. The **transfer layer** defines the TC Transfer Frame and the AD, BD and BC frame types. The frame has a 5-octet header with a 10-bit spacecraft ID, a 6-bit virtual channel ID and an 8-bit sequence number, is at most 256 octets long and always ends with a CRC. The same layer defines the Unlock and Set V(R) control commands, the 32-bit CLCW, and the complete COP-1 protocol: FOP-1 and FARM-1 variables, sliding windows and state tables. The **segmentation layer** adds a one-octet segment header with sequence flags and a 6-bit MAP ID. The **packetisation layer** defines the TC packet (version `0b000`, type 1).\n\nFurther sections cover systematic retransmission for deep space, optional encrypted authentication of TC segments (see [link security](../ccsds/security.md)), the three ground-station services, and the performance targets.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Document Change Record",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "References",
+   "pdf_page": 7
+  },
+  {
+   "section": null,
+   "title": "Table of Contents",
+   "pdf_page": 9
+  },
+  {
+   "section": "1",
+   "title": "Purpose and Scope",
+   "pdf_page": 15
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 15
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 15
+  },
+  {
+   "section": "2",
+   "title": "Applicability",
+   "pdf_page": 17
+  },
+  {
+   "section": "2.1",
+   "title": "General",
+   "pdf_page": 17
+  },
+  {
+   "section": "2.2",
+   "title": "Exceptions",
+   "pdf_page": 17
+  },
+  {
+   "section": "3",
+   "title": "System Overview",
+   "pdf_page": 19
+  },
+  {
+   "section": "3.1",
+   "title": "Bit Numbering Convention and Nomenclature",
+   "pdf_page": 19
+  },
+  {
+   "section": "3.2",
+   "title": "Telecommand System Layers and Services",
+   "pdf_page": 20
+  },
+  {
+   "section": "3.3",
+   "title": "Network Interface Services",
+   "pdf_page": 26
+  },
+  {
+   "section": "4",
+   "title": "Physical Layer",
+   "pdf_page": 31
+  },
+  {
+   "section": "4.1",
+   "title": "Overview of the Layer",
+   "pdf_page": 31
+  },
+  {
+   "section": "4.2",
+   "title": "Standard Data Structures within the Layer",
+   "pdf_page": 31
+  },
+  {
+   "section": "4.2.1",
+   "title": "Acquisition Sequence",
+   "pdf_page": 31
+  },
+  {
+   "section": "4.2.2",
+   "title": "CLTU",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.2.3",
+   "title": "Idle Sequence",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.3",
+   "title": "Standard Procedures within the Layer",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.3.1",
+   "title": "Carrier Modulation Modes",
+   "pdf_page": 32
+  },
+  {
+   "section": "4.3.2",
+   "title": "Physical Layer Operation Procedure (PLOP)",
+   "pdf_page": 34
+  },
+  {
+   "section": "4.3.3",
+   "title": "Service Primitives of Interface between Physical Layer and Coding Layer",
+   "pdf_page": 34
+  },
+  {
+   "section": "4.3.4",
+   "title": "Actions",
+   "pdf_page": 37
+  },
+  {
+   "section": "5",
+   "title": "Coding Layer",
+   "pdf_page": 39
+  },
+  {
+   "section": "5.1",
+   "title": "Overview of the Layer",
+   "pdf_page": 39
+  },
+  {
+   "section": "5.2",
+   "title": "Standard Data Structures within the Layer",
+   "pdf_page": 40
+  },
+  {
+   "section": "5.2.1",
+   "title": "Command Link Transmission Unit (CLTU)",
+   "pdf_page": 40
+  },
+  {
+   "section": "5.2.2",
+   "title": "Start Sequence",
+   "pdf_page": 41
+  },
+  {
+   "section": "5.2.3",
+   "title": "TC Codeblock Field",
+   "pdf_page": 41
+  },
+  {
+   "section": "5.2.4",
+   "title": "Tail Sequence",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.3",
+   "title": "Standard Procedures within the Layer",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.3.1",
+   "title": "TC Codeblock Encoding Procedure",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.3.2",
+   "title": "CLTU Decoding Procedure",
+   "pdf_page": 44
+  },
+  {
+   "section": "5.3.3",
+   "title": "Service Primitives of Interface between Coding Layer and Transfer Layer",
+   "pdf_page": 48
+  },
+  {
+   "section": "5.3.4",
+   "title": "Service Primitives of Interface between Coding Layer and Physical Layer",
+   "pdf_page": 49
+  },
+  {
+   "section": "5.3.5",
+   "title": "Actions",
+   "pdf_page": 50
+  },
+  {
+   "section": "6",
+   "title": "Transfer Layer",
+   "pdf_page": 53
+  },
+  {
+   "section": "6.1",
+   "title": "Overview of the Layer",
+   "pdf_page": 53
+  },
+  {
+   "section": "6.1.1",
+   "title": "Services and Protocols",
+   "pdf_page": 53
+  },
+  {
+   "section": "6.1.2",
+   "title": "Transfer Layer Sublayers",
+   "pdf_page": 56
+  },
+  {
+   "section": "6.2",
+   "title": "Standard Data Structures within the Layer",
+   "pdf_page": 57
+  },
+  {
+   "section": "6.2.1",
+   "title": "Transfer Layer Protocol Data Units",
+   "pdf_page": 57
+  },
+  {
+   "section": "6.2.2",
+   "title": "TC Transfer Frame Format",
+   "pdf_page": 58
+  },
+  {
+   "section": "6.2.3",
+   "title": "Command Link Control Word Format",
+   "pdf_page": 67
+  },
+  {
+   "section": "6.3",
+   "title": "Standard Procedures within the Layer",
+   "pdf_page": 73
+  },
+  {
+   "section": "6.3.1",
+   "title": "Frame Error Control Sublayer",
+   "pdf_page": 73
+  },
+  {
+   "section": "6.3.2",
+   "title": "Frame Header Sublayer",
+   "pdf_page": 77
+  },
+  {
+   "section": "6.3.3",
+   "title": "COP-1 Sublayer",
+   "pdf_page": 81
+  },
+  {
+   "section": "6.3.3.2",
+   "title": "Internal Variables",
+   "pdf_page": 85
+  },
+  {
+   "section": null,
+   "title": "Table 6.2 FOP-1 State Table",
+   "pdf_page": 117
+  },
+  {
+   "section": null,
+   "title": "Table 6.3 FARM-1 State Table",
+   "pdf_page": 128
+  },
+  {
+   "section": "7",
+   "title": "Segmentation Layer",
+   "pdf_page": 133
+  },
+  {
+   "section": "7.1",
+   "title": "Overview of the Layer",
+   "pdf_page": 133
+  },
+  {
+   "section": "7.2",
+   "title": "Standard Data Structures within the Layer",
+   "pdf_page": 135
+  },
+  {
+   "section": "7.2.1",
+   "title": "Segment Header",
+   "pdf_page": 135
+  },
+  {
+   "section": "7.2.2",
+   "title": "Segment Data Field",
+   "pdf_page": 137
+  },
+  {
+   "section": "7.2.3",
+   "title": "Segment Trailer",
+   "pdf_page": 137
+  },
+  {
+   "section": "7.3",
+   "title": "Standard Procedures within the Layer",
+   "pdf_page": 137
+  },
+  {
+   "section": "7.3.1",
+   "title": "Segmentation Procedure (Sending End)",
+   "pdf_page": 137
+  },
+  {
+   "section": "7.3.2",
+   "title": "Re-assembly Procedure (Receiving End)",
+   "pdf_page": 138
+  },
+  {
+   "section": "7.3.3",
+   "title": "Service Primitives of Interface between Segmentation Layer and Higher Layers",
+   "pdf_page": 140
+  },
+  {
+   "section": "7.3.4",
+   "title": "Service Primitives of Interface between Segmentation Layer and Transfer Layer",
+   "pdf_page": 142
+  },
+  {
+   "section": "7.3.5",
+   "title": "Actions",
+   "pdf_page": 142
+  },
+  {
+   "section": "8",
+   "title": "Packetization Layer",
+   "pdf_page": 143
+  },
+  {
+   "section": "8.1",
+   "title": "Overview of the Layer",
+   "pdf_page": 143
+  },
+  {
+   "section": "8.2",
+   "title": "Standard Data Structures within the Layer",
+   "pdf_page": 144
+  },
+  {
+   "section": "8.2.1",
+   "title": "Packet Header",
+   "pdf_page": 144
+  },
+  {
+   "section": "8.2.2",
+   "title": "Packet Data Field",
+   "pdf_page": 148
+  },
+  {
+   "section": "8.3",
+   "title": "Standard Procedures within the Layer",
+   "pdf_page": 149
+  },
+  {
+   "section": "8.3.1",
+   "title": "Protocol Elements",
+   "pdf_page": 149
+  },
+  {
+   "section": "8.3.2",
+   "title": "Service Primitives of Interface between Packetisation Layer and Higher Layers",
+   "pdf_page": 150
+  },
+  {
+   "section": "8.3.3",
+   "title": "Service Primitives of Interface between Packetisation Layer and Segmentation Layer",
+   "pdf_page": 151
+  },
+  {
+   "section": "8.3.4",
+   "title": "Actions",
+   "pdf_page": 151
+  },
+  {
+   "section": "9",
+   "title": "Deep-Space Telecommand",
+   "pdf_page": 153
+  },
+  {
+   "section": "9.1",
+   "title": "Overview",
+   "pdf_page": 153
+  },
+  {
+   "section": "9.2",
+   "title": "Systematic Retransmission with COP-1/AD",
+   "pdf_page": 153
+  },
+  {
+   "section": "10",
+   "title": "Encrypted Authentication of Telecommand Data",
+   "pdf_page": 155
+  },
+  {
+   "section": "10.1",
+   "title": "Concept Overview",
+   "pdf_page": 155
+  },
+  {
+   "section": "10.2",
+   "title": "General Layout and Interface",
+   "pdf_page": 157
+  },
+  {
+   "section": "10.3",
+   "title": "The LAC Counters",
+   "pdf_page": 159
+  },
+  {
+   "section": "10.4",
+   "title": "Standard Data Structures within the Layer",
+   "pdf_page": 159
+  },
+  {
+   "section": "11",
+   "title": "Telecommand Services and Performance Requirements",
+   "pdf_page": 161
+  },
+  {
+   "section": "11.1",
+   "title": "Summary of the Services",
+   "pdf_page": 161
+  },
+  {
+   "section": "11.2",
+   "title": "Performance Requirements",
+   "pdf_page": 162
+  },
+  {
+   "section": "12",
+   "title": "Compatibility with Other Ground Networks",
+   "pdf_page": 163
+  },
+  {
+   "section": "Appendix A",
+   "title": "Glossary of Acronyms",
+   "pdf_page": 165
+  },
+  {
+   "section": "Appendix B",
+   "title": "Possible Realisation of a Frame Check Sequence Encoder-Decoder",
+   "pdf_page": 169
+  },
+  {
+   "section": "Appendix C",
+   "title": "Data Link Management and Monitoring",
+   "pdf_page": 171
+  },
+  {
+   "section": "Appendix D",
+   "title": "Data Link Performance: Rationale and Guidelines",
+   "pdf_page": 173
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Issue 1 (June 1990) was directly derived from the CCSDS telecommand recommendations. Issue 2 (April 1992) marks its changes with change bars, and they are only editorial.",
+   "pdf_page": 6
+  },
+  {
+   "text": "The standard supersedes the PCM Telecommand Standard TTC-A-01. With the Radio Frequency and Modulation Standard (PSS-04-105) for the physical channel, it is mandatory whenever the standard ESA ground network is used, and the Packet Utilisation Standard covers the higher layers.",
+   "pdf_page": 15
+  },
+  {
+   "text": "The telecommand system is layered into packetisation, segmentation, transfer, coding and physical layers. Each layer reports to its peer, and the transfer layer's report, the CLCW, travels in the trailer of the telemetry Transfer Frame defined by PSS-04-106.",
+   "pdf_page": 20
+  },
+  {
+   "text": "A ground station offers the control centre three telecommand interfaces. Service 1 is the sequence-controlled service for packets without authentication. In Service 2, packets carry authentication of segments, so the control centre segments them itself. Service 3 is the expedited service for data units of 1 to 249 octets.",
+   "pdf_page": 28
+  },
+  {
+   "text": "For Service 2, the control centre inserts a 9-octet authentication tail after each segment's worth of data. In the standard's example, a packet of 300 octets becomes an 'altered' packet of 318 octets.",
+   "pdf_page": 29
+  },
+  {
+   "text": "The acquisition sequence is at least 128 bits of alternating zeros and ones, starting with a zero. At least 8 bits of idle sequence must separate successive CLTUs. The four carrier modulation modes (CMM-1 to CMM-4) are combined into a PLOP, and the standard shows ESA's PLOP-2.",
+   "pdf_page": 32
+  },
+  {
+   "text": "CLCW bit 16 ('No RF Available') and bit 17 ('No Bit Lock') report the state of the spacecraft physical layer to the ground station.",
+   "pdf_page": 33
+  },
+  {
+   "text": "A CLTU is a 16-bit start sequence EB90 (hex), one or more fixed-length TC codeblocks, and a tail sequence. The tail sequence is one codeblock of alternating zeros and ones ending in a one.",
+   "pdf_page": 41
+  },
+  {
+   "text": "Codeblocks are 8 octets (recommended), 7, 6 or 5 octets. Each holds 7 complemented parity bits of a (63,56) modified BCH code with g(x) = x^7 + x^6 + x^2 + x^0, followed by a filler bit set to 0. Shorter codeblocks are coded with leading virtual fill.",
+   "pdf_page": 43
+  },
+  {
+   "text": "The CLTU decoder has INACTIVE, SEARCH and DECODE states. It accepts a start sequence with up to one bit in error, decodes codeblocks in single-error-correction mode. A codeblock with one detected error is corrected only if its filler bit is 0, so the tail sequence (whose last bit is 1) is always rejected and the decoder returns to SEARCH.",
+   "pdf_page": 48
+  },
+  {
+   "text": "The TC Transfer Frame has a 5-octet header: 2-bit version (00), bypass flag, control command flag, 2 reserved bits, 10-bit spacecraft ID, 6-bit virtual channel ID, 2 reserved bits, 8-bit frame length (octets minus 1) and 8-bit frame sequence number. The data field is 1 to 249 octets and the 2-octet CRC is mandatory, giving frames of 8 to 256 octets.",
+   "pdf_page": 59
+  },
+  {
+   "text": "Together, the bypass and control command flags give three legal frame types: AD (0,0) for sequence-controlled data, BD (1,0) for expedited data and BC (1,1) for control commands. The combination (0,1) is illegal.",
+   "pdf_page": 61
+  },
+  {
+   "text": "The 6-bit virtual channel ID is a sub-identifier that picks the spacecraft telecommand chain (typically two chains for redundancy). ESA projects obtain both the spacecraft and the VC identifiers from ESA D/OPS at ESOC.",
+   "pdf_page": 62
+  },
+  {
+   "text": "There are two control commands. Unlock is the single octet 00000000. Set V(R) is three octets, 10000010 00000000 followed by the new V(R) value.",
+   "pdf_page": 64
+  },
+  {
+   "text": "The frame CRC uses g(x) = x^16 + x^12 + x^5 + 1 with the encoder and decoder preset to all ones, and covers the whole frame except the CRC.",
+   "pdf_page": 65
+  },
+  {
+   "text": "The 32-bit CLCW contains: control word type (0), version (00), status field (000), COP in effect (01 = COP-1), 6-bit VC ID, 2 reserved bits, the No RF Available, No Bit Lock, Lockout, Wait and Retransmit flags, a 2-bit FARM-B counter, a report type bit (set to 0) and the 8-bit report value N(R).",
+   "pdf_page": 68
+  },
+  {
+   "text": "FOP-1 has six states: Active, Retransmit without Wait, Retransmit with Wait, Initialising without BC Frame, Initialising with BC Frame, and Initial. Its variables include V(S), NN(R), the Wait and Sent queues, T1_Initial, Transmission_Limit, Timeout_Type, Suspend_State and the window width K.",
+   "pdf_page": 86
+  },
+  {
+   "text": "When the timer expires at the transmission limit, Timeout_Type 0 raises an alert and Timeout_Type 1 suspends the AD service, which can later be resumed (intended mainly for deep-space use).",
+   "pdf_page": 92
+  },
+  {
+   "text": "The FOP sliding window K must satisfy 1 <= K <= PW and K < 256.",
+   "pdf_page": 93
+  },
+  {
+   "text": "FARM-1 has the states Open, Wait and Lockout. Its sliding window width W is an even number from 2 to 254 (200 at most is recommended), split into PW = NW = W/2. A frame whose N(S) falls in the remaining lockout area causes Lockout.",
+   "pdf_page": 96
+  },
+  {
+   "text": "A TC segment has a one-octet header: 2-bit sequence flags (01 first, 00 continuation, 10 last, 11 unsegmented) and a 6-bit MAP ID. Its data field is up to 248 octets. Using bit 2 of the header as a control flag splits the 64 MAPs into 32 data and 32 control MAPs, one pair per packet assembly controller.",
+   "pdf_page": 136
+  },
+  {
+   "text": "A packet assembly controller (PAC) enters Lockout on an incorrect sequence of segments (according to the sequence flags) or an incorrect control segment format. It is unlocked or reset by the one-octet control segment 'Reset Command' 111XXXXX, where the X bits give the PAC's MAP address.",
+   "pdf_page": 139
+  },
+  {
+   "text": "The TC packet has a 6-octet header: version 1 (000), type 1, data field header flag, 11-bit APID, 2-bit sequence flags, 14-bit packet name or sequence count, and a length field (octets minus 1). Packets are 7 to 65 542 octets.",
+   "pdf_page": 145
+  },
+  {
+   "text": "The optional 16-bit packet error control field is either the frame CRC or a 16-bit checksum specified in the Packet Utilisation Standard, and its presence is implied by the APID.",
+   "pdf_page": 149
+  },
+  {
+   "text": "After checking the error control and the fixed header fields, the receiving application process reports each TC packet by telemetry as clean and conforming, clean but not conforming, or rejected as dirty.",
+   "pdf_page": 150
+  },
+  {
+   "text": "For deep space, setting the FOP-1 timer to its minimum and choosing a transmission limit makes the ground retransmit a whole frame sequence systematically, without waiting for CLCW acknowledgements. The same technique can speed up commanding during launch.",
+   "pdf_page": 153
+  },
+  {
+   "text": "Authentication appends a signature to each TC segment; the data stay in plain text because secrecy is not required. Including a count number makes each authenticated segment unique, which defeats replay of recorded commands.",
+   "pdf_page": 155
+  },
+  {
+   "text": "Three Logical Authentication Channels are provided: Principal and Auxiliary for two independent streams (for example from two control centres) and Recovery. The COP-1 control frames Unlock and Set V(R) are not authenticated.",
+   "pdf_page": 156
+  },
+  {
+   "text": "Authentication control commands use a reserved segment header: MAP 63 with the sequence flags set to unsegmented.",
+   "pdf_page": 157
+  },
+  {
+   "text": "The authentication tail is a 2-bit LAC ID, a 30-bit LAC count and an N-octet signature, within a segment of at most 249 octets. The decoder specification (reference [8]) sets N = 5, giving a 9-octet tail.",
+   "pdf_page": 159
+  },
+  {
+   "text": "The standard recommends that the uplink bit error rate be guaranteed better than 10^-5. At that rate it guarantees a frame rejection probability better than 1 in 10^5 and an undetected frame error probability better than 1 in 10^19.",
+   "pdf_page": 162
+  },
+  {
+   "text": "A typical ESA spacecraft carries two TC decoders, which produce two CLCWs. Appendix C gives two schemes for inserting them into telemetry: one selected CLCW in every frame, or the two CLCWs in alternate frames.",
+   "pdf_page": 171
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS 200.0-G-6",
+   "title": "Telecommand: Summary of Concept and Service",
+   "issue": "Report, Issue 6, Green Book",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[2]",
+   "doc_id": "CCSDS 203.0-B-1",
+   "title": "Telecommand Part 1: Channel Service, Architectural Specification",
+   "issue": "Recommendation, Issue 1, Blue Book",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 202.0-B-1",
+   "title": "Telecommand Part 2: Data Routing Service, Architectural Specification",
+   "issue": "Recommendation, Issue 1, Blue Book",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[3] (second document)",
+   "doc_id": "CCSDS 202.0-B-1",
+   "title": "Telecommand Part 2.1: Command Operation Procedures, Detailed Specifications and State Matrices",
+   "issue": "Document, Issue 1 (Blue Book yet to be issued)",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[4]",
+   "doc_id": "CCSDS 203.0-B-1",
+   "title": "Telecommand Part 3: Data Management Service, Architectural Definition",
+   "issue": "Recommendation, Issue 1, Blue Book",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[5]",
+   "doc_id": "ESA PSS-04-105",
+   "title": "Radio Frequency and Modulation Standard",
+   "issue": "Issue 1",
+   "date": "1989",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[6]",
+   "doc_id": "ESA PSS-07-101",
+   "title": "Packet Utilisation Standard",
+   "issue": "Issue 1 (to be issued in 1991/92)",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[7]",
+   "doc_id": "ESA PSS-04-106",
+   "title": "Packet Telemetry Standard",
+   "issue": "Issue 1",
+   "date": "January 1988",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[8]",
+   "doc_id": "ESA PSS-04-151",
+   "title": "Telecommand Decoder Specification",
+   "issue": "Issue 1 (to be issued in 1991/92)",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "TTC-A-01",
+   "doc_id": "TTC-A-01",
+   "title": "PCM Telecommand Standard (superseded by this standard)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 15
+  }
+ ],
+ "topics": [
+  "overview/history.md",
+  "ccsds/tc-sdlp.md",
+  "ccsds/cop-1.md",
+  "ccsds/tc-coding-cltu.md",
+  "ccsds/space-packet.md",
+  "ccsds/security.md",
+  "ccsds/sdls.md",
+  "ccsds/rf-and-ranging.md",
+  "ccsds/space-link-identifiers.md",
+  "ecss/e-st-50-communications.md",
+  "overview/uplink.md",
+  "overview/standards-map.md"
+ ],
+ "notes": "This is a scanned PDF. Its text was produced by OCR (RapidOCR) and has merged words, dropped lines and badly scrambled tables (the FOP-1 and FARM-1 state tables and state-transition figures on PDF pp. 117-131 are unusable as text), so every number, field size and bit pattern in this entry was checked against rendered page images. Page numbering: printed page n is PDF page n + 14 in the body (printed page 1 is PDF p. 15). PDF p. 2 is blank, p. 14 is a blank page whose OCR is a stray character, and pp. 181-182 are blank or the back cover. Oddities: reference [2] (Part 1, Channel Service) and reference [4] (Part 3, Data Management Service) print the same number, CCSDS 203.0-B-1. Reference [3] bundles two documents and gives both the number CCSDS 202.0-B-1 (p. 7). The running heads of Appendix D (printed pp. 159-160, PDF pp. 173-174) still read 'Issue 1 (June 1990)'. Clause 11.1 calls the Unlock and Set V(R) control frames 'type BD' (p. 161), whereas Table 6.1 defines control frames as BC (p. 61). The glossary entry for AD/BD/BC says 'Command Control Flag' where section 6 says 'Control Command Flag' (p. 165). Appendix D numbers its equations E.1 to E.5 (pp. 174-177). Clause 8.2.1.1 lists the subfields as 'Version Number, Reserved Bit, Data Field Header Flag and APID' but then defines bit 3 as the Type bit (p. 145). TC packets use Version 1 (000), while the PSS-04-106 telemetry source packets use Version 2 (100). The table of contents spells the chapter 'Packetization Layer', while the body uses 'Packetisation'."
+}

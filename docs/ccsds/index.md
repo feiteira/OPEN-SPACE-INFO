@@ -2,7 +2,7 @@
 title: "CCSDS: overview of the protocol stack"
 description: How the CCSDS space communications protocols fit together, from the physical layer, synchronization and channel coding and the data link protocols (TM, TC, AOS, Proximity-1, USLP) to packets, network and transfer protocols and SLE cross support, with a map of every related page and library document.
 tags: [CCSDS, Architecture, Data link layer, Overview]
-sources: [ccsds-130-0-130x0g4e1, ccsds-130-2-130x2g3, ccsds-133-0-133x0b2e2, ccsds-133-1-133x1b3e1, ccsds-130-1-130x1g3e1, ccsds-131-0-131x0b5, ccsds-132-0-132x0b3, ccsds-230-1-230x1g3e1, ccsds-231-0-231x0b4e1, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-732-0-732x0b4, ccsds-732-1-732x1b3e1, ccsds-355-0-355x0b2, ccsds-301-0-301x0b4e1, ccsds-727-0-727x0b5e1, ccsds-660-0-660x0b2, ccsds-660-1-660x1g2, ccsds-910x3g3-sle-cross-support, ccsds-911-1-911x1b5e1, ccsds-911x1b5e1-sle-raf, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ccsds-912-1-912x1b5e1, ccsds-913-1-913x1b2, ccsds-914-0-914x0m2c1, ecss-e-st-50c-rev-1-1march2021, ecss-e-as-50-25c-rev-1-13january2023, ecss-e-as-50-26c-1march2021, ecss-e-hb-50a-15november2008, ecss-e-st-70-41c-15april2016, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, icd-7-0-final]
+sources: [ccsds-130-0-130x0g4e1, ccsds-130-3-130x3g1, ccsds-131-0-131x0b6ec1, ccsds-231-0-231x0b4e1c1, ccsds-732-0-732x0b5ec1, ccsds-211-0-211x0b6e1, ccsds-350-0-350x0g3, ccsds-350-5-350x5g2, ccsds-352-0-352x0b2, ccsds-355-1-355x1b1, ccsds-135-0-135x0b4s, ccsds-320-0-320x0m7c1, ccsds-401-0-401x0b32, ecss-e-st-50-05c-rev24october2011, ecss-e-st-50-02c31july2008, ccsds-910-4-910x4b2e1s, ccsds-902-0-902x0g1, ccsds-902-4-902x4b1, ccsds-922-1-922x1b2, ccsds-912-3-912x3b3s, ccsds-915-1-915x1m2, ccsds-916-3-916x3m2, ccsds-130-2-130x2g3, ccsds-133-0-133x0b2e2, ccsds-133-1-133x1b3e1, ccsds-130-1-130x1g3e1, ccsds-131-0-131x0b5, ccsds-132-0-132x0b3, ccsds-230-1-230x1g3e1, ccsds-231-0-231x0b4e1, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-732-0-732x0b4, ccsds-732-1-732x1b3e1, ccsds-355-0-355x0b2, ccsds-301-0-301x0b4e1, ccsds-727-0-727x0b5e1, ccsds-660-0-660x0b2, ccsds-660-1-660x1g2, ccsds-910x3g3-sle-cross-support, ccsds-911-1-911x1b5e1, ccsds-911x1b5e1-sle-raf, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ccsds-912-1-912x1b5e1, ccsds-913-1-913x1b2, ccsds-914-0-914x0m2c1, ecss-e-st-50c-rev-1-1march2021, ecss-e-st-50c-rev-2-5december2024, ecss-e-as-50-21c-rev-2-5december2024, ecss-e-as-50-22c-rev-1-13january2023, ecss-e-as-50-23c-rev-1-13january2023, ecss-e-as-50-24c-rev-1-13january2023, ecss-e-as-50-25c-rev-1-13january2023, ecss-e-as-50-26c-1march2021, ecss-e-hb-50a-15november2008, ecss-e-st-70-41c-15april2016, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, icd-7-0-final]
 ---
 
 # CCSDS: overview of the protocol stack
@@ -37,7 +37,9 @@ explains it.
 Traditional telemetry used **Time Division Multiplexing (TDM)**. Data items sat in a continuous
 stream of fixed-length frames according to a fixed multiplexing rule, so every project built its
 own data system.[^g4-history] When on-board processors arrived, CCSDS standardized a series of
-protocols. The timeline shows the sequence described in the 2023 overview:[^g4-history]
+protocols. The timeline shows the sequence described in the 2023 overview:[^g4-history] ESA's own
+path, from the PSS-04-106 and PSS-04-107 packet standards to the ECSS adoption notices, is told on
+[From ESA PSS to CCSDS and ECSS](../overview/history.md).
 
 ```mermaid
 timeline
@@ -97,7 +99,9 @@ flowchart TB
 CCSDS 401.0-B, *Radio Frequency and Modulation Systems*, is an omnibus standard. It covers the RF
 signal between spacecraft and ground stations that carries the frames. Proximity-1 has its own
 physical layer standard.[^g4-phy] ECSS uses ECSS-E-ST-50-05 for the same role, and notes that
-CCSDS 401.0-B has extra options.[^e50-fig] Neither document is in the library.
+CCSDS 401.0-B has extra options.[^e50-fig] The library holds CCSDS 401.0-B-32 (October 2021) and
+ECSS-E-ST-50-05C Rev. 2 (4 October 2011), together with ECSS-E-ST-50-02C on ranging and Doppler
+tracking; all three are summarised on [Radio frequency, modulation and ranging](rf-and-ranging.md).[^rf-dc][^rf-e5]
 
 ### The data link layer
 
@@ -105,10 +109,11 @@ CCSDS divides the OSI data link layer into two **sublayers**:[^g4-dll][^g2-layer
 
 * The **Data Link Protocol Sublayer** moves higher-layer data units over one point-to-point space
   link inside **Transfer Frames**. Its protocols are [TM](tm-sdlp.md), [TC](tc-sdlp.md),
-  [AOS](aos.md), Proximity-1 and [USLP](uslp.md), together called the **Space Data Link
+  [AOS](aos.md), [Proximity-1](proximity-1.md) and [USLP](uslp.md), together called the **Space Data Link
   Protocols**. TM, TC, AOS and USLP can carry secured user data through the optional
   [Space Data Link Security (SDLS)](sdls.md) protocol. No security requirement exists yet for
-  Proximity-1.[^g4-dll]
+  Proximity-1.[^g4-dll] The wider CCSDS security family (threats, the choice of layer, algorithms
+  and key management) is on [Security in CCSDS space links](security.md).
 * The **Synchronization and Channel Coding Sublayer** gets frames across a noisy link. It
   delimits and synchronizes frames, applies error-correcting coding, and generates and removes bit
   transitions (pseudo-randomization).[^g4-scc][^g2-layers]
@@ -260,7 +265,9 @@ flowchart TB
   uses 8-bit ones, so a spacecraft with a TC uplink and an AOS downlink needs two SCIDs. SCIDs are
   requested through SANA by an agency representative and must be given up for re-use when a
   spacecraft retires.[^g2-scid][^g2-mcid] A Magenta Book (CCSDS 320.0) governs the code
-  assignment, and SANA has replaced the old *Space Link Identifiers* Blue Book.[^g4-ids]
+  assignment, and SANA has replaced the old *Space Link Identifiers* Blue Book.[^g4-ids] Both
+  documents, and the Solar Orbiter values of every identifier, are described on
+  [Space link identifiers](space-link-identifiers.md).
 * **Master Channel (MC)**: all frames with the same MCID on a Physical Channel. Usually the
   Physical Channel carries a single MC. When it carries several (for example when one spacecraft
   relays another, as in an orbiter and lander mission), TM and AOS frames of all of them must have
@@ -311,7 +318,8 @@ prescribes the algorithm when it is used.[^g2-prio]
 | Transfer Frames | VC Frame, MC Frame | VC Frame, MC Frame | VC Frame, MC Frame | VC Frame, MC Frame |
 
 *After CCSDS 130.0-G-4 table 3-2. FSH is the Frame Secondary Header and OCF the Operational Control
-Field. Proximity-1 has no formal service definition.*[^g4-services]
+Field. Proximity-1 has no formal service definition.*[^g4-services] *USLP issue 3 (June 2024), the issue
+in the library, adds VC Packet and VC Access services to the USLP column; see [USLP](uslp.md).*[^uslp-doc]
 
 The services differ in **reliability** and **timing**:
 
@@ -367,8 +375,9 @@ path is usually an SLE service.[^g4-fwd]
 
 *After CCSDS 130.2-G-3 §3.5.*[^g2-sle] In the 2023 overview, the FSP specification is listed as
 "Historical" (CCSDS 912.3-B-3-S).[^g4-refs] See [SLE concept](sle/index.md),
-[return services](sle/return-services.md), [FCLTU](sle/fcltu.md) and
-[ISP1 and the SLE API](sle/isp1-and-api.md).
+[return services](sle/return-services.md), [FCLTU](sle/fcltu.md), [FSP](sle/fsp.md),
+[ISP1 and the SLE API](sle/isp1-and-api.md) and
+[the cross support reference model and service management](sle/service-management.md).
 
 ## Typical end-to-end configurations
 
@@ -440,31 +449,40 @@ ESA projects apply CCSDS standards through ECSS. [ECSS-E-ST-50C Rev.1](../ecss/e
 
 *After ECSS-E-ST-50C Rev.1 §4.2, PDF p. 20. In the source table the "Superseded ECSS" cell is
 empty for AS-50-25 and AS-50-26. They are read here as continuing the ECSS-E-ST-50-04C entry of
-AS-50-24, because the listed clauses are clauses of that standard.*[^e50-adopt] The library also holds the newer
-ECSS-E-AS-50-25C Rev.1 (13 January 2023), which adopts CCSDS 232.0-B-4, and ECSS-E-AS-50-26C
-(1 March 2021).[^as5025][^as5026]
+AS-50-24, because the listed clauses are clauses of that standard. ECSS dates CCSDS 732.0-B-3 August
+2016, while the CCSDS document control dates Issue 3 September 2015 (see [AOS](aos.md#ecss-adoption-notice-ecss-e-as-50-23)).*[^e50-adopt][^aos4-ctl] The library holds
+later revisions of five of the notices, each adopting a newer CCSDS issue than the table: ECSS-E-AS-50-21C
+Rev.2 (5 December 2024, CCSDS 131.0-B-5), and -22C Rev.1, -23C Rev.1, -24C Rev.1 and -25C Rev.1 (all
+13 January 2023, adopting 132.0-B-3, 732.0-B-4, 231.0-B-4 and 232.0-B-4). For COP-1 it holds the
+first issue, ECSS-E-AS-50-26C (1 March 2021, CCSDS 232.1-B-2).[^as-titles][^as5025][^as5026] It also holds ECSS-E-ST-50C Rev.2
+(5 December 2024).[^e50r2] What each notice changes is on
+[ECSS-E-ST-50C and the adoption notices](../ecss/e-st-50-communications.md).
 
 ## Layer map: standards, library copies and wiki pages
 
 The issues held in the library are sometimes newer than the issues cited in the green books. For
 example, the 2023 overview cites TM coding 131.0-B-4 and USLP 732.1-B-2, while the library holds
-131.0-B-5 and 732.1-B-3.[^g4-refs][^lib-titles]
+131.0-B-5 and 732.1-B-3.[^g4-refs][^lib-titles] For two books it also holds an issue newer than the
+one the topic page follows: TM coding 131.0-B-6 (April 2026) and AOS 732.0-B-5 (October 2025).
+Each is summarised at the end of its topic page.[^b6-ctl][^aos5-ctl]
 
 | Layer / role | Standard | Library copy | Wiki page |
 |---|---|---|---|
 | Overview | CCSDS 130.0-G-4 Overview of Space Communications Protocols (Apr 2023) | [ccsds-130-0-130x0g4e1](../library/ccsds-130-0-130x0g4e1.md) | this page |
 | Overview (data link) | CCSDS 130.2-G-3 Space Data Link Protocols: Concept and Rationale (Sep 2015) | [ccsds-130-2-130x2g3](../library/ccsds-130-2-130x2g3.md) | this page |
-| Physical | CCSDS 401.0-B RF and Modulation; ECSS-E-ST-50-05 | not in library | [ECSS-E-ST-50C](../ecss/e-st-50-communications.md) |
-| Sync & coding (return) | CCSDS 131.0-B-5 TM Synchronization and Channel Coding (Sep 2023); 130.1-G-3 rationale (Jun 2020) | [ccsds-131-0-131x0b5](../library/ccsds-131-0-131x0b5.md), [ccsds-130-1-130x1g3e1](../library/ccsds-130-1-130x1g3e1.md) | [TM synchronization and channel coding](tm-coding.md) |
-| Sync & coding (forward) | CCSDS 231.0-B-4 TC Synchronization and Channel Coding (Jul 2021); 230.1-G-3 rationale (Oct 2021) | [ccsds-231-0-231x0b4e1](../library/ccsds-231-0-231x0b4e1.md), [ccsds-230-1-230x1g3e1](../library/ccsds-230-1-230x1g3e1.md) | [CLTU](tc-coding-cltu.md) |
+| Physical | CCSDS 401.0-B-32 Radio Frequency and Modulation Systems (Oct 2021); ECSS-E-ST-50-05C Rev. 2 (Oct 2011); ECSS-E-ST-50-02C ranging (Jul 2008) | [ccsds-401-0-401x0b32](../library/ccsds-401-0-401x0b32.md), [ecss-e-st-50-05c-rev24october2011](../library/ecss-e-st-50-05c-rev24october2011.md), [ecss-e-st-50-02c31july2008](../library/ecss-e-st-50-02c31july2008.md) | [RF, modulation and ranging](rf-and-ranging.md) |
+| Sync & coding (return) | CCSDS 131.0-B-5 TM Synchronization and Channel Coding (Sep 2023); newer 131.0-B-6 (Apr 2026); 130.1-G-3 rationale (Jun 2020) | [ccsds-131-0-131x0b5](../library/ccsds-131-0-131x0b5.md), [ccsds-131-0-131x0b6ec1](../library/ccsds-131-0-131x0b6ec1.md), [ccsds-130-1-130x1g3e1](../library/ccsds-130-1-130x1g3e1.md) | [TM synchronization and channel coding](tm-coding.md) |
+| Sync & coding (forward) | CCSDS 231.0-B-4 TC Synchronization and Channel Coding (Jul 2021, Cor. 1 Jul 2026); 230.1-G-3 rationale (Oct 2021) | [ccsds-231-0-231x0b4e1](../library/ccsds-231-0-231x0b4e1.md), [ccsds-231-0-231x0b4e1c1](../library/ccsds-231-0-231x0b4e1c1.md), [ccsds-230-1-230x1g3e1](../library/ccsds-230-1-230x1g3e1.md) | [CLTU](tc-coding-cltu.md) |
 | Data link: return | CCSDS 132.0-B-3 TM Space Data Link Protocol (Oct 2021) | [ccsds-132-0-132x0b3](../library/ccsds-132-0-132x0b3.md) | [TM SDLP](tm-sdlp.md) |
 | Data link: forward | CCSDS 232.0-B-4 TC Space Data Link Protocol (Oct 2021, Corr. 1 2023) | [ccsds-232-0-232x0b4e1c1](../library/ccsds-232-0-232x0b4e1c1.md) | [TC SDLP](tc-sdlp.md) |
 | Data link: retransmission | CCSDS 232.1-B-2 COP-1 (Sep 2010, Corr. 1 2019) | [ccsds-232-1-232x1b2e2c1](../library/ccsds-232-1-232x1b2e2c1.md) | [COP-1](cop-1.md) |
-| Data link: AOS | CCSDS 732.0-B-4 AOS Space Data Link Protocol (Oct 2021) | [ccsds-732-0-732x0b4](../library/ccsds-732-0-732x0b4.md) | [AOS](aos.md) |
+| Data link: AOS | CCSDS 732.0-B-4 AOS Space Data Link Protocol (Oct 2021); newer 732.0-B-5 (Oct 2025) | [ccsds-732-0-732x0b4](../library/ccsds-732-0-732x0b4.md), [ccsds-732-0-732x0b5ec1](../library/ccsds-732-0-732x0b5ec1.md) | [AOS](aos.md) |
 | Data link: unified | CCSDS 732.1-B-3 USLP (Jun 2024) | [ccsds-732-1-732x1b3e1](../library/ccsds-732-1-732x1b3e1.md) | [USLP](uslp.md) |
-| Data link: proximity | CCSDS 211.x Proximity-1 | not in library | none |
+| Data link: proximity | CCSDS 211.0-B-6 Proximity-1 Space Link Protocol, Data Link Layer (Jul 2020) | [ccsds-211-0-211x0b6e1](../library/ccsds-211-0-211x0b6e1.md) | [Proximity-1](proximity-1.md) |
 | Data link: security | CCSDS 355.0-B-2 SDLS (Jul 2022) | [ccsds-355-0-355x0b2](../library/ccsds-355-0-355x0b2.md) | [SDLS](sdls.md) |
-| Shim / packets | CCSDS 133.0-B-2 Space Packet Protocol (Jun 2020) | [ccsds-133-0-133x0b2e2](../library/ccsds-133-0-133x0b2e2.md) | [Space Packet](space-packet.md) |
+| Security family | CCSDS 350.0-G-3 (Mar 2019), 350.5-G-2 (Jan 2024), 352.0-B-2 (Aug 2019), 355.1-B-1 SDLS Extended Procedures (Feb 2020) | [ccsds-350-0-350x0g3](../library/ccsds-350-0-350x0g3.md), [ccsds-350-5-350x5g2](../library/ccsds-350-5-350x5g2.md), [ccsds-352-0-352x0b2](../library/ccsds-352-0-352x0b2.md), [ccsds-355-1-355x1b1](../library/ccsds-355-1-355x1b1.md) | [Security](security.md) |
+| Identifiers | CCSDS 135.0-B-4 Space Link Identifiers (Oct 2009, historical); 320.0-M-7 SCID assignment (Nov 2017, Cor. 1 Jul 2019) | [ccsds-135-0-135x0b4s](../library/ccsds-135-0-135x0b4s.md), [ccsds-320-0-320x0m7c1](../library/ccsds-320-0-320x0m7c1.md) | [Space link identifiers](space-link-identifiers.md) |
+| Shim / packets | CCSDS 133.0-B-2 Space Packet Protocol (Jun 2020); 130.3-G-1 Space Packet Protocols rationale (Apr 2023) | [ccsds-133-0-133x0b2e2](../library/ccsds-133-0-133x0b2e2.md), [ccsds-130-3-130x3g1](../library/ccsds-130-3-130x3g1.md) | [Space Packet](space-packet.md) |
 | Shim / packets | CCSDS 133.1-B-3 Encapsulation Packet Protocol (May 2020) | [ccsds-133-1-133x1b3e1](../library/ccsds-133-1-133x1b3e1.md) | [Encapsulation](encapsulation.md) |
 | Network | IP over CCSDS 702.1-B; LTP 734.1-B; BP 734.2-B | not in library | [Encapsulation](encapsulation.md#epp-as-the-carrier-for-network-protocols) |
 | Transport / application | CCSDS 727.0-B-5 CFDP (Jul 2020) | [ccsds-727-0-727x0b5e1](../library/ccsds-727-0-727x0b5e1.md) | [CFDP](cfdp.md) |
@@ -472,10 +490,11 @@ example, the 2023 overview cites TM coding 131.0-B-4 and USLP 732.1-B-2, while t
 | Data definition | CCSDS 660.0-B-2 XTCE 1.2 (Feb 2020); 660.1-G-2 element description (Aug 2021) | [ccsds-660-0-660x0b2](../library/ccsds-660-0-660x0b2.md), [ccsds-660-1-660x1g2](../library/ccsds-660-1-660x1g2.md) | [XTCE](xtce.md) |
 | Application (ECSS) | ECSS-E-ST-70-41C PUS | [ecss-e-st-70-41c-15april2016](../library/ecss-e-st-70-41c-15april2016.md) | [PUS](../ecss/pus/index.md) |
 | Cross support: concept | CCSDS 910.3-G-3 Cross Support Concept, Part 1: SLE Services (Mar 2006) | [ccsds-910x3g3-sle-cross-support](../library/ccsds-910x3g3-sle-cross-support.md) | [SLE](sle/index.md) |
+| Cross support: model and management | CCSDS 910.4-B-2 Cross Support Reference Model (Oct 2005, historical); 902.0-G-1 SCCS service management concept (Sep 2014); 902.4-B-1 Service Package Data Formats; 922.1-B-2 Monitored Data CSTS (Sep 2022) | [ccsds-910-4-910x4b2e1s](../library/ccsds-910-4-910x4b2e1s.md), [ccsds-902-0-902x0g1](../library/ccsds-902-0-902x0g1.md), [ccsds-902-4-902x4b1](../library/ccsds-902-4-902x4b1.md), [ccsds-922-1-922x1b2](../library/ccsds-922-1-922x1b2.md) | [Reference model and service management](sle/service-management.md) |
 | Cross support: return | CCSDS 911.1-B-5 RAF, 911.2-B-4 RCF, 911.5-B-4 ROCF (all Jul 2023) | [ccsds-911-1-911x1b5e1](../library/ccsds-911-1-911x1b5e1.md) (second copy [ccsds-911x1b5e1-sle-raf](../library/ccsds-911x1b5e1-sle-raf.md)), [ccsds-911-2-911x2b4e1](../library/ccsds-911-2-911x2b4e1.md), [ccsds-911-5-911x5b4e1](../library/ccsds-911-5-911x5b4e1.md) | [SLE return services](sle/return-services.md) |
-| Cross support: forward | CCSDS 912.1-B-5 FCLTU (Jul 2023) | [ccsds-912-1-912x1b5e1](../library/ccsds-912-1-912x1b5e1.md) | [FCLTU](sle/fcltu.md) |
-| Cross support: transport | CCSDS 913.1-B-2 SLE Internet Protocol for Transfer Services (Sep 2015); 914.0-M-2 SLE API core (Corr. 1 Aug 2016) | [ccsds-913-1-913x1b2](../library/ccsds-913-1-913x1b2.md), [ccsds-914-0-914x0m2c1](../library/ccsds-914-0-914x0m2c1.md) | [ISP1 and the SLE API](sle/isp1-and-api.md) |
-| ECSS umbrella | ECSS-E-ST-50C Rev.1 Communications and its adoption notices | [ecss-e-st-50c-rev-1-1march2021](../library/ecss-e-st-50c-rev-1-1march2021.md), [ecss-e-as-50-25c-rev-1-13january2023](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ecss-e-as-50-26c-1march2021](../library/ecss-e-as-50-26c-1march2021.md) | [ECSS-E-ST-50C](../ecss/e-st-50-communications.md) |
+| Cross support: forward | CCSDS 912.1-B-5 FCLTU (Jul 2023); 912.3-B-3 FSP (Aug 2016, historical) | [ccsds-912-1-912x1b5e1](../library/ccsds-912-1-912x1b5e1.md), [ccsds-912-3-912x3b3s](../library/ccsds-912-3-912x3b3s.md) | [FCLTU](sle/fcltu.md), [FSP](sle/fsp.md) |
+| Cross support: transport | CCSDS 913.1-B-2 SLE Internet Protocol for Transfer Services (Sep 2015); 914.0-M-2 SLE API core (Corr. 1 Aug 2016); 915.1-M-2 RAF API and 916.3-M-2 FSP API (Sep 2015) | [ccsds-913-1-913x1b2](../library/ccsds-913-1-913x1b2.md), [ccsds-914-0-914x0m2c1](../library/ccsds-914-0-914x0m2c1.md), [ccsds-915-1-915x1m2](../library/ccsds-915-1-915x1m2.md), [ccsds-916-3-916x3m2](../library/ccsds-916-3-916x3m2.md) | [ISP1 and the SLE API](sle/isp1-and-api.md) |
+| ECSS umbrella | ECSS-E-ST-50C Rev.1 (Mar 2021) and Rev.2 (Dec 2024) Communications and the adoption notices ECSS-E-AS-50-21 to -26 | [ecss-e-st-50c-rev-1-1march2021](../library/ecss-e-st-50c-rev-1-1march2021.md), [ecss-e-st-50c-rev-2-5december2024](../library/ecss-e-st-50c-rev-2-5december2024.md), [-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [-25C Rev.1](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [-26C](../library/ecss-e-as-50-26c-1march2021.md) | [ECSS-E-ST-50C](../ecss/e-st-50-communications.md) |
 | ECSS handbook | ECSS-E-HB-50A Communications guidelines (Nov 2008) | [ecss-e-hb-50a-15november2008](../library/ecss-e-hb-50a-15november2008.md) | [Standards map](../overview/standards-map.md) |
 
 The source registry records when and from where each document was copied. See
@@ -559,8 +578,16 @@ blind commanding without telemetry, the Expedited service needs no feedback loop
 [^e50-adopt]: [ECSS-E-ST-50C Rev.1 (1 March 2021)](../library/ecss-e-st-50c-rev-1-1march2021.md), §4.2 list of ECSS Adoption Notices, PDF pp. 19–20.
 [^e50-fig]: [ECSS-E-ST-50C Rev.1](../library/ecss-e-st-50c-rev-1-1march2021.md), §4.2 figure 4-2 CCSDS and Internet space link protocols and notes, PDF p. 21.
 [^as5025]: [ECSS-E-AS-50-25C Rev.1 (13 January 2023)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), title page and introduction (adoption of CCSDS 232.0-B-4), PDF pp. 1 and 5–6.
+[^as-titles]: Title pages, PDF p. 1, of [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md) and [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md).
+[^e50r2]: [ECSS-E-ST-50C Rev.2 (5 December 2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), title page, PDF p. 1.
 [^as5026]: [ECSS-E-AS-50-26C (1 March 2021)](../library/ecss-e-as-50-26c-1march2021.md), title page (adoption of CCSDS 232.1-B-2), PDF p. 1.
-[^lib-titles]: Title pages (PDF p. 1) of the library copies listed in the table: [131.0-B-5](../library/ccsds-131-0-131x0b5.md), [132.0-B-3](../library/ccsds-132-0-132x0b3.md), [232.0-B-4](../library/ccsds-232-0-232x0b4e1c1.md), [232.1-B-2](../library/ccsds-232-1-232x1b2e2c1.md), [732.0-B-4](../library/ccsds-732-0-732x0b4.md), [732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), [355.0-B-2](../library/ccsds-355-0-355x0b2.md), [301.0-B-4](../library/ccsds-301-0-301x0b4e1.md), [727.0-B-5](../library/ccsds-727-0-727x0b5e1.md), [660.0-B-2](../library/ccsds-660-0-660x0b2.md), [660.1-G-2](../library/ccsds-660-1-660x1g2.md), [910.3-G-3](../library/ccsds-910x3g3-sle-cross-support.md), [911.1-B-5](../library/ccsds-911-1-911x1b5e1.md), [911.2-B-4](../library/ccsds-911-2-911x2b4e1.md), [911.5-B-4](../library/ccsds-911-5-911x5b4e1.md), [912.1-B-5](../library/ccsds-912-1-912x1b5e1.md), [913.1-B-2](../library/ccsds-913-1-913x1b2.md), [914.0-M-2](../library/ccsds-914-0-914x0m2c1.md), [130.1-G-3](../library/ccsds-130-1-130x1g3e1.md), [230.1-G-3](../library/ccsds-230-1-230x1g3e1.md), [231.0-B-4](../library/ccsds-231-0-231x0b4e1.md).
+[^lib-titles]: Title pages (PDF p. 1, or p. 2 for the copies marked "historical", whose p. 1 is the CCSDS Historical Document banner) of the library copies listed in the table: [131.0-B-5](../library/ccsds-131-0-131x0b5.md), [132.0-B-3](../library/ccsds-132-0-132x0b3.md), [232.0-B-4](../library/ccsds-232-0-232x0b4e1c1.md), [232.1-B-2](../library/ccsds-232-1-232x1b2e2c1.md), [732.0-B-4](../library/ccsds-732-0-732x0b4.md), [732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), [355.0-B-2](../library/ccsds-355-0-355x0b2.md), [301.0-B-4](../library/ccsds-301-0-301x0b4e1.md), [727.0-B-5](../library/ccsds-727-0-727x0b5e1.md), [660.0-B-2](../library/ccsds-660-0-660x0b2.md), [660.1-G-2](../library/ccsds-660-1-660x1g2.md), [910.3-G-3](../library/ccsds-910x3g3-sle-cross-support.md), [911.1-B-5](../library/ccsds-911-1-911x1b5e1.md), [911.2-B-4](../library/ccsds-911-2-911x2b4e1.md), [911.5-B-4](../library/ccsds-911-5-911x5b4e1.md), [912.1-B-5](../library/ccsds-912-1-912x1b5e1.md), [913.1-B-2](../library/ccsds-913-1-913x1b2.md), [914.0-M-2](../library/ccsds-914-0-914x0m2c1.md), [130.1-G-3](../library/ccsds-130-1-130x1g3e1.md), [230.1-G-3](../library/ccsds-230-1-230x1g3e1.md), [231.0-B-4](../library/ccsds-231-0-231x0b4e1.md), [131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), [231.0-B-4 Cor. 1](../library/ccsds-231-0-231x0b4e1c1.md), [732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), [211.0-B-6](../library/ccsds-211-0-211x0b6e1.md), [350.0-G-3](../library/ccsds-350-0-350x0g3.md), [350.5-G-2](../library/ccsds-350-5-350x5g2.md), [352.0-B-2](../library/ccsds-352-0-352x0b2.md), [355.1-B-1](../library/ccsds-355-1-355x1b1.md), [135.0-B-4](../library/ccsds-135-0-135x0b4s.md), [320.0-M-7 Cor. 1](../library/ccsds-320-0-320x0m7c1.md), [130.3-G-1](../library/ccsds-130-3-130x3g1.md), [401.0-B-32](../library/ccsds-401-0-401x0b32.md), [ECSS-E-ST-50-05C Rev. 2](../library/ecss-e-st-50-05c-rev24october2011.md), [ECSS-E-ST-50-02C](../library/ecss-e-st-50-02c31july2008.md), [910.4-B-2](../library/ccsds-910-4-910x4b2e1s.md), [902.0-G-1](../library/ccsds-902-0-902x0g1.md), [902.4-B-1](../library/ccsds-902-4-902x4b1.md), [922.1-B-2](../library/ccsds-922-1-922x1b2.md), [912.3-B-3](../library/ccsds-912-3-912x3b3s.md), [915.1-M-2](../library/ccsds-915-1-915x1m2.md), [916.3-M-2](../library/ccsds-916-3-916x3m2.md). The 902.4-B-1 copy carries no issue date beyond its cover, so the table gives none.
+[^rf-dc]: [CCSDS 401.0-B-32, Radio Frequency and Modulation Systems, Part 1](../library/ccsds-401-0-401x0b32.md), title page (October 2021) and Document Control, PDF pp. 1 and 7–11.
+[^rf-e5]: [ECSS-E-ST-50-05C Rev. 2, Radio frequency and modulation](../library/ecss-e-st-50-05c-rev24october2011.md), title page (4 October 2011), PDF p. 1; [ECSS-E-ST-50-02C, Ranging and Doppler tracking](../library/ecss-e-st-50-02c31july2008.md), title page (31 July 2008), PDF p. 1.
+[^aos4-ctl]: [CCSDS 732.0-B-4, AOS Space Data Link Protocol](../library/ccsds-732-0-732x0b4.md), Document Control (Issue 3, September 2015), PDF p. 7.
+[^b6-ctl]: [CCSDS 131.0-B-6, TM Synchronization and Channel Coding, Issue 6 (April 2026, EC 1 May 2026)](../library/ccsds-131-0-131x0b6ec1.md), Document Control, PDF p. 7.
+[^aos5-ctl]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol, Issue 5 (October 2025, with EC 1)](../library/ccsds-732-0-732x0b5ec1.md), Document Control, PDF p. 7.
+[^uslp-doc]: [CCSDS 732.1-B-3, Unified Space Data Link Protocol](../library/ccsds-732-1-732x1b3e1.md), Document Control (Issue 3 adds the VC Packet and VC Access services), PDF p. 7.
 [^solo-seg]: [SOL.S.ASTR.TN.00079 issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md), §3.3 Telecommand Segments (PUS-86 to PUS-109), PDF pp. 18–19.
 [^solo-tc-frame]: [SOL.S.ASTR.TN.00079](../library/sol-s-astr-tn-00079-07.md), §3.4 Telecommand Frame (PUS-113 to PUS-169), PDF pp. 20–22.
 [^solo-pus]: [SOL.S.ASTR.TN.00079](../library/sol-s-astr-tn-00079-07.md), §3.2.2.1 (PUS-53, TC PUS version 1) and §4.2.2.1 (PUS-222, TM PUS version 1), PDF pp. 17 and 26.

@@ -1,8 +1,8 @@
 ---
 title: TM Space Data Link Protocol (CCSDS 132.0-B-3)
-description: The CCSDS TM Transfer Frame field by field, the eight TM services, virtual channel multiplexing, idle data, the First Header Pointer, managed parameters and the SDLS option, with the real Solar Orbiter frame configuration and its MIB representation.
+description: The CCSDS TM Transfer Frame field by field, the eight TM services, virtual channel multiplexing, idle data, the First Header Pointer, managed parameters and the SDLS option, the ECSS adoption notice and its extended frame count, what the 2026 coding issue changes for TM frames, and the real Solar Orbiter frame configuration with its MIB representation.
 tags: [CCSDS, Data link layer, Telemetry, TM Transfer Frame]
-sources: [ccsds-132-0-132x0b3, ccsds-130-2-130x2g3, ecss-e-st-50-03c-31july2008, ecss-e-hb-50a-15november2008, ccsds-131-0-131x0b5, ccsds-130-1-130x1g3e1, ccsds-232-0-232x0b4e1c1, ccsds-133-0-133x0b2e2, ecss-e-st-50c-rev-1-1march2021, ecss-e-as-50-25c-rev-1-13january2023, sol-s-astr-tn-00079-07, solo-ddid-i1r2, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final, mex-esc-if-5003-b5, tn-1030-time-correlation, ccsds-911-1-911x1b5e1]
+sources: [ccsds-132-0-132x0b3, ecss-e-as-50-22c-rev-1-13january2023, ecss-e-as-50-21c-rev-2-5december2024, ccsds-131-0-131x0b6ec1, ecss-e-st-50-01c31july2008, ccsds-732-0-732x0b5ec1, ccsds-130-2-130x2g3, ecss-e-st-50-03c-31july2008, ecss-e-hb-50a-15november2008, ccsds-131-0-131x0b5, ccsds-130-1-130x1g3e1, ccsds-232-0-232x0b4e1c1, ccsds-133-0-133x0b2e2, ecss-e-st-50c-rev-1-1march2021, ecss-e-as-50-25c-rev-1-13january2023, sol-s-astr-tn-00079-07, solo-ddid-i1r2, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final, mex-esc-if-5003-b5, tn-1030-time-correlation, ccsds-911-1-911x1b5e1]
 ---
 
 # TM Space Data Link Protocol (CCSDS 132.0-B-3)
@@ -22,7 +22,7 @@ examples throughout this wiki, downlinks TM Transfer Frames as described here.[^
 !!! info "At a glance"
     | Item | Value |
     |---|---|
-    | Current issue | CCSDS 132.0-B-3, October 2021 (B-1 2003, B-2 2015)[^b3-ctl] |
+    | Current issue | CCSDS 132.0-B-3, October 2021 (B-1 2003, B-2 2015); still the issue cited by the April 2026 coding standard[^b3-ctl][^b6-refs] |
     | Frame length | Fixed per Physical Channel and Mission Phase; at most 2048 octets for TM[^c-len] |
     | Primary header | 6 octets, mandatory[^b3-tf] |
     | Optional fields | Secondary header (2 to 64 octets), Operational Control Field (4 octets), Frame Error Control Field (2 octets)[^b3-tf] |
@@ -30,7 +30,7 @@ examples throughout this wiki, downlinks TM Transfer Frames as described here.[^
     | Frame counters | 8-bit Master Channel and 8-bit Virtual Channel counts, modulo 256[^b3-mcfc] |
     | Special First Header Pointer values | `0x7FF` (no packet starts here), `0x7FE` (only idle data)[^b3-fhp] |
     | Services | VCP, VCA, VC_FSH, VC_OCF, VCF, MC_FSH, MC_OCF, MCF[^b3-svc-table] |
-    | ECSS equivalent | ECSS-E-ST-50-03C (2008), now superseded by the adoption notice ECSS-E-AS-50-22[^e50-adopt] |
+    | ECSS equivalent | ECSS-E-ST-50-03C (2008), superseded by the adoption notice ECSS-E-AS-50-22; Rev.1 (13 January 2023) adopts 132.0-B-3 with one amendment, the extended VC frame count[^e50-adopt][^as22-scope][^as22-req] |
 
 ## Where the protocol sits
 
@@ -100,10 +100,11 @@ flowchart TB
 * The **Physical Channel Name** is a character string set by management and never transmitted.[^b3-addr][^g2-tfvn]
 * TC and TM frames both use TFVN `0b00` (version 1); AOS frames use `0b01`. TC and TM frames are told
   apart by the sync pattern (ASM versus TC start sequence) or by management.[^b3-mcid][^g2-tfvn]
-* SCIDs are assigned by the Space Assigned Numbers Authority (SANA). A SCID is unique only within a
+* SCIDs are assigned by the Space Assigned Numbers Authority (SANA); the procedure is on
+  [Space link identifiers](space-link-identifiers.md#assigning-scids-ccsds-3200-m-7). A SCID is unique only within a
   frequency band, so the same value can belong to a different spacecraft in another band. The 10-bit
-  SCID space is shared by TC and TM; AOS has its own 8-bit space, so a spacecraft using TC up and AOS
-  down needs two SCIDs.[^b3-mcid][^g2-tfvn]
+  SCID space is shared by TC and TM; AOS has its own space, 8 bits wide until AOS Issue 5 (2025) made
+  it 10 bits, so a spacecraft using TC up and AOS down needs two SCIDs.[^b3-mcid][^g2-tfvn][^aos5-mcid]
 
 !!! example "Solar Orbiter"
     The CCSDS spacecraft identifier of Solar Orbiter is `0x28A` (650 decimal), and the same SCID is
@@ -135,7 +136,10 @@ $$L_{\text{data}} = L_{\text{frame}} - 6 - L_{\text{FSH}} - 4\,[\text{OCF}] - 2\
 The TM SDLP Blue Book itself defers the allowed lengths to the coding standards; the coding standard
 allows any whole number of octets up to 2048 for uncoded or convolutionally coded TM, and specific
 lengths for Reed-Solomon, turbo and LDPC codes (see [allowed frame lengths](tm-coding.md#allowed-transfer-frame-lengths)).[^b3-tf][^c-len]
-ECSS-E-ST-50-03C states the 2048-octet maximum explicitly.[^e03-gen]
+ECSS-E-ST-50-03C states the 2048-octet maximum explicitly.[^e03-gen] Issue 6 of the coding standard
+(2026) explains that this limit comes from the 11-bit First Header Pointer and adds *slicing*, which lets
+Reed-Solomon, turbo and LDPC codes carry TM frames of any length up to 2048 octets (see
+[below](#what-the-2026-coding-issue-changes-for-tm-frames)).[^b6-len][^b6-slice]
 
 ### Primary header
 
@@ -178,7 +182,8 @@ before reaching 255 unless that is unavoidable; after an unavoidable reset the r
 tell whether the sequence is complete.[^b3-mcfc][^b3-vcfc] The Master Channel count lets the receiver
 check the whole Master Channel; the Virtual Channel count gives each VC its own accountability and is
 the basis for systematic packet extraction and for the optional loss flags of the services.[^b3-vcfc][^b3-vcr]
-ECSS phrases the reset rule as "not reset before reaching 255 unless there is a major system reset".[^e03-counts]
+ECSS phrases the reset rule as "not reset before reaching 255 unless there is a major system reset"; the
+adoption notice lists this wording difference among those with CCSDS.[^e03-counts][^as22-diff]
 The Virtual Channel Frame Count is generated by the VC Generation Function, while the Master Channel
 Frame Count is filled in later by the MC Generation Function, after virtual channel multiplexing.[^b3-vcg][^b3-mcg]
 
@@ -217,7 +222,8 @@ packet's own length field.[^b3-fhp]
     The standard reserves the two values `0x7FE` and `0x7FF` but states no maximum offset. Because a TM
     frame is at most 2048 octets, its data field is at most 2042 octets (2048 minus the 6-octet primary
     header), so a real offset never exceeds 2041 and can never collide with the reserved values. This
-    calculation is the wiki's own.[^c-len][^b3-fhp]
+    calculation is the wiki's own.[^c-len][^b3-fhp] The 2026 coding standard states the same link from
+    the other side: the 11-bit pointer is what limits TM frames to 2048 octets.[^b6-len]
 
 ### Secondary header
 
@@ -240,6 +246,31 @@ Standard: the **extended virtual channel frame count**. The secondary header is 
 explains that ESA missions used it to sequence frames reliably, in particular when recorded frames
 are played back, and to detect losses without reference to ground receive time; it is not defined by
 CCSDS.[^hb-diff][^e03-ccsds]
+
+ECSS-E-ST-50-03C has since been replaced by the adoption notice ECSS-E-AS-50-22, and this count is the
+only normative amendment that Rev.1 of the notice (13 January 2023) makes to CCSDS 132.0-B-3. Its
+Table 4-1 adds a new requirement 4.1.3.1.7 and a new section 4.1.3.4, whose five requirements restate
+requirements a to e of ECSS-E-ST-50-03C §5.3.4:[^as22-req][^e03-evcfc]
+
+| New clause | Requirement (paraphrased) |
+|---|---|
+| 4.1.3.1.7 | The secondary header may be used to provide an extended virtual channel frame count as specified in 4.1.3.4 |
+| 4.1.3.4.2.1 | The secondary header is then 32 bits long (length field = 3) |
+| 4.1.3.4.2.2 | Its data field holds the 24-bit extension of the VC frame count |
+| 4.1.3.4.2.3 | The extension is a binary count of the roll-overs of the 8-bit VC Frame Count; together they form a 32-bit count, the 24 most significant bits in the secondary header |
+| 4.1.3.4.2.4 | The extended count is associated with either a Master Channel or a Virtual Channel. With a Master Channel, every frame of the MC carries it, but each frame carries the value of its own VC; with a Virtual Channel, the secondary headers of the other VCs may be absent or used for other purposes |
+| 4.1.3.4.2.5 | Its use is static for the associated channel throughout a mission phase |
+
+!!! example "Reading the extended count (illustrative)"
+    A frame whose secondary header data field holds `0x000123` and whose primary header VC Frame Count
+    is `0x45` has the 32-bit count `0x00012345` = 74,565. The 32-bit count wraps after 2³² frames,
+    against 256 for the primary header alone.[^as22-req]
+
+!!! warning "Inference"
+    Solar Orbiter puts the extension in the secondary header of every frame (below), which is
+    consistent with the Master Channel association of clause 4.1.3.4.2.4, each frame carrying the count
+    of its own VC (a separate association on every VC would look the same on the link). The ICD cites
+    ECSS-E-ST-50-03C, not the adoption notice, so it does not use this wording.[^sol-sh][^sol-rd][^as22-req]
 
 <div class="bitfield" data-title="Solar Orbiter Transfer Frame Secondary Header (32 bits)" data-width="32"
      data-fields='[{"n":"FSH version","b":2,"v":"00","g":"Secondary Header ID"},
@@ -290,6 +321,11 @@ restarted, so consecutive OID frames continue the same sequence.[^b3-oid][^b3-an
     reading; the TM SDLP itself only says the random pattern avoids problems from insufficient
     randomization.[^b3-oid][^b3-ctl] ECSS-E-ST-50-03C (2008) still left the idle pattern as a mission
     configuration parameter.[^e03-mcp]
+
+The ECSS adoption notice lists the OID randomization among its differences from ECSS-E-ST-50-03, which
+had no such specification, and points to the two generator forms of Annex D.[^as22-diff] Since Issue 6 of
+the coding standard (2026) the coding-layer pseudo-randomizer is mandatory as well, so an OID frame's PN
+fill is now always randomized again, with the rest of the frame, below the data link layer.[^b6-rand]
 
 ### Operational Control Field
 
@@ -347,7 +383,11 @@ for an error-free frame.[^b3-fecf]
   (≈ 3 × 10⁻⁵).[^e03-fecf][^g1-crc]
 * **When it is mandatory.** It must be present when neither Reed-Solomon nor LDPC coding is used;
   with Reed-Solomon or LDPC it is optional.[^c-fecf] ECSS-E-ST-50-03C (2008) exempts only
-  Reed-Solomon-encoded frames.[^e03-fecf] The Green Book explains why:
+  Reed-Solomon-encoded frames, and its companion coding standard ECSS-E-ST-50-01C reminds that frames on
+  uncoded or turbo-coded channels therefore carry the CRC.[^e03-fecf][^e01-len] Issue 6 of the coding
+  standard (2026) keeps the rule and spells it out: the FECF is mandatory with no coding, convolutional
+  or turbo coding, optional with Reed-Solomon, concatenated or LDPC coding, and with slicing a frame is
+  invalid if any part of it lies in an invalid information block.[^b6-valid] The Green Book explains why:
   uncoded and convolutionally coded data have no error-detection capability of their own, and a turbo
   decoder has only a limited one, whereas the (255,223) Reed-Solomon decoder ($E$ = 16) already detects
   errors far better than the CRC. The $E$ = 8 code detects errors only about as well as the CRC, so the
@@ -649,7 +689,27 @@ The European Cooperation for Space Standardization (ECSS) published the TM frame
 (31 July 2008), whose differences annex is written against CCSDS 132.0-B-1.[^e03-ccsds] ECSS-E-ST-50C
 Rev.1 (March 2021) lists the adoption notice ECSS-E-AS-50-22, which adopts the CCSDS Blue Book directly
 (then CCSDS 132.0-B-2) and supersedes the TM Transfer Frame topic of ECSS-E-ST-50-03C; by January 2023
-its Rev.1 adopted CCSDS 132.0-B-3.[^e50-adopt][^as25-ctx] See [ECSS-E-ST-50C communications](../ecss/e-st-50-communications.md).
+its Rev.1 adopted CCSDS 132.0-B-3.[^e50-adopt][^as25-ctx][^as22-scope] Together with ECSS-E-AS-50-23 for
+[AOS](aos.md#ecss-adoption-notice-ecss-e-as-50-23), it replaces ECSS-E-ST-50-03C.[^as22-log] See
+[ECSS-E-ST-50C communications](../ecss/e-st-50-communications.md).
+
+=== "ECSS-E-AS-50-22C Rev.1 (2023)"
+
+    * **Scope.** CCSDS 132.0-B-3 applies with the amendments of Table 4-1. The first issue (1 March
+      2021) was based on 132.0-B-2; Rev.1 follows the CCSDS update, which added support for the SDLS
+      Extended Procedures, the PICS proforma of Annex A and the OID randomization options of
+      Annex D.[^as22-log][^as22-scope][^e50-adopt]
+    * **The one amendment** carries the extended VC frame count of ECSS-E-ST-50-03C over into the
+      CCSDS text (new clauses 4.1.3.1.7 and 4.1.3.4, detailed [above](#secondary-header)).[^as22-req][^e03-evcfc]
+    * **Informative differences from ECSS-E-ST-50-03C** (Annex A): CCSDS adds formal service
+      definitions (§3) and the full sending and receiving procedures (§§4.2–4.3), where ECSS had only
+      packet processing and extraction; the SDLS and SDLS Extended Procedures interfaces, including the
+      Frame Security Report as a Type-2 OCF report; the "unless unavoidable" wording for frame count
+      resets; Sync Flag `1` meaning a VCA_SDU, where ECSS set it whenever the conditions for `0` were not
+      met and used it for asynchronously inserted data; normative managed parameters (§§5 and 6.6) instead
+      of informative mission configuration parameters; a PICS; and the OID frame randomization.[^as22-diff]
+    * Whether ECSS has issued a later revision is not stated in the available sources; the December
+      2024 notice for TM coding still lists Rev.1 in its bibliography.[^as21-bib]
 
 === "ECSS-E-ST-50-03C vs CCSDS"
 
@@ -680,7 +740,41 @@ its Rev.1 adopted CCSDS 132.0-B-3.[^e50-adopt][^as25-ctx] See [ECSS-E-ST-50C com
     frames with Sync = 1 on a dedicated VC, forward or reverse. In forward mode the recorded markers must
     use the alternative pattern `0x352EF853`, otherwise they could disturb frame synchronization on the
     ground. CLCWs inside recorded frames must not be fed to the real-time telecommand system. The
-    handbook recommends this only for legacy support.[^e03-async][^hb-playback][^hb-rp]
+    handbook recommends this only for legacy support.[^e03-async][^hb-playback][^hb-rp] The embedded
+    marker itself is specified in ECSS-E-ST-50-01C §8.6, which excludes turbo-coded frames; the 2026
+    issue of the CCSDS coding standard no longer lists it.[^e01-asm][^b6-csm] Under the adoption notice
+    a frame with Sync = 1 carries a VCA_SDU, the CCSDS meaning, and the notice records asynchronously
+    inserted data as a legacy feature of ECSS-E-ST-50-03.[^as22-diff]
+
+## What the 2026 coding issue changes for TM frames
+
+The TM SDLP itself has no newer issue in the available sources: Issue 6 of
+[TM Synchronization and Channel Coding](tm-coding.md) (CCSDS 131.0-B-6, April 2026) still cites
+132.0-B-3 as its normative reference for TM frames.[^b6-refs] Several of its changes nevertheless reach
+the frame layer:
+
+| Topic | Effect on TM frames |
+|---|---|
+| Frame length | Uncoded, convolutional and *sliced* links accept any whole number of octets up to 2048. Without slicing, block codes still fix the length (223, 446, 892 or 1115 octets for turbo; 892 for rate-7/8 LDPC, 128, 512 or 2048 for the other LDPC rates; the Reed-Solomon formula).[^b6-len] |
+| Why 2048 | The standard now states that the maximum length is set by the 11-bit First Header Pointer; AOS (16-bit pointer since its Issue 5) and USLP go to 65536 octets.[^b6-len][^aos5-mpdu] |
+| Slicing | A 32-bit ASM `1ACFFC1D` is prepended to every TM frame, the stream of sync-marked frames is cut into information blocks, and each codeword receives its own Code Synchronization Marker. The frame ASM is randomized and encoded with the data.[^b6-slice] |
+| Validation | FECF mandatory with no coding, convolutional or turbo coding; optional with Reed-Solomon, concatenated or LDPC; with slicing a frame is invalid if any part lies in an invalid information block.[^b6-valid] |
+| Randomizer | Mandatory for every coding option.[^b6-rand] |
+| Embedded marker | The `352EF853` pattern used for asynchronously inserted playback is no longer listed.[^b6-csm] |
+
+For Solar Orbiter's 1115-octet frames, which are already a valid turbo and Reed-Solomon block, slicing
+is not needed; a mission that wanted 2048-octet frames on a turbo-coded link could now use them, as
+worked out on the [coding page](tm-coding.md#transfer-frame-slicing-issue-6).[^sol-tf][^b6-len]
+
+!!! warning "Inference"
+    The time-correlation scheme described [below](#frames-time-correlation-and-the-ground-segment)
+    samples the on-board clock at the leading edge of a frame's sync marker, and the ground station
+    time-tags the same edge. Without slicing that marker is the CSM at the start of a CADU, which the
+    station sees directly. With slicing, the frame ASM sits at an arbitrary position inside a
+    randomized, encoded codeword, so a station would have to time-tag a position in the decoded stream
+    instead. Neither the coding standard nor the time-correlation sources in the library discuss this
+    case; it is not stated in the available sources how time correlation should be done on a sliced
+    link.[^b6-slice][^mex-tc][^tco-times]
 
 ## Solar Orbiter: a real TM frame configuration
 
@@ -706,7 +800,11 @@ field, OCF, FECF). 1115 octets is also the information length of a turbo codewor
 and of a Reed-Solomon (255,223) codeblock with interleaving depth 5, and one of the three frame lengths
 the old ESA Packet Telemetry Standard allowed with Reed-Solomon coding.[^c-len][^e03-pss] Solar
 Orbiter's MIB calibrates turbo rates 1/2 and 1/4; that the downlink is turbo coded is an inference
-discussed in [TM coding: Solar Orbiter](tm-coding.md#solar-orbiter-turbo-coding-in-the-mib).[^mib]
+discussed in [TM coding: Solar Orbiter](tm-coding.md#solar-orbiter-turbo-coding-in-the-mib), where the
+MIB's decoding of the TM encoder configuration register is also shown.[^mib] The ICD's reference
+standard, ECSS-E-ST-50-03C, has since been superseded by ECSS-E-AS-50-22, but the one Solar Orbiter
+feature that goes beyond CCSDS, the extended VC frame count, is exactly the amendment that the adoption
+notice keeps.[^sol-rd][^as22-req]
 
 With the fields above, the first two header octets are fixed per VC (illustrative values computed by
 this wiki from the documented field values):
@@ -790,6 +888,16 @@ matching value 1 or 2.[^mib][^icd-ocp] `NYG01923` is placed in SPID 66832, descr
     request only for the TC virtual channel it is currently commanding on, and ignores the CLCW of the
     other decoder. The MIB does not state this intent; it is deduced from the applicability criteria.
 
+On the spacecraft side, the MIB's decoding of the TM encoder configuration register includes a 2-bit
+field "SCW" whose textual calibration `CCDX9326TM` offers `ClcwD0`, `ClcwD1`, `ClcwD0 and D1` and
+`round robin`.[^mib]
+
+!!! warning "Inference"
+    "SCW" plausibly selects which TC decoder's CLCW the encoder places in the OCF: decoder 0, decoder 1,
+    both, or the two in turn. A round-robin setting would explain why the ground needs per-VC copies of
+    the CLCW parameters, distinguished by the VC Id field. Neither the ICD nor the MIB documents the
+    field; see [TM coding](tm-coding.md#the-tm-encoder-configuration-register) for the whole register.[^mib][^sol-tcvc]
+
 ??? example "SQL used"
     ```sql
     -- mini-transfer frame packets and their sizes
@@ -805,6 +913,9 @@ matching value 1 or 2.[^mib][^icd-ocp] `NYG01923` is placed in SPID 66832, descr
     SELECT PCF_NAME, PCF_DESCR, PCF_VALID, PCF_VALPAR, PCF_CURTX FROM pcf WHERE PCF_NAME LIKE 'NYGD%';
     SELECT * FROM ocp WHERE OCP_NAME IN ('NYGDA663','NYGDA665','NYGDB663','NYGDB665');
     SELECT * FROM txp WHERE TXP_NUMBR IN ('CYGT0659TM','CYGT0663TM','CYGT0665TM');
+    -- the CLCW selection field of the TM encoder register
+    SELECT PCF_NAME, PCF_DESCR, PCF_PTC, PCF_PFC FROM pcf WHERE PCF_CURTX = 'CCDX9326TM';
+    SELECT * FROM txp WHERE TXP_NUMBR = 'CCDX9326TM';
     -- the same layout in the April 2020 release
     SELECT COUNT(*) FROM plf WHERE PLF_SPID = '66980';
     ```
@@ -844,7 +955,9 @@ correctly.[^raf-prod] How ESOC's ground station interface hands frames to SCOS-2
   travels in the data field.
 * [COP-1 and the CLCW](cop-1.md), [TC Space Data Link Protocol](tc-sdlp.md) — the uplink partner.
 * [AOS](aos.md) and [USLP](uslp.md) — the other fixed-length frame protocols.
-* [Space Data Link Security](sdls.md) — the security option.
+* [Space Data Link Security](sdls.md) — the security option; [Security in CCSDS space links](security.md) — the wider security family, including the Frame Security Report that can travel in the OCF.
+* [Space link identifiers](space-link-identifiers.md) — SCIDs, VCIDs and SANA; [Radio frequency, modulation and ranging](rf-and-ranging.md) — the physical layer.
+* [ECSS-E-ST-50C communications and the adoption notices](../ecss/e-st-50-communications.md) and [From ESA PSS to CCSDS and ECSS](../overview/history.md) — the European versions of this protocol.
 * [CCSDS protocol stack overview](index.md), [glossary](../glossary.md),
   [reference catalogue](../references/index.md).
 
@@ -955,3 +1068,18 @@ correctly.[^raf-prod] How ESOC's ground station interface hands frames to SCOS-2
 [^mex-tc]: [RO-ESC-IF-5003 / MEX-ESC-IF-5003](../library/mex-esc-if-5003-b5.md), §18.1.2.1.1 (quoting the ESA Packet Telemetry Standard), PDF p. 127.
 [^tco-times]: [EGOS-MCS-S2K-TN-1030, Technical Note – Time Correlation](../library/tn-1030-time-correlation.md), §6.1, PDF p. 26.
 [^raf-prod]: [CCSDS 911.1-B-5, SLE Return All Frames Service](../library/ccsds-911-1-911x1b5e1.md), §§2.4.1–2.4.2, PDF pp. 27–28.
+[^as22-log]: [ECSS-E-AS-50-22C Rev.1, Adoption Notice of CCSDS 132.0-B-3 (13 January 2023)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), Change log, PDF p. 3.
+[^as22-scope]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), §1 Scope and §2 Context information (mapping of superseded standards), PDF pp. 5–6.
+[^as22-req]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), §4, requirement ECSS-E-AS-50-22_1530001 and Table 4-1 (new clauses 4.1.3.1.7 and 4.1.3.4), PDF pp. 8–10.
+[^as22-diff]: [ECSS-E-AS-50-22C Rev.1](../library/ecss-e-as-50-22c-rev-1-13january2023.md), Annex A, §§A.2.1–A.2.8, PDF pp. 11–12.
+[^as21-bib]: [ECSS-E-AS-50-21C Rev.2, Adoption Notice of CCSDS 131.0-B-5 (5 December 2024)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Bibliography, PDF p. 12.
+[^b6-refs]: [CCSDS 131.0-B-6, TM Synchronization and Channel Coding, Issue 6 (April 2026)](../library/ccsds-131-0-131x0b6ec1.md), §1.7 References, PDF p. 19.
+[^b6-len]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §11 Transfer Frame Lengths (note in §11.1 on the First Header Pointer; cases 11.3–11.9), PDF pp. 73–75.
+[^b6-slice]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§3.1–3.4 and Figures 3-1 to 3-3 (slicing and synchronization), PDF pp. 27–30.
+[^b6-valid]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §3.5 Transfer Frame Validation, PDF p. 30.
+[^b6-rand]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §10.1 (mandatory pseudo-randomizer), PDF p. 69.
+[^b6-csm]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§9.2–9.3 (CSM position and bit patterns), PDF pp. 66–68.
+[^e01-asm]: [ECSS-E-ST-50-01C, Telemetry synchronization and channel coding (31 July 2008)](../library/ecss-e-st-50-01c31july2008.md), §8.6 ASM for embedded data stream, PDF p. 39.
+[^e01-len]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), Annex C §§C.1 and C.4 (CRC on uncoded and turbo-coded channels), PDF pp. 54–55.
+[^aos5-mcid]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol, Issue 5 (October 2025)](../library/ccsds-732-0-732x0b5ec1.md), §4.1.2.2 Master Channel Identifier, PDF pp. 56–57.
+[^aos5-mpdu]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), Document Control (PDF p. 7) and §4.1.4.2 (16-bit First Header Pointer, PDF pp. 64–65).

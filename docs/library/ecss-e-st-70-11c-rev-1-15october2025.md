@@ -59,10 +59,12 @@ This is the requirements baseline behind many PUS and MIB design choices.
 - Annex A defines 23 mission constants, e.g. &lt;TIME_CORREL_ACCUR&gt;, &lt;TC_VERIF_DELAY&gt;, &lt;SAFE_TIME&gt;, &lt;NO_TC_TIMEOUT&gt;, &lt;MIN_DATA_RATE_SM&gt; and &lt;CEL_DUMP_TIME&gt;. *(PDF p. 82)*
 
 
-## Cited by these wiki pages (11)
+## Cited by these wiki pages (13)
 
+- [ECSS-E-ST-70-01C: on-board control procedures](../ecss/e-st-70-01c.md)
 - [ECSS-E-ST-70-11C: space segment operability](../ecss/e-st-70-11c.md)
 - [ECSS-E-ST-70-31C: monitoring and control data definition](../ecss/e-st-70-31c.md)
+- [ECSS-E-ST-70C: ground systems and operations](../ecss/e-st-70c.md)
 - [ECSS: the European space standards system](../ecss/index.md)
 - [ST[09] Time management](../ecss/pus/st09-time-management.md)
 - [ST[11] Time-based scheduling](../ecss/pus/st11-time-based-scheduling.md)

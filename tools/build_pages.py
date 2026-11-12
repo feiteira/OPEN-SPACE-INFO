@@ -107,12 +107,20 @@ def collect_cited_by():
 
 def mib_records():
     out = {}
-    for key, slug in (("solo", "mib-20250916m25925pfms001-sol"), ("solo2020", "mib-20200416m10720pfms001-sol"), ("swa", "swa-idb-ascii")):
+    for key, slug in (("solo", "mib-20250916m25925pfms001-sol"), ("solo2020", "mib-20200416m10720pfms001-sol"), ("swa", "swa-idb-ascii"), ("swa65", "swa-idb-v6-5-0"), ("stix", "stix-idb-v2-26-38-raw")):
         mp = os.path.join(DOCS, "explorer", "data", key, "meta.json")
         meta = json.load(open(mp)) if os.path.exists(mp) else {"counts": {}}
         c = meta.get("counts", {})
         name = os.path.basename(REGD[slug]["source_url"])
-        if key == "swa":
+        if key == "stix":
+            title = "Solar Orbiter STIX instrument database v2.26.38 (raw SCOS-2000 ASCII tables)"
+            what = ("The Spectrometer/Telescope for Imaging X-rays (STIX) instrument database in SCOS-2000 MIB table format, "
+                    "published by the STIX team at FHNW in an open directory that the team's STIXCore software downloads from.")
+        elif key == "swa65":
+            title = "Solar Orbiter SWA instrument database v6.5.0 (IRAP SWA_IDB_v6.5.0.zip)"
+            what = ("Version 6.5.0 of the Solar Wind Analyser (SWA) instrument database in SCOS-2000 MIB table format, with the "
+                    "Planetek release notes (IDB_relNotes.txt), posted by the SWA/PAS team at IRAP.")
+        elif key == "swa":
             title = "Solar Orbiter SWA instrument database, MIB-style ASCII tables (IRAP ASCII.zip)"
             what = ("The Solar Wind Analyser (SWA) instrument database in SCOS-2000 MIB table format, posted by the SWA/PAS team "
                     "at IRAP next to the spacecraft MIB releases.")
@@ -170,6 +178,11 @@ def anchor(k):
     return "ref-" + re.sub(r"[^a-z0-9]+", "-", k.split(":", 1)[1].lower()).strip("-")[:80]
 
 
+ERRATA = {
+    "id:ESA-PSS-04-105": "Note: one citing document (H-P-1-ASPI-SP-0045) prints this as a TM packet standard; ESA PSS-04-107 reference [5] identifies PSS-04-105 as the Radio Frequency and Modulation Standard.",
+}
+
+
 def family_of(k, title):
     s = k.split(":", 1)[1]
     t = (title or "").upper()
@@ -210,7 +223,8 @@ def build_library(recs, cited):
             ("Copied (UTC)", H(o["copied_at"])),
             ("SHA-256", f"<code>{H(o['sha256'])}</code>"),
             ("Size", human_size(o["bytes"])),
-            ("Our copy", f'<a href="{rel_link(rel, tp)}">{H(os.path.basename(tp))}</a> (unchanged third-party file, not MIT; see the <a href="{rel_link(rel, "third-party/NOTICE.md")[:-3]}/">notice</a>)'),
+            ("Our copy", f'<a href="{rel_link(rel, tp)}">{H(os.path.basename(tp))}</a> (unchanged third-party file, not MIT; see the <a href="{rel_link(rel, "third-party/NOTICE.md")[:-3]}/">notice</a>)'
+             if o.get("hosted", True) else f'<strong>Not hosted here.</strong> {H(o.get("not_hosted_reason"))}'),
         ]
         desc = re.split(r"(?<=[.!?])\s", re.sub(r"[*_`\[\]]", "", r.get("summary") or ""), maxsplit=1)[0][:200]
         out = ["---", f"title: {yaml_str(r.get('short_title') or r.get('title'))}", f"description: {yaml_str(desc)}",
@@ -326,6 +340,8 @@ def build_references(recs, lib_ids):
             ident = " / ".join(sorted(e["ids"]))[:200] or "(no identifier)"
             hold = " · ".join(f"[:material-book-check: in library]({rel_link('references/index.md', f'library/{s}.md')})" for s in lib_ids.get(k, []))
             out.append(f'<a id="{anchor(k)}"></a>\n**{H(ident)}**: {H(title)} {hold}\n')
+            if k in ERRATA:
+                out.append(f": {H(ERRATA[k])}\n")
             if e["issues"]:
                 out.append(f": Issues cited: {H('; '.join(sorted(e['issues']))[:400])}\n")
             cites = defaultdict(list)
@@ -458,6 +474,7 @@ def build_sources_page(recs):
            "## Not copied", "",
            "- Five AIAA SpaceOps papers (SCOS-2000 Release 5, NIS, Data Security, Multi-Spacecraft, Common EGSE/MCS for Herschel/Planck) returned HTTP 403 (paywall). They are cited by title only.",
            "- The Herschel/Planck spacecraft database zips in the ESA Herschel Science Archive (`/hsa/legacy/operations/moc/sdb/data/`) returned HTTP 403 on 2026-11-05 and again on 2026-11-12.",
+           "- Two Herschel flight-operations ground-segment procedures (C_GSP_MCS_SCOS and C_GSP_MCS_NCTRS) are cited and listed below, but their PDFs are not hosted here because they print operational login credentials.",
            "- 109 of the 111 Solar Orbiter MIB releases on the IRAP server: only the first (2020-04-16) and the latest (2025-09-16) were copied, to avoid a long bulk download from a small team server.", "",
            f"## All {len(REG)} sources", "",
            "| # | Source | Original location | Copied (UTC) | SHA-256 | Size | Our copy |", "|---|---|---|---|---|---|---|"]
@@ -466,7 +483,7 @@ def build_sources_page(recs):
         url = o["source_url"]
         via = f" (via [archive]({o['retrieved_via']}))" if o.get("retrieved_via") else ""
         out.append(f"| {i} | [{cell(r.get('short_title') or o['slug'])}](../library/{o['slug']}.md) | [{cell(o.get('host'))}]({url}){via} | {o['copied_at']} | "
-                   f"<code title=\"{o['sha256']}\">{o['sha256'][:12]}…</code> | {human_size(o['bytes'])} | [file](../{third_party_path(o)}) |")
+                   f"<code title=\"{o['sha256']}\">{o['sha256'][:12]}…</code> | {human_size(o['bytes'])} | " + (f"[file](../{third_party_path(o)})" if o.get("hosted", True) else "not hosted (contains credentials)") + " |")
     out.append("")
     write("about/sources-and-copies.md", "\n".join(out) + "\n")
 
@@ -481,7 +498,9 @@ def build_glossary():
     for t in sorted(terms, key=lambda t: t["abbr"].lower()):
         if re.fullmatch(r"[A-Za-z][A-Za-z0-9/\-]{1,14}", t["abbr"]) and t["abbr"].upper() == t["abbr"] or re.fullmatch(r"[A-Z][A-Za-z0-9]{1,10}", t["abbr"]):
             ab.append(f"*[{t['abbr']}]: {t['expansion'].replace(']', ')')}")
-    write("includes/abbreviations.md", "\n".join(ab) + "\n")
+    # One definition per block: a single block of ~1,000 definitions makes Python-Markdown
+    # re-test the shrinking remainder after every definition (quadratic, ~0.7 s per page).
+    write("includes/abbreviations.md", "\n\n".join(ab) + "\n")
     out = ["---", "title: Glossary", "description: Acronyms and terms used across this wiki, with their expansions as defined by the sources.",
            "sources: []", "---", "", "# Glossary", "",
            f"{len(terms)} acronyms and terms used in this wiki, expanded as the source documents define them. Across the whole site, "

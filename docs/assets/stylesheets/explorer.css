@@ -58,3 +58,4 @@
 .mx-legend { font-size: .64rem; color: var(--mx-mut); }
 .mx-legend span { vertical-align: middle; margin: 0 .25em 0 .8em; }
 @media (max-width: 640px) { .mx-fields td:first-child { width: auto; white-space: normal; } .mx-hero h2 { font-size: 1.15rem; } }
+#osi-mib-explorer { scroll-margin-top: 7.5rem; }

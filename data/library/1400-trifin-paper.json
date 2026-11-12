@@ -1,0 +1,117 @@
+{
+  "slug": "1400-trifin-paper",
+  "title": "The Next Generation Mission Operations Preparation Environment at ESOC",
+  "short_title": "Next-generation ops preparation environment OPEN (SESP17)",
+  "doc_id": null,
+  "issue": null,
+  "date": "2017-03",
+  "organisation": "European Space Agency, European Space Operations Centre (ESOC), Darmstadt; presented at the Workshop on Simulation and EGSE for Space Programmes (SESP), 28-30 March 2017, ESA-ESTEC, Noordwijk",
+  "authors": [
+    "Francois Trifin",
+    "Anthony Walsh"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "Workshop paper for SESP 2017 (PDF p. 1). No version or status information is printed.",
+  "summary": "A short SESP 2017 workshop paper introducing **OPEN** (Operations Preparation Environment), ESOC's planned single framework for preparing the tailoring data of mission operations data systems. Examples of such data are monitoring and control definitions, procedures and display definitions. The authors observe that each data system and mission has its own preparation tool, with no coherent overall solution and no synergy between spacecraft and ground-station operators. OPEN is therefore a light, data-type-agnostic framework of generic services (access and version control, reporting, comparison and merging, consistency checking, import/export, baselines), extended by plug-ins for specific data types.\n\n**OPEN-CC** is the variant that is aware of EGS-CC data types. It is the basis for three preparation environments: MICONYS-CC (spacecraft operations, including a re-engineered MOIS Writer as the FOP editor), GSMC-CC (ground station monitoring and control) and the operational simulators (SIMULUS). A secondary objective is the transition from [SCOS-2000](../scos2000/index.md) to [EGS-CC](../scos2000/ancillary-and-egs-cc.md). OPEN-CC will import tailoring data in the legacy SCOS-2000 [MIB](../mib/index.md) format, both to migrate missions and to let external organisations keep delivering MIBs for MICONYS-CC-controlled systems. Table 1 maps the planned data definitions (M&C model, TM/TC packets, PUS services, user-defined displays, synthetic parameters, scripts, automation procedures, mission planning rules, etc.) to the three environments.\n\nOPEN is implemented in Java on OSGi and the Eclipse Rich Client Platform. Data is held as EMF models in a distributed version control system, and editing works offline or online. See [operations preparation](../scos2000/operations-preparation.md).",
+  "contents": [
+    {
+      "section": "Introduction",
+      "title": "Introduction",
+      "pdf_page": 1
+    },
+    {
+      "section": "OPEN-CC",
+      "title": "OPEN-CC Based Environments",
+      "pdf_page": 2
+    },
+    {
+      "section": "Data Definitions",
+      "title": "Data Definitions",
+      "pdf_page": 3
+    },
+    {
+      "section": "OPEN Functionality",
+      "title": "OPEN Functionality",
+      "pdf_page": 4
+    },
+    {
+      "section": "Implementation",
+      "title": "Implementation",
+      "pdf_page": 4
+    },
+    {
+      "section": "Summary",
+      "title": "Summary",
+      "pdf_page": 5
+    },
+    {
+      "section": "References",
+      "title": "References",
+      "pdf_page": 5
+    }
+  ],
+  "key_points": [
+    {
+      "text": "ESOC data systems need a wide variety of tailoring data (M&C data definitions, procedures, user-defined displays) prepared by the Phase E operations teams. EGSE and AIT teams prepare equivalent products in phases C/D.",
+      "pdf_page": 1
+    },
+    {
+      "text": "OPEN's objectives are to streamline operations tailoring and reduce operator effort, host all preparation applications in one consistent environment, harmonise spacecraft and ground-station operations tools, and extend configuration management to all operations artefacts.",
+      "pdf_page": 1
+    },
+    {
+      "text": "A secondary objective is supporting the transition from SCOS-2000 to the EGS-CC based infrastructure. The framework and some extensions are foreseen to be released under an ESA open source or community licence.",
+      "pdf_page": 2
+    },
+    {
+      "text": "OPEN is mostly agnostic to EGS-CC data types. OPEN-CC adds EGS-CC-aware framework extensions, and EGS-CC-specific extensions can only extend OPEN-CC.",
+      "pdf_page": 2
+    },
+    {
+      "text": "The MICONYS-CC preparation environment will import tailoring data in the legacy SCOS MIB format, to migrate missions from SCOS-2000 to EGS-CC and to let external organisations deliver SCOS-2000 MIBs for systems controlled by MICONYS-CC.",
+      "pdf_page": 2
+    },
+    {
+      "text": "The foreseen FOP editor is a re-engineering of the current FOP editor, MOIS Writer, as an OPEN-CC extension.",
+      "pdf_page": 2
+    },
+    {
+      "text": "GSMC-CC will import ground station sub-system databases and ground station MIBs to configure the EGS-CC monitoring and control model and to generate displays and low-level automation procedures.",
+      "pdf_page": 2
+    },
+    {
+      "text": "Table 1 lists the planned data definitions with their target environments (MICONYS-CC, GSMC-CC, SIMULUS). Examples are the M&C Model, TM/TC packets for the EGS-CC packet encoder/decoder, PUS-based on-board M&C services, user-defined displays, synthetic (derived) parameters, scripts, Java and DSL automation procedures and mission planning rules.",
+      "pdf_page": 3
+    },
+    {
+      "text": "OPEN functions fall into Managed Data, Data Management Services and Data Editors and Browsers. Data models follow the EGS-CC Conceptual Data Model (CDM). Imports such as an S2K MIB are provided by dedicated extensions.",
+      "pdf_page": 4
+    },
+    {
+      "text": "OPEN is built in Java on OSGi and the Eclipse Rich Client Platform. It runs on desktop operating systems including Windows, offline or online, and stores managed data as Eclipse Modelling Framework (EMF) models in a distributed version control system.",
+      "pdf_page": 5
+    },
+    {
+      "text": "OPEN is intended to ultimately become the preparation environment of all ESA missions operated at ESOC.",
+      "pdf_page": 5
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": null,
+      "title": "M. Pecchioli, A. Walsh, \"The EGS-CC based Mission Control Infrastructure at ESOC\" SESP 2017, Noordwijk",
+      "issue": null,
+      "date": "2017",
+      "kind": "bibliography",
+      "pdf_page": 5
+    }
+  ],
+  "topics": [
+    "scos2000/operations-preparation.md",
+    "scos2000/ancillary-and-egs-cc.md",
+    "mib/tooling.md",
+    "mib/index.md"
+  ],
+  "notes": "The extraction reports 6 PDF pages against 5 in the registry, and the last page is empty. The author block prints e-mail addresses, which are omitted here. Table 1's 'x' marks lose their column alignment in the text layer, so check the PDF before attributing a data definition to a specific environment. Typos as printed: 'EGC-CC' for EGS-CC and 'Bowsers' for Browsers (PDF pp. 2, 4). Reference [1] appears to be the library item pecchioli-egs-cc-esoc (same title, authors and SESP 2017 event). The later community paper on OPEN is open-a-community-based-preparation-environment-for-egs-cc-based-system."
+}

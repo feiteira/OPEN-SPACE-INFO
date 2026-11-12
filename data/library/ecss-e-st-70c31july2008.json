@@ -1,0 +1,519 @@
+{
+  "slug": "ecss-e-st-70c31july2008",
+  "title": "Space engineering\nGround systems and operations",
+  "short_title": "ECSS-E-ST-70C: Ground systems and operations (2008)",
+  "doc_id": "ECSS-E-ST-70C",
+  "issue": null,
+  "date": "2008-07-31",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS-E-ST-70C Working Group)",
+  "authors": [
+    "ECSS-E-ST-70C Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Issue of 31 July 2008. It is the evolution of ECSS-E-70 Part 1A (25 April 2000, principles and requirements) and Part 2A (2 April 2001, document requirements definitions), now published together; ECSS-E-70B was never issued (change log, p. 3). The change log does not give an issue name for the C version. The document does not state that it is superseded, and no later issue is in the library.",
+  "summary": "The top-level ECSS standard for the **ground segment and mission operations**. It gives the rules, principles and requirements for engineering the ground segment and for preparing and carrying out operations. It also covers the customer relationships with the ground segment supplier (GSS) and with the operations supplier (OS). EGSE for spacecraft verification and the launch segment are excluded.\n\nClause 4 defines the domain. Operations organizations (teams of operations managers, spacecraft controllers, flight dynamics engineers and others) together with ground systems form *entities*. The ground segment consists of the mission operations system (monitoring and control, flight dynamics, planning, simulation, OBSW maintenance, archiving), the payload operations and data system, the ground station system and the ground communications system.\n\nClauses 5 and 6 are written as process chains with inputs, requirements and outputs:\n\n* **operations engineering**: requirements analysis and concept (MOCD, SSORD tailored from ECSS-E-ST-70-11, on-board services selected from ECSS-E-ST-70-41), mission operations data production (MOP, procedures, and **monitoring and control databases** populated with TM/TC, display and OBCP definitions), data validation against an operational simulator (System Validation Tests), team training, operational validation, configuration management, execution and disposal;\n* **ground segment engineering**: definition, production, AIT and verification, maintenance and disposal.\n\nClause 7 maps these processes onto phases A to F and their reviews (GSSRR, GSPDR, GSCDR, GSQR, ORR, FRR, IOOR, ELR, MCR). Normative Annexes A to J give the DRDs: CRD, MAR, MOCD, OEP, SSUM, OVP, MOP, OAR, operations procedures and CFISRD. Annex K discusses reuse (common M&C databases between AIT and operations), and Annex L lists the Level-3 standards ECSS-E-ST-70-01, -11, -31, -32 and -41.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 10
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 11
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 12
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 13
+    },
+    {
+      "section": "3.1",
+      "title": "Terms defined in other standards",
+      "pdf_page": 13
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 13
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviated terms",
+      "pdf_page": 15
+    },
+    {
+      "section": "4",
+      "title": "Ground segment and operations domain",
+      "pdf_page": 19
+    },
+    {
+      "section": "4.1",
+      "title": "Overview",
+      "pdf_page": 19
+    },
+    {
+      "section": "4.2",
+      "title": "Operations organization",
+      "pdf_page": 19
+    },
+    {
+      "section": "4.3",
+      "title": "Ground systems",
+      "pdf_page": 20
+    },
+    {
+      "section": "4.4",
+      "title": "Engineering processes",
+      "pdf_page": 22
+    },
+    {
+      "section": "4.5",
+      "title": "Critical areas",
+      "pdf_page": 23
+    },
+    {
+      "section": "5",
+      "title": "Operations engineering",
+      "pdf_page": 24
+    },
+    {
+      "section": "5.1",
+      "title": "Overview",
+      "pdf_page": 24
+    },
+    {
+      "section": "5.2",
+      "title": "Requirements analysis and concept development",
+      "pdf_page": 26
+    },
+    {
+      "section": "5.3",
+      "title": "Mission operations data production",
+      "pdf_page": 33
+    },
+    {
+      "section": "5.4",
+      "title": "Mission operations data validation",
+      "pdf_page": 35
+    },
+    {
+      "section": "5.5",
+      "title": "Operations teams build-up and training",
+      "pdf_page": 36
+    },
+    {
+      "section": "5.6",
+      "title": "Operational validation",
+      "pdf_page": 38
+    },
+    {
+      "section": "5.7",
+      "title": "Operational configuration management",
+      "pdf_page": 40
+    },
+    {
+      "section": "5.8",
+      "title": "Operations execution",
+      "pdf_page": 42
+    },
+    {
+      "section": "5.9",
+      "title": "Space segment disposal operations",
+      "pdf_page": 45
+    },
+    {
+      "section": "6",
+      "title": "Ground segment engineering",
+      "pdf_page": 47
+    },
+    {
+      "section": "6.1",
+      "title": "Overview",
+      "pdf_page": 47
+    },
+    {
+      "section": "6.2",
+      "title": "Ground segment definition",
+      "pdf_page": 49
+    },
+    {
+      "section": "6.3",
+      "title": "Ground segment production",
+      "pdf_page": 54
+    },
+    {
+      "section": "6.4",
+      "title": "Ground segment AIT and verification",
+      "pdf_page": 56
+    },
+    {
+      "section": "6.5",
+      "title": "Ground segment maintenance",
+      "pdf_page": 61
+    },
+    {
+      "section": "6.6",
+      "title": "Ground segment disposal",
+      "pdf_page": 63
+    },
+    {
+      "section": "7",
+      "title": "Ground segment and operations lifecycle",
+      "pdf_page": 65
+    },
+    {
+      "section": "7.1",
+      "title": "General",
+      "pdf_page": 65
+    },
+    {
+      "section": "7.2",
+      "title": "Phase A: Mission and operational analysis, feasibility studies and conceptual design",
+      "pdf_page": 67
+    },
+    {
+      "section": "7.3",
+      "title": "Phase B: Preliminary design",
+      "pdf_page": 68
+    },
+    {
+      "section": "7.4",
+      "title": "Phase C: Detailed design",
+      "pdf_page": 70
+    },
+    {
+      "section": "7.5",
+      "title": "Phase D: Production, AIT and verification",
+      "pdf_page": 72
+    },
+    {
+      "section": "7.6",
+      "title": "Phase E: Mission operations",
+      "pdf_page": 75
+    },
+    {
+      "section": "7.7",
+      "title": "Phase F: Disposal",
+      "pdf_page": 77
+    },
+    {
+      "section": "7.8",
+      "title": "Summary of key documents and reviews",
+      "pdf_page": 78
+    },
+    {
+      "section": "Annex A",
+      "title": "Customer requirements document (CRD) - DRD (normative)",
+      "pdf_page": 83
+    },
+    {
+      "section": "Annex B",
+      "title": "Mission analysis report (MAR) - DRD (normative)",
+      "pdf_page": 86
+    },
+    {
+      "section": "Annex C",
+      "title": "Mission operations concept document (MOCD) - DRD (normative)",
+      "pdf_page": 89
+    },
+    {
+      "section": "Annex D",
+      "title": "Operations engineering plan (OEP) - DRD (normative)",
+      "pdf_page": 94
+    },
+    {
+      "section": "Annex E",
+      "title": "Space segment user manual (SSUM) - DRD (normative)",
+      "pdf_page": 97
+    },
+    {
+      "section": "Annex F",
+      "title": "Operational validation plan (OVP) - DRD (normative)",
+      "pdf_page": 105
+    },
+    {
+      "section": "Annex G",
+      "title": "Mission operations plan (MOP) - DRD (normative)",
+      "pdf_page": 108
+    },
+    {
+      "section": "Annex H",
+      "title": "Operations anomaly report (OAR) - DRD (normative)",
+      "pdf_page": 111
+    },
+    {
+      "section": "Annex I",
+      "title": "Operations procedures - DRD (normative)",
+      "pdf_page": 114
+    },
+    {
+      "section": "Annex J",
+      "title": "Customer furnished items and services requirements document (CFISRD) - DRD (normative)",
+      "pdf_page": 118
+    },
+    {
+      "section": "Annex K",
+      "title": "Commonality considerations (informative)",
+      "pdf_page": 123
+    },
+    {
+      "section": "Annex L",
+      "title": "ECSS-E-ST-70 level 3 standards (informative)",
+      "pdf_page": 126
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 128
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Main changes from ECSS-E-70A: a process approach separating operations engineering from ground segment engineering, separate customer-supplier relationships for each, harmonization with ECSS-E-ST-10C, no assumed reference architecture, DRDs as normative annexes, and new DRDs MAR, MOP, CFISRD, OEP and SEP.",
+      "pdf_page": 3
+    },
+    {
+      "text": "Scope excludes ground systems (e.g. EGSE) and operations supporting space segment verification, covered by ECSS-E-ST-10-02, and the launch segment and its operations.",
+      "pdf_page": 11
+    },
+    {
+      "text": "A synthetic parameter is a parameter derived from telemetry and other data via an algorithm; mission operations data are the subset of mission information used to execute in-orbit operations (e.g. procedures, operations rules, monitoring and control databases).",
+      "pdf_page": 14
+    },
+    {
+      "text": "The ground segment typically comprises the mission operations system, the payload operations and data system, the ground station system and the ground communications system.",
+      "pdf_page": 20
+    },
+    {
+      "text": "The mission operations system supports mission analysis, operations preparation, simulation, planning and scheduling, monitoring and control, flight dynamics, on-board software maintenance, data archiving, user services, data product delivery, performance analysis, configuration management and system maintenance.",
+      "pdf_page": 21
+    },
+    {
+      "text": "The ground station system provides TM reception, storage and distribution, TC transmission, tracking/ranging/Doppler/meteo data acquisition, station monitoring and control, time management, network management and data distribution.",
+      "pdf_page": 22
+    },
+    {
+      "text": "Critical areas include reuse of space segment operations knowledge and data (e.g. telemetry and telecommand definitions, procedures) between space segment design, AIT and mission operations.",
+      "pdf_page": 23
+    },
+    {
+      "text": "Space segment operability requirements are compiled in the SSORD, a tailored version of ECSS-E-ST-70-11; the on-board mission operations services, their capability sets and the corresponding telecommands and telemetry are defined with the operations customer, tailoring ECSS-E-ST-70-41.",
+      "pdf_page": 29
+    },
+    {
+      "text": "Inputs to mission operations data production include the SSUM and the space segment monitoring and control database (from the operations customer) and the ground segment monitoring and control database (from the ground segment supplier).",
+      "pdf_page": 33
+    },
+    {
+      "text": "Ground system monitoring and control databases shall be populated with mission-specific data, including mission planning data, OBCPs, telemetry and telecommand definitions, display definitions, on-board software images and patches.",
+      "pdf_page": 34
+    },
+    {
+      "text": "Table 7-8 lists the key ground segment and operations documents and the reviews at which each is deliverable.",
+      "pdf_page": 79
+    },
+    {
+      "text": "Mission operations data are validated with tools representative of the space segment, mainly an operational simulator, and on a flight-representative space segment exercising all procedures, telecommands, modes and redundancies (System Validation Tests).",
+      "pdf_page": 36
+    },
+    {
+      "text": "Table 7-9 defines the ground segment and operations reviews with their purpose, timing and owner, e.g. GSSRR (phase B), GSPDR (end of phase B), GSCDR (end of phase C), GSQR (phase D), ORR (end of phase D, operations customer), ELR (end of phase E2) and MCR (end of phase F).",
+      "pdf_page": 81
+    },
+    {
+      "text": "Annex K recommends reuse of monitoring and control databases and displays between spacecraft manufacturer, check-out and operations, and commonality between EGSE and ground station space link functions (downlink reception, uplink radiation, downlink and uplink data processing).",
+      "pdf_page": 124
+    },
+    {
+      "text": "Annex L lists the level 3 standards: ECSS-E-ST-70-01 (OBCPs), -11 (space segment operability), -31 (monitoring and control data definition, Space System Model), -32 (procedure language, PLUTO) and -41 (PUS).",
+      "pdf_page": 127
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system – Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-E-ST-10",
+      "doc_id": "ECSS-E-ST-10",
+      "title": "Space engineering – System engineering general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-E-ST-10-02",
+      "doc_id": "ECSS-E-ST-10-02",
+      "title": "Space engineering – Verification",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-E-ST-10-06",
+      "doc_id": "ECSS-E-ST-10-06",
+      "title": "Space engineering - Technical specification",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-E-ST-40",
+      "doc_id": "ECSS-E-ST-40",
+      "title": "Space engineering – Software general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-M-ST-40",
+      "doc_id": "ECSS-M-ST-40",
+      "title": "Space project management – Configuration and information management",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-M-ST-70",
+      "doc_id": "ECSS-M-ST-70",
+      "title": "Space project management - Integrated logistic support",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-Q-ST-10-09",
+      "doc_id": "ECSS-Q-ST-10-09",
+      "title": "Space product assurance - Nonconformance control system",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-Q-ST-80",
+      "doc_id": "ECSS-Q-ST-80",
+      "title": "Space product assurance - Software product assurance",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 12
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "ECSS-E-ST-10-02",
+      "doc_id": "ECSS-E-ST-10-02",
+      "title": "Space engineering – Verification",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "ECSS-E-ST-70-01",
+      "doc_id": "ECSS-E-ST-70-01",
+      "title": "Space engineering – On-board control procedures",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "ECSS-E-ST-70-11",
+      "doc_id": "ECSS-E-ST-70-11",
+      "title": "Space engineering – Space segment operability",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "ECSS-E-ST-70-31",
+      "doc_id": "ECSS-E-ST-70-31",
+      "title": "Space engineering – Ground systems and operations – Monitoring and control data definition",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "ECSS-E-ST-70-32",
+      "doc_id": "ECSS-E-ST-70-32",
+      "title": "Space engineering – Test and operations procedure language",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "ECSS-E-ST-70-41",
+      "doc_id": "ECSS-E-ST-70-41",
+      "title": "Space engineering – Telemetry and telecommand packet utilization",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "ECSS-M-ST-10",
+      "doc_id": "ECSS-M-ST-10",
+      "title": "Space project management – Project planning and implementation",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    },
+    {
+      "label": "CCSDS 701.0-B-2",
+      "doc_id": "CCSDS 701.0-B-2",
+      "title": "Advanced Orbiting Systems, Networks and Data Links: Architectural Specification",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 128
+    }
+  ],
+  "topics": [
+    "ecss/e-st-70c.md",
+    "ecss/index.md",
+    "scos2000/operations-preparation.md",
+    "scos2000/index.md",
+    "mib/index.md",
+    "ecss/e-st-70-11c.md",
+    "ecss/e-st-70-31c.md",
+    "overview/standards-map.md"
+  ],
+  "notes": "The abbreviation table (pp. 15-18) lists the review acronyms (e.g. GSSRR, GSQR, OQR, ORR, IOOR, MCR). Figures 4-2 (ground segment systems) and 7-1 (phases) are graphics. The normative references end with 'do not apply, However' (p. 12), and a MOP requirement ends ';.' (p. 34). The change log sentence 'Like ECSS-E-70A is based on the Customer – Supplier concept' is ungrammatical (p. 3). Related library items: ECSS-E-ST-70-01C (ecss-e-st-70-01c16april2010), ECSS-E-ST-70-11C Rev.1 (ecss-e-st-70-11c-rev-1-15october2025), ECSS-E-ST-70-31C (ecss-e-st-70-31c), ECSS-E-ST-70-32C (ecss-e-st-70-32c31july2008) and ECSS-E-ST-70-41C (ecss-e-st-70-41c-15april2016). Printed page numbers equal PDF page numbers; srcgrep shows 129 PDF pages (the last one blank) while the registry gives 128."
+}

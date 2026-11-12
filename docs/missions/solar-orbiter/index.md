@@ -1,8 +1,8 @@
 ---
 title: Solar Orbiter
-description: The Solar Orbiter mission data systems as described by the public documents in this wiki's library - space-ground packet and frame structure, the EDDS-based data delivery to the science ground segment, RAPID files, the E-FECS planning skeleton, on-board inter-instrument communication and the publicly posted MIB releases.
+description: The Solar Orbiter mission data systems as described by the public documents in this wiki's library - space-ground packet and frame structure, the EDDS-based data delivery to the science ground segment, RAPID files, the E-FECS planning skeleton, on-board inter-instrument communication, the instrument interface documents (EID-A, SWA DPU ICD), and the publicly posted MIB releases and instrument databases.
 tags: [Mission, Solar Orbiter, SCOS-2000, EDDS, PUS, MIB]
-sources: [sol-s-astr-tn-00079-07, solo-ddid-i1r2, sol-esc-prs-22100-edds-ddid-demo, sol-sgs-icd-0006-efecs-icd-3-0, sol-sgs-tn-0007-s20-2-0, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, icd-7-0-final]
+sources: [sol-s-astr-tn-00079-07, solo-ddid-i1r2, sol-esc-prs-22100-edds-ddid-demo, sol-sgs-icd-0006-efecs-icd-3-0, sol-sgs-tn-0007-s20-2-0, 12-3-solarorbiter-eid-a-issue-1-0-2007-10-09, so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, swa-idb-v6-5-0, stix-idb-v2-26-38-raw, icd-7-0-final]
 ---
 
 # Solar Orbiter
@@ -25,16 +25,23 @@ This page is the entry point. The data-driven pages are:
   parameters, commands and the 2020-to-2025 evolution of the real database.
 * [How Solar Orbiter uses PUS](pus-usage.md) - every standard and private service found in
   the MIB, mapped to the [PUS](../../ecss/pus/index.md) pages.
-* [Solar Orbiter SWA instrument database](swa.md) - the SWA instrument database and how it
-  relates to the spacecraft MIB.
+* [Solar Orbiter SWA instrument database](swa.md) - the two copied SWA instrument database
+  versions (6.3.4 and 6.5.0), their release notes and how they relate to the spacecraft MIB.
+* [Solar Orbiter STIX instrument database](stix.md) - the same analysis for the STIX instrument
+  database 2.26.38.
+* [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](instrument-interfaces.md) - what
+  ESA required of every instrument in 2007 and how one instrument, SWA, defined its packets and
+  services.
 * The [MIB explorer](../../explorer/index.md#/solo/search/SWA), where every parameter,
-  packet, command and sequence of the September 2025 release can be browsed.
+  packet, command and sequence of the September 2025 release can be browsed, with separate views
+  of the [SWA 6.5.0](../../explorer/index.md#/swa65/search/SWA) and
+  [STIX](../../explorer/index.md#/stix/search/STIX) instrument databases.
 
 ## The mission at a glance
 
 | Item | Value | Source |
 |---|---|---|
-| CCSDS spacecraft identifier | `0x28A` (650), the same for TM and TC, for the flight model, the ETB and the OBC-DM | [^icd-tcf][^icd-tmf] |
+| CCSDS [spacecraft identifier](../../ccsds/space-link-identifiers.md) | `0x28A` (650), the same for TM and TC, for the flight model, the ETB and the OBC-DM | [^icd-tcf][^icd-tmf] |
 | Packet standard | ECSS-E-70-41A (PUS-A, 2003), applicable document AD1 | [^icd-ad] |
 | TC packet data field | at most 242 octets: 4 data field header + 236 application data + 2 packet error control | [^icd-tcpkt] |
 | TM source packet | at most 4112 octets; data field at most 4106 octets (10 header + 4096 source data) | [^icd-tm][^icd-tmdfh] |
@@ -44,6 +51,8 @@ This page is the entry point. The data-driven pages are:
 | MCS mission identifier | 650 in the SCOS-2000 packet header | [^ddid-711] |
 | Ground station IDs in the archive | 21 Kourou, 22 Perth, 23 New Norcia, 24 Cebreros, 25 Malargüe, 30 Maspalomas; 201 reference test station (ESOC), 202 NDIU Lite, 203 NDIU IFMS | [^ddid-711] |
 | Latest MIB release copied | `MIB__20250916M25925PFMS001_SOL` (VDF `25925PFM`, comment `20250916-CSW3.1.2_MAS7.33`) | [^mib25] |
+| Instrument to platform data link | SpaceWire (ECSS-E-50-12), two independent links per instrument routed separately, SpaceWire time codes received by every instrument (EID-A, 2007) | [^eida-dh] |
+| Instrument databases copied | SWA 6.3.4 and 6.5.0 (IRAP), STIX 2.26.38 | [^reg-irap][^reg-r2] |
 
 ## Who does what: the ground segment
 
@@ -57,6 +66,16 @@ packet to the SGS as RAPID files.[^ddid-2] In the other direction, the SOC turns
 planning products into a planning skeleton for the instrument teams, the E-FECS, and collects
 their Instrument Operations Requests (IORs), which it forwards to the MOC as Payload
 Operations Requests (PORs).[^efecs-1][^efecs-acr]
+
+The split goes back to the instrument requirements of 2007. Issue 1 of the Experiment Interface
+Document Part A (EID-A) already placed the MOC and the communications infrastructure under
+ESA/ESOC, archived housekeeping and raw payload data at the MOC, and had the SOC generate the
+payload operations requests that the MOC implements and distribute the data to the PIs. It listed
+the MOC tasks relevant to science: overall mission planning, supplying each PI in near real time
+with the raw data of their instrument plus spacecraft housekeeping and auxiliary data, giving the
+SOC a subset, checking a set of payload parameters for out-of-limit values in near real time, and
+notifying payload anomalies.[^eida-gs] Its baseline ground station was New Norcia, with Cebreros
+as backup;[^eida-com] the DDID of 2019 lists six ESA stations (see the table above).[^ddid-711]
 
 ```mermaid
 flowchart LR
@@ -439,7 +458,8 @@ touch TM/TC directly:
 * **Passes.** Any low-latency data written to SpaceWire before the start of a `PASS` event is
   downlinked in that pass (special cases aside). Pass events carry the station, the frame-level
   downlink rate, the modulation, whether ranging is on, and a "MIB code" for the transponder
-  configuration.[^efecs-pass]
+  configuration.[^efecs-pass] The transponder's parameters and commands in the MIB are described on
+  [RF and ranging](../../ccsds/rf-and-ranging.md#solar-orbiters-deep-space-transponder-in-the-mib).
 * **Routing maintenance.** During `ENG_WIN` windows TM and TC routing to and from the
   instruments is suspended or not guaranteed because of SSMM/SpaceWire maintenance, so no
   planned instrument TCs may be submitted.[^efecs-eng]
@@ -506,24 +526,129 @@ is split into fixed allocations, spares included:[^tn7-61]
 | 223-236 | SPICE (all spare) | 14 |
 
 The platform content is described in chapter 4 of the note, with several fields still marked
-TBC.[^tn7-4] The SWA IIC packet can be followed field by field in the real SWA database on
+TBC.[^tn7-4] The instrument side of the SWA contribution - a TM(3,25) with SID 255 every
+4 seconds carrying the heartbeat, the PAS proton density and the three velocity components - is
+defined again in §9 of the SWA DPU Communications ICD.[^dpu-9] The SWA IIC packet can be followed field by field in the real SWA database on
 [Solar Orbiter SWA instrument database](swa.md#the-iic-packet-in-the-database), and the service
 20 usage on [How Solar Orbiter uses PUS](pus-usage.md#service-20-information-distribution).
+
+## Instrument interfaces and instrument databases
+
+The library holds two layers of instrument documents - ESA's requirements on all instruments
+(the EID-A) and one instrument's own interface control document (the SWA DPU ICD), which the SWA
+instrument database follows - plus the databases of two instruments.[^eida-12][^dpu-docs][^rn]
+
+```mermaid
+flowchart TB
+  MRD["Mission Requirements Document<br/>SOL-EST-RS-0049"] --> EIDA["EID-A, SOL-EST-IF-0050<br/>ESA requirements on every instrument<br/>(issue 1, 2007)"]
+  EIDA --> EIDB["EID-B<br/>each PI's binding response"]
+  EIDA --> DPU["SO-SWA-DPU_CD-IC-003<br/>SWA DPU Communications ICD<br/>(issue 8.2, 2019)"]
+  PKT["SOL.S.ASTR.TN.00079 issue 7<br/>TM-TC and packet structure ICD"] --> DPU
+  DPU --> IDB["SWA instrument database<br/>(Planetek; versions follow ICD issues)"]
+  IDB -.-> MIB["Spacecraft MIB release<br/>(same SWA definitions)"]
+  STIX["STIX instrument database 2.26.38"] -.-> MIB
+```
+
+The solid arrows are stated in the documents: the EID-A places itself under the Mission
+Requirements Document and next to EID-B, the DPU ICD lists the EID-A (as SOL-EST-RCD-0050
+issue 5) as an applicable document and the packet structure ICD issue 7 as a reference, and the
+IDB release notes align IDB versions with DPU ICD issues.[^eida-12][^dpu-docs][^rn] The dotted
+arrows are this wiki's inference from comparing the databases (see the Inference notes on the
+[SWA](swa.md#how-the-idb-relates-to-the-spacecraft-mib) and
+[STIX](stix.md#how-the-idb-relates-to-the-spacecraft-mib) pages).
+
+### EID-A: what ESA asked of the instruments in 2007
+
+**What it is.** The *Solar Orbiter Experiment Interface Document - Part A*, SOL-EST-IF-0050
+issue 1 revision 0 of 9 October 2007, was prepared at ESTEC by the Solar Orbiter team. The EID is
+first released with the instrument Announcement of Opportunity; Part A states the technical and
+programmatic requirements that every PI must meet, Part B is each PI's response and becomes the
+sole binding agreement between the project office and that PI, and both are placed under
+configuration control once signed.[^eida-12] The copy in the library was taken from the host
+explorers.larc.nasa.gov.[^reg-r2] It was written before the payload was selected: its resource
+table lists potential instruments named VIM, EUS, COR, HI/WFC and DPD next to SWA, RPW, MAG, EPD,
+EUI and STIX, and it allocates the payload 180 kg, 180 W and 100 kbps in all, against maximum
+data rates of, for example, 14 000 bps for SWA and 200 bps for STIX.[^eida-res]
+
+Its TM/TC-relevant requirements are few but basic:
+
+| Topic | EID-A issue 1 requirement | Where it ended up |
+|---|---|---|
+| Data handling | the spacecraft Data Management System provides instrument command and control, command timeline management, packetised science data acquisition, mass memory storage and transmission, and health monitoring of instruments that are off; the bus is SpaceWire (ECSS-E-50-12) and each instrument uses a dual cold-redundant SpaceWire interface for TM and TC packets[^eida-dhs] | the SWA DPU talks to the OBC over SpaceWire, with TC, TM and time-code services in its EXOS layer[^dpu-4] |
+| Links and time | SpaceWire link interface compliant up to the packet and network levels; two independent lines per instrument, addressed and routed separately; every instrument shall receive SpaceWire time codes; digital telemetry "TBW"[^eida-dh] | in the SWA DPU, time-code management is implemented in the DPM FPGA and reported through EXOS[^dpu-4] |
+| Fault handling | no automatic reconfiguration after a failure; go to a safe mode, send TM records of the fault to the DMS, recover only by ground telecommand[^eida-ft] | the inter-instrument TC(20,128) doubles as the OBC heartbeat that lets instruments go safe when the spacecraft enters Survival Mode[^tn7-2] |
+| On-board software | ECSS-E-40; boot software in PROM with access to all functions; an event report before any forced processor reset and on overload, arithmetic overflow, illegal instruction, data bus error, EDAC-detected memory corruption and checksum error; a single telecommand to enable software, after checking the upload; all ground communication with software functions through dedicated TC and TM source packets[^eida-sw] | the SWA DPU boot software resides in PROM and cannot be patched[^dpu-4] |
+| EGSE | the instrument station exchanges TM with the Central Checkout Equipment over a TCP/IP LAN at source packet level, using an EGSE protocol to be defined by the contractor; the CCE commands the instrument and monitors its housekeeping[^eida-egse] | see [SCOS-2000 as EGSE](../../scos2000/egse.md) |
+
+The PUS is not mentioned in issue 1, and its operations chapter is mostly placeholders: mission
+operations, inputs to the satellite database, on-board software maintenance, inputs to the
+planning system and command request handling are all "TBW".[^eida-ops] In the library, the PUS
+tailoring is covered by the later packet structure ICD and planning by the E-FECS ICD; how
+instrument definitions enter the satellite database is visible only in the data. The DPU ICD cites issue 5 of the EID-A,
+which is not in the library.[^dpu-docs]
+
+### The SWA DPU Communications ICD
+
+**What it is.** SO-SWA-DPU_CD-IC-003 issue 8.2 (7 August 2019) is the communications interface
+control document of the SWA Data Processing Unit, written by the Italian DPU team under an ASI
+contract in the format of Annex E of ECSS-E-ST-40C. Over 403 pages it gives the DPU software
+architecture, the APID allocation of every SWA telemetry type, the format and error codes of every
+telecommand the DPU accepts (PUS services 3, 5, 6, 9, 17, 20, 21 and the private services 200 to
+204), the housekeeping, asynchronous, inter-instrument and science packets, the internal protocols
+with the four sensors, and the code tables for events and for the failure reports TM(1,2)
+("TARF") and TM(1,8) ("TECF").[^dpu-cover][^dpu-toc][^dpu-5]
+It references ECSS-E-70-41A (PUS-A) and SOL.S.ASTR.TN.00079 issue 7, the packet structure ICD
+described above.[^dpu-docs] Its change record runs from issue 1 (27 June 2014) to 8.2, and the
+SWA IDB release notes follow most of its issues; the comparison of the ICD, the IDB and the MIB is
+on [Solar Orbiter SWA instrument database](swa.md), and the document itself is presented on
+[Solar Orbiter instrument interfaces](instrument-interfaces.md).[^dpu-dcr][^rn]
+
+### The instrument databases
+
+The databases of two instruments are publicly posted in MIB format, and this wiki copied three
+versions:
+
+| Database | Version record (`vdf`, last row) | Parameters | Packets / APIDs | Commands | In the 2025 spacecraft MIB |
+|---|---|---:|---:|---:|---|
+| [SWA 6.3.4](swa.md) (`ASCII.zip`) | `SWA_6.3.4` (70 rows) | 2 885 | 609 / 15 | 198 | all parameters and packets, 197 commands |
+| [SWA 6.5.0](swa.md) | `SWA_6.3.3_wa` (70 rows; 6.4.x and 6.5.0 not recorded) | 2 885 | 613 / 15 | 201 | all parameters and packets, 200 commands |
+| [STIX 2.26.38](stix.md) | `STX_226`, "PFM_applicable" (1 row) | 681 | 246 / 9 | 100 | all parameters and packets, 99 commands |
+
+The counts and comparisons are this wiki's queries.[^swa][^swa65][^stix][^mib25] In both
+instruments the only command of the IDB missing from the 2025 MIB is the TC(9,129) time
+synchronisation command (`ZIA58057`, `ZIX09129`), which the spacecraft release dropped for every
+instrument (see [How Solar Orbiter uses PUS](pus-usage.md#service-9-time-management)).[^swa65][^stix][^mib25]
+Browse them in the explorer as [SWA 6.5.0](../../explorer/index.md#/swa65/apid/1585) and
+[STIX](../../explorer/index.md#/stix/apid/1447).
+
+??? example "SQL used (instrument databases against the 2025 MIB)"
+    ```sql
+    -- run on swa-idb.sqlite, swa-idb-v6.5.0.sqlite and stix-idb-2.26.38.sqlite
+    ATTACH 'file:solo-2025-09-16.sqlite?mode=ro' AS m;
+    SELECT VDF_NAME, VDF_COMMENT FROM main.vdf ORDER BY rowid DESC LIMIT 1;
+    SELECT count(*), sum(PCF_NAME IN (SELECT PCF_NAME FROM m.pcf)) FROM main.pcf;
+    SELECT count(*), count(DISTINCT PID_APID), sum(PID_SPID IN (SELECT PID_SPID FROM m.pid)) FROM main.pid;
+    SELECT count(*), sum(CCF_CNAME IN (SELECT CCF_CNAME FROM m.ccf)) FROM main.ccf;
+    SELECT CCF_CNAME, CCF_TYPE, CCF_STYPE FROM main.ccf WHERE CCF_CNAME NOT IN (SELECT CCF_CNAME FROM m.ccf);
+    ```
 
 ## The MIB releases
 
 The SWA/PAS team's server at IRAP hosts the Solar Orbiter MIB as a directory of 111 dated
 releases (April 2020 to September 2025), each a zip named like
 `MIB__20250916M25925PFMS001_SOL.zip`, plus `latest/` and `previous/` sets, SWA instrument
-database versions and the ICD.[^irap] This wiki copied two releases and one SWA database:
+database versions and the ICD.[^irap] This wiki copied two releases and two SWA databases from
+there, and the STIX database from a separate server:
 
 | Library item | Original file | Copied (UTC) | SHA-256 (first 16 hex) |
 |---|---|---|---|
 | [MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md) | `MIBs/MIB__20250916M25925PFMS001_SOL.zip` (6 187 063 bytes) | 2026-11-05 14:24:03 | `c8ef0ea254d48b76` |
 | [MIB__20200416M10720PFMS001_SOL](../../library/mib-20200416m10720pfms001-sol.md) | `MIBs/MIB__20200416M10720PFMS001_SOL.zip` (4 735 907 bytes) | 2026-11-05 14:26:42 | `a524903135d0a62c` |
 | [SWA IDB (ASCII.zip)](../../library/swa-idb-ascii.md) | `ASCII.zip` (142 018 bytes) | 2026-11-05 14:26:47 | `aad3e32da477e39c` |
+| [SWA IDB v6.5.0](../../library/swa-idb-v6-5-0.md) | `SWA_IDB_v6.5.0.zip` (115 876 bytes) | 2026-11-12 17:52:24 | `9f63f211dc1890df` |
+| [STIX IDB v2.26.38](../../library/stix-idb-v2-26-38-raw.md) | `v2.26.38.raw.zip` on pub099.cs.technik.fhnw.ch (70 526 bytes) | 2026-11-12 17:45:36 | `4b627929a521831b` |
 
-The copy times, sizes and hashes are those of this wiki's source registry.[^reg-irap] The
+The copy times, sizes and hashes are those of this wiki's source registry.[^reg-irap][^reg-r2] The
 release format follows the [SCOS-2000 Database Import ICD](../../mib/icd-history.md), issue 7.0
 of which sits on the same server as the "MOC-applicable" ICD.[^reg-icd] What the releases
 contain, how they are named and how they changed between 2020 and 2025 is the subject of
@@ -539,21 +664,31 @@ contain, how they are named and how they changed between 2020 and 2025 is the su
 | E-FECS ICD | SOL-SGS-ICD-0006, issue 3.0, 2021-10-05 | ESA, ESAC (C. Watson) | [sol-sgs-icd-0006-efecs-icd-3-0](../../library/sol-sgs-icd-0006-efecs-icd-3-0.md) (2026-11-05 14:13:08) |
 | On-board Inter-instrument Communication via Services 3 and 20 | SOL-SGS-TN-0007, issue 2.0, 2016-10-07 | ESA, ESAC (L. Sanchez) | [sol-sgs-tn-0007-s20-2-0](../../library/sol-sgs-tn-0007-s20-2-0.md) (2026-11-05 14:12:56) |
 | SCOS-2000 Database Import ICD | EGOS-MCS-S2K-ICD-0001, issue 7.0, 2017-08-11 | ESA/ESOC | [icd-7-0-final](../../library/icd-7-0-final.md) (2026-11-05 13:53:46) |
+| Experiment Interface Document Part A | SOL-EST-IF-0050, issue 1 rev. 0, 2007-10-09 | ESA, ESTEC (Solar Orbiter Team) | [12-3-solarorbiter-eid-a-issue-1-0-2007-10-09](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) (2026-11-12 17:52:05) |
+| SWA DPU Communications ICD | SO-SWA-DPU_CD-IC-003, issue 8.2, 2019-08-07 | SWA DPU Team | [so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (2026-11-12 17:47:43) |
 
-All were retrieved from solarorbiter.irap.omp.eu; the copy times are those of the source
-registry.[^reg-irap][^reg-icd] The issue cited by SOL-SGS-TN-0007 for the packet structure ICD
+All but the EID-A (from explorers.larc.nasa.gov) were retrieved from solarorbiter.irap.omp.eu; the
+copy times are those of the source registry.[^reg-irap][^reg-icd][^reg-r2] The issue cited by SOL-SGS-TN-0007 for the packet structure ICD
 is issue 6, one issue older than the copy in the library.[^tn7-1] The full catalogue is on
 [References](../../references/index.md); acronyms are in the [glossary](../../glossary.md).
 
 ## Related pages
 
 * [The Solar Orbiter MIB](mib.md), [How Solar Orbiter uses PUS](pus-usage.md),
-  [Solar Orbiter SWA instrument database](swa.md)
+  [Solar Orbiter SWA instrument database](swa.md), [Solar Orbiter STIX instrument database](stix.md),
+  [Solar Orbiter instrument interfaces](instrument-interfaces.md)
 * [Worked example: decoding a real Solar Orbiter TM packet](../../overview/worked-example-tm.md)
   and [building a real TC](../../overview/worked-example-tc.md)
 * [PUS packet structures](../../ecss/pus/packets.md), [PUS-A vs PUS-C](../../ecss/pus/pus-a-vs-pus-c.md)
 * [EDDS](../../scos2000/edds.md), [EDDS formats](../../scos2000/edds-formats.md),
   [archives](../../scos2000/archives.md), [time correlation](../../scos2000/time-correlation.md)
+* [Space link identifiers](../../ccsds/space-link-identifiers.md#identifiers-in-the-solar-orbiter-database)
+  (SCID 650, VCIDs, APIDs), [COP-1](../../ccsds/cop-1.md), [security in CCSDS space links](../../ccsds/security.md#in-the-solar-orbiter-mib)
+  and [RF and ranging](../../ccsds/rf-and-ranging.md#solar-orbiters-deep-space-transponder-in-the-mib)
+* [NCTRS, NIS and the ground station interface](../../scos2000/nctrs-nis.md),
+  [SLE FSP](../../ccsds/sle/fsp.md#fsp-in-esas-ground-segment-and-the-solar-orbiter-mib) and
+  [SLE service management](../../ccsds/sle/service-management.md#service-agreement-and-package-identifiers-in-the-solar-orbiter-mib)
+* [ECSS-E-ST-70-01C on-board control procedures](../../ecss/e-st-70-01c.md#solar-orbiter-an-obcp-system-in-flight)
 * [Missions](../index.md), [Herschel and Planck](../herschel-planck.md)
 
 [^efecs-acr]: [SOL-SGS-ICD-0006 E-FECS ICD, issue 3.0](../../library/sol-sgs-icd-0006-efecs-icd-3-0.md), §1.5 Acronyms (MOC = ESOC, SOC = ESAC, E-FECS, IOR, POR, LLD, TAC), PDF pp. 11-12.
@@ -619,9 +754,31 @@ is issue 6, one issue older than the copy in the library.[^tn7-1] The full catal
 [^tn7-3]: [SOL-SGS-TN-0007 issue 2.0](../../library/sol-sgs-tn-0007-s20-2-0.md), §3.1-3.3, PDF pp. 8-9.
 [^tn7-4]: [SOL-SGS-TN-0007 issue 2.0](../../library/sol-sgs-tn-0007-s20-2-0.md), §4 Parameters requested from the platform, PDF pp. 10-11.
 [^tn7-61]: [SOL-SGS-TN-0007 issue 2.0](../../library/sol-sgs-tn-0007-s20-2-0.md), §6.1-6.2, PDF p. 25.
-[^mib25]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md), tables `vdf`, `pid` (APIDs 183 and 1966), `ccf` (APIDs 44, 172 and 188; `CCF_HIPRI`, `CCF_MAPID`) and `pcdf` (TC header `NOM_TC`, 8-bit source ID), queried by this wiki on 2026-11-12.
+[^mib25]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md), tables `vdf`, `pid` (APIDs 183 and 1966), `ccf` (APIDs 44, 172 and 188; `CCF_HIPRI`, `CCF_MAPID`) and `pcdf` (TC header `NOM_TC`, 8-bit source ID), and `pcf`, `pid` and `ccf` for the comparison with the instrument databases, queried by this wiki on 2026-11-12.
 [^i70-tpcf]: [SCOS-2000 Database Import ICD, issue 7.0](../../library/icd-7-0-final.md), §3.3.2.4.3, field `TPCF_SIZE`, PDF p. 95.
 [^i70-mapid]: [SCOS-2000 Database Import ICD, issue 7.0](../../library/icd-7-0-final.md), §3.3.3.2.1 fields `CCF_HIPRI` and `CCF_MAPID`, PDF p. 139.
 [^reg-irap]: This wiki's source registry (`data/sources.json`) entries for the library items [mib-20250916m25925pfms001-sol](../../library/mib-20250916m25925pfms001-sol.md), [mib-20200416m10720pfms001-sol](../../library/mib-20200416m10720pfms001-sol.md), [swa-idb-ascii](../../library/swa-idb-ascii.md), [sol-s-astr-tn-00079-07](../../library/sol-s-astr-tn-00079-07.md), [solo-ddid-i1r2](../../library/solo-ddid-i1r2.md), [sol-esc-prs-22100-edds-ddid-demo](../../library/sol-esc-prs-22100-edds-ddid-demo.md), [sol-sgs-icd-0006-efecs-icd-3-0](../../library/sol-sgs-icd-0006-efecs-icd-3-0.md) and [sol-sgs-tn-0007-s20-2-0](../../library/sol-sgs-tn-0007-s20-2-0.md) (original URL on solarorbiter.irap.omp.eu, copy time, size, SHA-256).
 [^reg-icd]: Source registry entry for [icd-7-0-final](../../library/icd-7-0-final.md), original URL `https://solarorbiter.irap.omp.eu/documents/MOC/MOC-applicable%20MIB%20egos-mcs-s2k-icd-0001-version7.0-FINAL.pdf`, copied 2026-11-05 13:53:46 UTC.
 [^irap]: Web directory listing <https://solarorbiter.irap.omp.eu/MIB/> and <https://solarorbiter.irap.omp.eu/MIB/MIBs/> (not a library item), as surveyed for this project on 2026-11-05: 111 release zips from April 2020 to September 2025, `latest/`, `previous/`, SWA_IDB versions and `docs/`. Not re-checked on 2026-11-12.
+[^eida-12]: [SOL-EST-IF-0050 Solar Orbiter Experiment Interface Document Part A, issue 1 rev. 0](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), cover and approval page, §1.2 Scope and §1.3 Document Concept & Architecture (Figure 1), PDF pp. 1-2 and 10-12.
+[^eida-res]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §3.3.3, Table 2 Spacecraft Payload Allocations and Table 3 Maximum Resource Allocations for Potential Instruments, PDF pp. 20-21.
+[^eida-gs]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §3.2.1 Ground Segment and §5.3.1.1 Operational Ground Segment, PDF pp. 17 and 87-88.
+[^eida-com]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §3.3.1 Communications, PDF p. 18.
+[^eida-dhs]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §3.5 Satellite Data Handling Architecture, PDF p. 30.
+[^eida-dh]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §4.8.2.1-4.8.2.4 Data Handling Electrical Interface Design, PDF p. 70.
+[^eida-ft]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §4.2.4 Fault Tolerance, PDF pp. 35-36.
+[^eida-sw]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §4.9.1 Software Design Requirements (requirements 1-18), PDF pp. 71-72.
+[^eida-egse]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §8.7.1.5 Ground Support Equipment (requirements 5-8), PDF p. 188.
+[^eida-ops]: [SOL-EST-IF-0050 EID-A, issue 1](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md), §5.3.2-5.3.6 (sections marked TBW, including 5.3.3.2 Inputs to Satellite Database), PDF pp. 88-90.
+[^dpu-cover]: [SO-SWA-DPU_CD-IC-003 SWA DPU Communications ICD, issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), cover page and §1.1-1.2 (DRD Annex E to ECSS-E-ST-40C, ASI contract 2013-055-1.0), PDF pp. 1 and 18.
+[^dpu-toc]: [SO-SWA-DPU_CD-IC-003 issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), Table of Content, PDF pp. 11-16.
+[^dpu-docs]: [SO-SWA-DPU_CD-IC-003 issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), §2.1 Applicable Documents (AD[2] SOL-EST-RCD-0050 EID-A issue 5) and §2.2 Reference Documents (RD[1] ECSS-E-70-41A, RD[3] SOL.S.ASTR.TN.00079 issue 7), PDF p. 19.
+[^dpu-dcr]: [SO-SWA-DPU_CD-IC-003 issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), Document Change Record, issues 1 (27/06/2014) to 8.2 (07/08/2019), PDF pp. 3-10.
+[^dpu-4]: [SO-SWA-DPU_CD-IC-003 issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), §4-4.1.2 DPU Software Overview (EXOS SpaceWire services towards the OBDH, boot software in PROM), PDF pp. 25-30.
+[^dpu-5]: [SO-SWA-DPU_CD-IC-003 issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), §5 Service Implementation, Table 1 (TARS, TARF, TECS, TECF on TM(1,1), (1,2), (1,7), (1,8)), PDF pp. 32-35.
+[^dpu-9]: [SO-SWA-DPU_CD-IC-003 issue 8.2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md), §9 SWA DPU Inter Process Communication Contribution (S20), PDF pp. 303-304.
+[^rn]: [SWA IDB v6.5.0](../../library/swa-idb-v6-5-0.md), file `IDB_relNotes.txt` (Planetek Italia release notes, entries 2.0.0 to 6.5.0, many of them naming the DPU ICD issue they follow); a plain-text file without page numbers.
+[^swa]: [Solar Orbiter SWA instrument database 6.3.4 (ASCII.zip)](../../library/swa-idb-ascii.md), tables `vdf`, `pcf`, `pid`, `ccf`, queried by this wiki on 2026-11-12.
+[^swa65]: [Solar Orbiter SWA instrument database v6.5.0](../../library/swa-idb-v6-5-0.md), tables `vdf`, `pcf`, `pid`, `ccf`, queried by this wiki on 2026-11-12.
+[^stix]: [Solar Orbiter STIX instrument database v2.26.38](../../library/stix-idb-v2-26-38-raw.md), tables `vdf`, `pcf`, `pid`, `ccf`, queried by this wiki on 2026-11-12.
+[^reg-r2]: Source registry (`data/sources.json`) entries for [12-3-solarorbiter-eid-a-issue-1-0-2007-10-09](../../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) (explorers.larc.nasa.gov), [so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2](../../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) and [swa-idb-v6-5-0](../../library/swa-idb-v6-5-0.md) (solarorbiter.irap.omp.eu), and [stix-idb-v2-26-38-raw](../../library/stix-idb-v2-26-38-raw.md) (`https://pub099.cs.technik.fhnw.ch/data/idb/v2.26.38.raw.zip`): original URL, copy time, size and SHA-256.

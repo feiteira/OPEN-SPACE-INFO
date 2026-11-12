@@ -1,0 +1,262 @@
+{
+  "slug": "presentation-deployment-of-the-pus-c-standard",
+  "title": "Deployment of the PUS-C Standard in Projects supported by an Automatic Generation Toolset\nFinal Presentation",
+  "short_title": "PUS-C Gen: automatic generation toolset (2020)",
+  "doc_id": null,
+  "issue": "Final Presentation",
+  "date": "2020-05-15",
+  "organisation": "SPACEBEL",
+  "authors": [],
+  "doc_type": "Presentation",
+  "status_notes": "Final presentation of the 'PUS C Gen' (PUSCGen) study, dated 15 May 2020 in the slide footer. It reports the CoreSight deployment as 'nearing completion' and the MSP430 'DemoSat' as 'in progress' (PDF pp. 34, 37).",
+  "summary": "Final presentation of an ESA study, **PUSCGen**, that built tools for deploying **PUS-C (ECSS-E-ST-70-41C)** in projects. The motivation is the size of the PUS-C document: the study wanted to check its internal consistency by generating its content systematically from the **PUS foundation model** (clause 5 of the standard), and to make tailoring easier.\n\nPart I: the foundation model is captured in **Object Role Modelling (ORM)** with the NORMA tool. The specification of clauses 6 and 8 is treated as a population of that model. The review produced **21 change requests** to PUS-C (7 major, 7 minor and 7 editorial) and a relational database generated from the ORM model. One limitation is that the 'system objects' accessed by subservices are modelled only generically.\n\nPart II: the **toolset** has three applications. A Population Tool defines and tailors service, subservice, capability, message, instruction and notification types. DOC-GEN regenerates ECSS-E-ST-70-41C-style chapters 6 and 8 and annexes C and D, and a full population can reproduce the standard closely. ASN1-GEN produces **ASN.1/ACN** definitions of the TC/TM, which ESA's ASN1SCC compiler turns into data structures, C encoders and decoders, Python bindings and ICDs.\n\nPart III: **SDL and MSC** models of services 1, 6, 9, 12 and a generic service template show that most services are nearly stateless, and that some service 1 notifications are not properly defined.\n\nPart IV: deployments. **Proba-3** added a housekeeping-compression subservice to service 3 and a mission-specific reaction-wheel service 8. A **CoreSight** tracing R&D project used services 1, 6 and custom 192. An **MSP430** TASTE CubeSat demo used services 1, 2, 3 and custom 222. A Spacebel initiative aims to link the ASN.1 output to its SRDB tooling, whose SRDB components can be integrated in SCOS2000, for example.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Agenda",
+      "pdf_page": 2
+    },
+    {
+      "section": null,
+      "title": "Project Context",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Project Overview",
+      "pdf_page": 4
+    },
+    {
+      "section": "Part I",
+      "title": "PUS foundation model",
+      "pdf_page": 6
+    },
+    {
+      "section": null,
+      "title": "Modelling activity outcomes",
+      "pdf_page": 11
+    },
+    {
+      "section": "Part II",
+      "title": "PUS-C Toolset",
+      "pdf_page": 12
+    },
+    {
+      "section": null,
+      "title": "PUS-C Toolset workflow (part 1)",
+      "pdf_page": 13
+    },
+    {
+      "section": null,
+      "title": "PUS-C population",
+      "pdf_page": 14
+    },
+    {
+      "section": null,
+      "title": "Document generation",
+      "pdf_page": 16
+    },
+    {
+      "section": null,
+      "title": "PUS-C Toolset workflow (part 2)",
+      "pdf_page": 18
+    },
+    {
+      "section": null,
+      "title": "ASN.1/ACN generation",
+      "pdf_page": 19
+    },
+    {
+      "section": null,
+      "title": "PUS-C demonstration ICD",
+      "pdf_page": 20
+    },
+    {
+      "section": "Part III",
+      "title": "SDL modelling",
+      "pdf_page": 22
+    },
+    {
+      "section": null,
+      "title": "Parameter monitoring (in PUS 12)",
+      "pdf_page": 23
+    },
+    {
+      "section": null,
+      "title": "MSC modelling",
+      "pdf_page": 27
+    },
+    {
+      "section": null,
+      "title": "SDL and MSC modelling",
+      "pdf_page": 28
+    },
+    {
+      "section": "Part IV",
+      "title": "Toolset deployment – Proba 3",
+      "pdf_page": 29
+    },
+    {
+      "section": null,
+      "title": "Toolset deployment - CoreSight",
+      "pdf_page": 33
+    },
+    {
+      "section": null,
+      "title": "Toolset deployment - MSP",
+      "pdf_page": 36
+    },
+    {
+      "section": null,
+      "title": "Latest activities and way forward",
+      "pdf_page": 39
+    },
+    {
+      "section": null,
+      "title": "Conclusions",
+      "pdf_page": 40
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Given the size of the PUS-C document, the project targeted internal consistency (content produced systematically from the foundation model) and usability (a toolset easing tailoring of the PUS).",
+      "pdf_page": 3
+    },
+    {
+      "text": "Objectives: verify and validate the PUS foundation model (clause 5), extend it to cover the functional specification (clause 6), build a PUS foundation database with an ORM tool, generate the full or tailored standard and ASN.1 code, and verify system requirements with SDL and MSC.",
+      "pdf_page": 4
+    },
+    {
+      "text": "The foundation model is expressed in Object Role Modelling (ORM) using the NORMA tool; the PUS specification (clauses 6 and 8) is a population of this model.",
+      "pdf_page": 7
+    },
+    {
+      "text": "Subservice 'system objects' (e.g. Function, Memory) are modelled only generically; specific modelling was performed in the scope of ATOP.",
+      "pdf_page": 10
+    },
+    {
+      "text": "The modelling produced 21 change requests against PUS-C: 7 major (functional problem), 7 minor (internal consistency or not covered by the foundation) and 7 editorial.",
+      "pdf_page": 11
+    },
+    {
+      "text": "The toolset has three applications: a Population Tool (definition and tailoring), DOC-GEN (ECSS-E-ST-70-41C compatible document generation) and ASN1-GEN (tailoring and ASN.1/ACN generation).",
+      "pdf_page": 12
+    },
+    {
+      "text": "A population of the entire PUS-C was created, from which chapters 6 and 8 and annexes C and D of ECSS-E-ST-70-41C can be regenerated with good fidelity; discrepancies found were reported to ESA.",
+      "pdf_page": 16
+    },
+    {
+      "text": "Mission tailoring selects service, subservice and capability types and defines the abstract types, subject to dependency and exclusion constraints between capabilities; abstract types and arguments are tailored by editing ASN.1/ACN.",
+      "pdf_page": 18
+    },
+    {
+      "text": "ASN.1/ACN generation needs 'implicit knowledge' definitions such as the CCSDS packet encapsulation of ECSS-E-ST-70-41C chapter 7; ESA's ASN1SCC compiler then generates data structures, C encoders/decoders with optional Python bindings, and ICDs.",
+      "pdf_page": 19
+    },
+    {
+      "text": "Almost all PUS-C services follow a simple, practically stateless template; services 1, 6, 9, 12 and a generic service template were modelled in SDL.",
+      "pdf_page": 22
+    },
+    {
+      "text": "MSC modelling found issues in the SDL models; the generation of certain Service 1 notifications is not properly defined in the standard.",
+      "pdf_page": 28
+    },
+    {
+      "text": "Proba-3 use case: service 3 extended with a housekeeping compression subservice (Pocket), and a mission-specific reaction wheels management service (S8 in Proba-3) with commanding, FDIR, rate sensor and direct commanding subservices.",
+      "pdf_page": 30
+    },
+    {
+      "text": "CoreSight R&D project (not flight software) used PUS-C services 1, 6 and custom 192; two engineers built most of the population after a 2-hour training, and ESA's ASN1SCC v4 and DMT produced the ICD, C TC/TM transcoders and Python bindings.",
+      "pdf_page": 33
+    },
+    {
+      "text": "The MSP430 TASTE demo uses services 1, 2, 3 and custom 222 with bare-bone encapsulation instead of CCSDS; the first iteration from concept to ASN.1/ACN took about 5 hours.",
+      "pdf_page": 37
+    },
+    {
+      "text": "Generated requirement sample: subservice requirements with message type 'TC[222,1] switch mode' and a failed start of execution notification on rejection.",
+      "pdf_page": 38
+    },
+    {
+      "text": "A Spacebel initiative links the ASN.1/ACN output to its SRDB tooling (for integration in SCOS2000, for example), so that on-board software and SRDB are consistent by construction; the method also applies to older PUS versions.",
+      "pdf_page": 39
+    }
+  ],
+  "references": [
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-70-41C",
+      "title": "ECSS-E-ST-70-41C (PUS-C), clauses 5, 6, 7 and 8 and annexes C and D",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 16
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "NORMA (Object Role Modelling tool)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 6
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "ATOP (activity in which PUS system objects were modelled specifically)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 10
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "ESA ASN1SCC compiler (v4) and DMT",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 33
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "TASTE (ESA toolchain; MSP430 target support project)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 36
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "Pocket (housekeeping compression used on Proba 3)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 30
+    },
+    {
+      "label": null,
+      "doc_id": null,
+      "title": "SCOS2000 (target of SRDB component integration)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 39
+    }
+  ],
+  "topics": [
+    "ecss/pus/index.md",
+    "ecss/pus/pus-a-vs-pus-c.md",
+    "ecss/pus/message-types.md",
+    "mib/tooling.md",
+    "ecss/pus/st03-housekeeping.md",
+    "ecss/pus/st12-onboard-monitoring.md",
+    "ecss/pus/st01-request-verification.md",
+    "scos2000/operations-preparation.md"
+  ],
+  "notes": "Slide deck with no reference list; the 'mentioned' entries come from the slides. No author names are printed; the footer reads 'Copyright © 2016 by SPACEBEL – All rights reserved' although the deck is dated 15 May 2020, and p. 39 refers to a 'Spacebel initiative'. Several slides are screenshots or diagrams with no extractable text (pp. 14-15, 17, 20-21, 24-26, 35). The deck mixes 'PUS-C Gen', 'PUSCGen' and 'PUS C Gen'; 'ASN.1/ACN generation+' (p. 19) and 'feasability' (p. 42) are as printed. The library also holds ECSS-E-ST-70-41C (ecss-e-st-70-41c-15april2016) and its 2024 Rev.1 draft (ecss-e-st-70-41c-rev1-dir1). The PDF has 42 slides plus a trailing empty page 43 in the extraction."
+}

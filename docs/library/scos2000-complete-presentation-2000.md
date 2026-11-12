@@ -40,8 +40,9 @@ The remaining TOS slides set out the offer. The software is free under licence, 
 - Project position: EGSEs are provided by industry (ESA/IPC(89)126); selecting SCOS-2000 as instrument EGSE kernel is entirely a PI decision, and the project provides no technical support, hardware, software or funding. *(PDF p. 41)*
 
 
-## Cited by these wiki pages (9)
+## Cited by these wiki pages (10)
 
+- [ECSS-E-ST-70-32C: PLUTO test and operations procedure language](../ecss/e-st-70-32c.md)
 - [Herschel and Planck](../missions/herschel-planck.md)
 - [Herschel/Planck: SCOS-2000 in a science mission ground segment](../scos2000/herschel-planck-ground.md)
 - [MIB tooling and open-source libraries](../mib/tooling.md)

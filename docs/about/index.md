@@ -29,7 +29,7 @@ suits anyone who needs to read a real MIB.
 * Each standard has its own page with field-by-field diagrams, under [CCSDS](../ccsds/index.md) and
   [ECSS & PUS](../ecss/index.md).
 * The [MIB](../mib/index.md) section explains the database, and the [MIB Explorer](../explorer/index.md)
-  shows every item of the Solar Orbiter MIB.
+  shows every item of the Solar Orbiter MIB (2025 and 2020 releases) and of the SWA and STIX instrument databases.
 * The [Library](../library/index.md) and the [reference catalogue](../references/index.md) let you
   follow any claim back to its source document.
 

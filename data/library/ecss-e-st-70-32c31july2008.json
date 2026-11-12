@@ -1,0 +1,418 @@
+{
+  "slug": "ecss-e-st-70-32c31july2008",
+  "title": "Space engineering\nTest and operations procedure language",
+  "short_title": "ECSS-E-ST-70-32C: PLUTO procedure language (2008)",
+  "doc_id": "ECSS-E-ST-70-32C",
+  "issue": "Second issue",
+  "date": "2008-07-31",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS-E-ST-70-32 Working Group)",
+  "authors": [
+    "ECSS-E-ST-70-32 Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Second issue (31 July 2008, editorial changes), following ECSS-E-70-32A (first issue, 24 April 2006); ECSS-E-70-32B was never issued (change log, p. 3). The document does not state that it is superseded, and no later issue is in the library.",
+  "summary": "The ECSS standard for **automated test and operations procedures**. It does two things. First, it sets the requirements that any language for writing spacecraft test procedures (EGSE, AIV) and flight control procedures (mission control) must meet. Second, it defines a reference language that meets them, **PLUTO** (Procedure Language for Users in Test and Operations). The aim is to reuse procedures from functional testing in mission operations, and to use one common procedure language across missions.\n\nClause 4 places procedures in the **EMCS** (EGSE and mission control system). They refer to, but never define, the objects of the ECSS-E-ST-70-31 **space system model**: system elements, reporting data (parameters and compound parameters), activities (procedures, telecommands, operating-system calls) and events. Clause 5 holds the normative requirements: goal-oriented procedures built from steps, run in series or in parallel, with preconditions, confirmation and contingency actions; initiating activities with or without waiting for confirmation; reading execution and confirmation status, parameter values, validity and monitoring status; overriding missing functions in early tests; local copies of reporting data; flow control and waits; engineering units; user interaction and logging. Any compliant language must be formally specified in ISO EBNF.\n\nThe informative but extensive **Annex A** specifies PLUTO itself. A procedure has declaration, preconditions, main, **watchdog** and confirmation bodies, and steps have the same structure. Execution and confirmation status models apply to procedures, steps and activities, with continuation tests after 'initiate and confirm' statements. The annex then defines the lexical rules, constants and types and every language construct with railroad diagrams, a full EBNF grammar and an index. Annex B lists the SI-based engineering units and their syntax, and Annex C the mathematical, time and string functions. Many constructs come with a short worked PLUTO example script, for instance an 'Activate Freon Loop' procedure.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 7
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 8
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 9
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 10
+    },
+    {
+      "section": "3.1",
+      "title": "Terms from other standards",
+      "pdf_page": 10
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 10
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviated terms",
+      "pdf_page": 12
+    },
+    {
+      "section": "4",
+      "title": "Context of the procedure language",
+      "pdf_page": 13
+    },
+    {
+      "section": "4.1",
+      "title": "Introduction",
+      "pdf_page": 13
+    },
+    {
+      "section": "4.2",
+      "title": "EGSE and mission control system (EMCS)",
+      "pdf_page": 15
+    },
+    {
+      "section": "5",
+      "title": "Requirements to be satisfied by procedures",
+      "pdf_page": 19
+    },
+    {
+      "section": "5.1",
+      "title": "Procedure structure",
+      "pdf_page": 19
+    },
+    {
+      "section": "5.2",
+      "title": "Language constructs",
+      "pdf_page": 20
+    },
+    {
+      "section": "5.3",
+      "title": "Language specification",
+      "pdf_page": 23
+    },
+    {
+      "section": "Annex A",
+      "title": "The PLUTO language (informative)",
+      "pdf_page": 24
+    },
+    {
+      "section": "A.1",
+      "title": "The structure of a procedure",
+      "pdf_page": 24
+    },
+    {
+      "section": "A.1.5",
+      "title": "Procedure watchdog body",
+      "pdf_page": 26
+    },
+    {
+      "section": "A.1.7",
+      "title": "Structure of a step",
+      "pdf_page": 27
+    },
+    {
+      "section": "A.2",
+      "title": "The behaviour of a procedure",
+      "pdf_page": 29
+    },
+    {
+      "section": "A.2.1",
+      "title": "Procedure execution flow",
+      "pdf_page": 29
+    },
+    {
+      "section": "A.2.2",
+      "title": "Step execution flow",
+      "pdf_page": 32
+    },
+    {
+      "section": "A.2.3",
+      "title": "Activity execution flow",
+      "pdf_page": 34
+    },
+    {
+      "section": "A.2.4",
+      "title": "Execution in parallel",
+      "pdf_page": 36
+    },
+    {
+      "section": "A.2.5",
+      "title": "Continuation following an 'initiate and confirm' statement",
+      "pdf_page": 36
+    },
+    {
+      "section": "A.3",
+      "title": "PLUTO language definition",
+      "pdf_page": 38
+    },
+    {
+      "section": "A.3.2",
+      "title": "Language case sensitivity",
+      "pdf_page": 39
+    },
+    {
+      "section": "A.3.4",
+      "title": "Keywords",
+      "pdf_page": 39
+    },
+    {
+      "section": "A.3.5",
+      "title": "Identifiers",
+      "pdf_page": 40
+    },
+    {
+      "section": "A.3.6",
+      "title": "Constants",
+      "pdf_page": 41
+    },
+    {
+      "section": "A.3.7",
+      "title": "Types",
+      "pdf_page": 45
+    },
+    {
+      "section": "A.3.8",
+      "title": "System interfaces",
+      "pdf_page": 46
+    },
+    {
+      "section": "A.3.9",
+      "title": "Language constructs",
+      "pdf_page": 47
+    },
+    {
+      "section": "A.4",
+      "title": "Extended Backus-Naur form (EBNF) representation of PLUTO language constructs",
+      "pdf_page": 105
+    },
+    {
+      "section": "A.5",
+      "title": "Index of PLUTO language constructs",
+      "pdf_page": 119
+    },
+    {
+      "section": "Annex B",
+      "title": "Engineering units (informative)",
+      "pdf_page": 122
+    },
+    {
+      "section": "B.2",
+      "title": "Engineering units and symbols",
+      "pdf_page": 122
+    },
+    {
+      "section": "B.3",
+      "title": "Engineering units railroad diagrams",
+      "pdf_page": 128
+    },
+    {
+      "section": "B.4",
+      "title": "EBNF representation of the engineering units",
+      "pdf_page": 131
+    },
+    {
+      "section": "Annex C",
+      "title": "Functions (informative)",
+      "pdf_page": 133
+    },
+    {
+      "section": "C.2",
+      "title": "Mathematical functions",
+      "pdf_page": 133
+    },
+    {
+      "section": "C.3",
+      "title": "Time functions",
+      "pdf_page": 135
+    },
+    {
+      "section": "C.4",
+      "title": "String functions",
+      "pdf_page": 136
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 139
+    }
+  ],
+  "key_points": [
+    {
+      "text": "The procedure is the principal mechanism used to control the space system in pre-launch functional testing and in-orbit operations; the standard sets requirements for any procedure language and defines the reference language PLUTO (procedure language for users in test and operations).",
+      "pdf_page": 7
+    },
+    {
+      "text": "ECSS-E-ST-70 defines two types of flight control procedure (FCP): nominal procedures, the building blocks of the flight operations plan timelines, and contingency procedures for recovery after pre-identified anomalies.",
+      "pdf_page": 15
+    },
+    {
+      "text": "EMCS is the joint term for the EGSE and the mission control system; the procedure language and its development and execution environments are an integral part of any EMCS.",
+      "pdf_page": 15
+    },
+    {
+      "text": "Procedures refer to the space system model of ECSS-E-ST-70-31 (system elements, reporting data, activities, events) but do not define these objects; an activity is a procedure, a telecommand or any EMCS function such as a file transfer.",
+      "pdf_page": 16
+    },
+    {
+      "text": "For procedures the SSM also holds the default execution mode (manual or automatic), the activation mode (permanently active or explicitly initiated) and the procedural script.",
+      "pdf_page": 18
+    },
+    {
+      "text": "Procedure sub-goals can run in series or in parallel; preconditions and confirmation conditions may be specified for procedures and steps, and contingency actions should be taken at the level where the failure occurs.",
+      "pdf_page": 19
+    },
+    {
+      "text": "If an anomaly cannot be rectified, the procedure (or step) raises an event to a higher level, achieves the goal by other means and terminates, or aborts; the body is suspended while a contingency action runs.",
+      "pdf_page": 20
+    },
+    {
+      "text": "Procedures must be able to read an activity's execution or confirmation status and times, reporting data values and sampling time, parameter validity and monitoring status (limit, delta, expected status, status consistency), and the last occurrence time of an event.",
+      "pdf_page": 20
+    },
+    {
+      "text": "When a space system function is unavailable (e.g. in an early test phase), a procedure must be able to replace it by setting an activity's confirmation status or a parameter's value, validity, monitoring status or sampling time; local copies of reporting data avoid inconsistent samples.",
+      "pdf_page": 21
+    },
+    {
+      "text": "Any compliant language shall be formally specified in ISO EBNF (ISO/IEC 14977); PLUTO, its engineering units and functions should be used for automating procedures in development and exploitation phases.",
+      "pdf_page": 23
+    },
+    {
+      "text": "A PLUTO procedure has an optional declaration body (local events), optional preconditions body, mandatory main body, optional watchdog body (watchdog steps all initiated in parallel) and optional confirmation body; arguments are defined externally and cannot be changed in the procedure.",
+      "pdf_page": 24
+    },
+    {
+      "text": "Main body statements: set procedure context, initiate in parallel, initiate and confirm step, initiate and confirm activity, initiate activity, inform user and log; a parallel set ends when any one or when all of its members have ended.",
+      "pdf_page": 26
+    },
+    {
+      "text": "Execution status of a procedure goes through 'preconditions', 'executing', 'confirmation' and 'completed'; confirmation status ends as 'confirmed', 'not confirmed' or 'aborted' and is 'not available' before completion.",
+      "pdf_page": 29
+    },
+    {
+      "text": "Only engineering units are case sensitive in PLUTO; all other words, including keywords, are not.",
+      "pdf_page": 39
+    },
+    {
+      "text": "Table A-1 lists the predefined PLUTO types; Tables A-2 to A-7 list the operation and property requests available on activities, steps, reporting data, variables, arguments and events, and Table A-4 the predefined operators.",
+      "pdf_page": 6
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system – Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 9
+    },
+    {
+      "label": "ISO/IEC 14977",
+      "doc_id": "ISO/IEC 14977",
+      "title": "Information technology - Syntactic metalanguage – Extended BNF",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 9
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ECSS-E-ST-10",
+      "doc_id": "ECSS-E-ST-10",
+      "title": "Space engineering – System engineering general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ECSS-E-ST-10-02",
+      "doc_id": "ECSS-E-ST-10-02",
+      "title": "Space engineering – Verification",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ECSS-E-ST-10-03",
+      "doc_id": "ECSS-E-ST-10-03",
+      "title": "Space engineering – Testing",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ECSS-E-ST-50",
+      "doc_id": "ECSS-E-ST-50",
+      "title": "Space engineering – Communications",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ECSS-E-ST-70",
+      "doc_id": "ECSS-E-ST-70",
+      "title": "Space engineering – Ground systems and operations",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ECSS-E-ST-70-31",
+      "doc_id": "ECSS-E-ST-70-31",
+      "title": "Space engineering – Ground systems and operations – Monitoring and control data definition",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ECSS-E-ST-70-41",
+      "doc_id": "ECSS-E-ST-70-41",
+      "title": "Space engineering – Telemetry and telecommand packet utilization",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "ISO/IEC 14977",
+      "doc_id": "ISO/IEC 14977",
+      "title": "Information technology – Syntactic metalanguage – Extended BNF",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 139
+    },
+    {
+      "label": "Voluntocracy 2003",
+      "doc_id": null,
+      "title": "Representation of numerical values and SI units in character strings for information interchange (http://swiss.csail.mit.edu/~jaffer/MIXF)",
+      "issue": null,
+      "date": "2003",
+      "kind": "bibliography",
+      "pdf_page": 139
+    }
+  ],
+  "topics": [
+    "ecss/e-st-70-32c.md",
+    "scos2000/operations-preparation.md",
+    "ecss/e-st-70-31c.md",
+    "scos2000/egse.md",
+    "ecss/e-st-70c.md",
+    "ecss/index.md"
+  ],
+  "notes": "Annex A is labelled informative but is the PLUTO specification that requirement 5.3b recommends. Railroad (syntax) diagrams in A.3 and B.3 are graphics; the EBNF grammar in A.4 (pp. 105-118) and the many worked PLUTO script examples are extracted as text. Clause 4.2.2 says 'An example of a space system model is shown in Figure 4-1' (p. 16) where Figure 4-2 (p. 17) is meant. Figure 4-1 labels are truncated in the extraction ('Platfor', 'Payloa', p. 14). The abbreviation table splits 'PLUTO' from its meaning (p. 12). The extraction uses Unicode non-breaking hyphens (U+2011) in document IDs. Related library items: ECSS-E-ST-70-31C (ecss-e-st-70-31c) defines the space system model that PLUTO refers to; ECSS-E-ST-70C (ecss-e-st-70c31july2008) the flight control procedures. Printed page numbers equal PDF page numbers; srcgrep shows 140 PDF pages (the last one blank) while the registry gives 139."
+}

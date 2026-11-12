@@ -1,8 +1,8 @@
 ---
 title: "SLE forward service: FCLTU"
-description: The CCSDS SLE Forward CLTU service in full detail. Covers how a ground station radiates CLTUs bit for bit under PLOP-1 or PLOP-2, the earliest and latest radiation times and delay, every operation with its parameters, diagnostics and ASN.1 codes, production and uplink status, buffering and protocol abort, THROW-EVENT, and how SCOS-2000, the NIS and the Solar Orbiter MIB use it.
-tags: [CCSDS, SLE, FCLTU, CLTU, Telecommand, PLOP, Throw events, Solar Orbiter]
-sources: [ccsds-912-1-912x1b5e1, ccsds-231-0-231x0b4e1, ccsds-232-0-232x0b4e1c1, ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-910x3g3-sle-cross-support, sol-s-astr-tn-00079-07, icd-7-0-final, euicd-v25, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+description: The CCSDS SLE Forward CLTU service in full detail. Covers how a ground station radiates CLTUs bit for bit under PLOP-1 or PLOP-2, its place in the reference model, the earliest and latest radiation times and delay, every operation with its parameters, diagnostics and ASN.1 codes, production and uplink status, buffering and protocol abort, THROW-EVENT, how the same radiation function serves the Forward Space Packet service, and how SCOS-2000, the NIS and the Solar Orbiter MIB use it.
+tags: [CCSDS, SLE, FCLTU, FSP, CLTU, Telecommand, PLOP, Throw events, Solar Orbiter]
+sources: [ccsds-912-1-912x1b5e1, ccsds-912-3-912x3b3s, ccsds-910-4-910x4b2e1s, ccsds-231-0-231x0b4e1, ccsds-232-0-232x0b4e1c1, ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-910x3g3-sle-cross-support, sol-s-astr-tn-00079-07, icd-7-0-final, euicd-v25, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
 ---
 
 # SLE forward service: FCLTU
@@ -15,6 +15,10 @@ all the telecommand work above the physical layer: packets, segments, TC frames,
 CLTU encoding. The provider adds the carrier, the acquisition and idle sequences, the timing,
 and the uplink status that it reads from the spacecraft's CLCWs.[^cltu-fg]
 
+The higher-level alternative is the [Forward Space Packet service](fsp.md) (FSP), where the user
+hands over Space Packets and the provider builds the frames, runs COP-1 and generates the CLTUs
+before radiating them with the same function that provides FCLTU; the two are compared
+[below](#fcltu-and-the-other-forward-tc-services).[^fsp-ovw][^fsp-d11]
 For the concepts shared with the other SLE services (BIND, states, security, service
 instances) see the [SLE overview](index.md). The CLTU format itself is on
 [TC synchronization and channel coding](../tc-coding-cltu.md), and the frames inside it on
@@ -26,6 +30,7 @@ instances) see the [SLE overview](index.md). The CLTU format itself is on
     | Specification | CCSDS 912.1-B-5, July 2023 (adds USLP), with Editorial Change 1, October 2024[^cltu-ctl] |
     | Data unit | One CLTU per CLTU-TRANSFER-DATA, radiated bit for bit; any octet-aligned bit pattern is accepted[^cltu-ovw] |
     | Produced by | Forward TC Space Link Processing SLE-FG[^cltu-fg] |
+    | Reference model names | Port type `CLTU-Transfer`; data channel "CLTU channel", unique identifier "CLTU ID", TC physical channels only[^csrm-fwdports][^csrm-chan] |
     | Instances | Only one FCLTU instance per physical forward channel at a time[^cltu-ovw] |
     | Delivery mode | Forward online only (`fwdOnline (3)`)[^cltu-modes][^raf-delmode] |
     | Binding | User-initiated only; `ApplicationIdentifier` `fwdCltu (16)`[^cltu-bind][^raf-appid] |
@@ -56,6 +61,23 @@ flowchart LR
 ```
 
 Diagram based on the functional view and operational scenario of the FCLTU specification.[^cltu-fg][^cltu-scen]
+
+The reference model describes the same group in terms of ports. To produce FCLTU, the Forward TC
+Space Link Processing SLE-FG has a consumer `CLTU-Transfer` port facing the user, a supplier
+`Fwd-RF-Transfer` port facing the spacecraft, a supplier management port `TCSpLinkProc-Mgmt`
+facing Complex Management, and a consumer `Rtn-MCOCF-Transfer` or `Rtn-VCOCF-Transfer` port through
+which the CLCWs arrive.[^csrm-fcltu] Its functions are to consume the CLTU data channel, consume
+the OCF channels and judge from the CLCW whether the physical channel is available, generate the
+acquisition and idle sequences of the PLOP in effect on the asynchronous physical channel, inject
+the CLTUs, use the antenna steering of the ground element, and modulate and radiate.[^csrm-fslp]
+The users that the model names for the `CLTU-Transfer` port are an MUE and the Forward CLTU
+Generation SLE-FG, the next group up, which turns TC frames into CLTUs.[^csrm-fwdports]
+
+**Delivery.** In the reference model, forward online delivery happens during the forward space link
+session and cannot extend beyond it. Forward offline delivery would transfer a complete data set into
+the SLE system, a transfer that must be finished before the data are transmitted to the spacecraft
+during the session, at a time set by SLE management.[^csrm-fmodes]
+FCLTU defines only the online mode; offline is outside the scope of the current specification.[^cltu-modes]
 
 **Production versus provision.** Production configuration parameters such as bit rate and
 modulation index affect complex resources, so only service management may change them. A user
@@ -93,7 +115,8 @@ the sections of its ICD consulted here.
 ### Carrier modulation modes and the PLOPs
 
 The physical layer operations procedures (PLOPs) of CCSDS 231.0 define how the carrier is
-modulated around CLTUs. Missions whose planning began after September 2010 must use
+modulated around CLTUs (see also [TC coding and the CLTU](../tc-coding-cltu.md#physical-layer-operations-procedures)
+and, for the carrier itself, [Radio frequency, modulation and ranging](../rf-and-ranging.md)). Missions whose planning began after September 2010 must use
 PLOP-2.[^plop-select] There are four carrier modulation modes:[^cmm]
 
 | Mode | Carrier is modulated with |
@@ -517,6 +540,100 @@ Diagram based on figure 2-4 and §3.7.3 of the FCLTU specification.[^cltu-states
 Getting out of 'Blocked' needs a STOP, which returns the provider to 'ready'. The normative
 behaviour is the state table in §4.2, and conformance to it is mandatory.[^cltu-conf]
 
+## FCLTU and the other forward TC services
+
+### Three functional groups, four services
+
+The reference model stacks three forward telecommand functional groups. Each higher group adds
+one layer of telecommand processing, and each layer has its own transfer service:[^csrm-tcfg][^csrm-fprod]
+
+| Service | The user supplies | Provider functional groups involved | What the extra group does | Recommended Standard |
+|---|---|---|---|---|
+| Forward CLTU (FCLTU) | CLTUs | Forward TC Space Link Processing | PLOP sequences, modulation, radiation, CLCW checks of the physical channel | 912.1-B-5 (this page) |
+| Forward TC Frame (FTCF) | TC frames, in blocks of one or more frames per CLTU | + Forward CLTU Generation | Optional randomisation, BCH encoding, start and tail sequences | none yet (as stated in 2016)[^fsp-fg] |
+| Forward TC Virtual Channel Access (TC-VCA) | Frame Data Units with the GVCID to use | + Forward TC VC Data Insertion | Builds TC frames; for sequence-controlled frames sets the frame sequence count, keeps a copy and retransmits or deletes it according to the CLCW | not in this library |
+| Forward Space Packet (FSP) | Space Packets | + Forward TC VC Data Insertion | Blocks or segments packets into frames (segmented packets only with sequence control), with the same frame sequence numbering, copy keeping and CLCW-driven retransmission | 912.3-B-3 ([page](fsp.md)) |
+
+Sources: §4.3.2.3 and §5.6.2 of the reference model, and the FSP specification.[^csrm-tcfg][^csrm-fprod][^fsp-fg]
+If TC-VCA and FSP are both active on one virtual channel, only one of them may be
+sequence-controlled.[^csrm-tcfg] Because no FTCF standard exists, FSP requires the CLTU Generation
+and the TC VC Data Insertion groups to sit in the same complex, while the radiation group may still
+be in another complex, reached through an FCLTU service instance.[^fsp-fg][^fsp-d11] The
+[FSP page](fsp.md#who-does-what-fsp-compared-with-fcltu) compares the user's and the provider's
+tasks under FCLTU and FSP in detail.
+
+| Attribute | FCLTU (912.1-B-5) | FSP (912.3-B-3) |
+|---|---|---|
+| `ApplicationIdentifier` | `fwdCltu (16)` | `fwdTcSpacePkt (13)` |
+| BIND `version-number` in the library issue | 6 | 5 |
+| Data unit per TRANSFER-DATA | one CLTU | one Space Packet |
+| Release-time control | earliest and latest *radiation* time | earliest and latest *production* time |
+| COP-1 (FOP-1) runs at | the user | the provider; the user may send COP-1 directives (FSP-INVOKE-DIRECTIVE) |
+| Production status values | configured, operational, interrupted, halted | configured, operational (sub-states 'BD', 'AD and BD', 'AD suspended'), interrupted, halted |
+
+Sources: the BIND, TRANSFER-DATA and production status clauses of both specifications.[^raf-appid][^cltu-version][^fsp-version][^cltu-td][^fsp-epl][^fsp-dir][^cltu-prodstat][^fsp-prodstat]
+
+### The FCLTU radiation function inside FSP production
+
+FSP reuses the FCLTU production rules for its radiation group. Annex D of the FSP specification
+states that most of the Forward TC Space Link Processing production is already described in the
+FCLTU specification, and defines how that group handles each *CLTU Transfer Data SLE-SDU* coming
+from the CLTU Generation group in the same complex. The differences from a real FCLTU
+CLTU-TRANSFER-DATA are these:[^fsp-d11]
+
+| Aspect | FCLTU service (CLTU-TRANSFER-DATA from a user) | Inside FSP production (CLTU Transfer Data SLE-SDU) |
+|---|---|---|
+| Credentials and invoke-ID | carried and checked | none passed or authenticated; they matter only when the groups are in different complexes and a real FCLTU instance connects them |
+| `cltu-identification` sequencing | enforced ('out of sequence') | not enforced; the CLTU identifier only labels acceptance, rejection and radiation reports |
+| Earliest and latest radiation time | supported, with 'sldu expired' | none; each CLTU is radiated as soon as possible after those already queued, and eventually radiated as long as production is operational |
+| Delay time | per invocation, at least `minimum-delay-time` | taken from the SDU; acceptance or rejection reported on the same minimum |
+| Radiation report | `report` parameter, CLTU-ASYNC-NOTIFY | flag in the SDU; radiation reported to the CLTU Generation group |
+| CLTU content | any octet-aligned bit pattern | exactly one TC frame per CLTU, although the coding standard allows more |
+
+Sources: annex D1.1 and D1.2 of 912.3-B-3.[^fsp-d11][^fsp-d12] Service management configures the
+same eleven production parameters as for FCLTU: `acquisition-sequence-length`, `bit-lock-required`,
+`clcw-physical-channel`, `clcw-global-VCID`, `minimum-delay-time`, `modulation-frequency`,
+`modulation-index`, `plop-1-idle-sequence-length`, `plop-in-effect`, `rf-available-required` and
+`subcarrier-to-bit-rate-ratio`. The CLTU Generation group adds two of its own: the maximum CLTU
+length and whether the randomiser is used.[^fsp-d11][^fsp-d12]
+
+```mermaid
+sequenceDiagram
+    participant VCDI as TC VC Data Insertion FG (FSP)
+    participant CG as CLTU Generation FG
+    participant FSLP as Forward TC Space Link Processing FG
+    VCDI->>CG: TC Frame Transfer Data SLE-SDU<br/>(frame, delay, frame id, report flag)
+    CG->>CG: randomise (option), BCH, start + tail;<br/>map frame id to CLTU id
+    CG->>FSLP: CLTU Transfer Data SLE-SDU<br/>(CLTU, delay, CLTU id, report flag)
+    alt delay at least minimum-delay-time
+        FSLP-->>CG: accepted (CLTU id)
+        CG-->>VCDI: frame accepted (frame id)
+    else delay too short
+        FSLP-->>CG: rejected (CLTU id)
+        CG-->>VCDI: frame rejected (frame id)
+    end
+    FSLP-->>CG: radiated (CLTU id), if requested
+    CG-->>VCDI: frame radiated (frame id)
+    Note over VCDI: maps frame id to packet-identification<br/>and reports radiation per FSP instance
+```
+
+Diagram based on annex D1.1 to D1.3 of the FSP specification.[^fsp-d11][^fsp-d12][^fsp-d13]
+
+Each group passes its production status up the chain, combined with its own. The CLTU Generation
+group combines the radiation group's status (the FCLTU values) with its own as follows:[^fsp-d12]
+
+| Space link processing status ↓ / CLTU Generation status → | configured | operational | interrupted | halted |
+|---|---|---|---|---|
+| configured | configured | configured | interrupted | halted |
+| operational | configured | operational | interrupted | halted |
+| interrupted | interrupted | interrupted | interrupted | halted |
+| halted | halted | halted | halted | halted |
+
+Source: table D-1.[^fsp-d12] The TC VC Data Insertion group applies the same combination to
+the result and its own status (table D-2), and an 'operational' aggregate then also carries the
+FSP sub-states.[^fsp-d13] In words: 'halted' anywhere wins, then 'interrupted', and the chain is
+'operational' only if every group is.
+
 ## Security
 
 Commanding is the most sensitive SLE service. FCLTU adds one integrity mechanism of its own: the
@@ -562,7 +679,12 @@ APID 1964. That header has no PCDF fields.[^mib-te]
 
 The Event ID calibration also defines HEARTBEAT_MSG (12), ABORT_LINK (22) and CHANGE_MODE (23),
 which no Solar Orbiter command uses. The SLE service type calibration `CNISX207TC` lists RAF 1,
-RCF 2, ROCF 3, FCLTU 4 and FSP 5.[^mib-te]
+RCF 2, ROCF 3, FCLTU 4 and FSP 5.[^mib-te] The interface therefore knows [FSP](fsp.md), but both
+Solar Orbiter TC-link commands fix the service type to FCLTU (`CDF_ELTYPE` 'F'), and the TM-link
+commands carry RCF as the default of an editable element (`CDF_ELTYPE` 'E'), in the 2025 and the
+2020 releases alike.[^mib-te][^mib2020] As far as these commands show, the TC link is opened as
+FCLTU, so the frames, COP-1 and the CLTUs are produced on the user side of the SLE interface, as
+the FCLTU division of work implies.[^cltu-fg]
 
 <div class="bitfield" data-title="EGENRTCO GENERIC OPEN TC LINK (Solar Orbiter MIB, fixed part)" data-width="32"
      data-fields='[{"n":"Event ID","b":16,"v":"20","d":"ENISTE02 OPEN_LINK, fixed (CDF_ELTYPE F)"},
@@ -600,6 +722,10 @@ The 2020-04-16 release contains the same six commands with the same values.[^mib
     SELECT CPC_NAME, CPC_DESCR, CPC_PTC, CPC_PFC, CPC_PAFREF, CPC_DEFVAL
       FROM cpc WHERE CPC_NAME LIKE 'ENISTE%';
     SELECT PAS_NUMBR, PAS_ALTXT, PAS_ALVAL FROM pas WHERE PAS_NUMBR LIKE 'CNISX2%';
+
+    -- Which SLE service type each command fixes (same result in solo-2020-04-16)
+    SELECT CDF_CNAME, CDF_ELTYPE, CDF_VALUE FROM cdf WHERE CDF_PNAME = 'ENISTE03' ORDER BY CDF_CNAME;
+    -- -> EGENRTCC F FCLTU, EGENRTCO F FCLTU, EGENRTMC E RCF, EGENRTMO E RCF
     ```
 
 The relevant MIB tables are [CCF](../../mib/tables/ccf.md), [CDF](../../mib/tables/cdf.md),
@@ -665,7 +791,9 @@ The "GS Packet Type" calibration lists BDseq (0), BDseq_response (1), LinkStatus
 COP1directive (4), ThrowEvnt (5), ThrowEvnt_Resp (6), CLTU (7), CLTU_Resp (8), SDID_MKII_RQM (9),
 SDID_MKII_TRM (10), FSPPkt (20), FSPPkt_Resp (21), FSPdirective (22) and FSPdir_Resp (23). The
 acknowledgement calibration lists Confirm_Accept (0), ConfirmTrnsmit (1), Failure_accept (3),
-FailureTrnsmit (4) and Nis_Rejected (9).[^mib-gs]
+FailureTrnsmit (4) and Nis_Rejected (9).[^mib-gs] The four FSP values (identical in the 2020
+release) suggest message types for packets and COP-1 directives sent to an FSP provider; they are
+discussed on the [FSP page](fsp.md#fsp-in-esas-ground-segment-and-the-solar-orbiter-mib).[^mib2020]
 
 !!! warning "Inference"
     "GS CLTU ID" and "GS Next TC ID" mirror the FCLTU `cltu-identification` in the
@@ -700,15 +828,18 @@ fit.[^icd-block]
     SELECT count(*), min(CCF_CNAME), max(CCF_CNAME) FROM ccf WHERE CCF_APID = '1372';
     ```
 
-The planned page on [NCTRS and the NIS](../../scos2000/nctrs-nis.md) describes the ESA side of
+The page on [NCTRS and the NIS](../../scos2000/nctrs-nis.md) describes the ESA side of
 the interface, and [uplink](../../overview/uplink.md) follows a command end to end.
 
 ## Related pages
 
-* [SLE overview](index.md), [return services](return-services.md), [ISP1 and the SLE API](isp1-and-api.md)
+* [SLE overview](index.md), [return services](return-services.md), [FSP](fsp.md), [ISP1 and the SLE API](isp1-and-api.md)
+* [Cross support reference model and service management](service-management.md)
 * [TC SDLP](../tc-sdlp.md), [COP-1](../cop-1.md), [TC coding and CLTU](../tc-coding-cltu.md)
+* [Radio frequency, modulation and ranging](../rf-and-ranging.md) (carrier, subcarrier and command modulation), [Space link identifiers](../space-link-identifiers.md) (the GVCID in `clcw-global-VCID`) and [Security in CCSDS space links](../security.md#impact-on-sle-cross-support)
 * [Worked example: a telecommand](../../overview/worked-example-tc.md)
-* Library: [CCSDS 912.1-B-5](../../library/ccsds-912-1-912x1b5e1.md), [CCSDS 231.0-B-4](../../library/ccsds-231-0-231x0b4e1.md);
+* Library: [CCSDS 912.1-B-5](../../library/ccsds-912-1-912x1b5e1.md), [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md),
+  [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), [CCSDS 231.0-B-4](../../library/ccsds-231-0-231x0b4e1.md);
   terms in the [glossary](../../glossary.md)
 
 [^cltu-purpose]: [CCSDS 912.1-B-5, SLE Forward CLTU Service](../../library/ccsds-912-1-912x1b5e1.md), §1.1 Purpose, PDF p. 10.
@@ -793,3 +924,19 @@ the interface, and [uplink](../../overview/uplink.md) follows a command end to e
 [^mib-dst]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../../library/mib-20250916m25925pfms001-sol.md), tables `dst` and `ccf`; queries by this wiki.
 [^icd-dst]: [SCOS-2000 Database Import ICD issue 7.0](../../library/icd-7-0-final.md), §3.3.3.2.1.1 Command routing: DST (DST_ROUTE), PDF p. 141.
 [^icd-block]: [SCOS-2000 Database Import ICD issue 7.0](../../library/icd-7-0-final.md), §3.3.3.2 Commands, remarks on command size and CMDP_MAX_BLOCK_SIZE, PDF pp. 131–132.
+[^fsp-ovw]: [CCSDS 912.3-B-3, SLE Forward Space Packet Service](../../library/ccsds-912-3-912x3b3s.md), §2.1 Overview, PDF p. 27.
+[^fsp-d11]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), Annex D1 Introduction and D1.1 Forward TC Space Link Processing SLE-FG (D1.1.1–D1.1.4), PDF pp. 185–187.
+[^fsp-d12]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), Annex D1.2 Forward CLTU Generation SLE-FG, table D-1 and note on one TC frame per CLTU, PDF pp. 187–188.
+[^fsp-d13]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), Annex D1.3 Forward TC VC Data Insertion SLE-FG, table D-2 and TC Frame Transfer Data SLE-SDU, PDF pp. 189–190.
+[^fsp-fg]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §2.4.1.1 and figure 2-1, notes 1 and 2 (no Recommended Standard for FTCF), PDF pp. 29–30.
+[^fsp-version]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §3.2.2.8.7 version-number (value 5), PDF p. 60.
+[^fsp-epl]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §3.6.2.6–3.6.2.7 earliest- and latest-production-time, PDF pp. 76–77.
+[^fsp-dir]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §3.12 FSP-INVOKE-DIRECTIVE, PDF pp. 122–125.
+[^fsp-prodstat]: [CCSDS 912.3-B-3](../../library/ccsds-912-3-912x3b3s.md), §3.7.2.14 production-status (sub-states of 'operational'), PDF pp. 97–98.
+[^csrm-fwdports]: [CCSDS 910.4-B-2, Cross Support Reference Model—Part 1: SLE Services](../../library/ccsds-910-4-910x4b2e1s.md), §5.4.3 Forward transfer ports and table 5-2, PDF pp. 72–73.
+[^csrm-chan]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), Annex A3.3 Forward space data channel tree, table A-5, PDF pp. 89–91.
+[^csrm-fcltu]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.6.2.2 Forward CLTU service (ports of the TC Space Link Processing SLE-FG), PDF p. 79.
+[^csrm-fslp]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.3.2.3.3 Forward TC Space Link Processing SLE-FG, PDF p. 55.
+[^csrm-fmodes]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §3.4.2.1.1 Forward online delivery and §3.4.2.2.1 Forward offline delivery, PDF pp. 33–35.
+[^csrm-tcfg]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §4.3.2.3 Forward TC SLE functional groups (4.3.2.3.1–4.3.2.3.3) and figure 4-6, PDF pp. 52–55.
+[^csrm-fprod]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.6.2.2, 5.6.2.5, 5.6.2.6 and 5.6.2.9.2 production of the Forward CLTU, TC Frame, TC-VCA and Space Packet (TC profile) services, PDF pp. 79–82.

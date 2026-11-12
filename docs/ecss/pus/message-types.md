@@ -866,6 +866,7 @@ for one on-board user.[^solo-list][^mib25]
 * The service pages, from [ST[01] Request verification](st01-request-verification.md) to [ST[23] File management](st23-file-management.md).
 * [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md), [the Solar Orbiter MIB](../../missions/solar-orbiter/mib.md) and the [MIB explorer](../../explorer/index.md#/solo/search/TM).
 * [Commanding in the MIB](../../mib/commanding.md) and [Monitoring in the MIB](../../mib/monitoring.md) for how ccf and pid entries are built.
+* Instrument databases that use the instrument ranges of mission-specific types: [STIX](../../missions/solar-orbiter/stix.md#packet-catalogue-by-pus-type-and-subtype), [SWA](../../missions/solar-orbiter/swa.md) and the [SWA DPU communications ICD](../../missions/solar-orbiter/instrument-interfaces.md#telecommands-by-manager).
 * Library: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), [SOL.S.ASTR.TN.00079](../../library/sol-s-astr-tn-00079-07.md).
 
 <script>

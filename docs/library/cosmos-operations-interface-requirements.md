@@ -50,9 +50,12 @@ For this wiki it links PUS, the SCOS-2000 MIB and the Herschel/Planck operations
 - Annex A4: database naming follows RD 1 (H-P-1-ASPI-SP-0141); flight control procedures are named FCP_&lt;subsystem&gt;_nnnn (e.g. FCP_AOC_0001) and timelines TDoyFfNn. *(PDF p. 70)*
 
 
-## Cited by these wiki pages (23)
+## Cited by these wiki pages (26)
 
 - [Display definitions in the MIB](../mib/displays.md)
+- [ECSS-E-ST-70-01C: on-board control procedures](../ecss/e-st-70-01c.md)
+- [ECSS-E-ST-70-32C: PLUTO test and operations procedure language](../ecss/e-st-70-32c.md)
+- [ECSS-E-ST-70C: ground systems and operations](../ecss/e-st-70c.md)
 - [ECSS: the European space standards system](../ecss/index.md)
 - [Herschel and Planck](../missions/herschel-planck.md)
 - [Herschel/Planck: SCOS-2000 in a science mission ground segment](../scos2000/herschel-planck-ground.md)
@@ -151,12 +154,12 @@ For this wiki it links PUS, the SCOS-2000 MIB and the Herschel/Planck operations
 | Label | Document | Title | Issue / date | Kind |
 |---|---|---|---|---|
 | AD-1 | [ECSS-E-70/41](../references/index.md#ref-ecss-e-70-41) | Telemetry and Telecommand Packet Utilisation Standard | Draft 5.3 April 2001 | applicable |
-| AD-2 | [SCI-PT-ICD-07418](../references/index.md#ref-sci-pt-icd-07418) | Herschel/Planck Space / Ground Interface Control Document (SG-ICD) |  | applicable |
+| AD-2 | [SCI-PT-ICD-07418](../references/index.md#ref-sci-pt-icd-07418) · [library](herschel-planck-space-ground-interface-control-document-sgicd.md) | Herschel/Planck Space / Ground Interface Control Document (SG-ICD) |  | applicable |
 | AD-3 | [SCI-PT-IIDA-04624](../references/index.md#ref-sci-pt-iida-04624) | FIRST/Planck Instrument Interface Document (IID-A) |  | applicable |
 | AD-4 | [SCI-PT-RS-05991](../references/index.md#ref-sci-pt-rs-05991) | FIRST/Planck System Requirements Specification(SRS) |  | applicable |
 | AD-5 | [SCI-PT-IF-07527](../references/index.md#ref-sci-pt-if-07527) | Herschel/Planck Packet Structure Interface Control Document (PS-ICD) |  | applicable |
 | AD-6 | [ESA PSS/04-106](../references/index.md#ref-esa-pss-04-106) | Packet Telemetry Standard | Issue 1 1988 | applicable |
-| AD-7 | [ESA PSS-04-107](../references/index.md#ref-esa-pss-04-107) | Packet Telecommand Standard | Issue 2 1992 | applicable |
+| AD-7 | [ESA PSS-04-107](../references/index.md#ref-esa-pss-04-107) · [library](esa-pss-04-107-issue2-april1992.md) | Packet Telecommand Standard | Issue 2 1992 | applicable |
 | AD-8 | [S2K-MCS-ICD-0001-TOS-GCI](../references/index.md#ref-s2k-mcs-icd-0001-tos-gci) · [library](icd-5-1-tos-gci.md) | SCOS-2000 Database Import ICD | Issue 5.1 Oct. 2001 | applicable |
 | AD-9 | [FIRST-FSC-DOC-0200](../references/index.md#ref-first-fsc-doc-0200) | Herschel Science Ground Segment to Instruments ICD | issue 1.0 July 2001 | applicable |
 | RD 1 | [H-P-1-ASPI-SP-0141](../references/index.md#ref-h-p-1-aspi-sp-0141) | Naming Convention Specification |  | reference |

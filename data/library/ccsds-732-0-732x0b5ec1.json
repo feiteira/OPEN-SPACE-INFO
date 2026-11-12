@@ -1,0 +1,505 @@
+{
+  "slug": "ccsds-732-0-732x0b5ec1",
+  "title": "AOS Space Data Link Protocol",
+  "short_title": "AOS Space Data Link Protocol (CCSDS 732.0-B-5)",
+  "doc_id": "CCSDS 732.0-B-5",
+  "issue": "Recommended Standard, Issue 5 (Blue Book), with Editorial Change 1 (October 2025)",
+  "date": "October 2025",
+  "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+  "authors": [],
+  "doc_type": "Standard",
+  "status_notes": "The Document Control table (PDF p. 7) lists issues B-1 (September 2003), B-2 (July 2006), B-3 (September 2015) and B-4 (October 2021) as superseded. Issue 5 (October 2025) extends the SCID to 10 bits and the M_PDU First Header Pointer to 16 bits, for frames of up to 65,536 octets. Editorial Change 1 (October 2025) corrects the note in 4.1.2.1 and the issue year, adds a status description, and changes the Frame Header Error Control in 4.1.2.6 to a Reed-Solomon (15,11) code. No current/superseded status is printed for issue 5 itself.",
+  "summary": "Issue 5 (October 2025, with Editorial Change 1) of the CCSDS Recommended Standard for the **AOS Space Data Link Protocol**. AOS is a Data Link Layer protocol with fixed-length frames for space-to-ground, ground-to-space and space-to-space links. It carries packets, bitstreams and other data. The wiki page is [AOS](../ccsds/aos.md). The structure is the same as issue 4 ([CCSDS 732.0-B-4](../library/ccsds-732-0-732x0b4.md)): an overview (Physical, Master and Virtual Channels, addressing by TFVN + SCID + VCID); seven services (Virtual Channel Packet, Bitstream, Virtual Channel Access, VC_OCF, Virtual Channel Frame, Master Channel Frame and Insert); the Transfer Frame and its sending and receiving procedures; managed parameters; the [SDLS](../ccsds/sdls.md) variant; a PICS proforma; and OID randomizer examples.\n\nAn engineer will look here mainly for what changed in issue 5, because the changes break bit-level compatibility with older decoders. The Spacecraft ID grows from 8 to 10 bits. Its two new most significant bits go in bits 42-43 of the Primary Header, which were the reserved spare of the Signaling Field in issue 4, so the MCID becomes 12 bits. The M_PDU header loses its 5-bit spare, and the First Header Pointer becomes a full 16 bits, which allows frames of up to 65,536 octets. The optional Frame Header Error Control moves from RS(10,6) to a shortened RS(15,11) code over GF(2^4), which also protects the SCID MSBs and the VC Frame Count Cycle. The Bitstream Data Pointer stays at 14 bits, so frames carrying B_PDUs are still limited to 16,384 bits. VCID 63 remains reserved for Only Idle Data frames. For identifiers and SANA registries see [space link identifiers](../ccsds/space-link-identifiers.md).",
+  "contents": [
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.1",
+      "title": "Purpose",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.2",
+      "title": "Scope",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.3",
+      "title": "Applicability",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.4",
+      "title": "Rationale",
+      "pdf_page": 12
+    },
+    {
+      "section": "1.5",
+      "title": "Document Structure",
+      "pdf_page": 12
+    },
+    {
+      "section": "1.6",
+      "title": "Conventions and Definitions",
+      "pdf_page": 12
+    },
+    {
+      "section": "1.7",
+      "title": "References",
+      "pdf_page": 15
+    },
+    {
+      "section": "2",
+      "title": "Overview",
+      "pdf_page": 17
+    },
+    {
+      "section": "2.1",
+      "title": "Concept of AOS Space Data Link Protocol",
+      "pdf_page": 17
+    },
+    {
+      "section": "2.2",
+      "title": "Overview of Services",
+      "pdf_page": 20
+    },
+    {
+      "section": "2.3",
+      "title": "Overview of Functions",
+      "pdf_page": 26
+    },
+    {
+      "section": "2.4",
+      "title": "Services Assumed from Lower Layers",
+      "pdf_page": 29
+    },
+    {
+      "section": "3",
+      "title": "Service Definition",
+      "pdf_page": 30
+    },
+    {
+      "section": "3.1",
+      "title": "Overview",
+      "pdf_page": 30
+    },
+    {
+      "section": "3.2",
+      "title": "Source Data",
+      "pdf_page": 30
+    },
+    {
+      "section": "3.3",
+      "title": "Virtual Channel Packet Service",
+      "pdf_page": 32
+    },
+    {
+      "section": "3.4",
+      "title": "Bitstream Service",
+      "pdf_page": 35
+    },
+    {
+      "section": "3.5",
+      "title": "Virtual Channel Access Service",
+      "pdf_page": 39
+    },
+    {
+      "section": "3.6",
+      "title": "Virtual Channel Operational Control Field Service",
+      "pdf_page": 42
+    },
+    {
+      "section": "3.7",
+      "title": "Virtual Channel Frame Service",
+      "pdf_page": 45
+    },
+    {
+      "section": "3.8",
+      "title": "Master Channel Frame Service",
+      "pdf_page": 48
+    },
+    {
+      "section": "3.9",
+      "title": "Insert Service",
+      "pdf_page": 51
+    },
+    {
+      "section": "4",
+      "title": "Protocol Specification without SDLS Option",
+      "pdf_page": 54
+    },
+    {
+      "section": "4.1",
+      "title": "Protocol Data Unit",
+      "pdf_page": 54
+    },
+    {
+      "section": "4.1.2",
+      "title": "Transfer Frame Primary Header",
+      "pdf_page": 55
+    },
+    {
+      "section": "4.1.3",
+      "title": "Transfer Frame Insert Zone",
+      "pdf_page": 62
+    },
+    {
+      "section": "4.1.4",
+      "title": "Transfer Frame Data Field",
+      "pdf_page": 63
+    },
+    {
+      "section": "4.1.5",
+      "title": "Operational Control Field",
+      "pdf_page": 68
+    },
+    {
+      "section": "4.1.6",
+      "title": "Frame Error Control Field",
+      "pdf_page": 69
+    },
+    {
+      "section": "4.2",
+      "title": "Protocol Procedures at Sending End",
+      "pdf_page": 72
+    },
+    {
+      "section": "4.3",
+      "title": "Protocol Procedures at Receiving End",
+      "pdf_page": 79
+    },
+    {
+      "section": "5",
+      "title": "Managed Parameters without SDLS Option",
+      "pdf_page": 87
+    },
+    {
+      "section": "5.1",
+      "title": "Overview of Managed Parameters",
+      "pdf_page": 87
+    },
+    {
+      "section": "5.2",
+      "title": "Managed Parameters for a Physical Channel",
+      "pdf_page": 87
+    },
+    {
+      "section": "5.3",
+      "title": "Managed Parameters for a Master Channel",
+      "pdf_page": 88
+    },
+    {
+      "section": "5.4",
+      "title": "Managed Parameters for a Virtual Channel",
+      "pdf_page": 88
+    },
+    {
+      "section": "5.5",
+      "title": "Managed Parameters for Packet Transfer",
+      "pdf_page": 89
+    },
+    {
+      "section": "6",
+      "title": "Protocol Specification with Space Data Link Security Option",
+      "pdf_page": 90
+    },
+    {
+      "section": "6.1",
+      "title": "Overview",
+      "pdf_page": 90
+    },
+    {
+      "section": "6.2",
+      "title": "Use of SDLS Protocol",
+      "pdf_page": 90
+    },
+    {
+      "section": "6.3",
+      "title": "AOS Transfer Frame with SDLS",
+      "pdf_page": 90
+    },
+    {
+      "section": "6.4",
+      "title": "Sending End Protocol Procedures with SDLS",
+      "pdf_page": 93
+    },
+    {
+      "section": "6.5",
+      "title": "Receiving End Protocol Procedures with SDLS",
+      "pdf_page": 96
+    },
+    {
+      "section": "6.6",
+      "title": "Managed Parameters with SDLS",
+      "pdf_page": 98
+    },
+    {
+      "section": "Annex A",
+      "title": "Protocol Implementation Conformance Statement Proforma (Normative)",
+      "pdf_page": 99
+    },
+    {
+      "section": "Annex B",
+      "title": "Acronyms (Informative)",
+      "pdf_page": 107
+    },
+    {
+      "section": "Annex C",
+      "title": "Informative References (Informative)",
+      "pdf_page": 109
+    },
+    {
+      "section": "Annex D",
+      "title": "OID Frame Randomization Implementation Options (Informative)",
+      "pdf_page": 110
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Issue 5 extends the SCID field in the Transfer Frame Primary Header to 10 bits and the First Header Pointer in the M_PDU header to 16 bits, to accommodate frames of up to 65,536 octets. Editorial Change 1 changes the Frame Header Error Control to a Reed-Solomon (15,11) code.",
+      "pdf_page": 7
+    },
+    {
+      "text": "The addressing identifiers are TFVN, SCID and VCID: MCID = TFVN + SCID, and GVCID = MCID + VCID. A Physical Channel may carry several Master Channels with the same TFVN.",
+      "pdf_page": 18
+    },
+    {
+      "text": "An AOS Transfer Frame consists of a Primary Header (6 or 8 octets), an optional Insert Zone, the Data Field, an optional 4-octet OCF and an optional 2-octet Frame Error Control Field. Its length is constant for a Mission Phase on a Physical Channel.",
+      "pdf_page": 54
+    },
+    {
+      "text": "The 12-bit MCID is made of three non-contiguous fields: the 2-bit Transfer Frame Version Number, the 2 SCID MSBs and the 8 SCID LSBs. It occupies bits 0-9 and 42-43 of the Primary Header.",
+      "pdf_page": 55
+    },
+    {
+      "text": "Bits 0-1 hold the Transfer Frame Version Number '01' (AOS Version 2 frame). Bits 2-9 hold the 8 SCID LSBs, and bits 42-43 hold the 2 SCID MSBs. Missions using issue 4 or earlier have an 8-bit SCID and set bits 42-43 to '00'.",
+      "pdf_page": 57
+    },
+    {
+      "text": "Bits 10-15 hold the VCID. 'All ones' (63) is reserved for Only Idle Data frames, and VCIDs need not be consecutive.",
+      "pdf_page": 57
+    },
+    {
+      "text": "The VC Frame Count (bits 16-39) is a 24-bit count modulo 16,777,216 per Virtual Channel. When used, the 4-bit VC Frame Count Cycle (bits 44-47) extends it to 28 bits.",
+      "pdf_page": 58
+    },
+    {
+      "text": "The Signaling Field is now 2 bits (bits 40-41): the Replay Flag (0 = realtime, 1 = replay) and the VC Frame Count Cycle Use Flag.",
+      "pdf_page": 59
+    },
+    {
+      "text": "The optional Frame Header Error Control (bits 48-63) is a Reed-Solomon (15,11) code over GF(2^4), shortened by 5 symbols to a binary (40,24) code with E=2. It protects the 12-bit MCID, 6-bit VCID, 2-bit Signaling Field and 4-bit VC Frame Count Cycle, but not the VC Frame Count.",
+      "pdf_page": 60
+    },
+    {
+      "text": "OID Transfer Frames are filled with a pseudo-noise sequence from a 32-cell LFSR with polynomial D0 + D1 + D2 + D22 + D32. The LFSR is initialised only at device start-up and is never restarted.",
+      "pdf_page": 64
+    },
+    {
+      "text": "The M_PDU header is now just the 16-bit First Header Pointer, with no spare bits. 'All ones' means no packet starts in the frame, and 'all ones minus one' means idle data only.",
+      "pdf_page": 64
+    },
+    {
+      "text": "The B_PDU header keeps a 2-bit spare and a 14-bit Bitstream Data Pointer, so the frame size with the Bitstream Service is limited to 16,384 bits.",
+      "pdf_page": 68
+    },
+    {
+      "text": "The OCF Type Flag (bit 0) is '0' for a Type-1 report (CLCW) and '1' for a Type-2 report. In a Type-2 report, bit 1 = '1' means an SDLS Frame Security Report.",
+      "pdf_page": 68
+    },
+    {
+      "text": "The FECF is a CRC with generator X^16 + X^12 + X^5 + 1 and the shift register preset to all ones.",
+      "pdf_page": 70
+    },
+    {
+      "text": "Valid user VCIDs are 0-62, with 63 always valid for OID frames. Data Field Content per VC is managed as M_PDU, B_PDU, VCA_SDU or Idle Data.",
+      "pdf_page": 88
+    },
+    {
+      "text": "The PICS adds item AOS-47.1 'SCID Length' (4.1.2.2.3) as a mandatory feature.",
+      "pdf_page": 103
+    },
+    {
+      "text": "The OID data pattern starts FF FF FF FF 6D B6 D8 61 45 1F 11 F1 97 16 72 3C BE 7E 00 B1 for both the Fibonacci and the Galois LFSR forms.",
+      "pdf_page": 110
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "ISO/IEC 7498-1:1994",
+      "title": "Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model",
+      "issue": "2nd ed.",
+      "date": "1994",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[2]",
+      "doc_id": "ISO/IEC 10731:1994",
+      "title": "Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the Definition of OSI Services",
+      "issue": null,
+      "date": "1994",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[3]",
+      "doc_id": "CCSDS 131.0-B-5",
+      "title": "TM Synchronization and Channel Coding",
+      "issue": "Issue 4",
+      "date": "September 2023",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[4]",
+      "doc_id": "CCSDS 131.2-B-2",
+      "title": "Flexible Advanced Coding and Modulation Scheme for High Rate Telemetry Applications",
+      "issue": "Issue 2",
+      "date": "February 2023",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[5]",
+      "doc_id": "CCSDS 131.3-B-2",
+      "title": "CCSDS Space Link Protocols over ETSI DVB-S2 Standard",
+      "issue": "Issue 2",
+      "date": "April 2022",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[6]",
+      "doc_id": null,
+      "title": "“Packet Version Number.” Space Assigned Numbers Authority. https://sanaregistry.org/r/packet_version_number",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[7]",
+      "doc_id": "CCSDS 320.0-M-7",
+      "title": "CCSDS Spacecraft Identification Field Code Assignment Control Procedures",
+      "issue": "Issue 7",
+      "date": "November 2017",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[8]",
+      "doc_id": "CCSDS 133.0-B-2",
+      "title": "Space Packet Protocol",
+      "issue": "Issue 2",
+      "date": "June 2020",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[9]",
+      "doc_id": "CCSDS 133.1-B-3",
+      "title": "Encapsulation Packet Protocol",
+      "issue": "Issue 3",
+      "date": "May 2020",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[10]",
+      "doc_id": "CCSDS 355.0-B-2",
+      "title": "Space Data Link Security Protocol",
+      "issue": "Issue 2",
+      "date": "July 2022",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[11]",
+      "doc_id": "CCSDS 355.1-B-1",
+      "title": "Space Data Link Security Protocol—Extended Procedures",
+      "issue": "Issue 1",
+      "date": "February 2020",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[C1]",
+      "doc_id": "CCSDS A02.1-Y-4",
+      "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+      "issue": "Issue 4",
+      "date": "April 2014",
+      "kind": "informative",
+      "pdf_page": 109
+    },
+    {
+      "label": "[C2]",
+      "doc_id": "CCSDS 130.0-G-4",
+      "title": "Overview of Space Communications Protocols",
+      "issue": "Issue 4",
+      "date": "April 2023",
+      "kind": "informative",
+      "pdf_page": 109
+    },
+    {
+      "label": "[C3]",
+      "doc_id": "CCSDS 901.0-G-1",
+      "title": "Space Communications Cross Support—Architecture Description Document",
+      "issue": "Issue 1",
+      "date": "November 2013",
+      "kind": "informative",
+      "pdf_page": 109
+    },
+    {
+      "label": "[C4]",
+      "doc_id": "CCSDS 901.1-M-1",
+      "title": "Space Communications Cross Support—Architecture Requirements Document",
+      "issue": "Issue 1",
+      "date": "May 2015",
+      "kind": "informative",
+      "pdf_page": 109
+    },
+    {
+      "label": "[C5]",
+      "doc_id": "CCSDS 910.3-G-3",
+      "title": "Cross Support Concept—Part 1: Space Link Extension Services",
+      "issue": "Issue 2",
+      "date": "March 2006",
+      "kind": "informative",
+      "pdf_page": 109
+    },
+    {
+      "label": "[C6]",
+      "doc_id": "CCSDS 232.0-B-4",
+      "title": "TC Space Data Link Protocol",
+      "issue": "Issue 4",
+      "date": "October 2021",
+      "kind": "informative",
+      "pdf_page": 109
+    },
+    {
+      "label": "[C7]",
+      "doc_id": "CCSDS 350.0-G-3",
+      "title": "The Application of Security to CCSDS Protocols",
+      "issue": "Issue 3",
+      "date": "March 2019",
+      "kind": "informative",
+      "pdf_page": 109
+    }
+  ],
+  "topics": [
+    "ccsds/aos.md",
+    "ccsds/space-link-identifiers.md",
+    "ccsds/index.md",
+    "ccsds/tm-coding.md",
+    "ccsds/sdls.md",
+    "ccsds/space-packet.md",
+    "ccsds/uslp.md",
+    "ccsds/sle/return-services.md"
+  ],
+  "notes": "This is the next issue of ccsds-732-0-732x0b4 (issue 4, October 2021) in the library. The slug's 'ec1' stands for Editorial Change 1. Issue 5 changes are marked 'Issue 5' in the margin (for example PDF pp. 54-60, 64-65, 68 and 103). PDF pages 1-2 are duplicate covers. The extracted text has 111 form-feed pages (registry: 110); the last one is empty. Figure 4-2 (Primary Header layout) does not appear in the extraction, but the bit positions are in the clauses. As in issue 4, 1.5 says the document has 'six numbered sections and three annexes', although there are four annexes (A-D). Oddities as printed: in 1.3 a stray fragment ('An AOS Transfer Frame shall encompass the major fields') is spliced into the applicability paragraph (PDF p. 11); reference [3] reads 'Issue 4' for CCSDS 131.0-B-5; [C5] calls the Green Book 910.3-G-3 an 'Issue 2' Blue Book; A1.1 still names the draft 'CCSDS 732.0-P-4.1'; and the 4.1.2.1 list of six Primary Header fields does not show the SCID MSB as a separate field (it is part of the 12-bit MCID). The Authority page gives the location as 'Not Applicable'. No individual authors are named. The registry copy was taken from ccsds.org (an upload path dated 2026/07) on 2026-11-12."
+}

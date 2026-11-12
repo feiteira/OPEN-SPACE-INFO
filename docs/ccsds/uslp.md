@@ -2,7 +2,7 @@
 title: Unified Space Data Link Protocol (CCSDS 732.1-B-3)
 description: USLP in full detail, covering the variable- or fixed-length Version-4 Transfer Frame field by field (primary header, truncated header, TFDF header with construction rules, UPID and pointers, Insert Zone, OCF, FECF), its services, COP and SDLS integration, sending and receiving procedures, managed parameters and how it unifies TM, TC, AOS and Proximity-1.
 tags: [CCSDS, Data link layer, USLP, Transfer frames, Telemetry, Telecommand]
-sources: [ccsds-732-1-732x1b3e1, ccsds-130-2-130x2g3, ccsds-130-0-130x0g4e1, ccsds-732-0-732x0b4, ccsds-132-0-132x0b3, ccsds-232-0-232x0b4e1c1, ccsds-131-0-131x0b5, ccsds-231-0-231x0b4e1, ccsds-355-0-355x0b2, ccsds-911-1-911x1b5e1, ecss-e-st-50c-rev-1-1march2021, sol-s-astr-tn-00079-07, icd-7-0-final, mib-20250916m25925pfms001-sol]
+sources: [ccsds-732-1-732x1b3e1, ccsds-211-0-211x0b6e1, ccsds-130-2-130x2g3, ccsds-130-0-130x0g4e1, ccsds-732-0-732x0b4, ccsds-132-0-132x0b3, ccsds-232-0-232x0b4e1c1, ccsds-131-0-131x0b5, ccsds-231-0-231x0b4e1, ccsds-355-0-355x0b2, ccsds-911-1-911x1b5e1, ecss-e-st-50c-rev-1-1march2021, sol-s-astr-tn-00079-07, icd-7-0-final, mib-20250916m25925pfms001-sol]
 ---
 
 # Unified Space Data Link Protocol (CCSDS 732.1-B-3)
@@ -11,7 +11,7 @@ The **Unified Space Data Link Protocol** (USLP) is the newest CCSDS protocol for
 Protocol Sublayer. It is a single protocol for space-to-ground, ground-to-space and
 space-to-space links.[^u-purpose] CCSDS released it in 2018 and envisions it as the data link
 protocol of future robotic and crewed missions, in place of TM, TC, AOS and
-Proximity-1.[^g4-uslp][^g4-uslp-2] In this wiki's reading (see the
+[Proximity-1](proximity-1.md).[^g4-uslp][^g4-uslp-2] In this wiki's reading (see the
 [comparison below](#how-uslp-unifies-tm-tc-aos-and-proximity-1), flagged as inference), it
 combines features of its predecessors. From [TM](tm-sdlp.md) and [AOS](aos.md) it takes
 fixed-length frames, idle frames, the First Header Pointer and the Insert Zone. From
@@ -120,7 +120,8 @@ $$\begin{aligned}
 All frames with the same MCID on a Physical Channel form a **Master Channel**, those with the
 same GVCID a **Virtual Channel**, and those with the same GVCID and MAP ID a **MAP Channel**. A VC
 therefore consists of one or more MAP Channels. As in TM and AOS, the Physical Channel Name is set
-by management and never appears in the frame.[^u-addr] The SANA entries created or changed by
+by management and never appears in the frame.[^u-addr] The SANA entries (see
+[Space link identifiers](space-link-identifiers.md)) created or changed by
 USLP fix the ranges. SCIDs run from `0x0000` to `0xFFFF`. The 20-bit "global" SCID (TFVN.SCID,
 the same thing as the MCID) runs from `0xC0000` to `0xCFFFF`. MAP IDs are limited to `0000` to
 `1111`, and the full 6-bit VCID range applies.[^u-sana]
@@ -715,7 +716,7 @@ Several points need care:
 
 ## Relationship with Proximity-1
 
-Annex C (normative) maps the Proximity-1 Version-3 frame onto the USLP Version-4
+Annex C (normative) maps the [Proximity-1](proximity-1.md) Version-3 frame onto the USLP Version-4
 frame:[^u-c-map][^u-c-tfvn][^u-c-vcfc]
 
 | Proximity-1 (Version 3) | Bits | USLP (Version 4) | Bits |
@@ -734,8 +735,12 @@ frame:[^u-c-map][^u-c-tfvn][^u-c-vcfc]
 Because the VCID's MSB stands in for the PCID, only 32 VCIDs are available for proximity links
 over USLP.[^u-c-sec] Proximity operations use variable-length frames only, so their TFDF header is
 just the construction rule and UPID, without a pointer. The Proximity-1 Segment Header is no longer
-used. Proximity DFC ID `00` (packets) maps to rule `111`, the segment flags `00`/`01`/`10`/`11`
-map to `100`/`101`/`110`/`111`, and user-defined data `11` maps to `011`.[^u-c-dfc]
+used. Proximity DFC ID `00` (packets) maps to rule `111`, and user-defined data `11` maps to
+`011`. For segments, table C-2 prints the segment flags `00`/`01`/`10`/`11` against the rules
+`100` (starting)/`101` (continuing)/`110` (last)/`111` (no segmentation).[^u-c-dfc] CCSDS 211.0-B-6,
+however, defines `01` as the first segment and `00` as a continuing one, so the first two rows of
+table C-2 are swapped with respect to the Proximity-1 meanings; the
+[Proximity-1 page](proximity-1.md#version-4-uslp-frames-over-proximity-1) pairs them by meaning.[^p1-flags]
 
 !!! note "Small inconsistencies in the source"
     §4.1.4.2.2.1.2 places the construction rules in bits 0–2 of the TFDF Header, but annex C §C1.5
@@ -834,6 +839,7 @@ telemetry frame as a TM, AOS or USLP Transfer Frame.[^sle-uslp] See
 * [COP-1, FOP-1, FARM-1 and the CLCW](cop-1.md), [Space Data Link Security](sdls.md)
 * [TC synchronization and channel coding, the CLTU](tc-coding-cltu.md), [TM synchronization and channel coding](tm-coding.md)
 * [Space Packet Protocol](space-packet.md), [Encapsulation Packet Protocol](encapsulation.md)
+* [Proximity-1](proximity-1.md), [Space link identifiers](space-link-identifiers.md), [Security in CCSDS space links](security.md)
 * [Glossary](../glossary.md), [reference catalogue](../references/index.md)
 
 [^u-doc]: [CCSDS 732.1-B-3, Unified Space Data Link Protocol](../library/ccsds-732-1-732x1b3e1.md), Document Control, PDF p. 7.
@@ -942,6 +948,7 @@ telemetry frame as a TM, AOS or USLP Transfer Frame.[^sle-uslp] See
 [^u-annexb]: [CCSDS 732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), annex B CRC-16 Frame Error Control Field Coding Procedures, PDF pp. 177–179.
 [^u-c-map]: [CCSDS 732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), annex C §C1.1 table C-1 Relationship of Transfer Frame Header Fields between Version-3 and Version-4 Frames, PDF p. 180.
 [^u-c-tfvn]: [CCSDS 732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), annex C §C1.2 to §C1.4, PDF p. 181.
+[^p1-flags]: [CCSDS 211.0-B-6, Proximity-1 Space Link Protocol, Data Link Layer](../library/ccsds-211-0-211x0b6e1.md), §3.2.3.3 and table 3-4 Segment Header Sequence Flags, PDF pp. 37–38.
 [^u-c-dfc]: [CCSDS 732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), annex C §C1.5 (PDF p. 181), table C-2 (PDF p. 182) and §C3 Transfer Frame Data Field (PDF pp. 184–185).
 [^u-c-scid]: [CCSDS 732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), annex C §C1.6 Spacecraft Identifier and note, PDF p. 182.
 [^u-c-vcfc]: [CCSDS 732.1-B-3](../library/ccsds-732-1-732x1b3e1.md), annex C §C1.7 to §C1.13 (PCID, Port ID, frame length, VCF Count Length, truncated header), PDF pp. 182–183.

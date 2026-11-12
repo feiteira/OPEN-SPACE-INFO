@@ -2,7 +2,7 @@
 title: "Downlink: from on-board parameter to operator display"
 description: The complete telemetry path of an ESA mission, step by step, from the sampling of an on-board parameter through PUS reports, Space Packets, TM transfer frames, channel coding, the ground station and SLE, NCTRS, SCOS-2000 packet identification, parameter extraction, calibration, limit checking, archiving, display and EDDS dissemination, with real Solar Orbiter values.
 tags: [Overview, Telemetry, Downlink, PUS, Space Packet, TM SDLP, Channel coding, SLE, NCTRS, SCOS-2000, MIB, EDDS, Solar Orbiter]
-sources: [ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ccsds-133-0-133x0b2e2, ccsds-132-0-132x0b3, ccsds-131-0-131x0b5, ccsds-732-0-732x0b4, ccsds-232-0-232x0b4e1c1, ccsds-301-0-301x0b4e1, ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ecss-e-st-50c-rev-1-1march2021, ecss-e-hb-50a-15november2008, icd-7-0-final, sdd, solo-ddid-i1r2, sol-s-astr-tn-00079-07, sp-1291-data-handling, gsaw2003-peccia, gsaw2005-guerrucci, spaceops2021-dlr-mobile-mcs, tn-1030-time-correlation, mib-20250916m25925pfms001-sol]
+sources: [ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ccsds-133-0-133x0b2e2, ccsds-132-0-132x0b3, ccsds-131-0-131x0b5, ccsds-732-0-732x0b4, ccsds-232-0-232x0b4e1c1, ccsds-301-0-301x0b4e1, ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ecss-e-st-50c-rev-1-1march2021, ecss-e-hb-50a-15november2008, icd-7-0-final, sdd, solo-ddid-i1r2, sol-s-astr-tn-00079-07, sp-1291-data-handling, gsaw2003-peccia, gsaw2005-guerrucci, spaceops2021-dlr-mobile-mcs, tn-1030-time-correlation, mib-20250916m25925pfms001-sol, ccsds-732-0-732x0b5ec1, ccsds-131-0-131x0b6ec1, ccsds-130-0-130x0g4e1, icd-6-9-archive-org, ecss-e-st-70-31c, herschel-planck-space-ground-interface-control-document-sgicd]
 ---
 
 # Downlink: from on-board parameter to operator display
@@ -209,9 +209,11 @@ secondary header** (PUS-C name) or **data field header** (PUS-A name).[^pus-tmsh
     The Solar Orbiter header figure is an image that is not part of the extracted text. The field
     order shown is the PUS-A order, and the sizes are deduced from the 10-octet total, the 8-bit
     destination ID and the 6-octet time. This leaves no room for the optional packet
-    sub-counter. The MIB agrees: every Solar Orbiter PUS packet definition has
-    `PID_DFHSIZE` = 16 (6 + 10 octets) and the PIC places the housekeeping SID at octet
-    16.[^mib-pic] The sibling page [Worked example: decoding a real Solar Orbiter telemetry packet](worked-example-tm.md)
+    sub-counter. The MIB agrees: 11,138 of its 11,150 packet definitions, every spacecraft PUS
+    packet among them, have `PID_DFHSIZE` = 16 (6 + 10 octets), and the PIC places the
+    housekeeping SID at octet 16. The other 12 are the time report on APID 0 (no data field
+    header, 6), three complete-frame packets on APID 1 and eight control-system packets on
+    APID 1966.[^mib-pic] The sibling page [Worked example: decoding a real Solar Orbiter telemetry packet](worked-example-tm.md)
     reaches the same conclusion.
 
 ### The time field
@@ -366,8 +368,11 @@ offline equivalents.[^ddid-common]
     Its frame has a 6- or 8-octet primary header with TFVN `0b01`, an 8-bit SCID, a 6-bit VCID
     (so up to 64 VCs), a 24-bit VC frame count, a signalling octet and an optional 16-bit header
     error control. An optional insert zone may follow, and the same 4-octet OCF and 2-octet FECF
-    trailer are available.[^aos-frame][^pus-link] See [AOS](../ccsds/aos.md) and, for the newer
-    unified protocol, [USLP](../ccsds/uslp.md).
+    trailer are available.[^aos-frame][^pus-link] Issue 5 of the AOS book (October 2025) widens the
+    spacecraft ID to 10 bits by adding two bits elsewhere in the header; missions built to issue 4
+    or earlier keep the 8-bit field.[^aos5-scid] See [AOS](../ccsds/aos.md) and, for the newer
+    unified protocol, [USLP](../ccsds/uslp.md). Every identifier field of these frames is listed
+    on [space link identifiers](../ccsds/space-link-identifiers.md).
 
 ## 6. Channel coding and the attached sync marker
 
@@ -405,7 +410,8 @@ patterns. Problems have been seen on real links when the randomizer was not used
 pseudo-randomizer XORs each frame, codeblock or codeword (but not the ASM) with a 131,071-bit
 sequence from $h(x) = x^{17} + x^{14} + 1$, seeded with `11000111000111000`. A legacy 255-bit
 sequence from $h(x) = x^8 + x^7 + x^5 + x^3 + 1$ is still allowed. Its use is fixed per
-physical channel and is not signalled in the data.[^tmc-rand]
+physical channel and is not signalled in the data.[^tmc-rand] Issue 6 of the book (April 2026),
+also in the library, makes the pseudo-randomizer mandatory.[^tmc6-rand]
 
 !!! note "Solar Orbiter coding"
     The coding scheme, interleaving depth and randomizer choice of the Solar Orbiter downlink
@@ -421,8 +427,14 @@ occupied bandwidth and the channel coding to minimise transmitted power, and it 
 permissible schemes in ECSS-E-ST-50-05.[^e50-space] That standard covers frequency bands,
 spectral and power constraints and the allowed modulations, among them GMSK, filtered OQPSK and
 SRRC-4D 8PSK TCM. Where a ranging service is needed, the modulation choice must also stay
-compatible with ECSS-E-ST-50-02.[^hb-rf][^hb-rf2] The RF layer is otherwise outside the scope of
-this wiki.
+compatible with ECSS-E-ST-50-02.[^hb-rf][^hb-rf2] On the CCSDS side the same ground is covered by
+the omnibus Radio Frequency and Modulation Systems book, CCSDS 401.0.[^g4-phys]
+
+The Solar Orbiter MIB shows the options of the spacecraft's deep-space transponder as data: its
+housekeeping report "PLF DST HK" ([SPID 33793](../explorer/index.md#/solo/packet/33793)) carries a
+telemetry modulation scheme parameter whose textual calibration allows `GMSK` or `SPL`, and a
+telecommand bit rate between 7.8125 and 4000 bit/s.[^mib-dst] Bands, modulations, ranging and the
+transponder telemetry are explained on [radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md).
 
 ## 8. At the ground station
 
@@ -464,7 +476,8 @@ mission. Three return services matter here:
 A service instance is scheduled in a **service package**. Its *production* parameters (carrier
 frequency, modulation, bit rate, coding, session times) can only be changed by service
 management. Its *provision* parameters (provision period, delivery mode, quality of service)
-belong to the individual instance.[^raf-sm][^raf-sched] The RAF operations are BIND, UNBIND,
+belong to the individual instance.[^raf-sm][^raf-sched] How agreements and packages are
+negotiated is on [SLE service management](../ccsds/sle/service-management.md). The RAF operations are BIND, UNBIND,
 START, STOP, TRANSFER-DATA, SYNC-NOTIFY, SCHEDULE-STATUS-REPORT, STATUS-REPORT, GET-PARAMETER and
 PEER-ABORT. The provider moves through the states unbound, ready and active, and frames flow
 only in the active state.[^raf-ops]
@@ -714,8 +727,10 @@ wheel 1. Its definitions all come from the 2025-09-16 MIB.[^mib-ex] The raw valu
 | Archive and display | Filed in PARC with SPID 29509; the value goes to DARC and to any AND that lists it | |
 
 !!! warning "Inference"
-    The ICD defines the calibration points and the extrapolation flag but, in the available text,
-    does not spell out how values *between* points are computed. Assuming linear interpolation
+    ICD issue 7.0 defines the calibration points and the extrapolation flag but does not spell
+    out how values *between* points are computed. Issue 6.9 describes interpolation from the
+    points on either side, and ECSS-E-ST-70-31C defines a linear-interpolation interpretation
+    function.[^icd69-caf][^e3131-lin] Assuming linear interpolation
     between (1315, 30) and (1734, 20), raw 1500 gives
     $30 + (1500-1315)\times\frac{20-30}{1734-1315} \approx 25.6$ °C, well inside the soft limits.
     The curve falls as the raw count rises, which is typical of a thermistor; this is also an
@@ -743,6 +758,8 @@ value.[^mib-ex] The full parameter view is in the explorer:
            sum(cast(PID_TPSD AS int)<>-1)
     FROM pid;
     SELECT * FROM pic WHERE PIC_TYPE IN ('1','3','5');
+    SELECT PID_DFHSIZE, PID_APID, count(*) FROM pid WHERE PID_DFHSIZE <> '16' GROUP BY 1, 2;
+    SELECT * FROM txp WHERE TXP_NUMBR IN ('CDST0009TM', 'CDST0003TM');   -- transponder options
     SELECT * FROM pid WHERE PID_SPID IN ('66840','66841','66842','9999');
     SELECT count(*) FROM plf;  SELECT count(*) FROM vpd;
 
@@ -817,8 +834,11 @@ sequenceDiagram
 * Byte-level decoding of a different real packet: [Worked example: decoding a real Solar Orbiter telemetry packet](worked-example-tm.md).
 * Every PUS service and message: [PUS](../ecss/pus/index.md) and the [message type catalogue](../ecss/pus/message-types.md).
 * The CCSDS stack as a whole: [CCSDS overview](../ccsds/index.md) and [standards map](standards-map.md).
-* SCOS-2000 internals: [architecture](../scos2000/architecture.md); MIB relationships: [data model](../mib/data-model.md).
-* Solar Orbiter specifics: [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md) and [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md).
+* The layers around the frames: [RF, modulation and ranging](../ccsds/rf-and-ranging.md), [space link identifiers](../ccsds/space-link-identifiers.md), [link security](../ccsds/security.md), and [SLE service management](../ccsds/sle/service-management.md).
+* Where the packet and frame formats came from: [From ESA PSS to CCSDS and ECSS](history.md).
+* SCOS-2000 internals: [architecture](../scos2000/architecture.md); MIB relationships: [data model](../mib/data-model.md); how the databases are prepared: [operations preparation](../scos2000/operations-preparation.md).
+* Solar Orbiter specifics: [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md), [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md), the [STIX](../missions/solar-orbiter/stix.md) and [SWA](../missions/solar-orbiter/swa.md) instrument databases and the [instrument interface documents](../missions/solar-orbiter/instrument-interfaces.md).
+* Another mission with the same single 1115-octet frame length, whose space/ground ICD names ESA PSS-04-106 and PSS-04-107 as applicable documents: [Herschel/Planck interface documents](../scos2000/herschel-planck-interfaces.md).[^hp-sgicd]
 
 [^pus-param]: [ECSS-E-ST-70-41C](../library/ecss-e-st-70-41c-15april2016.md), §5.4.3.2 On-board parameter (requirements a to d and notes), PDF pp. 41–42.
 [^pus-hk-scope]: [ECSS-E-ST-70-41C](../library/ecss-e-st-70-41c-15april2016.md), §6.3.1.1–6.3.1.3 Scope of ST[03], PDF pp. 78–79.
@@ -927,3 +947,10 @@ sequenceDiagram
 [^mib-pcf]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), table `pcf` (`PCF_NATUR`, `PCF_VALID`); queries by this wiki.
 [^mib-cal]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pcf`, `cur`, `caf`, `txf`, `mcf`, `lgf`; queries by this wiki.
 [^mib-clcw]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `plf` and `pcf` for SPIDs 19541, 19550 and 66981; queries by this wiki.
+[^aos5-scid]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol](../library/ccsds-732-0-732x0b5ec1.md), §4.1.2.2.3 "Spacecraft Identifier" (8 least significant bits in bits 2–9, 2 most significant bits in bits 42–43) and the note on issue 4 and earlier, PDF p. 57.
+[^tmc6-rand]: [CCSDS 131.0-B-6, TM Synchronization and Channel Coding](../library/ccsds-131-0-131x0b6ec1.md), Document Control (issue 6 "makes the pseudo-randomizer as mandatory"), PDF p. 7, and §10.1 Overview of the pseudo-randomizer, PDF p. 69.
+[^g4-phys]: [CCSDS 130.0-G-4, Overview of Space Communications Protocols](../library/ccsds-130-0-130x0g4e1.md), §2.2.2 Physical layer, PDF p. 20.
+[^mib-dst]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pid` (SPID 33793, TM(3,25), APID 212, SID 93), `pcf` (`NDSG0045` "DST-A TLM Mod Scheme", `NDSD0012` "DST-A TC Bit Rate") and `txp` (`CDST0009TM`: 0 `GMSK`, 1 `SPL`; `CDST0003TM`: 7.8125 to 4000 bps); queries by this wiki.
+[^icd69-caf]: [SCOS-2000 Database Import ICD issue 6.9](../library/icd-6-9-archive-org.md), §3.3.2.2.2 caf, field 8 `CAF_INTER` (interpolation from the points either side), PDF p. 66.
+[^e3131-lin]: [ECSS-E-ST-70-31C](../library/ecss-e-st-70-31c.md), §6.6.3.3.2, Tables 6-77 and 6-78 (interpretation function "linear interpolation"), PDF pp. 102–104.
+[^hp-sgicd]: [Herschel/Planck Space/Ground ICD, SCI-PT-ICD-07418 issue 3.2](../library/herschel-planck-space-ground-interface-control-document-sgicd.md), §1.3 Applicable documents (AD 1 PSS-04-106, AD 2 PSS-04-107), PDF p. 9, and §5.2.1 (only allowed frame length 1115 octets), PDF p. 31.

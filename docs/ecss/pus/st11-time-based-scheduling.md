@@ -108,7 +108,7 @@ are the knobs a mission tailors:[^c-cap][^c-gen][^c-insert2][^c-subsch][^c-group
 | Declaration | Clause | Meaning |
 |---|---|---|
 | sub-schedules supported? | 6.11.4.1a | enables the sub-schedule identifier fields and TC[11,18] to TC[11,21] |
-| groups supported? | 6.11.4.1b | enables the group identifier fields and TC[11,22] to TC[11,27] |
+| groups supported? | 6.11.4.1b | enables the group identifier fields and TC[11,22] to TM[11,27] |
 | maximum number of scheduled activities | 6.11.4.2c | resources are assumed sufficient whatever the request sizes |
 | time-based schedule time margin | 6.11.4.2d | an activity can only be inserted or time-shifted to a release time at or after *now + margin* |
 | maximum delta between specified and real release time | 6.11.4.2e | release accuracy |

@@ -47,19 +47,23 @@ The standard service types are ST[01] request verification, [02] device access, 
 - Annex D indexes each service type to its system (clause 6) and interface (clause 8) pages, e.g. ST[03] housekeeping at pp. 78 and 456 and ST[12] on-board monitoring at pp. 198 and 508. *(PDF p. 655)*
 
 
-## Cited by these wiki pages (46)
+## Cited by these wiki pages (50)
 
 - [CCSDS File Delivery Protocol (CCSDS 727.0-B-5)](../ccsds/cfdp.md)
 - [CCSDS: overview of the protocol stack](../ccsds/index.md)
 - [Command verification in the MIB](../mib/command-verification.md)
 - [Commanding in the MIB: commands and their parameters](../mib/commanding.md)
 - [Downlink: from on-board parameter to operator display](../overview/downlink.md)
+- [ECSS-E-ST-70-01C: on-board control procedures](../ecss/e-st-70-01c.md)
 - [ECSS-E-ST-70-11C: space segment operability](../ecss/e-st-70-11c.md)
 - [ECSS-E-ST-70-31C: monitoring and control data definition](../ecss/e-st-70-31c.md)
+- [ECSS-E-ST-70C: ground systems and operations](../ecss/e-st-70c.md)
 - [ECSS: the European space standards system](../ecss/index.md)
+- [From ESA PSS to CCSDS and ECSS: how the packet standards evolved](../overview/history.md)
 - [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md)
 - [How it all fits together](../overview/index.md)
 - [MIB parameter types: PTC/PFC in SCOS-2000](../mib/parameter-types.md)
+- [MIB tooling and open-source libraries](../mib/tooling.md)
 - [Monitoring checks: limits and out-of-limits](../mib/monitoring-checks.md)
 - [PUS message type catalogue](../ecss/pus/message-types.md)
 - [PUS packet structures: TC and TM headers](../ecss/pus/packets.md)
@@ -195,8 +199,8 @@ The standard service types are ST[01] request verification, [02] device access, 
 | ECSS-S-ST-00 | [ECSS-S-ST-00](../references/index.md#ref-ecss-s-st-00) | ECSS system – Description, implementation and general requirements |  | bibliography |
 | ECSS-E-ST-50-03 | [ECSS-E-ST-50-03](../references/index.md#ref-ecss-e-st-50-03) | Space engineering – Space data links – Telemetry transfer frame protocol |  | bibliography |
 | ECSS-E-ST-50-04 | [ECSS-E-ST-50-04](../references/index.md#ref-ecss-e-st-50-04) | Space engineering – Space data links – Telecommand protocols synchronization and channel coding |  | bibliography |
-| ESA PSS-04-151 | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) | Telecommand Decoder Specification | Issue 1 September 1993 | bibliography |
-| ESA PSS-07-101 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) | Packet utilization standard | Issue 1 May 1994 | bibliography |
+| ESA PSS-04-151 | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) · [library](esa-pss-04-151-issue1-september1992.md) | Telecommand Decoder Specification | Issue 1 September 1993 | bibliography |
+| ESA PSS-07-101 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) · [library](esa-pss-07-101-issue1-may1994.md) | Packet utilization standard | Issue 1 May 1994 | bibliography |
 | ITU-T V.41 | [ITU-T V.41](../references/index.md#ref-itu-t-v-41) | Code-Independent Error Control System – Data Communication over the Telephone Network (before renaming known as Information Technology - CCITT V.41) | 1989 | bibliography |
 | ISO 8473-1:1998 | [ISO 8473-1:1998](../references/index.md#ref-iso-8473-1-1998) | Information Technology - Protocol for Providing the Connectionless-Mode Network Service: Protocol specification second edition | second edition 1998 | bibliography |
 | SANA | [catalogue](../references/index.md#ref-space-assigned-numbers-authority-http-sanaregistry-org) | Space Assigned Numbers Authority, http://sanaregistry.org |  | bibliography |

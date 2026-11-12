@@ -1,8 +1,8 @@
 ---
 title: Mission tailoring of the MIB
-description: How projects constrain and extend the generic SCOS-2000 Database Import ICD, from the Herschel/Planck naming conventions, Alcatel faxes, HPSDB processing rules and the HCSS MIB Clarification and Tailoring Note to SPIRE's configuration control, and what Solar Orbiter's extra MIB files (ASW_sw_para, pcf_glob_det, dup, s13a/s13p/s13t) contain.
+description: How projects constrain and extend the generic SCOS-2000 Database Import ICD, from the Herschel/Planck packet rules, naming conventions, Alcatel faxes, HPSDB processing rules and configuration files, the checkout system's MIB extensions and EGSE naming rules and the HCSS MIB Clarification and Tailoring Note to SPIRE's configuration control, and what Solar Orbiter's extra MIB files (ASW_sw_para, pcf_glob_det, dup, s13a/s13p/s13t) contain.
 tags: [MIB, SCOS-2000, Tailoring, Herschel, Planck, Solar Orbiter]
-sources: [icd-7-0-final, icd-5-1-tos-gci, hcss-mib-clarification-tailoring-note, spire-mib-naming-convention-1-2, alc-scos-fax-2003-01-27, alc-scos-2003-03-27, h-p-1-asp-tn-1060-mib-processing-hpsdb, spire-db-management-1-0, cosmos-operations-interface-requirements, emcs-sum-4-0, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii]
+sources: [icd-7-0-final, icd-5-1-tos-gci, hcss-mib-clarification-tailoring-note, spire-mib-naming-convention-1-2, alc-scos-fax-2003-01-27, alc-scos-2003-03-27, h-p-1-asp-tn-1060-mib-processing-hpsdb, spire-db-management-1-0, cosmos-operations-interface-requirements, emcs-sum-4-0, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d, rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd, rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification, h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual, h-p-2-asp-li-1441-09-herschel-hpsdb-release-note, hifi-user-manual-annex-3-mib-139-aspi-11-7-overview, 02-sesp-2015-from-hpsdb-to-egs-cc-presentation]
 ---
 
 # Mission tailoring of the MIB
@@ -46,30 +46,43 @@ added rules.[^fax1-ref][^tn1060-scope][^hcss-bg]
 flowchart TB
     ICD["SCOS-2000 Database Import ICD<br/>issue 5.1 (2001) / 5.2"] --> NC["Herschel/Planck Naming Convention<br/>H-P-1-ASPI-SP-0141 (not in library)"]
     OIRD["Operations Interface Requirements<br/>SCI-PT-RS-07360: one common satellite database"] --> NC
+    OIRD --> PSICD["Packet Structure ICD SCI-PT-ICD-07527<br/>(2000-2008): APIDs, services,<br/>parameter types"]
     NC --> FAX["Alcatel faxes, Jan and Mar 2003:<br/>identifier limits, UDC ranges,<br/>SPID = TPSD, PCF_WIDTH"]
     NC --> SPIRE["SPIRE MIB naming convention<br/>(2002)"]
-    FAX --> HPSDB["HPSDB: MIB files processing<br/>H-P-1-ASP-TN-1060 (2006)"]
+    NC --> IRS["EGSE Interface Requirement Spec.<br/>H-P-1-ASPI-IS-0121 (2001-2004):<br/>EGSE positions and names"]
+    ICD --> CCSICD["CCS External ICD H-P-4-TE-ID-8020<br/>(2002-2006): extended ICD 5.1"]
+    IRS --> CCSICD
+    FAX --> HPSDB["HPSDB user manual (2005) and<br/>MIB files processing TN-1060 (2006)"]
+    CCSICD --> HPSDB
+    PSICD --> HPSDB
     NC --> HCSS["HCSS MIB Clarification and<br/>Tailoring Note HSC/DOC/0300 (2004)"]
     SPIRE --> CC["SPIRE database management and<br/>configuration control (2007)"]
     HCSS --> CC
 ```
 
-Relationships from the reference lists of the documents.[^hcss-rd][^spire-nc-ad][^fax1-ref][^tn1060-ad]
+Relationships from the reference lists of the documents.[^hcss-rd][^spire-nc-ad][^fax1-ref][^tn1060-ad][^ccs-scope][^irs-docs][^um-docs][^ps-scope]
 
 ```mermaid
 timeline
     title Herschel/Planck MIB tailoring documents
+    2001 : EGSE Interface Requirement Specification issue 01 (November)
     2002 : SPIRE MIB Naming Convention 1.2 (March)
+         : CCS External ICD issue 1.0 for the PDR (May)
          : HCSS comments on the naming convention (December)
     2003 : Alcatel fax H-P-ASP-LT-2607 (January)
          : Alcatel fax H-P-ASP-LT-2905 (March)
+         : CCS External ICD 1.4 and 1.5 - CAF_INTER, ECP 1 and ECP 3 (May, July)
          : OIRD issue 2.2 (September)
-    2004 : HCSS MIB Clarification and Tailoring Note issue 1.5 (December)
-    2006 : MIB files processing by HPSDB, H-P-1-ASP-TN-1060 issue 1 (February)
+    2004 : EGSE Interface Requirement Specification issue 4.1 (December)
+         : HCSS MIB Clarification and Tailoring Note issue 1.5 (December)
+    2005 : HPSDB Software User Manual 2.6 (September)
+    2006 : CCS External ICD issue 1.8 (January)
+         : MIB files processing by HPSDB, H-P-1-ASP-TN-1060 issue 1 (February)
     2007 : SPIRE Database Management and CUS Configuration Control issue 1.0 (February)
+    2008 : PS-ICD issue 6.0 (January) - HPSDB release note 9.0 (April)
 ```
 
-Dates from the documents' title pages and change records.[^spire-nc-ad][^hcss-cr][^fax1-ref][^fax2][^oird-sdb][^tn1060-cr][^spire-db-cr]
+Dates from the documents' title pages and change records.[^spire-nc-ad][^hcss-cr][^fax1-ref][^fax2][^oird-sdb][^tn1060-cr][^spire-db-cr][^irs-cr][^ccs-cr][^um-cover][^ps-cr60][^rn-cover]
 
 ### The project requirement: one common satellite database
 
@@ -85,6 +98,54 @@ Deliveries are scheduled from version 0 (instrument AVM) to a pre-launch update 
 launch, as Oracle data files, each with a configuration control file and the on-board software
 versions it matches.[^oird-sdb2] For naming, the OIRD defers to the project naming convention
 H-P-1-ASPI-SP-0141.[^oird-a4]
+
+### The packet rules: the PS-ICD narrows the parameter types
+
+Before any MIB rule, the Packet Structure ICD (SCI-PT-ICD-07527, issue 6.0 of January 2008)
+fixes what may appear in a packet at all: the space and ground segments support "all and only"
+the structures and services it defines, and packets may use only the parameter types of its
+Appendix 6.[^ps-scope][^ps-a6] That appendix is a subset of what the SCOS-2000 import ICD
+accepts, so every packet field described in a Herschel/Planck MIB had to use a PTC/PFC pair
+from this list (field
+meanings as on [MIB parameter types](parameter-types.md)):[^ps-a6][^ps-a6b]
+
+| PTC | Type | PFC allowed by the PS-ICD | Restriction compared with the MIB |
+|---|---|---|---|
+| 1 | Boolean | 0 | - |
+| 2 | Enumerated | 1 to 8, 12, 16, 32 bits | Other widths up to 32 bits excluded |
+| 3, 4 | Unsigned, signed integer | 0 to 14 (4 to 15 bits, 2, 3 or 4 octets) | No 48- or 64-bit integers |
+| 5 | Real | 1 (IEEE single), 2 (IEEE double) | MIL-STD-1750A formats excluded; PFC 3 was removed in issue 6.0 |
+| 6 | Bit string | 1, 2, 4, 8 bits | Other widths excluded |
+| 7 | Octet string | 0 (variable) or n octets | Not editable by the operator when used in a TC |
+| 8 | Character string | 0 or n characters | On board only for the PROM software version identifier (allowed since issue 6.draftA); free for SCOE/EGSE |
+| 9 | Absolute time | 17 (CUC, 4 octets coarse, 2 fine) | Only one time format |
+| 10 | Relative time | - | Not used |
+| 11 | Deduced | 0 | Used for OBCP parameters in TM(18,13) |
+
+The right-hand column is this wiki's comparison with the MIB ICD; the PS-ICD values are from
+Appendix 6 and its change record.[^ps-a6][^ps-a6b][^ps-cr6a][^ps-cr60][^i70-appa] The PS-ICD
+also reserves the APIDs 2016 to 2046 for SCOE and EGSE messages and 2047 for idle packets, and
+gives every instrument a base APID whose four low bits separate packet categories and prime
+from redundant units (HIFI: 1024 prime, 1025 redundant, 1026/1027 non-essential HK, 1028-1031
+science).[^ps-a3][^ps-a3b] By this wiki's reading, a MIB built for these rules therefore has
+many `pid` rows per instrument that differ only in the low bits of `PID_APID`; the PS-ICD does
+not discuss the MIB.
+
+!!! example "The PS-ICD type set against a later mission (real data, Solar Orbiter 2025)"
+    Applied to the Solar Orbiter MIB of 16 September 2025, the Herschel/Planck type set would
+    accept 124 203 of the 126 745 monitoring parameters. The other 2 542 use enumerations of
+    other widths (250, for example 224 of 18 bits), bit strings of 3, 5, 6, 7, 11 or more bits
+    (124), absolute times other than PFC 17 (2 119, of which 2 116 are PTC 9 PFC 15), relative
+    times (47) and PTC 13 (2). All its reals are IEEE (PFC 1 or 2), and 120 parameters are
+    character strings, among them software version strings such as `NIC0A000`
+    (`FSW_VERSION_STR`). Of the 7 155 command parameters, 40 fall outside the set (4 enumerated,
+    35 absolute time, 1 relative time).[^mib-ptc]
+
+!!! warning "Inference"
+    This is a comparison, not a judgement: Solar Orbiter has its own packet rules, and its
+    choice of other PFC values is not an error. The comparison only shows how much narrower the
+    Herschel/Planck packet rules were than the import ICD, and therefore than what a generic
+    MIB tool must support.
 
 ### Alcatel faxes of 2003: identifier limits and reserved ranges
 
@@ -282,6 +343,169 @@ taken from generic data, identical on every Herschel/Planck SCOS and CCS system;
 fields forced to `N`; printout tables not allowed; command sequences and parameter sets "not
 supported by CCS"; and CCS-only tables for conditional curves (CUR), groups (GRP, GRPA, GRPK),
 SCOE definitions (SCO) and TC/TM distribution (TCD, TMD).[^tn1060-pcf][^tn1060-pid][^tn1060-vpd][^tn1060-seq][^tn1060-ccs]
+
+### Loading MIB files into HPSDB: the configuration files
+
+GMV's HPSDB Software User Manual (version 2.6, September 2005) shows how a plain SCOS-2000 MIB
+was fitted into that object model. The user zips the bridge files with six configuration
+files, which supply what the import ICD has no field for:[^um-bridge][^um-cfg]
+
+| File | Fields | What it adds to the MIB |
+|---|---|---|
+| `S2K_EL.txt` | Real element identifier (Char(14)), theoretical element number (Number(3)), SW or HW, description, product tree identifier | Which physical units the data belong to; two redundant real elements share one theoretical element |
+| `S2K_SUB.txt` | First line: subsystem identifier (Char(7)), description, pseudo position, pseudo element number; then per position: ACC and CDMU bus-controller flags, real element, SCOE host and port | Where each element sits in the subsystem |
+| `S2K_TM.txt` | A naming-convention TM packet identifier (Char(20)) followed by the 16 fields of `pid.dat` | A project name for every packet; HPSDB reads packets from this file instead of `pid.dat` |
+| `S2K_CUR.txt`, `S2K_CVS.txt`, `S2K_PRF.txt` | SCOS number and naming-convention identifier | Maps short SCOS curve, verification stage and range set numbers (limited to 999, 9999 and 9999) to generic HPSDB items |
+
+The manual's example lines map three HIFI elements to positions 190, 191 and 194 and two SPIRE
+elements to positions 196 and 197 of subsystem `H001001` (pseudo position 289), and the curves 900, 901 and 905 to the generic curves
+`000900`, `000901` and `000905`.[^um-ex] The loader creates neither box types nor generic items,
+requires the OL expression files of derived parameters, and is explicitly "not a SCOS bridge
+file validator".[^um-bridge] Each user has one category flag code (Operations, OB for on-board
+software, AIT, or All), and bridge files can be generated for one category; the 2008 Herschel
+delivery to ASED for the Herschel IRR was generated with the "AIT User" filter.[^um-roles][^um-gen][^rn-intro]
+
+!!! note "Two descriptions of the generic items"
+    The processing note of 2006 codes a generic S2K curve as `1xxx`, standing for the HPSDB
+    curve `G000xxx000` (rule G3), while the user manual of 2005 maps generic curves through
+    `S2K_CUR.txt`, with SCOS numbers below 1000. The user manual also lists four category
+    codes without flight dynamics, where rule G10 of the note names AIT, operations, software
+    and flight dynamics.[^tn1060-g1][^um-cfg][^um-roles] Which variant the deliveries used is
+    not stated in the available sources.
+
+### The CCS External ICD: extending ICD 5.1 for checkout
+
+The Herschel/Planck Central Checkout System read HPSDB "bridge files" in the format of the
+SCOS-2000 import ICD issue 5.1, which Terma's *CCS External ICD* (H-P-4-TE-ID-8020, issue 1.8
+of 18 January 2006) declares fully applicable "with the explicit exceptions and additions"
+listed in its chapter 9.[^ccs-scope][^ccs-bridge] Unlike the documents above, it extends the
+MIB rather than narrowing it:
+
+| Change (CCS ICD section) | Tables | Content |
+|---|---|---|
+| Danger actions (§9.1) | none | A parameter beyond its danger limits starts the test sequence `danger_<parname>` (case sensitive) |
+| Delta limits (§9.2) | `ocp` | New `OCP_TYPE` 'D', with the delta in `OCP_LVALU`; the type list is S soft, H hard, D delta, C status consistency (needs `PCF_USCON` 'Y'), E event generation only |
+| Calibration selection (§9.3) | `pcf`, new `cur` | `PCF_CURTX` must be null when a selection exists; `cur` (`CUR_PNAME`, `CUR_POS`, `CUR_RLCHK`, `CUR_VALPAR`, `CUR_SELECT`), sorted by name and position, first match wins; only integer parameters may select |
+| Groups (§9.4) | new `grp`, `grpa`, `grpk` | Named parameter groups ('PA') or packet groups ('PK') built from existing parameters or SPIDs |
+| System parameters (§9.5) | `pcf`, `pid` | No parameter name may start with `VAR`, `GVAR` or `$` (OL syntax) or with `YZ`; SPIDs 100 to 999 reserved for internal EGSE use |
+| EGSE and SCOEs (§9.6-9.8) | new `sco`, `tcd`, `tmd` | Equipment name, host and port; TC distribution to equipment by APID; TM distribution by SPID |
+| Extrapolation (§9.3.1, §9.9) | `pcf`, `caf` | `PCF_INTER` ignored by the HPCCS; new `CAF_INTER` 'P' (extrapolate from the two end points) or 'F' (invalid value, default) |
+| ECP 1 (§9.10) | calibration, range set and verification tables | Curve and range set identifiers from Number(4) to Char(10); `CVS_ID` from Number(5) to Number(10), range 0 to 2147483647 |
+| ECP 3 (§9.10.19) | new `lgf` | Logarithmic curve, $Y = 1/(A_0 + A_1 \ln X + A_2 \ln^2 X + A_3 \ln^3 X + A_4 \ln^4 X)$ |
+| ECP 9 to 12 (§9.11) | `ccf`, `csf` | `CCF_SUBSCHEDID` and `CSF_SUBSCHEDID`: default on-board sub-schedule, 1 to 65535 "although the full range is not permitted" (see the PS-ICD) |
+
+Sources: §8-9.13 and the change record.[^ccs-danger][^ccs-cur][^ccs-grp][^ccs-sys][^ccs-sco][^ccs-ecp1][^ccs-subs][^ccs-sum][^ccs-cr]
+Issue 1.4 (May 2003) moved the extrapolation flag from `pcf` to `caf`; the note kept under
+`PCF_INTER` describes the problem with a per-parameter flag (the ICD does not say that it was
+the reason for the move): SCOS-2000 attaches the flag to the calibration curve, so
+parameters sharing a curve would all display with the flag of the last one imported.[^ccs-cr][^ccs-cur] It also
+overrules the ICD rule that calibrated limits (`OCF_INTER` 'C') need a `PCF_CURTX`: with a
+calibration selection that field may stay null.[^ccs-cur]
+
+!!! note "Inconsistencies as printed"
+    Two details of the CCS ICD do not agree with themselves. The text of ECP 3 gives a
+    second-order formula, $T(R) = 1/[a_0 + a_1 \ln R + a_2 (\ln R)^2]$, while the `lgf` table
+    has five coefficients up to the fourth power. And ECP 1 widens range set identifiers to
+    Char(10), but the modified `prf`, `prv` and `cpc`/`csp` reference fields are printed as
+    Char(8).[^ccs-ecp1][^ccs-lgf]
+
+Most of these extensions returned to the standard import ICD as the Herschel/Planck "Check Out
+System functionalities repatriation" of ICD version 6.0 (the default sub-schedule ID came into
+the same version through the Cryosat repatriation, and `CAF_INTER` was documented only later,
+under S2K-SPR-4911), while `sco`, `tcd` and `tmd` do not (see [History of the Database Import ICD](icd-history.md)).[^icd-repat][^icd-cryo][^icd-sum] The checkout system also
+returns a file to the HPSDB: an **update file** with one tab-separated line per telecommand
+(`c`) or parameter (`p`) validated by a test sequence, giving time, name, sequence name and issue
+and host, to be read together with the MIB issue in `vdf.dat`.[^ccs-upd] The `tcd`
+configuration printed in a Herschel release note of 2008 sends APID 0 and the CDMS, ACMS and
+instrument APIDs (16, 512, 1024, 1152, 1280) to the TM/TC front end and ten EGSE APIDs between
+2017 and 2044 to their own equipment.[^rn-route]
+
+!!! example "The CCS rules against a later mission (real data, Solar Orbiter 2025)"
+    In the Solar Orbiter MIB of September 2025 no parameter name starts with `VAR`, `GVAR`,
+    `$` or `YZ`. Its 1 974 `cur` rows use 52 different selector parameters (`CUR_RLCHK`): 40
+    Booleans (PTC 1, 112 rows), 8 enumerations (PTC 2, 1 834 rows) and 4 unsigned integers
+    (PTC 3, 28 rows), all unsigned integers in SCOS-2000's internal representation, so the CCS
+    rule that only integer parameters select a calibration, which ICD 7.0 also states, holds.
+    `CUR_POS` goes up to 12 and the largest `CUR_VALPAR` is 420.[^mib-cur][^i70-cur][^i70-appa]
+    Its `dst` table, the standard ICD's own command routing, has a single row (see
+    [SCOS-2000 as EGSE](../scos2000/egse.md)).[^mib-cur]
+
+### One identifier, several widths
+
+The same identifiers were given different widths by each layer of the Herschel/Planck chain:
+
+| Identifier | ICD 5.1 (2001) | Alcatel fax (Jan 2003), instrument S2K files | HPSDB note (2006), S2K files | CCS External ICD (ECP 1, 2003) | ICD 7.0 (2017) |
+|---|---|---|---|---|---|
+| Calibration curves (`CAF_NUMBR`, `TXF_NUMBR`, `MCF_IDENT`, ...) | Number(4) | Number(3) | Number(3) specific, `1xxx` generic | Char(10) | Char(10) |
+| Parameter range sets (`PRF_NUMBR`) | Number(4) | Number(3) | Number(3) specific, `1xxx` generic | Char(10) (but Char(8) in the field tables) | Char(10) |
+| Verification stages (`CVS_ID`) | Number(5) | Number(4) | Number(4) specific, `1xxxx` generic | Number(10) | Number(5), 0 to 32767 |
+
+Sources per column.[^i51-widths][^fax1-req][^tn1060-g1][^ccs-ecp1][^i70-widths] ICD 7.0's
+change history explains its last column: version 6.0 widened `CVS_ID` from NUM(5) to NUM(8)
+with the Herschel/Planck repatriation, and a later change request, S2K-DCR-3909 (listed among
+the clarifications of ICD 6.7, with the matching Number(5) length of `CVE_CVSID` and
+`CVP_CVSID` in ICD 6.9), restricted it to a signed short integer.[^icd-repat][^i70-cvsdcr] Inside HPSDB a curve
+was a Number(6), three digits of theoretical element number and three free digits.[^tn1060-g1]
+The HIFI MIB of 2008 shows the instrument side: its textual calibrations, numerical
+calibrations and command calibrations are numbered with three digits (for example 249, 293 and
+134).[^hmib-cal]
+
+!!! warning "Inference"
+    The widths fit together if the short numbers belong to the instrument S2K files and the
+    character identifiers to the CCS files that HPSDB generated from its own Number(6) and
+    naming-convention identifiers. No source states this division of labour explicitly.
+
+### Naming the EGSE, and real names decoded
+
+The EGSE Interface Requirement Specification (H-P-1-ASPI-IS-0121, issue 4.1, December 2004)
+applies the naming convention to the test equipment, so that SCOE commands and monitoring can
+live in the same database as the spacecraft. Its rules:[^irs-names][^irs-names2][^irs-db]
+
+* the EGSE subsystem letter is `Y`, written as the number 25 (Y being the 25th letter) in remote
+  monitoring packet names;
+* each EGSE item owns a range of positions: ACMS SCOE 920-939, CCS 940-941, PLM SCOE 942-943,
+  CDMU DFE 944-945, TM/TC DFE 946-947, CDMU SCOE 948-949, TT&C SCOE 950-951, LPS 952-953, SAS
+  954-955, BATSIM 956-957, cryo SCOE 958-959, cryo COTE 960-961, HIFI 962-963, PACS 964-965,
+  SPIRE 966-967, HFI 968-969, LFI 970-971;
+* remote command names are `YC` + three-character function + position, their parameters
+  `YP` + function + position, remote monitoring parameters `YM` + function + position; remote
+  monitoring packet identifiers combine the subsystem number 25, the position allocation and a
+  four-digit element packet number whose first three digits repeat the position (this last rule
+  does not apply to the cryo SCOE);
+* identifiers may use only the digits, the underscore and the upper-case letters except `I`,
+  `O` and `Q`;
+* every SCOE subcontractor supplies its remote command and monitoring definitions (mnemonic,
+  PTC, PFC, position in the packet, descriptions, calibration) in tables that can be loaded
+  into the HPSDB.
+
+The rule against `I`, `O` and `Q` is stricter than NMCVT-0100-C as the HCSS note reports it
+(those letters forbidden only as the first character, because the instrument centres used them
+for their EGSE-ILT parameters).[^hcss-42][^hcss-nc] The Herschel release note of 2008 shows
+the EGSE subsystem as delivered: `Y104 EGSE` at model position 989, with elements such as
+940 `CCS`, 946 `TMTCDFE`, 948 `CDMUSCOE` and 962, 964 and 966 for the instrument EGSEs.[^rn-sub]
+
+The same note gives the positions of the instrument elements, which explain the endings of the
+names in the printed HIFI MIB (issue 139, July 2008):[^rn-sub][^hmib-cover]
+
+| Name in the HIFI MIB | Mnemonic | Ending | Element at that position in model `HERSCH_FM9` |
+|---|---|---|---|
+| `HM009190` | `HI_Prime_red` | 190 | `HIFI_ICU_N` |
+| `HP056191` | `HIF_ch1_mxbias0_V` | 191 | `HIFI_FCU_N` |
+| `HM001193` | `HI_WBSV_S` | 193 | `HIFI_WBS_N` |
+| `HM000194` | `HI_LCU_S` | 194 | `HIFI_LCU_N` |
+| `HP001197` | `HIFI_BB_ID` | 197 | `HIFI_OBS_N` |
+
+The names come from the annex's parameter lists and packet layouts.[^hmib-icu][^hmib-cmdpar][^hmib-hk][^hmib-cmd]
+
+!!! warning "Inference"
+    Reading the names as subsystem letter (`H`), item-type letter (`M` monitoring parameter,
+    `P` command parameter, `D` for names such as `HD111190` `HIFI_ptv_input`), three free
+    characters and the element position is this wiki's application of HPSDB rule G2 and of the
+    EGSE pattern above; the HIFI documents do not explain their names. Thales Alenia Space's
+    2015 slides on the successor database list `A` TM packet, `C` curve, `D` synthetic
+    parameter, `G` group, `K` constant and `M` TM parameter as item letters.[^tn1060-g1][^sesp-rules]
+    The SPIRE convention (`SMiiippp`, `SPiiippp`, `SCiiippp`) follows the same shape with the
+    instrument letter `S`.
 
 ### The minimum EGSE data set
 
@@ -481,15 +705,17 @@ are the same numbers 161 to 195 as in `s13p` (for example 161 `OMM_TC_FILES_A`, 
 
 | Pattern | Herschel/Planck | Solar Orbiter |
 |---|---|---|
-| Narrower identifiers | curve, range set and stage identifiers shortened by one digit (faxes, HPSDB G3–G5) | – |
-| Naming conventions | project NMCVT, SPIRE patterns, `Z` pseudo items, `I`/`O`/`Q` reserved | consistent prefixes visible in the data: `N…` monitoring parameters, `Y…` packet mnemonics, `Z…` commands, `P…` command parameters, `A…` sequences, `D…` displays |
-| Reserved ranges | UDC packet partitioned per subsystem; SPIDs 1–100 for EGSE | pseudo-APIDs 1953–1996 for re-identified packets |
+| Narrower identifiers | curve, range set and stage identifiers shortened by one digit in instrument files (faxes, HPSDB G3–G5) | – |
+| Narrower packet types | PTC/PFC limited to the PS-ICD Appendix 6 set; PUS version 0 only | 2,542 of 126,745 parameters use pairs outside that set |
+| Wider identifiers and new tables | CCS files: Char(10) curves and range sets, Number(10) stages; `cur`, `grp`, `grpa`, `grpk`, `lgf`, `sco`, `tcd`, `tmd`, delta limits, `CAF_INTER`, default sub-schedule | uses the repatriated features: 1,974 `cur` rows, 105 delta checks, 2 groups, `CCF_SUBSCHEDID` |
+| Naming conventions | project NMCVT, SPIRE and HIFI names ending in element positions, `Z` pseudo items, `I`/`O`/`Q` reserved, EGSE items `Y` with positions 920–971 | consistent prefixes visible in the data: `N…` monitoring parameters, `Y…` packet mnemonics, `Z…` commands, `P…` command parameters, `A…` sequences, `D…` displays |
+| Reserved ranges | UDC packet partitioned per subsystem; SPIDs 1–100 in the instrument EGSE and 100–999 in the CCS; APIDs 2016–2046 for SCOE/EGSE; parameter names `YZ…` for CCS system parameters | pseudo-APIDs 1953–1996 for re-identified packets; only SPIDs 101–103 (MATIS packets on APID 1966) below 1000 |
 | Forbidden features | constants, sequences, parameter sets, printouts, octal radix | – |
 | Extra information | command durations table (HCSS); HPSDB long mnemonics and descriptions | `ASW_sw_para`, `pcf_glob_det`, `dup`, `s13*` |
-| Configuration control | field-level change records (OIRD), CVS tags and database configurations (SPIRE) | release names and `vdf` comments (e.g. `20250916-CSW3.1.2_MAS7.33`) |
+| Configuration control | field-level change records (OIRD); HPSDB working, reference and archive areas with validation by the manager; release notes with change records, NCR status and MD5 checksums; CCS update files naming validated items; CVS tags and database configurations (SPIRE) | release names and `vdf` comments (e.g. `20250916-CSW3.1.2_MAS7.33`) |
 
 Herschel/Planck entries from the documents above; Solar Orbiter entries from the release data
-(the naming prefixes are this wiki's observation).[^mib-extra][^mib-vdf]
+(the naming prefixes are this wiki's observation).[^mib-extra][^mib-vdf][^mib-ptc][^mib-cur]
 
 ??? example "SQL used"
     Run against `solo-2025-09-16.sqlite` (and `solo-2020-04-16.sqlite`, `swa-idb.sqlite`). The
@@ -530,6 +756,33 @@ Herschel/Planck entries from the documents above; Solar Orbiter entries from the
     SELECT c.CDF_ELTYPE, c.CDF_BIT, c.CDF_PNAME, p.CPC_DESCR, p.CPC_PAFREF
       FROM cdf c LEFT JOIN cpc p ON p.CPC_NAME = c.CDF_PNAME WHERE c.CDF_CNAME = 'ZCD00D09';
     SELECT * FROM pas WHERE PAS_NUMBR IN ('CCDT0192TX', 'CCDT0082TX');
+
+    -- PTC/PFC pairs against the Herschel/Planck PS-ICD Appendix 6 set
+    WITH t AS (SELECT CAST(PCF_PTC AS INT) ptc, CAST(PCF_PFC AS INT) pfc FROM pcf)
+    SELECT ptc, count(*), sum(CASE
+        WHEN ptc = 1 THEN pfc = 0
+        WHEN ptc = 2 THEN pfc IN (1,2,3,4,5,6,7,8,12,16,32)
+        WHEN ptc IN (3,4) THEN pfc BETWEEN 0 AND 14
+        WHEN ptc = 5 THEN pfc IN (1,2)
+        WHEN ptc = 6 THEN pfc IN (1,2,4,8)
+        WHEN ptc IN (7,8) THEN 1
+        WHEN ptc = 9 THEN pfc = 17
+        WHEN ptc = 11 THEN pfc = 0
+        ELSE 0 END) AS inside
+      FROM t GROUP BY ptc;            -- total 126745, inside 124203 (same query on cpc: 7155, 7115)
+    SELECT PCF_PTC, PCF_PFC, count(*) FROM pcf GROUP BY 1, 2;   -- e.g. 2|18|224, 9|15|2116
+
+    -- CCS External ICD rules
+    SELECT count(*) FROM pcf WHERE PCF_NAME LIKE 'VAR%' OR PCF_NAME LIKE 'GVAR%'
+        OR PCF_NAME LIKE '$%' OR PCF_NAME LIKE 'YZ%';                        -- 0
+    SELECT p.PCF_PTC, count(*), count(DISTINCT c.CUR_RLCHK)
+      FROM cur c JOIN pcf p ON p.PCF_NAME = c.CUR_RLCHK GROUP BY 1;          -- 1|112|40, 2|1834|8, 3|28|4
+    SELECT max(CAST(CUR_POS AS INT)), max(CAST(CUR_VALPAR AS INT)) FROM cur; -- 12 | 420
+    SELECT PID_SPID, PID_APID, PID_TYPE, PID_STYPE, PID_DESCR FROM pid
+     WHERE CAST(PID_SPID AS INT) BETWEEN 100 AND 999;                        -- 101-103, APID 1966, type 166
+    SELECT count(*), sum(coalesce(CCF_SUBSCHEDID, '') <> '') FROM ccf;       -- 5454 | 5304
+    SELECT OCP_TYPE, count(*) FROM ocp GROUP BY 1;  SELECT count(*) FROM grp; -- D 105; 2
+    SELECT count(*) FROM dst;                                                -- 1
     ```
 
 ## Related pages
@@ -538,10 +791,13 @@ Herschel/Planck entries from the documents above; Solar Orbiter entries from the
   [History of the Database Import ICD](icd-history.md).
 * [Monitoring in the MIB](monitoring.md) (PID, PIC, PLF, VPD) and
   [Synthetic parameters](synthetic-parameters.md).
-* [MIB tooling](tooling.md): the editors and databases that applied these rules.
+* [MIB tooling](tooling.md): the editors and databases that applied these rules, and
+  [operations preparation](../scos2000/operations-preparation.md#hpsdb-and-srdb-a-database-with-views)
+  (HPSDB and SRDB as one database with views).
 * [Herschel and Planck](../missions/herschel-planck.md),
-  [Herschel/Planck ground segment](../scos2000/herschel-planck-ground.md) and
-  [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md).
+  [Herschel/Planck ground segment](../scos2000/herschel-planck-ground.md),
+  [Herschel/Planck interface documents](../scos2000/herschel-planck-interfaces.md) (PS-ICD, CCS
+  external interfaces) and [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md).
 
 [^icd-sum]: [SCOS-2000 Database Import ICD, EGOS-MCS-S2K-ICD-0001 issue 7.0](../library/icd-7-0-final.md), §3.2 Summary of the ASCII tables, PDF pp. 30–32.
 [^icd-21]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §2.1 Assumptions and constraints, PDF p. 21.
@@ -609,3 +865,55 @@ Herschel/Planck entries from the documents above; Solar Orbiter entries from the
 [^mib-s13]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `s13a`, `s13p` and `s13t`; queries by this wiki.
 [^mib-s13cmd]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), `ccf`, `cdf` and `cpc` records of command `ZCD00D09`, and `paf`/`pas` records of `CCDT0192TX` and `CCDT0082TX`; queries by this wiki.
 [^mib-vdf]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), table `vdf` and first letters of the names in `pcf` (126,740 of 126,745 start with N), `tpcf` (11,131 of 11,150 with Y), `ccf` (5,441 of 5,454 with Z), `cpc` (5,428 of 7,155 with P), `csf` (all 3,404 with A) and `dpf`; queries by this wiki.
+[^ps-scope]: [Herschel/Planck Packet Structure ICD, SCI-PT-ICD-07527 issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), §1.1 Scope (applicable document AD-3, the OIRD) and requirement 1000-GEN, PDF p. 39.
+[^ps-a6]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), Appendix 6 Parameter types and structures, §A6-1 to A6-3.5 and requirement 1200-A6, PDF pp. 172-176.
+[^ps-a6b]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), Appendix 6 §A6-3.6 to A6-3.10 (bit string, octet string, time, deduced, character string), PDF pp. 176-179.
+[^ps-cr6a]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), change record of issue 6.draftA (Appendix 6 upgrade: PTC 8 allowed on board for the stored software version identifier), PDF pp. 26-27.
+[^ps-cr60]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), change record of issue 6.0, 25 January 2008 (removal of real format PTC 5, PFC 3), PDF p. 32.
+[^ps-a3]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), Appendix 3 Application Process ID Assignment, introduction and requirement 1140-A3 c, PDF p. 158.
+[^ps-a3b]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), Appendix 3, Table A-3.1 (base APIDs and offsets, 2016 to 2046 SCOE/EGSE reserved, 2047 idle), PDF pp. 159-163.
+[^i70-appa]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Appendix A, Table 4 "Parameter Type and Format Codes supported by SCOS-2000" (PTC 1 and 2 handled as unsigned integers), PDF pp. 214-224.
+[^i70-cur]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §3.3.2.2.1 cur, fields CUR_POS, CUR_RLCHK (restricted to monitoring parameters with an integer raw representation) and CUR_VALPAR, PDF p. 64.
+[^i70-widths]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), field 1 of caf (PDF p. 65), txf (PDF p. 69), mcf (PDF p. 71), §3.3.3.4.1 cvs (CVS_ID Number(5), range 0 to 32767, PDF p. 192) and prf (PDF p. 211).
+[^i70-cvsdcr]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), document change history, S2K-DCR-3909 "Restriction of CVS_ID values to signed short int" (document clarifications of ICD version 6.7, PDF p. 259) and the related length updates of CVE_CVSID and CVP_CVSID (ICD version 6.9, PDF p. 260).
+[^icd-repat]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Annex 1, items for ICD version 6.0 "Implement modifications related to Hershel & Planck Check Out System functionalities repatriation" (including CVS ID from NUM(5) to NUM(8)), PDF pp. 246-248.
+[^i51-widths]: [SCOS-2000 Database Import ICD issue 5.1, S2K-MCS-ICD-0001-TOS-GCI](../library/icd-5-1-tos-gci.md), field 1 of caf (CAF_NUMBR Number(4), PDF p. 32), txf (PDF p. 33), mcf (PDF p. 35), cvs (CVS_ID Number(5), PDF p. 93) and prf (PRF_NUMBR Number(4), PDF p. 102).
+[^ccs-cr]: [Herschel Planck Central Checkout System External ICD, H-P-4-TE-ID-8020 issue 1.8 (Terma)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), document change record (draft A of 22 April 2002 to issue 1.8 of 18 January 2006; issue 1.4 moving the extrapolation flag to CAF, issue 1.5 for ECP 1 and ECP 3), PDF p. 2.
+[^ccs-scope]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §1.2 Scope and §2.1 Applicable documents (AD-001 EGSE IRS, AD-002 SCOS-2000 Database Import ICD issue 5.1), PDF p. 7.
+[^ccs-bridge]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9 Interface Herschel Plank Bridge-Files (introduction), PDF p. 9.
+[^ccs-upd]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §8 Interface Herschel Plank Update files, PDF p. 9.
+[^ccs-danger]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.1 Changes due to Danger Actions, PDF pp. 9-10.
+[^ccs-cur]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.2-9.3.2, Tables 9.2-1 (OCP_TYPE, OCP_LVALU), 9.3-1 (PCF_CURTX, PCF_INTER and the note on OCF_INTER) and 9.3-2 (CUR), PDF pp. 10-12.
+[^ccs-grp]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.4, Tables 9.4-1 to 9.4-3 (GRP, GRPA, GRPK), PDF pp. 12-13.
+[^ccs-sys]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.5, Tables 9.5-1 (PCF_NAME) and 9.5-2 (PID_SPID), PDF p. 14.
+[^ccs-sco]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.6-9.9, Tables 9.6-1 (SCO), 9.7-1 (TCD), 9.8-1 (TMD) and field CAF_INTER, PDF pp. 14-15.
+[^ccs-ecp1]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.10 Changes due to ECP #1 and ECP #3 and §9.10.1-9.10.18 (CUR to CVE), PDF pp. 15-19.
+[^ccs-lgf]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.10 (ECP #3 formula) and §9.10.19 New ASCII Table LGF, PDF pp. 16 and 19.
+[^ccs-subs]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.11 Changes due to ECP #9 - #12, fields CCF_SUBSCHEDID and CSF_SUBSCHEDID, PDF p. 19.
+[^ccs-sum]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.12 Relationships (Figures 9.12-1 and 9.12-2) and §9.13 Affected table summary (Table 9.13-1), PDF pp. 21-23.
+[^irs-cr]: [EGSE Interface Requirement Specification, H-P-1-ASPI-IS-0121 issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), change records (issue 01 of 7 November 2001 to 4.1 of 14 December 2004), PDF pp. 3-4.
+[^irs-docs]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §2.3 Applicable documents (AD2 H-P System Database Specification, AD3 CCS External ICD, AD6 Naming convention), PDF p. 12.
+[^irs-db]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.12.2 Database, IFRQT-0810 and IFRQT-0820, Tables 16 (RC definition) and 17 (RM packet definition), PDF pp. 79-81.
+[^irs-names]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.12.10 Naming Convention Rules for EGSE items, IFRQT-0888-1 to IFRQT-0888-4, PDF p. 84.
+[^irs-names2]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), IFRQT-0888-5 to IFRQT-0888-15, Tables 18 to 21 (RC mnemonics, RC parameters, RM packets, RM parameters), PDF pp. 85-88.
+[^um-cover]: [HPSDB Software User Manual, H-P-1-GMV-MA-20487 version 2.6 (GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), cover and document status sheet, PDF pp. 1-4.
+[^um-docs]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §1.5 Related documents (AD.4 Naming Convention H-P-1-ASPI-SP-0141, AD.5 SCOS-2000 Database import ICD, RD.1 CCS & SCOS 2000 to HPSDB & MOIS ICD), PDF pp. 11-12.
+[^um-roles]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.3.1 Create user (roles and category flag codes Operations, OB, AIT, All), PDF pp. 59-60.
+[^um-bridge]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.1.1 Functional description and §3.4.5.1.4 Cautions and warnings of bridge file loading, PDF pp. 69 and 75.
+[^um-cfg]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.1.2 Configuration files description, PDF pp. 69-73.
+[^um-ex]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.1.3 Example, PDF pp. 73-75.
+[^um-gen]: [HPSDB Software User Manual 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.4.5.2 Generate bridge files (file type SCOS or CCS, user category), PDF pp. 76-78.
+[^rn-cover]: [Herschel/Planck HPSDB Release Note, H-P-2-ASP-LI-1441 issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), cover page (7 April 2008; CCS files, AIT filter), PDF p. 1.
+[^rn-intro]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), §1 Introduction (to ASED, file type CCS, filter AIT User, reason Herschel IRR), PDF p. 8.
+[^rn-route]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), §5.2.11-5.2.12 TM packet routing tmd.dat and TC packet routing tcd.dat, PDF p. 10.
+[^rn-sub]: [HPSDB Release Note issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), Figures 2 to 11 (theoretical subsystems and element positions, including H004 HIFI and Y104 EGSE), PDF pp. 12-16.
+[^hmib-cover]: [HIFI User Manual Annex, MIB 139 (ASPI 11.7) overview, SRON-U/HIF/UM/2004-001 (Annex)](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md), cover page (11 July 2008) and §1, PDF pp. 1 and 4.
+[^hmib-cmdpar]: [HIFI MIB annex](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md), §1.1.1 FCU Command parameters, PDF p. 4.
+[^hmib-icu]: [HIFI MIB annex](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md), §1.4.1 ICU Monitor parameters, PDF p. 52.
+[^hmib-cal]: [HIFI MIB annex](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md), §1.2.1 PAF, §1.2.2 CCA (curve 134), §1.5.1 TXF (curve 249) and §1.5.2 CAF (curve 293), PDF pp. 31, 41, 268 and 282.
+[^hmib-cmd]: [HIFI MIB annex](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md), §1.7.15 HIFI_Set_OBS_ID, PDF p. 358.
+[^hmib-hk]: [HIFI MIB annex](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md), §1.8.1 HIFI_HK_rev_7 (including HM001193 and HM000194), PDF p. 456.
+[^sesp-rules]: [Thales Alenia Space, "System Reference Data Base - From H/P to EGS-CC", SESP 2015](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md), slide "Rules" (item core identifier letters), PDF p. 3.
+[^mib-ptc]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pcf` and `cpc` (PTC/PFC pairs compared with the PS-ICD Appendix 6 set); queries by this wiki (SQL above).
+[^mib-cur]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pcf`, `cur`, `ocp`, `grp`, `ccf`, `pid` and `dst`; queries by this wiki (SQL above).
+[^icd-cryo]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Annex 1, Cryosat repatriation items for ICD version 6.0 (sub-schedule ID of execution time-tagged commands, one field added to CCF and CSF), PDF p. 249, and change history S2K-SPR-4911 (CAF_INTER documented), PDF p. 259.

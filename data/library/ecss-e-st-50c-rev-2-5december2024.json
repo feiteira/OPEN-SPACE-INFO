@@ -1,0 +1,849 @@
+{
+  "slug": "ecss-e-st-50c-rev-2-5december2024",
+  "title": "Space engineering\nCommunications",
+  "short_title": "ECSS-E-ST-50C Rev.2: Communications (2024)",
+  "doc_id": "ECSS-E-ST-50C Rev.2",
+  "issue": "Second issue, Revision 2",
+  "date": "2024-12-05",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Section (prepared by the ECSS-E-ST-50C Revision Working Group)",
+  "authors": [
+    "ECSS-E-ST-50C Revision Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Second issue, Revision 2, dated 5 December 2024. It revises ECSS-E-ST-50C Rev.1 (1 March 2021), which revised ECSS-E-ST-50C (31 July 2008), itself following ECSS-E-50 Part 1A (20 October 2003) and Part 2A (4 July 2005); ECSS-E-ST-50B was never issued (change log, p. 3). Whether a later revision exists is not stated in the document.",
+  "summary": "The top-level ECSS standard for **space communications**, in its December 2024 revision. It sets the requirements for developing the end-to-end data communication system of a spacecraft: space-ground and space-to-space links in operations, and the links used during assembly, integration and test. It is a process and top-level requirements standard in the ECSS-E-ST-10 framework. The protocol details sit in the Level-3 ECSS-E-ST-50-xx standards, in the ECSS Adoption Notices of CCSDS books and in CCSDS standards, and the ground segment is mostly left to ECSS-E-ST-70.\n\nRev.2 is a small maintenance revision. It removes the issue numbers and dates of the adopted CCSDS books (in the clause 4.2 table and the bibliography), so that ECSS-E-ST-50 need not be reissued whenever CCSDS updates a book. It also deletes twelve generic terms from clause 3.2 at the request of the Glossary Task Force, and fixes the 'CSDP' typo in 5.2.5.3c.\n\nContent an engineer finds:\n\n* clause 4: the principles (guaranteed in-order delivery for control, best effort for payload data), the table of which adoption notice (ECSS-E-AS-50-21 to -26) replaces which part of ECSS-E-ST-50-01C/-03C/-04C, Figure 4-2 mapping CCSDS and Internet protocols onto OSI layers, the three domains (space network, space link, ground network) and the review milestones;\n* clause 5: numbered requirements (ECSS-E-ST-50_09700xx) on telecommanding (in-sequence delivery, erroneous-TC acceptance below 10^-2/N, hardware essential telecommands, authentication and encryption, destination identifiers), telemetry, space link performance (uplink BER 10^-5, frame rejection and undetected-error targets), ITU frequency filing, link services, on-board and inter-spacecraft networks and the ground network;\n* normative Annexes A to H, which define the eight communication-system DRDs (CSRD to CSOM, including the CSPD compliance profile), and Annex I, which maps them to reviews.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 8
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 9
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 10
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 11
+    },
+    {
+      "section": "3.1",
+      "title": "Terms defined in other standards",
+      "pdf_page": 11
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 11
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviated terms",
+      "pdf_page": 13
+    },
+    {
+      "section": "4",
+      "title": "Space communications engineering principles",
+      "pdf_page": 15
+    },
+    {
+      "section": "4.1",
+      "title": "Context",
+      "pdf_page": 15
+    },
+    {
+      "section": "4.2",
+      "title": "Overall space communication",
+      "pdf_page": 16
+    },
+    {
+      "section": "4.3",
+      "title": "Space communication domains",
+      "pdf_page": 21
+    },
+    {
+      "section": "4.4",
+      "title": "Communications engineering process",
+      "pdf_page": 24
+    },
+    {
+      "section": "4.5",
+      "title": "Relationship with other standards",
+      "pdf_page": 26
+    },
+    {
+      "section": "4.6",
+      "title": "<<deleted>>",
+      "pdf_page": 27
+    },
+    {
+      "section": "4.7",
+      "title": "Spacecraft control considerations",
+      "pdf_page": 27
+    },
+    {
+      "section": "5",
+      "title": "Requirements",
+      "pdf_page": 28
+    },
+    {
+      "section": "5.1",
+      "title": "Introduction",
+      "pdf_page": 28
+    },
+    {
+      "section": "5.2",
+      "title": "Space communication system engineering process",
+      "pdf_page": 28
+    },
+    {
+      "section": "5.2.1",
+      "title": "Requirements engineering",
+      "pdf_page": 28
+    },
+    {
+      "section": "5.2.2",
+      "title": "Analysis",
+      "pdf_page": 29
+    },
+    {
+      "section": "5.2.3",
+      "title": "Design and configuration",
+      "pdf_page": 30
+    },
+    {
+      "section": "5.2.4",
+      "title": "Implementation",
+      "pdf_page": 31
+    },
+    {
+      "section": "5.2.5",
+      "title": "Verification",
+      "pdf_page": 33
+    },
+    {
+      "section": "5.2.6",
+      "title": "Operations",
+      "pdf_page": 34
+    },
+    {
+      "section": "5.3",
+      "title": "Space communication system",
+      "pdf_page": 35
+    },
+    {
+      "section": "5.4",
+      "title": "Telecommanding",
+      "pdf_page": 36
+    },
+    {
+      "section": "5.5",
+      "title": "Telemetry",
+      "pdf_page": 38
+    },
+    {
+      "section": "5.6",
+      "title": "Space link",
+      "pdf_page": 41
+    },
+    {
+      "section": "5.6.11",
+      "title": "Space link performance",
+      "pdf_page": 43
+    },
+    {
+      "section": "5.6.12",
+      "title": "Space link frequency",
+      "pdf_page": 46
+    },
+    {
+      "section": "5.6.13",
+      "title": "Space link protocol",
+      "pdf_page": 47
+    },
+    {
+      "section": "5.6.14",
+      "title": "Space link service",
+      "pdf_page": 48
+    },
+    {
+      "section": "5.7",
+      "title": "Space network",
+      "pdf_page": 51
+    },
+    {
+      "section": "5.7.1",
+      "title": "On-board network",
+      "pdf_page": 51
+    },
+    {
+      "section": "5.7.2",
+      "title": "On-board network services",
+      "pdf_page": 52
+    },
+    {
+      "section": "5.7.3",
+      "title": "Inter-spacecraft network",
+      "pdf_page": 53
+    },
+    {
+      "section": "5.7.4",
+      "title": "Inter-spacecraft network services",
+      "pdf_page": 54
+    },
+    {
+      "section": "5.8",
+      "title": "Ground network",
+      "pdf_page": 55
+    },
+    {
+      "section": "Annex A",
+      "title": "Communication system requirements document (CSRD) - DRD (normative)",
+      "pdf_page": 57
+    },
+    {
+      "section": "Annex B",
+      "title": "Communication system baseline definition (CSBD) - DRD (normative)",
+      "pdf_page": 62
+    },
+    {
+      "section": "Annex C",
+      "title": "Communication system analysis document (CSAD) - DRD (normative)",
+      "pdf_page": 68
+    },
+    {
+      "section": "Annex D",
+      "title": "Communication system verification plan (CSVP) - DRD (normative)",
+      "pdf_page": 71
+    },
+    {
+      "section": "Annex E",
+      "title": "Communication system architectural design document (CSADD) - DRD (normative)",
+      "pdf_page": 74
+    },
+    {
+      "section": "Annex F",
+      "title": "Communication system detailed design document (CSDDD) - DRD (normative)",
+      "pdf_page": 77
+    },
+    {
+      "section": "Annex G",
+      "title": "Communication system profile document (CSPD) - DRD (normative)",
+      "pdf_page": 80
+    },
+    {
+      "section": "Annex H",
+      "title": "Communication system operations manual (CSOM) - DRD (normative)",
+      "pdf_page": 82
+    },
+    {
+      "section": "Annex I",
+      "title": "Documentation summary (informative)",
+      "pdf_page": 85
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 88
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Rev.2 removes the issue identifier and date of the adopted CCSDS documents, so that ECSS-E-ST-50 does not need updating whenever an adopted CCSDS standard is updated; it also deletes 12 terms from clause 3.2 (communication service, cross support, downlink, service-provider, service-user, sink, telecommand, telemetry, telemetry link, uplink, user, user application).",
+      "pdf_page": 3
+    },
+    {
+      "text": "The standard covers space-ground and space-to-space links in operations and the links used in AIT; it details the space link and space network domains and covers only the ground network aspects needed for end-to-end services (others are in ECSS-E-ST-70).",
+      "pdf_page": 9
+    },
+    {
+      "text": "For control operations the objective is guaranteed delivery of commands in transmission order (commands can be repeated but not lost); for payload data the aim is to transfer as much data as possible, accepting some loss.",
+      "pdf_page": 15
+    },
+    {
+      "text": "Table in clause 4.2: ECSS-E-AS-50-21 (CCSDS 131.0-B) supersedes the whole of ECSS-E-ST-50-01C; -22 (132.0-B) the TM Transfer Frame of ECSS-E-ST-50-03C; -23 (732.0-B) adds AOS; -24 (231.0-B), -25 (232.0-B) and -26 (232.1-B) replace clauses 8-9, 5-6 and 7 of ECSS-E-ST-50-04C.",
+      "pdf_page": 19
+    },
+    {
+      "text": "Figure 4-2 maps CCSDS and Internet protocols onto the data link, coding and physical layers and upper layers, marks which CCSDS books are formally adopted by ECSS, and gives ECSS-E-ST-70-41C as an example of an application-specific source/sink.",
+      "pdf_page": 20
+    },
+    {
+      "text": "Communication engineering milestones include SRR, PDR, CDR, QR, AR, ORR and FRR.",
+      "pdf_page": 26
+    },
+    {
+      "text": "Requirement 5.4.2 demands a service guaranteeing in-sequence delivery of telecommands; 5.4.3 requires the probability of accepting an erroneous telecommand to be below 10^-2/N, N being the number of telecommands expected over the mission.",
+      "pdf_page": 36
+    },
+    {
+      "text": "Essential telecommands must be decodable and distributed even when all other systems, including the CDMU, are non-operational; their list is agreed at PDR and, for critical operations, they must not depend on software.",
+      "pdf_page": 36
+    },
+    {
+      "text": "Telecommand encryption is required when authentication alone cannot meet the security requirements; the SDLS option of ECSS-E-AS-50-25 is cited as a data-link-layer means.",
+      "pdf_page": 37
+    },
+    {
+      "text": "Hot-redundant TC chains must not repeatedly select the input channel with lower signal quality (dual-lock issue, ECSS-E-HB-50 clause 4.4.5.2), and all telecommands must carry a destination spacecraft identifier.",
+      "pdf_page": 38
+    },
+    {
+      "text": "Uplink budgets are based on a BER of 10^-5 at the telecommand decoder input; at that BER the uplink frame rejection rate for 256-octet frames shall be below 10^-5.",
+      "pdf_page": 44
+    },
+    {
+      "text": "Downlink frame rejection should be below 10^-5 and the probability of accepting corrupted maximum-sized downlink frames below 10^-12; with BCH, undetected uplink frame error can be below 10^-18 with frame error control and 10^-8 without.",
+      "pdf_page": 45
+    },
+    {
+      "text": "An application for frequency assignment shall be made to the Radio Communication Bureau of the ITU for the selected space communication frequencies.",
+      "pdf_page": 46
+    },
+    {
+      "text": "Formatted space link data units shall carry a sequence identifier giving their position in the stream (5.6.13.3), and the space link protocol shall include an error detection capability (5.6.13.4).",
+      "pdf_page": 47
+    },
+    {
+      "text": "The space link shall provide a guaranteed delivery service and an expedited delivery service for SDUs (5.6.14.2, 5.6.14.3).",
+      "pdf_page": 49
+    },
+    {
+      "text": "The space link provides telecommand receipt confirmation and exception reporting; ranging/Doppler methods are referred to ECSS-E-ST-50-02.",
+      "pdf_page": 50
+    },
+    {
+      "text": "The CSPD (Annex G) is the supplier's formal statement of compliance with ECSS-E-ST-50, listing frequencies, protocols and options, address, channel and spacecraft identifier assignments and bandwidth allocations; first version at CDR, final at FRR.",
+      "pdf_page": 80
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system — Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 10
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-ST-10",
+      "doc_id": "ECSS-E-ST-10",
+      "title": "Space engineering – System engineering general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-ST-10-02",
+      "doc_id": "ECSS-E-ST-10-02",
+      "title": "Space engineering – Verification",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-HB-50",
+      "doc_id": "ECSS-E-HB-50",
+      "title": "Space engineering – Communications guidelines",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-ST-50-05",
+      "doc_id": "ECSS-E-ST-50-05",
+      "title": "Space engineering – Radio frequency and modulation",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-AS-50-21",
+      "doc_id": "ECSS-E-AS-50-21",
+      "title": "Space engineering – ECSS Adoption Notice of CCSDS 131.0-B - TM Synchronization and Channel Coding",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-AS-50-22",
+      "doc_id": "ECSS-E-AS-50-22",
+      "title": "Space engineering – ECSS Adoption Notice of CCSDS 132.0-B - TM Space Data Link Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-AS-50-23",
+      "doc_id": "ECSS-E-AS-50-23",
+      "title": "Space engineering – ECSS Adoption Notice of CCSDS 732.0-B - AOS Space Data Link Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-AS-50-24",
+      "doc_id": "ECSS-E-AS-50-24",
+      "title": "Space engineering – ECSS Adoption Notice of CCSDS 231.0-B - TC Synchronization and Channel Coding",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-AS-50-25",
+      "doc_id": "ECSS-E-AS-50-25",
+      "title": "Space engineering – ECSS Adoption Notice of CCSDS 232.0-B - TC Space Data Link Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-AS-50-26",
+      "doc_id": "ECSS-E-AS-50-26",
+      "title": "Space engineering – ECSS Adoption Notice of CCSDS 232.1-B - Communications Operation Procedure-1",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-E-ST-70",
+      "doc_id": "ECSS-E-ST-70",
+      "title": "Space engineering – Ground systems and operations",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-M-ST-10",
+      "doc_id": "ECSS-M-ST-10",
+      "title": "Space project management – Project planning and implementation",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ECSS-M-ST-40",
+      "doc_id": "ECSS-M-ST-40",
+      "title": "Space project management – Configuration and information management",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "CCSDS 734.1-B-1",
+      "doc_id": "CCSDS 734.1-B-1",
+      "title": "Licklider Transmission Protocol (LTP) for CCSDS",
+      "issue": null,
+      "date": "May 2015",
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "CCSDS 734.2-B-1",
+      "doc_id": "CCSDS 734.2-B-1",
+      "title": "CCSDS Bundle Protocol Specification",
+      "issue": null,
+      "date": "September 2015",
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": "ISO 7498:1984",
+      "doc_id": "ISO 7498:1984",
+      "title": "ISO Information processing systems – Open systems interconnection — Basic reference model",
+      "issue": null,
+      "date": "1984",
+      "kind": "bibliography",
+      "pdf_page": 88
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-20",
+      "title": "ECSS-E-ST-20 (source of the term 'essential function')",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 11
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-70-11",
+      "title": "ECSS-E-ST-70-11 (source of the terms commandable vital function, high priority command/telemetry, vital function, vital telecommand)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 11
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50-01C",
+      "title": "ECSS-E-ST-50-01C 31 July 2008 (superseded by ECSS-E-AS-50-21)",
+      "issue": null,
+      "date": "31 July 2008",
+      "kind": "mentioned",
+      "pdf_page": 19
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50-03C",
+      "title": "ECSS-E-ST-50-03C 31 July 2008 (TM Transfer Frame topic superseded by ECSS-E-AS-50-22)",
+      "issue": null,
+      "date": "31 July 2008",
+      "kind": "mentioned",
+      "pdf_page": 19
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50-04C",
+      "title": "ECSS-E-ST-50-04C 31 July 2008 (clauses superseded by ECSS-E-AS-50-24, -25 and -26)",
+      "issue": null,
+      "date": "31 July 2008",
+      "kind": "mentioned",
+      "pdf_page": 19
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-70-41C",
+      "title": "Telemetry and telecommand packet utilization (example of an application-specific source/sink in Figure 4-2)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 727.0-B",
+      "title": "CCSDS File Delivery Protocol (CFDP)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 121.0-B",
+      "title": "Lossless Data Compression",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 122.0-B",
+      "title": "Image Data Compression",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 122.1-B",
+      "title": "Image Data Compression (second entry in Figure 4-2)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 123.0-B",
+      "title": "Lossless Multi&Hyper spectral Image Compression",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 734.2-B",
+      "title": "Bundle Protocol (BP)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 734.1-B",
+      "title": "LTP",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 702.1-B",
+      "title": "IP over CCSDS",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 133.0-B",
+      "title": "Space Packet Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 133.1-B",
+      "title": "Encapsulation Service / Encapsulation Packet",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 232.0-B",
+      "title": "TC Space Data Link Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 132.0-B",
+      "title": "TM Space Data Link Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 732.0-B",
+      "title": "AOS Data Link Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 732.1-B",
+      "title": "USLP",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 211.0-B",
+      "title": "Proximity-1 Protocol",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 231.0-B",
+      "title": "TC Synch. And Channel Coding",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 131.0-B",
+      "title": "TM Synch. and Channel Coding",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 211.2-B",
+      "title": "Proximity-1 Channel Coding & Sync. Layer",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 131.3-B",
+      "title": "CCSDS Space Data Link Protocols over ETSI DVB-S2 standard",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 131.2-B",
+      "title": "Flexible advanced coding and modulation scheme for high rate TM applications (SCCC)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 211.1-B",
+      "title": "Proximity-1 Physical Layer",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 355.0-B",
+      "title": "Space Data Link Security Protocol (optional)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 734.5-B",
+      "title": "Bundle Security Protocol (BSP) (under development)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 401.0-B",
+      "title": "CCSDS Physical Layer standard",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 141.0-B",
+      "title": "Optical Communications Physical Layer",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 142.0-B",
+      "title": "Optical Communications Coding and Synchronization",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "RFC-793",
+      "title": "TCP",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "RFC-768",
+      "title": "UDP",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "RFC-791",
+      "title": "IP version 4",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "RFC-4301",
+      "title": "IP Sec",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "RFC-1883",
+      "title": "IP version 6",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 20
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50-02",
+      "title": "Ranging and Doppler tracking (suitable methods for ranging/Doppler)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 50
+    }
+  ],
+  "topics": [
+    "ecss/e-st-50-communications.md",
+    "ecss/index.md",
+    "overview/standards-map.md",
+    "overview/index.md",
+    "overview/uplink.md",
+    "overview/downlink.md",
+    "ccsds/index.md",
+    "ccsds/security.md"
+  ],
+  "notes": "Newer revision of the library item ecss-e-st-50c-rev-1-1march2021 (Rev.1, 1 March 2021). Apart from the changes listed in the change log, the text is essentially that of Rev.1, but pagination shifts by one page from clause 4 onwards because clause 3.2 is shorter (for example clause 4 starts on p. 15 here, p. 16 in Rev.1). The change log entry for Rev.1 is reduced to a lone bullet (p. 3), and the Rev.2 entry contains 'to avoid a an update' (p. 3). The foreword omits the sentence about the series of ECSS standards. Clause 3.3 still cites 'ECSS-ST-00-01' (p. 13). Figure 4-2 is a diagram whose labels are extracted as jumbled text (p. 20); its note still contains 'axample' and still names 'ECSS-E-50-05' for RF and modulation. Clause 4.3.2 is still headed 'Space network'. The 'mentioned' entries come from the clause 4.2 table, Figure 4-2 and running text, not from a reference list. Printed page numbers equal PDF page numbers; srcgrep shows 89 PDF pages (the last one blank) while the registry gives 88."
+}

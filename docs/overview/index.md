@@ -2,7 +2,7 @@
 title: How it all fits together
 description: The front door of OPEN-SPACE-INFO. It follows a spacecraft parameter from the on-board software through PUS, CCSDS Space Packets, transfer frames, channel coding, the ground station, SLE and NCTRS/NIS into SCOS-2000 and its MIB, then into the archives and EDDS, and it follows a telecommand back the other way.
 tags: [Overview, CCSDS, ECSS, PUS, SLE, SCOS-2000, MIB, EDDS, Solar Orbiter]
-sources: [ccsds-130-0-130x0g4e1, ccsds-130-2-130x2g3, ecss-e-hb-50a-15november2008, ecss-e-as-50-25c-rev-1-13january2023, ccsds-133-0-133x0b2e2, ccsds-132-0-132x0b3, ccsds-131-0-131x0b5, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-910x3g3-sle-cross-support, ccsds-913-1-913x1b2, ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, icd-7-0-final, icd-5-1-tos-gci, icd-6-7-drafta, icd-6-9-archive-org, gsaw2003-peccia, gsaw2005-guerrucci, sp-1291-data-handling, ifms-occ-icd-mex, mex-esc-id-5003-fds-icd, tn-1030-time-correlation, sdd, srs, solo-ddid-i1r2, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol]
+sources: [ccsds-130-0-130x0g4e1, ccsds-130-2-130x2g3, ecss-e-hb-50a-15november2008, ecss-e-as-50-25c-rev-1-13january2023, ccsds-133-0-133x0b2e2, ccsds-132-0-132x0b3, ccsds-131-0-131x0b5, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-910x3g3-sle-cross-support, ccsds-913-1-913x1b2, ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, icd-7-0-final, icd-5-1-tos-gci, icd-6-7-drafta, icd-6-9-archive-org, gsaw2003-peccia, gsaw2005-guerrucci, sp-1291-data-handling, ifms-occ-icd-mex, mex-esc-id-5003-fds-icd, tn-1030-time-correlation, sdd, srs, solo-ddid-i1r2, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, swa-idb-v6-5-0, stix-idb-v2-26-38-raw, ccsds-211-0-211x0b6e1, ccsds-401-0-401x0b32, ecss-e-st-50-05c-rev24october2011, ecss-e-st-70c31july2008, ccsds-732-0-732x0b5ec1, ccsds-131-0-131x0b6ec1, ecss-e-st-70-31c, ntrs-scos2-new-generation, ecss-e-st-50-02c31july2008]
 ---
 
 # How it all fits together
@@ -32,8 +32,11 @@ the way down and a connection-test command on the way up.
     footnote links to a [library page](../library/index.md) that records where the copy came
     from and when it was taken ([sources and copies](../about/sources-and-copies.md)). Text
     marked **Inference** is this wiki's own reasoning. The [glossary](../glossary.md) expands
-    every acronym, and the [MIB explorer](../explorer/index.md) lets you browse the Solar
-    Orbiter database that the examples use.
+    every acronym, and the [MIB explorer](../explorer/index.md) lets you browse, one entry per
+    parameter, packet and command, every MIB-format database this wiki holds as data: the Solar Orbiter
+    spacecraft MIB of September 2025 (126,745 parameters) and April 2020 (102,104), and the
+    instrument databases of SWA (2,885 parameters) and STIX (681).[^mib][^mib20][^swa-idb][^stix-idb]
+    Where the standards came from is told on [the history page](history.md).
 
 ## The whole chain in one picture
 
@@ -113,21 +116,26 @@ description and the EDDS design.*[^g4-dll][^sle-return][^sle-fwd][^gsaw03-overvi
 |---|---|---|---|---|
 | 1 | Application processes sample parameters and run standard services | PUS request or report (a "message") | ECSS-E-ST-70-41C (PUS-C, 2016); ECSS-E-70-41A (PUS-A, 2003) | [PUS](../ecss/pus/index.md), [PUS-A vs PUS-C](../ecss/pus/pus-a-vs-pus-c.md) |
 | 2 | The message is wrapped in a packet with an APID and a sequence count | Space Packet, 7 to 65,542 octets | CCSDS 133.0-B-2 | [Space Packet](../ccsds/space-packet.md), [PUS packets](../ecss/pus/packets.md) |
-| 3 | Packets from many sources share one link through virtual channels | TM, TC, AOS or USLP Transfer Frame | CCSDS 132.0, 232.0, 732.0, 732.1; COP-1 in 232.1 | [TM SDLP](../ccsds/tm-sdlp.md), [TC SDLP](../ccsds/tc-sdlp.md), [AOS](../ccsds/aos.md), [USLP](../ccsds/uslp.md), [COP-1](../ccsds/cop-1.md) |
-| 4 | Frames are delimited, randomised and error-protected | ASM plus codeblocks (TM); CLTU (TC) | CCSDS 131.0-B-5, 231.0-B-4 | [TM coding](../ccsds/tm-coding.md), [CLTU](../ccsds/tc-coding-cltu.md) |
-| 5 | The ground station receives and annotates the data and the network extends the link to the user | SLE transfer-service operations over TCP/IP | CCSDS 910.3-G-3, 911.x, 912.1, 913.1 | [SLE](../ccsds/sle/index.md), [NCTRS and NIS](../scos2000/nctrs-nis.md) |
+| 3 | Packets from many sources share one link through virtual channels | TM, TC, AOS or USLP Transfer Frame | CCSDS 132.0, 232.0, 732.0, 732.1; COP-1 in 232.1; optional security in 355.0 | [TM SDLP](../ccsds/tm-sdlp.md), [TC SDLP](../ccsds/tc-sdlp.md), [AOS](../ccsds/aos.md), [USLP](../ccsds/uslp.md), [COP-1](../ccsds/cop-1.md), [identifiers](../ccsds/space-link-identifiers.md), [SDLS](../ccsds/sdls.md) |
+| 4 | Frames are delimited, randomised and error-protected | ASM plus codeblocks (TM); CLTU (TC) | CCSDS 131.0-B-5 (and -B-6), 231.0-B-4 | [TM coding](../ccsds/tm-coding.md), [CLTU](../ccsds/tc-coding-cltu.md) |
+| 4a | The coded symbols modulate a radio carrier, which also carries ranging and Doppler | Channel symbols on the RF link | CCSDS 401.0-B; ECSS-E-ST-50-05C, ECSS-E-ST-50-02C | [RF and ranging](../ccsds/rf-and-ranging.md) |
+| 5 | The ground station receives and annotates the data and the network extends the link to the user | SLE transfer-service operations over TCP/IP | CCSDS 910.3-G-3, 910.4-B-2, 911.x, 912.x, 913.1; service management 902.x | [SLE](../ccsds/sle/index.md), [service management](../ccsds/sle/service-management.md), [NCTRS and NIS](../scos2000/nctrs-nis.md) |
 | 6 | The control system identifies packets, extracts, calibrates and checks parameters, and builds commands | SCOS-2000 packet (SPID), parameter sample | SCOS-2000 Database Import ICD (the MIB) | [SCOS-2000](../scos2000/architecture.md), [MIB](../mib/index.md) |
 | 7 | Packets, parameters and files are archived and served to users | Archive records; EDDS responses | EDDS interface documents; mission DDID | [Archives](../scos2000/archives.md), [EDDS](../scos2000/edds.md) |
 
 Sources for the rows: the PUS scope and space-to-ground interface clauses; the Space Packet
-size rules; the CCSDS data link layer overview; the SLE concept; the ICD scope; the EDDS
-design.[^pusc-71][^spp-size][^g4-dll][^g4-coding][^sle-what][^icd-scope][^sdd-ground]
+size rules; the CCSDS data link and physical layer overview; the RF standards' scopes; the SLE
+concept; the ICD scope; the EDDS
+design.[^pusc-71][^spp-size][^g4-dll][^g4-phys][^g4-coding][^rf-401][^rf-5005][^sle-what][^icd-scope][^sdd-ground]
 
 The CCSDS overview places these protocols in a five-layer model (physical, data link, network,
 transport, application). The data link layer has two sublayers: the **Data Link Protocol
 Sublayer**, which moves higher-layer data in Transfer Frames, and the **Synchronization and
 Channel Coding Sublayer**, which delimits, synchronises and protects those frames on the link.
-The Space Packet Protocol sits above the data link layer. The PUS is an application-layer
+Below it, CCSDS has one omnibus physical-layer standard, Radio Frequency and Modulation Systems
+(CCSDS 401.0), for links between spacecraft and ground stations; short-range links between
+spacecraft, landers and relays use the separate [Proximity-1](../ccsds/proximity-1.md) protocol
+family.[^g4-phys][^prox1] The Space Packet Protocol sits above the data link layer. The PUS is an application-layer
 protocol on top of it; the ECSS communications handbook of 2008 notes that ESA and ECSS developed
 it independently and that CCSDS has not adopted it.[^g4-layers][^g4-dll][^hb-pus]
 
@@ -166,7 +174,12 @@ because earlier versions used them.[^pusc-types]
 
 *Names as printed in ECSS-E-ST-70-41C Table 4-1.*[^pusc-types] The 2003 issue, PUS-A,
 had 16 services; ST[20] to ST[23] are new in issue C.[^pusa-services][^pusc-types] The full
-message list is in the [message type catalogue](../ecss/pus/message-types.md).
+message list is in the [message type catalogue](../ecss/pus/message-types.md). The PUS is one of
+five "level 3" standards under ECSS-E-ST-70C, *Ground systems and operations*; the others cover
+on-board control procedures (OBCPs, ECSS-E-ST-70-01), space segment operability (-70-11),
+monitoring and control data (-70-31) and the PLUTO procedure language (-70-32).[^e70-annexl]
+See [ECSS-E-ST-70C](../ecss/e-st-70c.md), [OBCPs](../ecss/e-st-70-01c.md) and
+[PLUTO](../ecss/e-st-70-32c.md).
 
 A **parameter** is the smallest unit of monitoring: a temperature, a voltage, a status bit.
 The PUS housekeeping service collects sampled parameters into reports. Each report structure has
@@ -247,7 +260,12 @@ in return, and only one data link protocol may be used on a given physical chann
 
 *After CCSDS 130.0-G-4 Table 3-1. The values are registered in the Space Assigned Numbers
 Authority (SANA). TM and TC frames share version 1 and are told apart by the ASM or start
-sequence that precedes them.*[^g4-ids][^tm-tfvn]
+sequence that precedes them. AOS issue 5 (CCSDS 732.0-B-5, October 2025) widens the AOS
+spacecraft ID to 10 bits; missions on issue 4 or earlier keep the 8-bit field.*[^g4-ids][^tm-tfvn][^aos5-scid]
+Every identifier field, its reserved values and how SANA assigns spacecraft IDs are on
+[space link identifiers](../ccsds/space-link-identifiers.md). TM, TC, AOS and USLP frames can
+also carry the optional [Space Data Link Security](../ccsds/sdls.md) protocol for
+authentication and encryption; see [security in CCSDS space links](../ccsds/security.md).[^g4-dll]
 
 ### Telemetry frames
 
@@ -303,10 +321,10 @@ delimiting and synchronising them, error-correcting coding, and bit-transition g
 | Function | Telemetry (CCSDS 131.0-B-5) | Telecommand (CCSDS 231.0-B-4) |
 |---|---|---|
 | Error correction / validation | Convolutional + FECF; Reed-Solomon; concatenated; turbo + FECF; LDPC; plus SCCC and DVB-S2 for high rates | BCH; BCH + FECF; CCSDS 231.0-B-4 also specifies LDPC codes |
-| Pseudo-randomisation | Cyclic pseudo-noise sequence (optional) | Cyclic pseudo-noise sequence; optional with BCH, always applied with LDPC |
+| Pseudo-randomisation | Cyclic pseudo-noise sequence (optional in 131.0-B-5; mandatory from 131.0-B-6, April 2026) | Cyclic pseudo-noise sequence; with BCH required unless the designer verifies operation without it, always applied with LDPC |
 | Frame synchronisation | 32-bit (or longer) Attached Sync Marker | 16-bit Start Sequence (BCH); 64-bit Start Sequence with LDPC |
 
-*After CCSDS 130.0-G-4 Table 3-3 and CCSDS 231.0-B-4.*[^g4-coding][^cltu][^tc-ldpc]
+*After CCSDS 130.0-G-4 Table 3-3, CCSDS 131.0-B-6 and CCSDS 231.0-B-4.*[^g4-coding][^tmc6-rand][^cltu][^tc-ldpc][^tc-rand]
 
 On the downlink every frame (or codeblock) is preceded by an **Attached Sync Marker**; for
 uncoded, convolutional, Reed-Solomon and rate-7/8 LDPC data it is the 32-bit pattern
@@ -321,6 +339,14 @@ The 64-bit LDPC start sequence is `0x034776C7272895B0`, and the (512, 256) LDPC 
 tail sequence at all because a conventional LDPC decoder reliably fails when it runs past the
 end of the CLTU.[^cltu] The details are on the [TM coding](../ccsds/tm-coding.md) and
 [CLTU](../ccsds/tc-coding-cltu.md) pages.
+
+The coded symbols finally modulate a radio carrier. CCSDS 401.0 and ECSS-E-ST-50-05C define the
+frequency bands, spectral limits and permitted modulations, and ECSS-E-ST-50-02C the ranging and
+Doppler tracking that share the same link.[^rf-401][^rf-5005][^rf-5002][^g4-phys] The Solar Orbiter MIB
+shows the choices as data: the deep-space transponder housekeeping report ("PLF DST HK", SPID
+[33793](../explorer/index.md#/solo/packet/33793)) reports a telemetry modulation scheme of `GMSK`
+or `SPL` and a telecommand bit rate between 7.8125 and 4000 bit/s.[^mib-dst] See
+[radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md).
 
 ## 5. The ground station and the ground network
 
@@ -343,7 +369,9 @@ different organisations can work together without ad hoc gateways built for each
 and one agency's station can serve another agency's spacecraft.[^sle-why] It "extends" the space link in three ways: over
 **distance** (processing can happen far from the antenna), in **information** (annotation) and
 in **time** (data can be stored and delivered later).[^sle-ext] SLE has transfer services, which
-move the data, and management services, which schedule them.[^sle-what]
+move the data, and management services, which schedule them.[^sle-what] How a mission books
+station time through service agreements and service packages is on
+[SLE service management](../ccsds/sle/service-management.md).
 
 | Direction | Service | What the user receives or sends |
 |---|---|---|
@@ -352,7 +380,7 @@ move the data, and management services, which schedule them.[^sle-what]
 | Return | Return Operational Control Field (ROCF) | The OCFs (CLCWs) of a master or virtual channel |
 | Return | Return Frame Secondary Header (RFSH) | Frame secondary headers |
 | Return | Return Space Packet (RSP) | Packets with selected APIDs from one virtual channel |
-| Forward | Forward Space Packet (FSP) | Packets for uplink, without coordinating with other users |
+| Forward | [Forward Space Packet (FSP)](../ccsds/sle/fsp.md) | Packets for uplink, without coordinating with other users |
 | Forward | Forward TC Virtual Channel Access (FTCVCA) | Complete virtual channels for uplink |
 | Forward | Forward TC Frame (FTCF) | TC frames to be turned into CLTUs |
 | Forward | Forward CLTU (FCLTU) | Ready-made CLTUs for radiation |
@@ -363,7 +391,10 @@ physical link is available and tells the provider of the VC and packet services 
 frames must be retransmitted under COP-1.[^sle-fwd] Over terrestrial networks, SLE runs on TCP/IP with ASN.1 encoding using the
 Internet SLE Protocol (ISP1).[^isp1] The library holds the 2023 issues of the
 [RAF, RCF and ROCF](../ccsds/sle/return-services.md) and [FCLTU](../ccsds/sle/fcltu.md)
-specifications and the [ISP1 and API](../ccsds/sle/isp1-and-api.md) books.
+specifications, the historical [Forward Space Packet](../ccsds/sle/fsp.md) book with its API,
+the [ISP1 and API](../ccsds/sle/isp1-and-api.md) books, and the cross support reference model
+and [service management](../ccsds/sle/service-management.md) documents; the
+[standards landscape](standards-map.md#ccsds) lists their issues.
 
 ### NCTRS and NIS: the control centre's door
 
@@ -414,7 +445,12 @@ mission's off-line database and imported into the run-time system.[^icd-scope][^
 distinguishes three representations of a value: the **encoded** bits in the packet, the
 **raw** value after type decoding, and the **engineering** value after calibration; for a
 16-bit signed integer, raw −1 is encoded as `0xFFFF`.[^icd-terms] The
-[data model](../mib/data-model.md) page shows how the tables relate.
+[data model](../mib/data-model.md) page shows how the tables relate. Independently of any tool,
+ECSS-E-ST-70-31C specifies what monitoring and control data a supplier delivers, and
+ECSS-E-ST-70-32C the language of the procedures that use it.[^e70-annexl] How missions build
+and maintain such databases and procedures is on [operations preparation](../scos2000/operations-preparation.md),
+with the [ECSS-E-ST-70-31C](../ecss/e-st-70-31c.md) and [PLUTO](../ecss/e-st-70-32c.md) pages
+for the standards.
 
 ### How a telemetry packet is decoded
 
@@ -470,9 +506,10 @@ empty, and the ICD default `F` returns an invalid engineering value outside the 
 range.[^icd-caf]
 
 !!! warning "Inference"
-    The curve falls as the raw count rises, as a thermistor's would. How SCOS-2000 computes
-    values between two points is not stated in ICD issue 7.0; linear interpolation is the
-    natural reading.
+    The curve falls as the raw count rises, as a thermistor's would. ICD issue 7.0 does not say
+    how SCOS-2000 computes values between two points. Issue 6.9 describes interpolation from
+    the points on either side, and ECSS-E-ST-70-31C defines a linear-interpolation
+    interpretation function, so linear interpolation is the natural reading.[^icd69-caf][^e3131-lin]
 
 ??? example "SQL used"
     ```sql
@@ -566,17 +603,17 @@ COP-1 concept; command, stages and report packets from the MIB.*[^gsaw03-tc][^ic
     SELECT * FROM ccf WHERE CCF_CNAME='ZCD01101';
     SELECT * FROM pcdf WHERE PCDF_TCNAME='NOM_TC';
     SELECT CCF_PKTID, COUNT(*) FROM ccf GROUP BY CCF_PKTID;     -- NOM_TC 5318 of 5454
-    SELECT * FROM cvp WHERE COL1='ZCD01101';                    -- stages 14001, 14007
-    SELECT s.* FROM cvs s JOIN cvp p ON p.COL3=s.COL1 WHERE p.COL1='ZCD01101';
+    SELECT * FROM cvp WHERE CVP_TASK='ZCD01101';                -- stages 14001, 14007
+    SELECT s.* FROM cvs s JOIN cvp p ON p.CVP_CVSID=s.CVS_ID WHERE p.CVP_TASK='ZCD01101';
     SELECT PID_TYPE, PID_STYPE, PID_APID, PID_SPID, PID_DESCR FROM pid
       WHERE (PID_TYPE='1' AND PID_STYPE IN ('1','7') AND PID_APID='161')
          OR (PID_TYPE='17' AND PID_STYPE='2' AND PID_APID='167');
     SELECT CCF_CNAME, CCF_DESCR, CCF_CTYPE, CCF_PKTID FROM ccf
       WHERE CCF_CTYPE IN ('F','R','N');                       -- COP-1 and NIS directives
     ```
-    The `cvp` and `cvs` tables have generic column names in this database: `COL1` is the
-    command, `COL3` the stage ID; `cvs` columns are, in ICD order, ID, type, source, start,
-    interval, SPID and uncertainty.
+    The `cvp` and `cvs` columns carry their ICD names (`CVP_TASK`, `CVP_TYPE`, `CVP_CVSID`;
+    `CVS_ID`, `CVS_TYPE`, `CVS_SOURCE`, `CVS_START`, `CVS_INTERVAL`, `CVS_SPID`,
+    `CVS_UNCERTAINTY`) in the current build of the database.
 
 The [uplink walk-through](uplink.md) and the [telecommand worked example](worked-example-tc.md)
 build a complete command down to the CLTU.
@@ -635,9 +672,13 @@ Interface Document (DDID): see [GDDS and DDIDs](../scos2000/gdds-and-ddids.md) a
 ## Why so many standards?
 
 The chain is layered so that each part can change on its own. ESA's control systems show the
-history. MSSS (1984 to 1996) processed frame telemetry and telecommand; SCOS-I (from 1989) moved
+history. MSSS processed frame telemetry and telecommand; the SCOS-II paper says it entered
+service in 1977, while a 2003 ESA presentation gives 1984 to 1996. SCOS-I (from 1989) moved
 to packet telemetry; SCOS-II and then SCOS-2000 added a generic telecommand chain on a
-distributed architecture.[^gsaw03-history] ESOC's reuse strategy rests on the same standards:
+distributed architecture.[^s2-abs][^gsaw03-history] The standards evolved alongside: ESA's own
+PSS documents adapted CCSDS recommendations with European options and have all been withdrawn in
+favour of ECSS standards or CCSDS books; the [history page](history.md) traces the packet
+standards of 1988 to 1994 into today's documents.[^hb-pss] ESOC's reuse strategy rests on the same standards:
 CCSDS packet TM/TC, the ECSS PUS, SLE and XML.[^gsaw05-std] ESOC presents the payoff as cost and
 risk reduction, because a new mission develops and validates only a small amount of new
 software.[^gsaw05-reuse] CCSDS presents it as cross support: ground station owners can offer
@@ -655,7 +696,7 @@ publishes each document, how the issues relate and which ones this wiki holds.
 
     [Downlink](downlink.md) and [uplink](uplink.md) step by step; worked examples for a
     [TM packet](worked-example-tm.md) and a [TC](worked-example-tc.md); the
-    [standards landscape](standards-map.md).
+    [standards landscape](standards-map.md); the [history from ESA PSS to CCSDS and ECSS](history.md).
 
 -   :material-layers-triple:{ .lg .middle } __CCSDS protocols__
 
@@ -665,7 +706,9 @@ publishes each document, how the issues relate and which ones this wiki holds.
     [Encapsulation](../ccsds/encapsulation.md), [TM SDLP](../ccsds/tm-sdlp.md),
     [TM coding](../ccsds/tm-coding.md), [TC SDLP](../ccsds/tc-sdlp.md),
     [COP-1](../ccsds/cop-1.md), [CLTU](../ccsds/tc-coding-cltu.md), [AOS](../ccsds/aos.md),
-    [USLP](../ccsds/uslp.md), [SDLS](../ccsds/sdls.md), [time codes](../ccsds/time-codes.md),
+    [USLP](../ccsds/uslp.md), [Proximity-1](../ccsds/proximity-1.md),
+    [RF and ranging](../ccsds/rf-and-ranging.md), [space link identifiers](../ccsds/space-link-identifiers.md),
+    [SDLS](../ccsds/sdls.md), [security](../ccsds/security.md), [time codes](../ccsds/time-codes.md),
     [CFDP](../ccsds/cfdp.md), [XTCE](../ccsds/xtce.md).
 
 -   :material-antenna:{ .lg .middle } __Space Link Extension__
@@ -674,14 +717,17 @@ publishes each document, how the issues relate and which ones this wiki holds.
 
     [Concept and architecture](../ccsds/sle/index.md),
     [RAF, RCF and ROCF](../ccsds/sle/return-services.md), [FCLTU](../ccsds/sle/fcltu.md),
-    [ISP1 and the SLE API](../ccsds/sle/isp1-and-api.md).
+    [FSP](../ccsds/sle/fsp.md), [ISP1 and the SLE API](../ccsds/sle/isp1-and-api.md),
+    [reference model and service management](../ccsds/sle/service-management.md).
 
 -   :material-book-cog:{ .lg .middle } __ECSS and the PUS__
 
     ---
 
     [The ECSS system](../ecss/index.md), [E-ST-50 and adoption notices](../ecss/e-st-50-communications.md),
-    [E-ST-70-31C](../ecss/e-st-70-31c.md), [E-ST-70-11C](../ecss/e-st-70-11c.md),
+    [E-ST-70C ground systems and operations](../ecss/e-st-70c.md), [E-ST-70-01C OBCPs](../ecss/e-st-70-01c.md),
+    [E-ST-70-11C](../ecss/e-st-70-11c.md), [E-ST-70-31C](../ecss/e-st-70-31c.md),
+    [E-ST-70-32C PLUTO](../ecss/e-st-70-32c.md),
     [PUS overview](../ecss/pus/index.md), [packet structures](../ecss/pus/packets.md),
     [parameter types](../ecss/pus/parameter-types.md), [PUS-A vs PUS-C](../ecss/pus/pus-a-vs-pus-c.md),
     [message types](../ecss/pus/message-types.md), and one page per service from
@@ -697,7 +743,9 @@ publishes each document, how the issues relate and which ones this wiki holds.
     [EDDS](../scos2000/edds.md), [EDDS formats](../scos2000/edds-formats.md),
     [TDRS](../scos2000/tdrs.md), [GDDS and DDIDs](../scos2000/gdds-and-ddids.md),
     [ancillary systems and EGS-CC](../scos2000/ancillary-and-egs-cc.md),
-    [Herschel/Planck ground segment](../scos2000/herschel-planck-ground.md).
+    [operations preparation](../scos2000/operations-preparation.md),
+    [Herschel/Planck ground segment](../scos2000/herschel-planck-ground.md) and
+    [interface documents](../scos2000/herschel-planck-interfaces.md).
 
 -   :material-database:{ .lg .middle } __The MIB__
 
@@ -717,8 +765,10 @@ publishes each document, how the issues relate and which ones this wiki holds.
     ---
 
     [Missions](../missions/index.md), [Solar Orbiter](../missions/solar-orbiter/index.md),
-    [its MIB](../missions/solar-orbiter/mib.md), [its PUS usage](../missions/solar-orbiter/pus-usage.md)
-    and [the SWA instrument database](../missions/solar-orbiter/swa.md),
+    [its MIB](../missions/solar-orbiter/mib.md), [its PUS usage](../missions/solar-orbiter/pus-usage.md),
+    [instrument interfaces](../missions/solar-orbiter/instrument-interfaces.md), the
+    [SWA](../missions/solar-orbiter/swa.md) and [STIX](../missions/solar-orbiter/stix.md)
+    instrument databases,
     [Herschel and Planck](../missions/herschel-planck.md),
     [Rosetta, Mars Express and Venus Express](../missions/rosetta-mex-vex.md),
     [other missions](../missions/other-missions.md).
@@ -828,3 +878,20 @@ publishes each document, how the issues relate and which ones this wiki holds.
 [^icd-tpcf]: [Database Import ICD 7.0](../library/icd-7-0-final.md), §3.3.2.4.3 "tpcf", field TPCF_SIZE (not imported or used by any SCOS-2000 process), PDF p. 95.
 [^pusc-hk]: [ECSS-E-ST-70-41C](../library/ecss-e-st-70-41c-15april2016.md), §6.3.3.2 "Housekeeping parameter report structure", requirement c, PDF p. 80.
 [^gsaw05-reuse]: [Guerrucci et al., GSAW 2005](../library/gsaw2005-guerrucci.md), slide "Reuse strategy at ESOC", PDF p. 3.
+[^mib20]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), table `pcf` (row count); query by this wiki.
+[^swa-idb]: SWA instrument databases [6.3.4](../library/swa-idb-ascii.md) and [6.5.0](../library/swa-idb-v6-5-0.md), table `pcf` (2,885 rows in both); queries by this wiki.
+[^stix-idb]: [STIX instrument database v2.26.38](../library/stix-idb-v2-26-38-raw.md), table `pcf` (681 rows); query by this wiki.
+[^g4-phys]: [CCSDS 130.0-G-4](../library/ccsds-130-0-130x0g4e1.md), §2.2.2 "Physical Layer" and §2.2.3 "Data Link Layer" (Proximity-1, SDLS), PDF p. 20.
+[^prox1]: [CCSDS 211.0-B-6, Proximity-1 Space Link Protocol, Data Link Layer](../library/ccsds-211-0-211x0b6e1.md), §1.1 "Purpose" (short-range links among probes, landers, rovers, constellations and relays), PDF p. 12.
+[^rf-401]: [CCSDS 401.0-B-32, Radio Frequency and Modulation Systems, Part 1](../library/ccsds-401-0-401x0b32.md), §1.1 "Purpose", §1.2 "Scope" and §1.3 "Applicability", PDF p. 25.
+[^rf-5005]: [ECSS-E-ST-50-05C Rev.2, Radio frequency and modulation](../library/ecss-e-st-50-05c-rev24october2011.md), clause 1 "Scope" (frequency use, transmitted-signal requirements, permissible modulations, tracking systems), PDF p. 9.
+[^rf-5002]: [ECSS-E-ST-50-02C, Ranging and Doppler tracking](../library/ecss-e-st-50-02c31july2008.md), title page and table of contents, PDF pp. 1 and 5.
+[^e70-annexl]: [ECSS-E-ST-70C, Ground systems and operations](../library/ecss-e-st-70c31july2008.md), Annex L, Table L-1 "ECSS-E-ST-70 level 3 standards", PDF pp. 126–127.
+[^aos5-scid]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol](../library/ccsds-732-0-732x0b5ec1.md), §4.1.2.2.3 "Spacecraft Identifier" and the note on issue 4 and earlier, PDF p. 57.
+[^tmc6-rand]: [CCSDS 131.0-B-6, TM Synchronization and Channel Coding](../library/ccsds-131-0-131x0b6ec1.md), Document Control (issue 6 "makes the pseudo-randomizer as mandatory"), PDF p. 7, and §10.1 "Overview", PDF p. 69.
+[^tc-rand]: [CCSDS 231.0-B-4](../library/ccsds-231-0-231x0b4e1.md), §6.1 "Overview" of the randomizer (required with BCH unless the system designer verifies operation without it; always applied with LDPC), PDF p. 36.
+[^mib-dst]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pid` (SPID 33793, TM(3,25), APID 212, SID 93), `pcf` (`NDSG0045` "DST-A TLM Mod Scheme", `NDSD0012` "DST-A TC Bit Rate") and `txp` (`CDST0009TM`: 0 `GMSK`, 1 `SPL`; `CDST0003TM`: 7.8125 to 4000 bps); queries by this wiki.
+[^icd69-caf]: [SCOS-2000 Database Import ICD issue 6.9](../library/icd-6-9-archive-org.md), §3.3.2.2.2 "caf", field 8 `CAF_INTER` (interpolation from the points either side), PDF p. 66.
+[^e3131-lin]: [ECSS-E-ST-70-31C](../library/ecss-e-st-70-31c.md), §6.6.3.3.2, Tables 6-77 and 6-78 (interpretation function "linear interpolation"), PDF pp. 102–104.
+[^s2-abs]: [P. Kaufeler, M. Pecchioli, I. Shurmer, "SCOSII: ESA's new generation of mission control systems"](../library/ntrs-scos2-new-generation.md), abstract and §1 "Introduction" (MSSS in service in 1977, SCOS-I in 1989), PDF p. 1.
+[^hb-pss]: [ECSS-E-HB-50A](../library/ecss-e-hb-50a-15november2008.md), §3.1.3 "Relationship to PSS standards", PDF p. 25.

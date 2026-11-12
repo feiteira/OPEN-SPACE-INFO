@@ -2,7 +2,7 @@
 title: "History of the Database Import ICD (issues 5.1 to 7.2)"
 description: How the SCOS-2000 Database Import ICD (EGOS-MCS-S2K-ICD-0001) evolved from issue 3.2 in 1999 to issue 7.2 in 2019, which SCOS-2000 releases each issue served, and which tables and fields were added, widened or retired.
 tags: [MIB, SCOS-2000, Database Import ICD, History]
-sources: [icd-5-1-tos-gci, icd-6-7-drafta, icd-6-9-archive-org, icd-7-0-final, h-p-1-asp-tn-1060-mib-processing-hpsdb, emcs-sum-4-0, indico-109-comi-2009436, hifi-mib-editor-requirements, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii]
+sources: [icd-5-1-tos-gci, icd-6-7-drafta, icd-6-9-archive-org, icd-7-0-final, h-p-1-asp-tn-1060-mib-processing-hpsdb, emcs-sum-4-0, indico-109-comi-2009436, hifi-mib-editor-requirements, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, stix-idb-v2-26-38-raw]
 ---
 
 # History of the Database Import ICD (issues 5.1 to 7.2)
@@ -53,7 +53,10 @@ timeline
 ```
 
 Issues 3.2 to 7.0 and their dates come from the 7.0 change log.[^i70-log] Issue 6.6 appears in
-that log without a date. Its date is not stated in the available sources. No issue 6.8
+that log without a date, and no library document dates it. The Herschel Science Archive's
+spacecraft database page, which is not in the library, gives "2008-08-25" for issue 6.6 as the
+format reference of the Herschel-Planck database (see
+[Herschel/Planck ground segment](../scos2000/herschel-planck-ground.md)).[^hsa-66] No issue 6.8
 appears in any of the logs. The 7.2 entry is discussed [below](#issue-72-2019).
 
 ## Issues and SCOS-2000 releases
@@ -74,7 +77,7 @@ appears in any of the logs. The 7.2 entry is discussed [below](#issue-72-2019).
 | 6.3 | 2007-02-12 | – | Added the missing indication of document updates to Annex 1 |
 | 6.4 | 2007-03-07 | R5 | Sequences and displays moved to the FARC as XML. SLE throw-event command type. |
 | 6.5 | 2007-12-14 | R4.2, R5.0.1 | Updates for those releases |
-| 6.6 | not stated | – | See Annex 1 |
+| 6.6 | not in the change log (2008-08-25 per a web page outside the library) | – | See Annex 1 |
 | 6.7 Draft A | 2009-12-01 | R4.5, R5.2.0i1 | Includes NCR-5711 and SPR-4911 |
 | 6.7 Draft B | 2010-02-20 | R4.5, R5.2 | SCR-3774 (from DCR-6008) |
 | 6.7 Draft C | 2010-05-24 | R5.3.1 | SPR-5504 (dynamic changes to TPSD) |
@@ -109,6 +112,9 @@ The library shows which issue real projects worked against:
   instrument database writes `pcf` with 19 fields, `cpc` with 13, `cvs` with 6, `caf` with
   7 and `pic` with 6, which are the **5.1** lengths, but `vdf` with 5, `ccf` with 21 and
   `dpc` with 7, which are the lengths introduced with **6.0**.[^solo][^swa]
+* The STIX instrument database v2.26.38 has the same mixture: `pcf` with 19 fields, `cpc` with
+  13, `pic` and `cvs` with 6 and `caf` with 7 (the **5.1** lengths), but `vdf` with 5 and `ccf`
+  with 21 (see [the STIX page](../missions/solar-orbiter/stix.md)).[^stix]
 
 ## What changed, era by era
 
@@ -386,6 +392,8 @@ issues show.
 * SCOS-2000 releases and their context: [SCOS-2000](../scos2000/index.md),
   [SCOS-2000 architecture](../scos2000/architecture.md),
   [Ancillary systems and EGS-CC](../scos2000/ancillary-and-egs-cc.md).
+* The parallel history of ESA's packet standards, from the PSS series to CCSDS and ECSS:
+  [From ESA PSS to CCSDS and ECSS](../overview/history.md).
 * Missions behind the repatriated functions: [Herschel and Planck](../missions/herschel-planck.md),
   [Rosetta, Mars Express and Venus Express](../missions/rosetta-mex-vex.md),
   [Other missions](../missions/other-missions.md).
@@ -403,6 +411,7 @@ issues show.
 [^hifi]: [HIFI MIB editor requirements, SRON-U/HIFI-SP-2000-2](../library/hifi-mib-editor-requirements.md), §2 Applicable documents, PDF p. 3.
 [^comi]: [Comi, Insinga, Sala, SRDB Translator](../library/indico-109-comi-2009436.md), "Main Features" and "Limits", PDF pp. 5–6.
 [^solo]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), raw files `pcf.dat`, `cpc.dat`, `cvs.dat` and the SQLite copy, inspected by this wiki on 2026-11-12. The 2020 release ([MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md)) has the same field counts.
+[^stix]: [STIX instrument database v2.26.38](../library/stix-idb-v2-26-38-raw.md), raw files `pcf.dat`, `cpc.dat`, `pic.dat`, `cvs.dat`, `caf.dat`, `vdf.dat` and `ccf.dat` (TAB-separated fields per record counted), inspected by this wiki on 2026-11-12.
 [^swa]: [Solar Orbiter SWA instrument database (ASCII)](../library/swa-idb-ascii.md), raw files `pcf.dat`, `cpc.dat` and `cvs.dat`, inspected by this wiki on 2026-11-12.
 [^i51-a1]: [ICD 5.1](../library/icd-5-1-tos-gci.md), Annex 1 "List of implemented Document Changes", PDF pp. 119–120.
 [^i70-ctype]: [ICD 7.0](../library/icd-7-0-final.md), §3.3.3.2.1 field `CCF_CTYPE` (option `S`), PDF p. 134.
@@ -416,6 +425,7 @@ issues show.
 [^i70-a1-62]: [ICD 7.0](../library/icd-7-0-final.md), Annex 1, "Changes applicable as from R4.1 implemented in ICD versions 6.2/6.3", PDF pp. 253–254.
 [^i70-a1-64]: [ICD 7.0](../library/icd-7-0-final.md), Annex 1, "Changes applicable as from R5.0 implemented in ICD version 6.4" and the 6.4 clarifications, PDF pp. 254–255.
 [^i70-a1-65]: [ICD 7.0](../library/icd-7-0-final.md), Annex 1, changes and clarifications of ICD version 6.5, PDF pp. 255–257.
+[^hsa-66]: Web page outside the library: <https://archives.esac.esa.int/hsa/legacy/operations/moc/sdb/>, as surveyed for this project on 2026-11-05 and reported on [Herschel/Planck ground segment](../scos2000/herschel-planck-ground.md); not re-checked for this page and not archived in this wiki's library.
 [^i70-a1-66]: [ICD 7.0](../library/icd-7-0-final.md), Annex 1, "Document clarifications introduced in ICD version 6.6", PDF p. 257.
 [^i70-a1-67]: [ICD 7.0](../library/icd-7-0-final.md), Annex 1, "Changes applicable as from R5.2 implemented in ICD version 6.7" and the 6.7 clarifications, PDF pp. 258–259.
 [^i67-pcf]: [ICD 6.7 Draft A](../library/icd-6-7-drafta.md), §3.3.2.1.1 pcf, fields 2 and 20–23, PDF pp. 38 and 50–51.

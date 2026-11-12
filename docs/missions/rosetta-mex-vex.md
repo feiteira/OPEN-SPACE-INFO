@@ -161,7 +161,7 @@ the off-line full data sets on Raw Data Media (RDMs). Together with the Command 
 Interface Document (CRID, RO-ESC-IF-0004) it defines the complete interface between the MCS
 and the science communities, and it is "broadly based on the Cluster DDID".[^ddid-purpose][^ddid-rel]
 Its applicable documents include CCSDS 620.0-B-2.1 (SFDU structure and construction rules),
-ESA PSS-04-106 (packet telemetry) and the Rosetta/MEX and VEX generic TM/TC ICDs; the
+ESA PSS-04-106 ([packet telemetry](../overview/history.md#pss-04-106-the-packet-telemetry-standard-1988)) and the Rosetta/MEX and VEX generic TM/TC ICDs; the
 reference documents include CCSDS 301.0-B-2 for [time codes](../ccsds/time-codes.md).[^ddid-ad]
 
 | Issue | Date | Notable content |
@@ -651,7 +651,8 @@ baseline of the time.[^ddid-daf2][^ddid-daf]
 ## The IFMS-OCC interface: tracking and radio-science data
 
 The IF and Modem System (IFMS) in the ESTRACK stations produces the Doppler, ranging, gain and
-meteorological data that flight dynamics receives and that the DDS offers to radio-science
+meteorological data (the measurements themselves are described on
+[RF and ranging](../ccsds/rf-and-ranging.md#ranging-and-doppler-tracking-ecss-e-st-50-02c)) that flight dynamics receives and that the DDS offers to radio-science
 users as `AGC1`/`AGC2` files.[^fds-sum][^ddid-ada] Its *IFMS-OCC
 interface ICD* (MakaluMedia, issue 11.4.0, 2006-08-09) describes the interface between the
 IFMS and data clients such as NCTRS; the library copy was taken from a Mars Express radio-science
@@ -730,6 +731,8 @@ XML requests, catalogues, the SCOS-2000 packet header in deliveries, time qualit
   [NCTRS and NIS](../scos2000/nctrs-nis.md), [Time correlation](../scos2000/time-correlation.md)
 * [Space Packet](../ccsds/space-packet.md), [PUS packet structures](../ecss/pus/packets.md),
   [Time codes](../ccsds/time-codes.md), [SLE return services](../ccsds/sle/return-services.md)
+* [RF and ranging](../ccsds/rf-and-ranging.md) (IFMS measurements),
+  [From ESA PSS to CCSDS and ECSS](../overview/history.md) (PSS-04-106 and PSS-07-101)
 * [Glossary](../glossary.md)
 
 [^merri-family]: [M. Merri et al., Happy Families: Cutting the Cost of ESA Mission Ground Software, ESA Bulletin 130 (May 2007)](../library/bul130-merri-happy-families.md), sections "Mission Families" and "The interplanetary mission family", PDF pp. 4-5.
@@ -818,7 +821,7 @@ XML requests, catalogues, the SCOS-2000 packet header in deliveries, time qualit
 [^ifms-log]: [IFMS-OCC ICD issue 11.4.0](../library/ifms-occ-icd-mex.md), §7 IFMS Support-Log files, PDF p. 17.
 [^pus-hdr]: [ECSS-E-70-41A (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md), §5.3.2 Packet header and §5.3.3 Packet data field, PDF pp. 43-44.
 [^pus-svc]: [ECSS-E-70-41A](../library/ecss-e-70-41a-30jan2003-pus.md), §5.3.3, service type and subtype ranges, PDF p. 45.
-[^pus-s3]: [ECSS-E-70-41A](../library/ecss-e-70-41a-30jan2003-pus.md), §7 Housekeeping and diagnostic data reporting service, requests and reports (3,1) to (3,26), PDF pp. 64-69.
+[^pus-s3]: [ECSS-E-70-41A](../library/ecss-e-70-41a-30jan2003-pus.md), §8 Housekeeping and diagnostic data reporting service, requests and reports (3,1) to (3,26), PDF pp. 64-69.
 [^pus-crc]: [ECSS-E-70-41A](../library/ecss-e-70-41a-30jan2003-pus.md), Annex A.1 Specification of the cyclic redundancy code, PDF pp. 207-210.
 [^hcss-spid]: [HSC/DOC/0300 HCSS MIB Clarification and Tailoring Note, issue 1.5](../library/hcss-mib-clarification-tailoring-note.md), §10.2 Email from NP to BV (23 September 2002), PDF pp. 28-29.
 [^icd70-s11]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Appendix C §3.9 Service 11 (features, limitations, constraints), PDF pp. 240-241.

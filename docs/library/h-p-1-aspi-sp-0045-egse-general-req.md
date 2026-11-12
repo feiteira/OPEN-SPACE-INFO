@@ -44,10 +44,11 @@ It shows where SCOS-2000-based tools sit in the Herschel/Planck checkout chain.
 - Annex 1: three CCS (two servers) and two 'CCS light' units, three TM/TC DFEs and other system SCOEs, all provided by Alenia. *(PDF p. 72)*
 
 
-## Cited by these wiki pages (5)
+## Cited by these wiki pages (6)
 
 - [ECSS: the European space standards system](../ecss/index.md)
 - [Herschel and Planck](../missions/herschel-planck.md)
+- [Herschel/Planck: SCOS-2000 in a science mission ground segment](../scos2000/herschel-planck-ground.md)
 - [Missions](../missions/index.md)
 - [SCOS-2000 as EGSE and central checkout](../scos2000/egse.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
@@ -125,7 +126,7 @@ It shows where SCOS-2000-based tools sit in the Herschel/Planck checkout chain.
 |---|---|---|---|---|
 | S1 | [ECSS-E-40B draft](../references/index.md#ref-ecss-e-40b-draft) | Space Engineering : Software | 28 July 2000 | normative |
 | S2 | [ESA-PSS-04-105](../references/index.md#ref-esa-pss-04-105) | TM Packet Standard |  | normative |
-| S3 | [ESA-PSS-04-106](../references/index.md#ref-esa-pss-04-106) | TC Packet Standard |  | normative |
+| S3 | [ESA-PSS-04-106](../references/index.md#ref-esa-pss-04-106) · [library](esa-pss-04-106-issue1-january1988.md) | TC Packet Standard |  | normative |
 | S4 | [ECSS-Q-80B](../references/index.md#ref-ecss-q-80b) | Software Product Assurance | Issue draft 3 April 2000 | normative |
 | RD1 | [catalogue](../references/index.md#ref-rf-suitcase-specification) | RF suitcase Specification | To be issued | reference |
 | RD2 | [catalogue](../references/index.md#ref-svf-specification) | SVF Specification | To be issued | reference |
@@ -138,12 +139,12 @@ It shows where SCOS-2000-based tools sit in the Herschel/Planck checkout chain.
 | AD6 | [SCI-PT-IF-07527](../references/index.md#ref-sci-pt-if-07527) | Herschel/Planck Packet Structure Interface Control Document (PS-ICD) |  | applicable |
 | AD7 | [H-P-1-ASPI-SP-0037](../references/index.md#ref-h-p-1-aspi-sp-0037) | EMC Specification |  | applicable |
 | AD8 | [SCI-PT-RS-07360](../references/index.md#ref-sci-pt-rs-07360) · [library](cosmos-operations-interface-requirements.md) | Operations Interface Requirements Document |  | applicable |
-| AD9 | [H-P-1-ASPI-IS-0121](../references/index.md#ref-h-p-1-aspi-is-0121) | EGSE INTERFACE REQUIREMENTS SPECIFICATIONS |  | applicable |
+| AD9 | [H-P-1-ASPI-IS-0121](../references/index.md#ref-h-p-1-aspi-is-0121) · [library](rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) | EGSE INTERFACE REQUIREMENTS SPECIFICATIONS |  | applicable |
 | AD11 | [H-P-1-ASPI-SP-0110](../references/index.md#ref-h-p-1-aspi-sp-0110) | Ground Support Equipment Applicability Matrix of ECSS-E-40B |  | applicable |
 | AD12 | [H-P-1-ASPI-SP-0018](../references/index.md#ref-h-p-1-aspi-sp-0018) | PA Requirements for Subcontractors |  | applicable |
 |  | [HP-2-ASED-PS-0013](../references/index.md#ref-hp-2-ased-ps-0013) | Herschel Cryo SCOE Requirements Specification |  | mentioned |
 |  | [H-P-SP-AI-0010](../references/index.md#ref-h-p-sp-ai-0010) | CCS Requirement Specification |  | mentioned |
-|  | [H-P-1-ASPI-IS-0121](../references/index.md#ref-h-p-1-aspi-is-0121) | EGSE INTERFACE Requirement Specification |  | mentioned |
+|  | [H-P-1-ASPI-IS-0121](../references/index.md#ref-h-p-1-aspi-is-0121) · [library](rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) | EGSE INTERFACE Requirement Specification |  | mentioned |
 |  | [H-P-SP-AI-0030](../references/index.md#ref-h-p-sp-ai-0030) | TM/TC DFE Requirement Specification |  | mentioned |
 |  | [H-P-SP-AI-0028](../references/index.md#ref-h-p-sp-ai-0028) | POWER SCOE Requirement Specification |  | mentioned |
 |  | [H-P-SP-AI-0029](../references/index.md#ref-h-p-sp-ai-0029) | TT&C SCOE Requirement Specification |  | mentioned |

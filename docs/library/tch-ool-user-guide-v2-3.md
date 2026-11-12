@@ -90,7 +90,7 @@ Section 3 is a tutorial covering every `hcss.tchool.*` configuration property an
 
 | Label | Document | Title | Issue / date | Kind |
 |---|---|---|---|---|
-| [RD1] | [SPIRE-ICS-DOC-000900](../references/index.md#ref-spire-ics-doc-000900) | TC History Interface Control Document, M.J.Graham | 1.0 30th October 2002 | reference |
+| [RD1] | [SPIRE-ICS-DOC-000900](../references/index.md#ref-spire-ics-doc-000900) · [library](tc-history-icd.md) | TC History Interface Control Document, M.J.Graham | 1.0 30th October 2002 | reference |
 | [RD2] | [SPIRE-ICS-DOC-000974](../references/index.md#ref-spire-ics-doc-000974) | OOL Data Interface Control Document, M.J.Graham | 1.0 30th October 2002 | reference |
 | [RD3] | [SPIRE-ICS-DOC-000975](../references/index.md#ref-spire-ics-doc-000975) | RTA-HCSS Data Interface Control Document, M.J.Graham | 1.0 30th October 2002 | reference |
 | [RD4] | [SPIRE-ICS-DOC-000###](../references/index.md#ref-spire-ics-doc-000) | TC History Ingestion Technical Note, M.J.Graham | 0.2 18th March 2003 | reference |

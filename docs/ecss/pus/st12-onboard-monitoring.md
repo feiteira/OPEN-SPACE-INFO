@@ -451,7 +451,7 @@ Sources: Figures 8-130, 8-135, 8-138 and 8-139.[^c-1214][^c-1223][^c-1226]
 | TM[12,12] | check transition report | minimum | 6.12.3.7 / 8.12.2.12 |
 | TC[12,13] / TM[12,14] | report the status of each parameter monitoring definition / report | requires TC[12,1] | 6.12.3.11 / 8.12.2.13-14 |
 | TC[12,15] / TC[12,16] | enable / disable the parameter monitoring function | minimum | 6.12.3.5 / 8.12.2.15-16 |
-| TC[12,17]-TC[12,28] | functional monitoring (see above) | see table above | 6.12.4 / 8.12.2.17-28 |
+| TC[12,17]-TM[12,28] | functional monitoring (see above) | see table above | 6.12.4 / 8.12.2.17-28 |
 
 Source: Annex C, Tables C-18 and C-19.[^c-annexc] All services are listed in the
 [PUS message type catalogue](message-types.md).
@@ -703,6 +703,15 @@ when an item changes state in either direction after the repetition count.[^hp-o
       FROM pid WHERE PID_TYPE = '5'
        AND PID_PI1_VAL IN ('32512','32513','32514','33537','33538','33539','45718') GROUP BY 1, 2, 3;
     ```
+
+## Related pages
+
+* [PUS: the Packet Utilization Standard](index.md), the [message type catalogue](message-types.md) and [PUS-A vs PUS-C](pus-a-vs-pus-c.md)
+* [ST[05] Event reporting](st05-event-reporting.md), which carries the events that monitoring checks raise, and [ST[19] Event-action](st19-event-action.md), which can react to them
+* [ST[03] Housekeeping](st03-housekeeping.md), [ST[04] Parameter statistics reporting](st04-parameter-statistics.md) and [ST[20] On-board parameter management](st20-onboard-parameter-management.md), other services on the same on-board parameters
+* [ECSS-E-ST-70-11C](../e-st-70-11c.md), whose requirement group 5.8.6 asks for on-board monitoring
+* [Monitoring checks in the MIB](../../mib/monitoring-checks.md), the ground-side counterpart
+* [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md), [the Solar Orbiter MIB](../../missions/solar-orbiter/mib.md) and [Herschel/Planck interface documents](../../scos2000/herschel-planck-interfaces.md#the-services)
 
 [^c-scope]: [ECSS-E-ST-70-41C, Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §6.12.1, PDF pp. 198-199.
 [^c-812gen]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §8.12.1, PDF p. 508.

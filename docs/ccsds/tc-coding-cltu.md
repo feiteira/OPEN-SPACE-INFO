@@ -1,8 +1,8 @@
 ---
 title: "TC synchronization and channel coding: the CLTU (CCSDS 231.0-B-4)"
-description: How CCSDS telecommand frames are protected and delimited on the uplink - the modified BCH(63,56) code, the short LDPC codes, fill, the pseudo-randomizer, the CLTU with its start and tail sequences, the receiver state machine, PLOP-1 and PLOP-2, repeated transmissions, managed parameters, performance and rationale from the Green Book, real and Solar Orbiter worked examples.
-tags: [CCSDS, Channel coding, Telecommand, CLTU, BCH, LDPC, Physical layer, Solar Orbiter]
-sources: [ccsds-231-0-231x0b4e1, ccsds-230-1-230x1g3e1, ecss-e-hb-50a-15november2008, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-912-1-912x1b5e1, ecss-e-st-50c-rev-1-1march2021, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol]
+description: How CCSDS telecommand frames are protected and delimited on the uplink - the modified BCH(63,56) code, the short LDPC codes, fill, the pseudo-randomizer, the CLTU with its start and tail sequences (including the 2026 corrigendum that replaces the LDPC tail), the receiver state machine, PLOP-1 and PLOP-2, repeated transmissions, managed parameters, performance, the ECSS lineage from ECSS-E-ST-50-04C to the adoption notice ECSS-E-AS-50-24C Rev.1, and real and Solar Orbiter worked examples.
+tags: [CCSDS, ECSS, Channel coding, Telecommand, CLTU, BCH, LDPC, Physical layer, Solar Orbiter]
+sources: [ccsds-231-0-231x0b4e1, ccsds-231-0-231x0b4e1c1, ccsds-230-1-230x1g3e1, ecss-e-st-50-04c31july2008, ecss-e-as-50-24c-rev-1-13january2023, ecss-e-as-50-25c-rev-1-13january2023, ecss-e-hb-50a-15november2008, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-912-1-912x1b5e1, ecss-e-st-50c-rev-1-1march2021, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol]
 ---
 
 # TC synchronization and channel coding: the CLTU (CCSDS 231.0-B-4)
@@ -16,9 +16,26 @@ same Recommended Standard also defines the **Physical Layer Operations Procedure
 PLOP-2) that the transmitter follows to switch the carrier, the acquisition and idle patterns and the
 CLTUs on and off.[^cc-purpose][^cc-arch][^cc-def-cltu]
 
-This page follows CCSDS 231.0-B-4 (Blue Book, July 2021) and its companion Green Book CCSDS 230.1-G-3
-(October 2021), which explains the rationale and gives performance data and worked examples, plus the
-ECSS communications handbook and the Solar Orbiter documentation and [MIB](../mib/index.md).[^cc-cover][^gb-cover]
+This page follows CCSDS 231.0-B-4 (Blue Book, July 2021) with its Technical Corrigendum 1 (July 2026),
+which replaces the optional LDPC tail sequence, and the companion Green Book CCSDS 230.1-G-3 (October
+2021), which explains the rationale and gives performance data and worked examples. For the European side
+it uses the superseded standard ECSS-E-ST-50-04C (31 July 2008), the adoption notice ECSS-E-AS-50-24C
+Rev.1 (13 January 2023) that replaced it, the ECSS communications handbook, and the Solar Orbiter
+documentation and [MIB](../mib/index.md).[^cc-cover][^cor1-dc][^gb-cover][^e5004-cover][^an24-scope]
+
+| Issue | Date | Notes from the document control pages |
+|---|---|---|
+| 231.0-B-1 | September 2003 | Original issue |
+| 231.0-B-2 | September 2010 | Issue 2 |
+| 231.0-B-3 | September 2017 | Issue 3 |
+| 231.0-B-4 | July 2021 | Clarifies the procedures for the short LDPC codes; adds support for [USLP](uslp.md) |
+| EC 1 | October 2024 | Editorial: figure listing in the table of contents, A4 page size |
+| Cor. 1 | July 2026 | Changes §5.2.4.2 only: new LDPC (128,64) Tail Sequence, a probability added to the requirement and to note 2, new note 3 ([details](#the-2026-corrigendum-a-new-ldpc-12864-tail)) |
+
+Restated from the two copies in this wiki's library: the 2021 issue with EC 1, and the corrigendum
+edition.[^cc-dc][^cor1-dc] The European line ran in parallel, from ESA's Packet Telecommand Standard
+PSS-04-107 through ECSS-E-ST-50-04C to the adoption notices; see [ECSS lineage](#ecss-lineage-from-ecss-e-st-50-04c-to-ecss-e-as-50-24c)
+below and the history page [From ESA PSS to CCSDS and ECSS](../overview/history.md).[^e5004-pss][^an24-log]
 
 !!! info "TC coding at a glance"
     | Item | BCH option | LDPC option |
@@ -28,16 +45,17 @@ ECSS communications handbook and the Solar Orbiter documentation and [MIB](../mi
     | Decoding | Error-detecting (TED) or error-correcting (SEC), hard decision | Usually soft decision (about 2 dB better) |
     | Randomizer | Optional (strongly advised), applied to frames before encoding | Mandatory, applied to each codeword after encoding |
     | Start Sequence | 16 bits, `0xEB90` | 64 bits, `0x034776C7272895B0` |
-    | Tail Sequence | 64 bits, `0xC5C5C5C5C5C5C579` | (128,64): optional 128 bits; (512,256): none |
+    | Tail Sequence | 64 bits, `0xC5C5C5C5C5C5C579` | (128,64): optional 128 bits, since Cor. 1 (2026) `0x63A1ED72C6AC79E2` followed by eight `0x55` octets; (512,256): none |
     | Physical layer procedure | PLOP-2 for missions planned after September 2010; PLOP-1 only for legacy | same |
+    | ECSS adoption (ECSS-E-AS-50-24C Rev.1) | One frame per CLTU, SEC decoding only, one Start Sequence error accepted, randomizer always used | One frame per CLTU; otherwise as CCSDS |
 
-    Sources: CCSDS 231.0-B-4 §3 to §7, Green Book §3.5 and §4.4.[^bch-format][^ldpc-ov][^cltu-start][^cltu-tail][^plop-intro][^gb-hamming][^gb-ldpc-rf]
+    Sources: CCSDS 231.0-B-4 §3 to §7 and Cor. 1, Green Book §3.5 and §4.4, ECSS-E-AS-50-24C Rev.1 table 4-1.[^bch-format][^ldpc-ov][^cltu-start][^cltu-tail][^cor1-tail][^plop-intro][^gb-hamming][^gb-ldpc-rf][^an24-oneframe][^an24-sec][^an24-rnd]
 
 ## Architecture and functions
 
 The sublayer sits between the data link protocol sublayer ([TC-SDLP](tc-sdlp.md) or
 [USLP](uslp.md)) and the physical layer, whose main specification is the CCSDS radio frequency and
-modulation standard.[^cc-arch] It provides four functions:[^cc-functions][^cc-functions2]
+modulation standard (see [Radio frequency, modulation and ranging](rf-and-ranging.md)).[^cc-arch] It provides four functions:[^cc-functions][^cc-functions2]
 
 * **error-control coding** with either the modified BCH code or one of two LDPC codes; the BCH code can
   be decoded in an error-detecting or an error-correcting mode, while the LDPC codes are typically
@@ -86,7 +104,9 @@ different users are not multiplexed at this level.[^svc-ov] Two primitives exist
   Transfer Frames, or a single USLP frame. *Repetitions* is optional; when supported it is an integer
   ≥ 1 giving the **total** number of times the CLTU is transferred (3 means three transfers, not four).
   With Repetitions > 1 the frames should not include Type-BD frames, and the option should be limited
-  to links with long light time.[^svc-params][^svc-req]
+  to links with long light time.[^svc-params][^svc-req] In ECSS the Frames parameter is narrowed to one
+  TC Transfer Frame or a single USLP frame; ECSS-E-ST-50-04C had neither a formal service interface nor
+  the Repetitions parameter.[^an24-oneframe][^an24-annex]
 * `ChannelAccess.indication (Frames)` at the receiving end. The delivered *Frames* may contain an
   incomplete frame or trailing fill, which the data link protocol discards.[^svc-params][^svc-ind]
 
@@ -154,6 +174,9 @@ The receiver decodes BCH codewords in one of two modes, chosen per physical chan
   One, two or three errors are always detected. No error is accepted in the Start Sequence.
 * **Single Error Correction (SEC)**, in full *Single Error Correction and Double Error Detection*: one
   error is corrected, two are detected. One error is accepted in the Start Sequence.
+
+ECSS uses only the second mode: ECSS-E-ST-50-04C mentions TED but specifies SEC, and ECSS-E-AS-50-24C
+Rev.1 rewrites §3.5 of the Blue Book so that BCH codewords shall be decoded in SEC mode.[^e5004-dec][^an24-sec]
 
 In both modes the received filler bit is ignored.[^gb-ted][^gb-sec] A TED decoder can simply recompute
 the parity from the first 56 bits and compare it with the inverted next 7 bits. A SEC decoder computes the
@@ -251,8 +274,8 @@ layer above, plus any fill.[^cltu-struct]
      data-caption="N codewords in general; drawn with N = 2"></div>
 
 <div class="bitfield" data-title="CLTU with LDPC (128,64) coding, one codeword and optional tail (320 bits)" data-width="64"
-     data-fields='[{"n":"Start Sequence","b":64,"v":"0x034776C7272895B0","g":"Start"},{"n":"Randomized LDPC codeword (128 symbols)","b":128,"g":"Codeword"},{"n":"Tail Sequence (optional)","b":128,"v":"0x55555556AAAAAAAA5555555555555555","g":"Tail"}]'
-     data-caption="The (512,256) code uses 512-symbol codewords and never a tail"></div>
+     data-fields='[{"n":"Start Sequence","b":64,"v":"0x034776C7272895B0","g":"Start"},{"n":"Randomized LDPC codeword (128 symbols)","b":128,"g":"Codeword"},{"n":"Tail Sequence (optional)","b":128,"v":"0x63A1ED72C6AC79E25555555555555555","g":"Tail","d":"Pattern of CCSDS 231.0-B-4 Cor. 1 (2026); the 2021 text had 0x55555556AAAAAAAA5555555555555555. Sent unrandomized"}]'
+     data-caption="Tail pattern of Cor. 1; the (512,256) code uses 512-symbol codewords and never a tail"></div>
 
 ### Start Sequence
 
@@ -283,12 +306,61 @@ channel bit error rate of 10⁻⁵, about 6.5 × 10⁻¹³ in TED mode and 1.95 
 mode.[^gb-tail-prob]
 
 History: before November 1995 the tail was alternating `0x55` octets, which was easier to miss; the
-shorter tails of the obsolete codeword lengths disappeared in June 2000.[^gb-tail-old]
+shorter tails of the obsolete codeword lengths disappeared in June 2000.[^gb-tail-old] ECSS-E-ST-50-04C
+specified the current pattern (seven `0xC5` octets and a final `0x79`, the length of one codeblock), and
+its annex B lists a different tail bit pattern among the changes from ESA PSS-04-107.[^e5004-tail][^e5004-pss]
+
+!!! note "The BCH tail drawing differs between the two copies"
+    The 2021 copy (with EC 1) prints the BCH Tail Sequence in binary as eight `11000101` octets followed
+    by `01111001`, which is 72 bits, although the same clause calls it a 64-bit pattern and its
+    hexadecimal note reads `C5C5 C5C5 C5C5 C579`. The corrigendum edition prints seven `11000101`
+    octets, matching the hexadecimal note. This wiki checked both against the page images; the
+    corrigendum's document control does not list the change, and the pattern itself is the same in both
+    issues. The corrigendum edition also differs from the EC 1 copy in other places its document
+    control does not list: its §1.1 no longer names USLP, and its §6.1 reads "BCG coding" where the
+    EC 1 copy has "BCH coding". Which of these differences are intended is not stated in the available
+    sources.[^cc-tail-b4][^cor1-bch-tail][^cor1-dc][^cc-purpose][^rnd-ov][^cor1-diff]
 
 With LDPC coding a conventional decoder reliably fails when it runs past the end of a CLTU, which
-ends the CLTU without a tail. A 128-bit tail `5555 5556 AAAA AAAA 5555 5555 5555 5555` is optional for
-the (128,64) code, for decoders that do not have that property; it can be found by decoder failure or by
-pattern matching before derandomization. The (512,256) code never uses a tail.[^cltu-tail][^gb-ldpc-tail]
+ends the CLTU without a tail. For the (128,64) code an optional 128-bit tail exists for decoders that do
+not have that property; it can be found by decoder failure or by pattern matching before
+derandomization. The (512,256) code never uses a tail.[^cltu-tail][^gb-ldpc-tail][^cor1-tail]
+
+### The 2026 corrigendum: a new LDPC (128,64) tail
+
+Technical Corrigendum 1 to CCSDS 231.0-B-4 (July 2026) lists changes to §5.2.4.2 only. It replaces the first 64
+bits of the optional (128,64) tail, puts a number on how reliably the tail and a decoder over-run stop
+decoding, and adds a note that gives the tail as the decoder sees it:[^cor1-dc][^cor1-tail][^cc-tail-b4]
+
+| Item | CCSDS 231.0-B-4 (2021, also EC 1 of 2024) | CCSDS 231.0-B-4 Cor. 1 (2026) |
+|---|---|---|
+| Tail pattern (hexadecimal) | `5555 5556 AAAA AAAA 5555 5555 5555 5555` | `63A1 ED72 C6AC 79E2 5555 5555 5555 5555` |
+| Requirement | A non-correctable pattern that stops the decoding process | The same, stopping the decoding process with probability of about 1 − 10⁻⁴ or more |
+| Note 2: decoder over-run without a tail | A conventional LDPC decoder reliably fails to decode | A conventional decoder decodes successfully with probability of about 10⁻⁴ or less; this may replace the tail |
+| Note 3 | (none) | A decoder used to detect the tail tries, and fails, to decode the *derandomized* tail `9C987328 AE457F17 39DC7AF4 640B5D95` |
+| (512,256) code | No tail | No tail (unchanged) |
+
+Note 3 makes explicit how the tail meets the randomizer. The sending end never randomizes the Start or
+Tail Sequence, but a receiver that treats the 128 symbols after the last codeword as one more codeword
+derandomizes them first, with the BTG reset to all ones as at every codeword.[^rnd-apply][^rnd-apply-rx]
+The value in note 3 is exactly the tail XORed with the first 128 bits of the BTG sequence
+(`FF 39 9E 5A 68 E9 06 F5 6C 89 2F A1 31 5E 08 C0`): `63` ⊕ `FF` = `9C`, `A1` ⊕ `39` = `98`, and so on,
+and the unchanged second half `55 … 55` becomes `39 DC 7A F4 64 0B 5D 95` in both issues. This wiki
+generated the BTG octets from the polynomial of the [randomizer section](#the-pseudo-randomizer) and
+reproduced all 16 octets of note 3.[^cor1-tail][^rnd-desc] The corrigendum does not say why the old
+pattern was replaced.
+
+!!! warning "Inference: what the corrigendum changes in practice"
+    A receiver that relies on its LDPC decoder failing at the tail is affected only through the stated
+    probabilities. A receiver that detects the tail by correlation before derandomization (allowed by
+    note 2 of §5.3, which also asks for the 1/0 ambiguity to be handled) must look for the new pattern,
+    while equipment built to the 2021 text, or tested against Green Book annex F2 example 1 (see
+    [below](#real-ldpc-cltus-from-the-green-book)), uses the old one. The managed parameter "Tail
+    Sequence: Used, Not used" and the reception logic with event E5 are unchanged, so nothing in the
+    managed parameters identifies which pattern a link uses; the two ends of a cross-support link have
+    to agree on the issue. ECSS-E-AS-50-24C Rev.1 (January 2023) applies CCSDS 231.0-B-4 of July 2021,
+    before the corrigendum; whether ECSS will adopt it is not stated in the available sources. BCH
+    links and the (512,256) code are untouched.[^cor1-rx][^cc-mp][^an24-scope]
 
 ### Length of a CLTU
 
@@ -307,16 +379,19 @@ length a managed parameter, and the SLE Forward CLTU service has a similar per-i
 limit.[^gb-iface][^gb-len-bch]
 
 !!! note "One frame per CLTU in ECSS practice"
-    CCSDS allows several frames in one CLTU. ECSS-E-ST-50-04C (2008) required exactly one, because
-    more codewords per CLTU raise the rejection probability and because European on-board hardware
-    did not support several frames per CLTU in its frame delimiting procedure.[^hb-diff3] For systematic
-    retransmissions the Blue Book also advises a single frame per CLTU: losing one frame loses all
-    following frames of the same CLTU.[^svc-req] ECSS now adopts the CCSDS coding standard through the
-    adoption notice ECSS-E-AS-50-24, which ECSS-E-ST-50C Rev.1 lists as based on CCSDS 231.0-B-3
-    (September 2017, the issue before the one described here) and as superseding clauses 8
-    (synchronization and coding sublayer) and 9 (physical layer) of ECSS-E-ST-50-04C.[^e50-an] That
-    notice is not in this wiki's library, so whether it keeps the one-frame rule and the other
-    ECSS-E-ST-50-04C choices listed on this page is not stated in the available sources.
+    CCSDS allows several TC frames in one CLTU. ECSS-E-ST-50-04C (2008) required exactly one: when the
+    sublayer above is the transfer sublayer, the codeblocks of a CLTU carry a single TC Transfer
+    Frame.[^e5004-cltu][^e5004-ccsds] The handbook gives the reasons: more codewords per CLTU raise the
+    rejection probability, and European on-board hardware did not support several frames per CLTU in
+    its frame delimiting procedure.[^hb-diff3] For systematic retransmissions the Blue Book also advises
+    a single frame per CLTU: losing one frame loses all following frames of the same
+    CLTU.[^svc-req] The rule survives in the current adoption notice: ECSS-E-AS-50-24C Rev.1 rewrites
+    note 2 of the Transfer Frame definition and the Frames parameter of annex A3, so that the service
+    data unit is one TC Transfer Frame or a single USLP Transfer Frame.[^an24-oneframe] ECSS-E-ST-50C
+    Rev.1 (March 2021) lists ECSS-E-AS-50-24 as based on CCSDS 231.0-B-3 and as superseding clauses 8
+    and 9 of ECSS-E-ST-50-04C; that was true of the notice's first issue of 1 March 2021, while Rev.1
+    of 13 January 2023 applies 231.0-B-4.[^e50-an][^an24-log] The other ECSS choices are compared
+    [below](#ecss-lineage-from-ecss-e-st-50-04c-to-ecss-e-as-50-24c).
 
 ## The pseudo-randomizer
 
@@ -351,7 +426,13 @@ in November 1995.[^gb-rnd-bg] Its polynomial differs from the TM randomizer, whi
 the TM Reed-Solomon code; the TC sequence avoids that interaction.[^gb-rnd-tm] The Green Book suggests a
 way to disable randomization during early ground testing, so that engineers can read familiar binary
 data.[^gb-rnd] ECSS-E-ST-50-04C always required the randomizer, citing problems on earlier missions, while
-noting that some European on-board hardware did not support it.[^hb-diff6]
+noting that some European on-board hardware did not support it.[^hb-diff6] Its §8.4 applies it to all
+CLTUs passed to the physical layer, to the input data before encoding and never to the error control
+bits; fill may be randomized or not, and is derandomized at the receiver either way. ECSS-E-AS-50-24C
+Rev.1 keeps the randomizer mandatory with BCH coding by editing seven places of CCSDS 231.0-B-4
+(§2.2.4, §3.4.3, note 2 of §5.2.3, table 5-1, §6.1, the deleted note 2 of §6.3.1 and table 8-2); its
+change log says that the informative notes still presenting the BCH randomizer as optional were
+added to the list in Rev.1.[^e5004-rnd][^e5004-fill][^an24-rnd][^an24-log]
 
 ## Receiving end: the CLTU reception logic
 
@@ -385,7 +466,16 @@ After figure 5-3 and tables 5-1, 5-2.[^rx-logic][^rx-tables]
 After a rejection without a tail in use, the search must restart at the beginning of the rejected
 codeword (it may hold the next Start Sequence); with a tail it may restart after it. With BCH it is
 standard practice to rely on the tail causing a codeword rejection; with LDPC one may detect the tail with
-a correlator, allowing for inversion.[^rx-tables][^rx-notes][^gb-decode]
+a correlator, allowing for inversion.[^rx-tables][^rx-notes][^gb-decode] The corrigendum leaves this logic
+as it was.[^cor1-rx]
+
+ECSS-E-ST-50-04C described the same machine for BCH only, as the "channel logic" with three states and
+four events (no E5), and added two exits from DECODE: a CLTU whose number of codeblocks exceeds an
+implementation-dependent upper limit is abandoned and the receiver returns to SEARCH, and if the channel
+stays active but no data arrive because the symbol clock is lost, the CLTU is abandoned and the receiver
+goes to INACTIVE.[^e5004-rx] The CCSDS state tables have no such exits; the book only makes the
+Maximum CLTU Length a managed parameter of the physical channel, which limits what the sending end may
+put into one CLTU.[^rx-tables][^cc-mp][^gb-iface]
 
 What the data link layer receives is not yet clean frames: fill has not been removed, the last frame may
 be truncated, nothing has been validated, and the Spacecraft ID has not been checked. Those are the jobs
@@ -411,7 +501,9 @@ channel bit error rate of 10⁻⁵:[^gb-start-prob][^gb-ted-rej][^gb-sec-rej][^g
 
 The trade-off is plain: SEC rejects thousands of times fewer CLTUs, at the cost of an undetected error
 rate that only the CRC brings back to negligible levels. ECSS-E-ST-50-04C therefore always used SEC,
-always accepted one error in the Start Sequence, and made the FECF mandatory.[^hb-diff7][^hb-diff5][^hb-diff4]
+always accepted one error in the Start Sequence, and made the FECF mandatory; its annex E lists these,
+with the randomizer and the single frame per CLTU, as physical channel parameters "fixed by the
+requirements" of the standard.[^hb-diff7][^hb-diff5][^hb-diff4][^e5004-fixed]
 
 ECSS-E-ST-50C Rev.1 turns this into link requirements: uplink budgets assume a bit error rate of 10⁻⁵
 at the input of the telecommand decoder; at that rate the uplink frame rejection rate for a 256-octet
@@ -425,6 +517,53 @@ coding and frame error control the probability of an undetected frame error can 
     in SEC mode with one Start Sequence error accepted (about 7.4 × 10⁻⁶ with PLOP-2), not in TED mode
     (about 2.3 × 10⁻²), and a 1024-octet frame in SEC mode (about 2.9 × 10⁻⁵) misses it, as the ECSS
     note says. The comparison is this wiki's.
+
+### Frame rejection at three bit error rates (ECSS-E-ST-50-04C annex D)
+
+ECSS-E-ST-50-04C condensed the same analysis into closed formulas for its fixed profile (SEC decoding,
+one Start Sequence error accepted, one frame per CLTU, PLOP-2 with at least one octet of idle sequence
+between CLTUs), on a binary symmetric channel with bit error rate $p$.[^e5004-perf] A frame is lost if the
+previous tail was missed (so the receiver is not searching), if its Start Sequence is not recognised, or
+if one of its $N$ codeblocks is rejected:
+
+$$P_{SY} = 1 - \left[(1-p)^{16} + 16p(1-p)^{15}\right] \qquad P_{TY} = 1953\,p^2(1-p)^{61} + 651\,p^3(1-p)^{60}$$
+
+$$P_{CY} = 1 - \left[(1-p)^{63} + 63p(1-p)^{62}\right]^N \qquad P_{FY} = P_{TY} + (1 - P_{TY})\left(P_{SY} + (1 - P_{SY})\,P_{CY}\right)$$
+
+The coefficients 1953 and 651 are the double-error and triple-error patterns that turn the tail into an
+accepted codeword, as in the Green Book table quoted [above](#tail-sequence).[^e5004-perf][^gb-tail-par]
+
+| Quantity | $p = 10^{-4}$ | $p = 10^{-5}$ | $p = 10^{-6}$ |
+|---|---|---|---|
+| $P_{SY}$, Start Sequence not recognised | 1.20 × 10⁻⁶ | 1.20 × 10⁻⁸ | 1.20 × 10⁻¹⁰ |
+| $P_{TY}$, Tail Sequence missed | 1.94 × 10⁻⁵ | 1.95 × 10⁻⁷ | 1.95 × 10⁻⁹ |
+| $P_{FY}$, 1 codeblock | 4.01 × 10⁻⁵ | 4.02 × 10⁻⁷ | 4.03 × 10⁻⁹ |
+| $P_{FY}$, 16 codeblocks | 3.32 × 10⁻⁴ | 3.33 × 10⁻⁶ | 3.33 × 10⁻⁸ |
+| $P_{FY}$, 37 codeblocks (frames up to 259 octets) | 7.40 × 10⁻⁴ | 7.43 × 10⁻⁶ | 7.43 × 10⁻⁸ |
+| $P_{FY}$, 74 codeblocks | 1.46 × 10⁻³ | 1.47 × 10⁻⁵ | 1.47 × 10⁻⁷ |
+| $P_{FY}$, 110 codeblocks | 2.16 × 10⁻³ | 2.17 × 10⁻⁵ | 2.17 × 10⁻⁷ |
+| $P_{FY}$, 147 codeblocks (a 1024-octet frame) | 2.88 × 10⁻³ | 2.89 × 10⁻⁵ | 2.89 × 10⁻⁷ |
+
+Tables D-1, D-6 and D-7 of ECSS-E-ST-50-04C.[^e5004-perf] The $10^{-5}$ column agrees with the Green
+Book's PLOP-2 figure for 37 codewords quoted above. The same annex shows that a frame with the CRC has an
+undetected error probability of 1.16 × 10⁻²⁴ for 10 codeblocks at $p = 10^{-5}$, again the Green Book
+value, and that in SEC mode the 39,060 undetected triple-error patterns are all "corrected" into
+quadruple errors.[^e5004-ue][^gb-ue-tab] ECSS-E-AS-50-24C Rev.1 notes that CCSDS 231.0-B-4 has no
+equivalent of this annex and points to the Green Book instead.[^an24-annex]
+
+!!! tip "Reproducing annex D"
+    This wiki evaluated the four formulas and reproduced every value in the table above to three
+    significant figures. One printed value in the codeblock rejection table D-4 does not fit: for one
+    codeblock at $p = 10^{-6}$ it reads 1.5 × 10⁻⁹, while the formula gives 1.95 × 10⁻⁹ (half the
+    printed two-codeblock value of 3.91 × 10⁻⁹, and the same as the one-codeblock values at the other
+    two error rates scaled by $p^2$); this wiki takes it as a misprint.[^e5004-d4]
+
+!!! warning "Inference: the largest frame that meets the ECSS-E-ST-50C target"
+    Evaluating $P_{FY}$ at $p = 10^{-5}$ for every $N$ gives 9.97 × 10⁻⁶ for 50 codeblocks and
+    1.02 × 10⁻⁵ for 51. With one frame per CLTU and $N = \lfloor (L + 6)/7 \rfloor$, frames of up to
+    350 octets therefore stay below the 10⁻⁵ uplink frame rejection rate of ECSS-E-ST-50C Rev.1 with
+    the BCH profile, and longer ones exceed it. Solar Orbiter's 256-octet maximum (37 codeblocks) is well
+    inside. The calculation is this wiki's, from the annex D formulas.[^e5004-perf][^e50-ul][^tn-frame]
 
 ## Physical Layer Operations Procedures
 
@@ -449,7 +588,10 @@ missions.[^plop-intro]
 Table 7-1 of the Blue Book.[^plop-cmm] The preferred 128-bit acquisition length was chosen to give a
 0.9999 probability of acquiring bit synchronization at the command threshold with the hardware then in
 use.[^gb-acq] During CMM-1 the sender uses the CLCW **No RF Available** flag, and during CMM-2 it may use
-the optional **No Bit Lock** flag, to follow the state of the spacecraft receiver.[^gb-cmm]
+the optional **No Bit Lock** flag, to follow the state of the spacecraft receiver.[^gb-cmm] ECSS-E-ST-50-04C
+states the same use of both flags, the No Bit Lock flag serving through CMM-3 and CMM-4 as well; its
+annex D bases the 128-bit minimum on experience with several hardware implementations working near a
+frame rejection rate of 10⁻³.[^e5004-cmm][^e5004-perf]
 
 ```mermaid
 flowchart LR
@@ -492,9 +634,16 @@ between one CLTU and the next.[^gb-plop-if] The configuration parameters of that
 `maximum-cltu-length` and the CLCW-based `rf-available-required` and `bit-lock-required`
 checks.[^fcltu-params]
 
-For ECSS missions, ECSS-E-ST-50-04C fixed several of these options: PLOP-2 in preference to PLOP-1,
-an idle sequence of at least 8 bits between CLTUs, an acquisition sequence of at least 128 bits, and a
-mandatory No Bit Lock flag.[^hb-plop][^hb-diff8][^hb-diff9][^hb-diff11]
+For ECSS missions, ECSS-E-ST-50-04C fixed several of these options: PLOP-2 should be used in
+preference to PLOP-1 (which it kept for completeness, for ground systems and for cross support), an
+idle sequence of at least 8 bits between CLTUs, an acquisition sequence of at least 128 bits, and a
+mandatory No Bit Lock flag.[^hb-plop][^hb-diff8][^hb-diff9][^hb-diff11][^e5004-phys][^e5004-plop] The
+adoption notice ECSS-E-AS-50-24C Rev.1 carries the length rules over as requirements on CCSDS 231.0-B-4:
+§7.2.2 gets a minimum Acquisition Sequence of 16 octets instead of a preferred minimum, §7.2.4 an Idle
+Sequence of at least 8 bits, and §7.5.2 turns the recommended one-octet Idle Sequence between PLOP-2
+CLTUs into a "shall". It does not modify §7.1, so the CCSDS rule of PLOP-2 for missions planned after
+September 2010 applies unchanged; the No Bit Lock rule now sits in the [TC-SDLP adoption
+notice](tc-sdlp.md#ecss-adoption-ecss-e-as-50-25c-rev1).[^an24-plop][^plop-intro][^an25-nbl]
 
 ## Repeated transmissions
 
@@ -519,20 +668,108 @@ the result further.[^gb-frames-param]
 
 ## Managed parameters
 
-| Managed parameter | Allowed values | Applies to |
-|---|---|---|
-| Error Correcting Code Type | BCH, LDPC | both |
-| Maximum CLTU Length (octets) | Integer | both |
-| Maximum value for the Repetitions parameter | Integer (1 means the option is not available) | both |
-| Physical Layer Operations Procedure | PLOP-1, PLOP-2 | both |
-| Decoding Mode | Error-Detecting, Error-Correcting | BCH |
-| Allowed Number of Errors in Start Sequence | 0, 1 | BCH |
-| Randomizer | Used, Not used | BCH |
-| Code length | (128,64), (512,256) | LDPC |
-| Tail Sequence | Used, Not used (only for (128,64)) | LDPC |
+| Managed parameter | Allowed values (CCSDS) | Allowed values in ECSS-E-AS-50-24C Rev.1 | Applies to |
+|---|---|---|---|
+| Error Correcting Code Type | BCH, LDPC | unchanged | both |
+| Maximum CLTU Length (octets) | Integer | unchanged | both |
+| Maximum value for the Repetitions parameter | Integer (1 means the option is not available) | unchanged | both |
+| Physical Layer Operations Procedure | PLOP-1, PLOP-2 | unchanged | both |
+| Decoding Mode | Error-Detecting, Error-Correcting | **Error-Correcting** | BCH |
+| Allowed Number of Errors in Start Sequence | 0, 1 | **1** | BCH |
+| Randomizer | Used, Not used | **Used** | BCH |
+| Code length | (128,64), (512,256) | unchanged | LDPC |
+| Tail Sequence | Used, Not used (only for (128,64)) | unchanged | LDPC |
 
-Tables 8-1 to 8-3.[^cc-mp] For LDPC no error count for the Start Sequence and no decoding mode are
-specified: soft-symbol detection and decoding make them meaningless.[^cc-mp-ldpc]
+Tables 8-1 to 8-3 of the Blue Book and the three table 8-2 rows of the adoption notice.[^cc-mp][^an24-t82]
+For LDPC no error count for the Start Sequence and no decoding mode are specified: soft-symbol detection
+and decoding make them meaningless.[^cc-mp-ldpc] ECSS-E-ST-50-04C had no normative managed parameters;
+its informative annex E listed "mission configuration parameters" of a physical channel (acquisition sequence length, PLOP,
+frame version number, maximum frame length, virtual channels, use of the expedited service) next to the
+values its requirements fixed.[^e5004-fixed][^an24-annex]
+
+## ECSS lineage: from ECSS-E-ST-50-04C to ECSS-E-AS-50-24C
+
+Until 2021 European projects applied the CCSDS telecommand link through their own standard,
+ECSS-E-ST-50-04C *Space data links - Telecommand protocols synchronization and channel coding*
+(31 July 2008). It covered the whole TC data link in one document: the segmentation sublayer (clause 5),
+the transfer sublayer (clause 6), COP-1 (clause 7), the synchronization and channel coding sublayer
+(clause 8) and the physical layer operation procedures (clause 9), plus informative annexes on the CRC
+encoder, the changes from ESA PSS-04-107, the differences from the 2003 CCSDS books, performance and
+mission configuration parameters.[^e5004-cover][^e5004-ov] Three adoption notices replaced it from
+1 March 2021, each applying a CCSDS book "with a minimum set of modifications": ECSS-E-AS-50-24 for
+clauses 8 and 9 (this page), ECSS-E-AS-50-25 for clauses 5 and 6
+([TC-SDLP](tc-sdlp.md#ecss-adoption-ecss-e-as-50-25c-rev1)) and ECSS-E-AS-50-26 for clause 7
+([COP-1](cop-1.md#ecss-adoption-ecss-e-as-50-26c)).[^an24-log][^an24-ctx][^e50-an] The system view is on
+[ECSS-E-ST-50C and the adoption notices](../ecss/e-st-50-communications.md).
+
+```mermaid
+timeline
+    title TC synchronization and channel coding, CCSDS and ESA/ECSS documents
+    1992 : ESA PSS-04-107 Packet Telecommand Standard, issue 2 (April)
+    2003 : CCSDS 231.0-B-1 (September)
+    2007 : ECSS-E-50-04A, first ECSS issue (14 November)
+    2008 : ECSS-E-ST-50-04C, second issue (31 July), no B issue was ever published
+    2010 : CCSDS 231.0-B-2 (September)
+    2017 : CCSDS 231.0-B-3 (September)
+    2021 : ECSS-E-AS-50-24C on 231.0-B-3 (1 March) : CCSDS 231.0-B-4 (July)
+    2023 : ECSS-E-AS-50-24C Rev.1 on 231.0-B-4 (13 January)
+    2024 : 231.0-B-4 Editorial Change 1 (October)
+    2026 : 231.0-B-4 Technical Corrigendum 1 (July)
+```
+
+Dates from the document control pages and change logs of the CCSDS book, ECSS-E-ST-50-04C and the
+adoption notice; the PSS date as cited by ECSS-E-ST-50-04C.[^cc-dc][^cor1-dc][^e5004-log][^e5004-pss][^an24-log]
+
+### ECSS-E-ST-50-04C, the CCSDS book and the adoption notice compared
+
+| Item | CCSDS 231.0-B-4 (with Cor. 1) | ECSS-E-ST-50-04C (2008, superseded) | ECSS-E-AS-50-24C Rev.1 (2023) |
+|---|---|---|---|
+| Error-control codes | BCH or LDPC | BCH only, called the *BCH codeblock* (56-bit Information field, 8-bit Error Control field of 7 complemented parity bits and the filler) | BCH or LDPC |
+| Frames per CLTU | One or more TC frames, or one USLP frame | Exactly one TC frame | One TC frame or one USLP frame |
+| BCH decoding mode | TED or SEC | SEC | SEC |
+| Start Sequence errors accepted (BCH) | 0 (TED) or 1 (SEC) | 1 | 1 |
+| Randomizer with BCH | Required unless the designer verifies operation without it; managed | Always | Always |
+| FECF | Optional, in the data link protocol | Mandatory (clause 6) | "Is used" (informative §2.2.2); mandatory through ECSS-E-AS-50-25C |
+| Channel logic | Three states, events E1 to E5 | Three states, events E1 to E4, plus abandonment after an upper limit of codeblocks or on loss of symbol clock | As CCSDS, derandomizing always |
+| Acquisition Sequence | Preferred minimum 16 octets | At least 128 bits | Minimum 16 octets ("shall") |
+| Idle Sequence | Any length | At least 8 bits | At least 8 bits |
+| Idle between PLOP-2 CLTUs | One octet recommended | One octet inserted | One octet "shall" |
+| PLOP choice | PLOP-2 for missions planned after September 2010 | PLOP-2 should be preferred | As CCSDS |
+| Repetitions parameter | Optional | Not included | As CCSDS |
+| Managed parameters | Normative (section 8) | Informative "mission configuration parameters" (annex E), no LDPC | As CCSDS, with three restricted values |
+| Service interface | Normative annex A | None | As CCSDS, Frames restricted |
+| Performance data | In the Green Book | Annex D | Points to the Green Book |
+| USLP | Supported | Not included | Supported |
+| LDPC (128,64) tail | Cor. 1 pattern since July 2026 | Not applicable | Applies B-4 of July 2021 (old pattern) |
+
+Restated from clauses 8 and 9 and annexes C and E of ECSS-E-ST-50-04C, table 4-1 and annex A of the
+adoption notice, and the Blue Book with its corrigendum.[^e5004-cb][^e5004-cltu][^e5004-rx][^e5004-dec][^e5004-phys][^e5004-plop][^e5004-ccsds][^e5004-fixed][^an24-oneframe][^an24-sec][^an24-rnd][^an24-plop][^an24-annex][^cor1-tail][^rx-tables][^plop-acq][^plop-idle][^plop-intro][^cc-mp]
+
+**What the notice edits in the Blue Book.** ECSS-E-AS-50-24C Rev.1 consists of one applicability table
+with eighteen rows, each giving the CCSDS text, the ECSS text and the reason. The rows group into four
+themes: one frame per CLTU (note 2 of the Transfer Frame definition in §1.6.1.3 and annex A3), SEC
+decoding only (§2.2.2, §3.5, note 1 below table 5-2, two rows of table 8-2), the mandatory randomizer
+(seven rows, listed in [the randomizer section](#the-pseudo-randomizer)) and the physical layer lengths
+(§7.2.2, §7.2.4, §7.5.2). One informative sentence of §2.2.2 also changes "may be used" to "is used" for
+the FECF. Its annex A then lists, without requirements, what ECSS-E-ST-50-04C lacked: the LDPC codes,
+normative managed parameters, the formal service interface, the Repetitions parameter and USLP.[^an24-oneframe][^an24-sec][^an24-rnd][^an24-plop][^an24-t82][^an24-annex]
+Rev.1 itself only follows the new CCSDS issue: it replaces the references to 231.0-B-3 by 231.0-B-4, adds
+USLP to the abbreviations, the definition note, §6.1 and annex A, and adds the rows on the informative
+randomizer notes.[^an24-log]
+
+**Older roots.** Annex B of ECSS-E-ST-50-04C lists what had changed in this sublayer since ESA's Packet
+Telecommand Standard PSS-04-107 (issue 2, April 1992): the Tail Sequence bit pattern is different;
+randomization is new; the *TC codeblock* became the *BCH codeblock*, now only 64 bits long where PSS also
+had 56, 48 and 40-bit codeblocks; the acquisition sequence no longer has to end with a one before an idle
+sequence, and the idle sequence may start with either value; PLOP-1 was added to the PSS's PLOP-2; and
+the *Command* Link Transmission Unit became the *Communications* Link Transmission Unit.[^e5004-pss] The
+full story of the PSS standards is on [From ESA PSS to CCSDS and ECSS](../overview/history.md).
+
+!!! warning "Inference"
+    These PSS-era features match the CCSDS history told in the Green Book: the alternating-`0x55` tail and
+    the absence of randomization before November 1995, and the shorter codeword lengths dropped in June
+    2000.[^gb-tail-old][^gb-rnd-bg][^gb-oldlen] The correspondence is this wiki's reading; neither
+    source draws it explicitly.
 
 ## Worked examples
 
@@ -580,6 +817,18 @@ fill octets `0x55`, which this sublayer does not remove. Example 2 encodes the s
 (512,256) code: 26 fill octets and three 512-bit codewords.[^gb-ldpc-ex] The CLTU length matches the
 formula above: 16 × 9 + 24 = 168 octets.
 
+These bytes predate the 2026 corrigendum and end with the old tail. Under Cor. 1 the same CLTU would end
+`63 A1 ED 72 C6 AC 79 E2 55 55 55 55 55 55 55 55`; the Start Sequence and the nine codewords do not
+change.[^gb-ldpc-ex][^cor1-tail]
+
+!!! tip "Reproducing the LDPC example"
+    This wiki also implemented the (128,64) encoder from the four defining rows of table 4-1 (codeword =
+    the 64 information bits followed by their product with W, modulo 2) and the randomizer reset at each
+    codeword, and reproduced all 1344 bits of table F-2. Only one reading of the "right circular shifts"
+    of §4.3.3 works: the rows below each defining row are obtained by shifting each 16-bit (M-bit) block
+    of it separately, as the block-circulant structure of W in §4.3.2 implies; shifting the whole 64-bit
+    row does not reproduce the table.[^ldpc-enc][^gb-ldpc-ex]
+
 ### A Solar Orbiter Unlock CLTU (illustrative)
 
 Solar Orbiter uses spacecraft ID `0x28A`, TC virtual channels 1 and 2 (one per on-board decoder) and
@@ -624,7 +873,12 @@ to this sublayer:[^mib-pdec]
     *Lock* = `Start_Seq` presumably reports that the CLTU reception logic has found a Start Sequence
     (DECODE state); *CbCnt* and *ErrCnt* look like codeblock and corrected-error counts of the last
     CLTU; `DST-1` and `DST-2` presumably name the two deep-space transponders feeding decoder inputs.
-    The decoder documentation that would confirm these meanings is not among the available sources.
+    `ABANDONED_CLTU` uses the wording of ECSS-E-ST-50-04C, whose channel logic abandons a CLTU when the
+    number of codeblocks exceeds an upper limit or the symbol clock is lost; the standard does not say
+    how, or whether, that event is reported.[^e5004-rx] *CbCnt* is a 6-bit unsigned parameter (PTC 3,
+    PFC 2), so it could count up to 63 codeblocks, more than the 37 of a maximum-size 256-octet Solar
+    Orbiter frame.[^mib-pdec] The decoder documentation that would confirm these meanings is not among
+    the available sources.
 
 ??? example "SQL used"
     Queries ran with `sqlite3 -readonly` on `solo-2025-09-16.sqlite` (release
@@ -647,7 +901,21 @@ to this sublayer:[^mib-pdec]
       ORDER BY 1, cast(p.TXP_FROM AS int);
     -- the UNLOCK and SETVR frame data fields used in the examples
     SELECT * FROM cdf WHERE CDF_CNAME IN ('UNLOCK','SETVR') ORDER BY CDF_CNAME, cast(CDF_BIT AS int);
+    -- width of the codeblock counter (PTC 3, PFC 2 = 6-bit unsigned) and of ErrCnt
+    SELECT PCF_NAME, PCF_DESCR, PCF_PTC, PCF_PFC FROM pcf
+      WHERE PCF_DESCR LIKE 'PDEC_FARCP.%.CbCnt' OR PCF_DESCR LIKE 'PDEC_FARCP.%.ErrCnt';
+    -- every textual calibration value that mentions a CLTU
+    SELECT TXP_NUMBR, TXP_FROM, TXP_ALTXT FROM txp WHERE TXP_ALTXT LIKE '%CLTU%';
     ```
+
+## Related pages
+
+* [TC Space Data Link Protocol](tc-sdlp.md) and [USLP](uslp.md) (the frames the CLTU carries), [COP-1](cop-1.md) (the retransmission loop above)
+* [TM synchronization and channel coding](tm-coding.md) (the return-link counterpart)
+* [Radio frequency, modulation and ranging](rf-and-ranging.md) (the carrier and command modulation the PLOPs switch)
+* [SLE FCLTU](sle/fcltu.md) and [SLE FSP](sle/fsp.md) (CLTU radiation and CLTU generation on the ground)
+* [ECSS-E-ST-50C and the adoption notices](../ecss/e-st-50-communications.md), [From ESA PSS to CCSDS and ECSS](../overview/history.md)
+* [Uplink walkthrough](../overview/uplink.md), [Worked example: a telecommand](../overview/worked-example-tc.md), [glossary](../glossary.md)
 
 [^cc-purpose]: [CCSDS 231.0-B-4, TC Synchronization and Channel Coding](../library/ccsds-231-0-231x0b4e1.md), §1.1 "Purpose", PDF p. 11.
 [^cc-arch]: [CCSDS 231.0-B-4](../library/ccsds-231-0-231x0b4e1.md), §2.1 "Architecture" and figure 2-1, PDF p. 18.
@@ -776,3 +1044,39 @@ to this sublayer:[^mib-pdec]
 [^tn-frame]: [Solar Orbiter TM-TC and Packet Structure ICD, SOL.S.ASTR.TN.00079 issue 7](../library/sol-s-astr-tn-00079-07.md), §3.4 "Telecommand Frame", PDF pp. 21–22.
 [^mib-unlock]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables ccf and cdf (UNLOCK, SETVR); queries by this wiki.
 [^mib-pdec]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables pcf (NCD0Z031–NCD0Z03D, NBC0Z011–NBC0Z019), plf (SPIDs 19500, 19541, 36997), pid, txf and txp (CBCX0001TM, CBCTZ010TM, CBCTZ012TM–CBCTZ014TM); queries by this wiki.
+[^cc-dc]: [CCSDS 231.0-B-4](../library/ccsds-231-0-231x0b4e1.md), "Document Control" (issues 1 to 4 and EC 1), PDF p. 7.
+[^cor1-dc]: [CCSDS 231.0-B-4 Cor. 1, TC Synchronization and Channel Coding, Technical Corrigendum 1](../library/ccsds-231-0-231x0b4e1c1.md), "Document Control" (Cor. 1, July 2026: changes to 5.2.4.2), PDF p. 7.
+[^cor1-tail]: [CCSDS 231.0-B-4 Cor. 1](../library/ccsds-231-0-231x0b4e1c1.md), §5.2.4.2 "Tail Sequence for LDPC (128, 64) Coding", notes 1 to 3, and §5.2.4.3, PDF p. 31.
+[^cor1-bch-tail]: [CCSDS 231.0-B-4 Cor. 1](../library/ccsds-231-0-231x0b4e1c1.md), §5.2.4.1 "Tail Sequence for BCH Coding", PDF p. 30.
+[^cor1-diff]: [CCSDS 231.0-B-4 Cor. 1](../library/ccsds-231-0-231x0b4e1c1.md), §1.1 "Purpose" and §6.1 "Overview" (randomizer), PDF pp. 11 and 35.
+[^cor1-rx]: [CCSDS 231.0-B-4 Cor. 1](../library/ccsds-231-0-231x0b4e1c1.md), §5.3 "CLTU Reception Logic", figure 5-3, tables 5-1 and 5-2 and notes 1 and 2, PDF pp. 31–34.
+[^cc-tail-b4]: [CCSDS 231.0-B-4](../library/ccsds-231-0-231x0b4e1.md), §5.2.4.1–5.2.4.3 (tail patterns and notes of the 2021 text), PDF p. 32.
+[^e5004-cover]: [ECSS-E-ST-50-04C, Space data links - Telecommand protocols synchronization and channel coding](../library/ecss-e-st-50-04c31july2008.md), cover and clause 1 "Scope", PDF pp. 1 and 12.
+[^e5004-log]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), change log (ECSS-E-50-04A of 14 November 2007, B never issued, C of 31 July 2008), PDF p. 3.
+[^e5004-ov]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), clause 4 "Overview", §4.1–4.6, PDF pp. 17–20.
+[^e5004-pss]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex B "Changes from ESA-PSS-04-107", §B.1–B.2 and tables B-1 and B-2, PDF pp. 131–133.
+[^e5004-ccsds]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex C "Differences from CCSDS recommendations", §C.1–C.2, PDF pp. 134–136.
+[^e5004-cb]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §8.1 "Overview" and §8.2 "BCH codeblock", PDF pp. 113–115.
+[^e5004-cltu]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §8.3.1–8.3.3 (CLTU fields, Start Sequence accepted with a one-bit error, Encoded Data holding a single TC Transfer Frame), PDF pp. 115–116.
+[^e5004-tail]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §8.3.4 "Tail Sequence" and notes, PDF pp. 116–117.
+[^e5004-rnd]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §8.4 "Randomization procedure", PDF pp. 117–118.
+[^e5004-fill]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §8.6 "Fill bits" and notes, PDF pp. 119–120.
+[^e5004-rx]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §8.7 "Channel logic at the receiving end", tables 8-1 and 8-2, PDF pp. 120–121.
+[^e5004-dec]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §8.8 "BCH codeblock decoding procedures", PDF pp. 121–122.
+[^e5004-phys]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §9.2 "Physical layer data structures", PDF pp. 123–124.
+[^e5004-cmm]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §9.3.2 "Carrier modulation modes" and table 9-1, PDF pp. 124–125.
+[^e5004-plop]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §9.3.4 "Physical layer operation procedure (PLOP)", PDF pp. 126–127.
+[^e5004-perf]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex D §D.1–D.3.5, equations D1 to D5 and tables D-1, D-6 and D-7, PDF pp. 137–144.
+[^e5004-d4]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex D §D.3.3.2 and table D-4, PDF pp. 141–142.
+[^e5004-ue]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex D §D.4, tables D-10 and D-11, PDF pp. 145–147.
+[^e5004-fixed]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex E §E.2.2–E.2.8 (fixed and configurable parameters of a physical channel), PDF pp. 149–150.
+[^an24-scope]: [ECSS-E-AS-50-24C Rev.1, Adoption Notice of CCSDS 231.0-B-4](../library/ecss-e-as-50-24c-rev-1-13january2023.md), clause 1 "Scope", PDF p. 5.
+[^an24-log]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), change log (first issue 1 March 2021, Rev.1 13 January 2023), PDF p. 3.
+[^an24-ctx]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), clause 2 "Context information" and mapping table, PDF p. 6.
+[^an24-oneframe]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows "Note 2 to Transfer Frame definition in 1.6.1.3" and "A3", PDF pp. 8 and 16.
+[^an24-sec]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 2.2.2, 3.5 and "Note 1 below Table 5-2", PDF pp. 9–11.
+[^an24-rnd]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 2.2.4, 3.4.3, "Note 2 in section 5.2.3", "Table 5-1", 6.1, "Note 2 in 6.3.1" and "Table 8-2, row Randomizer", PDF pp. 9–12 and 15.
+[^an24-plop]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows 7.2.2, 7.2.4 and 7.5.2, PDF pp. 13–14.
+[^an24-t82]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows "Table 8-2" (Decoding Mode, Allowed Number of Errors in Start Sequence, Randomizer), PDF pp. 14–15.
+[^an24-annex]: [ECSS-E-AS-50-24C Rev.1](../library/ecss-e-as-50-24c-rev-1-13january2023.md), annex A "Differences from ECSS-E-ST-50-04C", §A.2.1–A.2.6, PDF pp. 17–18.
+[^an25-nbl]: [ECSS-E-AS-50-25C Rev.1](../library/ecss-e-as-50-25c-rev-1-13january2023.md), table 4-1, rows 4.2.1.8.3.1–4.2.1.8.3.4 (No Bit Lock Flag), PDF pp. 10–11.

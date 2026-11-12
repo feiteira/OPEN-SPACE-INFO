@@ -2,7 +2,7 @@
 title: "The MIB: Mission Information Base"
 description: What the SCOS-2000 Mission Information Base is, how its ASCII tables are formatted and imported, how missions produce it, and a map of every table with a tour of the real Solar Orbiter MIB.
 tags: [MIB, SCOS-2000, Database Import ICD, Solar Orbiter]
-sources: [glo, icd-7-0-final, icd-6-9-archive-org, icd-6-7-drafta, icd-5-1-tos-gci, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, hifi-mib-editor-requirements, hifi-mib-editor-evaluation, indico-109-comi-2009436, h-p-1-asp-tn-1060-mib-processing-hpsdb, nlr-report-e0d9e9a5, sol-s-astr-tn-00079-07, emcs-sum-4-0, ecss-e-st-70-31c]
+sources: [glo, icd-7-0-final, icd-6-9-archive-org, icd-6-7-drafta, icd-5-1-tos-gci, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii, stix-idb-v2-26-38-raw, hifi-mib-editor-requirements, hifi-mib-editor-evaluation, indico-109-comi-2009436, h-p-1-asp-tn-1060-mib-processing-hpsdb, nlr-report-e0d9e9a5, sol-s-astr-tn-00079-07, emcs-sum-4-0, ecss-e-st-70-31c]
 ---
 
 # The MIB: Mission Information Base
@@ -696,21 +696,23 @@ Some observations from these numbers:
 ### Field counts: which ICD issue the files follow
 
 Counting the TAB-separated fields per line shows how closely each delivery follows the ICD
-issues (see [ICD history](icd-history.md)):[^solo][^swa]
+issues (see [ICD history](icd-history.md)):[^solo][^swa][^stix]
 
-| Table | ICD 5.1 | ICD 7.0 | SolO 2025 | SolO 2020 | SWA IDB |
-|---|---:|---:|---:|---:|---:|
-| `pcf` | 19 | 23 | 23 | 23 | 19 |
-| `cpc` | 13 | 16 | 15 | 15 | 13 |
-| `cvs` | 6 | 7 | 7 | 7 | 6 |
-| `ccf` | 20 | 21 | 21 | 21 | 21 |
+| Table | ICD 5.1 | ICD 7.0 | SolO 2025 | SolO 2020 | SWA IDB | STIX IDB |
+|---|---:|---:|---:|---:|---:|---:|
+| `pcf` | 19 | 23 | 23 | 23 | 19 | 19 |
+| `cpc` | 13 | 16 | 15 | 15 | 13 | 13 |
+| `cvs` | 6 | 7 | 7 | 7 | 6 | 6 |
+| `ccf` | 20 | 21 | 21 | 21 | 21 | 21 |
 
 The ICD explicitly allows `pcf` records with 19 to 23 fields, for backward
 compatibility.[^i70-pcf] The Solar Orbiter `cpc` file stops at `CPC_OBTID` (field 15), which
 is the layout of issues 6.7 and 6.9. It omits `CPC_ENDIAN`, which issue 7.0 adds as a future
 extension.[^i70-cpcendian] The SWA files mix generations: `pcf`, `cpc`, `cvs`, `caf` (7
 fields) and `pic` (6) have the issue 5.1 lengths, while `vdf` (5), `ccf` (21) and `dpc` (7)
-have the lengths introduced with issue 6.0.[^swa][^i70-a1-r40]
+have the lengths introduced with issue 6.0.[^swa][^i70-a1-r40] The STIX instrument database
+v2.26.38 shows the same pattern (`caf` 7, `pic` 6, `vdf` 5 fields; see
+[the STIX page](../missions/solar-orbiter/stix.md)).[^stix]
 
 ### Mission-specific files
 
@@ -790,6 +792,11 @@ packet, and all but one point to an existing parameter. The exception is `NYM079
   in EGSE and checkout systems: [SCOS-2000 as EGSE](../scos2000/egse.md). The EGSE user
   manual describes loading the MIB ASCII files into the internal SCOS MIB database and
   switching between MIB directories with a `setSCOSdata` facility.[^emcs]
+* Instrument databases and how they enter the spacecraft MIB:
+  [SWA](../missions/solar-orbiter/swa.md), [STIX](../missions/solar-orbiter/stix.md) and
+  [Solar Orbiter instrument interfaces](../missions/solar-orbiter/instrument-interfaces.md).
+* Who prepares and delivers a MIB, and the tools around it:
+  [operations preparation](../scos2000/operations-preparation.md) and [MIB tooling](tooling.md).
 * End-to-end walkthroughs that use the MIB: [Downlink](../overview/downlink.md),
   [Uplink](../overview/uplink.md), and the worked examples for a
   [telemetry packet](../overview/worked-example-tm.md) and a
@@ -840,6 +847,7 @@ packet, and all but one point to an existing parameter. The exception is `NYM079
 [^i70-a1-r40]: [ICD 7.0](../library/icd-7-0-final.md), Annex 1, ICD version 6.0 entries: Cryosat sub-schedule ID field added to `ccf`, and "Implement modifications related to SCOS-2000 R4.0" (VDF table modification, DPC free entries), PDF pp. 249–250.
 [^i51-vdf]: [ICD 5.1](../library/icd-5-1-tos-gci.md), §3.3.1.1 vdf, PDF p. 22.
 [^solo2020]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), all ICD tables, queried by this wiki on 2026-11-12.
+[^stix]: [STIX instrument database v2.26.38](../library/stix-idb-v2-26-38-raw.md), raw `.dat` files `pcf`, `cpc`, `cvs`, `ccf`, `caf`, `pic` and `vdf` (TAB-separated fields per record counted), inspected by this wiki on 2026-11-12.
 [^swa]: [Solar Orbiter SWA instrument database (ASCII)](../library/swa-idb-ascii.md), tables `vdf`, `pcf`, `cpc`, `cvs`, `caf`, `pic`, `ccf`, `dpc` and the raw `.dat` files (field counts and line ends), queried by this wiki on 2026-11-12.
 [^sol-csw]: [SOL.S.ASTR.TN.00079 issue 7](../library/sol-s-astr-tn-00079-07.md), acronym list ("CSW Central Software"), PDF p. 270.
 [^i70-32]: [ICD 7.0](../library/icd-7-0-final.md), §3.2 Summary of the ASCII tables, PDF pp. 30–34 (51 tables listed; no `ppf` or `ppc` entry).

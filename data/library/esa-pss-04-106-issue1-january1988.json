@@ -1,0 +1,489 @@
+{
+ "slug": "esa-pss-04-106-issue1-january1988",
+ "title": "Packet Telemetry Standard",
+ "short_title": "ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)",
+ "doc_id": "ESA PSS-04-106",
+ "issue": "Issue 1",
+ "date": "January 1988",
+ "organisation": "European Space Agency (ESA), PSS-04 Space Data Communications branch; prepared by the Standards Approval Board (STAB) for Space Data Communications, approved by the Inspector General, ESA, and published by ESA Publications Division, ESTEC, Noordwijk",
+ "authors": [
+  "The Standards Approval Board (STAB) for Space Data Communications"
+ ],
+ "doc_type": "Standard",
+ "status_notes": "Issue 1 of January 1988 is the only issue listed in the Document Change Record (PDF p. 6). That record says the standard is directly derived from the CCSDS Packet Telemetry Blue Book CCSDS 102.0-B-2 (January 1987) and supersedes the previous version, TTC-A-06 Issue No. 1 (February 1986). Clause 1.2 adds that it supersedes the PCM Telemetry Standard TTC-A-02 (p. 13). The document itself names no successor. In the ECSS system, ECSS-E-ST-50-03C (31 July 2008) contains an informative Annex B, 'Changes from ESA-PSS-04-106', for checking the compatibility of existing systems (library item ecss-e-st-50-03c-31july2008, PDF p. 34). ECSS-E-70-41A Annex C transcribes this standard's spacecraft-time text (library item ecss-e-70-41a-30jan2003-pus, PDF p. 217). The PSS series has been replaced by ECSS standards. This copy was downloaded from ecss.nl.",
+ "summary": "ESA's **Packet Telemetry Standard** of January 1988 is the agency's subset of the CCSDS Packet Telemetry recommendation (102.0-B-2) for spacecraft that use the ESA ground network. It is the ancestor of today's [Space Packet](../ccsds/space-packet.md) and [TM Space Data Link Protocol](../ccsds/tm-sdlp.md) books (see the [history page](../overview/history.md)). The library copy is a scanned PDF and its text comes from OCR, so the values here were checked against the page images.\n\nThe standard defines three data structures. The **Source Packet** has a 6-octet header: a 3-bit version fixed at Version 2 (`0b100`), a type bit, a data field header flag, an 11-bit APID, segmentation flags, a 14-bit sequence count and a length field. It is followed by an optional data field header and an optional packet error control field. The **Telemetry Packet** carries one segment of a long Source Packet, so that a single source cannot hold the downlink. The maximum segment length (256, 512 or 1024 octets, or none) is set per virtual channel. The **Transfer Frame** has a 6-octet primary header with a 10-bit spacecraft ID, a 3-bit virtual channel ID (up to eight channels), frame counters and an 11-bit first header pointer. It may also carry a 4-octet secondary header that extends the VC count, and a trailer with the [CLCW](../ccsds/cop-1.md) and a 16-bit CRC. Each frame follows the marker `0x1ACFFC1D`. With Reed-Solomon coding a frame is 1115, 892 or 1784 octets long.\n\nLater sections cover the ground extraction steps and spacecraft elapsed time in CUC format. Section 7 explains how that time is correlated with UTC through virtual channel 0 (see [time correlation](../scos2000/time-correlation.md)). The remaining sections define the two delivery services, and the appendices cover CCSDS terminology, the choice of sync marker, a CRC encoder and channel-coding performance.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Document Change Record",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "References",
+   "pdf_page": 7
+  },
+  {
+   "section": null,
+   "title": "Contents",
+   "pdf_page": 9
+  },
+  {
+   "section": "1",
+   "title": "Purpose and Scope",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 13
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 13
+  },
+  {
+   "section": "2",
+   "title": "Applicability",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.1",
+   "title": "General",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.2",
+   "title": "Exceptions",
+   "pdf_page": 15
+  },
+  {
+   "section": "3",
+   "title": "System Overview",
+   "pdf_page": 17
+  },
+  {
+   "section": "3.1",
+   "title": "Bit Numbering Convention and Nomenclature",
+   "pdf_page": 17
+  },
+  {
+   "section": "3.2",
+   "title": "Telemetry Data Flow",
+   "pdf_page": 18
+  },
+  {
+   "section": "4",
+   "title": "Packet Formats",
+   "pdf_page": 21
+  },
+  {
+   "section": "4.1",
+   "title": "General",
+   "pdf_page": 21
+  },
+  {
+   "section": "4.2",
+   "title": "Source Packet Format",
+   "pdf_page": 23
+  },
+  {
+   "section": "4.3",
+   "title": "Telemetry Packet Format",
+   "pdf_page": 27
+  },
+  {
+   "section": "5",
+   "title": "Transfer Frame Format",
+   "pdf_page": 31
+  },
+  {
+   "section": "5.1",
+   "title": "General",
+   "pdf_page": 31
+  },
+  {
+   "section": "5.2",
+   "title": "Transfer Frame Length",
+   "pdf_page": 32
+  },
+  {
+   "section": "5.3",
+   "title": "Attached Synchronisation Marker",
+   "pdf_page": 34
+  },
+  {
+   "section": "5.4",
+   "title": "Transfer Frame Primary Header",
+   "pdf_page": 36
+  },
+  {
+   "section": "5.5",
+   "title": "Transfer Frame Secondary Header",
+   "pdf_page": 42
+  },
+  {
+   "section": "5.6",
+   "title": "Transfer Frame Data Field",
+   "pdf_page": 44
+  },
+  {
+   "section": "5.7",
+   "title": "Transfer Frame Trailer",
+   "pdf_page": 45
+  },
+  {
+   "section": "5.8",
+   "title": "Reed-Solomon Check Symbols",
+   "pdf_page": 48
+  },
+  {
+   "section": "6",
+   "title": "Telemetry Transmission Protocols",
+   "pdf_page": 49
+  },
+  {
+   "section": "6.1",
+   "title": "Introduction",
+   "pdf_page": 49
+  },
+  {
+   "section": "6.2",
+   "title": "Transfer Frame Acquisition",
+   "pdf_page": 49
+  },
+  {
+   "section": "6.3",
+   "title": "Virtual Channel Demultiplexing",
+   "pdf_page": 50
+  },
+  {
+   "section": "6.4",
+   "title": "Extraction of Synchronously Inserted Telemetry Packets",
+   "pdf_page": 50
+  },
+  {
+   "section": "6.5",
+   "title": "Source Packet Reconstruction",
+   "pdf_page": 53
+  },
+  {
+   "section": "6.6",
+   "title": "Extraction of Asynchronously Inserted Data",
+   "pdf_page": 54
+  },
+  {
+   "section": "7",
+   "title": "Spacecraft Time Protocols",
+   "pdf_page": 55
+  },
+  {
+   "section": "7.1",
+   "title": "Introduction",
+   "pdf_page": 55
+  },
+  {
+   "section": "7.2",
+   "title": "Presentation of Spacecraft Time",
+   "pdf_page": 55
+  },
+  {
+   "section": "7.3",
+   "title": "Standard Spacecraft Time Source Packet",
+   "pdf_page": 57
+  },
+  {
+   "section": "7.4",
+   "title": "Spacecraft Time Correlation Procedures",
+   "pdf_page": 58
+  },
+  {
+   "section": "8",
+   "title": "Telemetry Downlink Signal",
+   "pdf_page": 61
+  },
+  {
+   "section": "8.1",
+   "title": "General",
+   "pdf_page": 61
+  },
+  {
+   "section": "8.2",
+   "title": "Bit Rate",
+   "pdf_page": 61
+  },
+  {
+   "section": "9",
+   "title": "Telemetry Services and Performance Requirements",
+   "pdf_page": 63
+  },
+  {
+   "section": "9.1",
+   "title": "Overview of the Services",
+   "pdf_page": 63
+  },
+  {
+   "section": "9.2",
+   "title": "Service 1: Source Packet Delivery",
+   "pdf_page": 63
+  },
+  {
+   "section": "9.3",
+   "title": "Service 2: Transfer Frame Delivery",
+   "pdf_page": 65
+  },
+  {
+   "section": "9.4",
+   "title": "Performance Requirements",
+   "pdf_page": 66
+  },
+  {
+   "section": "10",
+   "title": "Compatibility with Other Ground Networks",
+   "pdf_page": 69
+  },
+  {
+   "section": "Appendix A",
+   "title": "Correspondence with CCSDS Terminology",
+   "pdf_page": 71
+  },
+  {
+   "section": "Appendix B",
+   "title": "Selection and Performance of Transfer Frame Synchronisation Markers",
+   "pdf_page": 73
+  },
+  {
+   "section": "Appendix C",
+   "title": "Possible Realisation of a Frame Check Sequence Encoder-Decoder",
+   "pdf_page": 75
+  },
+  {
+   "section": "Appendix D",
+   "title": "Performance of Various Channel Coding Techniques",
+   "pdf_page": 77
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The Document Change Record says Issue 1 is directly derived from the CCSDS Packet Telemetry Blue Book 102.0-B-2 (January 1987) and supersedes the previous version, TTC-A-06 Issue No. 1 (February 1986).",
+   "pdf_page": 6
+  },
+  {
+   "text": "The standard belongs to the Space Link Standards & Protocols sub-branch (PSS-04-1XX) and supersedes the PCM Telemetry Standard TTC-A-02. Spaceborne telemetry systems must comply with it whenever the ESA ground network facilities are used.",
+   "pdf_page": 13
+  },
+  {
+   "text": "It specifies three data structures: the Source Packet (the end-to-end unit), the Telemetry Packet (a segmentation unit for multiplexing long packets) and the Transfer Frame (the link unit, which supports virtual channels). Channel coding is left to the Telemetry Channel Coding Standard (reference [2]).",
+   "pdf_page": 14
+  },
+  {
+   "text": "Bit 0 is the first bit transmitted and, in a binary value, the most significant bit. An octet is an 8-bit word, and octets are numbered with the same convention.",
+   "pdf_page": 17
+  },
+  {
+   "text": "The Source Packet header is 48 bits: a 3-bit version (only Version 2, coded 100, is permitted), a type bit (0 for telemetry), a data field header flag, an 11-bit APID, 2-bit segmentation flags, a 14-bit source sequence count and a 16-bit packet length (data field octets minus 1).",
+   "pdf_page": 24
+  },
+  {
+   "text": "APID all ones identifies Idle Source Packets, which keep ground packet extraction synchronised. APID all zeros is reserved for the standard Source Packet that carries the spacecraft time sample.",
+   "pdf_page": 25
+  },
+  {
+   "text": "In a Source Packet the segmentation flags are always 11. The source sequence count runs modulo 16 384 per APID and must not be short-cycled during continuous operation, but it may restart after an interruption such as a power-off.",
+   "pdf_page": 25
+  },
+  {
+   "text": "A Source Packet is 7 to 65 542 octets long. The data field header and packet error control field are optional subdivisions of the data field, and their detailed formats are outside this standard.",
+   "pdf_page": 26
+  },
+  {
+   "text": "When a Source Packet's data field is longer than LSEGMENT it is split into Telemetry Packets with segmentation flags 01 (first), 00 (continuation) and 10 (last); 11 means unsegmented. The length field of each segment gives the length still remaining of the original data field.",
+   "pdf_page": 28
+  },
+  {
+   "text": "Worked example in the standard: a 2106-octet Source Packet with LSEGMENT = 512 becomes four Telemetry Packets carrying 512 data octets each and a last packet carrying 52 data octets.",
+   "pdf_page": 51
+  },
+  {
+   "text": "Frame lengths are fixed per physical channel. With Reed-Solomon coding the frame is 1115 octets (the CCSDS cross-support length, interleaving depth 5), 892 octets (depth 4) or 1784 octets (depth 8). Without R-S coding it is any whole number of octets from 128 to 2040.",
+   "pdf_page": 34
+  },
+  {
+   "text": "The Attached Synchronisation Marker is 1ACFFC1D (hex). A second marker, 352EF853, is proposed for cases such as forward-played tape-recorder frames embedded in the real-time stream.",
+   "pdf_page": 35
+  },
+  {
+   "text": "The 48-bit primary header holds a 2-bit version (00), a 10-bit spacecraft ID, a 3-bit virtual channel ID, an Operational Control Field flag, 8-bit master channel and virtual channel frame counts, and a 16-bit frame data field status. The status field contains the secondary header flag, synchronisation flag, packet order flag, 2-bit segment length identifier and 11-bit first header pointer.",
+   "pdf_page": 36
+  },
+  {
+   "text": "Spacecraft identifiers identify both the spacecraft and the physical link. ESA projects obtain them from the ESA Directorate of Operations (D/OPS) at ESOC, with separate identifiers for flight, development and simulated data streams.",
+   "pdf_page": 37
+  },
+  {
+   "text": "Only forward-ordered, synchronous insertion of packets is recognised, so the packet order flag must be 0 when the synchronisation flag is 0. The segment length identifier codes LSEGMENT as 256 (00), 512 (01) or 1024 (10) octets, or no segmentation (11).",
+   "pdf_page": 40
+  },
+  {
+   "text": "In the first header pointer, all ones means that no packet header starts in the frame, and all ones minus one (11111111110) marks a virtual channel in the IDLE state.",
+   "pdf_page": 41
+  },
+  {
+   "text": "The optional secondary header is 4 octets long (version 00, length field 000011) and carries 24 more bits of virtual channel frame count, mainly for frames recorded on board and played back later. If used, it must appear in every frame of the master channel.",
+   "pdf_page": 43
+  },
+  {
+   "text": "The trailer has a 32-bit Operational Control Field and a 16-bit Frame Error Control Word. When the OCF type bit is 0 the field holds the CLCW, which is mandatory with packet telecommand. The Frame Error Control Word is mandatory unless the frame is carried inside a Reed-Solomon codeblock.",
+   "pdf_page": 45
+  },
+  {
+   "text": "The frame check sequence is a CRC with generator x^16 + x^12 + x^5 + 1. The shift register is preset to all ones and the CRC covers the frame without the sync marker. The earlier TTC-A-06 issue included the marker, and existing designs based on it remain supported.",
+   "pdf_page": 46
+  },
+  {
+   "text": "Spacecraft elapsed time uses the CCSDS unsegmented time code (CUC): a P-field starting 0010, 1 to 4 coarse octets and 0 to 3 fine octets, TAI seconds and an arbitrary epoch.",
+   "pdf_page": 56
+  },
+  {
+   "text": "For time correlation, the on-board clock is sampled at the first bit of the sync marker of the virtual channel 0 frame whose VC frame count is 0 (or, optionally, every 128 down to 1 frames). The sample is sent in the APID 0 time packet, and the ground station time-tags the same marker bit in CDS-coded UTC.",
+   "pdf_page": 58
+  },
+  {
+   "text": "Two standard ESA network services are defined. Service 1, Source Packet Delivery, covers reassembly, packet accounting, time correlation and CLCW extraction for COP-1. Service 2 is Transfer Frame Delivery.",
+   "pdf_page": 64
+  },
+  {
+   "text": "Appendix A maps ESA terms to CCSDS terms: Source Packet Header = Source Packet Primary Header, Data Field Header = Secondary Header, and Telemetry Packet = the CCSDS Version 2 Telemetry Segment. ESA numbers octets from 0, unlike reference [1].",
+   "pdf_page": 71
+  },
+  {
+   "text": "Appendix D estimates frame-loss and packet-loss probabilities for uncoded PSK, Reed-Solomon (255,223), rate-1/2 k = 7 convolutional coding with Viterbi decoding, and the concatenated scheme.",
+   "pdf_page": 77
+  }
+ ],
+ "references": [
+  {
+   "label": "[1]",
+   "doc_id": "CCSDS 102.0-B-2",
+   "title": "Packet Telemetry",
+   "issue": "Recommendation, Issue 2, 'Blue Book'",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[2]",
+   "doc_id": "ESA PSS-04-103",
+   "title": "Telemetry Channel Coding Standard (directly derived from Reference [3])",
+   "issue": "Issue 1",
+   "date": "1989",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[3]",
+   "doc_id": "CCSDS 101.0-B-2",
+   "title": "Telemetry Channel Coding",
+   "issue": "Recommendation, Issue 2, 'Blue Book'",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[4]",
+   "doc_id": "ESA PSS-04-107",
+   "title": "Packet Telecommand Standard",
+   "issue": "Issue 1 (to be issued in 1990)",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[5]",
+   "doc_id": "ESA PSS-04-202",
+   "title": "Time Code Formats and Procedures Standard (directly derived from Reference [6])",
+   "issue": "Issue 1 (to be issued in 1990/91)",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[6]",
+   "doc_id": "CCSDS 301.0-B-1",
+   "title": "Time Code Formats",
+   "issue": "Recommendation, Issue 1, 'Blue Book'",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[7]",
+   "doc_id": "ESA PSS-04-105",
+   "title": "Radio Frequency and Modulation Standard",
+   "issue": "Issue 1",
+   "date": "1989",
+   "kind": "reference",
+   "pdf_page": 7
+  },
+  {
+   "label": "[A]",
+   "doc_id": null,
+   "title": "R.J. McEliece, 'The Theory of Information and Coding', Encyclopedia of Mathematics and its Applications, Vol. 3, Addison-Wesley (Appendix D reference list)",
+   "issue": null,
+   "date": "1977",
+   "kind": "bibliography",
+   "pdf_page": 81
+  },
+  {
+   "label": "[B]",
+   "doc_id": "Tech. Report N71-32505",
+   "title": "A.J. Viterbi et al., 'Concatenation of Convolutional and Block Codes - Final Report', Nat. Tech. Inf. Service, U.S. Dep. of Com. (Appendix D reference list)",
+   "issue": null,
+   "date": "1971",
+   "kind": "bibliography",
+   "pdf_page": 81
+  },
+  {
+   "label": "TTC-A-06",
+   "doc_id": "TTC-A-06",
+   "title": "Previous version of this standard (superseded)",
+   "issue": "Issue No. 1",
+   "date": "February 1986",
+   "kind": "mentioned",
+   "pdf_page": 6
+  },
+  {
+   "label": "TTC-A-02",
+   "doc_id": "TTC-A-02",
+   "title": "PCM Telemetry Standard (superseded)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 13
+  },
+  {
+   "label": "CCITT V.41",
+   "doc_id": "CCITT Recommendation V.41",
+   "title": "Source of the generating polynomial G(X) = X^16 + X^12 + X^5 + 1 used for the frame check sequence",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 47
+  }
+ ],
+ "topics": [
+  "overview/history.md",
+  "ccsds/space-packet.md",
+  "ccsds/tm-sdlp.md",
+  "ccsds/tm-coding.md",
+  "ccsds/time-codes.md",
+  "scos2000/time-correlation.md",
+  "ccsds/cop-1.md",
+  "ccsds/space-link-identifiers.md",
+  "ecss/e-st-50-communications.md",
+  "overview/downlink.md",
+  "overview/standards-map.md"
+ ],
+ "notes": "This is a scanned PDF. Its text was produced by OCR (RapidOCR) and has merged words, dropped lines and scrambled tables, so every number, field size and bit pattern in this entry was checked against rendered page images. Page numbering: printed page n is PDF page n + 12 in the body (printed page 1 is PDF p. 13), and the front matter uses roman numerals. PDF p. 2 is blank; pp. 8, 12, 16, 60, 62, 68, 70 and 74 are 'page intentionally left blank'; pp. 86-88 are blank pages and the back cover. Oddities: the copyright line says 1989 although the issue is dated January 1988 (p. 4). Reference [2] (PSS-04-103) is dated 1989, and references [4] and [5] are marked 'to be issued' (p. 7). Clause 4.2.1.1 introduces the four subfields as 'Version Number, Reserved Bit, Data Field Header Flag and APID' but then defines bit 3 as the Type bit (p. 24). The packet version coded 100 is called 'Version 2' in the CCSDS numbering of the time. The P-field table in 7.2 prints 00100111 twice, where the seventh entry should be 00100110 (p. 56). The same duplicate appears in ECSS-E-70-41A Annex C, which transcribes this text. Appendix D has its own small reference list ([A], [B]) on p. 81, separate from the main References page. The OCR loses the first lines of the captions of Figures D.1, D.3 and D.4 (pp. 82, 84, 85)."
+}

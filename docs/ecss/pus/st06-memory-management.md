@@ -767,7 +767,7 @@ working copy, while the unit is operational.[^hp-obsm] See [Herschel and Planck]
 * [ST[08] Function management](st08-function-management.md), [ST[13] Large packet transfer](st13-large-packet-transfer.md), [ST[23] File management](st23-file-management.md), [ST[18] On-board operations procedure](st18-onboard-operations-procedure.md)
 * [CCSDS File Delivery Protocol](../../ccsds/cfdp.md)
 * [Commanding in the MIB](../../mib/commanding.md), [Monitoring in the MIB](../../mib/monitoring.md), [MIB parameter types](../../mib/parameter-types.md)
-* [Solar Orbiter PUS usage](../../missions/solar-orbiter/pus-usage.md), [SCOS-2000 architecture](../../scos2000/architecture.md)
+* [Solar Orbiter PUS usage](../../missions/solar-orbiter/pus-usage.md), [STIX memory dumps and memory IDs](../../missions/solar-orbiter/stix.md#memory-dumps-and-memory-ids), [SCOS-2000 architecture](../../scos2000/architecture.md)
 * [PUS-A vs PUS-C](pus-a-vs-pus-c.md), [Glossary](../../glossary.md)
 
 [^c-6611]: [ECSS-E-ST-70-41C, Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §6.6.1.1, PDF p. 127.
@@ -853,7 +853,7 @@ working copy, while the unit is operational.[^hp-obsm] See [Herschel and Planck]
 [^icd-var]: [SCOS-2000 Database Import ICD 7.0](../../library/icd-7-0-final.md), Appendix C §2, PDF p. 236.
 [^bul115]: [M. Jones et al., "Checking Whether SCOS is up to SPEC", ESA Bulletin 115 (2003)](../../library/esa-bulletin-115-ch8.md), list of SCOS-2000 functions, PDF p. 2.
 [^solo-ad1]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §1.1 and §2.1 (AD1 = ECSS-E-70-41A, 30 January 2003), PDF pp. 11 and 13.
-[^solo-s6]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter space/ground ICD](../../library/sol-s-astr-tn-00079-07.md), §5.7 objective and description, PDF p. 77.
+[^solo-s6]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../../library/sol-s-astr-tn-00079-07.md), §5.7 objective and description, PDF p. 77.
 [^solo-memmap]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §5.7, Figure 5.7-1 (Memory ID allocation), PDF pp. 78-80.
 [^solo-memrules]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §5.7, Figure 5.7-2 (Memory ID basic rules), PDF p. 80.
 [^solo-notes]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §5.7 notes, PDF p. 81.

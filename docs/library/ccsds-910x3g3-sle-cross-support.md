@@ -42,16 +42,19 @@ Section 5 introduces SLE Service Management: Utilization Management in the MDOS 
 - SLE transfer service instances have one of three authentication levels: 'all' (every invocation and return carries credentials), 'bind' (only BIND and its return) or 'none'; access control allows only one specified user to initiate each service instance. *(PDF p. 75)*
 
 
-## Cited by these wiki pages (8)
+## Cited by these wiki pages (11)
 
 - [CCSDS: overview of the protocol stack](../ccsds/index.md)
 - [How it all fits together](../overview/index.md)
+- [SLE cross support reference model and service management](../ccsds/sle/service-management.md)
 - [SLE forward service: FCLTU](../ccsds/sle/fcltu.md)
 - [SLE over TCP/IP (ISP1) and the SLE API](../ccsds/sle/isp1-and-api.md)
 - [SLE return services: RAF, RCF and ROCF](../ccsds/sle/return-services.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Space Link Extension (SLE): concept and architecture](../ccsds/sle/index.md)
 - [The standards landscape](../overview/standards-map.md)
+- [Uplink: from operator command to on-board execution](../overview/uplink.md)
+- [Worked example: building a real Solar Orbiter telecommand](../overview/worked-example-tc.md)
 
 
 ??? abstract "Contents (43 headings)"
@@ -114,7 +117,7 @@ Section 5 introduces SLE Service Management: Utilization Management in the MDOS 
 | [5] | [CCSDS 231.0-B-1](../references/index.md#ref-ccsds-231-0-b-1) | TC Synchronization and Channel Coding | Blue Book. Issue 1 September 2003 | reference |
 | [6] | [CCSDS 232.0-B-1](../references/index.md#ref-ccsds-232-0-b-1) | TC Space Data Link Protocol | Blue Book. Issue 1 September 2003 | reference |
 | [7] | [CCSDS 133.0-B-1](../references/index.md#ref-ccsds-133-0-b-1) | Space Packet Protocol | Blue Book. Issue 1 September 2003 | reference |
-| [8] | [CCSDS 910.4-B-2](../references/index.md#ref-ccsds-910-4-b-2) | Cross Support Reference Model — Part 1: Space Link Extension Services | Blue Book. Issue 2 September 2005 | reference |
+| [8] | [CCSDS 910.4-B-2](../references/index.md#ref-ccsds-910-4-b-2) · [library](ccsds-910-4-910x4b2e1s.md) | Cross Support Reference Model — Part 1: Space Link Extension Services | Blue Book. Issue 2 September 2005 | reference |
 | [9] | [CCSDS 910.11-R-1](../references/index.md#ref-ccsds-910-11-r-1) | Space Link Extension—Service Management—Service Specification | Draft Recommendation, Red Book. Issue 1 March 2006 | reference |
 | [10] | [CCSDS 911.5-B-1](../references/index.md#ref-ccsds-911-5-b-1) | Space Link Extension—Return Operational Control Fields Service Specification | Blue Book. Issue 1 December 2004 | reference |
 | [11] | [CCSDS 911.2-B-1](../references/index.md#ref-ccsds-911-2-b-1) | Space Link Extension—Return Channel Frames Service Specification | Blue Book. Issue 1 December 2004 | reference |

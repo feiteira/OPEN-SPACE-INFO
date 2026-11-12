@@ -21,16 +21,21 @@ The Solar Wind Analyser (SWA) instrument database in SCOS-2000 MIB table format,
 [:material-database-search: Open this database in the MIB Explorer](../explorer/index.md#/swa){ .md-button .md-button--primary }
 
 
-## Cited by these wiki pages (22)
+## Cited by these wiki pages (30)
 
 - [Command sequences and parameter sets](../mib/sequences.md)
 - [Command verification in the MIB](../mib/command-verification.md)
 - [Commanding in the MIB: commands and their parameters](../mib/commanding.md)
 - [Display definitions in the MIB](../mib/displays.md)
 - [History of the Database Import ICD (issues 5.1 to 7.2)](../mib/icd-history.md)
+- [How it all fits together](../overview/index.md)
 - [MIB Explorer](../explorer/index.md)
+- [MIB tooling and open-source libraries](../mib/tooling.md)
+- [Methodology](../about/methodology.md)
 - [Mission tailoring of the MIB](../mib/tailoring.md)
 - [Missions](../missions/index.md)
+- [NCTRS, NIS and the ground station interface](../scos2000/nctrs-nis.md)
+- [Operations preparation: databases, procedures and tools](../scos2000/operations-preparation.md)
 - [ST[01] Request verification](../ecss/pus/st01-request-verification.md)
 - [ST[03] Housekeeping](../ecss/pus/st03-housekeeping.md)
 - [ST[04] Parameter statistics reporting](../ecss/pus/st04-parameter-statistics.md)
@@ -40,11 +45,14 @@ The Solar Wind Analyser (SWA) instrument database in SCOS-2000 MIB table format,
 - [ST[17] Test](../ecss/pus/st17-test.md)
 - [Solar Orbiter](../missions/solar-orbiter/index.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
+- [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](../missions/solar-orbiter/instrument-interfaces.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
+- [Space Link Extension (SLE): concept and architecture](../ccsds/sle/index.md)
 - [Space Packet Protocol (CCSDS 133.0-B-2)](../ccsds/space-packet.md)
 - [Synthetic parameters and the OL language](../mib/synthetic-parameters.md)
 - [The MIB: Mission Information Base](../mib/index.md)
 - [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md)
+- [The standards landscape](../overview/standards-map.md)
 
 
 ## Documents this one references (0)

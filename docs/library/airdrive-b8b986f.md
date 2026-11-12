@@ -36,10 +36,11 @@ The main products are **M4C** (Mission Control Core based on Common Core, the SC
 - Parallel EGS-CC sessions allow simultaneous connection to the EGS-CC RTF Simulator and the BepiColombo mission simulator for familiarisation and regression testing. *(PDF p. 7)*
 
 
-## Cited by these wiki pages (5)
+## Cited by these wiki pages (6)
 
 - [Ancillary systems, MICONYS and the move to EGS-CC](../scos2000/ancillary-and-egs-cc.md)
 - [Missions](../missions/index.md)
+- [NCTRS, NIS and the ground station interface](../scos2000/nctrs-nis.md)
 - [Other missions and SCOS-2000 users](../missions/other-missions.md)
 - [SCOS-2000: ESA's mission control system](../scos2000/index.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)

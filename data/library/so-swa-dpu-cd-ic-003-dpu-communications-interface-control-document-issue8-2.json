@@ -1,0 +1,591 @@
+{
+ "slug": "so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2",
+ "title": "Solar Orbiter Mission SWA DPU DPU Communications Interface Control Document",
+ "short_title": "Solar Orbiter SWA DPU Communications ICD (issue 8.2)",
+ "doc_id": "SO-SWA-DPU_CD-IC-003",
+ "issue": "Issue 8.2",
+ "date": "2019-08-07",
+ "organisation": "SWA DPU Team (ASI contract 2013-055-1.0; Leonardo, TSD, SITAEL, Planetek)",
+ "authors": [
+  "DPU Team",
+  "C. Caso",
+  "G. Capuano"
+ ],
+ "doc_type": "Interface Control Document",
+ "status_notes": "Issue 8.2 of 07/08/2019 ('Minor editorial fixing'). The document change record (PDF pp. 3-10) runs from issue 1 (27/06/2014) through 2 (31/07/2015, ICDR RIDs), 3 (11/12/2015, HK optimisation), 4 to 4.6 (2016-2017), 6.0 (27/11/2017), 6.1, 6.2, 7.0 (08/03/2019), 7.1, 8.0 (30/04/2019) and 8.1 (17/06/2019); there is no issue 5. The list of open points (PDF p. 403) shows 0 TBCs, 0 TBDs and 0 TBWs. Deliverable EN-019 under the ASI contract, with the DRD given as Annex E to ECSS-E-ST-40C.",
+ "summary": "The communications interface control document for the Data Processing Unit (DPU) of the Solar Wind Analyser (SWA) on ESA's Solar Orbiter. It is the definitive description of every telecommand the SWA DPU flight software accepts and every telemetry packet it produces, at bit level, and is the companion to the SWA instrument database (IDB/MIB).\n\nThe first chapters describe SWA's four sensors: two Electron Analyser Systems (EAS1, EAS2), the Proton Alpha Sensor (PAS) and the Heavy Ion Sensor (HIS), all connected to the DPU over 10 Mb/s SpaceWire. They also cover the DPU hardware and the software layers: a PROM boot software, an application layer (PCMSW for TC handling, modes, FDIR and time, and SDPSW for moment calculation and compression), a PUS services library, ExOS and drivers on VxWorks and a LEON2 CPU. Chapter 5 shows the common packet headers and the APID scheme (process IDs 95 to 99 combined with packet categories) and maps each TM type to its PID, packet category and SIDs.\n\nChapter 6 specifies the telecommands by handling component, each with description, allowed DPU states, word-by-word TC format and acceptance (TARF) and execution (TECF) error codes. These are the PUS manager (services 3, 5, 6, 9, 17, 20 and private service 200 monitoring and event handling), the DPU manager, the sensor manager, the EAS1/EAS2 managers (private services 201/202), the PAS manager (203) and the HIS manager, including HIS internal commands (204). Chapters 7 to 10 define the cyclic HK and diagnostic TM(3,25)/(3,26) parameters, the asynchronous reports, the service 20 inter-instrument contribution and the TM(21,x) science packets of each sensor. Chapters 11 to 16 cover internal sensor protocols, macros, the event catalogue, TARF/TECF codes and configuration parameters. For MIB readers it explains what the SWA packets and parameters mean.",
+ "contents": [
+  {
+   "section": "1.",
+   "title": "INTRODUCTION",
+   "pdf_page": 18
+  },
+  {
+   "section": "1.1",
+   "title": "PURPOSE",
+   "pdf_page": 18
+  },
+  {
+   "section": "1.2",
+   "title": "SCOPE",
+   "pdf_page": 18
+  },
+  {
+   "section": "2.",
+   "title": "DOCUMENTS",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.1",
+   "title": "APPLICABLE DOCUMENTS",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.2",
+   "title": "REFERENCE DOCUMENTS",
+   "pdf_page": 19
+  },
+  {
+   "section": "2.3",
+   "title": "ACRONYMS",
+   "pdf_page": 19
+  },
+  {
+   "section": "3.",
+   "title": "SWA INSTRUMENT OVERVIEW",
+   "pdf_page": 23
+  },
+  {
+   "section": "4.",
+   "title": "DPU SOFTWARE OVERVIEW",
+   "pdf_page": 25
+  },
+  {
+   "section": "4.1",
+   "title": "DPU SOFTWARE ARCHITECTURE",
+   "pdf_page": 27
+  },
+  {
+   "section": "5.",
+   "title": "SERVICE IMPLEMENTATION",
+   "pdf_page": 32
+  },
+  {
+   "section": "6.",
+   "title": "SWA DPU HANDLED TELECOMMANDS",
+   "pdf_page": 35
+  },
+  {
+   "section": "6.1",
+   "title": "PUS MANAGER TCS",
+   "pdf_page": 35
+  },
+  {
+   "section": "6.2",
+   "title": "DPU MANAGER TCS",
+   "pdf_page": 68
+  },
+  {
+   "section": "6.3",
+   "title": "SENSOR MANAGER TCS",
+   "pdf_page": 99
+  },
+  {
+   "section": "6.4",
+   "title": "EAS1/EAS2 MANAGER TCS",
+   "pdf_page": 105
+  },
+  {
+   "section": "6.5",
+   "title": "PAS MANAGER TCS",
+   "pdf_page": 151
+  },
+  {
+   "section": "6.6",
+   "title": "HIS MANAGER TCS",
+   "pdf_page": 188
+  },
+  {
+   "section": "7.",
+   "title": "SWA DPU HOUSEKEEPING/DIAGNOSTIC CYCLIC TM PACKET",
+   "pdf_page": 192
+  },
+  {
+   "section": "7.1",
+   "title": "SWA H/K PARAMETERS FOR DPU",
+   "pdf_page": 193
+  },
+  {
+   "section": "7.2",
+   "title": "SWA ACQUIRED H/K PARAMETERS FROM EAS 1/2 SENSOR",
+   "pdf_page": 206
+  },
+  {
+   "section": "7.3",
+   "title": "SWA ACQUIRED H/K PARAMETERS FROM PAS SENSOR",
+   "pdf_page": 208
+  },
+  {
+   "section": "7.4",
+   "title": "SWA RECEIVED TC RELATED H/K PARAMETERS",
+   "pdf_page": 209
+  },
+  {
+   "section": "7.5",
+   "title": "SWA HK S/W VALIDITY PARAMETERS",
+   "pdf_page": 215
+  },
+  {
+   "section": "7.6",
+   "title": "SWA DPU HW DIAGNOSTIC HK PARAMETERS",
+   "pdf_page": 217
+  },
+  {
+   "section": "7.7",
+   "title": "SWA DPU MANAGERS MAX EXECUTION DURATIONS",
+   "pdf_page": 218
+  },
+  {
+   "section": "7.8",
+   "title": "SWA FDIR STATUS HK PARAMETERS",
+   "pdf_page": 219
+  },
+  {
+   "section": "7.9",
+   "title": "SWA FDIR MONITORING VALUES PARAMETERS",
+   "pdf_page": 229
+  },
+  {
+   "section": "7.10",
+   "title": "SWA HK S/W DERIVED PARAMETERS",
+   "pdf_page": 238
+  },
+  {
+   "section": "7.11",
+   "title": "SWA DPU TM COUNTERS H/K",
+   "pdf_page": 239
+  },
+  {
+   "section": "7.12",
+   "title": "SWA DPU ERROR COUNTERS H/K",
+   "pdf_page": 240
+  },
+  {
+   "section": "7.13",
+   "title": "SWA DPU H/K PARAMETERS FOR OBC FDIR",
+   "pdf_page": 242
+  },
+  {
+   "section": "7.14",
+   "title": "IIC TM DATA",
+   "pdf_page": 243
+  },
+  {
+   "section": "7.15",
+   "title": "SWA ACQUIRED H/K PARAMETERS FROM HIS SENSOR",
+   "pdf_page": 244
+  },
+  {
+   "section": "7.16",
+   "title": "SWA ACQUIRED BOOT REPORT FROM HIS SENSOR",
+   "pdf_page": 263
+  },
+  {
+   "section": "7.17",
+   "title": "BSW_HK",
+   "pdf_page": 270
+  },
+  {
+   "section": "7.18",
+   "title": "SWA GROUND MONITORING TM",
+   "pdf_page": 272
+  },
+  {
+   "section": "8.",
+   "title": "SWA DPU ASYNCHRONOUS TM PACKET",
+   "pdf_page": 281
+  },
+  {
+   "section": "8.1",
+   "title": "CONFIGURATION PARAMETERS REPORT DUMP TM",
+   "pdf_page": 281
+  },
+  {
+   "section": "8.2",
+   "title": "MACRO REPORT",
+   "pdf_page": 284
+  },
+  {
+   "section": "8.3",
+   "title": "FSW STARTUP REPORT",
+   "pdf_page": 285
+  },
+  {
+   "section": "8.4",
+   "title": "ERROR LOG REPORT",
+   "pdf_page": 290
+  },
+  {
+   "section": "8.5",
+   "title": "EAS PARAMETER DUMP REPORT",
+   "pdf_page": 292
+  },
+  {
+   "section": "8.6",
+   "title": "PAS PARAMETER DUMP REPORT",
+   "pdf_page": 293
+  },
+  {
+   "section": "8.7",
+   "title": "PUS SERVICE 6 DUMP REPORT",
+   "pdf_page": 295
+  },
+  {
+   "section": "8.8",
+   "title": "PUS SERVICE 6 CHECKSUM REPORT",
+   "pdf_page": 296
+  },
+  {
+   "section": "8.9",
+   "title": "MONITORING CONFIGURATION REPORT",
+   "pdf_page": 297
+  },
+  {
+   "section": "8.10",
+   "title": "DEBUG CMD REPORT",
+   "pdf_page": 302
+  },
+  {
+   "section": "9.",
+   "title": "SWA DPU INTER PROCESS COMMUNICATION CONTRIBUTION (S20)",
+   "pdf_page": 303
+  },
+  {
+   "section": "10.",
+   "title": "SWA DPU SCIENTIFIC TM PACKET (S21)",
+   "pdf_page": 304
+  },
+  {
+   "section": "10.1",
+   "title": "EAS SCIENTIFIC TM PACKETS",
+   "pdf_page": 304
+  },
+  {
+   "section": "10.2",
+   "title": "PAS SCIENTIFIC TM PACKETS",
+   "pdf_page": 325
+  },
+  {
+   "section": "10.3",
+   "title": "HIS SCIENTIFIC TM PACKETS",
+   "pdf_page": 343
+  },
+  {
+   "section": "11.",
+   "title": "INTERNAL COMMUNICATION PROTOCOL",
+   "pdf_page": 345
+  },
+  {
+   "section": "11.1",
+   "title": "EAS INTERNAL COMMUNICATION",
+   "pdf_page": 345
+  },
+  {
+   "section": "11.2",
+   "title": "PAS INTERNAL COMMUNICATION",
+   "pdf_page": 355
+  },
+  {
+   "section": "11.3",
+   "title": "HIS INTERNAL COMMUNICATION",
+   "pdf_page": 364
+  },
+  {
+   "section": "12.",
+   "title": "MACRO DEFINITION",
+   "pdf_page": 365
+  },
+  {
+   "section": "13.",
+   "title": "EVENT DEFINITION",
+   "pdf_page": 368
+  },
+  {
+   "section": "14.",
+   "title": "TARF DEFINITION",
+   "pdf_page": 390
+  },
+  {
+   "section": "15.",
+   "title": "TECF DEFINITION",
+   "pdf_page": 391
+  },
+  {
+   "section": "16.",
+   "title": "CONFIGURATION PARAMETER",
+   "pdf_page": 402
+  },
+  {
+   "section": "16.1",
+   "title": "ASW CONF PARAMETER",
+   "pdf_page": 402
+  },
+  {
+   "section": "17.",
+   "title": "APPENDIXES",
+   "pdf_page": 403
+  },
+  {
+   "section": "17.1",
+   "title": "LIST OF OPEN POINTS",
+   "pdf_page": 403
+  }
+ ],
+ "key_points": [
+  {
+   "text": "SWA consists of two Electron Analyser Systems (EAS1, EAS2), a Proton Alpha Sensor (PAS) and a Heavy Ion Sensor (HIS), all connected to the DPU through 10 Mb/s SpaceWire links.",
+   "pdf_page": 23
+  },
+  {
+   "text": "The DPU hardware has a rigid-flex backplane with six SpaceWire splitters, two Data Processing Modules (each a CSP board plus a CPU board) and two Power Conditioning and Distribution Modules.",
+   "pdf_page": 24
+  },
+  {
+   "text": "The DPU software buffers 5 minutes of EAS1, EAS2 and PAS high time resolution data for transmission when an event trigger is received, and uses PUS service 20 to exchange event conditions and data with other Solar Orbiter instruments.",
+   "pdf_page": 25
+  },
+  {
+   "text": "Software layers: application software (PCMSW and SDPSW), a PUS and mission services library, and machine services (VxWorks RTOS, ExOS and BSP) running on a LEON2 CPU.",
+   "pdf_page": 26
+  },
+  {
+   "text": "The boot software is a self-standing image resident and executed in PROM that cannot be patched; it checks RAM, MRAM and EDAC and loads the application from MRAM to RAM.",
+   "pdf_page": 29
+  },
+  {
+   "text": "The CCSDS packet transfer protocol over SpaceWire is defined in the spacecraft SpaceWire Application Protocol Specification (RD[4]), and TC/TM packet formats in the Solar Orbiter TM-TC and Packet Structure ICD (RD[3]).",
+   "pdf_page": 32
+  },
+  {
+   "text": "APID characterisation (Table 1) uses process IDs 95 to 99 with packet categories: for example PID 95 PKC 5 for S20 HK and PKC 12 for low-latency TM(21,x); PID 96 PKC 4 normal HK TM(3,25), PKC 8 diagnostic TM(3,26), PKC 12 normal science; PID 97 PKC 12 optional burst/trigger; PID 98 PKC 4 ground monitoring HK and PKC 12 core burst; PID 99 PKC 1 verification, PKC 4 HK for OBC action, PKC 7 events, PKC 9 dumps and private reports.",
+   "pdf_page": 33
+  },
+  {
+   "text": "Private report packets include TM(200,249) monitoring configuration, TM(200,250) configuration parameters, TM(200,251) macro contents, TM(200,252) boot report, TM(200,253) error/log, and TM(201,200), TM(202,200) and TM(203,200) for EAS1, EAS2 and PAS parameter reports.",
+   "pdf_page": 34
+  },
+  {
+   "text": "PUS manager TCs include TC(3,5)/(3,6) enable/disable HK, TC(3,129) modify HK rate, TC(5,5)/(5,6), TC(6,2), (6,5), (6,9) and (6,129) abort dump, TC(9,129) accept time update, TC(17,1), and private TC(200,170-176) for monitoring and error/event handler control.",
+   "pdf_page": 35
+  },
+  {
+   "text": "EAS1 and EAS2 are commanded with private service types 201 and 202 (for example subtype 129 enter IDLE mode, 131/132 switch on/off, 134 enter RUN mode).",
+   "pdf_page": 105
+  },
+  {
+   "text": "HIS power is commanded by the DPU with TC(200,153) switch on and TC(200,154) switch off (low-level, no macro), and TC(200,155) starts a HIS macro.",
+   "pdf_page": 188
+  },
+  {
+   "text": "HIS internal telecommands use service type 204, for example TC(204,128) SWA_TC_HIS_MRAM_WR and TC(204,129) SWA_TC_HIS_MEM_COPY.",
+   "pdf_page": 191
+  },
+  {
+   "text": "TC formats are given word by word: the SWA DPU TCs carry PID 95 in the APID, PUS version number 1, the Ack flags, service type and subtype and a source ID, followed by application data and the PEC.",
+   "pdf_page": 189
+  },
+  {
+   "text": "Each TC lists its allowed DPU states and its TARF (acceptance failure) and TECF (execution failure) error codes, for example DpuNotPlausibleTcError 0xA7FF.",
+   "pdf_page": 188
+  },
+  {
+   "text": "Chapter 13 catalogues the DPU events with event ID, code, severity level and auxiliary data words, for example TcAcqError 0xA9ED when a TC cannot be de-queued from ExOS.",
+   "pdf_page": 368
+  }
+ ],
+ "references": [
+  {
+   "label": "AD[1]",
+   "doc_id": "DC-EOS-2013-267",
+   "title": "Allegato tecnico gestionale al contratto ASI Nr. 2013-055-I.O. del 16/09/2013",
+   "issue": null,
+   "date": "2013-09-16",
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[2]",
+   "doc_id": "SOL-EST-RCD-0050",
+   "title": "Solar Orbiter – Experiment Interface Document – Part A",
+   "issue": "5",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[3]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[4]",
+   "doc_id": null,
+   "title": "Deleted",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[5]",
+   "doc_id": "SO-SWA-MSSL-RQ-010",
+   "title": "Solar Orbiter SWA Scientific Operations, Algorithms and Processes Requirements Document. Issue 1",
+   "issue": "2RevB",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[6]",
+   "doc_id": "SO-SWA-DPU_CD-RQ-001",
+   "title": "SWA DPU Flight SW Requirement Document",
+   "issue": "2",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[7]",
+   "doc_id": "SO-SWA-DPU_CD-AD-001",
+   "title": "SWA DPU FLIGHT SW DESIGN DOCUMENT Volume 1",
+   "issue": "2",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[8]",
+   "doc_id": "SO-SWA-DPU_CD-AD-001",
+   "title": "SWA DPU FLIGHT SW DESIGN DOCUMENT Volume 2",
+   "issue": "2",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "AD[9]",
+   "doc_id": "SO-SWA-DPU_CD-AD-001",
+   "title": "SWA DPU FLIGHT SW DESIGN DOCUMENT Volume 3",
+   "issue": "2",
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[1]",
+   "doc_id": "ECSS-E-70-41A",
+   "title": "Ground systems and operations – Telemetry and Telecommand Packet Utilization Standard",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[2]",
+   "doc_id": "ECSS-E-ST-40C",
+   "title": "Software General Requirements",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[3]",
+   "doc_id": "SOL.S.ASTR.TN.00079",
+   "title": "Solar Orbiter TM-TC and Packet Structure ICD",
+   "issue": "7",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[4]",
+   "doc_id": "SOL.S.ASTR.RS.00038",
+   "title": "Spacewire Application Protocol Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[5]",
+   "doc_id": "15164-CMDDEF-01",
+   "title": "Heavy Ion Sensor Instrument Software Boot and Science Programs",
+   "issue": "1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[6]",
+   "doc_id": "15164-TELDEF-01",
+   "title": "Heavy Ion Sensor Instrument Software Boot and Science Programs",
+   "issue": "1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[7]",
+   "doc_id": "SO-SWA-MSSL-RQ-001",
+   "title": "EAS Unit Specifications.",
+   "issue": "4",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[8]",
+   "doc_id": "SO-SWA-MSSL-SP-012",
+   "title": "EAS-DPU Interface Specification",
+   "issue": "1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[9]",
+   "doc_id": "SWA-SP-22300-IRAP-059-GEN",
+   "title": "PAS Unit Specifications",
+   "issue": "3",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  },
+  {
+   "label": "RD[10]",
+   "doc_id": "SWA-SP-22440-IRAP-590-GEN",
+   "title": "PAS-DPU Interface Specification",
+   "issue": "1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 19
+  }
+ ],
+ "topics": [
+  "missions/solar-orbiter/swa.md",
+  "missions/solar-orbiter/instrument-interfaces.md",
+  "missions/solar-orbiter/pus-usage.md",
+  "missions/solar-orbiter/index.md",
+  "ecss/pus/st20-onboard-parameter-management.md",
+  "ecss/pus/message-types.md",
+  "mib/commanding.md",
+  "mib/monitoring.md",
+  "ccsds/space-link-identifiers.md"
+ ],
+ "notes": "Large (403 pages) text-based PDF; printed page numbers ('Page n of 403') match PDF page indexes, and the text extraction shows a 404th, empty page. The distribution list (PDF p. 2) contains e-mail addresses, which are omitted here. Broken Word cross-references appear as 'Errore. L'origine riferimento non è stata trovata.' in the change record (PDF p. 3). Section 1.1's first sentence is missing in the text layer. Typos as printed include 'LENARDO', 'Scetions' and 'phisycally'. RD[3] (SOL.S.ASTR.TN.00079 issue 7) is in the library as sol-s-astr-tn-00079-07. AD[2] cites EID-A issue 5 as SOL-EST-RCD-0050; the library holds the 2007 issue 1 as 12-3-solarorbiter-eid-a-issue-1-0-2007-10-09 (SOL-EST-IF-0050). The corresponding SWA instrument databases are swa-idb-ascii and swa-idb-v6-5-0. A check of the v6.5.0 IDB pid table (this wiki's own query) finds APIDs consistent with Table 1 (for example 1540 = PID 96 x 16 + PKC 4). The IDB also has APIDs 1542 and 1545, which are not in Table 1."
+}

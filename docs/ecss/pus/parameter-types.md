@@ -2,7 +2,7 @@
 title: PUS parameter types (PTC/PFC)
 description: The PUS packet field type code (PTC) and format code (PFC) system - every type and format with bit lengths and value ranges, CUC and CDS time encodings, structure rules, the differences between PUS-A, PUS-C and the 2024 draft, and how SCOS-2000 and the Solar Orbiter MIB use PTC/PFC.
 tags: [ECSS, PUS, PTC, PFC, Data types, MIB]
-sources: [ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-rev1-dir1, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+sources: [ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-rev1-dir1, esa-pss-07-101-issue1-may1994, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
 ---
 
 # PUS parameter types (PTC/PFC)
@@ -30,7 +30,10 @@ suit it, and records the choice as a parameter code.[^a-231] The tabular notatio
 alternative to ASN.1, and the encoding rules deliberately differ from the ASN.1 Basic Encoding
 Rules, mainly because of the limited space-link bandwidth.[^a-231] PUS-C keeps the idea but
 renames the codes: a "packet field code" is the combination of a PTC and a PFC, and the
-meaning of a PFC depends only on its PTC.[^c-731]
+meaning of a PFC depends only on its PTC.[^c-731] The scheme is older than ECSS: the ESA PUS of
+1994, PSS-07-101, already combined a "Parameter Type Code" and a "Parameter Format Code" into a
+parameter code, valid for both telecommand and telemetry data (see
+[the history page](../../overview/history.md#pss-07-101-the-first-packet-utilisation-standard-1994)).[^pss-233]
 
 Tailoring therefore happens at two moments:[^c-731]
 
@@ -448,8 +451,8 @@ deduced parameters.[^icd-width]
 !!! warning "Inference: where SCOS-2000 and PUS-C disagree"
     * **PTC 9 PFC 30**: SCOS-2000 uses it for Unix time (4 octets of seconds since 1970 plus
       4 octets of microseconds), described as "Not defined in PUS".[^icd-a2] The ICD's PUS
-      reference is ESA PSS-07-101, which is not in this wiki's library;[^icd-rd6] PUS-A defines
-      absolute-time PFCs only up to 18,[^a-2359] but PUS-C assigns PFC 30 to a CUC code of 2
+      reference is ESA PSS-07-101,[^icd-rd6] which, like PUS-A, defines absolute-time PFCs only
+      up to 18 (in PSS-07-101: 0 a full definition with P-field, 1 and 2 CDS, the higher codes CUC),[^pss-2359][^a-2359] but PUS-C assigns PFC 30 to a CUC code of 2
       coarse and 8 fine octets.[^c-7310b] A PUS-C mission that needs that CUC format cannot
       express it with this code in an ICD 7.0-compliant SCOS-2000 database.
     * **PTC 3 PFC 17-19, PTC 9 PFC 19-46, PTC 12** are absent from the ICD 7.0 table. Whether
@@ -569,6 +572,14 @@ event".[^mib-cdf] Explore it in the [MIB explorer](../../explorer/index.md#/solo
     SELECT PCF_PTC, COUNT(*) FROM pcf GROUP BY 1;
     ```
 
+## Related pages
+
+* [MIB parameter types](../../mib/parameter-types.md), the SCOS-2000 side of PTC/PFC
+* [Time code formats](../../ccsds/time-codes.md), the CUC and CDS codes behind PTC 9 and 10
+* [PUS packet structures](packets.md), [PUS-A vs PUS-C](pus-a-vs-pus-c.md#parameter-types-and-time-formats) and [ST[20] On-board parameter management](st20-onboard-parameter-management.md)
+* [From ESA PSS to CCSDS and ECSS](../../overview/history.md#pss-07-101-the-first-packet-utilisation-standard-1994), where the parameter code first appears
+* [Herschel/Planck packet structure ICD: parameter types](../../scos2000/herschel-planck-interfaces.md#parameter-types), a mission tailoring of the same codes
+
 [^c-731]: [ECSS-E-ST-70-41C, Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §7.3.1, Table 7-1, PDF pp. 428-429.
 [^c-721]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §7.2.1, PDF pp. 427-428.
 [^c-722]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §7.2.2, PDF p. 428.
@@ -601,6 +612,8 @@ event".[^mib-cdf] Explore it in the [MIB explorer](../../explorer/index.md#/solo
 [^a-2355]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), §23.5.5, PDF p. 193.
 [^a-2355b]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), §23.5.5.2, PDF pp. 194-196.
 [^a-2359]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), §23.5.9, PDF p. 198.
+[^pss-233]: [ESA PSS-07-101, Packet Utilisation Standard, Issue 1](../../library/esa-pss-07-101-issue1-may1994.md), §23.3 "Encoding Formats of Parameter Types", PDF p. 187 (scanned; OCR text).
+[^pss-2359]: [ESA PSS-07-101, Packet Utilisation Standard, Issue 1](../../library/esa-pss-07-101-issue1-may1994.md), §23.5.9 "Time Parameter (PTC = 9) and Relative Time Parameter (PTC = 10)", PDF p. 194 (scanned; OCR text).
 [^a-23510]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), §23.5.10, PDF pp. 198-199.
 [^a-23511]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), §23.5.11, PDF p. 199.
 [^a-236]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), §23.6.1-23.6.2, PDF pp. 199-202.

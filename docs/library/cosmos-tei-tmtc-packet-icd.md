@@ -33,9 +33,10 @@ Section 4 lists services per TEI on APIDs 2016 to 2023: commands accepted by all
 - The TEI-SRC safety report defines 1-bit flags telling SCOS when it must not release a command that increases a bias. *(PDF p. 17)*
 
 
-## Cited by these wiki pages (5)
+## Cited by these wiki pages (6)
 
 - [Herschel and Planck](../missions/herschel-planck.md)
+- [Herschel/Planck: SCOS-2000 in a science mission ground segment](../scos2000/herschel-planck-ground.md)
 - [Missions](../missions/index.md)
 - [SCOS-2000 as EGSE and central checkout](../scos2000/egse.md)
 - [ST[05] Event reporting](../ecss/pus/st05-event-reporting.md)

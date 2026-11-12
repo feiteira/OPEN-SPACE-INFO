@@ -1,8 +1,8 @@
 ---
 title: Ancillary systems, MICONYS and the move to EGS-CC
-description: The ESOC ground software around SCOS-2000 (EGOS, MICONYS, EDDS, ARES, MUST, MOIS, ProToS, MATIS, DABYS, FOPPER, OPEN-M), the European Ground Systems Common Core and ESOC's migration to it, the TOPE and small-satellite adapters, the CCSDS Mission Product Distribution services and the payload command request framework.
-tags: [SCOS-2000, ESOC, EGOS, MICONYS, EGS-CC, ARES, EDDS, Ground segment, History]
-sources: [gsaw2005-guerrucci, gsaw2020-santos, pecchioli-egs-cc-esoc, spaceops2025-egs-cc, airdrive-b8b986f, airdrive-9d40c91, spaceops2025-0309-mpd-edds, spaceops2025-0141, 4s-2024-egscc-bruegge, bul130-merri-happy-families, gsaw2003-peccia, srs, glo, sum, sdd-v24, mib-20250916m25925pfms001-sol]
+description: The ESOC ground software around SCOS-2000 (EGOS, MICONYS, EUD, EDDS, ARES, MUST, MOIS, ProToS, MATIS, DABYS, FOPPER, OPEN-M), one mission's MOC tool set (INTEGRAL 2003) and a consortium's selection (CHEOPS 2025), the European Ground Systems Common Core and ESOC's migration to it (M4C), the TOPE and small-satellite adapters, the CCSDS Mission Product Distribution services and the payload command request framework.
+tags: [SCOS-2000, ESOC, EGOS, MICONYS, EUD, EGS-CC, ARES, EDDS, Ground segment, History, INTEGRAL, CHEOPS]
+sources: [gsaw2005-guerrucci, gsaw2020-santos, pecchioli-egs-cc-esoc, spaceops2025-egs-cc, airdrive-b8b986f, airdrive-9d40c91, spaceops2025-0309-mpd-edds, spaceops2025-0141, 4s-2024-egscc-bruegge, bul130-merri-happy-families, gsaw2003-peccia, srs, glo, sum, sdd-v24, mib-20250916m25925pfms001-sol, icalepcs2019-weapp01-esa-control-systems, 2014s12b-schutz, fop-vol01, cheops-ground-segment-systems-and-automation-for-mission-and-science-o, spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi]
 ---
 
 # Ancillary systems, MICONYS and the move to EGS-CC
@@ -18,21 +18,28 @@ systems the **MICONYS** suite of generic products, and announces its replacement
 built on the **European Ground Systems Common Core (EGS-CC)**.[^so25-abs][^gsaw05-infra][^so25-cat][^santos-ares][^sdd-egos]
 
 This page follows that story from the 2005 infrastructure picture to the 2025 migration
-plan. It explains what each ancillary system does as far as the sources say, how EGS-CC
-differs from SCOS-2000, how ESOC extends and adapts it (EGOS-CC), and what happens to the
-[MIB](../mib/index.md) on the way. It ends with three neighbouring developments: a GSOC
-concept for small satellites on EGS-CC, the CCSDS Mission Product Distribution services
-compared with EDDS, and the web framework that turns payload requests into command request
-files.
+plan. It explains what each ancillary system does as far as the sources say, shows the tool
+set of one ESOC mission (INTEGRAL, 2003) and the selection made by a consortium-run mission
+outside ESOC (CHEOPS, 2025), describes the EGOS User Desktop that became the common face of
+these systems, then explains how EGS-CC differs from SCOS-2000, how ESOC extends and adapts it
+(EGOS-CC), and what happens to the [MIB](../mib/index.md) on the way. It ends with three
+neighbouring developments: a GSOC concept for small satellites on EGS-CC, the CCSDS Mission
+Product Distribution services compared with EDDS, and the web framework that turns payload
+requests into command request files. The tools that prepare the tailoring data (databases,
+procedures, displays) have their own page, [operations preparation](operations-preparation.md).
 
 !!! info "At a glance"
     * **2005**: SCOS-2000, NCTRS, GDDS, TDRS/WebRM and reused mission tools form the ESOC
       software infrastructure; new mission control systems are specified as a "delta"
       against it, and mission families add a kernel layer.[^gsaw05-infra][^gsaw05-delta]
-    * **2020**: ARES, an evolution of MUST, is ESOC's off-line analysis and multi-mission
-      storage system, with a Python library, novelty detection and a dependency finder.[^santos-ares]
+    * **2013-2014**: the EGOS User Desktop (EUD), a Java and Eclipse RCP framework, enters
+      mission operation and becomes the replacement GUI of SCOS-2000, SIMSAT, NIS and FARC.[^eud-what][^eud-stat]
     * **2017-2019**: the EGOS-CC project designs ESOC's EGS-CC based products and builds a
       pilot Juice MCS; GMV runs SCOS-era TOPE procedures on EGS-CC.[^airb-prog][^tope-intro]
+    * **2019**: ESOC compares its four control-system generations; M4C, built on EGS-CC, is to
+      provide features equivalent to "SCOS-2000 and its complementary systems".[^ical-gen]
+    * **2020**: ARES, an evolution of MUST, is ESOC's off-line analysis and multi-mission
+      storage system, with a Python library, novelty detection and a dependency finder.[^santos-ares]
     * **April 2024**: ESOC reconfirms EGS-CC as the basis of its next MCS; Swarm is the pilot
       migration, Ariel the first mission to launch on it.[^so25-ms][^so25-phases]
     * **2033 at the earliest**: predicted end of life of SCOS, after a transition of at least
@@ -43,11 +50,12 @@ timeline
     title ESOC ground software, from the infrastructure to EGS-CC
     1989 : SCOS-I in use (packet telemetry)
     1995-1999 : SCOS-II, superseded by SCOS-2000
-    2003 : EGOS framework announced (GSAW 2003)
+    2003 : EGOS framework announced (GSAW 2003) : INTEGRAL FOP lists the IMCS and its MOC tools
     2005 : Delta approach and mission families (GSAW 2005)
     2007 : SCOS-2000 and SIMSAT called the cornerstones of EGOS
+    2013 : EGOS User Desktop enters mission operation
     2017 : EGOS-CC development of OPEN and EGS-CC extensions starts
-    2019 : Pilot Juice MCS on EGOS-CC : TOPE adapter on EGS-CC shown at SESP
+    2019 : Pilot Juice MCS on EGOS-CC : TOPE adapter on EGS-CC shown at SESP : ICALEPCS comparison of MSSS, SCOS 1, SCOS-2000 and M4C
     2020 : ARES and data analytics (GSAW 2020)
     2024 : GSOC commands CubeL through EGS-CC (Jan) : ESOC reconfirms EGS-CC (Apr)
     2025 : Swarm migration under way : CCSDS MPD Blue Book expected
@@ -57,7 +65,7 @@ timeline
     2033 : Earliest predicted end of life of SCOS
 ```
 
-The dates come from the sources cited in the sections below.[^gsaw03-hist][^gsaw03-ll][^gsaw05-infra][^b130-egos][^airb-prog][^tope-intro][^santos-ares][^csp-pass][^so25-ms][^so25-phases][^so25-need][^so25-way][^mpd-concl]
+The dates come from the sources cited in the sections below.[^gsaw03-hist][^gsaw03-ll][^int-title][^gsaw05-infra][^b130-egos][^eud-what][^airb-prog][^tope-intro][^ical-gen][^santos-ares][^csp-pass][^so25-ms][^so25-phases][^so25-need][^so25-way][^mpd-concl]
 
 ## The ESOC software infrastructure (2005)
 
@@ -168,6 +176,50 @@ segment teams should take part in the design of the satellite TM/TC, because har
 TM/TC data types, structures and services across similar satellites save cost in the
 MCS.[^gsaw05-concl]
 
+### One mission's tool set: the INTEGRAL MOC (2003)
+
+The infrastructure lists above are ESOC's view. INTEGRAL's Flight Operations Plan, Volume 1
+(issue 2, 21 February 2003), gives a mission's view of the same period: the elements its mission
+operations centre (MOC) used to run the satellite, and who was responsible for each.[^int-title][^int-gs]
+How the FOP's structure compares with the mission operations plan of ECSS-E-ST-70C is shown on
+[ECSS-E-ST-70C](../ecss/e-st-70c.md#a-real-flight-operations-plan-integral).
+
+| MOC element (FOP Vol. 1) | What the FOP says about it |
+|---|---|
+| INTEGRAL Monitoring and Control System (IMCS) | The control system. Developed under the responsibility of the ESOC unit TOS-GMC, finally accepted by the flight control team (FCT), kept under a maintenance contract with its developer for late satellite changes and malfunctions[^int-gs][^int-tools] |
+| Timeline Generation System (MPS) | Part of the IMCS[^int-gs] |
+| Mission Archive & Data Distribution System (MADDS) | Part of the IMCS[^int-gs] |
+| Flight Dynamics System (FDS) | Developed and maintained by TOS-GFO, which gave the FCT a subset of flight dynamics functions for the operations allocated to it[^int-gs][^int-tools] |
+| Offline Performance Analysis System (PAS) | Listed only[^int-gs] |
+| On-Board S/W Maintenance System (OBSMS) | The prime tool to control and verify new or modified on-board software images; responsibility passed to the MOC after commissioning, and no maintenance contract was foreseen[^int-gs][^int-tools][^int-cr] |
+| INTEGRAL Overall Simulator (IOS) | Developed under the responsibility of TOS-GMS, tested before launch, under a maintenance contract with its developer[^int-gs][^int-tools] |
+| INTEGRAL Security Distribution System (ISDS) | Listed only[^int-gs] |
+| [NCTRS](nctrs-nis.md) | Part of the MOC hardware and software under ESOC's standard configuration control, like the IMCS and the FDS; every modification approved by the Spacecraft Operations Manager (SOM)[^int-cc] |
+
+The FCT was supported by ESOC units for ground system control, station equipment and control,
+communications, data processing, flight dynamics and computer systems.[^int-team] The ESOC
+organisation chart in the same volume places "Mission Control Systems" (TOS-GC), "Mission
+Support" (TOS-GM), "Flight Dynamics" (TOS-GF) and "Station Systems" (TOS-GS) under Ground Systems
+Engineering (TOS-G), and the ground facilities operations, the flight operations and the
+Villafranca and Redu stations under Mission Operations (TOS-O).[^int-org] How the unit codes in
+the text (TOS-GMC, TOS-GMS, TOS-GFO) relate to the divisions of the chart is not stated in the
+available sources.
+
+ESOC's own GSAW 2003 slide of INTEGRAL as an "S2K based MCS" shows the same elements around the
+IMCS (the IOS, the NCTRS, the timeline generator MPS, the FDS, the on-board software maintenance
+system, PAS and ISDS), with two differences of naming: PAS is the "Offline Evaluation System" on
+the slide but the "Offline Performance Analysis System" in the FOP, and where the FOP names
+MADDS the slide shows an operations archive with a long history file and mission archive
+CD-ROMs (see [other missions](../missions/other-missions.md#integral)).[^gsaw03-int][^int-gs]
+The FOP itself never names SCOS-2000; the identification comes from that slide and from the R2.0
+release plan of 2000 (see [SCOS-2000](index.md#integral-and-cheops-two-operator-views)).
+
+!!! warning "Inference"
+    The INTEGRAL list maps onto the later EGOS vocabulary: MPS onto mission planning, MADDS onto
+    the generic data disposition and archive products, IOS onto the SIMSAT simulator
+    infrastructure and NCTRS onto NCTRS/SLE; OBSMS has no counterpart in the 2003 EGOS list.
+    The FOP describes the elements as INTEGRAL systems and does not say which of them were generic ESOC products.[^int-gs][^gsaw03-egos]
+
 ## EGOS: the name for the whole
 
 In 2003 ESOC presented a new framework, **EGOS**, as a family of products following the
@@ -213,9 +265,9 @@ in the available sources.
 | FOPPER | Not expanded in the available sources | Listed among the S2K generation tools; its database is converted to OPEN-M for category 2 missions[^so25-cat] |
 | OPEN / OPEN-M | Operations Preparation ENvironment[^so25-acr] | The EGS-CC era preparation environment and its mission operations extension (see below)[^airb-open] |
 | EDDS | EGOS Data Dissemination System (EDDS documents); EGOS Data Disposition System (MPD paper)[^glo-acr][^mpd-acr] | Data dissemination to users from PARC, DARC, SMON, FARC and SCOS-2000; see [EDDS](edds.md)[^sdd-egos] |
-| MUST | Mission Utility & Support Tool (EDDS glossary); "Mission Utility Support tools" (GSAW 2020)[^glo-acr2][^santos-ares] | Server/client analysis tools: a parameter archive built from scheduled historic packet requests to the MCS, with analysis clients[^srs-must] |
+| MUST | Mission Utility & Support Tool (EDDS glossary); "Mission Utility Support tools" (GSAW 2020); "Mission Utility and Support Tools" (CHEOPS paper)[^glo-acr2][^santos-ares][^ch-must] | Server/client analysis tools: a parameter archive built from scheduled historic packet requests to the MCS, with analysis clients;[^srs-must] still used by CHEOPS in 2025, with WebMUST, fed by SCOS-2000 RAPID files (see [below](#a-consortiums-selection-cheops-2025))[^ch-must] |
 | ARES | Analysis and Reporting System (GSAW 2020); Operational Data Off-Line Analysis, Correlation and Reporting System (EDDS glossary)[^santos-ares][^glo-acr] | Off-line data analysis system, an evolution of MUST (see below) |
-| EUD | EGOS User Desktop[^glo-acr] | Client framework on which ARES and the EDDS client are built[^santos-ares][^sum-eud] |
+| EUD | EGOS User Desktop[^glo-acr][^eud-what] | Java and Eclipse RCP client framework on which ARES and the EDDS client are built; replacement GUI for SCOS-2000, SIMSAT, NIS and FARC by 2014 (see [below](#eud-the-common-user-interface-2014))[^santos-ares][^sum-eud][^eud-stat] |
 | REALS | EGOS Remote Alert System | Generates alerts for on-call staff; EGOS-CC adds an adapter that writes REALS alert files[^airb-t1] |
 
 !!! note "Mission Information Base or Database"
@@ -235,6 +287,79 @@ perform any analysis". A fourth, prototype subsystem, MUST, gave input to EDDS: 
 keeps a parameter archive filled by scheduled historic packet requests from the MCS, and its
 clients analyse those parameters. EDDS was required to offer a similar TM parameter
 interface so that "MUST like clients" could be supported.[^srs-must]
+
+MUST outlived the prototype stage. In 2025 the CHEOPS team uses MUST and its web interface,
+WebMUST, for telemetry visualisation and trend analysis "as alternatives to SCOS-2000, which is
+limited in certain functionalities". The tool was first implemented at ESOC and later
+transferred to INTA and the University of Bern "due to maintenance considerations"; the
+operations and instrument teams now run and maintain it with support from the company Solenix.
+Its database is updated with RAPID files generated by SCOS-2000, and periodic trend analyses use
+the Python MUSTLink API, which authenticates against the server and splits large requests into
+pages to avoid overloading it.[^ch-must]
+
+## EUD: the common user interface (2014)
+
+At GSAW 2014 ESOC presented the **EGOS User Desktop (EUD)**, a framework for building rich-client
+graphical user interfaces and an integration platform for GUI components, aimed primarily at
+ground data systems. ESA called it the basis of its new generation of user interfaces at ESOC; it
+had been in mission operation since 2013.[^eud-what] It belonged to a wider modernisation of the
+ground data systems infrastructure, motivated by obsolescence of existing implementations,
+removal of dependencies on COTS products and cost reduction through reuse, with four objectives:
+state-of-the-art open-source technology, platform independence (Linux and Windows), shared
+implementations across systems and domains, and a harmonised look and feel.[^eud-bg] Obsolescence
+and cost are also the reasons ESOC later gives for moving to EGS-CC (see
+[below](#why-scos-2000-has-to-be-replaced)).
+
+EUD is written in Java on the Eclipse Rich Client Platform (RCP; the expansion is the CHEOPS
+paper's),[^ch-rcp] uses only open-source software and runs on several operating systems. Its unit of integration is the **display**, technically an
+Eclipse RCP view or editor plug-in: standard RCP views run unchanged, and an extended view base
+class gives access to EUD facilities. On top come eleven common displays, an extended widget
+library, standard interfaces through which displays receive data, and adapters that connect to
+each back end.[^eud-ov] The architecture slide stacks these as follows:[^eud-arch]
+
+```mermaid
+flowchart TB
+  APP["Custom EUD application<br/>application-specific displays, interfaces and configuration"]
+  GEN["EUD generic displays<br/>alphanumeric, MIMIC, graph, scrolling parameter, matrix, XY graph,<br/>live and history message, action executor, system control, system explorer"]
+  IF["EUD interfaces<br/>IEudParameter, IEudMessage, IEudScriptEngine,<br/>IEudSystemControl, IPersistentStorage, ISessionManager"]
+  CORE["EUD core<br/>core and utility libraries, UI widgets and composites,<br/>display management, session management"]
+  ECL["Eclipse framework<br/>RCP, EMF, GEF, GMF, BIRT"]
+  AD["Back-end-specific adapters"]
+  BE["Back-end system services<br/>parameter, message, scripting, system control,<br/>persistent storage, session"]
+  APP --> GEN --> IF
+  IF --> AD --> BE
+  GEN --> CORE --> ECL
+```
+
+The status in February 2014 shows how far EUD had spread across the ESOC products named on this
+page:[^eud-stat]
+
+| Status (Feb 2014) | Systems |
+|---|---|
+| Replacement GUI for an existing system | SCOS-2000, SIMSAT, NIS, FARC |
+| New developments on EUD | ARES, GSMC, FIDES, GSSC, MPSF and others |
+| Ongoing | MATIS, SPMON |
+| Planned | GFTS, DARC, DABYS |
+| In operation | The EUD Telemetry Desktop (EUD-TMD) for Gaia |
+
+The framework was described as mature since 2011, and "the majority" of ground-system GUIs were
+EUD based.[^eud-stat] An Offline Display Development Environment (ODDE) prepared displays, and the
+display definition files were cross-compatible between ODDE, the MCS, SIMSAT, ARES and GSMC.
+Further benefits claimed were very positive user acceptance, reduced learning effort, features
+added for one application becoming available to all, and no licence cost.[^eud-odde][^eud-ben]
+Plans included a Web-EUD that runs the same code as a web application through Eclipse RAP, new
+generic displays (density distribution, spectral analysis, 3D graphs) and use in more systems,
+"e.g. EGS-CC". The lessons learned were that consolidating functions across domains took much
+initial effort, that an agile approach was crucial, and that adapters to legacy systems can be
+tedious.[^eud-fut] How EUD relates to the display definitions of the MIB and to OPEN is covered
+on [operations preparation](operations-preparation.md#displays-and-user-interfaces-the-egos-user-desktop)
+and [display definitions in the MIB](../mib/displays.md).
+
+!!! warning "Inference"
+    The 2014 list explains why the later EGS-CC era papers can treat the user interface as a
+    shared layer: by then the GUIs of SCOS-2000, the NIS and the analysis tools were already
+    built on one framework. The papers on EGOS-CC do not say whether EUD itself was carried into
+    the EGS-CC-based products.[^eud-stat][^eud-fut]
 
 ## ARES and data analytics (GSAW 2020)
 
@@ -294,12 +419,65 @@ different data types and instructions to preserve and recreate products.[^santos
 with science data, migration of legacy missions to Hadoop, operational AI tools for
 operators, and a curated "Anomaly Detection ESA Dataset" for benchmarking.[^santos-future]
 
+## A consortium's selection: CHEOPS (2025)
+
+CHEOPS, the first small-class ("S-class") mission of ESA's Cosmic Vision programme, launched in
+December 2019, is a case where the operations are not ESA's: the CHEOPS consortium is responsible
+for all operational aspects, and its subsystems were "independently developed and tailored". The
+mission operations centre (MOC) is at INTA's Torrejón space centre (CEIT) in Spain and the science
+operations centre (SOC) at the University of Geneva.[^ch-intro] The MOC shows which ESOC
+products a small team picked and what it built or bought instead:
+
+| Function | What CHEOPS uses | ESOC counterpart named on this page |
+|---|---|---|
+| Mission control | SCOS-2000 version 5.4.2, configured through environment variables and the MIB, with a Python module library that gives automation access to "all MCS tasks"[^ch-mcs] | SCOS-2000 |
+| Automation | GMV's Flyplan: schedules and runs MCS and flight dynamics tasks, Gantt display, Jython scripts, and the data-driven `monitorCHEOPS` activity that watches folders for input files[^ch-auto] | MATIS |
+| File transfer | The Generic File Transfer System (GFTS) between MOC components and with the SOC, with integrity checks[^ch-auto] | GFTS in the EGOS list of 2003; GFTS planned on EUD in 2014[^gsaw03-egos][^eud-stat] |
+| Flight dynamics | GMV's Focus suite (Fortran with a Java HMI) and Autofocus for automated sequences[^ch-fds] | The FDS of the EGOS list |
+| Telemetry analysis | MUST and WebMUST, fed with SCOS-2000 RAPID files; MUSTLink Python API[^ch-must] | MUST, then ARES |
+| Simulator | Built on ESA's Simulus 5.4 framework and the SIMSAT platform, with SLE communication to ground stations[^ch-sim] | SIMSAT |
+| Packet archive | The SCOS-2000 PARC, storing TM, TC and events in a MySQL database[^ch-pass] | [PARC](archives.md) |
+| Reports | SCOS-2000 executables that print displayed data, RGTgenerator for TC execution status, and HKTMreporter, a SCOS-2000 program developed for CHEOPS[^ch-post] | |
+| Station scheduling | The CEIT G/S Planner, written in C# by INTA, shared with other missions of the INTA station[^ch-fds] | ESTRACK scheduling (see [NCTRS and NIS](nctrs-nis.md#booking-the-pass-estrack-scheduling-and-cross-support)) |
+
+!!! warning "Inference"
+    The third column is this wiki's mapping onto the ESOC product names used elsewhere on this
+    page. The CHEOPS paper calls SCOS-2000, MUST, Simulus, NAPEOS and the Earth Observation CFI
+    software ESA's; it does not say who supplies GFTS, and it does not compare Flyplan with MATIS
+    or the G/S Planner with ESTRACK tools.[^ch-auto][^ch-mcs][^ch-must][^ch-sim][^ch-fds][^ch-rcp]
+
+The MOC runs on an operational platform of two servers, three clients and a RAID-5 disk array.
+Only the nominal server reads and writes the array; switching to the redundant server means
+stopping all tools, moving the disk mount and restarting. The MCS, flight dynamics and automation
+are client-server, with servers on both servers and clients on all clients, while the file
+transfer tool runs only on the servers. A reference platform for training and validation, with
+one server like the operational ones, one simulator server and one client, moved to virtual
+machines in 2022 when hardware maintenance became problematic.[^ch-hw] The automation lets the
+routine operations run without staff outside working hours, with 5 people at the MOC and 3 to 4
+at the SOC.[^ch-concl] How CHEOPS turns its activity plan into SCOS-2000 stacks is described on
+[operations preparation](operations-preparation.md#operations-preparation-in-practice-cheops),
+and its pass handling on [NCTRS and NIS](nctrs-nis.md#cheops-a-pass-without-estrack-2025).
+
+!!! note "Two different SSFs"
+    CHEOPS stores CommandBuilder output in an "SSF file, an ASCII file that can be read by any
+    standard SCOS-2000 using the MIB", whose telecommands are later loaded into the Auto
+    Stack.[^ch-mcs] ESTRACK's service management uses SSF for the CCSDS Simple Schedule Format, a
+    booking list exchanged with station providers.[^estrack-acr] The CHEOPS paper does not expand
+    its SSF; that it is a saved SCOS-2000 command stack, unrelated to the CCSDS format, is this
+    wiki's reading.
+
 ## Why SCOS-2000 has to be replaced
 
 ESOC's EGOS-CC paper gives the reason plainly: the SCOS-2000-based generation "is expected to
 face significant obsolescence problems in the next decade", with maintenance and evolution
 costs becoming excessive. EGS-CC is the opportunity to modernise the infrastructure and its
-processes.[^pecc-bg] The 2025 paper quantifies the transition. ESOC predicts at least 7
+processes.[^pecc-bg] The ICALEPCS paper of 2019, by M. Pecchioli, one of its two authors, puts it in one
+sentence: the generation in operation "has been successfully used for all categories of
+missions, including many commercial ones operated outside ESOC", but its implementation is
+expected "to face obsolescence in the coming years".[^ical-abs] Obsolescence had already been the
+first motivation of the EUD modernisation of 2014, together with removing COTS dependencies and
+cutting cost through reuse.[^eud-bg]
+The 2025 paper quantifies the transition. ESOC predicts at least 7
 years from the moment EGS-CC first enters operations (in 2026) to the end of life of SCOS,
 so no earlier than 2033. One driver is the number of missions at ESOC, above 40.[^so25-need]
 
@@ -433,6 +611,37 @@ tailoring data, so OPEN is a full framework, completed by **OPEN-M** for mission
 and **OPEN-S** for ground stations. All three were to be available to the EGS-CC community
 under the ESA Software Community License.[^airb-open]
 
+The ICALEPCS paper of the same year describes M4C from the system-design side and sets it against
+MSSS and SCOS-2000 (the full comparison is on
+[SCOS-2000](index.md#four-generations-compared-2019)). Its main points for M4C are:[^ical-sys][^ical-perf][^ical-ctx]
+
+* **Deployment.** "Conceptually centralised": only the user interaction layer runs remotely, in
+  installation-free thin clients, while the central functions sit on separate scalable tiers
+  (software-defined networks, cloud computing, cluster storage). Together with the strictly
+  layered organisation, for example of system sessions, this allows multi-mission deployments in
+  which missions share most mission control functions. SCOS-2000 MCSs, by contrast, run on
+  dedicated physical machines.
+* **Scalability.** From dedicated machines with local storage to fully shared multi-mission
+  virtual data centres.
+* **Components.** Each component is self-standing, with its design model, external interfaces,
+  test environment and procedures, configuration data and tailoring data.
+* **Extensibility.** Mission-specific functions, or changes to the behaviour of common functions,
+  without source-code changes to the infrastructure, which the paper calls the design focus of
+  M4C. User-defined scripts, processing routines and displays are credited to the recent
+  generations in general.
+* **Operations.** Any control action ("activity") can be triggered from the ground or on board,
+  on delta or absolute times, events or procedures; file based operations are supported, as in
+  SCOS-2000.
+* **Preparation.** OPEN, an expandable Eclipse-based framework in which editors for each data
+  type can be developed and integrated quickly, used in a distributed but centrally managed way.
+  The paper presents OPEN as the latest step of preparation support without tying it to one
+  generation.
+* **Maintainability.** Portable technologies with few direct COTS dependencies, widely used
+  languages with a large pool of experts, modules visible only through service interfaces,
+  extension and customisation hooks, and automated production, deployment and validation of the
+  operational systems. The paper names the last three of these five measures as a significant
+  improvement over SCOS-2000.
+
 ### Functional extensions
 
 ESOC identified two kinds of genuine extensions (as opposed to "ground system adapters" that
@@ -490,6 +699,19 @@ The 2019 paper lists the EGOS-CC components being developed:[^airb-t1][^airb-t3]
 | Mission operations | TM Packet Interface adapter | Serves TM packets over a simple socket interface to the TM Packet Interface Library (TPL) of flight dynamics |
 | Mission operations | Mission Propagation Delay | Extends time correlation to compute the one-way light time from flight dynamics OWLT files |
 | Mission operations | PUS-C Service 11 | Replaces the PUS-A service 11 reference implementation for missions with PUS-C scheduling (see [PUS-A vs PUS-C](../ecss/pus/pus-a-vs-pus-c.md)) |
+
+The ESTRACK schedule interface, a ground station operations component, connects EGOS-CC to the
+network's planning, which a SpaceOps 2025 paper describes from the scheduling office's side. The ESTRACK Scheduling Office solves all
+users' standing orders with the ESTRACK Planning System (EPS) into a baseline booking, and the
+ESTRACK Management System web Portal (EMSP) exchanges requests and booking lists with users and
+external providers, by REST or by XML files; since 2017 all new interfaces use the CCSDS Simple
+Schedule Format and the draft SMURF request format. Network operations are fully automated:
+each service type is linked to a scheduling template of automated tasks that turns every
+allocation into an executable timeline.[^estrack-eps][^estrack-fmt][^estrack-exec] Whether the
+EMS schedule files that the EGOS-CC component converts into ground schedule increments use one
+of these formats is not stated in the available sources. The pass side is on
+[NCTRS and NIS](nctrs-nis.md#booking-the-pass-estrack-scheduling-and-cross-support) and the
+standards on [SLE service management](../ccsds/sle/service-management.md).
 
 The engineering principles were to leave complementary systems unchanged where possible, to
 treat EGS-CC as a black box (no source changes to kernel or reference implementation), to
@@ -870,11 +1092,22 @@ The capabilities above are those summarised by the paper.[^crf-sum]
 * The format and content of the EGS-CC TDM and CDM, and how the S2K MIB to TDM converter maps
   individual MIB tables.
 * The publication status of the CCSDS MPD Blue Book after 2025.
+* Which of INTEGRAL's MOC elements (MPS, MADDS, PAS, OBSMS, IOS, ISDS) were generic ESOC products,
+  and how the unit codes TOS-GMC, TOS-GMS and TOS-GFO map onto the ESOC organisation chart.
+* Whether EUD, or a web successor of it, became the user interface of the EGS-CC-based products.
+* The commercial missions "operated outside ESOC" that the 2019 paper credits to the SCOS-2000
+  generation.
+* The format of the ESTRACK Management System schedule files consumed by the EGOS-CC ESTRACK
+  schedule interface.
 
 ## Related pages
 
-* [SCOS-2000](index.md), [SCOS-2000 architecture](architecture.md) and
-  [SCOS-2000 as EGSE](egse.md)
+* [SCOS-2000](index.md) (including the [four-generation comparison](index.md#four-generations-compared-2019)),
+  [SCOS-2000 architecture](architecture.md) and [SCOS-2000 as EGSE](egse.md)
+* [Operations preparation](operations-preparation.md), [other missions](../missions/other-missions.md)
+  and [SLE service management](../ccsds/sle/service-management.md) (ESTRACK scheduling)
+* [From ESA PSS to CCSDS and ECSS](../overview/history.md), the history of the standards these
+  systems implement
 * [EDDS](edds.md), [EDDS request and data formats](edds-formats.md), [TDRS](tdrs.md),
   [GDDS](gdds-and-ddids.md), [archives](archives.md), [NCTRS and NIS](nctrs-nis.md),
   [time correlation](time-correlation.md)
@@ -886,7 +1119,8 @@ The capabilities above are those summarised by the paper.[^crf-sum]
 ## Sources and copies
 
 Each footnote links the library page of its source, which gives the original URL, the SHA-256
-of the copy and the time of copy. The sources of this page were copied on 5 November 2026:
+of the copy and the time of copy. The sources of this page were copied on 5 November 2026, and
+the second-round additions on 12 November 2026:
 
 | Library page | Document | Original host | Copied (UTC) |
 |---|---|---|---|
@@ -903,6 +1137,11 @@ of the copy and the time of copy. The sources of this page were copied on 5 Nove
 | [spaceops2025-0141](../library/spaceops2025-0141.md) | de la Fuente et al. (Starion), "Optimizing Payload Operations Management through an Automated Commanding Request Framework", SpaceOps 2025 #141 | publications.spaceops.org | 2026-11-05 14:07:09 |
 | [srs](../library/srs.md), [glo](../library/glo.md), [sum](../library/sum.md), [sdd-v24](../library/sdd-v24.md) | EDDS software requirements (issue 18.0, 2018), glossary (issue 7.0, 2017), client user manual and design document (file "v24", title page version 25.0, 2025) | solarorbiter.irap.omp.eu | 2026-11-05 14:01:34-14:05:49 |
 | [mib-20250916m25925pfms001-sol](../library/mib-20250916m25925pfms001-sol.md) | Solar Orbiter MIB release of 16 September 2025 | solarorbiter.irap.omp.eu | 2026-11-05 14:24:03 |
+| [icalepcs2019-weapp01-esa-control-systems](../library/icalepcs2019-weapp01-esa-control-systems.md) | M. Pecchioli, "Old and New Generation Control Systems at ESA", ICALEPCS 2019 (WEAPP01) | jacow.org | 2026-11-12 17:48:01 |
+| [2014s12b-schutz](../library/2014s12b-schutz.md) | J. Schütz, "EGOS User Desktop: A Generic User Interface Framework for Ground Segment Software", GSAW 2014 | gsaw.org | 2026-11-12 17:52:54 |
+| [fop-vol01](../library/fop-vol01.md) | INTEGRAL Flight Operations Plan, Volume 1 Mission Management, issue 2.0 (2003) | sigma2.irap.omp.eu | 2026-11-12 17:52:52 |
+| [cheops-ground-segment-systems-and-automation-for-mission-and-science-o](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) | Heitzmann et al., "CHEOPS Ground Segment: Systems and Automation for Mission and Science Operations" (arXiv:2505.08352) | arxiv.org | 2026-11-12 17:52:36 |
+| [spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md) | Unal et al., "ESTRACK Deep Space Cross Support using CCSDS Service Management", SpaceOps 2025 #16 | publications.spaceops.org | 2026-11-12 17:52:56 |
 
 [^so25-abs]: [Reggestad and Widegård, "Towards EGS-CC at ESOC", SpaceOps 2025 #477](../library/spaceops2025-egs-cc.md), abstract and §1 Introduction, PDF pp. 1-2.
 [^so25-acr]: [SpaceOps 2025 #477](../library/spaceops2025-egs-cc.md), Acronyms/Abbreviations, PDF pp. 1-2. The list prints "Tailoring Data Model (TMD)", while the body uses TDM.
@@ -1013,3 +1252,39 @@ of the copy and the time of copy. The sources of this page were copied on 5 Nove
 [^crf-juice]: [SpaceOps 2025 #141](../library/spaceops2025-0141.md), §3 JUICE CRF editor case, PDF pp. 5-6.
 [^crf-sum]: [SpaceOps 2025 #141](../library/spaceops2025-0141.md), §4 Summary of the Commanding Request Framework Functions, PDF p. 6.
 [^mib25]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `vdf`, `pcf`, `plf`, `vpd`, `pid`, `ccf`, `cpc`, `cdf`, `csf`, `css`, `cvs`, `cvp` and `synthetic`, queried by this wiki on 2026-11-12.
+[^gsaw03-int]: [GSAW 2003](../library/gsaw2003-peccia.md), slide "An S2K based MCS in a GS Context" (INTEGRAL), PDF p. 13.
+[^int-title]: [INTEGRAL Flight Operations Plan, Vol. 1 Mission Management, INT-MOC-FOP-FOP-1001-TOS-OGI, issue 2 revision 0 (21 February 2003)](../library/fop-vol01.md), title page and change record sheet, PDF pp. 1–2.
+[^int-gs]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 1 §1.1.4 Ground Segment Set-Up (elements of the MOC), PDF pp. 10–11.
+[^int-team]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 2 §1.2.3 MOC Team Structure, PDF p. 19.
+[^int-org]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 2 Figure 3 ESOC Organisation, PDF p. 20.
+[^int-cr]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 4 change record sheet (issue 1.1: "No OBSMS maintenance contract foreseen"), PDF p. 29.
+[^int-cc]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 4 §1.4.3.1.1 MOC, PDF p. 33.
+[^int-tools]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 4 §1.4.3.2.3 to §1.4.3.2.6 (OBSMS, simulator, mission control system, flight dynamics system), PDF p. 36.
+[^eud-what]: [J. Schütz, "EGOS User Desktop: A Generic User Interface Framework for Ground Segment Software", GSAW 2014 (26 February 2014)](../library/2014s12b-schutz.md), slide 2 "What is EGOS User Desktop (EUD)", PDF p. 2.
+[^eud-bg]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slide 3 "Background", PDF p. 3.
+[^eud-ov]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slides 4 to 7 "EUD Overview" and "EUD Features", PDF pp. 4–7.
+[^eud-arch]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slide 10 "Architecture", PDF p. 10.
+[^eud-stat]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slides 11 to 14 "Current Status" and "EUD Telemetry Desktop (EUD-TMD) in operation (GAIA)", PDF pp. 11–14.
+[^eud-odde]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slide 17 "Offline Display Development Env.", PDF p. 17.
+[^eud-ben]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slide 18 "Benefits", PDF p. 18.
+[^eud-fut]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slides 19 "Future Plans" and 21 "Lessons Learned", PDF pp. 19 and 21.
+[^ical-abs]: [M. Pecchioli, "Old and New Generation Control Systems at ESA", ICALEPCS 2019, paper WEAPP01](../library/icalepcs2019-weapp01-esa-control-systems.md), Abstract, PDF p. 1.
+[^ical-gen]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "Infrastructure Evolution" (the four generations), PDF p. 3.
+[^ical-ctx]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Context" (preparation with OPEN, routine operations), PDF pp. 4–5.
+[^ical-sys]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Design" (modularity, deployment, scalability, adaptability/extensibility), PDF pp. 5–6.
+[^ical-perf]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Design" (technology, maintainability), PDF pp. 6–7.
+[^ch-intro]: [Heitzmann et al., "CHEOPS Ground Segment: Systems and Automation for Mission and Science Operations", arXiv:2505.08352 (13 May 2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), Abstract and §1 Introduction, PDF p. 1.
+[^ch-fds]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §2.2 Predicted orbit and G/S contacts from MOC (Focus, Autofocus, CEIT G/S Planner), PDF p. 3.
+[^ch-rcp]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §2.3 Activity Plan creation at SOC (MPS client on the "Eclipse Rich Client Platform"), PDF p. 4.
+[^ch-auto]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §3 Activity Plan processing (GFTS, Flyplan, monitorCHEOPS) and Figure 3, PDF p. 5.
+[^ch-mcs]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §3.2 TC Conversion and Pass Assignment (SCOS-2000 version 5.4.2, MIB, CommandBuilder, SSF file, Python module library), PDF p. 6.
+[^ch-pass]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §4 CHEOPS passes (PARC on MySQL), PDF p. 6.
+[^ch-post]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §4.3 Post-pass activities (reports, RGTgenerator, HKTMreporter), PDF p. 8.
+[^ch-must]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §6.1 Parameter Archive and Plotting tool, PDF p. 12.
+[^ch-sim]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §6.2 CHEOPS Spacecraft Simulator, PDF p. 12.
+[^ch-concl]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §7 Conclusions, PDF p. 12.
+[^ch-hw]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), Appendix A.1 Mission Operations Center, Figures 8 and 9, PDF p. 13.
+[^estrack-acr]: [Unal et al., "ESTRACK Deep Space Cross Support using CCSDS Service Management", SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), Acronyms/Abbreviations and reference [2] (CCSDS 902.1-B-1), PDF pp. 2 and 9.
+[^estrack-eps]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §2 Inside the box: ESTRACK Scheduling Office tools and processes, and §3.2 Interfacing with users (REST and file-based exchange), PDF pp. 2 and 4.
+[^estrack-fmt]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §3.3 Interfacing with provider (XML files, XSL shielding) and §4.2 Format, PDF pp. 5–6.
+[^estrack-exec]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §4.5 Support execution, PDF p. 7.

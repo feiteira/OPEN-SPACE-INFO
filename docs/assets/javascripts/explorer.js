@@ -12,7 +12,9 @@
   var MISSIONS = [
     { key: "solo", label: "Solar Orbiter — MIB 2025-09-16" },
     { key: "solo2020", label: "Solar Orbiter — MIB 2020-04-16" },
-    { key: "swa", label: "Solar Orbiter SWA instrument DB" }
+    { key: "swa", label: "Solar Orbiter SWA instrument DB (2021 ASCII set)" },
+    { key: "swa65", label: "Solar Orbiter SWA instrument DB v6.5.0 (2025)" },
+    { key: "stix", label: "Solar Orbiter STIX instrument DB v2.26.38" }
   ];
   var cache = {};
   var FIELDS = null; // field documentation, loaded from data/fields.json when present
@@ -298,7 +300,9 @@
       if (!d) return notFound("command", name);
       var r = d.ccf;
       var h = hero("Telecommand", name, val(meta, "ccf", r, "CCF_DESCR"), [
-        "PUS TC[" + val(meta, "ccf", r, "CCF_TYPE") + "," + val(meta, "ccf", r, "CCF_STYPE") + "]", "APID " + val(meta, "ccf", r, "CCF_APID"),
+        val(meta, "ccf", r, "CCF_TYPE") !== "" ? "PUS TC[" + val(meta, "ccf", r, "CCF_TYPE") + "," + val(meta, "ccf", r, "CCF_STYPE") + "]" : "no PUS type/subtype (non-PUS command)",
+        val(meta, "ccf", r, "CCF_PKTID") ? "packet header " + val(meta, "ccf", r, "CCF_PKTID") : "",
+        val(meta, "ccf", r, "CCF_APID") !== "" ? "APID " + val(meta, "ccf", r, "CCF_APID") : "",
         val(meta, "ccf", r, "CCF_NPARS") + " parameters", val(meta, "ccf", r, "CCF_CRITICAL") === "Y" ? "critical" : "",
         val(meta, "ccf", r, "CCF_SUBSYS") ? "subsystem " + val(meta, "ccf", r, "CCF_SUBSYS") : ""]);
       h += section("Definition", fieldTable(meta, "ccf", r, { render: { CCF_APID: function (v) { return link(m, "apid", v); } } }), "ccf");
@@ -390,7 +394,7 @@
     rows.slice(0, limit).forEach(function (r) {
       if (kind === "params") h += "<tr><td>" + link(m, "param", r[0]) + "</td><td>" + esc(r[1]) + "</td><td>" + esc(r[2]) + "</td><td>" + esc(typeLabel(r[3], r[4])) + "</td><td>" + esc(r[5]) + "</td></tr>";
       else if (kind === "packets") h += "<tr><td>" + link(m, "packet", r[0]) + "</td><td>[" + esc(r[1]) + "," + esc(r[2]) + "]</td><td>" + link(m, "apid", r[3]) + "</td><td>" + esc(r[4]) + " / " + esc(r[5]) + "</td><td>" + esc(r[6]) + "</td><td>" + esc(r[8]) + (r[9] === "V" ? " (var)" : "") + "</td></tr>";
-      else if (kind === "commands") h += "<tr><td>" + link(m, "command", r[0]) + "</td><td>" + esc(r[1]) + "</td><td>[" + esc(r[2]) + "," + esc(r[3]) + "]</td><td>" + link(m, "apid", r[4]) + "</td><td>" + esc(r[5]) + "</td></tr>";
+      else if (kind === "commands") h += "<tr><td>" + link(m, "command", r[0]) + "</td><td>" + esc(r[1]) + "</td><td>" + (r[2] !== "" ? "[" + esc(r[2]) + "," + esc(r[3]) + "]" : "non-PUS") + "</td><td>" + link(m, "apid", r[4]) + "</td><td>" + esc(r[5]) + "</td></tr>";
       else if (kind === "sequences") h += "<tr><td>" + link(m, "sequence", r[0]) + "</td><td>" + esc(r[1]) + "</td><td>" + esc(r[3]) + "</td><td>" + esc(r[2]) + "</td></tr>";
       else if (kind === "calib") { var t = r[0].split(":")[0], id = r[0].split(":").slice(1).join(":"); h += "<tr><td>" + link(m, "calib/" + t, id, r[0]) + "</td><td>" + esc(r[1]) + "</td><td>" + esc(r[2]) + "</td></tr>"; }
     });
@@ -497,7 +501,7 @@
         view.innerHTML = h; postRender(m, mt, view);
         var t = view.querySelector(".mx-hero h2");
         document.title = (t ? t.textContent + " · " : "") + "MIB Explorer · OPEN-SPACE-INFO";
-        if (kind && kind !== "search") window.scrollTo({ top: ROOT.getBoundingClientRect().top + window.scrollY - 80 });
+        if (kind && kind !== "search") ROOT.scrollIntoView({ block: "start" });
       });
     }).catch(function (e) { view.innerHTML = '<div class="mx-empty">Could not load data: ' + esc(e.message) + "</div>"; });
   }

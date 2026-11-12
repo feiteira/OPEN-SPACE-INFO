@@ -67,12 +67,12 @@ It is useful as evidence of how commercial EGSE products reuse the SCOS-2000 MIB
 | Label | Document | Title | Issue / date | Kind |
 |---|---|---|---|---|
 |  | [catalogue](../references/index.md#ref-scos2000-mib-icd-6-9-extended) | SCOS2000 MIB ICD 6.9 (extended) | 6.9 | mentioned |
-|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) | ECSS-E-ST-50-01C (packet and frame coding and flow control) |  | mentioned |
+|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) · [library](ecss-e-st-50-01c31july2008.md) | ECSS-E-ST-50-01C (packet and frame coding and flow control) |  | mentioned |
 |  | [ECSS-E-ST-50-03C](../references/index.md#ref-ecss-e-st-50-03c) · [library](ecss-e-st-50-03c-31july2008.md) | ECSS-E-ST-50-03C (packet and frame coding and flow control) |  | mentioned |
-|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) | ECSS-E-ST-50-04C (packet and frame coding and flow control) |  | mentioned |
-|  | [ESA PSS-04-106](../references/index.md#ref-esa-pss-04-106) | ESA PSS-04-106 |  | mentioned |
-|  | [ESA PSS-04-107](../references/index.md#ref-esa-pss-04-107) | ESA PSS-04-107 |  | mentioned |
-|  | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) | ESA PSS-04-151 |  | mentioned |
+|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) · [library](ecss-e-st-50-04c31july2008.md) | ECSS-E-ST-50-04C (packet and frame coding and flow control) |  | mentioned |
+|  | [ESA PSS-04-106](../references/index.md#ref-esa-pss-04-106) · [library](esa-pss-04-106-issue1-january1988.md) | ESA PSS-04-106 |  | mentioned |
+|  | [ESA PSS-04-107](../references/index.md#ref-esa-pss-04-107) · [library](esa-pss-04-107-issue2-april1992.md) | ESA PSS-04-107 |  | mentioned |
+|  | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) · [library](esa-pss-04-151-issue1-september1992.md) | ESA PSS-04-151 |  | mentioned |
 |  | [CCSDS 102.0-B-5](../references/index.md#ref-ccsds-102-0-b-5) | CCSDS 102.0-B-5 |  | mentioned |
 |  | [CCSDS 201.0-B-3](../references/index.md#ref-ccsds-201-0-b-3) | CCSDS 201.0-B-3 |  | mentioned |
 |  | [CCSDS 202.0-B-3](../references/index.md#ref-ccsds-202-0-b-3) | CCSDS 202.0-B-3 |  | mentioned |

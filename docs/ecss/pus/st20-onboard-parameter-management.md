@@ -614,6 +614,7 @@ appear in `asw_sw_para`. The 2020 release has 85,430 rows.[^solo][^solo2020]
 * [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md) and
   [The Solar Orbiter MIB](../../missions/solar-orbiter/mib.md).
 * [PUS-A vs PUS-C](pus-a-vs-pus-c.md) for the service-number collisions.
+* [Solar Orbiter instrument interfaces](../../missions/solar-orbiter/instrument-interfaces.md#asynchronous-reports-events-and-the-s20-contribution), with SWA's contribution to the inter-instrument data distributed by service 20.
 * Terms: [glossary](../../glossary.md).
 
 [^c-62011]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §6.20.1.1, PDF p. 352.

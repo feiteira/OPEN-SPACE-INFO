@@ -1,8 +1,8 @@
 ---
 title: Space Packet Protocol (CCSDS 133.0-B-2)
-description: The CCSDS Space Packet in full detail, covering the 6-octet primary header field by field, the secondary header, idle packets, services, procedures, managed parameters, how PUS builds on it, and how Solar Orbiter uses it.
+description: The CCSDS Space Packet in full detail, covering the 6-octet primary header field by field, the secondary header, idle packets, services, procedures, managed parameters, the design rationale of the Space Packet Protocols Green Book and the choice against the Encapsulation Packet, how PUS builds on it, and how Solar Orbiter uses it.
 tags: [CCSDS, Space Packet, Network layer, Application layer, PUS, Solar Orbiter]
-sources: [ccsds-133-0-133x0b2e2, ccsds-133-1-133x1b3e1, ccsds-130-2-130x2g3, ccsds-130-0-130x0g4e1, ccsds-132-0-132x0b3, ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-rev1-dir1, ecss-e-hb-50a-15november2008, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii]
+sources: [ccsds-133-0-133x0b2e2, ccsds-130-3-130x3g1, ccsds-732-0-732x0b5ec1, ccsds-133-1-133x1b3e1, ccsds-130-2-130x2g3, ccsds-130-0-130x0g4e1, ccsds-132-0-132x0b3, ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-rev1-dir1, ecss-e-hb-50a-15november2008, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, swa-idb-ascii]
 ---
 
 # Space Packet Protocol (CCSDS 133.0-B-2)
@@ -16,7 +16,10 @@ packet starts with a fixed 6-octet header that names the data stream (the
 and gives the length. Everything after that header belongs to the user application.[^spp-arch][^spp-features]
 The protocol is deliberately small. Its rationale is that a single, common data structure for
 variable-length application data can be created, stored on board, sent over one or more space
-links and handled in ground systems.[^spp-rationale]
+links and handled in ground systems.[^spp-rationale] The CCSDS Green Book *Space Packet Protocols*
+(130.3-G-1, April 2023) explains the concept from the users' side, together with the
+[Encapsulation Packet Protocol](encapsulation.md), and gives guidance on choosing between them; it is
+informative, and the Blue Books prevail where they differ ([Green Book rationale](#why-a-space-packet-the-green-book-rationale)).[^g5-purpose]
 
 This page follows CCSDS 133.0-B-2 (June 2020, with Editorial Changes 1 and 2), the issue held in
 the [library](../library/ccsds-133-0-133x0b2e2.md).[^spp-doc] For the wider picture, see the
@@ -35,6 +38,7 @@ the [library](../library/ccsds-133-0-133x0b2e2.md).[^spp-doc] For the wider pict
     | Sequence count | 14 bits, per APID, modulo 16 384[^spp-psc] |
     | Services | Packet Service, Octet String Service[^spp-svc-summary] |
     | Security | None in SPP; use SDLS or the Bundle Security Protocol[^spp-sec] |
+    | Concept and rationale | CCSDS 130.3-G-1 Green Book, April 2023[^g5-purpose] |
 
 ## Where the protocol sits
 
@@ -68,10 +72,20 @@ flowchart TB
 
 *Redrawn after CCSDS 133.0-B-2 figure 2-1.*[^spp-arch]
 
+The Green Book draws the same stack with Bundle Protocol, TCP/UDP over IP, LTP and IP over CCSDS
+(IPoC) as the upper layers that use the shim, and notes that the synchronization and coding sublayer
+is not shown. Its definitions stress that neither SPP nor EPP is a Network Layer protocol.[^g5-arch][^g5-defs]
+Asked whether the packet protocols can coexist with Internet technologies and Delay Tolerant Networking
+(DTN), it answers "a resounding yes". Telemetry and telecommand are Application Layer activities that
+may use Space Packets; DTN or Internet protocols may carry those packets across subnetworks where they
+give the required end-to-end performance; and either packet protocol may sit as the shim under DTN,
+CFDP, LTP or IP. IP datagrams themselves travel one-for-one in Encapsulation Packets, using the Internet Protocol
+Extension convention of IPoC.[^g5-faq1]
+
 SPP **defines no path, network or routing function** and has no networking capability of its
 own. Every forwarding decision depends on the subnetworks underneath and on the mission's own
 meaning for each APID.[^spp-arch] Over a space link the packets ride on the Packet Services of the
-Space Data Link Protocols ([TM](tm-sdlp.md), [TC](tc-sdlp.md), [AOS](aos.md), Proximity-1 and
+Space Data Link Protocols ([TM](tm-sdlp.md), [TC](tc-sdlp.md), [AOS](aos.md), [Proximity-1](proximity-1.md) and
 [USLP](uslp.md)) or on the Bundle Protocol. SPP can also run between on-board instruments and data
 stores over the SOIS Packet Service, over local message buses, and over terrestrial TCP/IP
 sockets.[^spp-lower]
@@ -87,7 +101,12 @@ systems that join them. The only help SPP gives for routing is the APID.[^spp-md
 The 2023 overview makes the same point from the network side. At each relay, some mechanism
 outside SPP looks at the APID and forwards the packet according to its instructions. There is no
 end-point address and no interoperable forwarding mechanism. On the ground, Space Packets are
-usually moved with a [Space Link Extension](sle/index.md) service.[^g4-fwd]
+usually moved with a [Space Link Extension](sle/index.md) service.[^g4-fwd] The Green Book adds two
+points. The behaviour of intermediate nodes is implementation-specific and outside the scope of the
+report, and if a packet has several destinations, SPP entities at the source or at intermediate
+systems may multicast it.[^g5-feat] Store-and-forward on board is also a management action within the
+managed data path: an instrument that produces data out of contact need not know whether its packets
+go to the ground at once or wait in an on-board store.[^g5-example]
 
 ### APID naming domains
 
@@ -96,7 +115,11 @@ or one element of a constellation. Each project allocates the APIDs in its own d
 with several processors, a "fractionated" spacecraft or several spacecraft must either share out
 the one APID domain or extend it with mission-specific fields in the packet secondary
 header.[^spp-addr][^spp-arch] Missions may use the APID to mean the source, the destination or
-the type of a packet stream. CCSDS leaves that choice to the mission.[^spp-arch]
+the type of a packet stream. CCSDS leaves that choice to the mission.[^spp-arch] The Green Book adds
+that frame-level mechanisms such as virtual channel multiplexing over a master channel can also help,
+that CCSDS defines no standard APID domain naming service, and that it sees the endpoint identifiers of
+DTN, which are URIs naming source and destination, as the better long-term approach to enterprise-wide
+addressing.[^g5-arch][^g5-faq3]
 
 ## Service characteristics
 
@@ -122,6 +145,95 @@ data. It starts the transfer through the subnetworks. It multiplexes and demulti
 managed data paths onto one subnetwork connection. It explicitly does **not** set up or release
 connections, segment SDUs, retransmit, control flow, or provide quality-of-service
 features.[^spp-functions]
+
+## Why a Space Packet? The Green Book rationale
+
+The Green Book 130.3-G-1 was written to give an introductory overview of SPP and EPP, to show end users
+and infrastructure developers how to apply them on board and on the ground, and to explain the
+distinctions between the two so that implementers choose correctly. It is not part of either
+Recommended Standard.[^g5-purpose] It describes the Space Packet as a self-delimited carrier whose APID
+identifies the content, source or user of the data within an enterprise; parameters such as time, and
+the format of the contents, are identified in the mission context through the APID.[^g5-arch] Packets
+are variable in length, or fixed if the user wishes, and are sent at variable intervals; apart from the
+primary header the content is entirely under the control of the user application.[^g5-feat]
+
+### Independence and flexibility
+
+The report names two benefits. **Independence:** before the Space Packet existed, many on-board
+activities had to be synchronized with the generation of telemetry frames, and instruments on the same
+spacecraft had to coordinate their telemetry rates and timing. The packet hides those mechanisms, so
+instrument developers can design their applications almost independently of the transfer mechanism and
+of the other instruments, and applications can be reused between projects that use different
+subnetwork technologies, which the report expects to reduce development cost. **Flexibility:** within
+the resources that project management allocates, an application can send any kind of data (commands,
+operation plans, housekeeping, science, memory loads and dumps) at the rate and time it chooses, and
+images of different sizes can be compressed freely.[^g5-benefits]
+
+### Unconfirmed, incomplete, one-way
+
+The protocol confirms nothing, does not retransmit and may not preserve order. A user may add an error
+detection code to the application data to check that the packet survived transport. Where confirmation,
+retransmission or ordering is needed, the applications must provide it; a common practice is for the
+destination to send a confirmation back over a managed data path in the opposite direction when it has
+received important data such as commands. CCSDS has no standard for doing this with SPP, but its LTP and
+CFDP protocols give reliable transfer above it. Simpler missions may rely on operator retransmission, on
+the data link layer, or on sending the same data several times.[^g5-features] Each managed data path is
+one-way, so commands and telemetry use separate paths; the report argues that this costs little, because
+command and telemetry flows are rarely symmetric and far more applications receive telemetry from a
+spacecraft than send it commands.[^g5-features]
+
+!!! warning "Inference"
+    The [PUS](../ecss/pus/index.md) fills exactly these gaps on ESA missions: the packet error control
+    field is the optional error-detection code inside the application data, and the
+    [ST[01] verification reports](../ecss/pus/st01-request-verification.md) are the confirmations sent
+    back on a telemetry path, matched to the request by a copy of its packet ID and sequence
+    control.[^pusc-tcud][^pusc-st01] The Green Book does not mention PUS; the mapping is this wiki's.
+
+The report's answers on reliability and timing complete the picture. Neither SPP nor EPP can recover a
+missing packet; packets become reliable point to point when carried in frames protected by
+[COP-1](cop-1.md) (telecommand frames) or COP-P (Proximity-1 frames), or end to end with
+[CFDP](cfdp.md), LTP, TCP over IPoC, or the application itself. Neither protocol guarantees a minimum
+delay, but real-time data can be sent on high-priority Virtual Channels, the SPP or EPP entities may
+order packets according to the quality of service of each managed data path, and isochronous data such
+as voice or launch-vehicle telemetry can use the Insert Zone of [AOS](aos.md#insert-service) or
+[USLP](uslp.md).[^g5-faq2]
+
+### A nominal example
+
+The report illustrates the protocol with one instrument and two ground systems:[^g5-example]
+
+```mermaid
+flowchart LR
+  subgraph SC["Spacecraft: instrument"]
+    IP["Image pre-processing"]
+    MC["Monitor and control"]
+  end
+  subgraph CS["Ground: control system"]
+    IO["Instrument operations"]
+  end
+  subgraph AS["Ground: analysis system"]
+    IA["Image analysis"]
+  end
+  IP -- "Managed data path 1: images<br/>(segmented over several packets)" --> IA
+  IO -- "Managed data path 2: commands<br/>and observation plans" --> MC
+  MC -- "Managed data path 3: status<br/>(and command acknowledgements)" --> IO
+```
+
+* **Path 1** carries pre-processed, possibly compressed images. An image is usually larger than one
+  Space Packet, so the application segments it and makes each segment fit a packet.
+* **Path 2** carries one command per packet for real-time control, or one observation plan per packet
+  when the instrument works autonomously.
+* **Path 3** carries periodic status, one set per packet; it can also return an acknowledgement for
+  each command received on path 2 so that the control system can resend lost ones.
+* Out of contact, images and status wait in an on-board store; store-and-forward is a management
+  action within the managed data path, and the instrument does not need to know about it.[^g5-example]
+
+!!! warning "Inference"
+    In Solar Orbiter terms, path 2 corresponds to the telecommand APIDs (packet category 12), path 3
+    to housekeeping and the service-1 verification reports (categories 4 and 1), and path 1 to private
+    science or file transfer (categories 12 and 10) described in the
+    [case study below](#solar-orbiter-case-study). The Green Book example is generic and does not refer
+    to any mission.[^solo-apid]
 
 ## The two services
 
@@ -252,7 +364,12 @@ application data.[^spp-psc]
 | `0b10` | Last segment |
 | `0b11` | Unsegmented user data |
 
-PUS-C always uses `0b11`, so every PUS packet stands alone.[^pusc-74] PUS-A calls the TM bits
+The Green Book gives the main use case: an application data unit too large for one packet, such as
+an image or a memory load, is cut into segments, the flags mark the first and last segment of the group
+so that the destination can rebuild it, and a segment number, if needed, can travel in the secondary
+header. It quotes the maximum Space Packet size as 65 536 octets, which is the largest Packet Data
+Field; the largest whole packet is 65 542 octets.[^g5-faq3][^spp-pdu] PUS-C always uses `0b11`, so every
+PUS packet stands alone.[^pusc-74] PUS-A calls the TM bits
 "grouping flags", for use when several packets from one application process are sent as a group.
 All standard PUS-A packets are stand-alone.[^pusa-tm]
 
@@ -404,7 +521,10 @@ How a packet sits inside Transfer Frames depends on the data link protocol:
 Packets of different versions can share one Virtual Channel. The service provider multiplexes
 them into one packet stream and delivers each by its PVN.[^g2-pvn][^tm-extract] The TM protocol's
 managed parameters for packet transfer are the valid PVNs, the maximum packet length, and whether
-incomplete packets must be delivered to the user.[^tm-mp]
+incomplete packets must be delivered to the user.[^tm-mp] Issue 5 of the AOS protocol (October 2025)
+widens its First Header Pointer to 16 bits for frames of up to 65 536 octets; even then a maximum-length
+Space Packet of 65 542 octets does not fit in a single frame and is split across at least two
+(arithmetic by this wiki).[^aos5-fhp][^spp-pdu]
 
 !!! tip "Why missions cap the packet length"
     While a long packet is being sent, other packets on the same Virtual Channel wait. PUS-C
@@ -414,6 +534,29 @@ incomplete packets must be delivered to the user.[^tm-mp]
     on-board application cannot use a long packet until all of it has arrived.[^hb-spp] Solar
     Orbiter caps TM packets at 4112 octets and TC packets at 248 octets (see
     [below](#solar-orbiter-case-study)).
+
+## Space Packet or Encapsulation Packet?
+
+Both packets can serve as the shim that carries other protocols over the
+[Space Data Link Protocols](index.md). The Green Book names efficiency as the main reason to prefer the
+Encapsulation Packet and lists what is given up:[^g5-faq4][^g5-epp]
+
+| Aspect | Space Packet (SPP) | Encapsulation Packet (EPP) |
+|---|---|---|
+| Role | Application Layer data unit *or* shim[^g5-faq1] | Shim only[^g5-faq1] |
+| Packet Version Number | `0b000`[^spp-pvn] | `0b111`[^epp-pvn] |
+| Header | 6-octet primary header, plus optional secondary header[^spp-pdu] | 1 to 8 octets, configurable[^g5-faq4] |
+| Addressing | 11-bit APID in a mission naming domain[^spp-addr] | Encapsulated Protocol Identifier from SANA registries; a SAP is a PVN, an EPI and a data link channel[^g5-epp] |
+| Ancillary data, time, APID extension | Secondary header (time code, ancillary data field)[^spp-pdf] | No header field for them[^g5-faq4] |
+| Largest content | 65 536-octet data field[^spp-pdu] | 4 294 967 287-octet encapsulated data unit[^g5-epp] |
+| Service | Preconfigured, unidirectional, asynchronous, unconfirmed, incomplete, non-sequence-preserving[^g5-common] | Unidirectional, asynchronous, unconfirmed, incomplete (gaps may be signalled), sequence-preserving[^g5-epp] |
+| Typical content | Application data such as telemetry and telecommands[^g5-faq1]; on ESA missions, PUS packets | PDUs without an authorized PVN, such as CFDP PDUs or IP datagrams[^g5-epp][^g5-faq1] |
+
+The Green Book's deployment example sends CFDP PDUs one-for-one in Encapsulation Packets over USLP, TC,
+TM, AOS or Proximity-1, with the EPI identifying CFDP so that the receiver routes each packet to its CFDP
+engine.[^g5-epp] Its FAQ also gives the EPP size as 4 294 967 287 octets and as $2^{32} - 5$; the two
+figures differ by four, and the first matches the data-unit limit in its section 3.2.[^g5-faq4][^g5-epp]
+See the [Encapsulation Packet Protocol](encapsulation.md) page for the header itself.
 
 ## Managed parameters
 
@@ -817,11 +960,15 @@ the link's Master Channel Identifier. It also places SPP in the Network Layer an
 function "routing".[^hb-spp] Issue 2 replaces this with the **managed data path** and states that
 SPP has no routing function.[^spp-mdp][^spp-arch] PUS-C (2016) still cites Issue 1. The 2024
 Rev.1 draft cites Issue 2 in its normative references and in the APID notes, although its
-introduction still names CCSDS 133.0-B-1.[^pusc-71][^pusr1-ap]
+introduction still names CCSDS 133.0-B-1.[^pusc-71][^pusr1-ap] The companion Green Book 130.3-G-1
+(April 2023) is written against Issue 2 and its EPP counterpart 133.1-B-3, and its reference list
+cites the data link protocols of 2020 and 2021, AOS still at Issue 4.[^g5-refs]
 
 ## Related pages
 
 * [CCSDS protocol stack overview](index.md) and [Encapsulation Packet Protocol](encapsulation.md)
+* [From ESA PSS to CCSDS and ECSS](../overview/history.md) (the PSS-04-106 source packet and PSS-04-107 TC packet that came before) and [Security in CCSDS space links](security.md) (packet-layer security options)
+* [Space link identifiers: SCIDs, VCIDs, APIDs and SANA](space-link-identifiers.md), [CFDP](cfdp.md) and [COP-1](cop-1.md) (reliability on top of or below the packet)
 * [TM Space Data Link Protocol](tm-sdlp.md), [TC Space Data Link Protocol](tc-sdlp.md),
   [Time code formats](time-codes.md)
 * [PUS packet structures](../ecss/pus/packets.md), [PUS-A vs PUS-C](../ecss/pus/pus-a-vs-pus-c.md)
@@ -907,3 +1054,18 @@ introduction still names CCSDS 133.0-B-1.[^pusc-71][^pusr1-ap]
 [^mib]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables tcp, pcpc, pcdf, ccf, cdf, pid, pic, plf and tpcf; this wiki's queries (see "SQL used").
 [^mib2020]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), table pcdf (header NOM_TC); this wiki's query.
 [^swa]: [Solar Orbiter SWA instrument database (ASCII)](../library/swa-idb-ascii.md), tables tcp and pcdf (header NOM_TC, Source ID fixed at hexadecimal 78); this wiki's query.
+[^g5-purpose]: [CCSDS 130.3-G-1, Space Packet Protocols, Informational Report, Issue 1 (April 2023)](../library/ccsds-130-3-130x3g1.md), §§1.1–1.3 (purpose, scope, organization), PDF pp. 8–9.
+[^g5-defs]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §1.4 Definitions, PDF p. 9.
+[^g5-refs]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §1.5 References, PDF pp. 10–11.
+[^g5-arch]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §2.1.1 SPP Architecture and figure 2-1, PDF pp. 12–14.
+[^g5-feat]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §2.1.2 SPP Protocol Features, PDF p. 14.
+[^g5-common]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §2.2 Common Features of SPP Services, PDF pp. 15–16.
+[^g5-benefits]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §2.3 Benefits of the Space Packet Protocol (independence, flexibility), PDF pp. 16–17.
+[^g5-features]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §2.4 Features of the Space Packet Protocol (unconfirmed and incomplete; unidirectional), PDF pp. 17–18.
+[^g5-example]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §2.5 Space Packet Protocol Nominal Example and figure 2-2, PDF pp. 18–20.
+[^g5-epp]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §§3.1–3.5 (Encapsulation Packet Protocol concept, features, addressing, CFDP deployment example, figures 3-1 and 3-2), PDF pp. 21–24.
+[^g5-faq1]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §4, questions on the layers of the packet protocols and on coexistence with Internet technologies and DTN, PDF p. 25.
+[^g5-faq2]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §4, questions on reliable transmission and on real-time operations, PDF pp. 25–26.
+[^g5-faq3]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §4, questions on the size of the Space Packet and on enterprise-wide APID schemes, PDF pp. 26–27.
+[^g5-faq4]: [CCSDS 130.3-G-1](../library/ccsds-130-3-130x3g1.md), §4, question on the trade-offs between Space Packets and Encapsulation Packets (and the Encapsulation Packet length), PDF p. 27.
+[^aos5-fhp]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol, Issue 5 (October 2025)](../library/ccsds-732-0-732x0b5ec1.md), Document Control (PDF p. 7) and §4.1.4.2 (16-bit First Header Pointer, PDF pp. 64–65).

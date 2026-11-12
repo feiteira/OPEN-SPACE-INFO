@@ -1,0 +1,50 @@
+{
+  "slug": "2014s12b-schutz",
+  "title": "EGOS User Desktop A Generic User Interface Framework for Ground Segment Software",
+  "short_title": "EGOS User Desktop (EUD) GUI framework (GSAW 2014)",
+  "doc_id": null,
+  "issue": null,
+  "date": "2014-02-26",
+  "organisation": "European Space Agency (ESA/ESOC); presented at GSAW 2014",
+  "authors": ["Jean Schütz"],
+  "doc_type": "Presentation",
+  "status_notes": "Slides marked 'ESA UNCLASSIFIED – For Official Use', GSAW 2014, 26/02/2014 (PDF p. 1).",
+  "summary": "A 22-slide GSAW 2014 presentation on the **EGOS User Desktop (EUD)**. EUD is ESA's Java and Eclipse RCP framework for building rich-client graphical user interfaces for ground data systems, and the basis for the new generation of GUIs at ESOC. It was in mission operations from 2013. The presentation frames EUD as part of ESA's modernisation of its ground data systems infrastructure, driven by obsolescence, removal of COTS dependencies, re-use, open-source technology, Linux/Windows independence and a harmonised look and feel.\n\nThe slides describe EUD as a pluggable integration platform. A 'Display' is an Eclipse RCP view or editor plug-in, so standard RCP views run unchanged. EUD provides 11 generic displays, among them the familiar [SCOS-2000](../scos2000/architecture.md) types AND (alphanumeric), GRD (graphic), mimic and matrix displays, scrolling parameter, XY graph, live and history message displays. It also offers an extended widget library and standard data-provision interfaces (parameter, message, scripting, system control, persistent storage and session services), connected to each back-end system through adapters.\n\nThe status slides list systems with EUD-based GUIs: SCOS-2000, SIMSAT, NIS and FARC as replacement GUIs; ARES, GSMC, FIDES, GSSC and MPSF as new developments; MATIS and SPMON ongoing; GFTS, DARC and DABYS planned. They also show screenshots of the EUD Telemetry Desktop in operation for Gaia, ARES and the Offline Display Development Environment (ODDE). The listed benefits include display definition files that work across ODDE, the MCS, SIMSAT, ARES and GSMC, and no licence cost. Future plans are Web-EUD on Eclipse RAP, more display types and use in EGS-CC. It is useful context for [ancillary systems](../scos2000/ancillary-and-egs-cc.md) and [displays](../mib/displays.md).",
+  "contents": [
+    {"section": "Slide 1", "title": "EGOS User Desktop: A Generic User Interface Framework for Ground Segment Software", "pdf_page": 1},
+    {"section": "Slide 2", "title": "What is EGOS User Desktop (EUD)", "pdf_page": 2},
+    {"section": "Slide 3", "title": "Background", "pdf_page": 3},
+    {"section": "Slide 4", "title": "EUD Overview", "pdf_page": 4},
+    {"section": "Slides 5-7", "title": "EUD Features", "pdf_page": 5},
+    {"section": "Slides 8-10", "title": "Architecture", "pdf_page": 8},
+    {"section": "Slides 11-12", "title": "Current Status", "pdf_page": 11},
+    {"section": "Slides 13-14", "title": "EUD Telemetry Desktop (EUD-TMD) in operation (GAIA)", "pdf_page": 13},
+    {"section": "Slides 15-16", "title": "ARES (Offline Mission Analysis)", "pdf_page": 15},
+    {"section": "Slide 17", "title": "Offline Display Development Env.", "pdf_page": 17},
+    {"section": "Slide 18", "title": "Benefits", "pdf_page": 18},
+    {"section": "Slides 19-20", "title": "Future Plans / Web-EUD", "pdf_page": 19},
+    {"section": "Slide 21", "title": "Lessons Learned", "pdf_page": 21},
+    {"section": "Slide 22", "title": "Thank you", "pdf_page": 22}
+  ],
+  "key_points": [
+    {"text": "EUD is a framework for rich-client GUIs and an integration platform for GUI components, aimed mainly at ground data systems. It is described as ESA's foundation for new-generation GUIs at ESOC and in mission operation since 2013.", "pdf_page": 2},
+    {"text": "The motivations for modernising ESA's ground data systems infrastructure are obsolescence of existing implementations, removing COTS dependencies and cost reduction through re-use. The objectives are open-source technology, Linux/Windows independence, shared implementations and a harmonised look and feel.", "pdf_page": 3},
+    {"text": "EUD is implemented in Java on Eclipse RCP, uses only open-source software and runs on multiple platforms.", "pdf_page": 4},
+    {"text": "The pluggable UI unit is a 'Display', technically an Eclipse RCP View or Editor plug-in. RCP-compliant views run in EUD without modification, and an extended EUD view base class can replace AbstractViewPart.", "pdf_page": 5},
+    {"text": "EUD provides 11 common displays, among them GRD, AND, MIMIC and MATRIX.", "pdf_page": 6},
+    {"text": "The architecture layers EUD generic displays (Alphanumeric, MIMIC, Graph, Scrolling Param, Matrix, XY Graph, Live and History Message) and EUD core services over interfaces such as IEudParameter, IEudMessage, IEudScriptEngine, IEudSystemControl, IPersistentStorage and ISessionManager. These are bound to back-end services through application-specific adapters, on top of Eclipse RCP, EMF, GEF, GMF and BIRT.", "pdf_page": 10},
+    {"text": "The framework was mature since 2011, and most ground system GUIs were EUD-based. It replaced the GUIs of SCOS-2000, SIMSAT, NIS and FARC, and was used for new developments ARES, GSMC, FIDES, GSSC and MPSF.", "pdf_page": 11},
+    {"text": "Ongoing EUD developments were MATIS and SPMON. GFTS, DARC and DABYS were planned.", "pdf_page": 12},
+    {"text": "The EUD Telemetry Desktop (EUD-TMD) was in operation for Gaia.", "pdf_page": 13},
+    {"text": "Display definition files are cross-compatible across ODDE, the MCS, SIMSAT, ARES and GSMC, and EUD has no licence cost.", "pdf_page": 18},
+    {"text": "Future plans: Web-EUD, running EUD in a browser via Eclipse RAP with minor code changes, more generic displays (density distribution, spectral analysis, 3D graphs) and use in more systems such as EGS-CC.", "pdf_page": 19},
+    {"text": "Lessons learned: consolidating functionality across domains took much initial effort, an agile approach was crucial, and adapters for legacy systems can be tedious.", "pdf_page": 21}
+  ],
+  "references": [
+    {"label": null, "doc_id": null, "title": "SCOS-2000 (EUD used as replacement GUI)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 11},
+    {"label": null, "doc_id": null, "title": "EGS-CC (planned EUD usage)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 19},
+    {"label": null, "doc_id": null, "title": "Eclipse RCP, EMF, GEF, GMF, BIRT and Eclipse RAP (Eclipse Foundation frameworks)", "issue": null, "date": null, "kind": "mentioned", "pdf_page": 10}
+  ],
+  "topics": ["scos2000/ancillary-and-egs-cc.md", "scos2000/architecture.md", "scos2000/operations-preparation.md", "mib/displays.md", "scos2000/index.md"],
+  "notes": "The extraction reports 23 PDF pages against 22 in the registry; there are 22 slides, and the last PDF page is empty. Slides 8-9 and 13-17 are screenshots or diagrams with no extractable text beyond titles. Slide 20 (Web-EUD) is a screenshot overlaid on part of slide 19's text. The architecture on slide 10 is reconstructed from scattered labels. Acronyms such as ARES, GSMC, FIDES, GSSC, MPSF, MATIS, SPMON, GFTS, DARC, DABYS and ODDE are not expanded on the slides (only ARES as 'Offline Mission Analysis' and ODDE as 'Offline Display Development Env.'). The GUI listing is the only mention of NIS in this deck."
+}

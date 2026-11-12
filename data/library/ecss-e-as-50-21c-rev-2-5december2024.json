@@ -1,0 +1,306 @@
+{
+  "slug": "ecss-e-as-50-21c-rev-2-5december2024",
+  "title": "Space engineering\nAdoption Notice of CCSDS 131.0-B-5, TM Synchronization and Channel Coding",
+  "short_title": "ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)",
+  "doc_id": "ECSS-E-AS-50-21C Rev. 2",
+  "issue": "First issue, Revision 2",
+  "date": "2024-12-05",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Section (prepared by the ECSS Space Communications Working Group)",
+  "authors": [
+    "ECSS Space Communications Working Group"
+  ],
+  "doc_type": "Adoption Notice",
+  "status_notes": "ECSS-E-AS-50-21C Rev. 2 of 5 December 2024 is 'First issue, Revision 2'. It follows ECSS-E-AS-50-21C (1 March 2021, first issue, which superseded ECSS-E-ST-50-01C of 31 July 2008) and ECSS-E-AS-50-21C Rev.1 (13 January 2023) (change log, p. 3). The context clause states that ECSS-E-ST-50-01C is superseded by ECSS-E-AS-50-21 (latest version) (p. 6). Whether a later revision exists is not stated in the document.",
+  "summary": "An ECSS **Adoption Notice** for telemetry synchronization and channel coding. Instead of keeping its own coding standard, ECSS makes the CCSDS Blue Book **CCSDS 131.0-B-5, TM Synchronization and Channel Coding (Issue 5, September 2023)** applicable as written, apart from a short list of amendments. It is the current ECSS replacement for the 2008 stand-alone standard ECSS-E-ST-50-01C, and page 6 repeats the ECSS mapping table from the superseded ECSS-E-ST-50-01C/-03C/-04C to the six adoption notices ECSS-E-AS-50-21 to -26 and their CCSDS base books.\n\nClause 4 (Table 4-1) holds the normative changes:\n\n* soft-decision decoding with at least **3-bit quantization** becomes mandatory for the convolutional decoder (CCSDS only recommends it);\n* the **Reed-Solomon E=8** code may only be used with **4D-8PSK trellis-coded modulation**, only with interleaving depth I=8, and it is never concatenated with a convolutional code. E=16 keeps I=1, 2, 3, 4, 5 and 8;\n* the interleaving depth is fixed on a physical channel for a mission phase (the word 'normally' is deleted).\n\nInformative Annex A lists what changed compared with ECSS-E-ST-50-01C. CCSDS 131.0-B-5 adds LDPC codes, turbo rates 1/3 and 1/6, the matching ASM patterns, a 131071-bit pseudo-randomizer for high-rate links (the 255-bit one stays for legacy use), normative frame lengths and managed parameters, USLP frames, ground-to-space use, formal service interfaces and security considerations. The old application-profile annex has no equivalent in the CCSDS book. Rev. 2 updates the notice to the CCSDS issue with the new randomizer and adds the differences that earlier revisions missed. An engineer uses this notice to see which CCSDS TM coding options an ECSS project may use.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 5
+    },
+    {
+      "section": "2",
+      "title": "Context information",
+      "pdf_page": 6
+    },
+    {
+      "section": "3",
+      "title": "Abbreviated terms",
+      "pdf_page": 7
+    },
+    {
+      "section": "4",
+      "title": "Application requirements",
+      "pdf_page": 8
+    },
+    {
+      "section": "Table 4-1",
+      "title": "Applicability table for CCSDS 131.0-B-5",
+      "pdf_page": 8
+    },
+    {
+      "section": "Annex A",
+      "title": "Differences from ECSS-E-ST-50-01C (informative)",
+      "pdf_page": 10
+    },
+    {
+      "section": "A.1",
+      "title": "General",
+      "pdf_page": 10
+    },
+    {
+      "section": "A.2",
+      "title": "Differences",
+      "pdf_page": 10
+    },
+    {
+      "section": "A.2.1",
+      "title": "Addition of LDPC codes",
+      "pdf_page": 10
+    },
+    {
+      "section": "A.2.2",
+      "title": "Addition of turbo code rates",
+      "pdf_page": 10
+    },
+    {
+      "section": "A.2.3",
+      "title": "ASM bit patterns",
+      "pdf_page": 10
+    },
+    {
+      "section": "A.2.4",
+      "title": "Pseudo-randomizer",
+      "pdf_page": 10
+    },
+    {
+      "section": "A.2.5",
+      "title": "Transfer frame lengths",
+      "pdf_page": 11
+    },
+    {
+      "section": "A.2.6",
+      "title": "USLP transfer frame",
+      "pdf_page": 11
+    },
+    {
+      "section": "A.2.7",
+      "title": "Managed parameters",
+      "pdf_page": 11
+    },
+    {
+      "section": "A.2.8",
+      "title": "Ground to space",
+      "pdf_page": 11
+    },
+    {
+      "section": "A.2.9",
+      "title": "Specification of service interfaces",
+      "pdf_page": 11
+    },
+    {
+      "section": "A.2.10",
+      "title": "Security considerations",
+      "pdf_page": 11
+    },
+    {
+      "section": "A.2.11",
+      "title": "Application profiles",
+      "pdf_page": 11
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 12
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Requirement ECSS-E-AS-50-21_1520001 makes CCSDS 131.0-B-5, TM Synchronization and Channel Coding, Issue 5 (September 2023) applicable as written with the amendments of Table 4-1.",
+      "pdf_page": 8
+    },
+    {
+      "text": "Rev. 2 updates the notice to the CCSDS issue that adds a revised pseudo-randomizer for high-data-rate links, and adds previously missed differences concerning USLP, turbo code rates and ASM bit patterns; Rev.1 (13 January 2023) had added USLP and ground-to-space support.",
+      "pdf_page": 3
+    },
+    {
+      "text": "Mapping of superseded standards: ECSS-E-ST-50-01C maps to ECSS-E-AS-50-21 (CCSDS 131.0-B-x); ECSS-E-ST-50-03C to -22 (132.0-B-x) and -23 (732.0-B-x); ECSS-E-ST-50-04C to -24 (231.0-B-x), -25 (232.0-B-x) and -26 (232.1-B-x).",
+      "pdf_page": 6
+    },
+    {
+      "text": "Clause 3.2.4 is modified: soft bit decisions with at least three-bit quantization shall be used for the decoder of the convolutional code (CCSDS says 'should ... whenever constraints permit').",
+      "pdf_page": 8
+    },
+    {
+      "text": "New requirement 4.3.1c: the Reed-Solomon code with E=8 shall not be used unless the modulation is 4D-8PSK-TCM.",
+      "pdf_page": 9
+    },
+    {
+      "text": "Clause 4.3.5.1 is modified: interleaving depth I = 1, 2, 3, 4, 5 or 8 when E=16, and I = 8 only when E=8; clause 4.3.5.2 makes the interleaving depth fixed on a Physical Channel for a Mission Phase.",
+      "pdf_page": 9
+    },
+    {
+      "text": "Clause 5.1 is modified so that concatenated codes use only the E=16 Reed-Solomon code with a convolutional code; a new NOTE states that E=8 is not concatenated with a convolutional code.",
+      "pdf_page": 9
+    },
+    {
+      "text": "CCSDS 131.0-B-5 specifies turbo rates 1/2, 1/3, 1/4 and 1/6, whereas ECSS-E-ST-50-01 had only 1/2 and 1/4; it also adds LDPC codes, which ECSS-E-ST-50-01 did not include.",
+      "pdf_page": 10
+    },
+    {
+      "text": "Section 10 of CCSDS 131.0-B-5 specifies a 131071-bit pseudo-randomizer that replaces the 255-bit randomizer of ECSS-E-ST-50-01 unless backward compatibility with legacy systems requires the latter.",
+      "pdf_page": 10
+    },
+    {
+      "text": "CCSDS 131.0-B-5 supports TM, AOS and USLP (CCSDS 732.1-B-3) frames and also ground-to-space and space-to-space links (Section 13); ECSS-E-ST-50-01 covered neither USLP nor such use.",
+      "pdf_page": 11
+    },
+    {
+      "text": "The mission configuration parameters of ECSS-E-ST-50-01 Annex G become normative managed parameters in Section 12 of CCSDS 131.0-B-5; the application profiles of ECSS-E-ST-50-01 Annex D have no equivalent (guidance is in CCSDS 131.4-M-1-S and CCSDS 130.1-G-3).",
+      "pdf_page": 11
+    }
+  ],
+  "references": [
+    {
+      "label": null,
+      "doc_id": "CCSDS 131.0-B-5",
+      "title": "TM Synchronization and Channel Coding",
+      "issue": "Issue 5",
+      "date": "September 2023",
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-AS-50-21C Rev.2",
+      "title": "Space engineering - Adoption Notice of CCSDS 131.0-B-5, TM Synchronization and Channel Coding",
+      "issue": "Rev.2",
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-AS-50-22C Rev.1",
+      "title": "Space engineering - Adoption Notice of CCSDS 132.0-B-3, TM Space Data Link Protocol",
+      "issue": "Rev.1",
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-AS-50-23C Rev.1",
+      "title": "Space engineering -Adoption Notice of CCSDS 732.0-B-4, AOS Space Data Link Protocol",
+      "issue": "Rev.1",
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-AS-50-24C Rev.1",
+      "title": "Space engineering - Adoption Notice of CCSDS 231.0-B-4, TC Synchronization and Channel Coding",
+      "issue": "Rev.1",
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-AS-50-25C Rev.1",
+      "title": "Space engineering - Adoption Notice of CCSDS 232.0-B-4, TC Space Data Link Protocol",
+      "issue": "Rev.1",
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-AS-50-26C",
+      "title": "Space engineering - Adoption Notice of CCSDS 232.1-B-2, Communications Operation Procedure-1",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50-01C",
+      "title": "Space engineering - Space data links - Telemetry synchronization and channel coding",
+      "issue": null,
+      "date": "31 July 2008",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50-03C",
+      "title": "Space engineering - Space data links - Telemetry transfer frame protocol",
+      "issue": null,
+      "date": "31 July 2008",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-ST-50-04C",
+      "title": "Space engineering - Space data links - Telecommand protocols synchronization and channel coding",
+      "issue": null,
+      "date": "31 July 2008",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 130.1-G-3",
+      "title": "TM Synchronization and Channel Coding, Summary of Concept and Rationale – Green Book",
+      "issue": "Issue 3",
+      "date": "June 2020",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 131.4-M-1-S",
+      "title": "TM Channel Coding Profiles – Silver Book",
+      "issue": "Issue 1",
+      "date": "July 2011",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 230.1-G-3",
+      "title": "TC Synchronization and Channel Coding, Summary of Concept and Rationale – Green Book",
+      "issue": "Issue 3",
+      "date": "October 2021",
+      "kind": "bibliography",
+      "pdf_page": 12
+    },
+    {
+      "label": null,
+      "doc_id": "CCSDS 732.1-B-3",
+      "title": "Unified Space Data Link Protocol – Blue Book",
+      "issue": "Issue 3",
+      "date": "June 2024",
+      "kind": "bibliography",
+      "pdf_page": 12
+    }
+  ],
+  "topics": [
+    "ccsds/tm-coding.md",
+    "ecss/e-st-50-communications.md",
+    "ecss/index.md",
+    "ccsds/uslp.md",
+    "overview/downlink.md",
+    "overview/standards-map.md",
+    "overview/history.md"
+  ],
+  "notes": "Adoption notices contain no normative-references clause; the adopted CCSDS 131.0-B-5 is listed as 'normative' because requirement ECSS-E-AS-50-21_1520001 makes it applicable (p. 8). Requirement ECSS-E-AS-50-21_1520002 carries only Table 4-1. This is the newest of the TM coding notices; the superseded ECSS-E-ST-50-01C (31 July 2008) is in the library as ecss-e-st-50-01c31july2008, and the adopted CCSDS 131.0-B-5 as ccsds-131-0-131x0b5; the library also holds the later CCSDS 131.0-B-6 (ccsds-131-0-131x0b6ec1), which this notice does not adopt. The 21C first issue (2021) and Rev.1 (2023) are not in the library. Its bibliography still lists the companion notices at their 2023 revisions (ECSS-E-AS-50-22C to -25C Rev.1) and ECSS-E-AS-50-26C. Unlike the 2023 notices, the foreword omits the sentence about the series of ECSS standards. Printed page numbers equal PDF page numbers; srcgrep shows 13 PDF pages (the last one blank) while the registry gives 12."
+}

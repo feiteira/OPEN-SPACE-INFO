@@ -573,6 +573,21 @@ displays, to the parameter archive and to external users through
 spacecraft TM it can be the correlated spacecraft event time, with a quality flag.[^ddid-common]
 The [Downlink](downlink.md) page follows that chain further.
 
+## Related pages
+
+* The command that switches this report on, byte by byte: [Worked example: building a real Solar Orbiter telecommand](worked-example-tc.md).
+* The layers used here: [TM SDLP](../ccsds/tm-sdlp.md), [Space Packet](../ccsds/space-packet.md),
+  [PUS packet structures](../ecss/pus/packets.md), [ST[03] housekeeping](../ecss/pus/st03-housekeeping.md),
+  [time codes](../ccsds/time-codes.md) and the identifiers (SCID, VCID, APID) on
+  [space link identifiers](../ccsds/space-link-identifiers.md).
+* The MIB tables: [monitoring](../mib/monitoring.md), [calibration](../mib/calibration.md),
+  [monitoring checks](../mib/monitoring-checks.md) and the tool-independent model of
+  [ECSS-E-ST-70-31C](../ecss/e-st-70-31c.md).
+* Where the source packet, frame and time packet conventions came from: [From ESA PSS to CCSDS and ECSS](history.md).
+* Other Solar Orbiter databases decoded the same way: the [STIX](../missions/solar-orbiter/stix.md) and
+  [SWA](../missions/solar-orbiter/swa.md) instrument databases, specified through the
+  [instrument interface documents](../missions/solar-orbiter/instrument-interfaces.md).
+
 ??? example "SQL used"
     Run against `solo-2025-09-16.sqlite` (release `MIB__20250916M25925PFMS001_SOL`) and, for the
     comparison, `solo-2020-04-16.sqlite`. All columns are stored as text.

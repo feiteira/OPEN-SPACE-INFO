@@ -667,6 +667,7 @@ idea reappears in Solar Orbiter (section 8.2). See [Herschel and Planck](../../m
 * [ST[12] On-board monitoring](st12-onboard-monitoring.md), [ST[19] Event-action](st19-event-action.md)
 * [ST[14] Real-time forwarding control](st14-real-time-forwarding-control.md), [ST[15] On-board storage and retrieval](st15-onboard-storage-retrieval.md)
 * [Monitoring in the MIB](../../mib/monitoring.md), [MIB data model](../../mib/data-model.md), [Solar Orbiter PUS usage](../../missions/solar-orbiter/pus-usage.md)
+* Instrument event IDs: [STIX](../../missions/solar-orbiter/stix.md#failure-codes-and-event-ids-against-the-mission-allocation) and the [SWA DPU communications ICD](../../missions/solar-orbiter/instrument-interfaces.md#asynchronous-reports-events-and-the-s20-contribution)
 * [PUS-A vs PUS-C](pus-a-vs-pus-c.md), [Glossary](../../glossary.md)
 
 [^c-6511]: [ECSS-E-ST-70-41C, Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §6.5.1.1, PDF p. 121.
@@ -720,7 +721,7 @@ idea reappears in Solar Orbiter (section 8.2). See [Herschel and Planck](../../m
 [^icd-tpcf]: [SCOS-2000 Database Import ICD 7.0](../../library/icd-7-0-final.md), §3.3.2.4.3, TPCF_SIZE, PDF pp. 95-96.
 [^bul115]: [M. Jones et al., "Checking Whether SCOS is up to SPEC", ESA Bulletin 115 (2003)](../../library/esa-bulletin-115-ch8.md), list of SCOS-2000 functions, PDF p. 2.
 [^edds-ev]: [EDDS Software User Manual, version 22](../../library/sum-v22.md), §5.2.5 PARC Requests ("Packet Ev"), PDF p. 18.
-[^solo-time]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter space/ground ICD](../../library/sol-s-astr-tn-00079-07.md), §4.2.2.1, PDF p. 26.
+[^solo-time]: [SOL.S.ASTR.TN.00079 Issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../../library/sol-s-astr-tn-00079-07.md), §4.2.2.1, PDF p. 26.
 [^solo-ad1]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §1.1 and §2.1 (AD1 = ECSS-E-70-41A, 30 January 2003), PDF pp. 11 and 13.
 [^solo-tmlen]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §4.2.1.3 (maximum data field of 4106 octets = 4096 source data + 10 data field header) and §4.2.2.1 (time code CUC, 4 octets coarse and 2 octets fine), PDF pp. 25-26.
 [^solo-tchdr]: [SOL.S.ASTR.TN.00079 Issue 7](../../library/sol-s-astr-tn-00079-07.md), §3.2.1.2-3.2.2.1 (sequence flags, packet length, TC data field header), PDF pp. 16-17.

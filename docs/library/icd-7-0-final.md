@@ -44,7 +44,7 @@ Appendix A lists every supported PTC/PFC pair, including Unix time (9,30), and t
 - S2K-6884 lists reserved parameter names, S2K-8572 and S2K-8778 forbid PCF_CORR/CPC_CORR='Y' for relative-time parameters, and S2K-7750 adds the future VPD_FIXREP value '-1'. *(PDF p. 262)*
 
 
-## Cited by these wiki pages (78)
+## Cited by these wiki pages (86)
 
 - [CCSDS: overview of the protocol stack](../ccsds/index.md)
 - [COP-1: FOP-1, FARM-1 and the CLCW (CCSDS 232.1-B-2)](../ccsds/cop-1.md)
@@ -57,10 +57,14 @@ Appendix A lists every supported PTC/PFC pair, including Unix time (9,30), and t
 - [ECSS-E-ST-50C communications and the CCSDS adoption notices](../ecss/e-st-50-communications.md)
 - [ECSS-E-ST-70-11C: space segment operability](../ecss/e-st-70-11c.md)
 - [ECSS-E-ST-70-31C: monitoring and control data definition](../ecss/e-st-70-31c.md)
+- [ECSS-E-ST-70-32C: PLUTO test and operations procedure language](../ecss/e-st-70-32c.md)
+- [ECSS-E-ST-70C: ground systems and operations](../ecss/e-st-70c.md)
 - [ECSS: the European space standards system](../ecss/index.md)
 - [EDDS request and data formats](../scos2000/edds-formats.md)
 - [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../ccsds/encapsulation.md)
+- [From ESA PSS to CCSDS and ECSS: how the packet standards evolved](../overview/history.md)
 - [Herschel and Planck](../missions/herschel-planck.md)
+- [Herschel/Planck interface documents: packets, ground links and the CCS](../scos2000/herschel-planck-interfaces.md)
 - [Herschel/Planck: SCOS-2000 in a science mission ground segment](../scos2000/herschel-planck-ground.md)
 - [History of the Database Import ICD (issues 5.1 to 7.2)](../mib/icd-history.md)
 - [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md)
@@ -75,6 +79,7 @@ Appendix A lists every supported PTC/PFC pair, including Unix time (9,30), and t
 - [Monitoring checks: limits and out-of-limits](../mib/monitoring-checks.md)
 - [Monitoring in the MIB: parameters and packets](../mib/monitoring.md)
 - [NCTRS, NIS and the ground station interface](../scos2000/nctrs-nis.md)
+- [Operations preparation: databases, procedures and tools](../scos2000/operations-preparation.md)
 - [Other missions and SCOS-2000 users](../missions/other-missions.md)
 - [PUS message type catalogue](../ecss/pus/message-types.md)
 - [PUS packet structures: TC and TM headers](../ecss/pus/packets.md)
@@ -106,10 +111,13 @@ Appendix A lists every supported PTC/PFC pair, including Unix time (9,30), and t
 - [ST[20] On-board parameter management](../ecss/pus/st20-onboard-parameter-management.md)
 - [ST[22] Position-based scheduling](../ecss/pus/st22-position-based-scheduling.md)
 - [Solar Orbiter](../missions/solar-orbiter/index.md)
+- [Solar Orbiter STIX instrument database](../missions/solar-orbiter/stix.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
+- [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](../missions/solar-orbiter/instrument-interfaces.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Space Link Extension (SLE): concept and architecture](../ccsds/sle/index.md)
 - [Space Packet Protocol (CCSDS 133.0-B-2)](../ccsds/space-packet.md)
+- [Space link identifiers: SCIDs, VCIDs, APIDs and SANA](../ccsds/space-link-identifiers.md)
 - [Synthetic parameters and the OL language](../mib/synthetic-parameters.md)
 - [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../ccsds/tc-sdlp.md)
 - [TDRS: Telemetry Data Retrieval Service](../scos2000/tdrs.md)
@@ -227,7 +235,7 @@ Appendix A lists every supported PTC/PFC pair, including Unix time (9,30), and t
 | RD-3 | [GLO-0001](../references/index.md#ref-glo-0001) | SCOS-2000 Glossary, Definitions and Acronyms |  | reference |
 | RD-4 | [catalogue](../references/index.md#ref-deleted) | Deleted |  | reference |
 | RD-5 | [catalogue](../references/index.md#ref-deleted) | Deleted |  | reference |
-| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
+| RD-6 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) · [library](esa-pss-07-101-issue1-may1994.md) | Packet Utilisation Standard | Issue 1 May 1994 | reference |
 | RD-7 | [RO-ESC-IF-5002](../references/index.md#ref-ro-esc-if-5002) | Rosetta Space/Ground ICD | Issue 1 August 1998 | reference |
 | RD-8 | [CCSDS 301.0-B-2](../references/index.md#ref-ccsds-301-0-b-2) | CCSDS Time Code Formats | Issue 2 April 1990 | reference |
 | RD-9 | [SUM-0019](../references/index.md#ref-sum-0019) | SCOS-2000 Synthetic Parameters SUM |  | reference |

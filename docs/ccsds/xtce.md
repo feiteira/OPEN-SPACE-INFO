@@ -1,8 +1,8 @@
 ---
 title: "XTCE: XML Telemetric and Command Exchange (CCSDS 660)"
-description: XTCE 1.2 as adopted by CCSDS 660.0-B-2, covering the SpaceSystem model, parameter types, encodings, calibrators, alarms, containers and inheritance, MetaCommands, verifiers and constraints, followed by a field-level concept mapping to the SCOS-2000 MIB tables with worked examples from the Solar Orbiter MIB.
-tags: [CCSDS, XTCE, OMG, Mission database, MIB, SCOS-2000, Solar Orbiter]
-sources: [ccsds-660-0-660x0b2, ccsds-660-1-660x1g2, icd-7-0-final, ecss-e-st-70-31c, ecss-e-st-70-41c-15april2016, mib-20250916m25925pfms001-sol]
+description: XTCE 1.2 as adopted by CCSDS 660.0-B-2 and its 2026 successor OMG XTCE 1.3, covering versions, the SpaceSystem model, parameter types, encodings, calibrators, alarms, containers and inheritance, MetaCommands, verifiers and constraints, the GovSat example and XUSP profile, practical guidance from the Green Books and the NASA tutorial, what Yamcs and COSMOS implement, and a field-level concept mapping to the SCOS-2000 MIB tables with worked examples from the Solar Orbiter MIB.
+tags: [CCSDS, XTCE, OMG, Mission database, MIB, SCOS-2000, Solar Orbiter, Yamcs]
+sources: [ccsds-660-0-660x0b2, ccsds-660-1-660x1g2, ccsds-660-2-660x2g2, omg-xtce-1-3-specification, ntrs-20090017706-xtce-tutorial, yamcs-server-manual, icd-7-0-final, ecss-e-st-70-31c, ecss-e-st-70-41c-15april2016, mib-20250916m25925pfms001-sol]
 ---
 
 # XTCE: XML Telemetric and Command Exchange (CCSDS 660)
@@ -20,17 +20,24 @@ re-implementation".[^scope]
 
 XTCE is an Object Management Group (OMG) specification. CCSDS publishes the OMG text of XTCE 1.2,
 inside CCSDS front matter, as the Recommended Standard **CCSDS 660.0-B-2**.[^omg][^doc] The CCSDS
-Informational Report **660.1-G-2** explains every element.[^gb-purpose] This page summarises
-both. It then maps XTCE concepts onto the SCOS-2000 MIB tables, a mapping that the
-standards themselves do not provide. Each mapping judgement on this page is this wiki's own
-analysis.
+Informational Report **660.1-G-2** explains every element.[^gb-purpose] A second, shorter
+Informational Report, **660.2-G-2**, introduces the concepts and use cases.[^gb2-purpose] In March
+2026 the OMG published **XTCE 1.3** (formal/26-06-09) with a new schema. Its specification text
+differs from 1.2 mostly in wording, as shown [below](#what-changed-in-xtce-13).[^v13-title]
+Whether CCSDS will re-issue 660.0 for 1.3 is not stated in the available sources. This page
+summarises these documents and a NASA tutorial on XTCE 1.1 (2008 or 2009), and records which parts two
+open implementations, Yamcs and OpenC3 COSMOS, support. It then maps XTCE concepts onto the
+SCOS-2000 MIB tables, a mapping that the standards themselves do not provide. Each mapping
+judgement on this page is this wiki's own analysis.
 
 !!! info "At a glance"
     | Property | Value |
     |---|---|
     | Standard | CCSDS 660.0-B-2 (February 2020) = OMG XTCE 1.2, formal/18-10-04 (January 2019)[^doc][^omg] |
+    | Latest OMG version | XTCE 1.3, formal/26-06-09 (March 2026), schema `XTCE/20250214/SpaceSystem.xsd`[^v13-title][^v13-schema] |
     | Normative content | the W3C XML Schema `SpaceSystem.xsd` published by the OMG[^schema] |
-    | Companion | CCSDS 660.1-G-2, XTCE element description (August 2021)[^gb-purpose] |
+    | Companions | CCSDS 660.1-G-2, XTCE element description (August 2021)[^gb-purpose]; CCSDS 660.2-G-2, introduction (February 2021)[^gb2-doc] |
+    | Restricted profile | OMG XTCE US Govt Satellite Conformance Profile (XUSP, "GovSat")[^gb2-xusp] |
     | Root element | `SpaceSystem`, which can be nested to form a hierarchy[^root] |
     | Main sections | `TelemetryMetaData`, `CommandMetaData`, `ServiceSet`[^root][^service] |
     | Scope | TM/TC **definitions** (metadata), not live data transfer[^scope] |
@@ -41,22 +48,72 @@ analysis.
 
 | Document | Date | Content |
 |---|---|---|
-| CCSDS 660.0-B-1 | October 2007 | first CCSDS issue, superseded[^doc] |
+| OMG XTCE 1.0 | 2005 or 2006 (sources differ, see below) | first version, from the OMG Space Domain Task Force[^versions][^tut-history] |
+| OMG XTCE 1.1 | 2006, 2007 or 2008 (sources differ) | revised after a CCSDS review[^versions][^gb2-versions][^tut-history] |
+| CCSDS 660.0-G-1 | July 2006 | original XTCE Informational Report, superseded by 660.2-G-2[^gb2-doc] |
+| CCSDS 660.0-B-1 | October 2007 | first CCSDS Blue Book (XTCE 1.1), superseded[^doc][^tut-history] |
+| NASA tutorial (K. Rice, B. Kizzort) | March 2008 or 2009 | 90-slide tutorial for XTCE 1.1; title slide 2008, page footers 2009 (Torrance, California)[^tut-title]. The NTRS record gives the meeting as an "XTCE Training Class" in Torrance starting 23 March 2009, but a publication date of 23 March 2008[^ntrs-rec] |
+| CCSDS 660.1-G-1 | May 2012 | element description, issue 1[^gb2-refs] |
+| OMG XTCE 1.2, formal/18-10-04 | January 2019 | schema `XTCE/20180204/SpaceSystem.xsd`[^omg] |
 | CCSDS 660.0-B-2 | February 2020 | XTCE 1.2. The CCSDS cover wraps the OMG specification. The normative schema is at the OMG URL[^doc][^schema] |
+| CCSDS 660.2-G-2 | February 2021 | high-level introduction: why XTCE, scope, core concepts, schema structure, a usage scenario and the GovSat example, by the CCSDS SM&C working group (MOIMS area)[^gb2-purpose][^gb2-doc] |
 | CCSDS 660.1-G-2 | August 2021 | element-by-element explanation for XTCE 1.2, revising the version for XTCE 1.1[^gb-purpose] |
-| CCSDS 660.2-G-2 | February 2021 | high-level introduction. Referenced by 660.1-G-2 but not in this wiki's library[^gb-purpose] |
+| OMG XTCE 1.3, formal/26-06-09 | March 2026 | schema `XTCE/20250214/SpaceSystem.xsd`; see [What changed in XTCE 1.3](#what-changed-in-xtce-13)[^v13-title][^v13-schema] |
 
-XTCE 1.0 and 1.1 both appeared in 2006. Version 1.1 followed a CCSDS review. XTCE 1.2 (2019) is
-largely backward compatible with 1.1 in syntax.[^versions] Its main changes are: a new
+The sources disagree on the early dates. 660.1-G-2 says that XTCE 1.0 and 1.1 were both
+published in 2006, with 1.1 following a CCSDS review.[^versions] 660.2-G-2 dates 1.1 to
+2008.[^gb2-versions] The NASA tutorial says that 1.0 was first published in 2005 by the OMG
+Space Domain Task Force (active since 2000, with ESA, Boeing, the US Air Force SMC and Lockheed
+Martin as original submitters, later joined by NASA GSFC and Harris). It says CCSDS published 1.1
+as a Blue Book in October 2007 and dates a 1.1 overview Green Book to 2007.[^tut-history] That
+last date conflicts with the July 2006 date that 660.2-G-2 gives for 660.0-G-1.[^gb2-doc]
+660.2-G-2 also still cites draft issues of 660.0-B and of itself from 2019 as its
+references.[^gb2-refs] XTCE 1.2 (2019) is largely backward compatible with 1.1 in
+syntax.[^versions] Its main changes are: a new
 SpaceSystem namespace; normalised enumeration strings; more ways to state byte order; integer
 exponents; new rules for string length and float sizes; an updated epoch time/date type; arrays
 whose dimension sizes are set in the type; XInclude support; time association moved to container
 entries; a new numeric multi-range alarm and an inside/outside flag for alarms; more places for
-ancillary data and short descriptions; and argument instance references.[^versions]
+ancillary data and short descriptions; and argument instance references.[^versions] 660.2-G-2
+singles out the array change as the largest syntax change. It adds that many schema types were
+cleaned up to map better onto programming-language classes, and that the command-side types were
+split off from their telemetry ancestors so that argument references can be used wherever
+parameter references were allowed.[^gb2-versions][^gb2-cmd]
+
+### What changed in XTCE 1.3
+
+The XTCE 1.3 document (31 pages) has the same structure and section numbers as the OMG text
+inside 660.0-B-2. It contains no change list, and its normative content is again a separate
+schema file, now at `https://www.omg.org/spec/XTCE/20250214/SpaceSystem.xsd`.[^v13-schema] A
+word-by-word comparison of the two specification texts by this wiki finds these
+differences:[^v13-title][^v13-foreword][^v13-scope][^v13-names][^omg][^foreword][^scope][^root]
+
+| Topic | XTCE 1.2 (660.0-B-2) | XTCE 1.3 (formal/26-06-09) |
+|---|---|---|
+| Date and schema | January 2019; schema 20180204 | March 2026; schema 20250214 |
+| Copyright holders | Boeing, ESOC, Lockheed Martin (2018), OMG (2014–2018) | adds Kratos S1 (2025), NASA (2025) and the EDM Council (EDM Association, 2026); Boeing 2018–2025; OMG 2014–2026 |
+| Contributors named in the Foreword | Lockheed Martin, ESA, Boeing, NASA GSFC, USAF SMC, Harris, Raytheon, SciSys, CSC, GST | the same, with "L-3 Harris" for Harris and with Peraton and Kratos S1 added |
+| Scope: structures | "CCSDS packets and TDM frames" | CCSDS packets, TDM frames "and proprietary implementations" |
+| Scope: commands | command identification, argument specification and validation criteria | adds "header and footer parameter definitions" |
+| Scope: encodings | "parameter and command encoding" | "parameter and argument encoding types" |
+| Terms | Telemetering, Commands | Telemetering, Telecommands, and a new term **Container**: the abstract XTCE word for a partition of the bit stream, used instead of "packet" or "frame" |
+| Reserved `:` in names | "reserved for future use" as a selector for data from other SpaceSystems | reserved for implementations, to separate names from aliases in alias namespaces |
+| Wording | "command" | "telecommand" in most places |
+
+!!! warning "Inference"
+    The comparison covers only the specification texts. The 1.3 schema is not in this wiki's
+    library, so element-level schema changes in 1.3 are not stated in the available sources. The
+    rest of the specification (the SpaceSystem, TelemetryMetaData, CommandMetaData and ServiceSet
+    descriptions, Annex B style notes and the bibliography) differs only by the "telecommand"
+    wording, figure-caption punctuation and corrected typos such as "InputOutputAlgorighm",
+    "Argurments" and "overide". The new
+    use of `:` fits the alias approach that the [mapping below](#monitoring-parameters-pcf-and-calibrations)
+    suggests for `PCF_PID`.
 
 The specification lists Lockheed Martin, **ESA**, Boeing, NASA GSFC, USAF SMC, Harris, Raytheon,
-SciSys, CSC and GST as contributors.[^foreword] The European Space Operations Centre is one of
-the copyright holders.[^omg] Its bibliography cites the **SCOS-2000 Database Import ICD issue 5.0
+SciSys, CSC and GST as contributors (1.3 adds Peraton and Kratos S1).[^foreword][^v13-foreword] The
+European Space Operations Centre is one of the copyright holders of both 1.2 and 1.3.[^omg][^v13-title]
+Its bibliography, unchanged in 1.3,[^v13-biblio] cites the **SCOS-2000 Database Import ICD issue 5.0
 (June 2001)** and the **SCOS-2000 Synthetic Parameters Software User Manual**, alongside the
 CCSDS packet standards, the PUS (draft ECSS-E-70-41 and ESA PSS-07-101), CCSDS time codes and the
 IRIG-106 TMATS.[^biblio] This wiki reads that as a sign that the MIB was among the formats XTCE's
@@ -132,18 +189,33 @@ fewer name collisions (a dozen identical transponders can each live in their own
 sub-SpaceSystem), better organisation of databases with thousands of commands and tens of
 thousands of parameters, the ability to nest spacecraft inside a constellation, and a natural fit
 to systems of systems.[^root] The optional **Header** records the source, version, revision
-history, notes and classification.[^header]
+history, notes and classification.[^header] 660.2-G-2 lists its content as date, version,
+classification and validation status (validated, tested or draft), an author set, a note set and
+a history set for configuration management.[^gb2-header]
+
+660.2-G-2 treats SpaceSystems as namespaces addressed by paths such as
+`/MyMission/SubSystem1/Power/Battery1`. A SpaceSystem has no fixed meaning: it can be an
+instrument, a spacecraft bus, a whole spacecraft, a constellation or a ground station. XTCE 1.2's
+XInclude support lets each instrument and the spacecraft bus have its own SpaceSystem database,
+assembled into one large database such as the satellite database.[^gb2-ss][^gb2-ss2] Some
+organisations keep a single SpaceSystem, others use many.[^gb2-ss2]
 
 Names may contain digits, letters, underscores, hyphens and backslashes, and are **case
 sensitive**. The characters `/` (SpaceSystem path separator), `.` (member of an aggregate), `[` `]`
-(array index) and `:` (reserved) are reserved.[^root] Collections are named `…Set` when
+(array index) and `:` are reserved. In 1.2 the `:` is held for a future selector of data in
+other SpaceSystems; in 1.3 implementations may use it to separate a name from an alias
+namespace.[^root][^v13-names] Collections are named `…Set` when
 unordered and `…List` when ordered. `Meta` marks a description (a MetaCommand is a command
 description), and `Ref` marks a by-name reference.[^abbrev]
 
 ### References and instances
 
 Items refer to each other by **NameReference**, which is the item's name with an optional
-Unix-style path through the SpaceSystem hierarchy.[^nameref] During processing, a
+Unix-style path through the SpaceSystem hierarchy.[^nameref] The NASA tutorial lists absolute,
+relative and path-less forms. A path-less name is not global: it is looked up in the local
+SpaceSystem first and then up the tree. Because an XML parser does not resolve these references,
+every implementation must, and the tutorial counts them among the hardest parts of XTCE to
+implement.[^tut-nameref][^tut-hard] During processing, a
 **ParameterInstanceRef** points at a parameter's value. Instance 0 (the default) is the last
 recorded value, and negative instances go back in time. `useCalibratedValue` (default `true`)
 selects the engineering or raw value.[^instref] Conditions throughout the schema use
@@ -178,16 +250,29 @@ the host data type. Alarm checks are then applied to the result.[^gb-relation]
 
 The Green Book counts ten ParameterTypes in two groups: the scalar types and the complex Array
 and Aggregate types. Its list of scalar names repeats "String" and leaves out the two time
-types.[^gb-types]
+types.[^gb-types] 660.2-G-2 lists all ten with one-line roles (Boolean as "a special case of"
+enumerated types, Binary as a "blob" catch-all) and distinguishes two forms of ParameterType:
+one with a DataEncoding, describing a value from the spacecraft, and one without, describing a
+ground-side value whose Parameter sets `dataSource` to `local`.[^gb2-ptype] It names three common
+combinations: a FloatParameterType with an IntegerDataEncoding and (typically) a
+PolynomialCalibrator for a calibrated count, an IntegerParameterType with IntegerDataEncoding, and
+a FloatParameterType with FloatDataEncoding. For calibrations too complex for the three
+calibrator kinds it suggests a BinaryDataEncoding with a FromBinaryTransformAlgorithm.[^gb2-enc]
 
 #### Encodings
 
 * **IntegerDataEncoding**: `encoding` is one of unsigned (default), twosComplement,
   onesComplement, BCD or packedBCD. The default `sizeInBits` is 8. It can carry calibrators and a
-  `changeThreshold`.[^gb-int]
+  `changeThreshold`.[^gb-int] The specification body of both 1.2 and 1.3 also lists
+  `signMagnitude` and spells the complements "twosCompliment" and "onesCompliment".[^ptset][^v13-ptset]
+  A later Green Book table names "signedMagnitude", and the NASA tutorial warns that the 1.1
+  schema used the "Compliment" spelling.[^gb-int-table][^tut-enc] The GovSat example of
+  660.2-G-2, which the report states is valid against the 1.2 schema, uses `twosComplement`.[^gb2-tm-types][^gb2-annexa2]
+  The full list of enumeration strings is that of the schema, which is not in this wiki's library.
 * **FloatDataEncoding**: IEEE754_1985, IEEE754, MILSTD_1750A, DEC, IBM or TI. The listed sizes
   are 16, 32, 40, 48, 64, 80 and 128 bits. Not every format supports every size, and a later
-  paragraph of the Green Book mentions only 32, 64 and 128 bits.[^gb-float]
+  paragraph of the Green Book mentions only 32, 64 and 128 bits.[^gb-float] The specification
+  text names only IEEE754_1985 and MILSTD_1750A.[^ptset]
 * **StringDataEncoding**: US-ASCII, ISO-8859-1, Windows-1252, UTF-8, UTF-16 (LE/BE) or UTF-32
   (LE/BE). The size is either fixed (`SizeInBits`, optionally ended by a termination character or
   given by a leading size field, 16 bits by default) or `Variable`.[^gb-str-enc]
@@ -236,9 +321,24 @@ alarm forms are:
     In the Green Book's outside-alarm example, `WarningRange minInclusive="-5" maxInclusive="5"`
     makes **-5 and 5 themselves warnings**: the normal range is -5 < x < 5.[^gb-static] The
     "inclusive" values belong to the alarm band. This matters when mapping MIB limits (see below).
+    The NASA tutorial reads its own example the same way. With `WatchRange` −2000 to 5000 and
+    `SevereRange` −5000 to 6000, values x ≤ −2000 or x ≥ 5000 are at watch level and x ≤ −5000 or
+    x ≥ 6000 are severe. More severe ranges clip less severe ones, and the colours used for the
+    levels are not part of XTCE.[^tut-alarm] The Yamcs manual reads its own example the same way:
+    a value of 40 against a warning range of 10 to 30 raises a warning, which it calls "perhaps a bit
+    counter intuitive". It does not discuss the boundary values themselves.[^ym-alarm]
+
+For **AlarmConditions**, the NASA tutorial adds that the condition of each of up to five levels
+can be a single comparison, several conditions, a Boolean expression or a custom
+algorithm.[^tut-alarmcond]
 
 A **ValidRange** check applies only to Integer and Float types. It is separate from alarms: an
-out-of-range value is invalid rather than alarmed.[^gb-relation][^gb-validrange]
+out-of-range value is invalid rather than alarmed.[^gb-relation][^gb-validrange] On the
+telemetry side the tutorial says to ignore the attribute `validRangeAppliesToCalibrated`. For
+commands it chooses where the check happens: on the engineering value before calibration
+(`true`, the default) or on the encoded value after it (`false`), but not both.[^tut-validrange] Yamcs marks a parameter outside its
+ValidRange as invalid and skips its limit checks, while a command argument outside its range
+makes Yamcs reject the command.[^ym-int][^ym-tmproc]
 
 #### Type inheritance
 
@@ -261,6 +361,15 @@ add:[^gb-props]
 * **TimeAssociation**: the offset of the sample from a reference time parameter. In XTCE 1.2 it
   can also be set per container entry.
 * **SystemName**: a subsystem name for flat, single-SpaceSystem databases.
+
+**One type per parameter?** A ParameterType can in theory serve many Parameters. 660.2-G-2 says
+that this is "not common practice". Most databases give every Parameter its own type, so that a
+change to an alarm or calibrator cannot spread by accident to other parameters, at the price of a
+larger file. The same holds for ArgumentTypes.[^gb2-pset][^gb2-argtypes] The Yamcs manual makes the
+same observation from the other side. Many control systems do not separate a parameter from its
+type, and shared types are mostly generic ones such as `uint8` or `uint16`, or types for a family
+of identical sensors.[^ym-types] 660.2-G-2 also warns that the `dataSource` attribute, which
+defaults to `telemetered`, "is often overlooked".[^gb2-pset]
 
 ### Containers
 
@@ -337,6 +446,17 @@ A Message pairs a container with a MatchCriteria.[^messageset][^gb-msg] **Stream
 fixed-frame, variable-frame or custom streams, and which containers or services they
 carry.[^streamset][^gb-stream]
 
+In practice these two are little used. 660.2-G-2 calls MessageSet one of the lesser-used areas,
+kept for backward compatibility, which "one may want to consider" deprecated. It calls StreamSet
+under-used and, in the view of many users, too simple to configure front-end processing.[^gb2-msg]
+The NASA tutorial already listed MessageSet, StreamSet, AlgorithmSet and ServiceSet as "the
+forgotten elements". It noted that StreamSet lacks, for example, Reed-Solomon coding information,
+and advised describing packets and leaving frame processing to the front end.[^tut-forgotten]
+660.2-G-2 likewise recommends defining packets in XTCE and not the framing.[^gb2-cont] Arrays
+changed in 1.2. In 1.1 the number of dimensions sat in the ArrayParameterType and their sizes in
+the container's ArrayParameterRefEntry. In 1.2 the type can hold both, and the old entry syntax
+remains for backward compatibility.[^gb2-cont]
+
 ### Algorithms
 
 The AlgorithmSet holds processing that cannot be stated declaratively. A **MathAlgorithm** is a
@@ -357,6 +477,21 @@ into the encoding for uplink, and can be range-checked again.[^gb-cmdtypes]
 
 **ArgumentTypes** mirror the ParameterTypes but have **no alarms**. Float and integer argument
 types carry a **ValidRangeSet**.[^argtypes][^gb-argtypes]
+
+660.2-G-2 adds three practical points. Arguments are local to their MetaCommand and cannot be
+reused by another command, although commands can inherit them through BaseMetaCommand.[^gb2-tc]
+The line between argument and command parameter is not always clear to users. Some see the whole
+command "load", others only their own arguments, but XTCE has the syntax to separate the two when
+needed.[^gb2-cmd] And the **CommandContainerSet** holds the "pieces/parts" of command containers
+that several commands share.[^gb2-cmdsets] The NASA tutorial describes those shared pieces as
+"has a" building blocks, for example an optional secondary header included only when the
+secondary header flag is 1.[^tut-ccset] It also lists how a MetaCommand's own CommandContainer
+differs from a telemetry container. It can hold a FixedValueEntry, for example an opcode, and
+ArgumentRefEntries, which must cover every argument but need not follow the ArgumentList order. It
+can extend the parent command's container only through an explicit BaseContainer, its
+RestrictionCriteria are optional, and it has no `abstract` attribute of its own. The tutorial
+encourages simple "parameter == value" restrictions, because they can be processed automatically
+to tell the system which values it must supply in the named parameters.[^tut-cc][^tut-ccinh]
 
 ### MetaCommand
 
@@ -390,7 +525,222 @@ missions.[^gb-cmdpat]
 
 A **Service** is a named grouping of containers or messages, such as a "memory dump service".
 Referencing an abstract container includes all its children. The meaning of a grouping is left
-to the implementation, and services are optional.[^service][^gb-service]
+to the implementation, and services are optional.[^service][^gb-service] 660.2-G-2 explains that
+services were introduced "for the European space organizations that deal with services", that
+is, users of the [PUS](../ecss/pus/index.md), and calls the area under-used.[^gb2-services] The
+NASA tutorial's example groups the containers of each CCSDS virtual channel into one
+service.[^tut-services]
+
+## Worked example from 660.2-G-2: the GovSat fragment
+
+Annex A of 660.2-G-2 gives a short, complete XTCE 1.2 file taken from the GovSat example. It has
+one telemetry packet and one command, and the report states that the assembled fragments are
+valid against the XTCE 1.2 schema.[^gb2-annexa][^gb2-annexa2] The definitions below are real
+(from the source). The diagram is this wiki's rendering of them.
+
+The abstract container `CCSDSPacket` lists seven unsigned integer parameters whose IntegerDataEncoding
+sizes add up to the 48-bit [Space Packet](space-packet.md) primary header:[^gb2-tm-types][^gb2-tm-cont]
+
+<div class="bitfield" data-title="GovSat CCSDSPacket container: XTCE parameters of the primary header (48 bits)" data-width="16"
+     data-fields='[{"n":"CCSDSVersion","b":3,"v":"000","d":"CCSDSVersionType, 3 bits; restricted to 0 by CCSDSTelemetryPacket"},{"n":"CCSDSType","b":1,"d":"CCSDSTypeType, 1 bit; 0 for telemetry, 1 for commands"},{"n":"CCSDSSecH","b":1,"d":"CCSDSSecHType, 1 bit"},{"n":"CCSDSAPID","b":11,"d":"CCSDSAPIDType, 11 bits; 47 identifies PowmX0EP_StatusPacket"},{"n":"CCSDSGroupFlags","b":2,"d":"CCSDSGroupFlagsType, 2 bits"},{"n":"CCSDSSourceSequenceCount","b":14,"d":"CCSDSSourceSequenceCountType, 14 bits"},{"n":"CCSDSPacketLength","b":16,"d":"CCSDSPacketLengthType, 16 bits"}]'></div>
+
+| Container or command | Base | RestrictionCriteria | Entries |
+|---|---|---|---|
+| `CCSDSPacket` (abstract) | none | none | the seven header parameters above |
+| `CCSDSTelemetryPacket` (abstract) | `CCSDSPacket` | ComparisonList: `CCSDSVersion` == 0 and `CCSDSType` == 0 | none of its own |
+| `PowmX0EP_StatusPacket` | `CCSDSTelemetryPacket` | `CCSDSAPID` == 47 (`useCalibratedValue="true"`, instance 0) | `TimeStamp` and seven power-module parameters (voltages, currents, PPS source, power state, set point) |
+| MetaCommand `CCSDSCommand` (abstract), container `CCSDSCommandPacket` | `CCSDSPacket` | `CCSDSVersion` == 0 and `CCSDSType` == 1 | none |
+| MetaCommand `PM1Enable_Logging`, container `PM1Enable_LoggingPacket` | `CCSDSCommand` / `CCSDSCommandPacket` | `CCSDSAPID` == 130 | four ArgumentRefEntries: message type (8 bits), address (32), port (16), sensor ID (32) |
+
+Rows restate Annex A2.2.4 and A2.3.3 of 660.2-G-2.[^gb2-tm-cont][^gb2-tc-ex]
+
+A few details of the example are worth noting:[^gb2-tm-types][^gb2-tm-cont][^gb2-tc-ex]
+
+* `CCSDSSCID` and `CCSDSVCID` have no encoding and `dataSource="local"`. The spacecraft and
+  virtual channel are not in the packet, and the virtual channel of each packet and command is
+  recorded as `AncillaryData name="VCID"` (6 for the status packet, 27 for the command).
+* The five analogue values (voltage, current, maximum current, bus voltage and set point) are
+  64-bit `FloatParameterType`s on 16-bit `twosComplement` integer encodings with a
+  `PolynomialCalibrator` of terms 0.0 and 0.1. Each raw count is therefore 0.1 V or 0.1 A. The
+  PPS source is an unsigned integer on 8 bits.
+* `TimeStamp` is an `AbsoluteTimeParameterType` on a 64-bit unsigned encoding, with
+  `units="seconds"`, `scale` 1.0, `offset` 0.0 and the epoch TAI. Its short description
+  describes the layout as a 16-bit P-field, 32 bits of seconds and 16 bits of fraction.
+* `PowmX0EP_PowerStateType` is an `EnumeratedParameterType` with Off = 1, On = 2, Tripped = 3 and
+  NotWorking = 4, encoded on 8 bits.
+* There is no CommandContainerSet: the command reuses the telemetry header container, "which is
+  legal XTCE".
+* The root element declares the namespace `http://www.omg.org/spec/XTCE/20180204`, and the
+  Header gives `validationStatus="Validated"`, date 2019-04-04 and version 0.2.
+
+!!! warning "Inference"
+    Compared with the MIB, `CCSDSTelemetryPacket` plus the APID restriction plays the role of
+    the [PID](../mib/tables/pid.md) key, and the entries of `PowmX0EP_StatusPacket`, packed back to
+    back after the inherited header, play the role of [PLF](../mib/tables/plf.md) offsets. The
+    64-bit integer encoding of a time stamp whose description mentions a P-field, a seconds field
+    and a fraction field shows a limit of plain integer encodings. Splitting the CUC fields, or
+    honouring a P-field, would need a BinaryDataEncoding with an algorithm or separate
+    parameters (see [Time code formats](time-codes.md)).
+
+## Using XTCE in practice
+
+### The usage scenario
+
+660.2-G-2's scenario starts with a spacecraft project manager who receives an XTCE file from each
+subsystem and payload contractor. The files are merged into one Spacecraft Source Database (SDB),
+converted to run-time databases for assembly, integration and verification (AIV), and then passed
+to the mission readiness team. That team includes or translates the database into the
+operational databases (ODB) of the mission control, flight dynamics, mission planning, procedure
+generation and simulator systems.[^gb2-usage] The report stresses that XTCE is for exchanging
+database content, not an interface for sending commands or receiving telemetry.[^gb2-usage]
+
+```mermaid
+flowchart LR
+    subgraph AIV["Assembly, integration and verification"]
+        A["Subsystem A"] -->|XTCE| SDB[("Spacecraft<br/>Source Database")]
+        B["Subsystem B"] -->|XTCE| SDB
+        C["Payload C"] -->|XTCE| SDB
+        D["Payload D"] -->|XTCE| SDB
+        SDB -->|XTCE| EGSE["EGSE, editors,<br/>procedure generation"]
+    end
+    subgraph OPS["Operations"]
+        ODB[("Operational<br/>Database")]
+        ODB -->|XTCE| MCS["Mission control"]
+        ODB -->|XTCE| FDS["Flight dynamics"]
+        ODB -->|XTCE| MPS["Mission planning"]
+        ODB -->|XTCE| SIM["Simulator"]
+        ODB -->|XTCE| PGS["Procedure generation"]
+    end
+    SDB -->|XTCE| ODB
+```
+
+*This wiki's simplified drawing of figure 4-1 of 660.2-G-2.*[^gb2-usage]
+
+This is the same flow that ESA projects implement with MIBs, for example the Herschel/Planck
+satellite database (see [MIB tooling](../mib/tooling.md#project-databases-hpsdb-and-the-satellite-database)
+and [Operations preparation](../scos2000/operations-preparation.md)).
+
+### Too big and too small: profiles and extensions
+
+660.2-G-2 admits that for many users XTCE has "far more features than are needed". The answer is a
+trimmed profile, colloquially **GovSat**, published by the OMG as the XTCE US Govt Satellite
+Conformance Profile (**XUSP**). XUSP is not a new schema but a set of executable rules, applied
+after schema validation. The rules allow only one SpaceSystem, limit the number of polynomial
+coefficients and the length of mnemonics, and define a standard CCSDS header with its
+parameters. Organisations may relax rules, for example to allow several SpaceSystems, at a cost
+in compatibility.[^gb2-xusp]
+
+The same report admits that XTCE can also be too small, when a local "must have" feature is
+missing, and lists six ways to handle it:[^gb2-ext]
+
+| Option | How | Trade-off |
+|---|---|---|
+| a) AncillaryData | name/value pairs, available in many places of the schema | easiest; files stay schema-valid |
+| b) Modify the schema locally | edit the XTCE schema | "breaking the standard" |
+| c) Modify via an external schema | extensions in their own namespace, included at the modification point | easier to separate standard and local parts |
+| d) External schema and file | keep extra information in a second file | files stay valid, but two files to manage and software must merge them |
+| e) Overload elements | reuse an element or attribute for another purpose | may break software; "least preferred" |
+| f) Change request to the OMG | propose a change to the specification | "very lengthy", worthwhile for features of broad value |
+
+The NASA tutorial approaches the same problem from the exchange side. A full exchange works only between
+parties that agree in advance on which XTCE features to use. Even partners with different packet
+formats can exchange part of their data: NASA CCSDS and ESA PUS missions exchanged "the majority
+of telemetry metadata", with some work.[^tut-exchange] Its list of points to agree goes below the
+CCSDS header: polynomial coefficients, alarm levels, floating-point sizes and formats, and bit and
+byte order. It suggests writing such constraints in machine-processable form, to configure
+validators and "builder" tools. 660.2-G-2 later describes the XUSP rules as executable rules
+for a validation program, which is a similar idea.[^tut-exchange2][^gb2-xusp] The tutorial
+names the GSFC JWST translator, the CNES "Best" suite and ESA CryoSat as exchange
+implementations, and says that several others exist, mostly on the customer side.[^tut-exchange]
+
+!!! warning "Inference"
+    For a MIB converter, option a) is the natural home for MIB fields with no XTCE element, such
+    as `PCF_DARC`, `CCF_PLAN` or the display tables. Option c) would suit features such as status
+    consistency checks that need structure. Neither 660.2-G-2 nor the tutorial mentions the MIB.
+
+### Implementing XTCE
+
+The tutorial describes four ways to implement XTCE: XSLT and XPath, a DOM or SAX parser, a
+data-binding "autogenerator" that maps schema types to classes (it used JAXB for the GSFC
+prototypes, and also mentions Eclipse EMF and XMLSpy), or a mix.[^tut-impl] The order of
+elements matters and must survive the mapping. A native implementation can configure itself
+from any valid file, but at the time GSFC's prototype had never decommutated real packet data. A
+University of Bremen implementation had been demonstrated doing so.[^tut-native] The hardest
+parts were name references and their instance syntax, container inheritance with include
+conditions, type inheritance, and dynamic container matching with NextContainer. Of the last,
+the authors wrote that it had "never been implemented yet that we are aware of".[^tut-hard]
+
+## Implementations and what they support
+
+Two open implementations document their XTCE coverage element by element. **Yamcs** reads XTCE
+into its Mission Database. Its manual says that Yamcs "does not seek full compliance" and reads
+only the parts that match its own concepts. The reader is deliberately tolerant: it ignores
+unknown tags and "strives to be backward compatible" with XTCE 1.0 and 1.1, so a file that loads
+is not thereby valid. The
+manual points to the xtcetools project for validation.[^ym-compat] **OpenC3 COSMOS** imports
+XTCE 1.0 to 1.2, uses `.xtce` files in a target's `cmd_tlm` folder in place of its own
+definition files, and exports one schema-validated XTCE 1.2 file per target with
+`openc3.sh cli xtce_converter`.[^cosmos-xtce] See [MIB tooling](../mib/tooling.md#yamcs-and-the-yamcs-scos2k-mib-loader)
+for the licences and the Yamcs SCOS-2000 loader.
+
+| XTCE feature | Yamcs (server manual) | OpenC3 COSMOS (documentation, retrieved 2026-11-12) |
+|---|---|---|
+| SpaceSystems | hierarchy; several files and sub-loaders | one SpaceSystem per file |
+| Header | version and date only | ignored on import |
+| Integer, Float, Enumerated, String, Binary types | yes | yes |
+| Boolean type | yes, but the string forms are only used in comparisons | import only, exported as Enumerated |
+| AbsoluteTime type | yes | not supported (planned) |
+| RelativeTime type | not supported | not supported (planned) |
+| Arrays | telemetry only, not in commands | one dimension only |
+| Aggregates | yes | not listed |
+| Float encodings | IEEE754_1985, MILSTD_1750A, plus a non-XTCE STRING; DEC, IBM, TI not supported | FloatDataEncoding listed as supported; the float formats are not stated |
+| Byte order | big or little endian only | big and little endian |
+| String sizes | whole bytes only; a 0-bit size tag accepted for arguments (non-XTCE, for SCOS-2000 compatibility) | `TerminationChar` export only |
+| Calibrators | polynomial, linear spline, MathOperation; contextual calibrators | PolynomialCalibrator and DefaultCalibrator; SplineCalibrator not supported (planned) |
+| Alarms | XTCE alarms incl. context alarms; none for StringParameterType | DefaultAlarm with StaticAlarmRanges |
+| `changeThreshold`, ErrorDetectCorrect | not supported (checksums handled in the data links) | ErrorDetectCorrect ignored, no CRC computed |
+| Entry location | absolute or relative to the previous entry; not relative to the container end | containerStart, containerEnd, previousEntry; `nextEntry` not supported (planned) |
+| ParameterSegmentRefEntry, ContainerSegmentRefEntry, DiscreteLookupList, NextContainer | not supported | not listed |
+| MessageSet, StreamSet | not supported (packets arrive from the data links) | not listed |
+| ParameterProperties | PhysicalAddressSet, SystemName, TimeAssociation not supported | ParameterProperties listed |
+| ArgumentRefEntry with IncludeCondition or RepeatEntry | not supported | ArgumentRefEntry listed |
+| ValidRangeSet | one range only | ValidRange and ValidRangeSet listed |
+| ContextSignificanceList, ParameterToSetList, ParametersToSuspendAlarmsOnSet | not supported | not listed |
+| Several CompleteVerifiers | the first to succeed completes the command (XTCE requires all) | not listed |
+| AncillaryData, AliasSet | AncillaryData carries Yamcs-specific options (for example `UseAsPacketName`); AliasSet is not in the unsupported list, which covers everything that is not supported "one way or another" | ignored, except COSMOS-namespace aliases used to restore item names |
+
+Yamcs column from §3.1 and §3.7.1.2 of its manual and its TM processing description; COSMOS
+column from its XTCE documentation page, which is outside this wiki's library.[^ym-compat][^ym-compat2][^ym-types-all][^ym-tmproc][^cosmos-xtce]
+"Not listed" means the COSMOS page names the feature neither as supported nor as unsupported.
+
+Yamcs also works around one XTCE rule. Where the schema requires a `DynamicValue`, for strings
+or binaries whose size is not given by another parameter, Yamcs accepts a reference to a dummy
+parameter `_yamcs_ignore`, and the manual admits that a file without the element would not
+validate against the 1.2 XSD.[^ym-string] Both the Yamcs XTCE compatibility list and its
+binary-type section mention ToBinaryTransformAlgorithm. The list calls it unsupported, yet §3.1.6
+shows it in use for an argument type with a leading-size encoder.[^ym-compat][^ym-binary]
+
+!!! warning "Inference: what this means for a MIB converted to XTCE"
+    Using the [mapping below](#mapping-xtce-to-the-scos-2000-mib) and the 2025 Solar Orbiter row
+    counts: the 679 CAF curves would become SplineCalibrators, which COSMOS cannot import today.
+    The 3,796 PTC 9 and 47 PTC 10 telemetry parameters need time types. Yamcs lacks the relative
+    one and COSMOS both. The 1,974 CUR rows need context calibrators, which the COSMOS page does
+    not list. The 512 commands with repeated groups (`CDF_GRPSIZE` > 0, 569 CDF rows) would need
+    RepeatEntry or arrays on arguments, which the Yamcs XTCE reader does not support. And 22 PRF
+    range sets have more than one range (used by 20 command parameters), while Yamcs keeps only
+    one range per ValidRangeSet. Yamcs' own SCOS-2000 loader bypasses XTCE and may handle these
+    cases differently. Its README lists other gaps (see [MIB tooling](../mib/tooling.md#yamcs-scos2k)).[^mib]
+
+??? example "SQL used"
+    ```sql
+    -- solo-2025-09-16.sqlite
+    SELECT COUNT(*), COUNT(DISTINCT CDF_CNAME) FROM cdf WHERE CAST(CDF_GRPSIZE AS INT) > 0;
+    SELECT COUNT(*) FROM (SELECT PRV_NUMBR FROM prv GROUP BY 1 HAVING COUNT(*) > 1);
+    SELECT COUNT(*) FROM cpc WHERE CPC_PRFREF IN
+      (SELECT PRV_NUMBR FROM prv GROUP BY 1 HAVING COUNT(*) > 1);
+    SELECT PCF_PTC, COUNT(*) FROM pcf WHERE PCF_PTC IN ('9','10') GROUP BY 1;
+    SELECT COUNT(*) FROM caf; SELECT COUNT(*) FROM cur;
+    ```
 
 ## XTCE and ECSS-E-ST-70-31C
 
@@ -748,6 +1098,19 @@ involve the following, from this wiki's row counts:[^mib]
 | PTV | 5 ptv | TransmissionConstraints |
 | Sequences | 3 404 csf, 13 879 css | outside XTCE, apart from simple BlockMetaCommands |
 
+How many ParameterTypes the conversion would produce depends on the type policy discussed
+[above](#parameters). Of the 125 161 raw (`PCF_NATUR` R) parameters, 90 954 have no calibration
+(no `PCF_CURTX`, no CUR row), no unit and no monitoring check. Those 90 954 fall into only 184
+distinct PTC/PFC combinations, the most common being 5/1 (28 119), 3/12 (14 237), 3/14 (13 883),
+3/4 (13 309), 2/1 (3 358) and 1/0 (2 542). Counting all 119 240 raw parameters without checks or
+CUR rows, there are 1 643 distinct combinations of PTC, PFC, calibration and unit.[^mib]
+
+!!! warning "Inference"
+    A converter following 660.2-G-2's common practice would write 126 745 ParameterTypes,
+    one per parameter. One following the generic-type practice that the Yamcs manual describes
+    could share 184 types among the 90 954 plain parameters. Validity conditions are not part of
+    the type, because XTCE puts them in the Parameter's properties.[^gb2-pset][^ym-types][^gb-props]
+
 ??? example "SQL used"
     ```sql
     -- solo-2025-09-16.sqlite (MIB__20250916M25925PFMS001_SOL)
@@ -770,12 +1133,20 @@ involve the following, from this wiki's row counts:[^mib]
     SELECT * FROM ccf WHERE CCF_CNAME='ZCD00901'; SELECT * FROM cdf WHERE CDF_CNAME='ZCD00901';
     SELECT * FROM cpc WHERE CPC_NAME='PCD09011';  SELECT * FROM pas WHERE PAS_NUMBR='CCDT0043TX';
     SELECT * FROM cvp WHERE COL1='ZCD00901';      SELECT * FROM cvs WHERE COL1 IN ('14001','14007');
+    -- shareable types
+    SELECT COUNT(*), COUNT(DISTINCT PCF_PTC||'/'||PCF_PFC) FROM pcf
+     WHERE IFNULL(PCF_CURTX,'')='' AND IFNULL(PCF_UNIT,'')='' AND PCF_NATUR='R'
+       AND PCF_NAME NOT IN (SELECT OCF_NAME FROM ocf) AND PCF_NAME NOT IN (SELECT CUR_PNAME FROM cur);
+    SELECT COUNT(*), COUNT(DISTINCT PCF_PTC||'/'||PCF_PFC||'/'||IFNULL(PCF_CURTX,'')||'/'||IFNULL(PCF_UNIT,''))
+      FROM pcf WHERE PCF_NATUR='R'
+       AND PCF_NAME NOT IN (SELECT OCF_NAME FROM ocf) AND PCF_NAME NOT IN (SELECT CUR_PNAME FROM cur);
     ```
 
 ## Related pages
 
 * [The MIB](../mib/index.md), [MIB data model](../mib/data-model.md), [Monitoring in the MIB](../mib/monitoring.md), [Calibration in the MIB](../mib/calibration.md), [Monitoring checks](../mib/monitoring-checks.md), [Commanding in the MIB](../mib/commanding.md), [Command verification](../mib/command-verification.md).
-* [MIB tooling and open-source libraries](../mib/tooling.md), [ECSS-E-ST-70-31C](../ecss/e-st-70-31c.md).
+* [MIB tooling and open-source libraries](../mib/tooling.md) (Yamcs, yamcs-scos2k, COSMOS and the XTCE-based Python packages), [ECSS-E-ST-70-31C](../ecss/e-st-70-31c.md).
+* [Operations preparation](../scos2000/operations-preparation.md), where mission databases are produced and exchanged.
 * [Time code formats](time-codes.md), for XTCE absolute and relative time types.
 
 [^doc]: [CCSDS 660.0-B-2, XML Telemetric and Command Exchange, Version 1.2](../library/ccsds-660-0-660x0b2.md), Authority and Document Control, PDF pp. 3 and 7.
@@ -908,3 +1279,64 @@ involve the following, from this wiki's row counts:[^mib]
 [^icd-prv]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §3.3.3.7.1 prf and §3.3.3.7.2 prv, PDF pp. 211–213.
 [^icd-appa]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Appendix A SCOS-2000 parameter types, PDF pp. 214–224.
 [^mib]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables vdf, pcf, caf, cap, ocf, ocp, plf, pid, pic, tpcf, ccf, cdf, cpc, pas, cvp, cvs and row counts of all tables; this wiki's queries (see "SQL used").
+[^gb-int-table]: [CCSDS 660.1-G-2](../library/ccsds-660-1-660x1g2.md), §4.3.2.5.2 Uncalibrated ParameterTypes (settings tables for integer types), PDF p. 156.
+[^gb2-purpose]: [CCSDS 660.2-G-2, XML Telemetric and Command Exchange (XTCE), Informational Report](../library/ccsds-660-2-660x2g2.md), §1.1 Purpose and scope, PDF p. 8.
+[^gb2-doc]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), Authority page and Document Control, PDF pp. 3 and 6.
+[^gb2-refs]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §1.3 References [1]–[9], PDF pp. 8–9.
+[^gb2-versions]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §2.2.1 General and §2.2.2 Changes from XTCE 1.1 to XTCE 1.2, PDF pp. 10–11.
+[^gb2-xusp]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §2.7 When XTCE seems too complex, PDF pp. 14–15, and reference [8], PDF p. 9.
+[^gb2-ext]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §2.8 When XTCE doesn't have all the features needed, items a) to f), PDF pp. 15–16.
+[^gb2-ss]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §2.4 XTCE scope and §2.6.1 SpaceSystems, PDF pp. 12–13.
+[^gb2-ss2]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.1 SpaceSystem, general, figures 3-1 and 3-2, PDF pp. 17–18.
+[^gb2-header]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.2 Header, PDF p. 18.
+[^gb2-ptype]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.3.2 ParameterTypeSet (two forms, list of ten ParameterTypes), PDF p. 20.
+[^gb2-enc]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.3.2 ParameterTypeSet (DataEncodings, calibrators and common combinations), PDF p. 21.
+[^gb2-pset]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.3.2 and §3.2.3.3 ParameterSet (one ParameterType per Parameter, dataSource), PDF pp. 20 and 22.
+[^gb2-cont]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.3.4 ContainerSet (array indices, packets rather than framing, figure 3-4), PDF pp. 22–23.
+[^gb2-msg]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.3.5 MessageSet and §3.2.3.6 StreamSet, PDF pp. 23–24.
+[^gb2-tc]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §2.6.3 Telecommanding, PDF p. 14.
+[^gb2-cmd]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.4.1 General and §3.2.4.2 ParameterSet and ParameterTypeSet (command side), PDF pp. 25–26; §3.2.4.3 ArgumentTypeSet (argumentRef and parameterRef in 1.2), PDF p. 27.
+[^gb2-argtypes]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.4.3 ArgumentTypeSet, PDF pp. 26–27.
+[^gb2-cmdsets]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §3.2.5 CommandContainersSet, StreamSet, and AlgorithmSet, PDF p. 29.
+[^gb2-services]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §2.6.4 Services and §3.3 ServiceSet, PDF pp. 14 and 30.
+[^gb2-usage]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), §4 Usage example of XTCE and figure 4-1 XTCE Usage Scenario, PDF pp. 31–32.
+[^gb2-annexa]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), Annex A, A1 Overview and A2.1 SpaceSystem, PDF p. 33.
+[^gb2-annexa2]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), Annex A, A2.3.4 CommandContainers, PDF p. 40.
+[^gb2-tm-types]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), Annex A, A2.2.2 Telemetry ParameterTypeSet and A2.2.3 Telemetry ParameterSet, PDF pp. 34–37.
+[^gb2-tm-cont]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), Annex A, A2.2.4 Telemetry ContainerSet, PDF p. 38.
+[^gb2-tc-ex]: [CCSDS 660.2-G-2](../library/ccsds-660-2-660x2g2.md), Annex A, A2.3.2 Command ArgumentTypes, A2.3.3 MetaCommand and A2.3.4 CommandContainers, PDF pp. 39–40.
+[^v13-title]: [OMG, XML Telemetric and Command Exchange, Version 1.3](../library/omg-xtce-1-3-specification.md), title page (formal/26-06-09, March 2026) and copyright notice, PDF pp. 1–2.
+[^v13-schema]: [OMG XTCE 1.3](../library/omg-xtce-1-3-specification.md), §6.3 The Schema and Annex A The SpaceSystem Schema, PDF pp. 26–27.
+[^v13-foreword]: [OMG XTCE 1.3](../library/omg-xtce-1-3-specification.md), Foreword and Introduction, PDF pp. 7–8.
+[^v13-scope]: [OMG XTCE 1.3](../library/omg-xtce-1-3-specification.md), §1 Scope and §4 Terms and Definitions (Telecommands, Containers), PDF pp. 11–12.
+[^v13-names]: [OMG XTCE 1.3](../library/omg-xtce-1-3-specification.md), §6.1 The Root Object, note on names, PDF p. 15.
+[^v13-ptset]: [OMG XTCE 1.3](../library/omg-xtce-1-3-specification.md), §6.1.2.1 ParameterTypeSet, PDF p. 17.
+[^v13-biblio]: [OMG XTCE 1.3](../library/omg-xtce-1-3-specification.md), Annex C Bibliography, PDF p. 31.
+[^tut-title]: [K. Rice and B. Kizzort, "XTCE: XML Telemetry & Command Exchange, Tutorial, XTCE Version 1.1" (NASA NTRS 20090017706)](../library/ntrs-20090017706-xtce-tutorial.md), title slide and contents slide footer, PDF pp. 1–2.
+[^ntrs-rec]: Outside the library: NASA Technical Reports Server record 20090017706, <https://ntrs.nasa.gov/api/citations/20090017706> (publication date and meeting information), retrieved 2026-11-12. Not archived in this wiki's library.
+[^tut-history]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Preface, "Brief History and Background", PDF p. 3.
+[^tut-nameref]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 1, NameReferences, PDF p. 14.
+[^tut-enc]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 2, DataEncodings and examples, PDF pp. 19–20.
+[^tut-validrange]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 2, ValidRange Check, PDF p. 22; Chapter 4, ParameterTypes and ArgumentTypes and ValidRange in Commanding, PDF pp. 49 and 53.
+[^tut-alarm]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 2, Alarms and StaticAlarmRange Example, PDF pp. 30–31.
+[^tut-alarmcond]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 2, AlarmConditions, PDF p. 32.
+[^tut-cc]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 4, MetaCommand's CommandContainer, PDF pp. 58–59.
+[^tut-ccinh]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 4, CommandContainer inheritance, with RestrictionCriteria, and inheritance summary, PDF pp. 60–63.
+[^tut-ccset]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 4, CommandContainerSet, PDF pp. 65–66.
+[^tut-forgotten]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 5, The Forgotten Elements, MessageSet and StreamSet, PDF pp. 67–69.
+[^tut-services]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 5, Services, PDF p. 71.
+[^tut-impl]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 6, Implementing XTCE and A Quick Look at JAXB, PDF pp. 72–73.
+[^tut-hard]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 6, Harder XTCE Items to Implement, PDF p. 77.
+[^tut-native]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 6, Native Implementation, PDF p. 78.
+[^tut-exchange]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 6, Exchange Implementations, PDF p. 79.
+[^tut-exchange2]: [Rice and Kizzort, XTCE tutorial](../library/ntrs-20090017706-xtce-tutorial.md), Chapter 6, Ingredients in Successful Exchange and Automating Exchange, PDF pp. 80–81.
+[^ym-types]: [Yamcs Server Manual, release 5.14.1-SNAPSHOT](../library/yamcs-server-manual.md), §3.1 Data Types and §3.1.1 Parameter types vs Argument types, PDF pp. 28–29.
+[^ym-int]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §3.1.2 Integer data type (ValidRange for parameters and arguments), PDF p. 30.
+[^ym-alarm]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §3.1.3 Float data type (alarm example and levels), PDF pp. 30–31.
+[^ym-types-all]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §3.1.3 Float data type (calibrations), §3.1.4 Boolean data type and §3.1.5 String data type, PDF pp. 31–32.
+[^ym-string]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §3.1.5 String data type, examples 2 and 3 (`_yamcs_ignore`), PDF pp. 33–34.
+[^ym-binary]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §3.1.6 Binary data type, example 3 (ToBinaryTransformAlgorithm), PDF p. 35.
+[^ym-compat]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §3.7.1 XTCE Loader and §3.7.1.2 Compatibility, PDF pp. 43–45.
+[^ym-compat2]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §3.3.3 Little Endian Parameter Encoding and §3.4 Alarm Definitions, PDF p. 38; §3.7.1.1 Configuration (`UseAsPacketName`), PDF p. 43.
+[^ym-tmproc]: [Yamcs Server Manual](../library/yamcs-server-manual.md), §6.1 TM Packet Processing, steps 3 (entry positions) and 8–9 (validity and monitoring checks), PDF pp. 114–115.
+[^cosmos-xtce]: Outside the library: OpenC3 COSMOS documentation, "XTCE", <https://docs.openc3.com/docs/meta/xtce> (supported and unsupported elements, `xtce_converter`), retrieved 2026-11-12. Not archived in this wiki's library.

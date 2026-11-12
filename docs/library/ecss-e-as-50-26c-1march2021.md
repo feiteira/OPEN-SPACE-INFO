@@ -73,9 +73,9 @@ Informative Annex A records the one other difference from ECSS-E-ST-50-04C: that
 |  | [ECSS-E-AS-50-24C](../references/index.md#ref-ecss-e-as-50-24c) | Space engineering - Adoption Notice of CCSDS 231.0-B-3, TC Synchronization and Channel Coding |  | bibliography |
 |  | [ECSS-E-AS-50-25C](../references/index.md#ref-ecss-e-as-50-25c) | Space engineering - Adoption Notice of CCSDS 232.0-B-3, TC Space Data Link Protocol |  | bibliography |
 |  | [ECSS-E-AS-50-26C](../references/index.md#ref-ecss-e-as-50-26c) ·  | Space engineering - Adoption Notice of CCSDS 232.1-B-2, Communications Operation Procedure-1 |  | bibliography |
-|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) | Space engineering - Space data links - Telemetry synchronization and channel coding | 31 July 2008 | bibliography |
+|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) · [library](ecss-e-st-50-01c31july2008.md) | Space engineering - Space data links - Telemetry synchronization and channel coding | 31 July 2008 | bibliography |
 |  | [ECSS-E-ST-50-03C](../references/index.md#ref-ecss-e-st-50-03c) · [library](ecss-e-st-50-03c-31july2008.md) | Space engineering - Space data links - Telemetry transfer frame protocol | 31 July 2008 | bibliography |
-|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) | Space engineering - Space data links - Telecommand protocols synchronization and channel coding | 31 July 2008 | bibliography |
+|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) · [library](ecss-e-st-50-04c31july2008.md) | Space engineering - Space data links - Telecommand protocols synchronization and channel coding | 31 July 2008 | bibliography |
 |  | [CCSDS 230.1-G-2](../references/index.md#ref-ccsds-230-1-g-2) | TC Synchronization and Channel Coding, Summary of Concept and Rationale – Green Book | Issue 2 November 2012 | bibliography |
 
 !!! note "Notes"

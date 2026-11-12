@@ -1,0 +1,457 @@
+{
+  "slug": "ecss-e-st-50-01c31july2008",
+  "title": "Space engineering\nSpace data links - Telemetry synchronization and channel coding",
+  "short_title": "ECSS TM Synchronization and Channel Coding (2008)",
+  "doc_id": "ECSS-E-ST-50-01C",
+  "issue": "Second issue",
+  "date": "2008-07-31",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS-E-ST-50-01C Working Group)",
+  "authors": [
+    "ECSS-E-ST-50-01C Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "Second issue (31 July 2008), following ECSS-E-50-01A (first issue, 6 November 2007); ECSS-E-50-01B was never issued (change log, p. 3). The document does not state that it is superseded. The library's ECSS-E-AS-50-21C Rev. 2 (5 December 2024) states that ECSS-E-ST-50-01C is superseded by ECSS-E-AS-50-21 (latest version), the ECSS Adoption Notice of CCSDS 131.0-B-x (that notice, pp. 3 and 6).",
+  "summary": "The 2008 ECSS standard for **telemetry synchronization and channel coding**: how the downlink stream of TM or AOS transfer frames is protected with error-correcting codes, framed with a sync marker and randomized. It closely follows CCSDS 131.0-B-1, whose codes it subsets, in 'shall' requirement form, and Annex E compares it with the 1989 ESA-PSS-04-103 Telemetry channel coding standard. ECSS has since superseded it with the adoption notice ECSS-E-AS-50-21.\n\nClause 4 gives an overview of the coding concepts. The normative clauses then specify:\n\n* the **convolutional code** (clause 5): rate 1/2, constraint length 7, connection vectors 171/133 octal with inversion of G2, Viterbi decoding with soft decisions of at least 3 bits, and punctured rates 2/3, 3/4, 5/6 and 7/8;\n* the **Reed-Solomon (255,223) code** with E=16 (clause 6): field and code generator polynomials, interleaving depth I=1, 2, 3, 4, 5 or 8, virtual fill, the dual-basis representation, and E=8 (255,239) restricted to 4D-8PSK-TCM with I=8;\n* **turbo codes** of rates 1/2 and 1/4 (clause 7) for information blocks of 1784, 3568, 7136 and 8920 bits;\n* **frame synchronization** with the attached sync marker (clause 8): 0x1ACFFC1D, longer turbo ASMs and the embedded ASM 0x352EF853;\n* the 255-bit **pseudo-randomizer** h(x) = x^8+x^7+x^5+x^3+1 (clause 9).\n\nThe informative annexes give the Berlekamp/conventional transformation, Reed-Solomon coefficient expansions, compatible frame lengths (for example 1115 octets at I=5), application profiles with coding gains, the changes from ESA-PSS-04-103, the differences from CCSDS 131.0-B-1, the mission configuration parameters and a turbo code patent notice. It remains a compact reference for downlinks designed to the 2008 ECSS profile.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 8
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 9
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 10
+    },
+    {
+      "section": "3.1",
+      "title": "Terms from other standards",
+      "pdf_page": 10
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 10
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviations",
+      "pdf_page": 10
+    },
+    {
+      "section": "3.4",
+      "title": "Conventions",
+      "pdf_page": 11
+    },
+    {
+      "section": "4",
+      "title": "Overview",
+      "pdf_page": 12
+    },
+    {
+      "section": "4.1",
+      "title": "Introduction",
+      "pdf_page": 12
+    },
+    {
+      "section": "4.2",
+      "title": "Coding",
+      "pdf_page": 12
+    },
+    {
+      "section": "4.3",
+      "title": "Convolutional codes",
+      "pdf_page": 13
+    },
+    {
+      "section": "4.4",
+      "title": "Reed-Solomon codes",
+      "pdf_page": 13
+    },
+    {
+      "section": "4.5",
+      "title": "Concatenated codes",
+      "pdf_page": 14
+    },
+    {
+      "section": "4.6",
+      "title": "Turbo codes",
+      "pdf_page": 14
+    },
+    {
+      "section": "4.7",
+      "title": "Synchronization and pseudo-randomization",
+      "pdf_page": 14
+    },
+    {
+      "section": "5",
+      "title": "Convolutional coding",
+      "pdf_page": 17
+    },
+    {
+      "section": "5.1",
+      "title": "Properties",
+      "pdf_page": 17
+    },
+    {
+      "section": "5.2",
+      "title": "General",
+      "pdf_page": 17
+    },
+    {
+      "section": "5.3",
+      "title": "Basic convolutional code",
+      "pdf_page": 18
+    },
+    {
+      "section": "5.4",
+      "title": "Punctured convolutional code",
+      "pdf_page": 19
+    },
+    {
+      "section": "6",
+      "title": "Reed-Solomon coding",
+      "pdf_page": 21
+    },
+    {
+      "section": "6.1",
+      "title": "Properties",
+      "pdf_page": 21
+    },
+    {
+      "section": "6.2",
+      "title": "General",
+      "pdf_page": 21
+    },
+    {
+      "section": "6.3",
+      "title": "Specification",
+      "pdf_page": 22
+    },
+    {
+      "section": "6.4",
+      "title": "Reed-Solomon with E=8",
+      "pdf_page": 28
+    },
+    {
+      "section": "7",
+      "title": "Turbo coding",
+      "pdf_page": 29
+    },
+    {
+      "section": "7.1",
+      "title": "Properties",
+      "pdf_page": 29
+    },
+    {
+      "section": "7.2",
+      "title": "General",
+      "pdf_page": 29
+    },
+    {
+      "section": "7.3",
+      "title": "Specification",
+      "pdf_page": 30
+    },
+    {
+      "section": "8",
+      "title": "Frame synchronization",
+      "pdf_page": 36
+    },
+    {
+      "section": "8.1",
+      "title": "Introduction",
+      "pdf_page": 36
+    },
+    {
+      "section": "8.2",
+      "title": "The attached sync marker (ASM)",
+      "pdf_page": 36
+    },
+    {
+      "section": "8.3",
+      "title": "ASM bit patterns",
+      "pdf_page": 37
+    },
+    {
+      "section": "8.4",
+      "title": "Location of ASM",
+      "pdf_page": 38
+    },
+    {
+      "section": "8.5",
+      "title": "Relationship of ASM to Reed-Solomon and turbo codeblocks",
+      "pdf_page": 38
+    },
+    {
+      "section": "8.6",
+      "title": "ASM for embedded data stream",
+      "pdf_page": 39
+    },
+    {
+      "section": "9",
+      "title": "Pseudo-randomizer",
+      "pdf_page": 40
+    },
+    {
+      "section": "9.1",
+      "title": "General",
+      "pdf_page": 40
+    },
+    {
+      "section": "9.2",
+      "title": "Pseudo-randomizer description",
+      "pdf_page": 40
+    },
+    {
+      "section": "9.3",
+      "title": "Synchronization and application of pseudo-randomizer",
+      "pdf_page": 41
+    },
+    {
+      "section": "9.4",
+      "title": "Sequence specification",
+      "pdf_page": 42
+    },
+    {
+      "section": "Annex A",
+      "title": "Transformation between Berlekamp and conventional representations (informative)",
+      "pdf_page": 44
+    },
+    {
+      "section": "Annex B",
+      "title": "Expansion of Reed-Solomon coefficients (informative)",
+      "pdf_page": 52
+    },
+    {
+      "section": "Annex C",
+      "title": "Compatible frame lengths (informative)",
+      "pdf_page": 54
+    },
+    {
+      "section": "Annex D",
+      "title": "Application profiles (informative)",
+      "pdf_page": 56
+    },
+    {
+      "section": "Annex E",
+      "title": "Changes from ESA-PSS-04-103 (informative)",
+      "pdf_page": 62
+    },
+    {
+      "section": "Annex F",
+      "title": "Differences from CCSDS recommendations (informative)",
+      "pdf_page": 63
+    },
+    {
+      "section": "Annex G",
+      "title": "Mission configuration parameters (informative)",
+      "pdf_page": 64
+    },
+    {
+      "section": "Annex H",
+      "title": "Turbo code patent rights (informative)",
+      "pdf_page": 68
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 69
+    }
+  ],
+  "key_points": [
+    {
+      "text": "Category A spacecraft are those at an altitude above the Earth's surface of less than 2 × 10^6 km; category B at or above 2 × 10^6 km.",
+      "pdf_page": 10
+    },
+    {
+      "text": "Bit numbering: the first transmitted bit of an N-bit field is bit 0 and is the most significant bit.",
+      "pdf_page": 11
+    },
+    {
+      "text": "The basic convolutional code is rate 1/2, constraint length 7, with connection vectors G1 = 1111001 (171 octal) and G2 = 1011011 (133 octal) and symbol inversion on the G2 output path; the punctured versions (rates 2/3, 3/4, 5/6, 7/8) have no inversion.",
+      "pdf_page": 18
+    },
+    {
+      "text": "Soft bit decisions with at least 3-bit quantization shall be used for the convolutional decoder; if NRZ-L to NRZ-M conversion is used it should be done at the encoder input and reversed at the decoder output.",
+      "pdf_page": 17
+    },
+    {
+      "text": "Decoding failures of the Viterbi decoder are not signalled and produce error bursts, so ECSS-E-ST-50-03 requires a CRC on TM frames unless Reed-Solomon coding is used.",
+      "pdf_page": 17
+    },
+    {
+      "text": "Reed-Solomon code: J = 8 bits per symbol, E = 16, n = 255, 32 parity symbols and k = 223 information symbols per codeword; field generator polynomial F(x) = x^8 + x^7 + x^2 + x + 1.",
+      "pdf_page": 22
+    },
+    {
+      "text": "The Reed-Solomon interleaving depth I shall be 1, 2, 3, 4, 5 or 8 (I=1 means no interleaving), and shall be fixed on a physical channel for a mission phase; maximum codeblock length is 255I symbols.",
+      "pdf_page": 23
+    },
+    {
+      "text": "The E=8 (255,239) Reed-Solomon code shall only be used with 4D-8PSK-TCM modulation, shall not be concatenated with a convolutional code and shall use interleaving depth I=8.",
+      "pdf_page": 28
+    },
+    {
+      "text": "Turbo information block lengths are 1784, 3568, 7136 and 8920 bits (223 × 1, 2, 4 and 5 octets), with codeblock lengths of 3576/7152 bits for 1784 at rates 1/2 and 1/4.",
+      "pdf_page": 31
+    },
+    {
+      "text": "The ASM is 1ACFFC1D for non-turbo-coded data, 034776C7 272895B0 for rate-1/2 turbo and 034776C7 272895B0 FCB88938 D8D76A4F for rate-1/4 turbo coded data.",
+      "pdf_page": 38
+    },
+    {
+      "text": "The ASM immediately precedes each codeblock or frame with no intervening bits, and is never presented to the Reed-Solomon or turbo encoder or decoder.",
+      "pdf_page": 38
+    },
+    {
+      "text": "A recorded frame stream embedded in real-time frames shall use the embedded ASM 352EF853; it shall not be used with turbo-coded frames.",
+      "pdf_page": 39
+    },
+    {
+      "text": "Presence or absence of pseudo-randomization is fixed for a physical channel and is not signalled in the telemetry: the receiver knows it a priori.",
+      "pdf_page": 40
+    },
+    {
+      "text": "The pseudo-random sequence is generated by h(x) = x^8 + x^7 + x^5 + x^3 + 1, repeats after 255 bits, and is never exclusive-ORed with the ASM.",
+      "pdf_page": 42
+    },
+    {
+      "text": "Maximum TM frame lengths with E=16 Reed-Solomon: 223, 446, 669, 892, 1115 and 1784 octets for I = 1, 2, 3, 4, 5 and 8; with E=8 and I=8, 1912 octets.",
+      "pdf_page": 55
+    },
+    {
+      "text": "Compared with ESA-PSS-04-103 (1989), the standard adds punctured convolutional codes, RS E=8 restricted to 4D-8PSK-TCM and turbo codes, and drops the PSS restriction on using the randomizer with convolutional coding under BPSK.",
+      "pdf_page": 62
+    },
+    {
+      "text": "The codes are a subset of CCSDS 131.0-B-1: the CCSDS recommendations also have turbo rates 1/3 and 1/6 and unrestricted E=8 Reed-Solomon codes.",
+      "pdf_page": 63
+    },
+    {
+      "text": "Mission configuration parameters of a physical channel: channel coding scheme, frame length, pseudo-randomization, embedded-stream ASM use, convolutional code rate, interleaving depth, virtual fill length, turbo code rate and turbo information block length.",
+      "pdf_page": 64
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system - Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 9
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "ECSS-E-ST-50",
+      "doc_id": "ECSS-E-ST-50",
+      "title": "Space engineering – Communications",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "ECSS-E-ST-50-03",
+      "doc_id": "ECSS-E-ST-50-03",
+      "title": "Space engineering – Space data links - Telemetry transfer frame protocol",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "ECSS-E-ST-50-05",
+      "doc_id": "ECSS-E-ST-50-05",
+      "title": "Space engineering – Radio frequency and modulation",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "ECSS-E-HB-50",
+      "doc_id": "ECSS-E-HB-50",
+      "title": "Space engineering – Communications guidelines",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "CCSDS 130.1-G-1",
+      "doc_id": "CCSDS 130.1-G-1",
+      "title": "TM Synchronization and Channel Coding, Summary of Concept and Rationale – Green Book",
+      "issue": "Issue 1",
+      "date": "June 2006",
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "CCSDS 131.0-B-1",
+      "doc_id": "CCSDS 131.0-B-1",
+      "title": "TM Synchronization and Channel Coding – Blue Book",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "CCSDS 732.0-B-2",
+      "doc_id": "CCSDS 732.0-B-2",
+      "title": "AOS Space Data Link Protocol – Blue Book",
+      "issue": "Issue 2",
+      "date": "July 2006",
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": "ESA-PSS-04-103",
+      "doc_id": "ESA-PSS-04-103",
+      "title": "Telemetry channel coding standard",
+      "issue": "Issue 1",
+      "date": "September 1989",
+      "kind": "bibliography",
+      "pdf_page": 69
+    },
+    {
+      "label": null,
+      "doc_id": "US Patent 5,446,747",
+      "title": "Turbo code patent owned by France Télécom and Télédiffusion de France",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 68
+    }
+  ],
+  "topics": [
+    "ccsds/tm-coding.md",
+    "ecss/e-st-50-communications.md",
+    "ecss/index.md",
+    "overview/downlink.md",
+    "overview/history.md",
+    "overview/standards-map.md",
+    "ccsds/rf-and-ranging.md"
+  ],
+  "notes": "Superseded by the adoption notice ECSS-E-AS-50-21 (library: ecss-e-as-50-21c-rev-2-5december2024, which adopts CCSDS 131.0-B-5, also in the library as ccsds-131-0-131x0b5). The extraction uses Unicode non-breaking hyphens (U+2011) in document IDs, so plain-hyphen regex searches can miss them. Figures (encoder diagrams, ASM bit patterns, randomizer logic) are images; the ASM values are only in Table 8-1 (p. 38). Clause 3.1 cites 'ECSS-ST-00-01' (p. 10) for the normative ECSS-S-ST-00-01, and the note to 6.4.2a cites 'ECSS-E-ST-05' (p. 28) where ECSS-E-ST-50-05 is meant. Superscripts are flattened in the extraction (for example '2 × 106 km' for 2 × 10^6 km, p. 10; 'x8 + x7' for x^8 + x^7). Annex H (p. 68) prints a named licensing contact with postal address, telephone, fax and e-mail; these are deliberately not reproduced here. Printed page numbers equal PDF page numbers; srcgrep shows 70 PDF pages (the last one blank) while the registry gives 69."
+}

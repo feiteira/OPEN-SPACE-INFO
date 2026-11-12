@@ -479,7 +479,7 @@ flowchart TD
   H -- "other report" --> S
 ```
 
-### 7.3 Managing the application process configuration: TC[15,3] to TC[15,6]
+### 7.3 Managing the application process configuration: TC[15,3] to TM[15,6]
 
 **TC[15,3] add report types to the application process storage-control configuration** and
 **TC[15,4] delete report types from the application process storage-control configuration**
@@ -507,7 +507,7 @@ share one nested layout (Figures 8-161 and 8-162):[^c-p3]
     left an empty definition behind would turn "stop storing TM[3,25]" into "store every
     service 3 report". The cascading deletion in requirement 6.15.4.4.2o avoids exactly that.
 
-### 7.4 Housekeeping, diagnostic and event controls: TC[15,29] to TC[15,40]
+### 7.4 Housekeeping, diagnostic and event controls: TC[15,29] to TM[15,40]
 
 | Message | Purpose | Layout (Figure) |
 |---|---|---|

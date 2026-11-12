@@ -1,8 +1,8 @@
 ---
 title: "COP-1: FOP-1, FARM-1 and the CLCW (CCSDS 232.1-B-2)"
-description: The Communications Operation Procedure-1 in full - the go-back-n retransmission loop of the telecommand link, FOP-1 and FARM-1 variables, states, state tables and sliding windows, the directives and alerts, the CLCW field by field, operational recovery (Unlock, Set V(R), Set V(S)), deep-space options, managed parameters and the Solar Orbiter implementation.
+description: The Communications Operation Procedure-1 in full - the go-back-n retransmission loop of the telecommand link, FOP-1 and FARM-1 variables, states, state tables and sliding windows, the directives and alerts, the CLCW field by field, operational recovery (Unlock, Set V(R), Set V(S)), deep-space options, managed parameters, the ECSS adoption and the superseded ECSS-E-ST-50-04C with its COP-1A heritage, and the Solar Orbiter implementation.
 tags: [CCSDS, Data link layer, Telecommand, COP-1, CLCW, Solar Orbiter]
-sources: [ccsds-232-1-232x1b2e2c1, ccsds-232-0-232x0b4e1c1, ecss-e-as-50-26c-1march2021, ecss-e-as-50-25c-rev-1-13january2023, ccsds-130-2-130x2g3, ccsds-230-1-230x1g3e1, ecss-e-hb-50a-15november2008, ecss-e-st-50c-rev-1-1march2021, ccsds-132-0-132x0b3, ccsds-912-1-912x1b5e1, sol-s-astr-tn-00079-07, solo-ddid-i1r2, mib-20250916m25925pfms001-sol, icd-7-0-final, emcs-sum-4-0]
+sources: [ccsds-232-1-232x1b2e2c1, ccsds-232-0-232x0b4e1c1, ecss-e-as-50-26c-1march2021, ecss-e-as-50-25c-rev-1-13january2023, ecss-e-st-50-04c31july2008, ecss-e-as-50-24c-rev-1-13january2023, ccsds-130-2-130x2g3, ccsds-230-1-230x1g3e1, ecss-e-hb-50a-15november2008, ecss-e-st-50c-rev-1-1march2021, ccsds-132-0-132x0b3, ccsds-912-1-912x1b5e1, sol-s-astr-tn-00079-07, solo-ddid-i1r2, mib-20250916m25925pfms001-sol, icd-7-0-final, emcs-sum-4-0]
 ---
 
 # COP-1: FOP-1, FARM-1 and the CLCW (CCSDS 232.1-B-2)
@@ -21,8 +21,9 @@ Reporting Mechanism-1** (FARM-1) at the receiving end, on board. The FARM-1 repo
 32-bit **Communications Link Control Word** (CLCW), which travels in the Operational Control Field of
 the [telemetry frames](tm-sdlp.md).[^cop-concept][^sdlp-clcw] This page follows CCSDS 232.1-B-2 (Blue Book,
 September 2010, with Technical Corrigendum 1 of April 2019), the CLCW definition of CCSDS 232.0-B-4, the
-ECSS adoption notice ECSS-E-AS-50-26C and the real Solar Orbiter documentation and
-[MIB](../mib/index.md).[^cop-cover][^an26-scope]
+ECSS adoption notice ECSS-E-AS-50-26C, the superseded ECSS-E-ST-50-04C (31 July 2008) whose clause 7
+was the European COP-1 text, and the real Solar Orbiter documentation and
+[MIB](../mib/index.md).[^cop-cover][^an26-scope][^e5004-cop]
 
 !!! info "COP-1 at a glance"
     | Item | Value |
@@ -34,9 +35,9 @@ ECSS adoption notice ECSS-E-AS-50-26C and the real Solar Orbiter documentation a
     | FOP-1 states | S1 Active, S2 Retransmit without Wait, S3 Retransmit with Wait, S4 Initialising without BC Frame, S5 Initialising with BC Frame, S6 Initial |
     | FARM-1 states | S1 Open, S2 Wait, S3 Lockout |
     | Report | CLCW, usually in the TM or AOS Operational Control Field |
-    | FOP-1 revision | Revision B (FOP-1B), introduced in issue 2 of the old Command Operation Procedures standard |
+    | FOP-1 revision | Revision B (FOP-1B), introduced in issue 2 of the old Command Operation Procedures standard; ESA PSS-04-107 used the older COP-1A |
 
-    Sources: CCSDS 232.1-B-2 §2, §5.1.2, §5.2.1, §5.3.1 and §6.1.2.[^cop-concept][^fop-state][^fop-mod][^fop-rev][^farm-state]
+    Sources: CCSDS 232.1-B-2 §2, §5.1.2, §5.2.1, §5.3.1 and §6.1.2; ECSS-E-ST-50-04C annex B.[^cop-concept][^fop-state][^fop-mod][^fop-rev][^farm-state][^e5004-pss]
 
 ## Why COP-1 exists
 
@@ -112,7 +113,10 @@ use the MAP of an unfinished multi-segment transfer.[^cop-bd][^cop-bd-notes]
 Valid Type-B frames are always accepted by FARM-1 and only counted (in the FARM-B counter of the
 CLCW). Both frame types are protected by the coding sublayer and must pass the Frame Validation
 Checks, so accepted Type-B frames are very probably error-free, but their order is not
-controlled.[^cop-concept]
+controlled.[^cop-concept] ECSS-E-ST-50-04C put it differently: its expedited service delivers data in
+order and without duplication, but with possible omissions, and passes a BD FDU on even when FARM-1 is in
+Wait or Lockout. The two texts agree that nothing is retransmitted; only the CCSDS book declines to
+promise anything about order.[^e5004-bd][^cop-bd]
 
 !!! warning "Shared buffers"
     Some FARM-1 implementations use one buffer for both Type-AD and Type-BD FDUs. A Type-BD frame then
@@ -137,6 +141,11 @@ of service primitives) and the *Lower Procedures* (frame generation, multiplexin
 | Transmit Request for Frame | FOP-1 → Lower | GVCID, Bypass Flag, Control Command Flag, N(S), data field | Hand a frame to the lower procedures[^cop-lower] |
 | Abort Request | FOP-1 → Lower | GVCID | Cancel ongoing processing of AD and BC frames, to retransmit quickly[^cop-lower] |
 | Response | Lower → FOP-1 | GVCID, Response Type | `AD_Accept`, `AD_Reject`, `BC_Accept`, `BC_Reject`, `BD_Accept`, `BD_Reject`: flow control per frame[^cop-response] |
+
+The CCSDS book has an Abort Request cancel only Type-AD and Type-BC processing, and lets it optionally
+reach into the coding sublayer. ECSS-E-ST-50-04C spells out three details: Type-BD frames are not
+deleted by an abort, a frame already being radiated as a CLTU is completed rather than cut, and the lower
+procedures return no response to the abort.[^cop-lower][^e5004-abort]
 
 At the **receiving end**, the Lower Procedures validate and demultiplex frames and signal each valid
 frame with *Valid Frame Arrived Indication (GVCID)*. FARM-1 places an accepted Type-AD FDU in a buffer
@@ -204,6 +213,12 @@ reached the spacecraft. A Negative Confirm means a break in the sequence-control
 FDU may or may not have arrived. BD FDUs are only accepted or rejected (there is no Wait_Queue for them,
 no copy is kept, and no confirmation is given).[^cop-xfer-ad][^cop-xfer-bd]
 
+ECSS-E-ST-50-04C names the span of the guarantee: a sequence-controlled *session* begins when the
+management entity receives the Positive Confirm of an Initiate AD Service directive and ends with the next
+Alert. It also lists cases in which the guarantee does not hold at all: FOP-1 and FARM-1 sequence numbers
+not synchronised at the start of a session, several FOP-1 instances sending to one FARM-1 at the same
+time, and CLCWs delivered to FOP-1 from the wrong spacecraft.[^e5004-session][^e5004-mgmt]
+
 ### Alert and Suspend
 
 Two asynchronous notifications exist: **Alert**, with a Reason Code, and **Suspend**.[^cop-async]
@@ -227,7 +242,11 @@ Restated from table 4-4.[^cop-alert]
 Alerts linked to the transmission count can be caused by a physical-layer break outside the data link
 layer. All others report a breakdown of the protocol itself: some part of the system does not work to
 specification, and earlier reports may have been wrong. Because the VCID in received data may then be
-corrupt, one failure can raise Alerts on several virtual channels.[^cop-alert2]
+corrupt, one failure can raise Alerts on several virtual channels.[^cop-alert2] ECSS-E-ST-50-04C adds that
+after an Alert the management entity should take recovery actions so that no data is lost, duplicated or
+erroneous; that an implementation may report, with the Alert, the FOP-1 event number and state that caused
+it; and that FOP-1 should pass further, implementation-dependent status information to management for
+performance monitoring and diagnosis.[^e5004-alert][^e5004-status]
 
 **Suspend** is the deep-space tool: with TT = 1 and a small T1_Initial, FOP-1 sends a sequence of AD
 frames a set number of times and then suspends itself without clearing its buffers; a later Resume
@@ -300,7 +319,9 @@ expiry, with Alert [T1] when the limit is reached.[^fop-count][^fop-count2]
 The FOP sliding window limits how many frames may be sent ahead of the last acknowledged one, so that
 a new frame can never carry the same N(S) as a frame that the receiver rejected. A new AD frame is sent
 only while V(S) < NN(R) + K (modulo 256). K must satisfy 1 ≤ K ≤ PW and K < 256, where PW is the positive
-window of the FARM.[^fop-k][^fop-lookfdu]
+window of the FARM.[^fop-k][^fop-lookfdu] ECSS-E-ST-50-04C warns implementers that comparisons of V(S),
+N(R) and NN(R) must respect the valid ranges of the sequence number: with K greater than 127 a
+conventional modulo-256 comparison can give the wrong answer.[^e5004-mod]
 
 ### FOP-1 actions
 
@@ -326,7 +347,9 @@ Restated from §5.2.2 to §5.2.18.[^fop-actions][^fop-lookfdu][^fop-actions2]
 
 Before the table is applied, an arriving CLCW is checked for "COP in Effect" and VCID; the table then
 tests Lockout, N(R), Retransmit and Wait in that order. "N/A" means the event cannot occur in that
-state.[^fop-clcw-pre]
+state.[^fop-clcw-pre] ECSS-E-ST-50-04C lists a longer pre-check: the Control Word Type, the CLCW
+Version Number, COP in Effect, the VCID and the spare bits 14–15 and 23 are all checked, and any
+unexpected value makes the CLCW invalid, which is event E15.[^e5004-clcwarr]
 
 **CLCW arrivals** (valid COP-1 pattern):
 
@@ -442,8 +465,8 @@ width W, a positive part PW starting at V(R) and a negative part NW ending at V(
 the last accepted frame. Everything else (256 − W values) is the **lockout area**.[^farm-window]
 
 When retransmission is allowed (the normal case), W is an even integer from 2 to 254, fixed for the
-mission (there is no command to change it), and PW = NW = W/2. A received Type-AD frame then falls in
-one of four cases:[^farm-window2][^farm-cases]
+mission unless otherwise specified (there is no command to change it), and PW = NW = W/2. A received
+Type-AD frame then falls in one of four cases:[^farm-window2][^farm-cases]
 
 | Case | Condition (modulo 256) | FARM-1 action | Typical cause |
 |---|---|---|---|
@@ -454,6 +477,9 @@ one of four cases:[^farm-window2][^farm-cases]
 
 If a mission sends each Type-AD frame only once per session (Transmission_Limit = 1), it may set PW > NW,
 down to NW = 0 and PW = W, with W from 1 to 256. K may never exceed 255 in any case.[^farm-noretx]
+ECSS-E-ST-50-04C spells out one exception to the fixed window: a mission whose commanding performance
+depends on different window widths in different mission phases fixes W, PW and NW per phase rather
+than for the whole mission.[^e5004-win]
 
 !!! example "Window arithmetic (illustrative)"
     With W = 10 (PW = NW = 5) and V(R) = 250: N(S) = 250 is accepted; 251 to 254 are in the positive
@@ -548,6 +574,20 @@ none has, always reporting the real physical channel even in the CLCW of an inac
 channel.[^an25-nbl] The ECSS handbook recommends choosing TC VCIDs with a large Hamming distance from
 each other, so that a corrupted CLCW is less likely to show another valid VCID, and avoiding the
 all-zeros and all-ones VCIDs, because a failed or unpowered decoder can produce such CLCWs.[^hb-vcid]
+Both rules come from ECSS-E-ST-50-04C §6.3, which also sets the following:[^e5004-clcw][^e5004-clcw2]
+
+* the No RF Available flag to be `0` when the RF connection is available through at least one
+  transponder and `1` when through none, and, like No Bit Lock, to report the true physical channel
+  state in every CLCW;
+* the Status Field to be `000` unless the mission defines a use for it;
+* the CLCW to travel in the OCF of a TM (version 1) or AOS (version 2) frame, and to be given to FOP-1
+  only if it comes from an error-free frame (a successfully corrected frame counts as error-free) of the
+  spacecraft to which the TC virtual channel belongs;
+* the width of the on-board FARM-B counter is left to the implementation: the CLCW carries its two
+  least significant bits, and telemetry may report the full value.
+
+It also notes that the TM virtual channel that carries a CLCW is unrelated to the TC virtual channel the
+CLCW reports on.[^e5004-clcw]
 
 **Use by the ground station.** The [SLE Forward CLTU service](sle/fcltu.md) consumes one OCF channel of
 the return link, extracts the CLCWs and uses their No RF Available and No Bit Lock flags to decide
@@ -676,7 +716,12 @@ recovery.[^hb-cop]
 | CLCW reporting period | Real number (seconds) |
 
 The TC-SDLP managed parameters "COP in Effect" (1), "CLCW Version Number" (1) and "CLCW Reporting
-Rate" complete the set.[^sdlp-mp-vc]
+Rate" complete the set.[^sdlp-mp-vc] ECSS-E-ST-50-04C covered the same ground with informative *mission
+configuration parameters* of a virtual channel: the four FOP-1 values can be set with directives and may
+vary during a mission, as may the CLCW reporting rate; the use of the CLCW Status Field is a mission
+choice; W, PW and NW are fixed for the mission or a mission phase; and the CLCW version and COP in
+Effect are fixed by the standard. Its physical channel parameters add the operational circumstances in
+which the expedited service is used.[^e5004-mcp]
 
 ## ECSS adoption (ECSS-E-AS-50-26C)
 
@@ -689,7 +734,45 @@ which tells the higher procedures that data were overwritten.[^an26-table] Its a
 special FARM-1 with a single back-end buffer, specified in ECSS-E-ST-50-04C, is not part of the CCSDS
 book.[^an26-annex] The ECSS handbook explains why: some European on-board hardware has a single back-end
 buffer per virtual channel, so a new frame can overwrite the previous FDU, and operators must understand
-the link between uplink and on-board flow control.[^hb-diff13]
+the link between uplink and on-board flow control.[^hb-diff13] The coding notice ECSS-E-AS-50-24C
+records the same three-way replacement in its change log.[^an24-log]
+
+### COP-1 in ECSS-E-ST-50-04C
+
+Clause 7 of ECSS-E-ST-50-04C (31 July 2008) was the ECSS text of COP-1, written against CCSDS
+232.1-B-1 (2003). It covers the same ground: FOP-1 and FARM-1 with their variables, the eleven directive
+types, the eight Alert reasons and the two state tables (its tables 7-8 and 7-9), and it states that its
+FOP-1 is the updated *revision B* ("FOP-1B"), whose revision explains the non-sequential numbering of
+some events. This wiki compared the directive and Alert lists, which match the CCSDS tables above, but
+not the state tables entry by entry.[^e5004-cop][^e5004-fopb][^e5004-dir] Its annex C lists two differences from CCSDS
+232.1-B-1, both on the receiving side, and both are what ECSS-E-AS-50-26C still records
+today:[^e5004-ccsds][^an26-table][^an26-annex]
+
+* the FDU Arrived Indication always carries the FDU aborted indication, which CCSDS 232.1-B-1 left
+  optional;
+* it specifies how a FARM-1 with only **one back-end buffer** per virtual channel behaves, a case the
+  CCSDS book did not consider.
+
+The single-buffer rules of §7.5.4 are short. FARM-1 needs at least one front-end buffer for one
+maximum-length frame and at least one back-end buffer for one maximum-length FDU. With a single back-end
+buffer a valid Type-BD frame always wins, in all three FARM-1 states: if the buffer is free the FDU is
+copied and announced normally; if not, the FDU overwrites the previous one, which may have come from a
+Type-AD or a Type-BD frame, and the FDU Arrived Indication is raised with the aborted indication set. The
+erasure is invisible in the CLCW, and if the lost FDU came from a Type-AD frame it has already been
+acknowledged, so the sequence-controlled guarantee is broken. Hence the companion rule of §7.4.4.2: with
+such a FARM-1 the sending-end management must terminate any ongoing AD service before starting the BD
+service on the same virtual channel. The standard sees the design's merit in reduced complexity and
+resource use, hence reliability.[^e5004-buf][^e5004-single][^e5004-bdrule]
+
+**From COP-1A to COP-1B.** Annex B of ECSS-E-ST-50-04C records that ESA's Packet Telecommand Standard
+PSS-04-107 (issue 2, April 1992) specified the older version, now called COP-1A, and that the changes
+affect only the sending end (FOP-1), not FARM-1. The PSS text also differed around the report: its CLCW
+Status Field was always zero, it fixed the CLCW sampling through two *Standard Insertion Schemes*, which
+ECSS-E-ST-50-04C replaced by project-specific rates, and it spoke of the *Command* Operation Procedure
+and the *Command* Link Control Word; one PSS CLCW field called *Report Type* became a Reserved
+Spare.[^e5004-pss] The CCSDS book gives the same lineage from its side: FOP-1B was introduced in issue 2
+of the old *Command Operation Procedures-1* recommendation, FOP-1A being defined in issue 1.[^fop-rev]
+The history is told on [From ESA PSS to CCSDS and ECSS](../overview/history.md).
 
 ## COP-1 on Solar Orbiter
 
@@ -716,7 +799,11 @@ two places:[^mib-clcw][^mib-mini]
   [`NCD0Z02A`](../explorer/index.md#/solo/param/NCD0Z02A) *Wait* and
   [`NCD0Z02B`](../explorer/index.md#/solo/param/NCD0Z02B) *ReTx*. Decoder B's word
   ([`NCDD05N1`](../explorer/index.md#/solo/param/NCDD05N1)) sits at octets 153–156. The bit offsets
-  reproduce the CLCW layout exactly; the 1-bit spare before the Report Value has no parameter.
+  reproduce the CLCW layout exactly; the 1-bit spare before the Report Value has no parameter. The
+  3-bit Status Field ([`NCD0Z023`](../explorer/index.md#/solo/param/NCD0Z023) *PDEC_CLCW.A.Status*,
+  and `NYGD0657` *CLCW Status Field* on the ground) carries no textual calibration, so the MIB gives it
+  no mission-specific meaning; whether Solar Orbiter uses the field, as ECSS-E-ST-50-04C allowed, is not
+  stated in the available sources.[^e5004-clcw][^mib-clcw][^mib-mini]
 * *On the ground*, the "Good", "Bad" and "Idle mini-transfer frame" packets (SPIDs
   [66980](../explorer/index.md#/solo/packet/66980), 66981 and 66982, APID
   [1966](../explorer/index.md#/solo/apid/1966), type 161, subtypes 5, 4 and 3) each decode a TM frame
@@ -774,7 +861,21 @@ The NCTRS simulator of that EGSE includes a CLCW simulator.[^emcs-tc][^emcs-clcw
       'CYGT0663TM','CYGT0664TM','CYGT0665TM');
     SELECT PLF_SPID, PLF_NAME, PLF_OFFBY, PLF_OFFBI FROM plf WHERE PLF_SPID IN (66980, 66981, 66982)
       ORDER BY PLF_SPID, cast(PLF_OFFBY AS int), cast(PLF_OFFBI AS int);
+    -- the CLCW Status Field parameters (no textual calibration: PCF_CURTX empty)
+    SELECT PCF_NAME, PCF_DESCR, PCF_PTC, PCF_PFC, PCF_CURTX FROM pcf
+      WHERE PCF_NAME IN ('NCD0Z023', 'NCD0Z053', 'NYGD0557', 'NYGD0657', 'NYGD0757');
     ```
+
+## Related pages
+
+* [TC Space Data Link Protocol](tc-sdlp.md) (the frames COP-1 runs on), [TC coding and the CLTU](tc-coding-cltu.md) (the coding sublayer below), [USLP](uslp.md) (also runs COP-1)
+* [Proximity-1](proximity-1.md) (COP-P, the proximity-link counterpart of COP-1)
+* [TM Space Data Link Protocol](tm-sdlp.md) and [AOS](aos.md) (the OCF that carries the CLCW back)
+* [SDLS](sdls.md) and [Security in CCSDS space links](security.md#why-cop-control-frames-and-the-ocf-stay-in-clear) (order of processing with COP-1, and why COP control frames stay in clear)
+* [SLE FCLTU](sle/fcltu.md) (CLCW checks at the station), [SLE FSP](sle/fsp.md) (a provider-side FOP-1) and [SLE return services](sle/return-services.md#rocf-and-the-clcw) (how CLCWs reach the control centre)
+* [Space link identifiers](space-link-identifiers.md) (SCIDs, VCIDs and MAP IDs)
+* [ECSS-E-ST-50C and the adoption notices](../ecss/e-st-50-communications.md), [From ESA PSS to CCSDS and ECSS](../overview/history.md)
+* [Uplink walkthrough](../overview/uplink.md), [glossary](../glossary.md)
 
 [^cop-concept]: [CCSDS 232.1-B-2 Cor. 1, Communications Operation Procedure-1](../library/ccsds-232-1-232x1b2e2c1.md), §2.1 "Concept of COP-1", PDF pp. 15–16.
 [^sdlp-clcw]: [CCSDS 232.0-B-4, TC Space Data Link Protocol](../library/ccsds-232-0-232x0b4e1c1.md), §4.2.1.1 and notes, PDF p. 80.
@@ -881,3 +982,24 @@ The NCTRS simulator of that EGSE includes a CLCW simulator.[^emcs-tc][^emcs-clcw
 [^icd-ctype]: [SCOS-2000 Database Import ICD, issue 7.0](../library/icd-7-0-final.md), §3.3.3.2.1, field CCF_CTYPE (remark on BC frames and global interlocks), PDF p. 134.
 [^emcs-clcw]: [EGSE based on SCOS 2000, EMCS SUM issue 4.0](../library/emcs-sum-4-0.md), §2.3.1.2 "Connecting NCTRS" (TCSIM, ADMSIM and CLCWSIM), PDF p. 18.
 [^emcs-tc]: [EGSE based on SCOS 2000, EMCS SUM issue 4.0](../library/emcs-sum-4-0.md), §7.6 "Sending TC Packets", template 4 and footnotes 5 to 7, PDF p. 53.
+[^e5004-cop]: [ECSS-E-ST-50-04C, Space data links - Telecommand protocols synchronization and channel coding](../library/ecss-e-st-50-04c31july2008.md), clause 7 "COP-1", §7.1 "Overview", PDF pp. 55–58.
+[^e5004-bd]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.1.5.3 "Expedited service", PDF p. 58.
+[^e5004-abort]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.6.1 "Overview" and §7.6.3 "Abort request signal", PDF pp. 86–88.
+[^e5004-mgmt]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.4.2.1 "Overview" (cases where the service guarantee does not apply), PDF p. 73.
+[^e5004-session]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.4.3.1 "Overview" (sequence-controlled service session), PDF p. 79.
+[^e5004-alert]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.4.2.5.2 "Requirements" (Alert notification) and note, PDF p. 77.
+[^e5004-status]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.4.2.7 "Additional status information", PDF p. 79.
+[^e5004-mod]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.9.2.3 "Modulo 256 arithmetic for FOP-1" and note, PDF p. 92.
+[^e5004-clcwarr]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.9.2.2 "Arrival of a CLCW", PDF p. 92.
+[^e5004-win]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.2.3.8.2 "Requirements" c and d (FARM sliding window fixed for the mission or a mission phase), PDF pp. 70–71.
+[^e5004-clcw]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.3.4 "Status Field", §6.3.6 "Virtual Channel Identification" notes 1 to 4, §6.3.8 "No RF Available Flag" and §6.3.9 "No Bit Lock Flag", PDF pp. 47–49.
+[^e5004-clcw2]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.3.1 c to e (CLCW in the OCF, delivery rules) and §6.3.13 "FARM-B Counter" notes, PDF pp. 46 and 50.
+[^e5004-mcp]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex E §E.2.8 and §E.3.4–E.3.8 (mission configuration parameters), PDF pp. 150–152.
+[^e5004-fopb]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.9.2.1 "Overview" (FOP-1 revision B), PDF p. 91.
+[^e5004-ccsds]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex C §C.2 (FDU aborted indication, single back-end buffer), PDF p. 136.
+[^e5004-buf]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.2.3.9 "Buffer Administration Variables", PDF p. 71.
+[^e5004-single]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.5.4 "Single back-end buffer" (§7.5.4.1–7.5.4.2) and §7.5.5 "FDU Arrived Indication", PDF pp. 85–86.
+[^e5004-bdrule]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.4.4.2 b and note, PDF p. 83.
+[^e5004-pss]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex B "Changes from ESA-PSS-04-107", §B.2 and tables B-1 and B-2, PDF pp. 132–133.
+[^an24-log]: [ECSS-E-AS-50-24C Rev.1, Adoption Notice of CCSDS 231.0-B-4](../library/ecss-e-as-50-24c-rev-1-13january2023.md), change log (the first issue, with ECSS-E-AS-50-25C and -26C, replaces ECSS-E-ST-50-04C), PDF p. 3.
+[^e5004-dir]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §7.4.2.2 and table 7-3 "FOP-1 directive types and qualifiers", §7.4.2.5 and table 7-4 "Reasons for an Alert notification", PDF pp. 74–77.

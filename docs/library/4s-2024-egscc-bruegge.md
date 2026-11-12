@@ -90,9 +90,9 @@ The proposed alternative uses **EGS-CC**, the planned replacement for GECCOS. It
 | CCSDS 232.0-B-4 | [CCSDS 232.0-B-4](../references/index.md#ref-ccsds-232-0-b-4) · [library](ccsds-232-0-232x0b4e1c1.md) | TC Space Data Link | B-4 | mentioned |
 | CCSDS 133.0-B-2 | [CCSDS 133.0-B-2](../references/index.md#ref-ccsds-133-0-b-2) · [library](ccsds-133-0-133x0b2e2.md) | CCSDS 133.0-B-2 | B-2 | mentioned |
 | ECSS E-ST-70-41C | [ECSS E-ST-70-41C](../references/index.md#ref-ecss-e-st-70-41c) · [library](ecss-e-st-70-41c-15april2016.md) | ECSS E-ST-70-41C | C | mentioned |
-| CCSDS 401.0-B-32 | [CCSDS 401.0-B-32](../references/index.md#ref-ccsds-401-0-b-32) | Radio Frequency and Modulation Systems | B-32 | mentioned |
+| CCSDS 401.0-B-32 | [CCSDS 401.0-B-32](../references/index.md#ref-ccsds-401-0-b-32) · [library](ccsds-401-0-401x0b32.md) | Radio Frequency and Modulation Systems | B-32 | mentioned |
 | CCSDS 131.0-B-4 | [CCSDS 131.0-B-4](../references/index.md#ref-ccsds-131-0-b-4) | TM Synchronization and Channel Coding | B-4 | mentioned |
-| CCSDS 231.0-B-4 | [CCSDS 231.0-B-4](../references/index.md#ref-ccsds-231-0-b-4) · [library](ccsds-231-0-231x0b4e1.md) | TC Synchronization and Channel Coding | B-4 | mentioned |
+| CCSDS 231.0-B-4 | [CCSDS 231.0-B-4](../references/index.md#ref-ccsds-231-0-b-4) · [library](ccsds-231-0-231x0b4e1.md), [library](ccsds-231-0-231x0b4e1c1.md) | TC Synchronization and Channel Coding | B-4 | mentioned |
 
 !!! note "Notes"
     The extraction reports 18 PDF pages while the registry lists 17; the last page appears to be blank. Figures (GSOC mission operations segment, EGS-CC architecture, CSP component design) are images, and only some of their labels survive in the text. The paper cites CCSDS 131.0-B-4, but the current TM coding issue is B-5; this is only a citation in the paper. GECCOS is spelled out as 'GSOC Enhanced Command and Control System for Operating Spacecrafts' in the abbreviation list (PDF p. 16).

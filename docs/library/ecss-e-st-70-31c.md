@@ -38,12 +38,17 @@ Annex A (informative) summarises, for each PUS-A-era standard service from TC ve
 - SPEL definitions have the form 'synthetic parameter [Trigger Body] [Declaration Body] Main Body end synthetic parameter', with triggers 'on event' or 'on update of'. *(PDF p. 236)*
 
 
-## Cited by these wiki pages (17)
+## Cited by these wiki pages (22)
 
 - [Calibration in the MIB](../mib/calibration.md)
+- [Downlink: from on-board parameter to operator display](../overview/downlink.md)
+- [ECSS-E-ST-70-01C: on-board control procedures](../ecss/e-st-70-01c.md)
 - [ECSS-E-ST-70-11C: space segment operability](../ecss/e-st-70-11c.md)
 - [ECSS-E-ST-70-31C: monitoring and control data definition](../ecss/e-st-70-31c.md)
+- [ECSS-E-ST-70-32C: PLUTO test and operations procedure language](../ecss/e-st-70-32c.md)
+- [ECSS-E-ST-70C: ground systems and operations](../ecss/e-st-70c.md)
 - [ECSS: the European space standards system](../ecss/index.md)
+- [How it all fits together](../overview/index.md)
 - [Monitoring checks: limits and out-of-limits](../mib/monitoring-checks.md)
 - [Monitoring in the MIB: parameters and packets](../mib/monitoring.md)
 - [ST[04] Parameter statistics reporting](../ecss/pus/st04-parameter-statistics.md)
@@ -146,7 +151,7 @@ Annex A (informative) summarises, for each PUS-A-era standard service from TC ve
 |  | [CCSDS 100.0-G-1](../references/index.md#ref-ccsds-100-0-g-1) | Telemetry: Summary of Concept and Rationale | Green Book December 1987 | bibliography |
 |  | [CCSDS 200.0-G-6](../references/index.md#ref-ccsds-200-0-g-6) | Telecommand: Summary of Concept and Rationale | Green Book January 1987 | bibliography |
 |  | [CCSDS A30.0-G-3](../references/index.md#ref-ccsds-a30-0-g-3) | CCSDS Glossary | Green Book July 1997 | bibliography |
-|  | [ESA-PSS-04-151](../references/index.md#ref-esa-pss-04-151) | Telecommand decoder specification | Issue 1 September 1993 | bibliography |
+|  | [ESA-PSS-04-151](../references/index.md#ref-esa-pss-04-151) · [library](esa-pss-04-151-issue1-september1992.md) | Telecommand decoder specification | Issue 1 September 1993 | bibliography |
 |  | [ISO/IEC 14977](../references/index.md#ref-iso-iec-14977) | Information technology - Syntactic metalanguage - Extended BNF |  | bibliography |
 |  | [ECSS-S-ST-00-01](../references/index.md#ref-ecss-s-st-00-01) | ECSS terms and definitions (terms used per clause 3.1) |  | mentioned |
 |  | [ECSS-M-ST-00-03C](../references/index.md#ref-ecss-m-st-00-03c) | Tailoring process (cited in Annex A.1) |  | mentioned |

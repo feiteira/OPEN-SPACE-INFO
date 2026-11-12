@@ -1,0 +1,349 @@
+{
+  "slug": "ccsds-910-4-910x4b2e1s",
+  "title": "Cross Support Reference Model—Part 1: Space Link Extension Services",
+  "short_title": "SLE Cross Support Reference Model (CCSDS 910.4-B-2)",
+  "doc_id": "CCSDS 910.4-B-2",
+  "issue": "Recommended Standard, Issue 2 (Blue Book), with Editorial Correction 1 (July 2007)",
+  "date": "October 2005",
+  "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+  "authors": [],
+  "doc_type": "Standard",
+  "status_notes": "Historical. A CCSDS Historical Document cover (PDF p. 1) and a 'CCSDS Historical Document' banner on every page say the document is no longer current, because it has been replaced by a newer issue or withdrawn. In its own Document Control table (PDF p. 7), issue 2 (October 2005) was the current issue and replaced 910.4-B-1 (May 1996). Editorial Correction 1 (July 2007) repairs figures 3-4 and 3-5.",
+  "summary": "The **Cross Support Reference Model (CSRM), Part 1** is the root document of the CCSDS [Space Link Extension (SLE)](../ccsds/sle/index.md) family. It defines the concepts and vocabulary that the SLE transfer service specifications ([RAF, RCF, ROCF](../ccsds/sle/return-services.md), [FCLTU](../ccsds/sle/fcltu.md), [FSP](../ccsds/sle/fsp.md)) and the SLE service management standards build on (for the ESA ground-station side, see [NCTRS and NIS](../scos2000/nctrs-nis.md)). The reference model assumes a single mission and a single spacecraft whose telemetry and telecommand follow the CCSDS space link standards.\n\nSection 2 defines cross support (one agency using another agency's resources) and sets out the SLE documentation tree. It also covers the six security areas SLE must address: privacy, integrity, authentication, access control, availability and auditing. Section 3 describes the space mission data system: space element, SLE system and the Mission Data Operation System (MDOS). It describes the data units involved (SL-DUs, SLE-SDUs, data channels) and the full baseline of return, forward AOS and forward telecommand transfer services, with the online (complete and timely) and offline delivery modes. Section 4 gives the architecture model. In the functional view there are eight SLE Functional Groups, from Return Space Link Processing to Forward CLTU Generation. In the cross-support view, SLE Complexes are managed by SLE Utilization Management, and the Service Agreement, Service Package and transfer service instance concepts are defined, along with their time spans. Section 5 is the template for SLE service specifications, with its ports and service production. Annex A tabulates the Packet Telemetry, Telecommand and AOS data units and the return and forward SLE channel trees. The later SCCS service management concept ([CCSDS 902.0-G-1](../library/ccsds-902-0-902x0g1.md)) generalises this model. See also [SLE service management](../ccsds/sle/service-management.md).",
+  "contents": [
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.1",
+      "title": "Purpose of This Recommended Standard",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.2",
+      "title": "Scope",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.3",
+      "title": "Applicability",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.4",
+      "title": "Rationale",
+      "pdf_page": 14
+    },
+    {
+      "section": "1.5",
+      "title": "Document Structure",
+      "pdf_page": 14
+    },
+    {
+      "section": "1.6",
+      "title": "Definitions",
+      "pdf_page": 15
+    },
+    {
+      "section": "1.7",
+      "title": "Conventions",
+      "pdf_page": 16
+    },
+    {
+      "section": "1.8",
+      "title": "References",
+      "pdf_page": 18
+    },
+    {
+      "section": "2",
+      "title": "Overview",
+      "pdf_page": 20
+    },
+    {
+      "section": "2.1",
+      "title": "Purpose of This Section",
+      "pdf_page": 20
+    },
+    {
+      "section": "2.2",
+      "title": "Cross Support Context",
+      "pdf_page": 20
+    },
+    {
+      "section": "2.3",
+      "title": "SLE Services Documentation Set",
+      "pdf_page": 21
+    },
+    {
+      "section": "2.4",
+      "title": "Cross Support Security",
+      "pdf_page": 22
+    },
+    {
+      "section": "3",
+      "title": "SLE System Environment, Data, and Services",
+      "pdf_page": 25
+    },
+    {
+      "section": "3.2",
+      "title": "SLE System Environment—Space Mission Data System",
+      "pdf_page": 25
+    },
+    {
+      "section": "3.3",
+      "title": "SLE System Data and Services—Data Exchange",
+      "pdf_page": 28
+    },
+    {
+      "section": "3.4",
+      "title": "Space Link Extension Services",
+      "pdf_page": 31
+    },
+    {
+      "section": "4",
+      "title": "SLE Architecture Model",
+      "pdf_page": 38
+    },
+    {
+      "section": "4.1",
+      "title": "Introduction to SLE Architecture Model",
+      "pdf_page": 38
+    },
+    {
+      "section": "4.2",
+      "title": "Top-Level Architecture Model",
+      "pdf_page": 38
+    },
+    {
+      "section": "4.3",
+      "title": "Architecture Model—Functional View",
+      "pdf_page": 41
+    },
+    {
+      "section": "4.4",
+      "title": "Architecture Model—Cross Support View",
+      "pdf_page": 55
+    },
+    {
+      "section": "4.5",
+      "title": "Time Span of SLE Agreements and Packages",
+      "pdf_page": 62
+    },
+    {
+      "section": "5",
+      "title": "Specification of SLE Services",
+      "pdf_page": 68
+    },
+    {
+      "section": "5.1",
+      "title": "Purpose and Organization",
+      "pdf_page": 68
+    },
+    {
+      "section": "5.2",
+      "title": "Abstract Model of SLE Service",
+      "pdf_page": 68
+    },
+    {
+      "section": "5.3",
+      "title": "SLE Service Specification",
+      "pdf_page": 69
+    },
+    {
+      "section": "5.4",
+      "title": "SLE Transfer Service Ports",
+      "pdf_page": 70
+    },
+    {
+      "section": "5.5",
+      "title": "SLE Management Service Ports",
+      "pdf_page": 74
+    },
+    {
+      "section": "5.6",
+      "title": "SLE Transfer Service Production",
+      "pdf_page": 75
+    },
+    {
+      "section": "Annex A",
+      "title": "Space Link Extension Data Structures",
+      "pdf_page": 83
+    },
+    {
+      "section": "Annex B",
+      "title": "Index to Definitions",
+      "pdf_page": 93
+    },
+    {
+      "section": "Annex C",
+      "title": "Acronyms and Abbreviations",
+      "pdf_page": 95
+    }
+  ],
+  "key_points": [
+    {
+      "text": "SLE services are of two kinds. SLE transfer services move data within the ground data system or between it and the ground sources and sinks. SLE management services control the scheduling and provision of those transfer services.",
+      "pdf_page": 12
+    },
+    {
+      "text": "The model assumes a single mission and a single spacecraft with CCSDS-compliant TM and TC, and ground users affiliated with a single mission management entity. Processing the contents of source packets is out of scope.",
+      "pdf_page": 13
+    },
+    {
+      "text": "Cross support services on the ground are of three kinds: SLE services, ground communications services and ground domain services (for example tracking or exchanging spacecraft databases). Part 1 of the reference model covers SLE.",
+      "pdf_page": 20
+    },
+    {
+      "text": "The SLE data transfer specifications do not define data privacy capabilities. Privacy is left to the mission applications, the underlying communication service, or both.",
+      "pdf_page": 22
+    },
+    {
+      "text": "Authentication uses credentials carried in the transfer service data units, and access control uses the initiator-identifier and responder-identifier parameters. The algorithms are out of scope.",
+      "pdf_page": 23
+    },
+    {
+      "text": "The baseline return SLE transfer services are RAF, Return Insert, Return MC Frame, MC-OCF, MC-FSH, VC Frame, VC-OCF, VC-FSH, Return Bitstream and Return Space Packet.",
+      "pdf_page": 32
+    },
+    {
+      "text": "The forward AOS services are Bitstream, VCA, Space Packet, Proto Transfer Frame, Insert and Coded Transfer Frame. The forward telecommand services are TC-VCA, Forward Space Packet, Telecommand Frame and CLTU.",
+      "pdf_page": 33
+    },
+    {
+      "text": "There are three delivery modes: complete online, timely online and offline. Return online delivery may extend beyond the end of the Space Link session, and forward online delivery may not.",
+      "pdf_page": 33
+    },
+    {
+      "text": "Timely online return delivery gives the user two controls: a delay-notification threshold (Tdelay-notify) and a deletion threshold (Tdelete), above which the queued SLE-SDUs are discarded and the user is told how many.",
+      "pdf_page": 34
+    },
+    {
+      "text": "SLE-FGs are of eight types in three categories. The return ones are Return Space Link Processing, Return Frame Processing and Return Frame Data Extraction. The forward AOS ones are VC Data Insertion and Space Link Processing. The forward TC ones are VC Data Insert, CLTU Generation and Space Link Processing.",
+      "pdf_page": 42
+    },
+    {
+      "text": "The Forward TC Space Link Processing SLE-FG uses CLCWs from MC-OCF or VC-OCF channels to decide whether the physical channel is available. It generates acquisition and idle sequences according to the PLOP in effect and radiates the CLTUs.",
+      "pdf_page": 55
+    },
+    {
+      "text": "An SLE Complex is a set of SLE-FGs under a single management authority. All SLE Complexes interface to a single SLE Utilization Management within the MDOS.",
+      "pdf_page": 55
+    },
+    {
+      "text": "An SLE Service Package is the set of SLE transfer service instances, with their production characteristics, provided by one SLE Complex. Its online services are restricted to one Space Link Session.",
+      "pdf_page": 57
+    },
+    {
+      "text": "The SLE Service Agreement period often covers the whole operational life of a spacecraft and may involve several service packages per day. Shorter agreements can cover only launch support, a manoeuvre or emergency operations.",
+      "pdf_page": 63
+    },
+    {
+      "text": "Annex A maps SL-DUs to their sources. Packet Telemetry has frames, FSH, OCF, VCA_SDU and source packets. Telecommand has CLTU, TC frames, frame data units, segments and packets. AOS has coded frames, insert zone, proto frames, OCF, VCA-SDU, bitstream PDU and space packets.",
+      "pdf_page": 84
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 132.0-B-1",
+      "title": "TM Space Data Link Protocol",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 131.0-B-1",
+      "title": "TM Synchronization and Channel Coding",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[3]",
+      "doc_id": "CCSDS 732.0-B-1",
+      "title": "AOS Space Data Link Protocol",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[4]",
+      "doc_id": "CCSDS 231.0-B-1",
+      "title": "TC Synchronization and Channel Coding",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[5]",
+      "doc_id": "CCSDS 232.0-B-1",
+      "title": "TC Space Data Link Protocol",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[6]",
+      "doc_id": "CCSDS 133.0-B-1",
+      "title": "Space Packet Protocol",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[7]",
+      "doc_id": "CCSDS 320.0-B-3",
+      "title": "CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures",
+      "issue": "Issue 3",
+      "date": "April 2003",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[8]",
+      "doc_id": "CCSDS A20.0-Y-2",
+      "title": "CCSDS Publications Manual",
+      "issue": "Issue 2",
+      "date": "June 2005",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[9]",
+      "doc_id": "CCSDS 910.3-G-2",
+      "title": "Cross Support Concept — Part 1: Space Link Extension Services",
+      "issue": "Issue 2",
+      "date": "April 2002",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[10]",
+      "doc_id": "ISO 8824",
+      "title": "Information technology — Open Systems Interconnection — Specification of Abstract Syntax Notation One (ASN.1)",
+      "issue": "2nd ed.",
+      "date": "1990",
+      "kind": "reference",
+      "pdf_page": 19
+    }
+  ],
+  "topics": [
+    "ccsds/sle/service-management.md",
+    "ccsds/sle/index.md",
+    "ccsds/sle/return-services.md",
+    "ccsds/sle/fcltu.md",
+    "ccsds/sle/fsp.md",
+    "scos2000/nctrs-nis.md",
+    "ccsds/security.md"
+  ],
+  "notes": "This is the Historical (silver) copy of the issue: the 's' in the slug marks it, and 'e1' stands for Editorial Correction 1 of July 2007. PDF page 1 is the CCSDS Historical Document notice, and every later page carries a 'CCSDS Historical Document' banner. The Document Control footer reads 'October 2005 / July 2007'. The extracted text has 97 form-feed pages (registry: 96); the last one is empty. The architecture figures (SLE-FG ports, complexes, management bindings) survive only as scattered labels. Oddities as printed: the Document Control table numbers issue 2 'CCSDS 910.0-B-2'; the Foreword refers to 'reference the Procedures Manual'; and 4.3.1.1.3 Note 1 says annex B gives the rationale for the eight SLE-FG types, but Annex B is the index to definitions. The normative references are all the 2003 first issues of the space link Blue Books and the 2002 issue 2 of the Cross Support Concept. The library holds the later Cross Support Concept issue 3 (ccsds-910x3g3-sle-cross-support, March 2006). The SLE transfer service books in the library (ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ccsds-912-1-912x1b5e1, ccsds-912-3-912x3b3s) and CCSDS 902.0-G-1 and 902.4-B-1 still cite this issue as their reference model. No individual authors are named. The registry copy was taken from ccsds.org on 2026-11-12."
+}

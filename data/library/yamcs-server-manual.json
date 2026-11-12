@@ -1,0 +1,683 @@
+{
+ "slug": "yamcs-server-manual",
+ "title": "Yamcs Server Manual",
+ "short_title": "Yamcs Server Manual (5.14.1-SNAPSHOT)",
+ "doc_id": null,
+ "issue": "Release 5.14.1-SNAPSHOT",
+ "date": "2026",
+ "organisation": "Space Applications Services NV/SA (Sint-Stevens-Woluwe, Belgium), with Aerospace Applications North America, Inc. (Houston, USA)",
+ "authors": [],
+ "doc_type": "User Manual",
+ "status_notes": "Development snapshot 'Release 5.14.1-SNAPSHOT' of the continuously rebuilt manual (PDF p. 1), copyright 2026 Space Applications Services NV/SA (PDF p. 2). The PDF metadata creation date is 2026-11-12, the day it was retrieved from dl.yamcs.org; it is not a frozen release and its content changes with each build.",
+ "summary": "The Yamcs Server Manual, release 5.14.1-SNAPSHOT (240 pages), published by Space Applications Services, documents Yamcs, a monitoring and control server written in Java (with RocksDB storage) for spacecraft, payloads, instruments and test equipment. It explains the monitoring and control model: XTCE-style telemetered, derived, local and constant parameters plus system parameters, limits and alarms, command transmission constraints, significance levels and user-defined verification stages. It then covers the server architecture (instances, data links, streams, processors, services, plugins, stream and parameter archives, buckets) and time handling (milliseconds since 1970 TAI including leap seconds; mission, reception, generation and earth reception times).\n\nFor a TM/TC engineer the central chapters are the Mission Database and Data Links. The first covers data types and encodings, containers with inheritance, algorithms in JavaScript, Python or Java, command definitions, and the XTCE and Excel spreadsheet loaders, with an explicit list of unsupported XTCE features. The second covers packet input streams, packet preprocessors (generic, ISS, cFS, CSP and a PUS preprocessor for ECSS-E-ST-70-41C with CUC time decoding), command postprocessors (including wrapping of time-tagged commands into PUS TC[11,4]) and CCSDS frame processing. Frame processing handles TM, AOS and USLP downlink and TC uplink with CLTU encoding (BCH or LDPC), Reed-Solomon decoding, COP-1 and SDLS authenticated encryption. Later chapters describe processors and the command processing chain step by step, command queues and transmission constraints, activities and the timeline, services (parameter archive, time correlation, CFDP classes 1 and 2, replication), security and authentication modules, the web interface, the yamcsadmin and yamcsd programs, plugins and the internal SQL language. Because it names the CCSDS Blue Book behind each feature, the manual is a practical cross-reference between the standards and a working implementation.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "General Information",
+   "pdf_page": 14
+  },
+  {
+   "section": "1.1",
+   "title": "Monitoring and Control Model",
+   "pdf_page": 15
+  },
+  {
+   "section": "1.2",
+   "title": "Server Architecture",
+   "pdf_page": 16
+  },
+  {
+   "section": "1.3",
+   "title": "Time in Yamcs",
+   "pdf_page": 19
+  },
+  {
+   "section": "2",
+   "title": "Server Administration",
+   "pdf_page": 22
+  },
+  {
+   "section": "2.1",
+   "title": "Configuration",
+   "pdf_page": 22
+  },
+  {
+   "section": "2.2",
+   "title": "Logging",
+   "pdf_page": 25
+  },
+  {
+   "section": "3",
+   "title": "Mission Database",
+   "pdf_page": 28
+  },
+  {
+   "section": "3.1",
+   "title": "Data Types",
+   "pdf_page": 28
+  },
+  {
+   "section": "3.2",
+   "title": "Parameter Definitions",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.3",
+   "title": "Container Definitions",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.4",
+   "title": "Alarm Definitions",
+   "pdf_page": 38
+  },
+  {
+   "section": "3.5",
+   "title": "Algorithm Definitions",
+   "pdf_page": 39
+  },
+  {
+   "section": "3.6",
+   "title": "Command Definitions",
+   "pdf_page": 42
+  },
+  {
+   "section": "3.7",
+   "title": "Loading TM/TC Definitions",
+   "pdf_page": 43
+  },
+  {
+   "section": "3.7.1",
+   "title": "XTCE Loader",
+   "pdf_page": 43
+  },
+  {
+   "section": "3.7.2",
+   "title": "Spreadsheet Loader",
+   "pdf_page": 45
+  },
+  {
+   "section": "4",
+   "title": "Data Management",
+   "pdf_page": 64
+  },
+  {
+   "section": "4.1",
+   "title": "Streams",
+   "pdf_page": 64
+  },
+  {
+   "section": "4.2",
+   "title": "Generic Archive",
+   "pdf_page": 65
+  },
+  {
+   "section": "4.3",
+   "title": "Parameter Archive",
+   "pdf_page": 68
+  },
+  {
+   "section": "4.4",
+   "title": "Object Archive (buckets)",
+   "pdf_page": 72
+  },
+  {
+   "section": "5",
+   "title": "Data Links",
+   "pdf_page": 76
+  },
+  {
+   "section": "5.1",
+   "title": "Packet Input Stream",
+   "pdf_page": 77
+  },
+  {
+   "section": "5.2",
+   "title": "Packet Preprocessor",
+   "pdf_page": 79
+  },
+  {
+   "section": "5.2.4",
+   "title": "PUS Packet Preprocessor",
+   "pdf_page": 84
+  },
+  {
+   "section": "5.3",
+   "title": "Command Postprocessor",
+   "pdf_page": 87
+  },
+  {
+   "section": "5.3.3",
+   "title": "PUS Command Postprocessor",
+   "pdf_page": 88
+  },
+  {
+   "section": "5.4",
+   "title": "File Polling TM Data Link",
+   "pdf_page": 91
+  },
+  {
+   "section": "5.5",
+   "title": "TCP TC Data Link (5.6 TCP TM, 5.7 TCP TC/TM follow)",
+   "pdf_page": 92
+  },
+  {
+   "section": "5.8",
+   "title": "TSE Data Link",
+   "pdf_page": 95
+  },
+  {
+   "section": "5.9",
+   "title": "UDP Parameter Data Link (5.10-5.12 UDP TC, TM and TC/TM follow)",
+   "pdf_page": 95
+  },
+  {
+   "section": "5.13",
+   "title": "CCSDS Frame Processing",
+   "pdf_page": 99
+  },
+  {
+   "section": "5.13.1",
+   "title": "Telemetry Frame Processing",
+   "pdf_page": 100
+  },
+  {
+   "section": "5.13.2",
+   "title": "Telecommand Frame Processing",
+   "pdf_page": 104
+  },
+  {
+   "section": "5.13.2.2",
+   "title": "COP-1 Support",
+   "pdf_page": 107
+  },
+  {
+   "section": "5.13.2.3",
+   "title": "SDLS Support",
+   "pdf_page": 108
+  },
+  {
+   "section": "5.14",
+   "title": "Yamcs Cascading Link",
+   "pdf_page": 109
+  },
+  {
+   "section": "6",
+   "title": "Processors",
+   "pdf_page": 112
+  },
+  {
+   "section": "6.1",
+   "title": "TM Packet Processing",
+   "pdf_page": 112
+  },
+  {
+   "section": "6.2",
+   "title": "Command Processing",
+   "pdf_page": 115
+  },
+  {
+   "section": "6.3",
+   "title": "Alarms",
+   "pdf_page": 119
+  },
+  {
+   "section": "6.4",
+   "title": "Processor Configuration",
+   "pdf_page": 121
+  },
+  {
+   "section": "7",
+   "title": "Commanding",
+   "pdf_page": 128
+  },
+  {
+   "section": "7.1",
+   "title": "Command Significance",
+   "pdf_page": 128
+  },
+  {
+   "section": "7.2",
+   "title": "Command Queues",
+   "pdf_page": 128
+  },
+  {
+   "section": "7.3",
+   "title": "Transmission Constraints",
+   "pdf_page": 129
+  },
+  {
+   "section": "8",
+   "title": "Activities",
+   "pdf_page": 132
+  },
+  {
+   "section": "8.1",
+   "title": "Command Activities",
+   "pdf_page": 133
+  },
+  {
+   "section": "8.2",
+   "title": "Stack Activities",
+   "pdf_page": 134
+  },
+  {
+   "section": "8.3",
+   "title": "Script Activities",
+   "pdf_page": 135
+  },
+  {
+   "section": "9",
+   "title": "Timeline",
+   "pdf_page": 140
+  },
+  {
+   "section": "9.2",
+   "title": "Bands",
+   "pdf_page": 141
+  },
+  {
+   "section": "10",
+   "title": "Services",
+   "pdf_page": 150
+  },
+  {
+   "section": "10.1",
+   "title": "Global Services",
+   "pdf_page": 150
+  },
+  {
+   "section": "10.2",
+   "title": "Instance Services",
+   "pdf_page": 158
+  },
+  {
+   "section": "10.2.13",
+   "title": "Time Correlation Service",
+   "pdf_page": 169
+  },
+  {
+   "section": "10.2.17",
+   "title": "CCSDS File Delivery Protocol (CFDP)",
+   "pdf_page": 175
+  },
+  {
+   "section": "11",
+   "title": "Security",
+   "pdf_page": 186
+  },
+  {
+   "section": "11.5",
+   "title": "AuthModules",
+   "pdf_page": 189
+  },
+  {
+   "section": "12",
+   "title": "Web Interface",
+   "pdf_page": 200
+  },
+  {
+   "section": "13",
+   "title": "Programs",
+   "pdf_page": 214
+  },
+  {
+   "section": "14",
+   "title": "Configuration Sections",
+   "pdf_page": 226
+  },
+  {
+   "section": "15",
+   "title": "Command Options",
+   "pdf_page": 228
+  },
+  {
+   "section": "16",
+   "title": "Yamcs Plugin Format",
+   "pdf_page": 230
+  },
+  {
+   "section": "A",
+   "title": "SQL Language",
+   "pdf_page": 232
+  },
+  {
+   "section": null,
+   "title": "Index",
+   "pdf_page": 238
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Yamcs is implemented entirely in Java and uses RocksDB as its storage engine; the preferred platform is Linux x64, and functionality is exposed through an embedded web server and an HTTP-based API.",
+   "pdf_page": 14
+  },
+  {
+   "text": "Following XTCE, Yamcs distinguishes telemetered, derived, local and constant parameters, and adds system parameters and command/command history parameters for use in verifiers; XTCE's predefined execution stages are not enforced and users may define any number of stages, each with a verifier.",
+   "pdf_page": 15
+  },
+  {
+   "text": "Data links carry three kinds of data: telemetry packets, telecommands and (from the ISS ground segment heritage) processed parameters; built-in links exist for UDP and TCP, and SLE links are provided by a plugin.",
+   "pdf_page": 16
+  },
+  {
+   "text": "All CCSDS frame processing is done in data links: a frame link demultiplexes frames into sub-links for realtime and dump data, each applying a packet preprocessor before the streams.",
+   "pdf_page": 17
+  },
+  {
+   "text": "Yamcs time is a signed 8-byte count of milliseconds since 1970-01-01 00:00:00 TAI including leap seconds, using the IERS UTC-TAI.history leap-second table; a high-resolution Instant adds picoseconds.",
+   "pdf_page": 19
+  },
+  {
+   "text": "Generation time is set by the preprocessor from the packet (or local time with useLocalGenerationTime); free-running on-board clocks are converted with the Time Correlation Service.",
+   "pdf_page": 20
+  },
+  {
+   "text": "The XTCE loader is deliberately tolerant and backward compatible with XTCE 1.0 and 1.1; unsupported concepts include Stream, Message, ParameterSegmentRefEntry, ContainerSegmentRefEntry, DiscreteLookupList, ErrorDetectCorrectType, ContextSignificanceList, ParameterToSetList, ParameterToSuspendAlarmsOnSet and RestrictionCriteria/NextContainer.",
+   "pdf_page": 44
+  },
+  {
+   "text": "For command arguments Yamcs allows sizeInBitsOfSizeTag = 0 (no size tag) for compatibility with systems such as SCOS-2k, although XTCE requires a size tag greater than 0; float encodings IEEE754_1985, MILSTD_1750A and STRING are supported.",
+   "pdf_page": 44
+  },
+  {
+   "text": "If several CompleteVerifiers are declared, the first one to succeed completes the command, whereas XTCE requires all to succeed; command arrays and ArgumentRefEntry IncludeCondition/RepeatEntry are not supported.",
+   "pdf_page": 45
+  },
+  {
+   "text": "The spreadsheet loader only accepts Excel 97-2003 (.xls) files; .xlsx is not supported.",
+   "pdf_page": 45
+  },
+  {
+   "text": "Spreadsheet sheets recognised: General (required), ChangeLog, DataTypes, Parameters, DerivedParameters, LocalParameters, Containers, Algorithms, Alarms, Commands, CommandOptions, CommandVerification and Calibration; sheet-name prefixes such as SYSTEM1|SYSTEM2|Containers describe sub-systems.",
+   "pdf_page": 46
+  },
+  {
+   "text": "Archived packets use (generation time, sequence count) as primary key, so a packet with an existing pair is discarded as a duplicate; Yamcs originated in the ISS world where packets carry reliable GPS-synchronised timestamps.",
+   "pdf_page": 80
+  },
+  {
+   "text": "Three time synchronisation strategies are described: no synchronisation (local time), on-board resync at reset (as in cFS) and a ground-maintained correlation, the method specified by the ESA PUS standard.",
+   "pdf_page": 80
+  },
+  {
+   "text": "The CUC time decoder follows CCSDS 301.0-B-4 chapter 3.2; time decoders return relative milliseconds that are converted with an epoch, or treated as raw counts for the Time Correlation Service when no epoch is given.",
+   "pdf_page": 81
+  },
+  {
+   "text": "The PUS packet preprocessor verifies and identifies ECSS PUS packets according to ECSS-E-ST-70-41C and uses the first 4 bytes of the CCSDS primary header as the archive sequence count.",
+   "pdf_page": 84
+  },
+  {
+   "text": "The PUS command postprocessor can embed a command issued with the pus11ScheduleAt option into a TC[11,4] request (optional sub-schedule and group IDs; implicit CUC P-field 0x2e by default) and fills in length, sequence count and CRC of embedded TC packets.",
+   "pdf_page": 89
+  },
+  {
+   "text": "The SCOS-2000 MIB loader (yamcs-scos2k) annotates command parameters with (PTC, PFC) = (12, 1) as embedded TC packets; error detection options are 16-SUM (Columbus/ISS), CRC-16-CCIIT, ISO-16 and NONE.",
+   "pdf_page": 90
+  },
+  {
+   "text": "CCSDS frame processing supports parts of CCSDS 132.0 (TM SDLP), 732.0 (AOS), 232.0 (TC SDLP), 732.1 (USLP), 231.0 and 131.0 (synchronisation and channel coding), 232.1 (COP-1), 133.0 (Space Packet), 133.1 (Encapsulation) and 355.0 (SDLS).",
+   "pdf_page": 99
+  },
+  {
+   "text": "Downlink frame types are AOS, TM and USLP, received by the built-in UdpTmFrameLink or SLE; the MAP service is supported only for TC frames, not USLP.",
+   "pdf_page": 100
+  },
+  {
+   "text": "Frames with a version number other than 0 (TM), 1 (AOS) or 12 (USLP), a wrong spacecraft ID, length or CRC are discarded; AOS spacecraft IDs may use 10 bits via the signalling-field SCID extension.",
+   "pdf_page": 101
+  },
+  {
+   "text": "Reed-Solomon is the only raw-frame codec: errorCorrectionCapability 8 or 16 selects RS(255,239) or RS(255,223), with interleaving depth default 5.",
+   "pdf_page": 103
+  },
+  {
+   "text": "In a PACKET virtual channel the first 3 bits distinguish CCSDS space packets (000) from encapsulation packets (111); idle space packets (APID 0x7FF) and idle encapsulation packets (first byte 0x1C) are discarded, and TM idle frames use first header pointer 0x7FE.",
+   "pdf_page": 103
+  },
+  {
+   "text": "Uplink packs TC packets into TC transfer frames and optionally CLTUs (BCH, LDPC64, LDPC256 or CUSTOM); Yamcs does not segment TC packets, so maxFrameLength limits the TC packet size.",
+   "pdf_page": 104
+  },
+  {
+   "text": "Since Yamcs 5.5.4 CLTU randomisation follows issue 4 of CCSDS 231.0: before encoding for BCH, after encoding for LDPC (versions up to 5.5.3 always randomised before encoding, as in issue 3).",
+   "pdf_page": 105
+  },
+  {
+   "text": "COP-1 options: cop1T1 retransmission timeout (default 3 s), cop1TxLimit, slidingWindowWidth (FOP_SLIDING_WINDOW_WIDTH K, default 10) and bdAbsolutePriority; without COP-1 a TC queue of default 10 commands is used.",
+   "pdf_page": 106
+  },
+  {
+   "text": "If initialClcwWait is positive, Yamcs waits that many seconds at link start-up for a CLCW and sets its ground counter vS to the on-board nR; otherwise synchronisation must be initiated manually.",
+   "pdf_page": 107
+  },
+  {
+   "text": "Commands with the cop1Bypass attribute are sent in BD frames, bypassing COP-1; BC frames are generated only by the COP-1 state machine; unsynchronised commands wait in a queue or are rejected with a NACK on the Sent acknowledgment.",
+   "pdf_page": 108
+  },
+  {
+   "text": "Built-in SDLS security association AES-256-GCM-128: authenticated encryption, GVCID context, 12-octet IV, 4-octet sequence number, no padding, 16-octet MAC, 256-bit key shared for authentication and encryption.",
+   "pdf_page": 108
+  },
+  {
+   "text": "The Time Correlation Service fits ob_time = m * obt + c from (obt, ert) samples, using ob_time = ert - (tof + onboardDelay).",
+   "pdf_page": 169
+  },
+  {
+   "text": "The CFDP service implements CCSDS 727.0-B-5 class 1 (unacknowledged) and class 2 (acknowledged) transfers between the spacecraft and Yamcs buckets; classes 3 and 4 are not supported.",
+   "pdf_page": 175
+  },
+  {
+   "text": "CFDP limitations: Keep Alive and Prompt PDUs are not used, filestore requests are not supported, only proxy put and directory listing user operations are supported, and remote suspend/resume is not supported.",
+   "pdf_page": 176
+  }
+ ],
+ "references": [
+  {
+   "label": "37",
+   "doc_id": "CCSDS 301.0-B-4",
+   "title": "Time Code Formats (https://public.ccsds.org/Pubs/301x0b4e1.pdf)",
+   "issue": "B-4",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 81
+  },
+  {
+   "label": "63",
+   "doc_id": "CCSDS 132.0-B-3",
+   "title": "TM Space Data Link Protocol",
+   "issue": "B-3",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "64",
+   "doc_id": "CCSDS 732.0-B-5",
+   "title": "AOS Space Data Link Protocol",
+   "issue": "B-5",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "65",
+   "doc_id": "CCSDS 232.0-B-4",
+   "title": "TC Space Data Link Protocol",
+   "issue": "B-4",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "66",
+   "doc_id": "CCSDS 732.1-B-2",
+   "title": "Unified Space Data Link Protocol (footnote links 732x1b3e1.pdf)",
+   "issue": "B-2",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "67",
+   "doc_id": "CCSDS 231.0-B-4",
+   "title": "TC Synchronization and Channel Coding (footnote links 232x0b4e1c1.pdf)",
+   "issue": "B-4",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "68",
+   "doc_id": "CCSDS 131.0-B-4",
+   "title": "TM Synchronization and Channel Coding (footnote links 131x0b5.pdf)",
+   "issue": "B-4",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "69",
+   "doc_id": "CCSDS 232.1-B-2",
+   "title": "Communications Operation Procedure (COP-1)",
+   "issue": "B-2",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "70",
+   "doc_id": "CCSDS 133.0-B-2",
+   "title": "Space Packet Protocol",
+   "issue": "B-2",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "71",
+   "doc_id": "CCSDS 133.1-B-3",
+   "title": "Encapsulation Service",
+   "issue": "B-3",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "72",
+   "doc_id": "CCSDS 355.0-B-2",
+   "title": "Space Data Link Security Protocol (footnote links 355x1b1.pdf)",
+   "issue": "B-2",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "73",
+   "doc_id": "CCSDS 130.2-G-3",
+   "title": "Space Data Link Protocols — Summary of Concept and Rationale (130x2g3.pdf)",
+   "issue": "G-3",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 99
+  },
+  {
+   "label": "115",
+   "doc_id": "CCSDS 727.0-B-5",
+   "title": "CCSDS File Delivery Protocol (https://public.ccsds.org/Pubs/727x0b5.pdf)",
+   "issue": "B-5",
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 175
+  },
+  {
+   "label": null,
+   "doc_id": "ECSS-E-ST-70-41C",
+   "title": "ECSS PUS (packet preprocessor and command postprocessor)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 84
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "XTCE exchange format coordinated by OMG (http://www.xtce.org); XTCE 1.0, 1.1 and 1.2",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 43
+  },
+  {
+   "label": "27",
+   "doc_id": null,
+   "title": "xtcetools project (https://gitlab.com/dovereem/xtcetools)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 44
+  },
+  {
+   "label": "80",
+   "doc_id": null,
+   "title": "CCSDS green book XTCE example (yamcs-core test resource ccsds-green-book.xml)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 117
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "IERS UTC-TAI.history leap second file and IERS Bulletin C",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 19
+  },
+  {
+   "label": null,
+   "doc_id": "RFC 3164",
+   "title": "BSD syslog message format (syslog logging handler)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 26
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "yamcs-sle plugin (Space Link Extension links, Earth Reception Time)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 100
+  },
+  {
+   "label": null,
+   "doc_id": null,
+   "title": "yamcs-scos2k (SCOS-2000 MIB loader)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 90
+  }
+ ],
+ "topics": [
+  "mib/tooling.md",
+  "ccsds/xtce.md",
+  "ccsds/cop-1.md",
+  "ccsds/sdls.md",
+  "ccsds/tm-sdlp.md",
+  "ccsds/aos.md",
+  "ccsds/uslp.md",
+  "ccsds/tc-coding-cltu.md",
+  "ccsds/cfdp.md",
+  "ccsds/time-codes.md",
+  "scos2000/time-correlation.md",
+  "ecss/pus/st11-time-based-scheduling.md",
+  "missions/other-missions.md"
+ ],
+ "notes": "No author is named; the PDF metadata author is 'Space Applications Services'. Printed page n is PDF page n + 13. The extraction reports 241 PDF pages (registry: 240); the last is empty. Diagrams (server architecture, command processing flow, CFDP class 2 sequence) have no text layer, e.g. PDF pp. 16 and 116. Footnote numbers are glued to standard numbers in the text layer (e.g. 'CCSDS 132.0-B-363' is 132.0-B-3 with footnote 63). The list of standards on PDF p. 99 is internally inconsistent: USLP is cited as 732.1-B-2 but linked to 732x1b3e1 (B-3); TC synchronization and channel coding 231.0-B-4 is linked to the TC SDLP file 232x0b4e1c1; TM synchronization is cited as 131.0-B-4 but linked to 131x0b5; SDLS is cited as 355.0-B-2 but linked to 355x1b1 (SDLS Extended Procedures). 'CRC-16-CCIIT' (for CCITT) is printed as such. The SCOS-2000 MIB loader yamcs-scos2k is a separate plugin and is only mentioned in passing. Library items for the cited standards: ccsds-301-0-301x0b4e1, ccsds-132-0-132x0b3, ccsds-732-0-732x0b4 and ccsds-732-0-732x0b5ec1, ccsds-232-0-232x0b4e1c1, ccsds-732-1-732x1b3e1, ccsds-231-0-231x0b4e1, ccsds-131-0-131x0b5, ccsds-232-1-232x1b2e2c1, ccsds-133-0-133x0b2e2, ccsds-133-1-133x1b3e1, ccsds-355-0-355x0b2, ccsds-355-1-355x1b1, ccsds-130-2-130x2g3, ccsds-727-0-727x0b5e1, ecss-e-st-70-41c-15april2016 and, for XTCE, omg-xtce-1-3-specification and ccsds-660-0-660x0b2."
+}

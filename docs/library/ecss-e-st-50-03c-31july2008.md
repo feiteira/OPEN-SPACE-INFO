@@ -47,11 +47,12 @@ Informative annexes compare the standard with ESA-PSS-04-106 (Annex B) and with 
 - Annex D lists the mission configuration parameters: frame length, version number, SCID list, FECF presence, error-frame handling, idle pattern, VCIDs, secondary header and OCF association, synchronization flag, valid packet version numbers, maximum packet length and incomplete-packet handling. *(PDF p. 38)*
 
 
-## Cited by these wiki pages (7)
+## Cited by these wiki pages (8)
 
 - [ECSS-E-ST-50C communications and the CCSDS adoption notices](../ecss/e-st-50-communications.md)
 - [ECSS: the European space standards system](../ecss/index.md)
 - [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../ccsds/encapsulation.md)
+- [From ESA PSS to CCSDS and ECSS: how the packet standards evolved](../overview/history.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../ccsds/tm-sdlp.md)
 - [TM synchronization and channel coding (CCSDS 131.0-B-5)](../ccsds/tm-coding.md)
@@ -126,7 +127,7 @@ Informative annexes compare the standard with ESA-PSS-04-106 (Annex B) and with 
 | CCSDS 132.0-B-1 | [CCSDS 132.0-B-1](../references/index.md#ref-ccsds-132-0-b-1) | TM Space Data Link Protocol – Blue Book | Issue 1 September 2003 | bibliography |
 | CCSDS 320.0-B-4 | [CCSDS 320.0-B-4](../references/index.md#ref-ccsds-320-0-b-4) | CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures – Blue Book | Issue 4 January 2006 | bibliography |
 | CCSDS 350.0-G-2 | [CCSDS 350.0-G-2](../references/index.md#ref-ccsds-350-0-g-2) | The Application of CCSDS Protocols to Secure Systems – Green Book | Issue 2 January 2006 | bibliography |
-| ESA-PSS-04-106 | [ESA-PSS-04-106](../references/index.md#ref-esa-pss-04-106) | ESA Packet Telemetry Standard | Issue 1 January 1988 | bibliography |
+| ESA-PSS-04-106 | [ESA-PSS-04-106](../references/index.md#ref-esa-pss-04-106) · [library](esa-pss-04-106-issue1-january1988.md) | ESA Packet Telemetry Standard | Issue 1 January 1988 | bibliography |
 
 !!! note "Notes"
     The text extraction uses Unicode non-breaking hyphens (U+2011) in document IDs ('ECSS‐E‐ST‐50‐03C'), so plain-hyphen regex searches can miss them. Figures (frame format, header format, bit numbering) are images and are not in the extracted text. The table of contents lists 'Table B-1' twice (p. 5). Clause 3.1 refers to 'ECSS-ST-00-01' (p. 8), which looks like a typo for the normative reference ECSS-S-ST-00-01. Requirements 5.4.2c/d (p. 24) are truncated in the source ('the Transfer Frame Secondary.'). Clause 5.3.4.1 has the typo 'apply in when' (p. 22). Printed page numbers equal PDF page numbers. PDF page 44 is blank, so srcgrep shows 44 pages while the registry gives 43.

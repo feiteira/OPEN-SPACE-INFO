@@ -95,7 +95,7 @@ Section 2 places RAF in the SLE Reference Model. It explains how service product
 
 | Label | Document | Title | Issue / date | Kind |
 |---|---|---|---|---|
-| [1] | [CCSDS 910.4-B-2](../references/index.md#ref-ccsds-910-4-b-2) | Cross Support Reference Model—Part 1: Space Link Extension Services | Issue 2 October 2005 | normative |
+| [1] | [CCSDS 910.4-B-2](../references/index.md#ref-ccsds-910-4-b-2) · [library](ccsds-910-4-910x4b2e1s.md) | Cross Support Reference Model—Part 1: Space Link Extension Services | Issue 2 October 2005 | normative |
 | [2] | [CCSDS 131.0-B-3](../references/index.md#ref-ccsds-131-0-b-3) | TM Synchronization and Channel Coding | Issue 3 September 2017 | normative |
 | [3] | [CCSDS 131.2-B-2](../references/index.md#ref-ccsds-131-2-b-2) | Flexible Advanced Coding and Modulation Scheme for High Rate Telemetry Applications | Issue 2 February 2023 | normative |
 | [4] | [CCSDS 131.3-B-2](../references/index.md#ref-ccsds-131-3-b-2) | CCSDS Space Link Protocols over ETSI DVB-S2 Standard | Issue 2 April 2022 | normative |

@@ -634,6 +634,7 @@ reported. Herschel/Planck marks the service "Not Applicable" for instruments.[^h
   [ST[11] Time-based scheduling](st11-time-based-scheduling.md) and
   [ST[08] Function management](st08-function-management.md), common action targets.
 * [ST[01] Request verification](st01-request-verification.md), for the reports on released requests.
+* [Herschel/Planck payload management and OBCPs](../../scos2000/herschel-planck-interfaces.md#payload-management-and-obcps), with the Event/Action Table entries that start instrument OBCPs.
 * [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md) and
   [The Solar Orbiter MIB](../../missions/solar-orbiter/mib.md).
 * [Commanding in the MIB](../../mib/commanding.md) and

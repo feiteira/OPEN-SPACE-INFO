@@ -50,17 +50,20 @@ Normative annexes give the CRC and ISO checksum, the mission constants, the spac
 - A CPDU telecommand packet is 10 to 248 octets long, with an even number of octets, ends with a 16-bit CRC, and is carried in a single TC segment and frame (normally on MAP 0). *(PDF p. 222)*
 
 
-## Cited by these wiki pages (45)
+## Cited by these wiki pages (48)
 
 - [CCSDS File Delivery Protocol (CCSDS 727.0-B-5)](../ccsds/cfdp.md)
 - [Command verification in the MIB](../mib/command-verification.md)
 - [Commanding in the MIB: commands and their parameters](../mib/commanding.md)
 - [Downlink: from on-board parameter to operator display](../overview/downlink.md)
+- [ECSS-E-ST-70-01C: on-board control procedures](../ecss/e-st-70-01c.md)
 - [ECSS-E-ST-70-11C: space segment operability](../ecss/e-st-70-11c.md)
 - [ECSS-E-ST-70-31C: monitoring and control data definition](../ecss/e-st-70-31c.md)
 - [ECSS: the European space standards system](../ecss/index.md)
 - [EDDS request and data formats](../scos2000/edds-formats.md)
+- [From ESA PSS to CCSDS and ECSS: how the packet standards evolved](../overview/history.md)
 - [Herschel and Planck](../missions/herschel-planck.md)
+- [Herschel/Planck interface documents: packets, ground links and the CCS](../scos2000/herschel-planck-interfaces.md)
 - [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md)
 - [How it all fits together](../overview/index.md)
 - [MIB parameter types: PTC/PFC in SCOS-2000](../mib/parameter-types.md)
@@ -198,8 +201,8 @@ Normative annexes give the CRC and ISO checksum, the mission constants, the spac
 | [9] | [ANSI X3.4](../references/index.md#ref-ansi-x3-4) | Information Systems -- Coded Character Sets – 7-Bit American National Standard Code for Information Interchange (7-bit ASCII), American National Standards Institute | 1986 | bibliography |
 | [10] | [ITU-T V.41](../references/index.md#ref-itu-t-v-41) | Code-Independent Error Control System – Data Communication over the Telephone Network (before renaming known as Information Technology - CCITT V.41) | 1989 | bibliography |
 | [11] | [ECSS-M-00-02](../references/index.md#ref-ecss-m-00-02) | Space project management – Tailoring of space standards |  | bibliography |
-|  | [ESA PSS-04-106](../references/index.md#ref-esa-pss-04-106) | Packet Telemetry Standard (source of Annex C text) | Issue 1 January 1998 | mentioned |
-|  | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) | Telecommand decoder specification (source of Annex D text) | Issue 1 September 1993 | mentioned |
+|  | [ESA PSS-04-106](../references/index.md#ref-esa-pss-04-106) · [library](esa-pss-04-106-issue1-january1988.md) | Packet Telemetry Standard (source of Annex C text) | Issue 1 January 1998 | mentioned |
+|  | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) · [library](esa-pss-04-151-issue1-september1992.md) | Telecommand decoder specification (source of Annex D text) | Issue 1 September 1993 | mentioned |
 |  | [catalogue](../references/index.md#ref-esa-pus-earlier-esa-packet-utilization-standard-pus-version-0) | ESA PUS (earlier ESA Packet Utilization Standard, PUS version 0) |  | mentioned |
 |  | [ECSS-M-00-02A](../references/index.md#ref-ecss-m-00-02a) | ECSS-M-00-02A, clause 3 (definition of tailoring) | A | mentioned |
 

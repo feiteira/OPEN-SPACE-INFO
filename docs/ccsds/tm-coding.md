@@ -1,8 +1,8 @@
 ---
 title: TM synchronization and channel coding (CCSDS 131.0-B-5)
-description: The CCSDS synchronization and channel coding sublayer for TM, AOS and USLP frames - attached sync markers and CADUs, the pseudo-randomizers, convolutional, Reed-Solomon, concatenated, turbo and LDPC codes, frame validation, allowed frame lengths and managed parameters, with the performance rationale of the Green Book and Solar Orbiter's turbo coding.
+description: The CCSDS synchronization and channel coding sublayer for TM, AOS and USLP frames - attached sync markers and CADUs, the pseudo-randomizers, convolutional, Reed-Solomon, concatenated, turbo and LDPC codes, frame validation, allowed frame lengths and managed parameters, with the performance rationale of the Green Book, the ECSS versions and adoption notice, what Issue 6 (2026) changes, and Solar Orbiter's turbo coding.
 tags: [CCSDS, Data link layer, Channel coding, Telemetry]
-sources: [ccsds-131-0-131x0b5, ccsds-130-1-130x1g3e1, ecss-e-hb-50a-15november2008, ccsds-132-0-132x0b3, ecss-e-st-50-03c-31july2008, ecss-e-st-50c-rev-1-1march2021, ecss-e-as-50-25c-rev-1-13january2023, ccsds-911-1-911x1b5e1, tn-1030-time-correlation, mex-esc-if-5003-b5, sol-s-astr-tn-00079-07, solo-ddid-i1r2, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+sources: [ccsds-131-0-131x0b5, ccsds-131-0-131x0b6ec1, ccsds-130-1-130x1g3e1, ecss-e-st-50-01c31july2008, ecss-e-as-50-21c-rev-2-5december2024, ccsds-732-0-732x0b5ec1, ecss-e-hb-50a-15november2008, ccsds-132-0-132x0b3, ecss-e-st-50-03c-31july2008, ecss-e-st-50c-rev-1-1march2021, ecss-e-as-50-25c-rev-1-13january2023, ccsds-911-1-911x1b5e1, tn-1030-time-correlation, mex-esc-if-5003-b5, sol-s-astr-tn-00079-07, solo-ddid-i1r2, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
 ---
 
 # TM synchronization and channel coding (CCSDS 131.0-B-5)
@@ -19,13 +19,14 @@ the $E_b/N_0$ needed for a frame error rate of 10⁻⁴ by roughly 4 to 12 dB.[^
 !!! info "At a glance"
     | Item | Value |
     |---|---|
-    | Current issue | CCSDS 131.0-B-5, September 2023 (B-1 2003, B-2 2011, B-3 2017, B-4 2022); B-5 revises the pseudo-randomizer[^c-ctl] |
+    | Issue followed here | CCSDS 131.0-B-5, September 2023 (B-1 2003, B-2 2011, B-3 2017, B-4 2022); B-5 revises the pseudo-randomizer[^c-ctl] |
+    | Newer issue | CCSDS 131.0-B-6, April 2026 (Editorial Correction 1, May 2026): slicing for all block codes, a turbo channel interleaver, a mandatory randomizer; see [Newer issue](#newer-issue-ccsds-1310-b-6-2026)[^b6-ctl] |
     | Applies to | TM, AOS and USLP Transfer Frames, space-to-ground, space-to-space and (AOS/USLP) ground-to-space[^c-purpose][^c-uplink] |
     | Sync marker | 32-bit ASM `0x1ACFFC1D`; longer markers for turbo and some LDPC codes[^c-asm] |
     | Codes | Convolutional (7,1/2) and punctured 2/3–7/8; Reed-Solomon (255,223) and (255,239); concatenated RS + convolutional; turbo 1/2–1/6; LDPC 1/2, 2/3, 4/5 and 223/255[^c-func] |
     | Randomizer | 131071-bit sequence, $h(x)=x^{17}+x^{14}+1$; 255-bit legacy option, $h(x)=x^8+x^7+x^5+x^3+1$[^c-rand-seq] |
     | Frame lengths | Up to 2048 octets (TM/AOS) uncoded or convolutional; fixed lengths for RS, turbo and LDPC[^c-len] |
-    | ECSS equivalent | ECSS-E-ST-50-01C (2008), superseded by the adoption notice ECSS-E-AS-50-21[^e50-adopt] |
+    | ECSS equivalent | ECSS-E-ST-50-01C (2008), superseded by the adoption notice ECSS-E-AS-50-21; its Rev.2 (5 December 2024) adopts 131.0-B-5 with amendments to five clauses, see [ECSS versions](#ecss-versions-e-st-50-01c-and-the-adoption-notice)[^e50-adopt][^as21-log][^as21-req] |
 
 ## Role of the sublayer
 
@@ -76,12 +77,18 @@ frames were lost because frame synchronization was lost.[^c-svc]
 
 Issue 5 (September 2023) revises the pseudo-randomizer to avoid spectral spikes on high-rate links:
 a 131071-bit sequence becomes the standard one and the old 255-bit sequence remains only for backward
-compatibility.[^c-ctl][^c-rand-seq] ECSS originally published its own subset as ECSS-E-ST-50-01, which
-kept fewer options (Reed-Solomon E=8 only with 4D-8PSK-TCM and interleaving depth 8; turbo only at rates
-1/2 and 1/4).[^hb-cdiff] ECSS-E-ST-50C Rev.1 (2021) lists ECSS-E-AS-50-21, an adoption notice of the
-CCSDS Blue Book itself, as superseding ECSS-E-ST-50-01C; the January 2023 bibliography of the TC
-adoption notice gives ECSS-E-AS-50-21C Rev.1 as adopting CCSDS 131.0-B-4.[^e50-adopt][^as25-ctx]
-Whether ECSS has since adopted 131.0-B-5 is not stated in the available sources. See
+compatibility.[^c-ctl][^c-rand-seq] Issue 6 (April 2026) reorganizes the standard around optional
+Transfer Frame slicing, adds a channel interleaver for turbo codewords and makes the randomizer
+mandatory. The rest of this page follows Issue 5; Issue 6 is summarized in
+[its own section](#newer-issue-ccsds-1310-b-6-2026) at the end.[^b6-ctl]
+
+ECSS originally published its own subset as ECSS-E-ST-50-01, which kept fewer options (Reed-Solomon
+E=8 only with 4D-8PSK-TCM and interleaving depth 8; turbo only at rates 1/2 and 1/4).[^hb-cdiff][^e01-rs8][^e01-tc]
+ECSS-E-ST-50C Rev.1 (2021) lists ECSS-E-AS-50-21, an adoption notice of the CCSDS Blue Book itself, as
+superseding ECSS-E-ST-50-01C. Rev.1 of the notice (13 January 2023) adopted CCSDS 131.0-B-4, and Rev.2
+(5 December 2024) adopts 131.0-B-5, the issue this page follows.[^e50-adopt][^as25-ctx][^as21-log]
+Whether ECSS has adopted 131.0-B-6 is not stated in the available sources. The ECSS texts are compared
+[below](#ecss-versions-e-st-50-01c-and-the-adoption-notice); see also
 [ECSS-E-ST-50C communications](../ecss/e-st-50-communications.md).
 
 ## Why code at all
@@ -110,16 +117,26 @@ asymptotes are about 0.2 dB for rate 1/2, −0.5 dB for 1/3, −0.8 dB for 1/4 a
 |---|---|---|---|
 | (255,223) Reed-Solomon only | 1.14 | 5.4 dB | 6.2 dB |
 | Punctured convolutional 7/8 | 1.14 | 3.8 dB | 3.9 dB |
+| Punctured convolutional 5/6 | 1.2 | 4.9 dB | not available |
 | RS + punctured convolutional 7/8 | 1.31 | 6.8 dB | 7.7 dB |
 | Punctured convolutional 3/4 | 1.33 | 5.3 dB | 5.4 dB |
+| RS + punctured convolutional 5/6 (I = 5) | 1.37 | 7.5 dB | 8.4 dB (extrapolated) |
+| Punctured convolutional 2/3 | 1.5 | 5.8 dB | not available |
 | RS + punctured convolutional 3/4 (I = 5) | 1.52 | 8.2 dB | 9.6 dB |
+| RS + punctured convolutional 2/3 (I = 5) | 1.71 | 8.8 dB | 9.8 dB (extrapolated) |
 | Basic convolutional (7,1/2) | 2 | 6.1 dB | 6.6 dB |
 | Turbo rate 1/2, $k$ = 8920 | 2 | 10.8 dB | 11.6 dB |
 | RS + basic convolutional 1/2 (I = 5) | 2.28 | 9.4 dB | 10.8 dB |
 | Turbo rate 1/4, $k$ = 8920 | 4 | 11.7 dB | 12.5 dB |
 
-The table restates part of Table 5-2 of the ECSS communications handbook; uncoded BPSK would need
-11.9 dB (FER 10⁻⁴) or 13.0 dB (FER 10⁻⁶), and the gains already account for the higher symbol rate.[^hb-gains]
+The table restates Table 5-2 of the ECSS communications handbook, which repeats Table D-2 of
+ECSS-E-ST-50-01C value for value; uncoded BPSK would need 11.9 dB (FER 10⁻⁴) or 13.0 dB (FER 10⁻⁶), and
+the gains already account for the higher symbol rate. The convolutional figures assume 8-bit soft
+decisions and the turbo figures an APP decoder with at least 6-bit channel symbols, 8-bit metrics and
+10 iterations; no synchronization losses are included.[^hb-gains][^e01-gain] For the E = 8 code ECSS
+gives a separate case: the (255,239) code with I = 8 and 4D-8PSK trellis-coded modulation gains 7.7 dB
+at 2 bits per channel symbol (bandwidth 1.60 × uncoded) or 6.2 dB at 2.5 (1.28 ×), for FER 10⁻⁷ and
+15,296-bit frames.[^e01-gain]
 The Green Book's own summary: the convolutional code gains about 5.5 dB over uncoded data at BER 10⁻⁵,
 the Reed-Solomon outer code adds about 2.0 dB, and the rate-1/2 turbo code with 8920-bit blocks comes
 within about 1 dB of the rate-1/2 Shannon limit and beats the concatenated code by about 1.5 dB.[^g1-perf]
@@ -176,7 +193,10 @@ independent of the code rate.[^c-tc-sync][^g1-fsync]
 The ASM can also resolve the "sense" of the data (true versus inverted bits) when the modulation leaves
 that ambiguity.[^c-func] The embedded pattern `0x352EF853` exists so that a stream of recorded frames
 inserted in the data field of real-time frames does not contain the main marker; ECSS uses it for its
-legacy asynchronously inserted playback data.[^c-asm-emb][^e03-async]
+legacy asynchronously inserted playback data.[^c-asm-emb][^e03-async] ECSS-E-ST-50-01C forbids the
+embedded marker with turbo-coded frames and lists its use as a mission configuration parameter.[^e01-asm][^e01-mcp]
+The text of Issue 6 no longer lists this pattern: its section 9 ends with §9.4 and has no counterpart
+of §9.6.[^b6-csm]
 
 ### Where the marker can be found
 
@@ -249,7 +269,13 @@ basic convolutional code helps with BPSK but not with QPSK multiplexing or punct
 and LDPC codes, being quasi-cyclic, can also decode wrongly after false codeblock synchronization if the
 data are not randomized.[^c-cc-gen][^c-rs-gen][^c-ldpc-gen] CCSDS therefore makes the randomizer
 **required unless the system designer verifies** that the system works without it, and both CCSDS and
-ECSS record that missions have had telemetry problems because they skipped it.[^c-rand-ov][^hb-crp]
+ECSS record that missions have had telemetry problems because they skipped it.[^c-rand-ov][^hb-crp][^e01-rand]
+Issue 6 removes the escape clause: the randomizer becomes mandatory with every coding option and
+*Absent* disappears from its managed parameter (see [Issue 6](#randomizer-and-markers-in-issue-6)).[^b6-rand][^b6-mp]
+ECSS-E-ST-50-01C (2008) had made presence or absence a managed property of the physical channel, never
+signalled in the telemetry. It also warns that a Reed-Solomon decoder fed with randomized data that was
+not derandomized, or the reverse, can perform meaningless corrections and deliver the frame as valid,
+in particular with I = 5.[^e01-rand][^e01-rs]
 
 ### How it works
 
@@ -277,9 +303,12 @@ reset at codeword boundaries, and the CSM is not randomized.[^c-smtf-rand]
     that spacing below the 4 kHz ITU resolution bandwidth limits the bit rate to about 2.04 Mb/s. Idle
     frames filled with zeros make it worse, since the randomizer output then dominates the transmitted
     signal. It discusses a 15-cell LFSR (period 32767) and filling idle frame data fields with a
-    free-running pseudo-noise sequence.[^g1-hdr] The ECSS handbook had already flagged high-rate links
-    above about 2 megasymbols per second as a problem with no agreed ECSS solution.[^hb-crp] CCSDS
-    132.0-B-3 (2021) now mandates PN-filled OID frames, and 131.0-B-5 (2023) the 131071-bit sequence.[^b3-oid][^c-ctl]
+    free-running pseudo-noise sequence.[^g1-hdr] ECSS-E-ST-50-01C and the ECSS handbook had already
+    flagged high-rate links above about 2 megasymbols per second as a problem with no agreed ECSS
+    solution.[^e01-rand][^hb-crp] CCSDS 132.0-B-3 (2021) now mandates PN-filled OID frames, and
+    131.0-B-5 (2023) the 131071-bit sequence; the 2024 ECSS adoption notice records that the long
+    sequence replaces the 255-bit one of ECSS-E-ST-50-01 unless legacy compatibility requires
+    otherwise.[^b3-oid][^c-ctl][^as21-diff]
 
 The Green Book also notes that integration and test teams may like to see un-randomized data, and
 suggests a randomizer that can be switched off during early testing.[^g1-randuse]
@@ -495,15 +524,18 @@ and the $s$-th bit read into encoder b is bit $\pi(s)$ of the information block.
 * Turbo curves flatten at an **error floor**; the CCSDS codes were designed to push it down to perhaps
   10⁻⁹ BER, against about 10⁻⁵ for the original turbo codes.[^g1-floor]
 * Turbo codes are vulnerable to **burst noise** (for example a tumbling spacecraft or RF interference),
-  a weakness inherited from the convolutional components; a channel interleaver would help but CCSDS has
-  not specified one.[^g1-burst]
+  a weakness inherited from the convolutional components; a channel interleaver would help, and Issue 5
+  specifies none. Issue 6 (2026) adds an optional row-column channel interleaver of depth 4 for exactly
+  this reason (see [Turbo channel interleaver](#turbo-channel-interleaver-issue-6)).[^g1-burst][^b6-ci]
 * The codes are non-transparent, so differential encoding cannot be used and phase ambiguity must be
   resolved (with the ASM) before decoding.[^c-tc-sync]
 * A wide class of turbo codes is covered by a patent of France Télécom and Télédiffusion de France;
   the standard notes that the US patent (5,446,747) expired in 2012.[^c-pat]
 
 ECSS-E-ST-50-01 kept only rates 1/2 and 1/4: rate 1/6 gains only about 0.2 dB over 1/4 at FER 10⁻⁴ while
-expanding the bandwidth greatly, and rate 1/3 sits between the two.[^hb-cdiff] Turbo codes suit
+expanding the bandwidth greatly, and rate 1/3 sits between the two.[^hb-cdiff][^e01-tc] The 2024
+adoption notice lists the extra rates only as an informative difference from the superseded standard and
+contains no amendment restricting them.[^as21-req][^as21-diff] Turbo codes suit
 power-limited links beyond low Earth orbit; the ECSS handbook notes that real-time turbo decoding was
 hard above about 20 Mbit/s at the time.[^c-uplink][^hb-gains]
 
@@ -575,7 +607,9 @@ derandomized) ASMs for frames. The CSM and the frame ASM may share the pattern `
 conflict because the ASMs are randomized inside the codeblock. If a codeword fails to decode, the
 Quality Indicator of every frame it touched is set.[^c-smtf][^c-smtf-rand] The maximum TM frame length is
 then 2048 octets, as for uncoded data.[^c-len] Section 13 prescribes this option for AOS or USLP
-ground-to-space links that use an SMTF stream.[^c-uplink]
+ground-to-space links that use an SMTF stream.[^c-uplink] Issue 6 replaces this section with a
+generic slicing procedure for Reed-Solomon, turbo and LDPC codes and drops the multi-codeword LDPC
+codeblock (see [Transfer Frame slicing](#transfer-frame-slicing-issue-6)).[^b6-slice]
 
 ## Frame validation
 
@@ -616,6 +650,10 @@ is fixed for a Physical Channel and Mission Phase, and it excludes the ASM.[^c-l
 | 6 | LDPC applied to frames | 892 octets (rate 7/8); 128, 512 or 2048 octets (rates 1/2, 2/3, 4/5) |
 | 7 | LDPC applied to SMTF stream | max 2048 (TM, AOS) or 65536 (USLP) |
 
+ECSS-E-ST-50-01C gave the compatible lengths only informatively, in its Annex C, and Issue 6
+renumbers the cases (case 3 becomes slicing with any block code) and raises the AOS maximum to 65536
+octets; see [frame lengths in Issue 6](#frame-lengths-and-managed-parameters-in-issue-6).[^e01-len][^as21-diff][^b6-len]
+
 ## Managed parameters
 
 All managed parameters are fixed for every frame of a Physical Channel during a Mission Phase.[^c-mp]
@@ -637,7 +675,11 @@ All managed parameters are fixed for every frame of a Physical Channel during a 
 | Frame synchronization | Transfer Frame length (bits) | integer |
 
 The table restates Tables 12-1 to 12-7. The standard also requires the FECF to be present when neither
-Reed-Solomon nor LDPC is used.[^c-mp]
+Reed-Solomon nor LDPC is used.[^c-mp] ECSS-E-ST-50-01C listed the same choices informatively as
+"mission configuration parameters" (Annex G), with only six coding schemes (none, convolutional,
+Reed-Solomon E = 16, concatenated, Reed-Solomon E = 8 with 4D-8PSK-TCM, turbo), the randomizer as present
+or absent, and the use of the embedded marker as an extra parameter.[^e01-mcp] Issue 6 restructures the
+tables around a per-code *Slicing* parameter (see [below](#frame-lengths-and-managed-parameters-in-issue-6)).[^b6-mp]
 
 ## Choosing a coding scheme
 
@@ -663,6 +705,34 @@ flowchart TD
     The decision tree is this wiki's summary of the trade-offs stated in the ECSS handbook, the Green
     Book and §13 of the standard; neither document prescribes such a tree, and real missions also weigh
     ground-station decoder availability and heritage.[^hb-gains][^g1-ldpcapp][^c-uplink]
+
+### ECSS preferred coding schemes (2008)
+
+ECSS-E-ST-50-01C gave, in its informative Annex D, the selection guidance that the CCSDS Blue Book
+does not contain. Its criteria are the performance objectives (bit and frame error rates after
+decoding), the error statistics of the coding channel, the transmitter power available on board, RF
+bandwidth limits, and implementation cost and ground support; the driver is the coding gain obtained
+with an error model representative of the real channel.[^e01-prof] Assuming frames of at most 8920 bits
+and an acceptable FER of 10⁻⁴ to 10⁻⁶, the annex names preferred schemes per frequency band and mission
+category. Category A covers spacecraft less than 2 × 10⁶ km above the Earth's surface, category B those
+at that distance or beyond.[^e01-cat][^e01-prof]
+
+| Band (MHz) | Category A | Category B |
+|---|---|---|
+| 2200–2290, 8450–8500 | Conv 1/2 + RS (255,223), only if occupied bandwidth is not an issue; conv 3/4 + RS; conv 7/8 + RS; or RS (255,223) alone, for Earth exploration satellites only | Band not allocated to this category |
+| 2290–2300, 8400–8450 | Band not allocated to this category | Turbo 1/2; turbo 1/4, only if bandwidth is not an issue; conv 1/2 + RS; or conv 3/4 + RS, only if bandwidth is an issue (for example Mars missions) |
+| 8025–8400 with 4D-8PSK-TCM | RS (255,239), I = 8, with 4D-8PSK-TCM, for 15,296-bit frames (one entry spanning both categories) | (same entry) |
+| 8025–8400 with other modulation | RS (255,223) or conv 7/8 (one entry spanning both categories) | (same entry) |
+| 25 500–27 000, 37 000–38 000 | Not defined at the time of issue | Not defined at the time of issue |
+| 31 800–32 300 | Band not allocated to this category | Turbo 1/2; turbo 1/4; or conv 1/2 + RS |
+
+The table restates Table D-1. For most of the concatenated entries a footnote adds that the error bursts at
+the output of the inner decoder drive the choice of interleaving depth, and that a minimum depth of I = 4 is preferred;
+Earth exploration satellites in the 2200–2290 MHz band count as category A. The annex insists that the
+availability of on-board and ground equipment be confirmed before a scheme is chosen.[^e01-prof] The 2024
+adoption notice observes that CCSDS 131.0-B-5 has no equivalent of this annex and points instead to the
+historical CCSDS Silver Book 131.4-M-1-S and to the Green Book 130.1-G-3.[^as21-diff] Frequency bands and
+modulation are covered on the [RF and ranging page](rf-and-ranging.md).
 
 ### Ground-to-space and space-to-space use
 
@@ -715,11 +785,13 @@ uses.[^mib]
 * The same definitions are present, unchanged, in the April 2020 MIB release.[^mib2020]
 
 !!! warning "Inference"
-    Only turbo rates 1/2 and 1/4 appear as calibrated values, which matches both the 1115-octet frame
-    length (a valid turbo block) and the ECSS-E-ST-50-01 subset of turbo rates. That Solar Orbiter's
+    In these OBC-level and EGSE calibrations only turbo rates 1/2 and 1/4 appear, which matches both the
+    1115-octet frame length (a valid turbo block) and the ECSS-E-ST-50-01 subset of turbo rates; the
+    encoder's own configuration register (next subsection) can express all four rates. That Solar Orbiter's
     downlink uses turbo coding at these two rates is deduced from MIB definitions; the TM/TC ICD in the
     library does not specify the coding scheme, and the meaning of the "PSS" register values (1042,
-    5138) is not stated in the available sources.[^mib][^hb-cdiff][^sol-tf] Why the time-correlation
+    5138) is not stated in the available sources (a decoding consistent with the encoder register is
+    given in the next subsection).[^mib][^hb-cdiff][^sol-tf] Why the time-correlation
     report records the encoding scheme is also not stated; plausibly because coding changes the
     on-board and ground delays between clock sampling and frame time-stamping. The "TTR" in the
     calibration description plausibly refers to the on-board computer's TTRM board, which the ICD
@@ -739,6 +811,101 @@ uses.[^mib]
     comparison). Table references: [PCF](../mib/tables/pcf.md), [TXF](../mib/tables/txf.md),
     [TXP](../mib/tables/txp.md), [PLF](../mib/tables/plf.md), [PID](../mib/tables/pid.md).
 
+### The TM encoder configuration register
+
+The MIB also decodes the configuration register of the on-board **TM encoder** itself, which is where
+the coding options of this standard are switched. Each of the two encoders has a 32-bit word described as
+"TmeTmEnCfg1": [NCDD05JW](../explorer/index.md#/solo/param/NCDD05JW) for encoder A and
+[NCDD05NW](../explorer/index.md#/solo/param/NCDD05NW) for encoder B (PTC 3, PFC 14; the MIB descriptions
+call them "TC Decoder A" and "TC Decoder B"). The last 16 bits of each word are split into ten enumerated
+fields of 1 to 3 bits. They are placed in the housekeeping packets (3,25)
+[SPID 19541](../explorer/index.md#/solo/packet/19541) (APID 164) and
+[SPID 19550](../explorer/index.md#/solo/packet/19550) (APID 162), both "DMS OBC Status Slow", and
+[SPID 19578](../explorer/index.md#/solo/packet/19578) "DMS Safe Mode Slow" (APID 165). In SPID 19541 the
+word of encoder A starts at octet 61 and its fields at octet 63; for encoder B the offsets are 185 and 187.[^mib-tme]
+
+<div class="bitfield" data-title="Solar Orbiter TM encoder register TmEnCfg1, decoded last 16 bits (MIB 2025-09-16)" data-width="16"
+     data-fields='[{"n":"Pat","b":2,"d":"Test pattern: 0 TP=0, 1 TP=01, 2 TP=0011, 3 TP=0000_1111"},
+                   {"n":"TST","b":1,"d":"0 TP disabled, 1 TP enabled"},
+                   {"n":"TuR","b":2,"d":"Turbo rate: 0 = 1/2, 1 = 1/3, 2 = 1/4, 3 = 1/6"},
+                   {"n":"TU","b":1,"d":"0 No Turbo, 1 Turbo"},
+                   {"n":"RS","b":1,"d":"0 No ReedSolomon, 1 ReedSolomon"},
+                   {"n":"CvR","b":3,"d":"Convolutional rate: 0 = 1/2 inv, 1 = 1/2, 4 = 2/3, 5 = 3/4, 6 = 5/6, 7 = 7/8"},
+                   {"n":"CV","b":1,"d":"0 No Conv Enc, 1 Conv Enc"},
+                   {"n":"PR","b":1,"d":"0 PR Disabled, 1 PR Enabled"},
+                   {"n":"(none)","b":1,"d":"No MIB parameter is placed at this bit"},
+                   {"n":"PS","b":1,"d":"0 Bdwdth Alloc, 1 Priority"},
+                   {"n":"SCW","b":2,"d":"0 ClcwD0, 1 ClcwD1, 2 ClcwD0 and D1, 3 round robin"}]'
+     data-caption="Real definitions from the pcf, plf and txp tables; bit 0 is the leftmost bit of octet 63 of SPID 19541"></div>
+
+| Bits | Field (encoder A / B) | Raw values and texts | Calibration | CCSDS 131.0 counterpart |
+|---|---|---|---|---|
+| 0–1 | Pat ([NCDX9317](../explorer/index.md#/solo/param/NCDX9317) / NCDX9417) | 0 `TP=0`, 1 `TP=01`, 2 `TP=0011`, 3 `TP=0000_1111` | [CCDX9317TM](../explorer/index.md#/solo/calib/txt/CCDX9317TM) | None (a test pattern) |
+| 2 | TST (NCDX9318 / NCDX9418) | 0 `TP disabled`, 1 `TP enabled` | CCDX9318TM | None |
+| 3–4 | TuR ([NCDX9319](../explorer/index.md#/solo/param/NCDX9319) / NCDX9419) | 0 `rate = 1/2`, 1 `rate = 1/3`, 2 `rate = 1/4`, 3 `rate = 1/6` | [CCDX9319TM](../explorer/index.md#/solo/calib/txt/CCDX9319TM) | The four nominal turbo rates[^c-tc-spec] |
+| 5 | TU ([NCDX9320](../explorer/index.md#/solo/param/NCDX9320) / NCDX9420) | 0 `No Turbo`, 1 `Turbo` | CCDX9320TM | Coding method[^c-mp] |
+| 6 | RS ([NCDX9321](../explorer/index.md#/solo/param/NCDX9321) / NCDX9421) | 0 `No ReedSolomon`, 1 `ReedSolomon` | CCDX9321TM | Coding method |
+| 7–9 | CvR ([NCDX9322](../explorer/index.md#/solo/param/NCDX9322) / NCDX9422) | 0 `rate 1/2 inv`, 1 `rate 1/2`, 4 `rate 2/3`, 5 `rate 3/4`, 6 `rate 5/6`, 7 `rate 7/8` | [CCDX9322TM](../explorer/index.md#/solo/calib/txt/CCDX9322TM) | Basic and punctured convolutional rates[^c-cc-basic][^c-cc-punct] |
+| 10 | CV (NCDX9323 / NCDX9423) | 0 `No Conv Enc`, 1 `Conv Enc` | CCDX9323TM | Coding method |
+| 11 | PR ([NCDX9324](../explorer/index.md#/solo/param/NCDX9324) / NCDX9424) | 0 `PR Disabled`, 1 `PR Enabled` | CCDX9324TM | Plausibly the randomizer (see below) |
+| 12 | none | No parameter defined | none | none |
+| 13 | PS (NCDX9325 / NCDX9425) | 0 `Bdwdth Alloc`, 1 `Priority` | CCDX9325TM | Not a coding option |
+| 14–15 | SCW ([NCDX9326](../explorer/index.md#/solo/param/NCDX9326) / NCDX9426) | 0 `ClcwD0`, 1 `ClcwD1`, 2 `ClcwD0 and D1`, 3 `round robin` | CCDX9326TM | Not a coding option |
+
+All of these parameters are 1-, 2- or 3-bit enumerations (PTC 2 with PFC 1, 2 or 3), and their
+definitions and placements are identical in the April 2020 release.[^mib-tme][^mib2020] Two high-priority
+CPDU commands, [ZBC04011](../explorer/index.md#/solo/command/ZBC04011) "Use TM Encoder/OBT A" and
+[ZBC05011](../explorer/index.md#/solo/command/ZBC05011) "Use TM Encoder/OBT B" (header `HPC1_TC`,
+APID 44, MAP ID 0), select which encoder is in use.[^mib-tme] The Solar Orbiter ICD reserves MAP ID 0 for
+commands that go straight to the Command Pulse Distribution Unit without the central software, also called
+HPC-1 commands.[^sol-cpdu]
+
+!!! warning "Inference"
+    The register covers the coding options of this standard except LDPC, which it does not mention:
+    turbo coding at all four CCSDS rates, Reed-Solomon coding, convolutional coding at the basic and all
+    punctured rates, and a switch labelled "PR" that is most plausibly the pseudo-randomizer. The restriction to turbo rates 1/2 and 1/4
+    noted in the previous section therefore belongs to the OBC-level parameter `NCFT1YN0` and to the EGSE
+    register, not to the encoder hardware. The two convolutional rate-1/2 codes fit the standard's
+    distinction between the basic code, whose $G_2$ output is inverted, and the punctured codes, which
+    use no inversion.[^c-cc-basic][^c-cc-punct] "PS" (bandwidth allocation or priority) and "SCW" (CLCW
+    of decoder 0, decoder 1, both, or round robin) look like virtual-channel scheduling and the choice of
+    which [CLCW](cop-1.md) fills the [OCF](tm-sdlp.md#operational-control-field), matching the two
+    on-board TC decoders. None of these meanings is documented in the available sources, and which values
+    are set in flight cannot be read from the MIB, which holds definitions but no telemetry. Read with
+    this layout (bit 0 the most significant bit of a 16-bit half-word), the two values of the EGSE
+    "TM Encoding PSS" calibration decode consistently: 1042 = `0x0412` gives TU = 1 (turbo), TuR = 0
+    (rate 1/2), PR = 1 and SCW = 2 (`ClcwD0 and D1`), and 5138 = `0x1412` differs only in TuR = 2
+    (rate 1/4), matching their labels `TurboRate 1/2` and `TurboRate 1/4`; the OBC-level calibration
+    `CCDT0345TM` also uses raw 0 for rate 1/2 and raw 2 for rate 1/4, like TuR. This suggests that the
+    EGSE parameter (PTC 2, PFC 16) reports the same half-word, but the MIB does not say so.[^mib] Solar
+    Orbiter, an interplanetary mission, would be category B in ECSS-E-ST-50-01C, whose deep-space band
+    entries list turbo 1/2 and turbo 1/4 first.[^e01-prof][^e01-cat]
+
+??? example "SQL used (TM encoder register)"
+    ```sql
+    -- fields of the encoder configuration words and their placement
+    SELECT p.PLF_SPID, p.PLF_OFFBY, p.PLF_OFFBI, p.PLF_NAME, c.PCF_DESCR, c.PCF_PTC, c.PCF_PFC, c.PCF_CURTX
+      FROM plf p JOIN pcf c ON c.PCF_NAME = p.PLF_NAME
+     WHERE p.PLF_SPID = '19541'
+       AND (CAST(p.PLF_OFFBY AS INT) BETWEEN 60 AND 66 OR CAST(p.PLF_OFFBY AS INT) BETWEEN 184 AND 190)
+     ORDER BY CAST(p.PLF_OFFBY AS INT), CAST(p.PLF_OFFBI AS INT);
+    -- the textual calibrations
+    SELECT f.TXF_NUMBR, f.TXF_DESCR, p.TXP_FROM, p.TXP_ALTXT
+      FROM txf f JOIN txp p ON p.TXP_NUMBR = f.TXF_NUMBR
+     WHERE f.TXF_NUMBR BETWEEN 'CCDX9317TM' AND 'CCDX9326TM'
+     ORDER BY f.TXF_NUMBR, CAST(p.TXP_FROM AS INT);
+    -- packets carrying the words
+    SELECT PID_SPID, PID_TYPE, PID_STYPE, PID_APID, PID_DESCR FROM pid
+     WHERE PID_SPID IN (SELECT PLF_SPID FROM plf WHERE PLF_NAME IN ('NCDD05JW','NCDD05NW'));
+    -- encoder selection commands
+    SELECT CCF_CNAME, CCF_DESCR, CCF_PKTID, CCF_APID, CCF_HIPRI, CCF_MAPID FROM ccf
+     WHERE CCF_CNAME IN ('ZBC04011','ZBC05011');
+    ```
+    Run with `sqlite3 -readonly` on `solo-2025-09-16.sqlite`; the same placement query on
+    `solo-2020-04-16.sqlite` returns identical rows. Tables: [PLF](../mib/tables/plf.md),
+    [PCF](../mib/tables/pcf.md), [TXF](../mib/tables/txf.md), [TXP](../mib/tables/txp.md),
+    [PID](../mib/tables/pid.md), [CCF](../mib/tables/ccf.md).
+
 A small curiosity from the ground segment: the Solar Orbiter RAPID archive files, which mirror SCOS-2000
 packet archives, carry in every record a fixed "sync marker" (SM) field of value `1ACFFC1D`, the same
 pattern as the space-link ASM.[^ddid-rapid]
@@ -753,12 +920,265 @@ precoding that resolves the ambiguity for transparent codes; placed at the outpu
 encoder it costs a lot of performance, which is why it is only allowed before the encoder (or, the
 Green Book notes, between the outer and inner codes, which the Blue Book does not clearly permit).[^g1-transp]
 
+## ECSS versions: E-ST-50-01C and the adoption notice
+
+ECSS has published telemetry synchronization and channel coding in two forms: as its own standard,
+ECSS-E-ST-50-01C (2008), a CCSDS-compatible subset, and since 2021 as the adoption notice
+ECSS-E-AS-50-21, which applies the CCSDS Blue Book itself with a short list of amendments. The context
+clause of the notice maps every superseded ECSS space data link standard to its notice:[^as21-ctx]
+
+| Superseded ECSS standard (31 July 2008) | Adoption notice | Based on |
+|---|---|---|
+| ECSS-E-ST-50-01C, TM synchronization and channel coding | ECSS-E-AS-50-21 | CCSDS 131.0-B (this page) |
+| ECSS-E-ST-50-03C, TM transfer frame protocol | ECSS-E-AS-50-22 and ECSS-E-AS-50-23 | CCSDS 132.0-B ([TM SDLP](tm-sdlp.md)) and 732.0-B ([AOS](aos.md)) |
+| ECSS-E-ST-50-04C, telecommand protocols | ECSS-E-AS-50-24, -25 and -26 | CCSDS 231.0-B ([CLTU](tc-coding-cltu.md)), 232.0-B ([TC SDLP](tc-sdlp.md)) and 232.1-B ([COP-1](cop-1.md)) |
+
+### ECSS-E-ST-50-01C (2008)
+
+The first issue, ECSS-E-50-01A, appeared on 6 November 2007; a B issue was never published, and
+ECSS-E-ST-50-01C of 31 July 2008 was issued for consistency with CCSDS and the other ECSS
+standards.[^e01-log] Its Annex F describes it as a subset of CCSDS 131.0-B-1 and therefore
+CCSDS-compatible, while warning that a system meant to support CCSDS missions in general must take the
+differences into account.[^e01-ccsds]
+
+| Topic | ECSS-E-ST-50-01C rule | CCSDS 131.0-B-5 |
+|---|---|---|
+| Convolutional | Basic (7,1/2) code and punctured 2/3 to 7/8; soft decisions with at least 3-bit quantization **shall** be used[^e01-cc] | Same codes; soft decisions *should* be used[^c-cc-gen] |
+| Reed-Solomon E = 16 | I = 1, 2, 3, 4, 5 or 8, fixed for a mission phase[^e01-rs8] | Same depths, "normally" fixed[^c-rs-il] |
+| Reed-Solomon E = 8 | Only with 4D-8PSK trellis-coded modulation, only I = 8, never concatenated with a convolutional code[^e01-rs8] | Any depth, may be concatenated[^c-rs-param][^c-concat] |
+| Turbo | Rates 1/2 and 1/4 only; same four block lengths; a 16,384-bit block "under study"; the codeblock rate for k = 1784 must be checked against the decoder[^e01-tc] | Rates 1/2, 1/3, 1/4, 1/6[^c-tc-spec] |
+| LDPC | None[^as21-diff] | Rates 1/2, 2/3, 4/5 and 223/255; frame or SMTF-stream coding[^c-ldpc-gen] |
+| Sync markers | 32-bit `1ACFFC1D`, 64- and 128-bit turbo markers, embedded `352EF853` (not with turbo)[^e01-asm] | Adds the 96- and 192-bit markers for turbo rates 1/3 and 1/6 and assigns markers to the LDPC codes[^c-asm] |
+| Randomizer | 255-bit sequence only, presence managed per physical channel; no scheme agreed above about 2 Msym/s[^e01-rand] | 131071-bit sequence, 255-bit for legacy[^c-rand-seq] |
+| Frame lengths and parameters | Informative Annexes C and G[^e01-len][^e01-mcp] | Normative §§11 and 12[^c-len][^c-mp] |
+
+The ECSS text also records what had changed since the ESA Telemetry Channel Coding Standard
+ESA-PSS-04-103 (September 1989): the punctured codes were added; the Reed-Solomon code is the same code,
+compatible with PSS, but described in different mathematics; it may now be concatenated with the
+punctured codes too; the E = 8 code (with 4D-8PSK-TCM) and the turbo codes are new; and PSS had
+forbidden the randomizer with convolutional coding under BPSK, a restriction ECSS dropped.[^e01-pss] The
+wider history is told in [From ESA PSS to CCSDS and ECSS](../overview/history.md).
+
+### ECSS-E-AS-50-21: adopting the Blue Book
+
+| Issue | Date | CCSDS issue applied | Change |
+|---|---|---|---|
+| ECSS-E-AS-50-21C | 1 March 2021 | 131.0-B-3 (September 2017) | First issue; supersedes ECSS-E-ST-50-01C[^as21-log][^e50-adopt] |
+| Rev.1 | 13 January 2023 | 131.0-B-4 | Update to the new CCSDS issue, which adds USLP and ground-to-space links[^as21-log][^as25-ctx] |
+| Rev.2 | 5 December 2024 | 131.0-B-5 (September 2023) | Update for the revised randomizer; adds the differences on USLP, turbo rates and ASM patterns that earlier issues had missed[^as21-log][^as21-req] |
+
+Rev.2 requires CCSDS 131.0-B-5 to apply as written except for amendments to five clauses (six entries in
+its Table 4-1), all of which carry restrictions of the 2008 standard forward. Clause numbers are those of
+Issue 5:[^as21-req][^e01-cc][^e01-rs8]
+
+| Clause of 131.0-B-5 | Kind | ECSS text (paraphrased) |
+|---|---|---|
+| 3.2.4 (quantization) | Modified | Soft decisions with at least three-bit quantization **shall** be used for the decoder, replacing "should be used whenever constraints permit" |
+| 4.3.1 c (new) | New requirement | E = 8 shall not be used unless the modulation is 4D-8PSK-TCM |
+| 4.3.5.1 | Modified | With E = 16 the interleaving depth is 1, 2, 3, 4, 5 or 8; with E = 8 it is 8 |
+| 4.3.5.2 | Modified | The word "normally" is deleted: the depth is fixed on a physical channel for a mission phase |
+| 5.1 | Modified, new note | Concatenated codes use the Reed-Solomon code with E = 16 only; the E = 8 code is not concatenated with a convolutional code |
+
+Everything else that separates the Blue Book from the old ECSS standard is listed only informatively in
+Annex A, which therefore doubles as a summary of what ECSS users gained: LDPC codes for frames and SMTF
+streams, the turbo rates 1/3 and 1/6, the extra markers, the 131071-bit randomizer, normative frame
+lengths and managed parameters, USLP support (cited as CCSDS 732.1-B-3), ground-to-space use (§13), a
+formal service interface (Annex A of the Blue Book) and a security discussion (Annex B). Conversely, the
+Blue Book has no equivalent of the application profiles of ECSS-E-ST-50-01C
+([above](#ecss-preferred-coding-schemes-2008)).[^as21-diff] The bibliography of Rev.2 lists the companion
+notices then current: ECSS-E-AS-50-22C Rev.1 (TM SDLP, CCSDS 132.0-B-3), ECSS-E-AS-50-23C Rev.1 (AOS,
+CCSDS 732.0-B-4), -24C Rev.1, -25C Rev.1 and -26C.[^as21-bib]
+
+!!! warning "Inference"
+    The amendments point at Issue 5 clause numbers. In Issue 6 the same requirements sit in §4.2.4,
+    §5.3.1, §§5.3.5.1–5.3.5.2 and §6.1, because a new section 3 shifts every coding section by one. An
+    adoption of Issue 6 would need renumbered amendments; the content of those clauses is unchanged in
+    Issue 6.[^as21-req][^b6-cc][^b6-rs]
+
+## Newer issue: CCSDS 131.0-B-6 (2026)
+
+!!! info "Newer issue"
+    The sections above follow Issue 5 (September 2023), the issue adopted by ECSS. CCSDS published
+    Issue 6 in April 2026 and Editorial Correction 1 in May 2026; the correction fixes numbering in the
+    table of contents for sections 8 and 10, in table C-1 and in figures 3-1 to 3-3 and F-1. This section
+    summarizes what Issue 6 changes.[^b6-ctl][^as21-log]
+
+The Document Control table names three substantive changes: an interleaver for turbo codewords, slicing
+for all block codes so that Transfer Frames and codewords may have different lengths, and a mandatory
+pseudo-randomizer.[^b6-ctl] Reading the two issues side by side gives the full picture:
+
+| Topic | Issue 5 (2023) | Issue 6 (2026) |
+|---|---|---|
+| Functions of the sublayer | Error-control coding with frame validation, synchronization, pseudo-randomizing[^c-func] | Adds **Transfer Frame slicing** as a fourth function[^b6-func] |
+| Layout | Convolutional §3, Reed-Solomon §4, concatenated §5, turbo §6, LDPC of frames §7, LDPC of SMTF streams §8, frame synchronization §9[^c-cc-gen][^c-smtf][^c-sync-ov] | New §3 (slicing, synchronization, validation); codes in §§4–8 with a single LDPC section; §9 "codeword synchronization"[^b6-struct] |
+| Marker names | "ASM" for every marker; "CSM" only for codeblocks of an SMTF stream[^c-asm][^c-smtf] | **CSM** (Code Synchronization Marker) before every codeword or Reed-Solomon codeblock; **ASM** before each frame inside a sliced stream; without slicing the two are one marker[^b6-func][^b6-csm] |
+| CADU | ASM plus frame, codeblock or codeword[^c-sync-ov] | CSM plus the *randomized* codeword, codeblock or frame[^b6-defs][^b6-csm] |
+| Frame length decoupled from the code | Only for LDPC (SMTF stream), with m = 1 to 8 codewords per codeblock[^c-smtf][^c-mp] | Optional slicing for Reed-Solomon, turbo and LDPC; one CSM per codeword, "codeblock" reserved for Reed-Solomon[^b6-slice][^b6-defs] |
+| Randomizer | Required unless the designer verifies operation without it; Long, Short or Absent[^c-rand-ov][^c-mp] | Mandatory; Long or Short[^b6-rand][^b6-mp] |
+| Turbo channel interleaver | None[^g1-burst] | Row-column interleaver of depth 4, recommended, a managed parameter[^b6-ci] |
+| Embedded marker `352EF853` | §9.6[^c-asm-emb] | Not in the text[^b6-csm] |
+| Largest AOS frame | 2048 octets[^c-len] | 65536 octets[^b6-len] |
+| Ground-to-space links | Turbo, frame LDPC, or the SMTF-stream LDPC option of §13.4[^c-uplink] | Turbo or LDPC; slicing mentioned in a note of §13.1[^b6-uplink] |
+
+### Transfer Frame slicing (Issue 6)
+
+Most block codes accept only a few information block lengths, which can force awkward frame lengths on
+the rest of the system. Slicing removes that coupling: a 32-bit ASM `1ACFFC1D` is prepended to each
+M-bit frame, the resulting stream of (M + 32)-bit SMTFs is cut into k-bit information blocks, and each
+block is encoded (for Reed-Solomon, I blocks are encoded and interleaved into one codeblock), randomized
+and given a CSM. Slicing also allows frames longer than the largest information block and reduces the
+overhead when long frames are used, at the price of a second level of synchronization. It is optional, is
+managed and fixed for a mission phase, is allowed with Reed-Solomon, turbo and LDPC coding, and must not
+be used with uncoded data or with a convolutional code alone.[^b6-func][^b6-slice] The frame ASM can share
+the CSM's bit pattern because it is randomized inside the codeword and so cannot be mistaken for it.[^b6-slice]
+
+```mermaid
+flowchart TB
+    subgraph W["With slicing (RS, turbo or LDPC)"]
+      direction LR
+      W1["Transfer Frames<br/>(any length up to 2048 octets TM,<br/>65536 AOS / USLP)"] --> W2["Prepend 32-bit ASM<br/>→ SMTF stream"]
+      W2 --> W3["Slice into k-bit<br/>information blocks"]
+      W3 --> W4["Encode<br/>(RS: I blocks per codeblock)"]
+      W4 --> W5["Randomize each codeword<br/>or codeblock"]
+      W5 --> W6["Prepend CSM → CADU"]
+      W6 --> W7["Convolutional encoding<br/>(only with RS)"]
+    end
+    subgraph N["Without slicing"]
+      direction LR
+      N1["Transfer Frame =<br/>information block"] --> N2["Encode<br/>(RS, turbo or LDPC, optional)"]
+      N2 --> N3["Randomize"]
+      N3 --> N4["Prepend CSM (= ASM)<br/>→ CADU"]
+      N4 --> N5["Convolutional encoding<br/>(alone or with RS)"]
+    end
+```
+
+The receiver reverses the steps: it finds the CSMs and extracts codewords or codeblocks, derandomizes
+and decodes them, concatenates the decoded information blocks back into an SMTF stream, and finally
+finds the ASMs to cut out the frames. Without slicing there is one level of synchronization and the
+decoded information blocks *are* the frames.[^b6-slice] Frame validation follows the code: with no
+coding, convolutional or turbo coding the FECF is mandatory; with Reed-Solomon, concatenated or LDPC
+coding the decoder may validate and the FECF is optional. With slicing, a frame is invalid if any part of
+it lies in an invalid information block.[^b6-valid]
+
+!!! example "Worked example: a 2048-octet TM frame on a rate-1/2 turbo code (illustrative, computed by this wiki)"
+    Without slicing, a turbo-coded TM frame must be 223, 446, 892 or 1115 octets.[^b6-len] With slicing,
+    a 2048-octet frame becomes a 16,416-bit SMTF. With $k$ = 8920, each information block yields a
+    17,848-symbol codeword and, with its 64-bit CSM, a 17,912-symbol CADU.[^c-tc-spec][^b6-csm] Because
+    $\operatorname{lcm}(16416, 8920) = 18{,}303{,}840$ bits, the alignment of frames and blocks repeats
+    every 1115 frames, which fill exactly 2052 information blocks; on average a frame costs about 32,965
+    channel symbols, and the slicing overhead is only the 32-bit ASM, 0.2 % of the SMTF. A frame
+    overlaps two or three information blocks and a block overlaps one or two frames, so one decoding
+    failure invalidates at most two frames.[^b6-valid]
+
+### Turbo channel interleaver (Issue 6)
+
+Turbo codes are vulnerable to burst errors, for example from a tumbling spacecraft or solar
+scintillation. Issue 6 therefore says a channel interleaver **should** be used unless the system designer
+verifies that the problem is handled by other means, such as a larger fading margin in the link budget,
+and makes its presence a managed parameter. It permutes the coded symbols of one codeword and must not be
+confused with the turbo code's own permutation, which reorders information bits between the two
+component encoders.[^b6-ci]
+
+The interleaver is a row-column block of depth 4. The $n = (k+4)/r$ symbols of a codeword are written
+row by row into rows of $N_c = 4/r$ symbols, so each row holds four consecutive outputs of the two
+constituent encoders, and they are read out column by column; the column length is $N_r = n/N_c$, and
+the receiver writes by columns and reads by rows.[^b6-ci]
+
+| $k$ (bits) | $N_r$ (rows) | $n$ at $r$ = 1/2 ($N_c$ = 8) | $n$ at 1/3 ($N_c$ = 12) | $n$ at 1/4 ($N_c$ = 16) | $n$ at 1/6 ($N_c$ = 24) |
+|---|---|---|---|---|---|
+| 1784 | 447 | 3576 | 5364 | 7152 | 10728 |
+| 3568 | 893 | 7144 | 10716 | 14288 | 21432 |
+| 7136 | 1785 | 14280 | 21420 | 28560 | 42840 |
+| 8920 | 2231 | 17848 | 26772 | 35696 | 53544 |
+
+(Table 7-4 of Issue 6: the number of columns depends only on the rate, the number of rows only on the
+block length.)[^b6-ci] Written as a formula by this wiki, coded symbol $i$ (counting from 0) is transmitted
+at position $(i \bmod N_c)\,N_r + \lfloor i/N_c \rfloor$; and because $n = (k+4)/r$, the row count is
+simply $N_r = (k+4)/4$. For
+the block length that Solar Orbiter's frames match, $k$ = 8920, at rate 1/2 (an illustration only; the
+mission predates Issue 6), any channel burst of up to 2231 consecutive symbols
+therefore removes at most one symbol from each row of eight. Where the interleaver sits relative to the
+randomizer and the CSM is not stated in the available sources: the sending-end figure 2-3 of Issue 6 does
+not show it.[^b6-fig]
+
+### Randomizer and markers in Issue 6
+
+Every coding section of Issue 6 now says the pseudo-randomizer "shall be used", with a note that some
+legacy systems lack it; section 10 calls it mandatory for all combinations of CCSDS modulation and
+coding, and its managed parameter can only be Long (131071 bits) or Short (255 bits). The sequences, the
+seeds and the 40-bit test prefixes are unchanged.[^b6-cc][^b6-rs][^b6-tc][^b6-ldpc][^b6-rand][^b6-mp]
+The CSM is never randomized; the generator is reloaded during each CSM; and the sequence is applied to the
+frame (no coding), to the frame before convolutional encoding, to the Reed-Solomon codeblock between the
+two codes of a concatenated scheme, or to the turbo or LDPC codeword after encoding.[^b6-rand]
+
+!!! warning "Inference"
+    As printed, §10.2.5 of Issue 6 says that at the receiving end turbo and LDPC codewords are
+    derandomized "after decoding". Figure 2-4 of the same issue places pseudo-random sequence removal
+    before Reed-Solomon, turbo or LDPC decoding, as Issue 5 did in words; the receiving-end steps of
+    §§3.3.2 and 3.4.2 also de-randomize the codewords before decoding them; and only that order lets soft
+    symbols be derandomized by sign inversion. This wiki reads the §10.2.5 wording as an editorial
+    slip.[^b6-rand][^b6-fig][^b6-slice][^c-rand-ov]
+
+The marker patterns are those of Issue 5, now called CSMs: 32 bits for uncoded, convolutional,
+Reed-Solomon, concatenated and rate-7/8 LDPC data, $32/r$ bits for turbo rate $r$, and the 64-bit marker
+for LDPC rates 1/2, 2/3 and 4/5. Codeword synchronization is needed for decoding and for the randomizer,
+and the domains in which the marker can be acquired are unchanged, apart from the dropped case of LDPC
+coding of an SMTF stream.[^b6-csm][^c-sync-ov] The note to the basic
+convolutional code, already present in Issue 5, still says that with a single encoder the $G_2$ inversion
+gives no randomization benefit for even-order modulations above BPSK, and that it does help when coding is
+done after channel splitting with a separate encoder per channel.[^b6-cc][^c-cc-basic]
+
+### Frame lengths and managed parameters in Issue 6
+
+Issue 6 ties the maximum frame length to the First Header Pointer of the data link protocols: the 11-bit
+pointer of TM supports 2048-octet frames, the 16-bit pointers of AOS and USLP 65536-octet frames (a
+footnote adds that the USLP frame length field is not used by this standard).[^b6-len] The cases become:
+
+| Case | Coding | Allowed Transfer Frame length (octets) |
+|---|---|---|
+| 1 | Uncoded | Any integer, at most 2048 (TM) or 65536 (AOS, USLP) |
+| 2 | Convolutional only | As case 1 |
+| 3 | Slicing used (Reed-Solomon, turbo or LDPC) | As case 1 |
+| 4 | Reed-Solomon only, no slicing | $L = (255-2E-q)\,I$; optional 32-bit compatibility |
+| 5 | Concatenated, no slicing | As case 4 |
+| 6 | Turbo, no slicing | 223, 446, 892 or 1115 |
+| 7 | LDPC, no slicing | 892 (rate 7/8); 128, 512 or 2048 (rates 1/2, 2/3, 4/5) |
+
+(After §§11.3–11.9.)[^b6-len] The managed parameters are reorganized around a per-code slicing switch:[^b6-mp]
+
+| Table | Managed parameter | Allowed values |
+|---|---|---|
+| 12-1 Selected options | Randomizer | Long (131071 bits), Short (255 bits) |
+| | Coding Method | None, Convolutional, Reed-Solomon, Concatenated Code, Turbo, LDPC |
+| 12-2 Convolutional | Code Rate | 1/2, 2/3, 3/4, 5/6, 7/8 |
+| | Slicing | Absent |
+| | Transfer Frame length | ≤ 2048 (TM), ≤ 65536 (AOS, USLP) |
+| 12-3 Reed-Solomon | E; I; virtual fill Q | 8, 16; 1, 2, 3, 4, 5, 8; integer |
+| | Slicing | Present, Absent |
+| | Transfer Frame length | With slicing ≤ 2048 / 65536; without, $(255-2E-q)I$ |
+| 12-4 Turbo | Nominal rate; information block length k | 1/2, 1/3, 1/4, 1/6; 1784, 3568, 7136, 8920 bits |
+| | Slicing | Present, Absent |
+| | Transfer Frame length | With slicing ≤ 2048 / 65536; without, k/8 |
+| | Channel Interleaver | Present, Absent |
+| 12-5 LDPC | Code rate; information block length k | 1/2, 2/3, 4/5, 7/8; 1024, 4096, 16384 (rates 1/2–4/5) or 7136 (7/8) bits |
+| | Slicing | Present, Absent |
+| | Transfer Frame length | With slicing ≤ 2048 / 65536; without, k/8 |
+
+The FECF rule is unchanged: it must be present when neither Reed-Solomon nor LDPC coding is used, and
+when present it appears in every frame of the physical channel.[^b6-mp] For ground-to-space links the
+standard still requires one of the turbo codes or one of the LDPC codes, and now describes slicing in a
+note to §13.1 instead of a separate SMTF-stream option. Its normative references move to the AOS Space
+Data Link Protocol Issue 5 (October 2025), whose 16-bit First Header Pointer is what allows the larger AOS
+frames ([AOS: newer issue](aos.md#newer-issue-ccsds-7320-b-5-2025)).[^b6-uplink][^b6-refs][^aos5-ctl]
+
 ## Related pages
 
 * [TM Space Data Link Protocol](tm-sdlp.md) — the frames this sublayer carries.
 * [AOS](aos.md), [USLP](uslp.md) — other users of the same coding sublayer.
 * [TC synchronization and channel coding: the CLTU](tc-coding-cltu.md) — the uplink counterpart.
 * [SLE return services](sle/return-services.md) — how decoded frames reach the control centre.
+* [ECSS-E-ST-50C communications and the adoption notices](../ecss/e-st-50-communications.md) and [From ESA PSS to CCSDS and ECSS](../overview/history.md) — the European versions of this standard.
+* [RF and ranging](rf-and-ranging.md) — the physical layer below, including the frequency bands of the ECSS coding profiles.
 * [Downlink overview](../overview/downlink.md), [CCSDS overview](index.md), [glossary](../glossary.md).
 
 [^c-ctl]: [CCSDS 131.0-B-5, TM Synchronization and Channel Coding](../library/ccsds-131-0-131x0b5.md), Document Control, PDF p. 7.
@@ -843,4 +1263,44 @@ Green Book notes, between the outer and inner codes, which the Blue Book does no
 [^sol-ttrm]: [SOL.S.ASTR.TN.00079](../library/sol-s-astr-tn-00079-07.md), Annex 8, §13.1 (Application Process ID assignment, process ID 10 "OBC CSW"), PDF p. 273.
 [^ddid-rapid]: [SOL-ESC-IF-05011, Solar Orbiter Data Delivery ICD, Issue 1 Rev 2](../library/solo-ddid-i1r2.md), §10.5 (RAPID record structure), PDF p. 35.
 [^mib]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pcf`, `txf`, `txp`, `plf`, `pid`, queried by this wiki (see "SQL used").
-[^mib2020]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), tables `pcf` and `txp`, queried by this wiki.
+[^mib2020]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), tables `pcf`, `plf`, `txf` and `txp`, queried by this wiki.
+[^b6-ctl]: [CCSDS 131.0-B-6, TM Synchronization and Channel Coding, Issue 6 (April 2026, EC 1 May 2026)](../library/ccsds-131-0-131x0b6ec1.md), Document Control, PDF p. 7.
+[^b6-struct]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §1.4 Document Structure, PDF p. 13.
+[^b6-defs]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §1.5.1.3 (definitions of CADU, codeblock, information block, SMTF), PDF pp. 14–16.
+[^b6-func]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§2.2.1–2.2.5 (functions, frame validation, slicing, synchronization), PDF pp. 20–22.
+[^b6-fig]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §2.3 and Figures 2-2 to 2-4, PDF pp. 23–26.
+[^b6-slice]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§3.1–3.4 and Figures 3-1 to 3-3, PDF pp. 27–30.
+[^b6-valid]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §3.5 Transfer Frame Validation, PDF p. 30.
+[^b6-cc]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§4.2–4.3 (CSM, randomization, quantization, basic code and note on G2 inversion), PDF pp. 31–32.
+[^b6-rs]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§5.2–5.3.5 (randomization, frame validation, parameters, interleaving), PDF pp. 35–37.
+[^b6-tc]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §7.2 (turbo randomization and frame validation), PDF p. 44.
+[^b6-ci]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §7.3.12 Channel interleaver, Figure 7-5 and Table 7-4, PDF pp. 51–53.
+[^b6-ldpc]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §8.2 (LDPC synchronization, randomization, frame validation), PDF pp. 54–55.
+[^b6-csm]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§9.1–9.4, Table 9-1 and Figures 9-1 to 9-5, PDF pp. 65–68.
+[^b6-rand]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §§10.1–10.4, PDF pp. 69–71.
+[^b6-len]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §11 (11.1 note and footnote 2; cases 11.3–11.9), PDF pp. 73–75.
+[^b6-mp]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §12 and Tables 12-1 to 12-5, PDF pp. 76–78.
+[^b6-uplink]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §13, PDF pp. 79–80.
+[^b6-refs]: [CCSDS 131.0-B-6](../library/ccsds-131-0-131x0b6ec1.md), §1.7 References, PDF p. 19.
+[^e01-log]: [ECSS-E-ST-50-01C, Space data links – Telemetry synchronization and channel coding (31 July 2008)](../library/ecss-e-st-50-01c31july2008.md), Change log, PDF p. 3.
+[^e01-cat]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), §§3.2.1–3.2.2 (category A, category B), PDF p. 10.
+[^e01-cc]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), §5.2 requirement a, PDF p. 17.
+[^e01-rs]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), §6.1 Properties, PDF p. 21.
+[^e01-rs8]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), §6.3.3 (interleaving depth) and §6.4 (Reed-Solomon with E=8), PDF pp. 23 and 28.
+[^e01-tc]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), §7.3.2 and Tables 7-1 and 7-2, PDF pp. 30–31.
+[^e01-asm]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), §§8.2–8.6 and Table 8-1, PDF pp. 36–39.
+[^e01-rand]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), §§9.1–9.4 (application, description, sequence; note 3 on high data rates), PDF pp. 40–43.
+[^e01-len]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), Annex C and Tables C-1, C-2, PDF pp. 54–55.
+[^e01-prof]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), Annex D.2 and Table D-1, PDF pp. 56–58.
+[^e01-gain]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), Annex D.3 and Tables D-2, D-3, PDF pp. 59–61.
+[^e01-pss]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), Annex E (changes from ESA-PSS-04-103), PDF p. 62.
+[^e01-ccsds]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), Annex F (differences from CCSDS 131.0-B-1), PDF p. 63.
+[^e01-mcp]: [ECSS-E-ST-50-01C](../library/ecss-e-st-50-01c31july2008.md), Annex G (mission configuration parameters), PDF pp. 64–66.
+[^as21-log]: [ECSS-E-AS-50-21C Rev.2, Adoption Notice of CCSDS 131.0-B-5 (5 December 2024)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Change log, PDF p. 3.
+[^as21-ctx]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), §1 Scope and §2 Context information (mapping of superseded standards), PDF pp. 5–6.
+[^as21-req]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), §4, requirement ECSS-E-AS-50-21_1520001 and Table 4-1, PDF pp. 8–9.
+[^as21-diff]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Annex A, §§A.2.1–A.2.11, PDF pp. 10–11.
+[^as21-bib]: [ECSS-E-AS-50-21C Rev.2](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Bibliography, PDF p. 12.
+[^aos5-ctl]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol, Issue 5 (October 2025)](../library/ccsds-732-0-732x0b5ec1.md), Document Control, PDF p. 7.
+[^sol-cpdu]: [SOL.S.ASTR.TN.00079](../library/sol-s-astr-tn-00079-07.md), §3.3.1 (requirement PUS-95, MAP IDs) and §3.3.1.1 CPDU Telecommands, PDF p. 18.
+[^mib-tme]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pcf`, `plf`, `pid`, `txf`, `txp` and `ccf`, queried by this wiki (see "SQL used (TM encoder register)").

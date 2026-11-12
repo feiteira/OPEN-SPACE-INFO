@@ -1,0 +1,515 @@
+{
+  "slug": "ccsds-922-1-922x1b2",
+  "title": "Cross Support Transfer Services—Monitored Data Service",
+  "short_title": "CSTS Monitored Data Service (CCSDS 922.1-B-2)",
+  "doc_id": "CCSDS 922.1-B-2",
+  "issue": "Recommended Standard, Issue 2 (Blue Book)",
+  "date": "September 2022",
+  "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+  "authors": [],
+  "doc_type": "Standard",
+  "status_notes": "The Document Control table (PDF p. 7) marks issue 2 (September 2022) as the current issue and 922.1-B-1 (April 2017) as superseded. Issue 2 is tied to issue 2 of the CSTS Specification Framework (CCSDS 921.1-B-2) and may only use that issue as a source of requirements (PDF pp. 12, 23).",
+  "summary": "The CCSDS Recommended Standard for the **Monitored Data Cross Support Transfer Service (MD-CSTS)**. CSTS is the family of cross support transfer services documented alongside the [SLE](../ccsds/sle/index.md) transfer services. Through MD-CSTS, a mission can watch the ground station that is supporting it. The mission can receive cyclic or on-change reports of monitored parameters, query current values, and receive notifications of events for everything in a service package: antennas, RF carriers, frame decoders, and the SLE and CSTS provider instances. The service delivers only current values, not history. It is built from procedures of the CSTS Specification Framework (CCSDS 921.1-B-2, not in the library) and uses the SANA Functional Resource registry to name parameters and events. The relevant wiki pages are [SLE service management](../ccsds/sle/service-management.md) and [SLE over TCP/IP and the SLE API](../ccsds/sle/isp1-and-api.md), since MD-CSTS PDUs are carried by ISP1.\n\nSection 2 explains production and provision and the naming scheme. A Parameter Name combines a Parameter Identifier (an OID on the CCSDS registration tree) with a Functional Resource Name (type OID plus instance number), and Event Names are built the same way. Section 2 then gives a long operational scenario. Section 3 composes the service from four procedures: one Association Control; the prime On-Change-Option Cyclic Report (1..*); an optional Information Query (0..1); and Notification (0..*). Section 4 specifies the on-change extension to the framework Cyclic Report. Sections 5-7 refine Information Query and Notification and set the inherited configuration parameters. Sections 8-9 define the service-level functional resource items mdResponseTimeout, mdProdStat and mdProdStatChange. The annexes give the ICS proforma, the ASN.1 OIDs and PDUs, the production-process requirements, security and SANA considerations, and an informative example Functional Resource set (antenna, CCSDS 401 carriers, FCLTU and RAF providers).",
+  "contents": [
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 12
+    },
+    {
+      "section": "1.1",
+      "title": "Purpose of This Recommended Standard",
+      "pdf_page": 12
+    },
+    {
+      "section": "1.2",
+      "title": "Scope",
+      "pdf_page": 12
+    },
+    {
+      "section": "1.3",
+      "title": "Applicability",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.4",
+      "title": "Rationale",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.5",
+      "title": "Document Structure",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.6",
+      "title": "Definitions, Nomenclature, and Conventions",
+      "pdf_page": 17
+    },
+    {
+      "section": "1.7",
+      "title": "References",
+      "pdf_page": 23
+    },
+    {
+      "section": "2",
+      "title": "Overview of the Monitored Data Service",
+      "pdf_page": 25
+    },
+    {
+      "section": "2.1",
+      "title": "Service Summary",
+      "pdf_page": 25
+    },
+    {
+      "section": "2.2",
+      "title": "Functional Description",
+      "pdf_page": 26
+    },
+    {
+      "section": "2.3",
+      "title": "Service Management",
+      "pdf_page": 33
+    },
+    {
+      "section": "2.4",
+      "title": "Cross Support View",
+      "pdf_page": 34
+    },
+    {
+      "section": "2.5",
+      "title": "Operational Scenario",
+      "pdf_page": 36
+    },
+    {
+      "section": "3",
+      "title": "Composition of the Monitored Data Cross Support Transfer Service",
+      "pdf_page": 48
+    },
+    {
+      "section": "3.1",
+      "title": "Discussion",
+      "pdf_page": 48
+    },
+    {
+      "section": "3.2",
+      "title": "Procedures of the Monitored Data Cross Support Transfer Service",
+      "pdf_page": 48
+    },
+    {
+      "section": "3.3",
+      "title": "Monitored Data Cross Support Transfer Service State Machine",
+      "pdf_page": 50
+    },
+    {
+      "section": "4",
+      "title": "On-Change-Option Cyclic Report Procedure",
+      "pdf_page": 51
+    },
+    {
+      "section": "4.1",
+      "title": "Discussion",
+      "pdf_page": 51
+    },
+    {
+      "section": "4.2",
+      "title": "Procedure Type Identifier",
+      "pdf_page": 52
+    },
+    {
+      "section": "4.3",
+      "title": "Extension",
+      "pdf_page": 52
+    },
+    {
+      "section": "4.4",
+      "title": "Behavior",
+      "pdf_page": 52
+    },
+    {
+      "section": "4.5",
+      "title": "Required Operations",
+      "pdf_page": 55
+    },
+    {
+      "section": "4.6",
+      "title": "Configuration Parameters",
+      "pdf_page": 56
+    },
+    {
+      "section": "4.7",
+      "title": "Procedure State Table",
+      "pdf_page": 56
+    },
+    {
+      "section": "5",
+      "title": "Information Query Procedure",
+      "pdf_page": 57
+    },
+    {
+      "section": "5.1",
+      "title": "Discussion",
+      "pdf_page": 57
+    },
+    {
+      "section": "5.3",
+      "title": "Refinement",
+      "pdf_page": 57
+    },
+    {
+      "section": "5.4",
+      "title": "Behavior",
+      "pdf_page": 58
+    },
+    {
+      "section": "6",
+      "title": "Notification Procedure",
+      "pdf_page": 60
+    },
+    {
+      "section": "6.1",
+      "title": "Discussion",
+      "pdf_page": 60
+    },
+    {
+      "section": "6.3",
+      "title": "Refinement",
+      "pdf_page": 60
+    },
+    {
+      "section": "6.4",
+      "title": "Behavior",
+      "pdf_page": 61
+    },
+    {
+      "section": "7",
+      "title": "Setting of Service Management and Configuration Parameters Inherited from Framework Operations and Procedures",
+      "pdf_page": 63
+    },
+    {
+      "section": "7.2",
+      "title": "Association Control Procedure Configuration Parameters",
+      "pdf_page": 63
+    },
+    {
+      "section": "7.3",
+      "title": "On-Change-Option Cyclic Report Procedure Configuration Parameters",
+      "pdf_page": 63
+    },
+    {
+      "section": "7.4",
+      "title": "Notification Procedure Configuration Parameters",
+      "pdf_page": 64
+    },
+    {
+      "section": "7.5",
+      "title": "Information Query Procedure Configuration Parameters",
+      "pdf_page": 64
+    },
+    {
+      "section": "8",
+      "title": "Monitored Data Service-Level Functional Resource Parameters and Events",
+      "pdf_page": 65
+    },
+    {
+      "section": "8.1",
+      "title": "Overview",
+      "pdf_page": 65
+    },
+    {
+      "section": "8.2",
+      "title": "mdResponseTimeout Functional Resource Parameter",
+      "pdf_page": 65
+    },
+    {
+      "section": "8.3",
+      "title": "mdProdStat Parameter",
+      "pdf_page": 66
+    },
+    {
+      "section": "8.4",
+      "title": "mdProdStatChange Event",
+      "pdf_page": 66
+    },
+    {
+      "section": "9",
+      "title": "Refinement of Definitions of Framework Parameters, Events, Directives, and Diagnostic Values Used by the Monitored Data Service",
+      "pdf_page": 68
+    },
+    {
+      "section": "9.2",
+      "title": "mdProdStat Parameter Definition Refinement",
+      "pdf_page": 68
+    },
+    {
+      "section": "9.3",
+      "title": "mdProdStatChange Event Definition Refinement",
+      "pdf_page": 69
+    },
+    {
+      "section": "9.4",
+      "title": "Diagnostic Value Definition Refinement",
+      "pdf_page": 69
+    },
+    {
+      "section": "Annex A",
+      "title": "Implementation Conformance Statement Proforma (Normative)",
+      "pdf_page": 72
+    },
+    {
+      "section": "Annex B",
+      "title": "Service Object Identifiers Module (Normative)",
+      "pdf_page": 92
+    },
+    {
+      "section": "Annex C",
+      "title": "Procedure–On-Change-Option Cyclic Report PDUs (Normative)",
+      "pdf_page": 94
+    },
+    {
+      "section": "Annex D",
+      "title": "Monitored Data Production (Normative)",
+      "pdf_page": 97
+    },
+    {
+      "section": "Annex E",
+      "title": "Security, SANA, and Patent Considerations (Informative)",
+      "pdf_page": 99
+    },
+    {
+      "section": "Annex F",
+      "title": "Example Functional Resource Type Object Identifier Registry (Informative)",
+      "pdf_page": 102
+    },
+    {
+      "section": "Annex G",
+      "title": "Informative References (Informative)",
+      "pdf_page": 115
+    },
+    {
+      "section": "Annex H",
+      "title": "Acronyms (Informative)",
+      "pdf_page": 117
+    },
+    {
+      "section": "Annex I",
+      "title": "Cross References to Cross Support Transfer Service Specification Framework (Informative)",
+      "pdf_page": 118
+    }
+  ],
+  "key_points": [
+    {
+      "text": "MD-CSTS lets a mission receive cyclic reports on, and query current values of, the parameters of the cross support services provided by a Cross Support Complex (an Earth Space Link Terminal), and receive event notifications.",
+      "pdf_page": 12
+    },
+    {
+      "text": "The standard does not define which parameters are reported or which events are notified, nor how they are measured.",
+      "pdf_page": 13
+    },
+    {
+      "text": "The service delivers only current parameter values. It cannot deliver stored values from earlier times.",
+      "pdf_page": 25
+    },
+    {
+      "text": "A service package may contain several MD-CSTS instances. Each instance can report all monitored parameters and events of the package, including RF links and SLE transfer service instances.",
+      "pdf_page": 26
+    },
+    {
+      "text": "Implementations must use the SANA Functional Resource Registry as the normative source of Functional Resource Types, parameters and events. Annex F is only an example.",
+      "pdf_page": 28
+    },
+    {
+      "text": "A Parameter Name combines a Parameter Identifier (a Published Identifier OID, for example ccsds-401-carrier-xmit-actual-carrier-freq) with a Functional Resource Name (Functional Resource Type OID plus a positive Functional Resource Instance Number assigned at scheduling).",
+      "pdf_page": 29
+    },
+    {
+      "text": "The On-Change-Option Cyclic Report procedure lets the user choose a parameter list, a delivery cycle, and whether to report every value or only changed values. Several instances can run concurrently.",
+      "pdf_page": 30
+    },
+    {
+      "text": "The service consists of Association Control (exactly 1), On-Change-Option Cyclic Report as prime procedure (1..*), Information Query (0..1) and Notification (0..*).",
+      "pdf_page": 50
+    },
+    {
+      "text": "With the on-change option, a parameter whose value changes and changes back between two cycles is not reported.",
+      "pdf_page": 51
+    },
+    {
+      "text": "Cyclic reporting of procedure configuration parameters is optional, because those parameters are static for the life of an MD service instance.",
+      "pdf_page": 52
+    },
+    {
+      "text": "MD-CSTS supports the framework's response-timeout and production-status parameters (mdResponseTimeout, mdProdStat) and the production status change event (mdProdStatChange). It does not support the production configuration change event.",
+      "pdf_page": 65
+    },
+    {
+      "text": "The Monitored Data Production Process must keep each monitored parameter's value until a new one is available. It delivers values as QualifiedParameter and events as [eventName: eventValue] pairs.",
+      "pdf_page": 98
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 921.1-B-2",
+      "title": "Cross Support Transfer Service—Specification Framework",
+      "issue": "Issue 2",
+      "date": "February 2021",
+      "kind": "normative",
+      "pdf_page": 23
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 910.4-B-2",
+      "title": "Cross Support Reference Model—Part 1: Space Link Extension Services",
+      "issue": "Issue 2",
+      "date": "October 2005",
+      "kind": "normative",
+      "pdf_page": 24
+    },
+    {
+      "label": "[3]",
+      "doc_id": null,
+      "title": "“Functional Resources.” Space Assigned Numbers Authority. https://sanaregistry.org/r/functional_resources/",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 24
+    },
+    {
+      "label": "[4]",
+      "doc_id": "CCSDS 921.2-M-1",
+      "title": "Guidelines for the Specification of Cross Support Transfer Services",
+      "issue": "Issue 1",
+      "date": "March 2019",
+      "kind": "normative",
+      "pdf_page": 24
+    },
+    {
+      "label": "[G1]",
+      "doc_id": "CCSDS 910.3-G-3",
+      "title": "Cross Support Concept—Part 1: Space Link Extension Services",
+      "issue": "Issue 3",
+      "date": "March 2006",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G2]",
+      "doc_id": "CCSDS 913.1-B-2",
+      "title": "Space Link Extension—Internet Protocol for Transfer Services",
+      "issue": "Issue 2",
+      "date": "September 2015",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G3]",
+      "doc_id": "CCSDS 920.0-G-1",
+      "title": "Cross Support Transfer Service Specification Framework Concept",
+      "issue": "Issue 1",
+      "date": "forthcoming",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G4]",
+      "doc_id": "CCSDS 912.1-B-4",
+      "title": "Space Link Extension—Forward CLTU Service Specification",
+      "issue": "Issue 4",
+      "date": "August 2016",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G5]",
+      "doc_id": "CCSDS 911.1-B-4",
+      "title": "Space Link Extension—Return All Frames Service Specification",
+      "issue": "Issue 4",
+      "date": "August 2016",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G6]",
+      "doc_id": "CCSDS 902.9-B-1",
+      "title": "Cross Support Service Management—Service Management Utilization Request Formats",
+      "issue": "Issue 1",
+      "date": "forthcoming",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G7]",
+      "doc_id": "CCSDS 902.1-B-1",
+      "title": "Cross Support Service Management—Simple Schedule Format Specification",
+      "issue": "Issue 1",
+      "date": "May 2018",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G8]",
+      "doc_id": "CCSDS 902.0-G-1",
+      "title": "Extensible Space Communication Cross Support—Service Management—Concept",
+      "issue": "Issue 1",
+      "date": "September 2014",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G9]",
+      "doc_id": "CCSDS 901.0-G-1",
+      "title": "Space Communications Cross Support—Architecture Description Document",
+      "issue": "Issue 1",
+      "date": "November 2013",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G10]",
+      "doc_id": "CCSDS 401.0-B-32",
+      "title": "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft",
+      "issue": "Issue 32",
+      "date": "October 2021",
+      "kind": "informative",
+      "pdf_page": 115
+    },
+    {
+      "label": "[G11]",
+      "doc_id": "CCSDS 415.1-B-1",
+      "title": "Data Transmission and PN Ranging for 2 GHz CDMA Link via Data Relay Satellite",
+      "issue": "Issue 1",
+      "date": "September 2011",
+      "kind": "informative",
+      "pdf_page": 116
+    },
+    {
+      "label": "[G12]",
+      "doc_id": "CCSDS 231.0-B-4",
+      "title": "TC Synchronization and Channel Coding",
+      "issue": "Issue 4",
+      "date": "July 2021",
+      "kind": "informative",
+      "pdf_page": 116
+    },
+    {
+      "label": "[G13]",
+      "doc_id": "CCSDS 901.1-M-1",
+      "title": "Space Communications Cross Support—Architecture Requirements Document",
+      "issue": "Issue 1",
+      "date": "May 2015",
+      "kind": "informative",
+      "pdf_page": 116
+    }
+  ],
+  "topics": [
+    "ccsds/sle/service-management.md",
+    "ccsds/sle/index.md",
+    "ccsds/sle/isp1-and-api.md",
+    "ccsds/sle/return-services.md",
+    "ccsds/sle/fcltu.md",
+    "ccsds/rf-and-ranging.md",
+    "scos2000/nctrs-nis.md"
+  ],
+  "notes": "PDF pages 1-2 are duplicate covers. The extracted text has 121 form-feed pages (registry: 120); the last one is empty. The running header reads 'Recommended Standard for CSTS Monitored Data Service'. The documentation-tree figure (1-1) and the scenario diagrams survive only as scattered labels. Oddities as printed: 3.2.13 sets the version number of the Notification procedure to '1', while Table 3-1 shows version 2 for it (PDF pp. 49-50); 3.3 refers to 'G3 of reference [1]' for the state machine; [G6] reads 'Recommendation for (Blue Book)'; and 'iInstance' appears in 2.2.2. The CSTS Specification Framework (921.1-B-2), the CSTS guidelines (921.2-M-1) and the SANA Functional Resource registry it depends on are not in the library. The informative SLE references are RAF B-4 and FCLTU B-4 (2016), while the library holds the later issue 5 of both (ccsds-911-1-911x1b5e1, ccsds-912-1-912x1b5e1). The library also holds the SCCS SM concept (ccsds-902-0-902x0g1), which named the Monitored Data service as forthcoming. No individual authors are named. The registry copy was taken from ccsds.org on 2026-11-12."
+}

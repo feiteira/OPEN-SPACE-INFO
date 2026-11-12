@@ -1,8 +1,8 @@
 ---
 title: TC Space Data Link Protocol (CCSDS 232.0-B-4)
-description: The CCSDS telecommand data link protocol field by field - TC Transfer Frame primary header, segment header and MAP channels, control commands, Frame Error Control Field, services and primitives, sending and receiving procedures, managed parameters, the SDLS option, the ECSS adoption notice and the Solar Orbiter profile.
-tags: [CCSDS, Data link layer, Telecommand, TC Transfer Frame, COP-1, Solar Orbiter]
-sources: [ccsds-232-0-232x0b4e1c1, ccsds-130-2-130x2g3, ecss-e-as-50-25c-rev-1-13january2023, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-230-1-230x1g3e1, ecss-e-hb-50a-15november2008, ecss-e-st-50c-rev-1-1march2021, ccsds-132-0-132x0b3, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final]
+description: The CCSDS telecommand data link protocol field by field - TC Transfer Frame primary header, segment header and MAP channels, control commands, Frame Error Control Field, services and primitives, sending and receiving procedures, managed parameters, the SDLS option, the ECSS adoption notice and the superseded ECSS-E-ST-50-04C with its PSS-04-107 roots, and the Solar Orbiter profile.
+tags: [CCSDS, ECSS, Data link layer, Telecommand, TC Transfer Frame, COP-1, Solar Orbiter]
+sources: [ccsds-232-0-232x0b4e1c1, ccsds-130-2-130x2g3, ecss-e-as-50-25c-rev-1-13january2023, ecss-e-st-50-04c31july2008, ecss-e-as-50-24c-rev-1-13january2023, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-231-0-231x0b4e1c1, ccsds-230-1-230x1g3e1, ecss-e-hb-50a-15november2008, ecss-e-st-50c-rev-1-1march2021, ccsds-132-0-132x0b3, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final]
 ---
 
 # TC Space Data Link Protocol (CCSDS 232.0-B-4)
@@ -18,8 +18,9 @@ link into an in-order, gap-free and duplicate-free command channel, and its opti
 
 This page follows issue 4 of the Blue Book (October 2021, including Technical Corrigendum 1 of October
 2023), the CCSDS overview Green Book on space data link protocols, the ECSS adoption notice
-ECSS-E-AS-50-25C Rev.1, the ECSS communications handbook, and the real Solar Orbiter TM/TC ICD and
-[MIB](../mib/index.md).[^sdlp-cover][^an-scope]
+ECSS-E-AS-50-25C Rev.1, the superseded ECSS standard ECSS-E-ST-50-04C (31 July 2008) that it replaced,
+the ECSS communications handbook, and the real Solar Orbiter TM/TC ICD and
+[MIB](../mib/index.md).[^sdlp-cover][^an-scope][^e5004-cover]
 
 | Issue | Date | Notes from the document control page |
 |---|---|---|
@@ -364,6 +365,14 @@ is about 3.9 × 10⁻¹⁰ at a channel bit error rate of 10⁻⁵, while with t
 the European standards, which always use SEC decoding (see
 [ECSS adoption](#ecss-adoption-ecss-e-as-50-25c-rev1)).[^hb-diff4]
 
+ECSS-E-ST-50-04C, which already made the FECF part of every TC frame, states what the code guarantees on
+an encoded block shorter than 32,768 bits (4096 octets, so any TC frame): every error pattern with an
+odd number of bit errors and every pattern of two bit errors is detected, every single burst of 16 bits
+or less is detected if no other error occurs in the block, and a random pattern with an even number of
+errors (four or more) escapes with a probability of about 2⁻¹⁵, roughly 3 × 10⁻⁵. It also forbids using
+the field for error correction, and its informative annex A draws the shift-register encoder and decoder
+with all register bits preset to one.[^e5004-fecf][^e5004-crc]
+
 ## The CLCW: the report returned to the sender
 
 The second protocol data unit of TC-SDLP is the **Communications Link Control Word** (CLCW), a 32-bit
@@ -395,9 +404,19 @@ the lower four the *Transfer Sublayer*; a real system need not contain all of th
 | All Frames Generation | Physical channel | Computes the FECF, groups one or more frames into the data unit given to the coding sublayer, sets the delivery rate, and may request systematic retransmissions.[^sdlp-afg] |
 
 The CCSDS overview report notes one exception to "the project chooses the multiplexing algorithm": when
-the SLE Forward Space Packet service is used on the ground, the algorithm defined by that service must be
+the SLE [Forward Space Packet](sle/fsp.md) service is used on the ground, the algorithm defined by that service must be
 used for virtual and MAP channels.[^gb-prio] How Solar Orbiter uses MAPs and blocking is described
 [below](#the-solar-orbiter-profile).
+
+**Blocking and segmentation rules in ECSS-E-ST-50-04C.** The superseded ECSS standard spelled out a few
+blocking and segmentation rules in detail. Blocking takes only complete packets, never
+reorders them to fill a frame better, may mix packets of different Packet Version Numbers, and must not
+put packets for the sequence-controlled and the expedited service into the same data unit; the
+implementation may cap the time a packet waits for companions. The deblocking function reads each
+packet's version number to find its length field. All segments of one user data unit share the MAP and
+the service type, and the segmentation sublayer turns COP-1's per-frame confirmations into one result
+per user data unit: Positive Confirm only when every segment was positively confirmed, Negative Confirm
+when COP-1 signalled a Negative Confirm for one or more segments.[^e5004-block][^e5004-seg][^e5004-notif]
 
 ### Systematic retransmissions
 
@@ -464,6 +483,16 @@ The SCID check matters because several spacecraft with identical RF characterist
 same uplink; only the addressed one accepts the frame. Since a corrupted frame can carry a corrupted
 SCID, the undetected error rate must be low enough to protect against accepting foreign
 data.[^gb-scid]
+
+ECSS-E-ST-50-04C split the same work into three procedures that run in a fixed order on each *candidate
+frame*: frame delimiting and fill removal (discard if shorter than the 8-octet minimum or than its Frame
+Length, strip any surplus as fill), then the frame error control procedure (discard on a CRC error),
+then frame header validation (version `0b00`, a valid Bypass/Control Command combination, the receiving
+spacecraft's SCID, a valid VCID, no values inconsistent with the implemented features). Virtual channel
+demultiplexing comes after delimiting and before FARM-1, its position relative to the other two being
+left to the implementation, and the VCID check may be done there.[^e5004-rxproc][^e5004-delim][^e5004-hdr]
+It adds a practical example: when virtual channels serve several telecommand units, demultiplexing can
+simply mean that each unit discards the frames not addressed to it.[^e5004-vcmux]
 
 ### Demultiplexing, FARM and delivery
 
@@ -553,7 +582,9 @@ field content (Packets or MAP_SDU), blocking (permitted or prohibited, for packe
 incomplete packets must be delivered to the receiving user.[^sdlp-mp-map]
 
 The CCSDS overview report adds that the values are mission specific and that the CCSDS Space Assigned
-Numbers Authority (SANA) keeps registries of the parameters and their reserved values.[^gb-mp]
+Numbers Authority (SANA) keeps registries of the parameters and their reserved values.[^gb-mp] The
+identifier registries and the SCID assignment procedure are described on
+[Space link identifiers](space-link-identifiers.md).
 
 ## The SDLS option
 
@@ -613,7 +644,56 @@ following:[^an-fecf][^an-nbl][^an-tables]
 
 Annex A of the notice lists further differences from ECSS-E-ST-50-04C that are not requirements: the
 formal service interface, the SDLS option, the normative managed parameters (they were informative
-"mission configuration parameters" before), and the PICS proforma.[^an-annex]
+"mission configuration parameters" before), and the PICS proforma.[^an-annex] The companion notice for
+the coding sublayer, ECSS-E-AS-50-24C Rev.1, keeps one frame per CLTU, so on ECSS links one request to the
+coding sublayer carries exactly one TC frame ([details](tc-coding-cltu.md#ecss-lineage-from-ecss-e-st-50-04c-to-ecss-e-as-50-24c)).[^an24-oneframe]
+
+### The superseded ECSS-E-ST-50-04C (2008)
+
+Before the adoption notices, ECSS-E-ST-50-04C *Space data links - Telecommand protocols
+synchronization and channel coding* (31 July 2008, after a first issue ECSS-E-50-04A of 14 November
+2007) specified the whole TC link in one book: segmentation sublayer (clause 5), transfer sublayer
+(clause 6), COP-1 (clause 7), coding sublayer (clause 8) and PLOP (clause 9). Its protocol profile showed
+no security sublayer, but allowed a project to insert one through tailoring, and its performance annex
+warns that such a sublayer can change the error detection figures.[^e5004-cover][^e5004-log][^e5004-ov][^e5004-perf]
+It was the ECSS form of the 2003 CCSDS books 231.0-B-1, 232.0-B-1 and 232.1-B-1, and its annex C lists
+where it differed from them within the scope of this page:[^e5004-ccsds]
+
+| Topic | CCSDS (2003 books) | ECSS-E-ST-50-04C |
+|---|---|---|
+| Layering | Assume the transfer sublayer below the segmentation sublayer (and vice versa) | Makes some assumptions about the sublayer below, without requiring it to be the transfer sublayer |
+| Reassembly | No Packet Assembly Controller | Optional PAC, so the minimum TC Segment is one octet instead of two |
+| Frames per CLTU | Several allowed | Exactly one |
+| FECF | Optional, minimum frame 6 octets | Always present, minimum frame 8 octets |
+| No Bit Lock Flag | Optional and mission-specific | Defined and always used |
+| Names | Segment, Service Data Unit, User Data | TC Segment, user data unit, Segment Data Field |
+
+Four of these ECSS choices survive as modifications in the adoption notices: the PAC, the mandatory
+FECF and the No Bit Lock rule through ECSS-E-AS-50-25C Rev.1, and the single frame per CLTU through
+ECSS-E-AS-50-24C Rev.1.[^an-fecf][^an-nbl][^an-tables][^an24-oneframe] Its informative
+annex E listed the *mission configuration parameters* whose counterparts are the normative managed
+parameters of sections 5 and 6.6 of the CCSDS book: for example the use of TC Segments and the MAP IDs per virtual channel, the blocking,
+segmentation and PAC use per MAP, and the valid Packet Version Numbers.[^e5004-mcp][^an-annex]
+
+**The PSS-04-107 roots.** Annex B of ECSS-E-ST-50-04C compares it with ESA's Packet Telecommand Standard
+PSS-04-107 (issue 2, April 1992). Within the scope of this page it lists:[^e5004-pss]
+
+* PSS-04-107 used TC Segments on every virtual channel, had no packet blocking, and assumed a transfer
+  layer below its *Segmentation Layer*.
+* It defined telecommand authentication with an optional *Segment Trailer*; ECSS-E-ST-50-04C left
+  authentication out of scope and dropped the trailer (CCSDS now offers [SDLS](#the-sdls-option)).
+* Its frames were at most 256 octets: the Frame Length occupied bits 24–31 and bits 22–23 were a
+  reserved field. ECSS-E-ST-50-04C widened the field to bits 22–31 and notes that frames built to the
+  earlier definition remain valid.[^e5004-flen]
+* It specified the older COP-1A; ECSS-E-ST-50-04C specifies COP-1B, which differs only at the sending
+  end (see [COP-1](cop-1.md#ecss-adoption-ecss-e-as-50-26c)).
+* Field names changed: *Frame Header* became Transfer Frame Primary Header, *Version Number* the
+  Transfer Frame Version Number, *Reserved Field A* the Reserved Spare, *Reserved Field B* part of the
+  Frame Length, and *Frame Data Field* the Transfer Frame Data Field; "Command" became "Communications"
+  in COP-1, CLCW and CLTU.
+
+The history of the PSS standards and their path into CCSDS and ECSS is told on
+[From ESA PSS to CCSDS and ECSS](../overview/history.md).
 
 ### Packet Assembly Controller and MAP Reset
 
@@ -640,6 +720,15 @@ each PAC uses up two MAP IDs, European hardware implements the PAC, European mis
 use segmentation, and the one-octet control segment can affect interoperability, for example with the SLE
 Forward Space Packet service.[^hb-diff2][^hb-pac]
 
+The adoption notice re-inserts into the CCSDS book what ECSS-E-ST-50-04C §5.5.4 already specified, with
+the same MAP pairing, flags, lockout successions, status report and MAP Reset; both texts note that the
+name "packet" assembly controller is inherited from earlier standards and that the function serves any
+data unit carried in segments. The 2008 text adds a few clarifications that the notice does not repeat:
+it reassembles from the Sequence Flags and the segment lengths alone,
+without reading any length field inside the user data; its lockout has nothing to do with the FARM-1
+Lockout state; it is not used at all when segmentation is off; and no service type (sequence-controlled
+or expedited) is prescribed for sending a control segment.[^e5004-pac][^e5004-seg][^an-pac]
+
 !!! example "MAP Reset in the real Solar Orbiter MIB"
     The MIB defines the command [`RESET`](../explorer/index.md#/solo/command/RESET) "PAC RESET directive"
     with `CCF_CTYPE = R` (control segment, "Reset Map Command") and three elements: a 2-bit fixed area
@@ -660,7 +749,7 @@ Forward Space Packet service.[^hb-diff2][^hb-pac]
 ## The Solar Orbiter profile
 
 The Solar Orbiter TM/TC and Packet Structure ICD (Airbus, SOL.S.ASTR.TN.00079, issue 7) tailors
-TC-SDLP as follows:[^tn-frame][^tn-frame2]
+TC-SDLP as follows:[^tn-frame][^tn-frame2][^e5004-flen]
 
 | Item | Solar Orbiter value | Source rule |
 |---|---|---|
@@ -668,7 +757,7 @@ TC-SDLP as follows:[^tn-frame][^tn-frame2]
 | Bypass / Control Command flags | AD, BD and BC frames; it must be possible to send Type-A and Type-B frames on the same VC | as CCSDS |
 | Spacecraft ID | `0x28A` = 650, the same for the flight model, ETB and OBC-DM | assigned CCSDS SCID |
 | Virtual channels | Two, one per on-board TC decoder: VC1 = decoder 1 = `0b000001`, VC2 = decoder 2 = `0b000010`, used consistently in the CLCWs | VCs address the two decoders |
-| Maximum frame length | 256 octets, so Frame Length bits 22–23 are always `00` (an 8-bit "ESA Frame Length Field") | |
+| Maximum frame length | 256 octets, so Frame Length bits 22–23 are always `00` (an 8-bit "ESA Frame Length Field") | The PSS-04-107 layout, valid under the 10-bit field ([above](#the-superseded-ecss-e-st-50-04c-2008)) |
 | Frame Sequence Number | V(S) for AD frames, `0x00` for BC and BD frames | COP-1 |
 | Frame data field | One complete TC segment | Segment Header always present |
 | Sequence Flags | Always `0b11`: no packet segmentation | |
@@ -687,6 +776,10 @@ TC-SDLP as follows:[^tn-frame][^tn-frame2]
     VC Id equals 1 or 2.[^mib-vcid] Avoiding the all-zeros VCID also follows the ECSS handbook, which
     advises against all-zeros and all-ones TC VCIDs because a failed or unpowered decoder can produce
     such CLCWs.[^hb-vcid]
+
+Giving each decoder its own virtual channel matches the example that ECSS-E-ST-50-04C gives of virtual
+channel demultiplexing, in which each telecommand unit discards the frames not addressed to it; the
+Solar Orbiter ICD says only that the two VCIDs address the two decoders.[^e5004-vcmux][^tn-frame]
 
 The CPDU in the on-board computer can generate command pulses directly from ground telecommands
 received on MAP 0 (HPC-1 commands), without the central software, so that vital units can be switched
@@ -725,7 +818,9 @@ April 2020 release.[^mib-2020]
   TC-SDLP; all frames of a physical channel use the same coding options, chosen so that the probability
   of misidentifying MCID, VCID or MAP ID, and of rejecting frames, stays below mission-specified
   values. One request to that sublayer hands over one or more TC frames, which become one
-  CLTU.[^sdlp-lower][^cc-svc]
+  CLTU; in ECSS it is always exactly one frame.[^sdlp-lower][^cc-svc][^an24-oneframe] The 2026 corrigendum
+  of CCSDS 231.0-B-4 lists changes only to the optional LDPC (128,64) tail sequence (§5.2.4.2), so this
+  interface is unchanged.[^cor1-dc]
 * **[TM](tm-sdlp.md) and [AOS](aos.md)** frames carry the CLCW back in their OCF. A Type-1 report (type
   flag `0`) in the OCF is a CLCW; a Type-2 report may carry an SDLS Frame Security Report.[^tm-ocf]
 * **[USLP](uslp.md)** can also run COP-1 and uses the same coding sublayer.[^cop-scope]
@@ -884,3 +979,23 @@ telecommand](../overview/worked-example-tc.md). Abbreviations are collected in t
 [^cop-scope]: [CCSDS 232.1-B-2 Cor. 1, Communications Operation Procedure-1](../library/ccsds-232-1-232x1b2e2c1.md), §1.3 "Applicability", PDF p. 11.
 [^sdlp-common]: [CCSDS 232.0-B-4](../library/ccsds-232-0-232x0b4e1c1.md), §2.2.1 "Common Features of Services" and note, PDF p. 21.
 [^gb-hdlc]: [CCSDS 130.2-G-3](../library/ccsds-130-2-130x2g3.md), §5.1 "How do the space data link protocols differ from HDLC?", PDF p. 40.
+[^e5004-cover]: [ECSS-E-ST-50-04C, Space data links - Telecommand protocols synchronization and channel coding](../library/ecss-e-st-50-04c31july2008.md), cover and clause 1 "Scope", PDF pp. 1 and 12.
+[^e5004-log]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), change log (ECSS-E-50-04A of 14 November 2007, B never issued, C of 31 July 2008), PDF p. 3.
+[^e5004-ov]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), clause 4 "Overview", §4.1–4.7, including the note on security sublayers in §4.2, PDF pp. 17–20.
+[^e5004-perf]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex D §D.1 "Introduction" (added sublayers can change the performance), PDF p. 137.
+[^e5004-ccsds]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex C "Differences from CCSDS recommendations", §C.1–C.2 and table C-1, PDF pp. 134–136.
+[^e5004-mcp]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex E §E.3–E.5 (mission configuration parameters of a virtual channel, a MAP and packet types), PDF pp. 151–154.
+[^e5004-pss]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex B "Changes from ESA-PSS-04-107", §B.2 and tables B-1 and B-2, PDF pp. 131–133.
+[^e5004-flen]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.2.2.8 "Frame Length" and note on the earlier 256-octet definition, PDF p. 41.
+[^e5004-block]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §5.4 "Blocking of packets", §5.4.1–5.4.6, PDF pp. 26–28.
+[^e5004-seg]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §5.5.1–5.5.4.1 (segmentation, reassembly and PAC overview), PDF pp. 28–30.
+[^e5004-notif]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §5.3 "Transfer notification", PDF pp. 24–25.
+[^e5004-fecf]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.2.4 "Frame Error Control Field", §6.2.4.1 notes 1 and 2 and §6.2.4.3 b, PDF pp. 43–44.
+[^e5004-crc]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), annex A "Frame error control", §A.1–A.3 and figures A-1, A-2, PDF pp. 129–130.
+[^e5004-rxproc]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.1.2.3 and table 6-2 "Receiving-end procedures in the transfer sublayer", PDF pp. 36–37.
+[^e5004-delim]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.6 "Frame delimiting and fill removal procedure" and §6.7 "Frame error control procedure at the receiving end", PDF pp. 51–52.
+[^e5004-hdr]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.8 "Frame header validation procedure", PDF pp. 52–53.
+[^e5004-vcmux]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §6.9.3 "Demultiplexing", PDF p. 54.
+[^e5004-pac]: [ECSS-E-ST-50-04C](../library/ecss-e-st-50-04c31july2008.md), §5.5.4 "Packet assembly controller", §5.5.4.1–5.5.4.7, PDF pp. 30–33.
+[^an24-oneframe]: [ECSS-E-AS-50-24C Rev.1, Adoption Notice of CCSDS 231.0-B-4](../library/ecss-e-as-50-24c-rev-1-13january2023.md), table 4-1, rows "Note 2 to Transfer Frame definition in 1.6.1.3" and "A3", PDF pp. 8 and 16.
+[^cor1-dc]: [CCSDS 231.0-B-4 Cor. 1, TC Synchronization and Channel Coding, Technical Corrigendum 1](../library/ccsds-231-0-231x0b4e1c1.md), "Document Control" (Cor. 1, July 2026: changes to 5.2.4.2), PDF p. 7.

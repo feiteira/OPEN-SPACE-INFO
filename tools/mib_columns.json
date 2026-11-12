@@ -54,7 +54,7 @@
    "CCF_DEFSET",
    "CCF_RAPID",
    "CCF_ACK",
-   "CCF_SUBSCHED"
+   "CCF_SUBSCHEDID"
   ],
   "source": "pyscos2000 (ICD 7.2) order, ICD 7.0 names"
  },
@@ -640,12 +640,6 @@
  },
  "_name_differences_pyscos2000_vs_icd70": [
   {
-   "table": "ccf",
-   "pos": 21,
-   "pyscos2000": "CCF_SUBSCHEDID",
-   "icd70": "CCF_SUBSCHED"
-  },
-  {
    "table": "cpc",
    "pos": 1,
    "pyscos2000": "CPC_NAME",
@@ -661,7 +655,8 @@
    "table": "cpc",
    "pos": 16,
    "pyscos2000": "CPC_DESCR2",
-   "icd70": "CPC_ENDIAN"
+   "icd70": "CPC_ENDIAN",
+   "note": "ICD 7.2 (pyscos2000) inserts CPC_DESCR2 at position 16, moving CPC_ENDIAN to 17; ICD 7.0 has CPC_ENDIAN at 16."
   },
   {
    "table": "css",

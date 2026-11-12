@@ -122,7 +122,7 @@ The ICD then specifies the outputs: the MVDA format (ASCII header plus binary `D
 | RD-2 | [MVDA](../references/index.md#ref-mvda) | MVDA Retrieval User's Guide |  | reference |
 | RD-3 | [S2K-MCS-ADD-0015-TOS-GIC](../references/index.md#ref-s2k-mcs-add-0015-tos-gic) | TDRS Architectural Design Document |  | reference |
 | RD-4 | [ESA PSS-05](../references/index.md#ref-esa-pss-05) | ESA Software Engineering Standard | Issue 2 February, 1991 | reference |
-| RD-5 | [ESA PSS-04-106](../references/index.md#ref-esa-pss-04-106) | ESA Packet Telemetry Standard | Issue 1 January, 1988 | reference |
+| RD-5 | [ESA PSS-04-106](../references/index.md#ref-esa-pss-04-106) · [library](esa-pss-04-106-issue1-january1988.md) | ESA Packet Telemetry Standard | Issue 1 January, 1988 | reference |
 | RD-6 | [S2K-MCS-ICD-0001-TOS-GIC](../references/index.md#ref-s2k-mcs-icd-0001-tos-gic) | SCOS-2000 Database Import ICD |  | reference |
 | RD-7 | [MVDA](../references/index.md#ref-mvda) | MVDA Retriever Programmer's Guide |  | reference |
 

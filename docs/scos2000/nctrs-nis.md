@@ -1,8 +1,8 @@
 ---
 title: NCTRS, NIS and the ground station interface
-description: The ESOC gateway between the ESTRACK ground stations and the SCOS-2000 mission control systems - NCTRS and its successor NIS as SLE user, TM and TC routing, throw events and the releaser's ground station responses (from the real Solar Orbiter MIB), tracking data from the IFMS (the IFMS-OCC ICD in full), the flight dynamics file flows, and DLR's SLE switchboard - with an explicit list of what is not public.
-tags: [SCOS-2000, NCTRS, NIS, SLE, IFMS, Ground station, Tracking, Throw event, Solar Orbiter, GECCOS]
-sources: [ccsds-133-0-133x0b2e2, ifms-occ-icd-mex, mex-esc-id-5003-fds-icd, gsaw2005-guerrucci, gsaw2003-peccia, spaceops2021-dlr-mobile-mcs, 4s-2024-egscc-bruegge, icd-7-0-final, sp-1291-data-handling, vex-delhaise-web, solo-ddid-i1r2, euicd-v25, emcs-sum-4-0, tn-1030-time-correlation, ro-esc-if-5003-ddid-c2, ccsds-911-1-911x1b5e1, ccsds-912-1-912x1b5e1, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+description: The ESOC gateway between the ESTRACK ground stations and the SCOS-2000 mission control systems - NCTRS and its successor NIS as SLE user, how missions ran it (INTEGRAL 2003, the Herschel/Planck NCTRS procedure of 2011, CHEOPS at a non-ESTRACK station), TM and TC routing, throw events and the releaser's ground station responses (from the real Solar Orbiter MIB), ESTRACK pass booking and cross support, tracking data from the IFMS (the IFMS-OCC ICD in full), the flight dynamics file flows, and DLR's SLE switchboard - with an explicit list of what is not public.
+tags: [SCOS-2000, NCTRS, NIS, SLE, IFMS, Ground station, Tracking, Throw event, Solar Orbiter, GECCOS, ESTRACK, INTEGRAL, Herschel, Planck, CHEOPS]
+sources: [ccsds-133-0-133x0b2e2, ifms-occ-icd-mex, mex-esc-id-5003-fds-icd, gsaw2005-guerrucci, gsaw2003-peccia, spaceops2021-dlr-mobile-mcs, 4s-2024-egscc-bruegge, icd-7-0-final, sp-1291-data-handling, vex-delhaise-web, solo-ddid-i1r2, euicd-v25, emcs-sum-4-0, tn-1030-time-correlation, ro-esc-if-5003-ddid-c2, ccsds-911-1-911x1b5e1, ccsds-912-1-912x1b5e1, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, c-gsp-mcs-nctrs, fop-vol01, spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi, cheops-ground-segment-systems-and-automation-for-mission-and-science-o, icalepcs2019-weapp01-esa-control-systems, 2014s12b-schutz, airdrive-b8b986f, swa-idb-ascii, swa-idb-v6-5-0, stix-idb-v2-26-38-raw]
 ---
 
 # NCTRS, NIS and the ground station interface
@@ -14,10 +14,13 @@ measurements and passes files in both directions. The documents call it the **NC
 **NIS** or, in the more recent ones, "NCTRS/NIS" (see [Names](#names) on how the two relate), and
 the modern interface between it and the stations is CCSDS
 [Space Link Extension (SLE)](../ccsds/sle/index.md). This page gathers what the public documents
-say about this layer: its roles, how SCOS-2000 addresses it (command routing, throw events,
-release verification, ground station responses), the tracking data files of the station modem,
-the IFMS, and the flight dynamics flows that ride on it. The detailed NCTRS and NIS interface
-control documents are not public; the page is explicit about the resulting gaps.
+say about this layer: its roles, how three missions ran it (INTEGRAL in 2003, Herschel and Planck
+in 2011, and CHEOPS, whose paper describes passes through an INTA station without naming the
+NCTRS, the NIS or ESTRACK), how SCOS-2000 addresses it
+(command routing, throw events, release verification, ground station responses), how ESTRACK
+books the passes that the gateway then serves, the tracking data files of the station modem, the
+IFMS, and the flight dynamics flows that ride on it. The detailed NCTRS and NIS interface control
+documents are not public; the page is explicit about the resulting gaps.
 
 ## Names
 
@@ -98,7 +101,9 @@ SCOS-2000 component that interfaced the external command destination, the NCTRS.
     The Rosetta and Mars Express FDS-MCS ICD lists, per mission, a prime and a backup "Network
     Control" node next to the prime and backup control systems, and names the FTS nodes of the
     NIS as NIA and NIB.[^fds-nodes][^fds-ftsnames] The DDID's TC history of the same missions names
-    the release stage "Release from SCOS-2000 to the NCTRS".[^ro-r]
+    the release stage "Release from SCOS-2000 to the NCTRS".[^ro-r] Herschel and Planck each had
+    one NCTRS per MCS chain (A and B), started on the machines NCTRS-A and NCTRS-B (see
+    [Herschel and Planck](#herschel-and-planck-2011-one-nctrs-per-mission-and-chain)).[^hp-sum]
 
 ### The SLE user and provider
 
@@ -112,6 +117,130 @@ packet, the SLE service used, as one of twelve codes: rows SLC, MC, VC and "Bad 
 with the columns real time, real time with flow control and off-line.[^ro-sle] The DDID does not
 expand SLC, MC and VC; their possible mapping onto the SLE return services is discussed, as an
 inference, on [GDDS and the DDIDs](gdds-and-ddids.md#telemetry-the-dds-packet-header).
+
+ESOC's 2019 overview of its control-system generations explains why this boundary is the
+standardised one. The MCS is the only ground system that manages all interactions with the space
+assets, through the ground station network. Because control centres and stations are not
+necessarily run by the same organisation, the TM/TC exchange between them was standardised by
+CCSDS through SLE, giving access to spacecraft through the international network of stations that
+support it; standards between the other ground systems (mission planning, flight dynamics,
+payload data processing) were, by contrast, "still lagging behind".[^ical-ctx][^ical-interop]
+
+## Running the gateway: three missions
+
+The public interface documents say little about the gateway as a running system. Three operations
+documents fill part of the gap from the mission side.
+
+### INTEGRAL (2003): the NCTRS as part of the MOC
+
+INTEGRAL's Flight Operations Plan, Volume 1 (issue 2, 21 February 2003), lists the NCTRS with the
+IMCS (the INTEGRAL Monitoring and Control System) and the flight dynamics system as MOC hardware
+and software under ESOC's standard configuration control, every modification needing the approval
+of the Spacecraft Operations Manager (SOM).[^int-title][^int-cc] Its operational ground segment
+was the routine-phase stations Redu, Goldstone and Villafranca (backup), Perth for the launch and
+early orbit phase (LEOP), the MOC at ESOC and the communication facilities. The ground stations'
+task was the satellite-to-ground interface; the communications' task was data routing within the
+operational ground segment and to the science ground segment, including the transmission of
+satellite TM and auxiliary data to the INTEGRAL Science Data Centre (ISDC).[^int-gs][^int-tasks]
+
+The FOP shows the three layers of configuration control that a pass crossed:[^int-cc]
+
+| Layer | Controlled by | Rule in the FOP |
+|---|---|---|
+| ESA stations | ESOC (TOS-G), as a resource shared between missions | The INTEGRAL SOM approves modifications that could affect INTEGRAL |
+| DSN station (Goldstone) | NASA | NASA is expected to consult the SOM; INTEGRAL may have to adapt to JPL/Goldstone changes |
+| Communications (MOC to stations, MOC to ISOC and ISDC) | TOS-ON, under the MOC's responsibility | Shared resources; modifications that could affect INTEGRAL need SOM approval |
+
+The mission rules make the gateway's chain a launch criterion. The countdown was to stop if the
+IMCS (in particular TM reception and processing and TC generation and release), flight dynamics
+and communications ("in particular OPSLAN") were not available in hot redundancy, or if the MOC
+could not send TCs to, and receive and process data from, Redu or Villafranca. Missing tracking
+at Redu, Villafranca and Goldstone only made the ground segment "not fully operational". After
+launch, losing contact with a ground station for more than 24 hours was one of the conditions
+for a spacecraft emergency.[^int-rule] The GSAW 2003 slide that uses INTEGRAL as its example of
+an "S2K based MCS" is where the NCTRS is expanded as "Network Controller & TM Router System"
+(see [Names](#names)).[^peccia-int]
+
+### Herschel and Planck (2011): one NCTRS per mission and chain
+
+The Herschel/Planck flight operations plan (PT-HMOC-OPS-FOP-6001-OPS-OAH, FOP issue 3.1) contains
+a ground segment procedure, **C_GSP_MCS_NCTRS** "Herschel/Planck NCTRS Setup" (version 1, created
+on 11 August 2011), whose objective is starting or stopping NCTRS-A and B.[^hp-sum] Its constraint
+shows how the gateway was deployed for two missions operated side by side: there must only ever
+be one instance per mission running, that is only one Herschel NCTRS and one Planck NCTRS per MCS
+chain (A and B). An "OVERVIEW" task must never be started on NCTRS-A or B, "because it would allow to
+start another instance on a machine of the other mission".[^hp-sum] The procedure has no
+spacecraft configuration, command sequences or referenced displays: it is purely a ground
+operation.[^hp-sum]
+
+```mermaid
+flowchart TD
+  S1["1. Open a terminal on a DCR client"] --> S2["2. Remote session on NCTRS-A or NCTRS-B,<br/>allowing it to open windows on the client"]
+  S2 --> S3["3. Stop: log out of and close the NCTRS MMI,<br/>run NCTRSstop for Herschel or Planck (three times),<br/>check that no task of that mission is left,<br/>stop OVERVIEW if it runs"]
+  S3 --> D{"4. Start the NCTRS?"}
+  D -- "no" --> E["End"]
+  D -- "yes" --> S5["5. Run NCTRSstart for Herschel or Planck;<br/>the NCTRS MMI appears on the DCR client"]
+  S5 -- "does not start: still running" --> S3
+  S5 -- "cannot create displays" --> S1
+  S5 --> S6["6. Log in to the NCTRS MMI"] --> E
+```
+
+The flowchart redraws the six steps of the procedure.[^hp-steps] In step 3 the stop command is run
+"3 times" because the clean-up is sometimes incomplete, and the operator checks the process list for tasks
+with "Herschel" or "Planck" in their names. If the NCTRS does not start, it is probably still
+running and the operator goes back to stopping it; if it cannot create its windows, the display
+permission was forgotten and the procedure starts again.[^hp-steps] The procedure does not expand
+DCR; ESOC's 2003 LEOP set-up slide expands it as "dedicated Control Room".[^peccia-leop]
+
+!!! danger "Credentials and host names not reproduced"
+    The procedure prints the NCTRS machine names, the operating-system account and the NCTRS MMI
+    account with their passwords. This wiki does not reproduce them. The procedure is also
+    summarised on [Herschel/Planck interface documents](herschel-planck-interfaces.md#two-flight-operations-procedures).
+
+!!! warning "Inference"
+    Three points follow from the procedure but are not stated in it. The NCTRS of that time was a
+    set of operating-system processes started per mission by scripts, with its own X-based user
+    interface (the "NCTRS MMI") and its own user login, separate from the SCOS-2000 client. "Chain A
+    and B" suggests that each NCTRS machine served one of the two redundant MCS chains of both
+    missions. And the warning about OVERVIEW suggests a multi-mission start-up mode that the
+    Herschel/Planck configuration deliberately avoided.[^hp-sum][^hp-steps]
+
+By February 2014 the NIS user interface was among the ESOC GUIs re-implemented on the Java and
+Eclipse-based **EGOS User Desktop** (EUD), next to those of SCOS-2000, SIMSAT and the FARC (see
+[EUD](ancillary-and-egs-cc.md#eud-the-common-user-interface-2014)).[^eud-stat]
+
+### CHEOPS: a pass without ESTRACK (2025)
+
+CHEOPS, operated by its consortium with a SCOS-2000 5.4.2 MCS at INTA's Torrejón centre (CEIT),
+communicates through the INTA ground station there; its paper mentions neither ESTRACK nor the
+NCTRS or NIS, but it describes every step of a pass at the MCS-station boundary:[^ch-intro][^ch-mcs][^ch-fds]
+
+1. **Booking.** INTA's CEIT G/S Planner (written in C#) takes pass requests from CHEOPS and the
+   other missions of the station, resolves conflicts and configures the control system of each
+   station with the passes, their start and end times, configurations and mode-change times. From
+   the flight dynamics visibility file it produces `GSAvailability`, an XML list of the CHEOPS passes
+   of the next three weeks with station, start time and duration.[^ch-fds]
+2. **Pass preparation.** For each pass the SCOS-2000 CommandBuilder generates TC stacks that begin
+   and end "the MCS-G/S communication" and start and stop the downlink of recorded TM, and places
+   them in a pass folder.[^ch-pass]
+3. **During the pass.** A Python script checks the SCOS-2000 tasks, loads the stack that opens the
+   MCS-station connection into an Auto Stack, reads MISC variables to verify that the ground
+   commanding capability is available, switches to AD mode and uplinks. Real-time housekeeping TM
+   goes straight from the station to the MCS. At the end the stack that closes the connection is
+   sent.[^ch-pass][^ch-during]
+4. **After the pass.** The recorded TM, which the station wrote to a binary file, is fetched by FTP;
+   the SCOS-2000 TM Processor splits it into one file per virtual channel (real-time housekeeping,
+   recorded housekeeping, science), and gaps are found from jumps in the virtual channel frame
+   counter.[^ch-post]
+5. **Tracking.** Two-way Doppler files from the station go to flight dynamics, where PREPRO converts
+   them into ESA's NAPEOS tracking data format for orbit determination.[^ch-fds]
+
+!!! warning "Inference"
+    The CHEOPS stacks that "begin and end the MCS-G/S communication" occupy the place that the
+    Solar Orbiter MIB gives to the NIS throw events OPEN SESSION, OPEN LINK and CLOSE LINK
+    ([below](#throw-events)). The paper does not describe their content, their command type or the
+    protocol between the MCS and the INTA station, and it mentions SLE only for the
+    simulator.[^ch-pass][^ch-sim]
 
 ## The interface towards SCOS-2000
 
@@ -139,7 +268,16 @@ listed goes to the default destination `NCTRS`, which may only be used for space
 SCOE and TC front end) are the alternatives, used by SCOS-2000-based EGSE.[^icd-dst] The Solar
 Orbiter MIB has a single `dst` record, routing APID 1372 to `EGSE.TC.0x8800`, which is exactly
 the example Destination ID printed in the ICD; every other command uses the NCTRS
-default.[^mib][^icd-dst]
+default.[^mib][^icd-dst] The April 2020 release has the same single record. The instrument
+databases in the library carry a `dst` table with no rows: the [SWA](../missions/solar-orbiter/swa.md) database (2021 ASCII set, 198
+commands; v6.5.0, 201 commands) and the [STIX](../missions/solar-orbiter/stix.md) database v2.26.38 (100 commands), so in an MCS
+importing them every instrument command would take the NCTRS default.[^mib20][^idb-dst]
+
+!!! warning "Inference"
+    An empty `dst` in an instrument database is what the ICD's default implies for flight use:
+    instrument commands travel through the spacecraft like any other telecommand. Whether the
+    instrument teams' own EGSE set-ups used a different routing is not stated in the available
+    sources.[^icd-dst][^idb-dst]
 
 The SCOS-2000 EGSE of the Herschel/Planck era exposes the same switch as the MISCconfig variable
 `EGSE_MODE`: 0, the releaser connects only to the NCTRS; 1 (the default), to both the NCTRS and the
@@ -164,6 +302,18 @@ time and is then updated with the time stamp copied from the station's radiation
 and the execution time of an immediate command becomes uplink time plus propagation
 delay.[^solo-tc] See [Command verification in the MIB](../mib/command-verification.md) for the
 stages after uplink.
+
+CHEOPS shows the same chain in routine use at a non-ESA station. Its automation commands in AD
+mode, which detects missing TCs and retransmits them, and "several steps of acknowledgement" are
+enabled to trace the reception and the transmission of each TC by the ground station and its
+reception and, for immediate TCs, execution on board; with this mode SCOS-2000 verifies "the
+correct and complete uplink".[^ch-during]
+
+!!! warning "Inference"
+    The two station steps of the CHEOPS paper look like the G and T stages above, and the
+    on-board steps like the O stage plus the PUS acceptance and execution reports (see
+    [COP-1](../ccsds/cop-1.md) and [ST\[01\]](../ecss/pus/st01-request-verification.md)). The
+    paper does not name the stages, so the correspondence is this wiki's.[^euicd-r][^ch-during]
 
 ### Ground station responses as telemetry
 
@@ -260,9 +410,11 @@ The command parameters carry the enumerations of the throw event fields, read fr
 The four 32-bit time fields of EGENRTMO are all described "Start time" in the MIB, two after a
 "Start Time Used" flag and two after "End Time Used"; the opening of the TC link (EGENRTCO) carries
 instead a First CLTU ID. All link events end with three string pieces that, concatenated, form an
-SLE service instance identifier of the form `sagr=….spack=….rsl-fg=1.rcf=onlc0001` for the
-RCF link and `sagr=….spack=….fsl-fg=1.cltu=cltu01` for the CLTU link (agreement and package values
-omitted here).[^mib] The attribute names and their order are those of CCSDS 911.1: service
+SLE service instance identifier: `sagr=144.spack=NN11-PERM.rsl-fg=1.rcf=onlc0001` for the RCF
+link (EGENRTMO, EGENRTMC) and `sagr=144.spack=NN11-PERM.fsl-fg=1.cltu=cltu01` for the CLTU link
+(EGENRTCO, EGENRTCC). The pieces are raw default values of command parameters that the MIB marks
+editable rather than fixed (`CDF_ELTYPE` = `E`, `CDF_INTER` = `R`) in [cdf](../mib/tables/cdf.md),
+identical in the 2025 and 2020 releases.[^mib][^mib20][^icd-cdf] The attribute names and their order are those of CCSDS 911.1: service
 agreement `sagr`, service package `spack`, forward or return functional group `fsl-fg` or
 `rsl-fg`, then the service name with an instance number; for return services the value starts
 with `onlc`, `onlt` or `offl`, which the standard does not spell out but which match its online
@@ -279,10 +431,91 @@ complete, online timely and offline delivery modes.[^sle-siid]
 
 The 2020 MIB release has the same six throw events.[^mib20]
 
+## Booking the pass: ESTRACK scheduling and cross support
+
+The service agreement (`sagr`) and service package (`spack`) attributes in those identifiers take
+values that are, in the words of the SLE books, to be agreed between the user and the
+provider;[^sle-siid] agreements and packages are the objects of SLE service management (see
+[SLE service management](../ccsds/sle/service-management.md)). Before the NIS can bind anything,
+the pass has to be booked. A SpaceOps 2025 paper by authors at ESOC describes that side, as
+seen from the ESTRACK Scheduling Office (ESO).[^eo-abs][^eo-intro]
+
+**Capacity and partners.** In twenty years the number of ESA spacecraft in flight tripled while
+ESTRACK capacity stayed the same, and deep-space demand now exhausts the network at peak
+periods. ESTRACK therefore books six external providers and in turn serves five external
+partners, acting as user, provider and broker.[^eo-abs][^eo-intro][^eo-users]
+
+**From standing orders to a booking.** Each project starts with a mission agreement listing the
+available services and the interfaces to implement them, often with standing orders (planning
+requirements and constraints) that are translated into the configuration of the ESTRACK Planning
+System (EPS). The EPS solver combines all users' standing orders into one consistent booking,
+typically 4 weeks ahead for the low Earth orbit network and up to 12 months for deep-space
+antennas. Users then request additions, modifications and deletions, and providers sometimes
+propose supports themselves.[^eo-eps] Every change request is checked in four steps:[^eo-eps]
+
+| Check | Content |
+|---|---|
+| 1. Validity | Format, identifiers and privileges are correct |
+| 2. Conflict | The request is blocked until all conflicts are resolved |
+| 3. Technicality | The service is available to the user at the requested terminal, and the visibility suits the activity |
+| 4. Availability (external provider) | The request is forwarded to the provider |
+
+The ESTRACK Management System web Portal (EMSP) handles all these exchanges, for people through
+the web and for systems through REST or files. Requests and supports can change on either side
+without notice (LEOP, maintenance, failures), so ESTRACK closes the loop with the provider's
+**Simple Schedule Format** (SSF) list of everything it has agreed to support rather than with
+per-request confirmations; new interfaces since 2017 use the SSF and the draft SMURF request
+format, and the core is shielded from each partner's variant by XML and XSL transforms.[^eo-users][^eo-loop][^eo-fmt]
+Across six agencies and five commercial entities, the same minimal data set proved sufficient:
+spacecraft, ground station or terminal, beginning and end of track, a service name or comment,
+plus service parameters and the user and provider identifiers.[^eo-data]
+
+**From a booking to an executed pass.** ESTRACK network operations are fully automated. Each
+service type is linked to a scheduling template that lists the automated tasks to run on the
+target systems, and the templates turn every allocation into an executable timeline. A published
+catalogue of "user scheduled events", basic actions at absolute times such as starting or
+stopping the uplink or a recording, covers occultations and link changes inside a support; it has
+become a de facto standard for ESTRACK users and providers. External providers receive the same
+information (service type, parameters, events) and may execute it automatically or
+manually.[^eo-exec] The paper's advice is to keep only tested configurations reachable through
+the interface and to be able to set up a service from instructions read over a voice loop when
+automation fails.[^eo-svc][^eo-lessons]
+
+```mermaid
+flowchart LR
+  MA["Mission agreement<br/>services, standing orders"] --> EPS["EPS solver<br/>baseline booking"]
+  REQ["Mission planning<br/>change requests"] --> EMSP["EMSP<br/>validity, conflict,<br/>technicality, availability"]
+  EPS --> EMSP
+  EMSP <-->|"SMURF requests, SSF lists<br/>(REST or XML files)"| EXT["External providers<br/>and users"]
+  EMSP --> TPL["Scheduling template per service type<br/>plus user scheduled events"]
+  TPL --> ST["Automated station timeline"]
+  ST -.-> NIS["Pass: NIS session and SLE<br/>service instances (sagr, spack)"]
+  MCS["SCOS-2000 MCS<br/>NIS throw events"] -.-> NIS
+```
+
+The solid arrows restate the paper's process;[^eo-eps][^eo-users][^eo-exec] the dotted arrows to
+the NIS are this wiki's link to the throw events above.
+
+!!! warning "Inference"
+    The ESTRACK paper does not mention the NIS, the NCTRS or the MCS, and the NIS/NCTRS ICDs are not
+    public. That the booked service package is the one quoted in the Solar Orbiter throw events
+    (`spack=NN11-PERM`) is a reading of the SLE identifier syntax, not a documented fact; the
+    `-PERM` suffix may denote a permanent package reused for every pass, as discussed on
+    [SLE service management](../ccsds/sle/service-management.md#service-agreement-and-package-identifiers-in-the-solar-orbiter-mib).[^mib][^eo-exec]
+
+The full treatment of the paper, with its lessons on service definitions, request protocols and
+standing orders, is on
+[SLE service management](../ccsds/sle/service-management.md#part-7-estrack-in-practice-spaceops-2025).
+The EGOS-CC era adds an ESTRACK schedule interface that converts ESTRACK Management System
+schedule files into EGS-CC ground schedule increments, one of its ground station operations
+components (see
+[ancillary systems](ancillary-and-egs-cc.md#the-component-list-of-2019)).[^airb-t2]
+
 ## Tracking data: the IFMS-OCC interface
 
 The **IFMS** (Intermediate Frequency & Modem System, also "IF and Modem System") is the station
-modem that produces the radiometric measurements. Its interface with data clients such as the
+modem that produces the radiometric measurements (Doppler and ranging themselves are described on
+[RF and ranging](../ccsds/rf-and-ranging.md#ranging-and-doppler-tracking-ecss-e-st-50-02c)). Its interface with data clients such as the
 NCTRS is "for historical reasons" called the IFMS-to-OCC (Operations Control Centre) interface,
 and issue 11.4.0 of its ICD (2006) is public through the Mars Express radio science archive.[^ifms-intro][^ifms-title]
 
@@ -404,6 +637,12 @@ by Flight Dynamics with manual FTP from the two Rosetta "Network Control" nodes.
 one-way light time files used for time correlation are identified by a Flight Dynamics
 ground station ID that, the ICD warns, does not correspond to the NCTRS ground station ID.[^fds-gsid]
 
+The CHEOPS paper of 2025 shows the radiometric side at a non-ESA station without any of this
+machinery: the station's tracking data files with two-way Doppler measurements go to the flight
+dynamics system, whose PREPRO module converts the frequency shifts (Hz) into radial velocities
+(km/s) in the NAPEOS tracking data format for orbit determination by BAHN, twice a day after each
+session of passes. The paper does not say how the files travel from the station.[^ch-fds]
+
 ## Ground station identity and monitoring in the MCS
 
 Every SCOS-2000 TM packet carries the numerical ID of the station that received its frame. Solar
@@ -464,6 +703,10 @@ environment, alongside the MIB and procedures, before a future move to EGS-CC.[^
 * Consequently: the layout of the NIS frame header (beyond the fact that it carries the ERT), the
   wire format and transport of the NCTRS protocol, the TC data unit formats behind the packet types
   of SPID 66850, and the semantics of the NIS throw event fields.
+* The NCTRS and NIS operator interfaces (the MMI started in the 2011 Herschel/Planck procedure, and
+  its EUD-based replacement of 2014), beyond their existence.[^hp-steps][^eud-stat]
+* How a pass booked through the ESTRACK EPS and EMSP becomes an NIS session and SLE service
+  instances, and how the service package identifiers of the throw events are allocated.[^eo-exec]
 
 ## Related pages
 
@@ -474,6 +717,13 @@ environment, alongside the MIB and procedures, before a future move to EGS-CC.[^
 * [Time correlation in SCOS-2000](time-correlation.md), [Mission archives](archives.md) and
   [GDDS and the DDIDs](gdds-and-ddids.md).
 * [Commanding in the MIB](../mib/commanding.md) and [SCOS-2000 as EGSE](egse.md).
+* [SLE service management](../ccsds/sle/service-management.md) (ESTRACK scheduling and the
+  service agreement and package identifiers) and [SLE forward service FSP](../ccsds/sle/fsp.md).
+* [RF and ranging](../ccsds/rf-and-ranging.md) (what the IFMS measures) and
+  [space link identifiers](../ccsds/space-link-identifiers.md) (spacecraft and virtual channel IDs).
+* [Herschel/Planck interface documents](herschel-planck-interfaces.md), the
+  [SCOS-2000 page](index.md#integral-and-cheops-two-operator-views) (INTEGRAL and CHEOPS) and
+  [ancillary systems](ancillary-and-egs-cc.md) (EUD, the INTEGRAL MOC, CHEOPS).
 
 ## SQL used
 
@@ -502,6 +752,22 @@ environment, alongside the MIB and procedures, before a future move to EGS-CC.[^
     SELECT PLF_SPID, count(*) FROM plf WHERE PLF_SPID BETWEEN 66025 AND 66030 GROUP BY 1;
     SELECT * FROM tpcf WHERE TPCF_SPID BETWEEN 66025 AND 66030;
     -- solo-2020-04-16.sqlite: SELECT CCF_CNAME, CCF_DESCR FROM ccf WHERE CCF_CTYPE = 'N';  -- same six
+
+    -- Service instance identifier pieces of the link throw events (both Solar Orbiter releases)
+    SELECT CDF_CNAME, CAST(CDF_BIT AS INT), CDF_ELLEN, CDF_PNAME, CDF_VALUE FROM cdf
+     WHERE CDF_CNAME IN ('EGENRTMO','EGENRTMC','EGENRTCO','EGENRTCC')
+       AND CDF_PNAME IN ('ENISTE34','ENISTE35','ENISTE36','ENISTE37','ENISTE38') ORDER BY 1, 2;
+    -- EGENRTMO 224 ENISTE35 'sagr=144.spack=' | 344 ENISTE38 'NN11-PERM.rsl-f' | 464 ENISTE37 'g=1.rcf=onlc0001'
+    -- EGENRTCO  56 ENISTE35 'sagr=144.spack=' | 176 ENISTE38 'NN11-PERM.fsl-f' | 296 ENISTE37 'g=1.cltu=cltu01'
+    SELECT CDF_ELTYPE, CDF_INTER, count(*) FROM cdf
+     WHERE CDF_CNAME IN ('EGENRTMO','EGENRTMC','EGENRTCO','EGENRTCC')
+       AND CDF_PNAME IN ('ENISTE35','ENISTE37','ENISTE38') GROUP BY 1, 2;
+    -- E | R | 12  (both releases)
+
+    -- Command routing in both Solar Orbiter releases and in the instrument databases
+    SELECT * FROM dst;              -- solo-2020-04-16: 1372 | EGSE.TC.0x8800
+    SELECT count(*) FROM dst;       -- swa-idb, swa-idb-v6.5.0, stix-idb-2.26.38: 0
+    SELECT count(*) FROM ccf;       -- swa-idb 198, swa-idb-v6.5.0 201, stix-idb-2.26.38 100
     ```
 
 [^gsaw05]: [Guerrucci et al., Mission Families, GSAW 2005](../library/gsaw2005-guerrucci.md), slide "ESOC Software Infrastructure", PDF p. 5.
@@ -550,6 +816,7 @@ environment, alongside the MIB and procedures, before a future move to EGS-CC.[^
 [^icd-te]: [ICD 7.0](../library/icd-7-0-final.md), §3.3.3.2.1 Command characteristics: ccf, introductory remarks on throw events, PDF p. 132.
 [^icd-ctype]: [ICD 7.0](../library/icd-7-0-final.md), §3.3.3.2.1 ccf, field 4 `CCF_CTYPE`, PDF pp. 134–135.
 [^icd-dst]: [ICD 7.0](../library/icd-7-0-final.md), §3.3.3.2.1.1 Command routing: DST, PDF pp. 141–142.
+[^icd-cdf]: [ICD 7.0](../library/icd-7-0-final.md), §3.3.3.2.3 Commands definition: cdf, field CDF_ELTYPE ('A' fixed area, 'F' fixed parameter, 'E' editable parameter), PDF p. 154.
 [^icd-te-hist]: [ICD 7.0](../library/icd-7-0-final.md), Annex 1, "Support of NIS Throw Events", PDF p. 256.
 [^euicd-r]: [EDDS EUICD EGOS-GEN-EDDS-ICD-1001, version 24.0](../library/euicd-v25.md), §6.6 ASCII, Table 26 TC Report ASCII column output, PDF pp. 52–53.
 [^emcs-mode]: [EGSE based on SCOS 2000, EMCS Software User Manual issue 4.0](../library/emcs-sum-4-0.md), MISCconfig variable `EGSE_MODE`, PDF p. 23.
@@ -566,4 +833,33 @@ environment, alongside the MIB and procedures, before a future move to EGS-CC.[^
 [^sle-siid]: [CCSDS 911.1-B-5, SLE Return All Frames Service](../library/ccsds-911-1-911x1b5e1.md), Annex A, service instance identifier attributes, PDF p. 125.
 [^spp-apid]: [CCSDS 133.0-B-2, Space Packet Protocol](../library/ccsds-133-0-133x0b2e2.md), §4.1.3.3 packet identification field (APID, 11 bits), PDF pp. 32–33.
 [^mib]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `dst`, `ccf`, `tcp`, `cdf`, `cpc`, `pas`, `pid`, `plf`, `pcf`, `txp` and `tpcf`, queried by this wiki on 2026-11-12.
-[^mib20]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), table `ccf`, queried by this wiki on 2026-11-12.
+[^mib20]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), tables `ccf`, `cdf` and `dst`, queried by this wiki on 2026-11-12.
+[^idb-dst]: SWA instrument database, [2021 ASCII set](../library/swa-idb-ascii.md) and [v6.5.0](../library/swa-idb-v6-5-0.md), and [STIX instrument database v2.26.38](../library/stix-idb-v2-26-38-raw.md), tables `dst` and `ccf`, queried by this wiki on 2026-11-12.
+[^ical-ctx]: [M. Pecchioli, "Old and New Generation Control Systems at ESA", ICALEPCS 2019, paper WEAPP01](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Context" (the MCS as the only system interacting with the space assets), PDF pp. 3–4.
+[^ical-interop]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Design", inter-operability (SLE), PDF p. 6.
+[^int-title]: [INTEGRAL Flight Operations Plan, Vol. 1 Mission Management, INT-MOC-FOP-FOP-1001-TOS-OGI, issue 2 revision 0 (21 February 2003)](../library/fop-vol01.md), title page and change record sheet, PDF pp. 1–2.
+[^int-gs]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 1 §1.1.4 Ground Segment Set-Up, PDF p. 10.
+[^int-tasks]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 2 §1.2.1 Distribution of Tasks, PDF p. 16.
+[^int-rule]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 3 §1.3.2 Launch Hold Criteria (Mission Rules 2.1 and 2.2) and §1.3.3 Satellite Emergency (Mission Rule 3.1), PDF p. 25.
+[^int-cc]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 4 §1.4.3.1 Operational Ground Segment (MOC, ESA stations, DSN stations, communications), PDF pp. 33–34.
+[^hp-sum]: [Herschel/Planck FOP procedure C_GSP_MCS_NCTRS "Herschel/Planck NCTRS Setup", PT-HMOC-OPS-FOP-6001-OPS-OAH, FOP issue 3.1](../library/c-gsp-mcs-nctrs.md), procedure summary (objectives, constraints, configuration control information), PDF p. 1.
+[^hp-steps]: [C_GSP_MCS_NCTRS](../library/c-gsp-mcs-nctrs.md), steps 1 to 6, PDF pp. 3–4.
+[^eud-stat]: [J. Schütz, "EGOS User Desktop", GSAW 2014](../library/2014s12b-schutz.md), slide 4 "EUD Overview" (Java, Eclipse RCP) and slide 11 "Current Status" (replacement GUI for SCOS-2000, SIMSAT, NIS and FARC), PDF pp. 4 and 11.
+[^ch-intro]: [Heitzmann et al., "CHEOPS Ground Segment: Systems and Automation for Mission and Science Operations", arXiv:2505.08352 (13 May 2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), Abstract and §1 Introduction, PDF p. 1.
+[^ch-fds]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §2.2 Predicted orbit and G/S contacts from MOC (PREPRO, BAHN, CEIT G/S Planner, GSAvailability), PDF pp. 3–4.
+[^ch-mcs]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §3.2 TC Conversion and Pass Assignment (SCOS-2000 version 5.4.2), PDF p. 6.
+[^ch-pass]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §4 CHEOPS passes and §4.1 Pre-pass activities, PDF p. 6.
+[^ch-during]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §4.2.1 Pass preparation and execution (Auto Stack, MISC variables, AD mode, acknowledgement steps), PDF p. 7.
+[^ch-post]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §4.3 Post-pass activities, PDF p. 8.
+[^ch-sim]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §6.2 CHEOPS Spacecraft Simulator (SLE), PDF p. 12.
+[^eo-abs]: [Unal et al., "ESTRACK Deep Space Cross Support using CCSDS Service Management", SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), Abstract and author affiliations, PDF p. 1.
+[^eo-intro]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §1 Introduction, PDF p. 2.
+[^eo-eps]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §2 Inside the box: ESTRACK Scheduling Office tools and processes, PDF p. 2.
+[^eo-users]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §3.2 Interfacing with users (REST and file-based exchange) and §3.3 Interfacing with provider (ESTRACK as service broker), PDF p. 4.
+[^eo-loop]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §3.1 Overall process (closing the loop with the SSF), PDF p. 3, and §5.2 (SSF reply rather than individual request confirmation), PDF p. 8.
+[^eo-fmt]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §3.3 Interfacing with provider (XSL shielding) and §4.2 Format, PDF pp. 5–6.
+[^eo-data]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §4.1 Data, PDF p. 6.
+[^eo-svc]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §4.4 Service Definition (voice loop), PDF p. 6.
+[^eo-exec]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §4.5 Support execution, PDF p. 7.
+[^eo-lessons]: [SpaceOps 2025 #16](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md), §5.1 Things that worked well (only tested configurations), PDF p. 7.
+[^airb-t2]: [Walsh et al., "Developing EGS-CC based applications; the EGOS-CC experience", SESP 2019](../library/airdrive-b8b986f.md), Tables 1 and 2, cross-domain and ground station components (ESTRACK ground station schedule interface), PDF p. 5.

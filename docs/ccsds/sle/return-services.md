@@ -1,8 +1,8 @@
 ---
 title: "SLE return services: RAF, RCF and ROCF"
-description: The three CCSDS SLE return transfer services in full detail (Return All Frames, Return Channel Frames and Return Operational Control Fields), covering production, annotation, the timely online, complete online and offline delivery modes, every operation with its parameters, diagnostics and ASN.1 codes, the state machine, production status, global VCIDs, and how CLCWs reach the control centre, with Solar Orbiter and SCOS-2000 examples.
-tags: [CCSDS, SLE, RAF, RCF, ROCF, CLCW, Telemetry, Solar Orbiter]
-sources: [ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ccsds-910x3g3-sle-cross-support, ccsds-232-0-232x0b4e1c1, sol-s-astr-tn-00079-07, tn-1030-time-correlation, mex-esc-if-5003-b5, euicd-v25, icd-7-0-final, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+description: The three CCSDS SLE return transfer services in full detail (Return All Frames, Return Channel Frames and Return Operational Control Fields), covering production as the reference model defines it, annotation, the timely online, complete online and offline delivery modes, every operation with its parameters, diagnostics and ASN.1 codes, the state machine, production status, global VCIDs, how CLCWs reach the control centre, and how the RAF API (915.1-M-2) implements the provider side, with Solar Orbiter and SCOS-2000 examples.
+tags: [CCSDS, SLE, RAF, RCF, ROCF, CLCW, SLE API, Telemetry, Solar Orbiter]
+sources: [ccsds-911-1-911x1b5e1, ccsds-911-2-911x2b4e1, ccsds-911-5-911x5b4e1, ccsds-910x3g3-sle-cross-support, ccsds-910-4-910x4b2e1s, ccsds-915-1-915x1m2, ccsds-914-0-914x0m2c1, ccsds-912-3-912x3b3s, ccsds-232-0-232x0b4e1c1, sol-s-astr-tn-00079-07, tn-1030-time-correlation, mex-esc-if-5003-b5, euicd-v25, icd-7-0-final, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
 ---
 
 # SLE return services: RAF, RCF and ROCF
@@ -17,7 +17,9 @@ telecommand receiver.[^rocf-purpose] The three services share the same operation
 buffering rules and state machine. They differ in what they select and what they annotate.
 
 This page assumes the concepts on the [SLE overview](index.md): providers and users, service
-instances, BIND/UNBIND/PEER-ABORT, and access control. The frames themselves are described on
+instances, BIND/UNBIND/PEER-ABORT, and access control. The architecture behind them is on
+[the cross support reference model and service management](service-management.md), and the
+software side on [ISP1 and the SLE API](isp1-and-api.md). The frames themselves are described on
 [TM Space Data Link Protocol](../tm-sdlp.md), [AOS](../aos.md) and [USLP](../uslp.md), and the
 coding that the station undoes on [TM synchronization and channel coding](../tm-coding.md).
 
@@ -65,9 +67,32 @@ flowchart LR
 
 Diagram based on the functional views of the three specifications.[^raf-rslp][^rcf-rfp][^rocf-rfp]
 
+The [cross support reference model](index.md#the-cross-support-reference-model) gives the full
+function lists of the two groups. Real implementations may provide only a subset of a group's
+services and functions; the service specifications say which functions each service needs.[^csrm-rfg]
+
+| Return Space Link Processing SLE-FG | Return Frame Processing SLE-FG |
+|---|---|
+| Uses the ground element's antenna steering and acquires the RF carrier | Consumes one RAF data channel |
+| Demodulates the carrier into one or more physical channels (symbol streams) | Demultiplexes it into Master Channels by MCID (frame version number + SCID) and annotates each MC frame |
+| Frame-synchronises and extracts the frames; convolutional decoding may come before or after frame sync | Demultiplexes each Master Channel into Virtual Channels by GVCID (MCID + VCID) and annotates each VC frame |
+| Error-decodes: optional convolutional decoding, derandomisation, Reed-Solomon decoding and CRC check | Decommutates the OCF and the frame secondary header, per MC or per VC |
+| Annotates each frame into an RAF SLE-SDU and injects it into the RAF channel of its physical channel | Stores enough data for later offline reconstruction, relative either to the source RAF channel or to each product channel |
+| Decommutates the AOS insert zone into the Return Insert channel | Retrieves stored data and rebuilds the channels for offline instances |
+| Stores and later retrieves enough data to rebuild the RAF channel for offline instances | |
+
+Source: §4.3.2.1.1 and §4.3.2.1.2 of the reference model.[^csrm-rfg] The model names RAF and the
+Return VC Frames service as the two return services used for cross support between functional
+groups; like every service exposed between groups, both are also available to the MDOS.[^csrm-rfg] The 2005 model lists Master Channel and Virtual Channel frame services,
+and Master Channel and Virtual Channel OCF services, as four distinct services. RCF and ROCF each
+merge one pair.[^rcf-purpose][^rocf-purpose] The model's Master Channel OCF and FSH channels exist
+only for TM (version 1) master channels, and its VC-FSH channel only for TM virtual channels.[^csrm-chan]
+
 The services assume a stable physical channel. At any one time all frames on a channel must use
 the same coding options and, for TM, the same frame length, and the station learns these through
-service management rather than from the data.[^raf-coding][^raf-quality-notes] The concept report
+service management rather than from the data.[^raf-coding][^raf-quality-notes] The reference model
+gives the sharpest example: Reed-Solomon coding must be present on all frames of a physical
+channel or on none, even where the space link standards would allow a mix.[^csrm-rfg] The concept report
 puts it from the other side: to offer channel frames, a provider must implement both the frame
 processing and the space link processing functional groups.[^csc-ret-fg]
 
@@ -198,6 +223,10 @@ extension: the TM rule above is modulo 256.
 
 Each return service instance is configured, by service management, for exactly one delivery
 mode.[^raf-sm] The three modes behave very differently when the ground network cannot keep up.
+The reference model describes the same three modes in more abstract terms. Its timely online mode
+uses two user-settable delay thresholds, one for a warning and one for deletion, instead of the
+single latency limit described below; the two are compared on the
+[overview](index.md#delivery-modes-in-the-reference-model).[^csrm-modes]
 
 ```mermaid
 flowchart LR
@@ -272,6 +301,16 @@ START requires both times to be non-null. `stop-time` plus the offline processin
 already be in the past. SYNC-NOTIFY in offline mode only ever reports 'end of data', and
 SCHEDULE-STATUS-REPORT is rejected.[^raf-start-times][^raf-notify][^raf-ssr] A conforming offline
 buffer must hold at least 1,000,000 TRANSFER-DATA invocations.[^raf-conf]
+
+The reference model explains the storage choice behind offline delivery. An SLE system can store
+the full *user data* of a session, so that the MDOS chooses what to retrieve only when it
+retrieves it, or only the *user service data* that the MDOS named in advance. The first is more
+flexible for the user, but its cost grows as the share of data actually retrieved falls, so real
+systems may restrict or not offer it. The frame processing group's description makes the same
+choice concrete: storage relative to the source RAF channel needs no advance selection, storage
+relative to each product channel (MC, VC, OCF or FSH) does, and some implementations can afford
+only the second. What matters for cross support is what the MDOS and the SLE system agree, not how the
+system stores internally.[^csrm-modes][^csrm-rfg]
 
 **Worked example (illustrative numbers).** A timely online RAF instance has `latency-limit` = 1 s
 and `transfer-buffer-size` = 200. The spacecraft sends 1115-octet Solar Orbiter frames[^solo-tm] at
@@ -605,9 +644,13 @@ A ground segment can see CLCWs by three routes, and the SLE documents describe a
    then delivers a CLCW only when something changes.[^rocf-tcvcid]
 3. **Inside the station.** The concept report describes ROCF supplying the CLCW to the forward
    providers: the CLTU provider needs it to know whether the physical uplink is available, and the
-   VC or packet provider needs it to decide on COP-1 retransmissions.[^csc-fwd] The FCLTU production
+   VC or packet provider needs it to decide on COP-1 retransmissions.[^csc-fwd] The reference model
+   formalises this: the users of its MC-OCF and VC-OCF transfer ports are the Forward TC VC Data
+   Insertion and Forward TC Space Link Processing functional groups as well as MUEs, and the
+   production of Forward CLTU includes a consumer OCF port.[^csrm-rtnports][^csrm-fcltu] The FCLTU production
    process itself can consume CLCWs from a configured GVCID and physical channel; see
-   [FCLTU](fcltu.md#production-plop-and-the-clcw).
+   [FCLTU](fcltu.md#production-plop-and-the-clcw). With [FSP](fsp.md) the provider also runs
+   FOP-1, so the station's VC Data Insertion function uses the CLCW to retransmit frames.[^fsp-vcdi]
 
 ```mermaid
 sequenceDiagram
@@ -631,6 +674,188 @@ frames.[^solo-tcvc][^solo-ocf] An ROCF instance that follows decoder 1 would the
 `update-mode` = change-based. A delivered OCF such as `01 04 00 2A` would decode as: type 0,
 version 00, status 000, COP-1 (01), TC VC 1, all flags clear, FARM-B count 0, N(R) = 0x2A = 42. The
 bytes are invented for illustration.
+
+## Implementing RAF with the SLE API (CCSDS 915.1-M-2)
+
+The SLE API core (914.0-M-2) is generic. A separate Recommended Practice for each service adds
+what that service needs. For RAF this is CCSDS 915.1-M-2, *Space Link Extension—Application
+Program Interface for Return All Frames Service*, issue 2 of September 2015, which replaced issue 1
+of October 2008.[^rafapi-ctl] It extends two components, the API Service Element and SLE
+Operations, and requires the API Proxy to encode and decode the RAF PDUs.[^rafapi-ovw] Its aim is
+interoperability between applications and API products, and between user and provider
+applications that both use the API, so that different API products can be exchanged.[^rafapi-rat]
+The general API architecture is on [ISP1 and the SLE API](isp1-and-api.md#the-sle-api-ccsds-9140-m-2).
+
+### Which RAF versions it covers
+
+| API generation | RAF BIND `version-number` | RAF specification | Peer transport mapping |
+|---|---|---|---|
+| Generation 1 | 1 | Draft 911.1-R-1.7 (September 1999) | ESOC *Specification of a SLE API Proxy for TCP/IP and ASN.1*, SLES-SW-API-0002-TOS-GCI issue 1.1 |
+| Generation 2 | 2 | 911.1-B-2-S (dated December 2004 by the API book, November 2004 by the RAF document control; historical since January 2010) | ISP1, 913.1-B-2 |
+| Generation 3 | 4 | 911.1-B-3 (January 2010) | ISP1, 913.1-B-2 |
+
+Sources: applicability, normative and informative references of 915.1-M-2, and the document control of 911.1-B-5.[^rafapi-gen][^rafapi-refs][^rafapi-c2][^raf-ctl]
+Generations 1 and 2 are kept for backward compatibility for a limited time.[^rafapi-gen] The RAF
+issue in this library, 911.1-B-5, defines version 6.[^raf-version] Which API issue, if any, covers
+versions 5 and 6 is not stated in the available sources.
+
+### What the API adds for RAF
+
+The package *RAF Service Instances* adds two classes. **RAF SI User** handles the RAF operation
+objects and adds nothing else to the generic user-side service instance. **RAF SI Provider** adds
+two interfaces: `IRAF_SIAdmin`, through which the provider application sets the RAF configuration,
+and `IRAF_SIUpdate`, through which it must report every change of production and lock status.[^rafapi-pkg]
+The provider-side instance then answers RAF-GET-PARAMETER by itself, generates RAF-STATUS-REPORT
+by itself, and handles the transfer buffer. The operation factory offered to the application
+cannot even create status report or transfer buffer objects.[^rafapi-pkg][^rafapi-fac]
+
+| Configuration parameter (`IRAF_SIAdmin`) | Used by the service element for |
+|---|---|
+| `delivery-mode` | Transfer buffer handling (enables or disables discarding), PDU checks, GET-PARAMETER returns |
+| `latency-limit` (online modes only, seconds) | Release of the transfer buffer in timely and complete online modes; GET-PARAMETER |
+| `transfer-buffer-size` | Number of TRANSFER-DATA and SYNC-NOTIFY invocations per transfer buffer PDU; GET-PARAMETER |
+| initial production status, and initial frame-sync, symbol-sync, subcarrier and carrier lock status | Initial values of the status report (not needed in offline mode) |
+
+Sources: table 2-1, §3.1.1 and A4.1.[^rafapi-pkg][^rafapi-cfg][^rafapi-siadmin] The remaining
+configuration, such as the return timeout period, goes through the generic `ISLE_SIAdmin`. All
+parameters must be set before `ISLE_SIAdmin::ConfigCompleted()` is called; the service element
+then checks them against the ranges of the RAF specification only, since service management may
+narrow them further. They cannot be changed afterwards and survive UNBIND, PEER-ABORT and protocol
+abort.[^rafapi-cfg] Clause 3.1.1.2 calls the buffer size a number of "TRANSFER–BUFFER" and
+SYNC-NOTIFY invocations, while A4.1 and the GET-PARAMETER method speak of TRANSFER-DATA
+invocations, which matches the RAF specification.[^rafapi-cfg][^rafapi-siadmin][^raf-params]
+
+The service element keeps the status information itself, as table 2-2 and §3.1.2 define:[^rafapi-status][^rafapi-siupdate]
+
+| Status parameter | How the API maintains it |
+|---|---|
+| number-of-error-free-frames-delivered | Zero at configuration; incremented, when a transfer buffer PDU is actually transmitted, by its TRANSFER-DATA invocations with quality 'good'. Discarded buffers do not count. |
+| number-of-frames-delivered | Same rule, counting every TRANSFER-DATA invocation. In timely online mode both counts can be lower than the frames the application passed in. |
+| requested-frame-quality | 'undefined' at configuration; copied from an accepted RAF-START; 'undefined' again after STOP, PEER-ABORT or protocol abort |
+| frame-sync, symbol-sync, subcarrier and carrier lock status; production status | Set by the application through `IRAF_SIUpdate` at every change, whatever the state of the instance. In offline mode the application may skip this; the values then stay 'invalid' (production status) and 'unknown' (locks). |
+
+Apart from `requested-frame-quality`, none of these is reset by UNBIND, PEER-ABORT or a protocol
+abort, which matches the specification's rule that statistics accumulate over the provision
+period.[^rafapi-status][^raf-term]
+
+### Operation objects and their C++ types
+
+| RAF operation | Operation object interface | Package | GUID |
+|---|---|---|---|
+| RAF-BIND, RAF-UNBIND | `ISLE_Bind`, `ISLE_Unbind` | SLE Operations (core) | (core) |
+| RAF-START | `IRAF_Start` | RAF Operations | `{2F5AEB20-7C28-11d3-9F15-00104B4F22C0}` |
+| RAF-STOP | `ISLE_Stop` | SLE Operations | (core) |
+| RAF-TRANSFER-DATA | `IRAF_TransferData` | RAF Operations | `{2F5AEB21-…}` |
+| RAF-SYNC-NOTIFY | `IRAF_SyncNotify` | RAF Operations | `{2F5AEB22-…}` |
+| transfer buffer (pseudo-operation) | `ISLE_TransferBuffer` | SLE Operations | (core) |
+| RAF-SCHEDULE-STATUS-REPORT | `ISLE_ScheduleStatusReport` | SLE Operations | (core) |
+| RAF-STATUS-REPORT | `IRAF_StatusReport` | RAF Operations | `{2F5AEB23-…}` |
+| RAF-GET-PARAMETER | `IRAF_GetParameter` | RAF Operations | `{2F5AEB24-…}` |
+| RAF-PEER-ABORT | `ISLE_PeerAbort` | SLE Operations | (core) |
+| (service instance) | `IRAF_SIAdmin`, `IRAF_SIUpdate` | RAF Service Instances | `{2F5AEB25-…}`, `{2F5AEB26-…}` |
+
+Sources: table 2-3 and the interface headers of annex A; all RAF GUIDs share the suffix
+`-7C28-11d3-9F15-00104B4F22C0`.[^rafapi-ops][^rafapi-annex] The header file `RAF_Types.h`
+mirrors the ASN.1 enumerations and adds a value `invalid` (−1) to each, returned while a value is
+unset or not applicable:[^rafapi-types]
+
+| C++ type | Values |
+|---|---|
+| `RAF_FrameQuality` | `rafFQ_good` 0, `rafFQ_erred` 1, `rafFQ_undetermined` 2 |
+| `RAF_RequestedFrameQuality` | `rafRQ_goodFramesOnly` 0, `rafRQ_erredFramesOnly` 1, `rafRQ_allFrames` 2 |
+| `RAF_ParFrameQuality` (GET-PARAMETER) | the same three, plus `rafPQ_undefined` 3, reported while the instance is 'ready' |
+| `RAF_LockStatus` | `rafLS_inLock` 0, `rafLS_outOfLock` 1, `rafLS_notInUse` 2 (subcarrier only), `rafLS_unknown` 3 |
+| `RAF_NotificationType` | `rafNT_lossFrameSync` 0, `rafNT_productionStatusChange` 1, `rafNT_excessiveDataBacklog` 2, `rafNT_endOfData` 3 |
+| `RAF_ProductionStatus` | `rafPS_running` 0, `rafPS_interrupted` 1, `rafPS_halted` 2 |
+| `RAF_ParameterName` | `rafPN_bufferSize` 4, `rafPN_deliveryMode` 6, `rafPN_latencyLimit` 15, `rafPN_reportingCycle` 26, `rafPN_requestedFrameQuality` 27, `rafPN_returnTimeoutPeriod` 29 |
+| `RAF_AntennaIdFormat` | `rafAF_global` 0 (object identifier), `rafAF_local` 1 (octet string of 1 to 16 octets)[^rafapi-td] |
+| `RAF_DeliveryMode` | timely online, complete online, offline (the core `SLE_DeliveryMode` values) |
+
+`IRAF_TransferData` uses −2 for a data link continuity that has not been set, so that the valid
+values −1, 0 and positive stay distinct. Its invocation checks require an ERT, an antenna ID, a
+continuity above −2, a frame quality, data, and a private annotation of 1 to 128 octets if
+present.[^rafapi-td]
+
+### Checks split between the API and the application
+
+On the provider side the service element checks a RAF-START before passing it on, and answers it
+negatively itself if a check fails:[^rafapi-start]
+
+* offline mode: the start time must not be null, the stop time must not be null, and the stop
+  time must be earlier than the current time;
+* online mode: a start time, if given, must lie within the scheduled provision period, and a stop
+  time, if given, must not be later than its end;
+* the operation object itself checks that the start time is earlier than the stop time.
+
+The service element does not check production status, because it can change before the
+application sees the PDU. The offline processing latency check is left to the application too.[^rafapi-start]
+For SYNC-NOTIFY it refuses, in offline mode, the 'loss of frame synchronization', 'production
+status change' and 'data discarded' types, and in timely online mode the 'data discarded' type.[^rafapi-sync]
+
+!!! warning "Inference"
+    At first sight the timely online rule is surprising, because the RAF specification uses
+    exactly this notification for the timely online discard.[^raf-notify] The API core explains it:
+    in timely online mode the service element itself discards the unsent transfer buffer and starts
+    the next one with the 'data discarded' notification.[^api-si-prov] An application-supplied
+    notice would therefore duplicate the API's own. The RAF API book does not give this reason;
+    it only notes that the user side cannot make the check.[^rafapi-sync]
+
+Because the API performs some START checks earlier than the specification's diagnostic order
+implies, 915.1 documents the split order, as the RAF standard requires of any implementation that
+deviates:[^rafapi-seq][^raf-result]
+
+| Set by the API service element | Set by the application |
+|---|---|
+| 'duplicate invoke id', 'invalid start time', 'invalid stop time', 'missing time value' | 'out of service', 'unable to comply', 'invalid stop time' (offline, when an offline processing latency is used), 'other' |
+
+```mermaid
+sequenceDiagram
+    participant App as RAF provider application
+    participant SE as API Service Element (RAF SI Provider)
+    participant Px as API Proxy (ISP1)
+    participant U as RAF user
+    App->>SE: create RAF instance, provider role (ISLE_SIFactory)
+    App->>SE: ISLE_SIAdmin - SII, peer ID, provision period,<br/>BIND initiator, responder port, return timeout
+    App->>SE: IRAF_SIAdmin - delivery mode, buffer size,<br/>latency limit, initial production and lock status
+    App->>SE: ConfigCompleted() on ISLE_SIAdmin
+    SE->>Px: register responder port
+    U->>Px: RAF-BIND, then RAF-START
+    Px->>SE: START invocation
+    SE->>SE: time checks (3.1.3.1)
+    SE->>App: START passed on
+    App-->>SE: positive return
+    loop during the pass
+        App->>SE: IRAF_TransferData objects
+        SE->>Px: transfer buffer PDU (on size or latency limit)
+        App->>SE: IRAF_SIUpdate (lock or production change)
+        SE->>Px: RAF-STATUS-REPORT (generated by the SE)
+    end
+    U->>Px: RAF-GET-PARAMETER
+    Px->>SE: answered by the SE, not the application
+```
+
+Illustrative sequence based on the API core configuration rules and the RAF API responsibilities;
+the API core defines the exact method signatures.[^api-config][^rafapi-pkg][^rafapi-cfg][^rafapi-app]
+
+### What changed after the issue the API is based on
+
+The 2015 API book follows RAF 911.1-B-3. Comparing it with the 2023 issue in this library shows
+these differences:
+
+| Topic | RAF API 915.1-M-2 (based on 911.1-B-3) | RAF 911.1-B-5 (2023) |
+|---|---|---|
+| BIND version | up to 4 (generation 3)[^rafapi-gen] | 6[^raf-version] |
+| GET-PARAMETER names | six: bufferSize, deliveryMode, latencyLimit, reportingCycle, requestedFrameQuality, returnTimeoutPeriod[^rafapi-types] | also `permittedFrameQuality (302)` and `minReportingCycle (301)`[^raf-gp-asn][^raf-pn] |
+| requested-frame-quality before START | 'undefined' (`rafPQ_undefined` 3)[^rafapi-types][^rafapi-siupdate] | the first element of `permitted-frame-quality-set`; the ASN.1 value range is 0 to 2 only[^raf-params][^raf-gp-asn] |
+| latency-limit in offline mode | method returns 0[^rafapi-gp] | 'null' (`offline [1] NULL`)[^raf-params] |
+| reporting-cycle when periodic reporting is off | method returns 0[^rafapi-gp] | 'null'[^raf-params] |
+
+!!! warning "Inference"
+    The two extra GET-PARAMETER names and the "first element of the permitted set" rule are
+    probably additions of a RAF issue later than B-3, which explains why the 2015 API does not
+    know them. The intermediate issue 911.1-B-4 is not in the library to confirm which issue
+    introduced them. The 0 values for 'null' look like a representation choice of the C++
+    interface.
 
 ## Solar Orbiter and ESA context
 
@@ -794,12 +1019,15 @@ within the frames themselves.[^raf-data2]
 
 ## Related pages
 
-* [SLE overview](index.md), [FCLTU](fcltu.md), [ISP1 and the SLE API](isp1-and-api.md)
+* [SLE overview](index.md), [FCLTU](fcltu.md), [FSP](fsp.md), [ISP1 and the SLE API](isp1-and-api.md)
+* [Cross support reference model and service management](service-management.md)
 * [TM SDLP](../tm-sdlp.md), [TM coding](../tm-coding.md), [COP-1](../cop-1.md), [Time codes](../time-codes.md)
+* [Space link identifiers](../space-link-identifiers.md) (the SCIDs and VCIDs in a GVCID), [Radio frequency, modulation and ranging](../rf-and-ranging.md) and [Security in CCSDS space links](../security.md#impact-on-sle-cross-support)
 * [Downlink: from spacecraft to user](../../overview/downlink.md)
 * [Solar Orbiter mission](../../missions/solar-orbiter/index.md) and its [MIB](../../missions/solar-orbiter/mib.md)
 * Library: [911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), [911.2-B-4](../../library/ccsds-911-2-911x2b4e1.md),
-  [911.5-B-4](../../library/ccsds-911-5-911x5b4e1.md); terms in the [glossary](../../glossary.md).
+  [911.5-B-4](../../library/ccsds-911-5-911x5b4e1.md), [910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md),
+  [915.1-M-2](../../library/ccsds-915-1-915x1m2.md); terms in the [glossary](../../glossary.md).
 
 [^raf-purpose]: [CCSDS 911.1-B-5, SLE Return All Frames Service](../../library/ccsds-911-1-911x1b5e1.md), §1.1 Purpose, PDF p. 9.
 [^rcf-purpose]: [CCSDS 911.2-B-4, SLE Return Channel Frames Service](../../library/ccsds-911-2-911x2b4e1.md), §1.1 Purpose (replaces the Rtn MC and Rtn VC Frames services), PDF p. 9.
@@ -900,3 +1128,34 @@ within the frames themselves.[^raf-data2]
 [^mex-sle]: [Rosetta/Mars Express DDID MEX-ESC-IF-5003 issue B5](../../library/mex-esc-if-5003-b5.md), §7.6.2 DDS packet header, octet 16 SLE Type, PDF pp. 62–63.
 [^euicd-sle]: [EDDS External User ICD (library copy v25)](../../library/euicd-v25.md), §6.1.1 EDDS raw header field 17 and GDDS packet header mapping, PDF pp. 41 and 46–47.
 [^raf-threat]: [CCSDS 911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), §2.8.3 Potential threats and attack scenarios, PDF p. 44.
+[^csrm-rfg]: [CCSDS 910.4-B-2, Cross Support Reference Model—Part 1: SLE Services](../../library/ccsds-910-4-910x4b2e1s.md), §4.3.2.1 Return SLE functional groups (a–c), §4.3.2.1.1 Return Space Link Processing and §4.3.2.1.2 Return Frame Processing SLE-FG, PDF pp. 44–48.
+[^csrm-chan]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), Annex A3.2 Return space data channels, table A-4, PDF pp. 86–87.
+[^csrm-modes]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §3.4.2.1.2 Return online delivery and §3.4.2.2.2 Return offline delivery, PDF pp. 34–37.
+[^csrm-rtnports]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.4.2 Return transfer ports and table 5-1 (users of the Rtn-MCOCF and Rtn-VCOCF ports), PDF pp. 70–71.
+[^csrm-fcltu]: [CCSDS 910.4-B-2](../../library/ccsds-910-4-910x4b2e1s.md), §5.6.2.2 Forward CLTU service (consumer Rtn-MCOCF or Rtn-VCOCF port), PDF p. 79.
+[^fsp-vcdi]: [CCSDS 912.3-B-3, SLE Forward Space Packet Service](../../library/ccsds-912-3-912x3b3s.md), §2.4.1.2 Forward TC VC Data Insertion SLE-FG (CLCW-driven retransmission), PDF pp. 30–31.
+[^rafapi-ctl]: [CCSDS 915.1-M-2, SLE API for the Return All Frames Service](../../library/ccsds-915-1-915x1m2.md), Document Control, PDF p. 7.
+[^rafapi-ovw]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.1 Introduction, PDF p. 17.
+[^rafapi-rat]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §1.4 Rationale, PDF pp. 10–11.
+[^rafapi-gen]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §1.3 Applicability (generations 1 to 3), PDF p. 10.
+[^rafapi-refs]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §1.7 References ([2] = 911.1-B-3, January 2010), PDF p. 16.
+[^rafapi-c2]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex C informative references [C2], [C3] and [C5], PDF p. 66.
+[^raf-version]: [CCSDS 911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), §3.2.2.8.7 version-number (value 6), PDF p. 63.
+[^rafapi-pkg]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.2.1–2.2.4 Package RAF Service Instances, figure 2-1 and table 2-1, PDF pp. 17–20.
+[^rafapi-fac]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.1.4 Service instance specific operation factory and notes, PDF p. 33.
+[^rafapi-cfg]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.1.1 Service instance configuration (3.1.1.1–3.1.1.8), PDF pp. 28–29.
+[^rafapi-siadmin]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex A4.1 `IRAF_SIAdmin`, PDF pp. 58–60.
+[^rafapi-status]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.2.5 table 2-2 and §3.1.2 Status information (3.1.2.1–3.1.2.11), PDF pp. 20–21 and 29–31.
+[^rafapi-siupdate]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex A4.2 `IRAF_SIUpdate` and initial parameter values, PDF pp. 61–64.
+[^rafapi-ops]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §2.3 Package RAF Operations, table 2-3 and figure 2-2, PDF pp. 21–23.
+[^rafapi-annex]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex A3 RAF operation objects and A4 service instance interfaces (Name, GUID, Inheritance), PDF pp. 40–64.
+[^rafapi-types]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex A2 RAF type definitions (`RAF_Types.h`), PDF pp. 37–39.
+[^rafapi-td]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex A3.2 RAF transfer data operation (methods, initial values, invocation checks), PDF pp. 43–47.
+[^rafapi-start]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.1.3.1 RAF START checks and notes, PDF p. 32.
+[^rafapi-sync]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.1.3.2 RAF SYNC NOTIFY checks and note, PDF p. 33.
+[^api-si-prov]: [CCSDS 914.0-M-2, API for SLE Transfer Services—Core Specification](../../library/ccsds-914-0-914x0m2c1.md), §2.3.3.5 Internal class SI Provider (transfer buffer, timely online discard), PDF pp. 55–56.
+[^rafapi-seq]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.4 Sequence of diagnostic codes, PDF pp. 34–35.
+[^raf-result]: [CCSDS 911.1-B-5](../../library/ccsds-911-1-911x1b5e1.md), §3.1.1 Result of operations and §3.1.3.4–3.1.3.5 order of checks, PDF pp. 45–46.
+[^api-config]: [CCSDS 914.0-M-2](../../library/ccsds-914-0-914x0m2c1.md), §3.3.2.2 Configuration of service instances (`ISLE_SIAdmin`, `ConfigCompleted()`, responder port registration), PDF pp. 109–110.
+[^rafapi-app]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), §3.3 SLE application obligations, PDF p. 34.
+[^rafapi-gp]: [CCSDS 915.1-M-2](../../library/ccsds-915-1-915x1m2.md), Annex A3.5 `IRAF_GetParameter` (methods and initial values), PDF pp. 54–57.

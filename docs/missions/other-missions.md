@@ -43,8 +43,8 @@ timeline
   1995-1999 : SCOS-II - distributed, C++/UNIX, generic TC chain
   1997 : First SCOS(-2) missions - Huygens, Meteosat MTP LEOP, Teamsat
   1999 : SCOS-2000 R2.0 (INTEGRAL SVTs)
-  2000 : R2.1 (MSG SVTs), R2.2
-  2003 : R3.0 (classic and evolution lines merged), R3.1
+  2000 : R2.1 (MSG SVTs) : R2.2 planned for September
+  2003 : R3.0 (classic and evolution lines merged) : R3.1 planned for September
   2004 : R4.0 planned - multi-mission, full EGSE compliance
 ```
 
@@ -54,10 +54,13 @@ The sources do not agree on every date. Peccia's 2003 slides give MSSS as 1984-1
 and supported its first missions - Huygens, the Meteosat (MTP) LEOP and
 Teamsat - in 1997, and the 2000 presentation names the product SCOS-2 up to release R1.4
 (until 1998) and SCOS-2000 from release R2.0 (1999).[^peccia-hist][^bul108-hist][^pres-name] The
-release dates in the timeline come from the 2000 presentation (R2.0 September 1999 for the
-INTEGRAL system validation tests, R2.1 March 2000 for MSG, R2.2 September 2000) and from the
-2003 slides (R3.0 January 2003, R3.1 September 2003, R4.0 planned for June
-2004).[^pres-rel][^peccia-ver]
+release dates in the timeline come from the 2000 presentation of April 2000 (R2.0 September 1999
+for the INTEGRAL system validation tests, R2.1 March 2000 for MSG, R2.2 planned for September
+2000) and from the slides of March 2003 (R3.0 January 2003, R3.1 planned for September 2003, R4.0
+planned for June 2004).[^pres-rel][^peccia-ver] The release history as a whole, including the
+later issues of the Database Import ICD that name R2.2 and R4.0, is on
+[SCOS-2000](../scos2000/index.md); the parallel history of ESA's packet standards is on
+[From ESA PSS to CCSDS and ECSS](../overview/history.md).
 
 ## Who used SCOS-2000: ESA's own lists
 
@@ -116,7 +119,8 @@ the structure of the incoming satellite database, commands with more than 200 pa
 consistency checking planned in a separate application.[^hifi-eval] On the science side, the
 ISDC in Geneva reused software it had developed for INTEGRAL to build the Planck LFI
 telemetry handler and quick-look displays.[^lfi-isdc] [MIB tooling](../mib/tooling.md) covers
-database editors in general.
+database editors in general; INTEGRAL's flight procedures and configuration control are on
+[operations preparation](../scos2000/operations-preparation.md#configuration-control-the-integral-model).
 
 ### XMM-Newton, Envisat and ERS: migrations from SCOS-1
 
@@ -336,7 +340,9 @@ telemetry, SLE link handling, historical data retrieval, a refurbished time corr
 on-board queue modelling; file-based operations, on-board software maintenance, security and
 PUS-C use cases (with the Generic Operational Interface Requirements) come next, with a fully
 operational solution expected in 2027.[^egscc-recent] The ancillary products and the EGS-CC
-context are described on [Ancillary systems, MICONYS and the move to EGS-CC](../scos2000/ancillary-and-egs-cc.md);
+context are described on [Ancillary systems, MICONYS and the move to EGS-CC](../scos2000/ancillary-and-egs-cc.md),
+and the OPEN preparation environment on
+[operations preparation](../scos2000/operations-preparation.md#the-next-generation-environment-open);
 how a MIB maps to other data models is discussed on [XTCE](../ccsds/xtce.md) and
 [ECSS-E-ST-70-31C](../ecss/e-st-70-31c.md).
 

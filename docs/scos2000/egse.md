@@ -1,8 +1,8 @@
 ---
 title: SCOS-2000 as EGSE and central checkout
-description: How SCOS-2000 became the kernel of electrical ground support equipment, from the PROBA heritage and the EMCS (router, SCOE messages, acknowledgement policy, TOPE test language) to the Herschel/Planck instrument and central checkout systems, commercial SCOS-2000-compatible checkout products, database translators and the migration of TOPE to EGS-CC.
-tags: [SCOS-2000, EGSE, CCS, TOPE, SCOE, Herschel, Planck, AIT]
-sources: [emcs-sum-4-0, h-p-1-aspi-sp-0045-egse-general-req, cosmos-herschel-egse-integration-plan, cosmos-common-egse-document-overview, cosmos-tei-tmtc-packet-icd, ccs-tc-if-1-0, terma-ccs5-tsc-presentation, terma-ccs5-datasheet, indico-109-armitage-2011926, indico-109-comi-2009436, airdrive-9d40c91, scos2000-complete-presentation-2000, scos2000-and-first-planck-mom, s2k-guide-for-the-impatient, esa-bulletin-108-ch8, gsaw2003-peccia, arxiv-1001-4730-planck-lfi-tm, nlr-report-e0d9e9a5, alc-scos-fax-2003-01-27, bul130-merri-happy-families, icd-7-0-final, hcss-mib-clarification-tailoring-note, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+description: How SCOS-2000 became the kernel of electrical ground support equipment, from the PROBA heritage and the EMCS (router, SCOE messages, acknowledgement policy, TOPE test language) to the Herschel/Planck instrument test router, the PIPE protocol, the central checkout system and its MIB extensions, commercial SCOS-2000-compatible checkout products, database translators and the migration of TOPE and of the system database to EGS-CC.
+tags: [SCOS-2000, EGSE, CCS, TOPE, SCOE, PIPE, Herschel, Planck, AIT]
+sources: [emcs-sum-4-0, h-p-1-aspi-sp-0045-egse-general-req, cosmos-herschel-egse-integration-plan, cosmos-common-egse-document-overview, cosmos-tei-tmtc-packet-icd, ccs-tc-if-1-0, terma-ccs5-tsc-presentation, terma-ccs5-datasheet, indico-109-armitage-2011926, indico-109-comi-2009436, airdrive-9d40c91, scos2000-complete-presentation-2000, scos2000-and-first-planck-mom, s2k-guide-for-the-impatient, esa-bulletin-108-ch8, gsaw2003-peccia, arxiv-1001-4730-planck-lfi-tm, nlr-report-e0d9e9a5, alc-scos-fax-2003-01-27, bul130-merri-happy-families, icd-7-0-final, hcss-mib-clarification-tailoring-note, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, herschel-egse-packet-router-icd, rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification, rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd, h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual, h-p-2-asp-li-1441-09-herschel-hpsdb-release-note, ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d, 02-sesp-2015-from-hpsdb-to-egs-cc-presentation, esa-pss-04-106-issue1-january1988, esa-pss-04-107-issue2-april1992]
 ---
 
 # SCOS-2000 as EGSE and central checkout
@@ -22,7 +22,9 @@ the "EGSE and Mission Control System" (EMCS) that ESA delivered to the Herschel/
 instrument teams, the TOPE test language, the Herschel/Planck instrument and central checkout
 systems, commercial products that keep SCOS-2000 compatibility, translators between
 databases, and the migration of TOPE procedures to EGS-CC. The internals of the kernel are on
-[SCOS-2000 architecture](architecture.md).
+[SCOS-2000 architecture](architecture.md); the Herschel/Planck interface documents behind the
+test systems (router, PIPE, CCS external interfaces) are read field by field on
+[Herschel/Planck interface documents](herschel-planck-interfaces.md).
 
 ## Why one system for test and operations
 
@@ -174,7 +176,10 @@ bit stream, either from an on-board data handling interface simulator or from ba
 equipment. The **TC front end** turns command requests into a CCSDS stream, using the
 commercial TC Encoder Shell for the full ground-space protocol.[^emcs-fe] For Herschel/Planck
 the Windows router and front ends were not used. SRON developed a Linux router for Herschel,
-compatible with the ESTEC set-up on the SCOS side but not on the SCOE side.[^emcs-scoe]
+compatible with the ESTEC set-up on the SCOS side but not on the SCOE side.[^emcs-scoe] A
+packet router ICD written at SRON in 2001 is summarised [below](#the-ilt-packet-router); that it
+specifies this Linux router is this wiki's reading, since the ICD names Java but no operating
+system.[^rtr-ops]
 
 ### EGSE message format
 
@@ -384,7 +389,8 @@ opening the door of the SPICE optics unit.[^mib-solo][^mib-solo2020]
 ## TOPE: the Test and Operations Procedure Environment
 
 ECSS-E-70-32 specifies a common procedure language for test and operations, **PLUTO**
-(Procedure Language for Users in Test and Operations). When PLUTO tools were not yet available,
+(Procedure Language for Users in Test and Operations; see
+[ECSS-E-ST-70-32C](../ecss/e-st-70-32c.md#no-pluto-in-scos-2000-tope-instead)). When PLUTO tools were not yet available,
 ESA delivered to the Herschel/Planck instrument teams a procedure environment based on Tcl/Tk,
 called **TOPE** (Test and Operations Procedure Environment). TOPE starts commands to the
 spacecraft or the SCOEs through the EMCS kernel, follows their execution through the reports
@@ -504,7 +510,7 @@ its own TOPE implementation ("TOPE/CCS"). Appendix E of the manual lists the dif
 
 The CCS worked only in BD mode.[^emcs-mode] A technical note of 2003 proposed how a CCS test
 script could run a full instrument telecommand sequence while the instrument EGSE supplied the
-parameter values. The CCS sends a TC packet over the PIPE protocol asking for a named
+parameter values. The CCS sends a TC packet over the [PIPE protocol](#pipe-the-ccs-protocol-for-scoes-and-instrument-stations) asking for a named
 observation. The instrument EGSE expands it with the Herschel Common Science System (HCSS),[^hcss] in
 particular its CUS component, and returns the command IDs, parameter values and delays in
 housekeeping TM packets.[^ccstc] The concept was
@@ -571,6 +577,64 @@ specification and requirements, the test-control statement of work, the Test Tec
 Activities (TTA-2000) user manual, the MIB-editor requirements and evaluation report, and the
 OBSM facility requirements.[^cedo]
 
+### The ILT packet router
+
+The router at the centre of that diagram is specified in the *Herschel EGSE Packet Router ICD*
+(SRON-G/HIFI/ICD/2001-001, issue 1.1 of 23 October 2001, prepared by A. de Jonge and agreed by
+the EGSE and ICC managers of HIFI, PACS and SPIRE and by the HSC). It distributes PS-ICD
+telemetry and telecommand packets among SCOS-2000, the test equipment interface computers,
+the HCSS telemetry ingester and the CDMS simulator during instrument level tests, and the same
+interface was to serve the HCSS ingestion of raw telemetry in later phases. It runs on any
+platform with Java and listens on one agreed TCP port.[^rtr-cover][^rtr-purpose][^rtr-ops]
+
+Every message is a 1-octet `messageType`, a 4-octet `contentLength` (at most 1100, TBC) and
+the content; integers are most significant octet first.[^rtr-msg] Twelve message types use
+three content structures:[^rtr-msg][^rtr-info]
+
+| Type | Mnemonic | Sent by | Content |
+|---|---|---|---|
+| 1 | `USER_DATA` | Client or router | One complete PS-ICD packet; `contentLength` = packet length field + 7 |
+| 2, 3 | `ADD_CLIENT`, `DEL_CLIENT` | Client | Subscribe to, or unsubscribe from, a packet address |
+| 4, 5 | `ASK_CLIENT`, `SHOW_CLIENT` | Client, router | List the subscriptions (with IP address and port, for debugging) |
+| 6 | `NAME_CLIENT` | Client | Must be the first message; a unique client name |
+| 7, 8 | `ADD_BLOCK`, `DEL_BLOCK` | Client | Block, or unblock, a route given by source name, destination name and packet address |
+| 9, 10 | `ASK_BLOCK`, `SHOW_BLOCK` | Client, router | List the blocking table |
+| 11, 12 | `ASK_TRAFFIC`, `SHOW_TRAFFIC` | Client, router | Packet counts per address, source and destination |
+
+The **packet address** is the APID for telemetry and 4096 plus the APID for telecommands, that
+is the type bit and the APID taken from the 16-bit packet ID (the ICD calls this "masking out
+the Type and APID fields"); the value 8192 is reserved: it is the wild card of blocking entries and marks "no address" in
+list replies. The router never looks inside the packet. It forwards a copy of each
+`USER_DATA` message to every client that subscribed to its address, unless a blocking entry
+matches, an entry matching when each of its source name, destination name and address is
+equal to the message's or empty (address 8192). Replies to `ASK_*` messages count down in a
+`messageSequenceNumber` to 0.[^rtr-data][^rtr-gen][^rtr-gen2]
+
+!!! example "Worked example (illustrative values): one telecommand through the router"
+    A HIFI telecommand to APID 1024 (`0x400`) starts with the packet ID `0x1C00` (version
+    `0b000`, type 1, data field header flag 1). Masking out version and header flag leaves
+    `0x1400` = 4096 + 1024 = **5120**, the packet address to which the instrument simulator
+    subscribes. A packet whose length field is 17 (a 24-octet packet) travels as `USER_DATA`
+    with `contentLength` 24 = 17 + 7: the header octets are `01 00 00 00 18`. The packet values
+    are chosen for illustration; the rules are those of the ICD.[^rtr-data][^rtr-msg][^ps-tc]
+
+There is no handshake, flow control or security: TCP provides the integrity, unauthorised
+access must be prevented by an isolated network, and after a router or client crash the client
+simply reconnects with the same name and repeats its subscriptions, packets in transit being
+lost. The ICD asks for 5 Mbit/s of free LAN capacity and limits each client to 500 kbit/s
+averaged over one second (both TBC), and warns that the performance requirements of the ground
+segment interface requirements may not be met on a loaded platform.[^rtr-fail][^rtr-req][^rtr-rate]
+
+Three generations of EGSE message headers appear in this page's sources:
+
+| Protocol | Used for | Header | Addressing | Acknowledgements |
+|---|---|---|---|---|
+| EMCS EGSE router messages (PROBA heritage, EMCS SUM §7) | SCOS-2000 EGSE to SCOEs and front ends | 20 octets: destination, source, token, SunOS time, template number, spacecraft ID | 16-bit system element identifiers | Templates 2 and 5 (service 1 subtypes 1-14) |
+| Herschel ILT packet router | SCOS-2000, test equipment, CDMS simulator, HCSS in instrument level tests | 5 octets: message type, content length | Packet address (APID, or 4096 + APID) | None |
+| PIPE (EGSE IRS) | CCS to SCOEs, front ends and instrument stations in system tests | 10 octets: message ID, VC ID, remaining length, request ID, `0xFADE` | Separate connections per equipment; APIDs inside the packets | ACKTC, ACKRC, TC echo, TC report |
+
+The table compares the three documents.[^emcs-msg][^rtr-msg][^irs-hdr]
+
 ### Test equipment as PUS application processes
 
 The HIFI **TEI TMTC packet ICD** of December 2001 shows how test equipment was made to look like
@@ -602,6 +666,15 @@ Some TEI telemetry carried safety information for SCOS-2000 itself. A status bit
 unit's report meant that the state was undefined and that "SCOS must not release" commands that
 increase a bias.[^tei-src]
 
+The TEI APIDs lie inside the range 2016 to 2046 that the Packet Structure ICD reserves for SCOE
+and EGSE messages, which "may be utilised by several groups in parallel" during unit-level
+tests and must never address an on-board unit. In system tests the same range was given to the
+system EGSE: the EGSE Interface Requirement Specification assigns 2016 to the CCS master test
+processor, 2017 to the CDMU SCOE, 2020 to the TM/TC front end and 2040 to 2044 to the HFI, LFI,
+HIFI, PACS and SPIRE EGSEs.[^ps-a3][^ps-a3b][^irs-apid] The PS-ICD also confirms the PUS
+version number 0 printed in the TEI headers: it is the only value permitted for
+Herschel/Planck.[^ps-tc]
+
 ### Constraints from the spacecraft level
 
 The spacecraft prime imposed rules on the instrument databases so that they could later be
@@ -627,8 +700,8 @@ the instrument-only tests, the EGSE was based on SCOS 2.3e. The team modified th
 Telemetry Receiver to replay simulated telemetry, and used the Flight Dynamics Interface to
 stream live packets to its own telemetry handler. From the Planck integration tests onwards, the
 EGSE was the Herschel/Planck CCS (HPCCS), which used a new protocol, PIPE (Packet Interface
-Protocol for EGSE), to talk to external equipment. The team then wrote an "LFIGateway" to pass
-telemetry from the HPCCS to its own systems.[^lfi-31][^sp45-acr] See
+Protocol for EGSE), to talk to external equipment (see [below](#pipe-the-ccs-protocol-for-scoes-and-instrument-stations)).
+The team then wrote an "LFIGateway" to pass telemetry from the HPCCS to its own systems.[^lfi-31][^sp45-acr] See
 [Herschel/Planck: SCOS-2000 in a science mission ground segment](herschel-planck-ground.md).
 
 ## Herschel/Planck system EGSE
@@ -686,7 +759,11 @@ conductor, who executes or witnesses a test without being an EGSE expert.[^sp45-
 The CCS is the core of the system EGSE: all testing is prepared, controlled and archived there,
 and it is the single point of control of the system-level AIV programme. A "CCS lite" with one
 server instead of two serves the payload module and instrument EGSE. The CCS must be compatible
-with the ESA packet telemetry and telecommand standards PSS-04-105 and PSS-04-106.[^sp45-ccs][^sp45-std]
+with the two standards that the specification lists as [S2] ESA-PSS-04-105 "TM Packet Standard" and
+[S3] ESA-PSS-04-106 "TC Packet Standard".[^sp45-ccs][^sp45-std] Those labels do not match the PSS
+series itself: PSS-04-106 is the Packet Telemetry Standard, the Packet Telecommand Standard is
+PSS-04-107, and PSS-04-105 is the Radio Frequency and Modulation Standard (see
+[the history of the packet standards](../overview/history.md)).[^pss-titles]
 Its required functions include:[^sp45-ccsfun]
 
 * standard interfaces for data distribution to the instrument EGSEs (without real-time control
@@ -713,6 +790,83 @@ Network Data Interface Unit (NDIU).[^sp45-dfe][^sp45-acr] See
 [TC channel coding and the CLTU](../ccsds/tc-coding-cltu.md). The **TT&C SCOE** provides the RF
 links and RF measurements.[^sp45-ttc]
 
+### PIPE: the CCS protocol for SCOEs and instrument stations
+
+The companion *EGSE Interface Requirement Specification* (H-P-1-ASPI-IS-0121, issue 4.1 of 14
+December 2004, first issued on 7 November 2001) defines how the CCS talks to every SCOE, front
+end and instrument station (IS): the **Packet Interface Protocol for EGSE (PIPE)**, on 100 Mbit/s
+Ethernet with TCP/IP, over a SCOE/DFE LAN and a separate IS LAN.[^irs-cr][^irs-scope][^irs-lan]
+Only the CCS sends telecommands and commands the SCOEs, every SCOE must be fully controllable
+from the CCS, and the CCS archives all low-rate telemetry, telecommands and other EGSE
+traffic.[^irs-terms] PIPE carries packets unchanged behind a header and adds remote commanding
+(RC) and remote monitoring (RM) of the test equipment itself.[^irs-gen]
+
+<div class="bitfield" data-title="PIPE message header (80 bits)" data-width="16" data-caption="EGSE IRS §4.1.5; big-endian, followed by an unchanged TM, TC, RM or RC source packet" data-fields='[{"n":"Message ID","b":8,"d":"Kind of message, Table 11"},{"n":"VCID","b":8,"d":"Virtual channel of the frame for TM; 0x00 otherwise"},{"n":"Remaining length","b":16,"d":"Body length + 6 octets"},{"n":"Request ID","b":32,"d":"Set by the CCS for a TC or RC and echoed in ACKTC, ACKRC and the TC report; 0 for TM and TC echo; wraps to 0"},{"n":"Synchronisation word","b":16,"v":"1111101011011110","d":"0xFADE"}]'></div>
+
+The header layout and field meanings are from §4.1.5; that the packet behind the header is
+embedded unchanged is stated in §4.1.1.[^irs-hdr][^irs-gen]
+
+| Message ID | Kind | Direction |
+|---|---|---|
+| `0x80` | TC: spacecraft telecommand packet | CCS to DFE |
+| `0x44` | RC: SCOE command, a TC(8,4) | CCS to SCOE, DFE or IS |
+| `0x20` | TM: on-board telemetry, and its distribution | DFE to CCS; CCS to SCOE, DFE or IS |
+| `0x10` | RM: periodic (3,25) or asynchronous (5,1) SCOE telemetry | SCOE, DFE or IS to CCS |
+| `0x11` | RM alive packet | SCOE, DFE or IS to CCS |
+| `0x50`, `0x51` | ACKRC: RC acceptance success (1,1) or failure (1,2) | SCOE, DFE or IS to CCS |
+| `0x55`, `0x56` | ACKTC: TC acceptance success (1,1) or failure (1,2) | DFE to CCS |
+| `0xA0` | TC echo | DFE to CCS; CCS to IS |
+| `0x57` | TC report: success (5,1) or transmission failure (5,4) | DFE to CCS |
+
+Source: Table 11.[^irs-ids] The CCS is the client and each SCOE, DFE or IS a server that
+accepts the connection automatically; each must send at least one message (an RM packet or the
+alive packet) every 60 seconds, and an inconsistent length or synchronisation word in the PIPE
+header, or a message that cannot be read
+within 5 seconds drops the connection with an alarm.[^irs-link] RM packets are PS-ICD telemetry
+packets whose APID identifies the SCOE (periodic ones every second for the power and PLM SCOEs,
+every 10 seconds otherwise), and the CCS distributes received telemetry by SPID according to a
+table defined in the HPSDB.[^irs-rm][^irs-dist]
+
+```mermaid
+sequenceDiagram
+  participant C as CCS
+  participant D as TM/TC DFE
+  participant S as Spacecraft
+  C->>D: 0x80 TC, request ID n
+  D-->>C: 0x55 ACKTC success (or 0x56 failure), request ID n, within 5 s
+  Note over C: next TC only after the ACKTC
+  D->>S: CLTU
+  D-->>C: 0xA0 TC echo (CLTU decoded back), request ID 0
+  S-->>D: TM frames with CLCW (AD mode)
+  D-->>C: 0x57 TC report, request ID n
+```
+
+The flow follows Figure 9 and IFRQT-0161 to -0166: the DFE withholds the ACKTC while its buffer
+is full, which throttles the CCS, and the TC report is a guaranteed one-to-one final
+confirmation for every telecommand, sent in AD and BD mode and even after a failed
+ACKTC.[^irs-flow]
+
+!!! warning "Inference"
+    PIPE's acknowledgements play some of the roles of the EMCS ground acknowledgements
+    described [above](#the-acknowledgement-policy): the ACKTC resembles the GS_Ack (the front
+    end has accepted the command), and the TC report in AD mode, sent after the CLCW check,
+    resembles the ONB_Ack. In BD mode the TC report only confirms acceptance by the front end,
+    so PIPE has no direct counterpart of the UL_Ack. The TC echo, a decoded copy of the
+    transmitted CLTU that the DFE also produces for commands arriving from the MOC through the
+    NDIU and that the CCS forwards to the instrument stations, has no EMCS counterpart. Neither
+    document draws this comparison.[^emcs-ack][^irs-flow][^irs-echo]
+
+The specification also fixes the APIDs and host names of every EGSE item (2016 CCS, 2017 CDMU
+SCOE, 2018 ACMS SCOE, 2019 TT&C SCOE, 2020 TM/TC DFE, 2023 battery simulator, 2024 launch power
+supply and solar array simulator, 2025 PLM SCOE, 2026 Herschel cryo SCOE or cryo COTE, 2028 CDMU
+DFE, 2029 1553 bus monitor, 2040 to 2044 the instrument EGSEs), synchronises all items by NTP
+with the CCS as server, requires 150 kbit/s for telemetry from the DFE and to each instrument
+station and 4 kbit/s for telecommands (plus overhead), and places the EGSE items in the
+naming convention as subsystem `Y` with positions 920 to 971 (see
+[Mission tailoring of the MIB](../mib/tailoring.md#naming-the-egse-and-real-names-decoded)).[^irs-apid][^irs-ntp][^irs-perf][^irs-names]
+The field-level definitions of RC, RM, ACKTC, ACKRC and TC report packets are on
+[the interface documents page](herschel-planck-interfaces.md#pipe-the-ccs-protocol-for-scoes-and-instrument-stations).
+
 ### The HPCCS and its database
 
 The Herschel/Planck Central Checkout System (HPCCS) that resulted was developed by Terma (the
@@ -726,6 +880,45 @@ two missions with common data, and offered no configuration control at object le
 built its operations database in the DOORS requirements tool instead, and exported to the HPSDB,
 from which SCOS-2000 files were produced for AIT and operations.[^nlr-hpccs] See
 [MIB tooling](../mib/tooling.md).
+
+Terma's *CCS External ICD* (H-P-4-TE-ID-8020, issue 1.8 of 18 January 2006; issue 1.0 was
+prepared for the CCS PDR in May 2002) names the checkout system's external interfaces: PIPE on
+the SCOE/DFE LAN (which also carries the TM dumps of the front end) and on the instrument
+station LAN, a World Wide Web station, and two file interfaces with the HPSDB. **Bridge files**
+bring the MIB into the CCS, in the format of the SCOS-2000 import ICD issue 5.1 with explicit
+exceptions; **update files** go back, one tab-separated line per telecommand or parameter that
+a test sequence has validated (time, `c` or `p`, name, test sequence name and issue, host), for
+example `2002.123.20.16.32.43.123 c BATTERY03_ON battest1 12 hp0-s`, printed in the ICD with
+one time field more than its stated format `YYYY.DDD.HH.MM.SS.mmm`.[^ccs-cover][^ccs-over][^ccs-upd] The exceptions turn the
+MIB into a checkout database: a parameter beyond its danger limits starts a test sequence named
+`danger_<parname>`, `ocp` gains delta limits, new tables add calibration selection (`cur`),
+parameter and packet groups (`grp`, `grpa`, `grpk`), the equipment list (`sco`, with host and
+port) and the distribution of telecommands by APID (`tcd`) and of telemetry by SPID (`tmd`) to
+that equipment, parameter names starting with `YZ` are reserved for CCS system parameters, and
+SPIDs 100 to 999 for internal EGSE use, next to the SPIDs up to 100 that the instrument EGSE
+reserved for its own kernel.[^ccs-danger][^ccs-cur][^ccs-grp][^ccs-sys][^ccs-sco][^emcs-min] The
+full list, with the identifier widenings of ECP 1, the logarithmic curves of ECP 3 and the
+default sub-schedules, is analysed on
+[Mission tailoring of the MIB](../mib/tailoring.md#the-ccs-external-icd-extending-icd-51-for-checkout).
+The system EGSE specification also required the CCS to host an HPSDB **mirror site**; GMV's
+user manual describes such sites as able to change only real (instantiated) objects, with data
+exchanged with the central site as XML files that the managers carry by hand.[^sp45-ccsfun][^um-sites]
+
+The routing tables were filled. A Herschel release note of April 2008 prints the `tcd`
+configuration of the flight model database: APIDs 0, 16, 512, 1024, 1152 and 1280 (the CPDU
+commands, the CDMS, the ACMS and the three instruments) go to `TMTCDFE`, and the EGSE APIDs to
+their own equipment, for example 2017 to `CDMUSCOE`, 2026 to `PFM_CRYO` and 2042 to 2044 to
+`HHIFIEGSE`, `HPACSEGSE` and `HSPIREEGSE`. Its `tmd` configuration sends HIFI, PACS and SPIRE
+monitoring to the matching instrument EGSE, and `CCU` and cryo SCOE monitoring to
+all three.[^rn-route]
+
+!!! note "Two ways to route a command"
+    The CCS routes by `tcd` (APID to an equipment name) and `sco` (equipment name to host and
+    port). The standard MIB's [`dst`](#command-routing-in-the-mib-the-dst-table) table instead
+    gives each APID a route string such as `EGSE.TC.0x8800`, naming the destination
+    system, the request type and the address of the front end (EMCS system element `0x8800`).[^ccs-sco][^i70-dst] Neither scheme
+    appears in the other system's documentation, and `sco`, `tcd` and `tmd` did not enter the
+    standard import ICD.[^icd70-repat]
 
 ## Commercial checkout systems around SCOS-2000
 
@@ -853,16 +1046,36 @@ and new TM/TC defined in the MCM cannot be written back to the MIB.[^tope-mib] T
 Java with JacORB and deployed as OSGi bundles inside an EGS-CC session.[^tope-dev] See
 [ancillary systems, MICONYS and EGS-CC](ancillary-and-egs-cc.md).
 
+The system database faced the same migration. At SESP 2015 Thales Alenia Space presented the
+**System Reference Data Base (SRDB)**, its adaptation of the Herschel/Planck System Database for
+the MTG programme. (The acronym is the same as that of the Satellite Reference Database read by
+the SRDB Translator [above](#translating-scos-2000-databases-to-other-checkout-systems); whether the two databases are related is
+not stated in the available sources.) The SRDB keeps the HPSDB concepts (objects, items and pseudo-items with category flags, physical and
+logical instantiation, working, reference and archive areas), adds the attachment of former
+object versions, and was to map its high-level data model onto the EGS-CC product structure
+and its items onto the other EGS-CC packages, which in 2015 was "still to be done".[^sesp-intro][^sesp-egscc][^sesp-concl]
+Where TAL reads an ASCII MIB at start-up and cannot write new definitions back, the SRDB plan
+puts the reference database upstream of EGS-CC.[^tope-mib]
+
+!!! warning "Inference"
+    Contrasting the two approaches (a MIB converted at run time by TAL, a reference database
+    mapped to the EGS-CC model) is this wiki's reading; the two papers do not refer to each
+    other, and whether the SRDB mapping was completed is not stated in the available sources.
+
 ## Related pages
 
 * [SCOS-2000 overview](index.md) and [SCOS-2000 architecture](architecture.md)
 * [The MIB](../mib/index.md), [MIB tooling](../mib/tooling.md) and
   [mission tailoring of the MIB](../mib/tailoring.md)
-* [Herschel and Planck](../missions/herschel-planck.md) and
-  [Herschel/Planck ground segment](herschel-planck-ground.md)
+* [Herschel and Planck](../missions/herschel-planck.md),
+  [Herschel/Planck ground segment](herschel-planck-ground.md) and
+  [Herschel/Planck interface documents](herschel-planck-interfaces.md)
 * [PUS](../ecss/pus/index.md), [ST[01] request verification](../ecss/pus/st01-request-verification.md)
   and [ST[11] time-based scheduling](../ecss/pus/st11-time-based-scheduling.md)
-* [ECSS-E-ST-70-31C monitoring and control data definition](../ecss/e-st-70-31c.md)
+* [ECSS-E-ST-70-31C monitoring and control data definition](../ecss/e-st-70-31c.md),
+  [ECSS-E-ST-70-32C PLUTO](../ecss/e-st-70-32c.md) and
+  [operations preparation](operations-preparation.md)
+* [From ESA PSS to CCSDS and ECSS](../overview/history.md)
 
 ## Sources and copies
 
@@ -881,10 +1094,16 @@ SHA-256 of the copy and the time of copy. The main sources of this page:
 | [indico-109-comi-2009436](../library/indico-109-comi-2009436.md) | Comi et al., "SRDB Translator" | 2026-11-05 14:07 |
 | [airdrive-9d40c91](../library/airdrive-9d40c91.md) | Barradas Pereira et al., "Integrating TOPE with EGS-CC", SESP 2019 | 2026-11-05 14:11 |
 | [mib-20250916m25925pfms001-sol](../library/mib-20250916m25925pfms001-sol.md) | Solar Orbiter MIB, release of 16 September 2025 | 2026-11-05 14:24 |
+| [herschel-egse-packet-router-icd](../library/herschel-egse-packet-router-icd.md) | Herschel EGSE Packet Router ICD, SRON-G/HIFI/ICD/2001-001 issue 1.1 (2001) | 2026-11-12 17:48 |
+| [rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) | EGSE Interface Requirement Specification, H-P-1-ASPI-IS-0121 issue 4.1 (2004) | 2026-11-12 17:48 |
+| [rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) | Terma, Herschel Planck CCS External ICD, H-P-4-TE-ID-8020 issue 1.8 (2006) | 2026-11-12 17:48 |
+| [h-p-2-asp-li-1441-09-herschel-hpsdb-release-note](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) | Herschel HPSDB release note, H-P-2-ASP-LI-1441 issue 9.0 (2008) | 2026-11-12 17:52 |
+| [02-sesp-2015-from-hpsdb-to-egs-cc-presentation](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md) | Thales Alenia Space, "SRDB - From H/P to EGS-CC", SESP 2015 | 2026-11-12 17:49 |
 
 [^sp45-defs]: [H-P-1-ASPI-SP-0045 EGSE General Requirements Specification, issue 3](../library/h-p-1-aspi-sp-0045-egse-general-req.md), §3.1.4 Specific terms and definition, PDF p. 13.
 [^sp45-acr]: [H-P-1-ASPI-SP-0045](../library/h-p-1-aspi-sp-0045-egse-general-req.md), §2.4 Acronyms, PDF p. 10.
 [^sp45-std]: [H-P-1-ASPI-SP-0045](../library/h-p-1-aspi-sp-0045-egse-general-req.md), §2.1 Standards (S2 ESA-PSS-04-105, S3 ESA-PSS-04-106), PDF p. 8.
+[^pss-titles]: [ESA PSS-04-106 issue 1](../library/esa-pss-04-106-issue1-january1988.md), cover ("Packet Telemetry Standard"), PDF p. 1; [ESA PSS-04-107 issue 2](../library/esa-pss-04-107-issue2-april1992.md), cover ("Packet Telecommand Standard") and reference [5] "Radio Frequency and Modulation Standard (ESA PSS-04-105)", PDF pp. 1 and 7.
 [^sp45-scope]: [H-P-1-ASPI-SP-0045](../library/h-p-1-aspi-sp-0045-egse-general-req.md), §3.1.1 Functional description and §3.1.2 Use and mission, PDF p. 11.
 [^sp45-rules]: [H-P-1-ASPI-SP-0045](../library/h-p-1-aspi-sp-0045-egse-general-req.md), §3.2.1 Basic rules and concepts (GRQT-0000a to 0000k), PDF pp. 16–17.
 [^sp45-common]: [H-P-1-ASPI-SP-0045](../library/h-p-1-aspi-sp-0045-egse-general-req.md), §3.2.2 Commonality requirements, PDF p. 18.
@@ -995,3 +1214,47 @@ SHA-256 of the copy and the time of copy. The main sources of this page:
 [^i70-dst]: [ICD 7.0](../library/icd-7-0-final.md), §3.3.3.2.1.1 Command routing: DST, PDF pp. 141–142.
 [^mib-solo]: [Solar Orbiter MIB release 20250916](../library/mib-20250916m25925pfms001-sol.md), tables `dst` and `ccf`, queried by this wiki.
 [^mib-solo2020]: [Solar Orbiter MIB release 20200416](../library/mib-20200416m10720pfms001-sol.md), table `dst`, queried by this wiki.
+[^rtr-cover]: [Herschel EGSE Packet Router ICD, SRON-G/HIFI/ICD/2001-001 issue 1.1](../library/herschel-egse-packet-router-icd.md), title page (prepared by A. de Jonge; agreed by the HIFI, PACS and SPIRE EGSE and ICC managers and the ESA HSC manager) and change record, PDF pp. 1-3.
+[^rtr-purpose]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §1.1 Purpose and §1.2 Scope, PDF p. 6.
+[^rtr-ops]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §2 Operational assumptions and constraints, §2.1-2.4 (Java platform, agreed TCP port), PDF pp. 6-7.
+[^rtr-req]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §3.1 Functional requirements and §4.1-4.2 (5 Mbit/s TBC, total network bitrate), PDF pp. 7-8.
+[^rtr-fail]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §5.2 Failure protection, detection and recovery, §5.5 Security and §5.6 Data integrity checks, PDF pp. 8-9.
+[^rtr-msg]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §6.1.1 Overall message structure, Tables 1 and 2, PDF pp. 9-10.
+[^rtr-data]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §6.1.2 Data-packet structure (contentLength, packet address, value 8192), PDF p. 10.
+[^rtr-info]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §6.1.3 Client-info structure and §6.1.4 Route-info structure, Tables 3 and 4, PDF pp. 10-11.
+[^rtr-gen]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §6.2.1-6.2.3 USER_DATA, ADD_CLIENT and DEL_CLIENT, PDF p. 11.
+[^rtr-gen2]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §6.2.4-6.2.12 (NAME_CLIENT, blocking table matching rule, list replies), PDF pp. 12-13.
+[^rtr-rate]: [Router ICD issue 1.1](../library/herschel-egse-packet-router-icd.md), §6.4 Size and frequency of transfers (500 kbit/s per client, TBC), PDF p. 13.
+[^irs-cr]: [EGSE Interface Requirement Specification, H-P-1-ASPI-IS-0121 issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), change records (issue 01 of 7 November 2001 to 4.1 of 14 December 2004), PDF pp. 3-4.
+[^irs-scope]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §1 Scope (RC and RM, SCOE/DFE LAN and IS LAN), PDF p. 9.
+[^irs-terms]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §3.2 Specific terms and definition, PDF p. 23.
+[^irs-gen]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.1.1 General (PIPE concepts, maximum packet lengths), PDF p. 24.
+[^irs-lan]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), IFRQT-0010 to IFRQT-0040, PDF p. 25.
+[^irs-link]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.1.2 Communication link, IFRQT-0045 to IFRQT-0110, PDF pp. 27-28.
+[^irs-hdr]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.1.3 Byte order to §4.1.5 PIPE Message HEADER, Tables 1 to 4, PDF pp. 28-30.
+[^irs-ids]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.1.7 Message ID List, Table 11, PDF p. 37.
+[^irs-flow]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.1.8 Message control flow, Figure 9 and IFRQT-0161 to IFRQT-0166, PDF pp. 38-39.
+[^irs-dist]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.5 Telemetry packets distribution, IFRQT-0520 (distribution by SPID, table defined in the HPSDB), PDF p. 50.
+[^irs-rm]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.6 and §4.6.1 Remote message packets, IFRQT-0525 to IFRQT-0562, PDF pp. 51-52.
+[^irs-echo]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.9 TC Echo (IFRQT-0809) and §4.10 TC Report (IFRQT-0809-1), PDF pp. 74-75.
+[^irs-apid]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.12.1 Generic Interface Name, Table 15, PDF p. 78.
+[^irs-ntp]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.12.3 Date/time, IFRQT-0830 and IFRQT-0840, PDF p. 82.
+[^irs-perf]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.12.8 Performance, IFRQT-0882 to IFRQT-0886, PDF pp. 82-83.
+[^irs-names]: [EGSE IRS issue 4.1](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md), §4.12.10 Naming Convention Rules for EGSE items, IFRQT-0888-1 to IFRQT-0888-4, PDF p. 84.
+[^ps-a3]: [Herschel/Planck Packet Structure ICD, SCI-PT-ICD-07527 issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), Appendix 3 introduction (range reserved for testing and EGSE-related messages), PDF p. 158.
+[^ps-a3b]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), Appendix 3, Table A-3.1 (2016 to 2046 "SCOE / EGSE reserved"), PDF pp. 159-163.
+[^ps-tc]: [PS-ICD issue 6.0](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md), §3.1 Telecommand Source Packets (packet ID, PUS version 0), PDF pp. 46-49.
+[^ccs-cover]: [Terma, Herschel Planck Central Checkout System External ICD, H-P-4-TE-ID-8020 issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), cover and document change record (issue 1.0 of 17 May 2002 for the PDR), PDF pp. 1-2.
+[^ccs-over]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §4 Interface Overview (Figure 3.2-1) to §7 and §9 introduction, PDF pp. 8-9.
+[^ccs-upd]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §8 Interface Herschel Plank Update files, PDF p. 9.
+[^ccs-danger]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.1 Changes due to Danger Actions, PDF pp. 9-10.
+[^ccs-cur]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.2-9.3.2 (delta limits, calibration selection, CUR), PDF pp. 10-12.
+[^ccs-grp]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.4 (GRP, GRPA, GRPK), PDF pp. 12-13.
+[^ccs-sys]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.5 Changes due to System Parameters (PCF_NAME, PID_SPID), PDF p. 14.
+[^ccs-sco]: [CCS External ICD issue 1.8](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md), §9.6-9.8 (SCO, TCD, TMD), PDF pp. 14-15.
+[^um-sites]: [HPSDB Software User Manual, H-P-1-GMV-MA-20487 version 2.6](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md), §3.1.3 HPSDB Central/Mirror Sites, PDF pp. 32-33.
+[^rn-route]: [Herschel/Planck HPSDB Release Note, H-P-2-ASP-LI-1441 issue 9.0](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md), §5.2.11 TM packet routing tmd.dat and §5.2.12 TC packet routing tcd.dat, PDF p. 10.
+[^icd70-repat]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Annex 1, items for ICD version 6.0 (Herschel & Planck Check Out System functionalities repatriation), PDF pp. 246-248, and §3.2 Summary of the ASCII tables, PDF pp. 30-32.
+[^sesp-intro]: [Thales Alenia Space, "System Reference Data Base - From H/P to EGS-CC", SESP 2015](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md), slide "Introduction", PDF p. 2.
+[^sesp-egscc]: [SESP 2015, "SRDB - From H/P to EGS-CC"](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md), slide "EGS-CC mapping", PDF p. 13.
+[^sesp-concl]: [SESP 2015, "SRDB - From H/P to EGS-CC"](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md), slide "Conclusion", PDF p. 16.

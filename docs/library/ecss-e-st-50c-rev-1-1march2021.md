@@ -150,9 +150,9 @@ Normative Annexes A to H define the eight communication-system DRDs (CSRD, CSBD,
 | ISO 7498:1984 | [ISO 7498:1984](../references/index.md#ref-iso-7498-1984) | ISO Information processing systems – Open systems interconnection — Basic reference model | 1984 | bibliography |
 |  | [ECSS-E-ST-20](../references/index.md#ref-ecss-e-st-20) | ECSS-E-ST-20 (source of the term 'essential function') |  | mentioned |
 |  | [ECSS-E-ST-70-11](../references/index.md#ref-ecss-e-st-70-11) | ECSS-E-ST-70-11 (source of the terms vital function, high priority command/telemetry, vital telecommand) |  | mentioned |
-|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) | ECSS-E-ST-50-01C (superseded by ECSS-E-AS-50-21) | 31 July 2008 | mentioned |
+|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) · [library](ecss-e-st-50-01c31july2008.md) | ECSS-E-ST-50-01C (superseded by ECSS-E-AS-50-21) | 31 July 2008 | mentioned |
 |  | [ECSS-E-ST-50-03C](../references/index.md#ref-ecss-e-st-50-03c) · [library](ecss-e-st-50-03c-31july2008.md) | ECSS-E-ST-50-03C (TM Transfer Frame topic superseded by ECSS-E-AS-50-22) | 31 July 2008 | mentioned |
-|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) | ECSS-E-ST-50-04C (superseded by ECSS-E-AS-50-24, -25 and -26) | 31 July 2008 | mentioned |
+|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) · [library](ecss-e-st-50-04c31july2008.md) | ECSS-E-ST-50-04C (superseded by ECSS-E-AS-50-24, -25 and -26) | 31 July 2008 | mentioned |
 |  | [ECSS-E-ST-70-41C](../references/index.md#ref-ecss-e-st-70-41c) · [library](ecss-e-st-70-41c-15april2016.md) | Telemetry and telecommand packet utilization (example of an application-specific source/sink in Figure 4-2) |  | mentioned |
 |  | [CCSDS 727.0-B](../references/index.md#ref-ccsds-727-0-b) | CCSDS File Delivery Protocol (CFDP) |  | mentioned |
 |  | [CCSDS 121.0-B](../references/index.md#ref-ccsds-121-0-b) | Lossless Data Compression |  | mentioned |

@@ -1,0 +1,325 @@
+{
+  "slug": "ccsds-915-1-915x1m2",
+  "title": "Space Link Extension—Application Program Interface for Return All Frames Service",
+  "short_title": "SLE API for the RAF Service (CCSDS 915.1-M-2)",
+  "doc_id": "CCSDS 915.1-M-2",
+  "issue": "Recommended Practice, Issue 2 (Magenta Book)",
+  "date": "September 2015",
+  "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+  "authors": [],
+  "doc_type": "Recommended Practice",
+  "status_notes": "The Document Control table (PDF p. 7) marks issue 2 (September 2015) as the current issue and 915.1-M-1 (October 2008) as superseded. Issue 2 updates the text for the current SLE service specification, differentiates applicability by service generation, and updates the references.",
+  "summary": "A short CCSDS Magenta Book that adds the **Return All Frames (RAF)**-specific part of the SLE Application Program Interface. The generic C++ API (component model, service instances, operation objects, proxies) is defined in the API core specification [CCSDS 914.0-M-2](../library/ccsds-914-0-914x0m2c1.md). This book adds only the RAF-specific classes, interfaces, checks and status handling needed to build RAF users and providers on top of it. The service itself is specified in the RAF Blue Book, cited here as issue 3 (the library holds [issue 5](../library/ccsds-911-1-911x1b5e1.md)). The wiki pages are [SLE over TCP/IP and the SLE API](../ccsds/sle/isp1-and-api.md) and [SLE return services](../ccsds/sle/return-services.md).\n\nSection 1 states that the API supports three RAF generations, identified by BIND version numbers 1, 2 and 4. Generation 1 interoperates through ESOC's earlier TCP/IP proxy specification, and Generations 2 and 3 through the ISP1 transport mapping (CCSDS 913.1-B-2). Section 2 extends the API model. RAF SI User and RAF SI Provider classes are added, and the provider exports the IRAF_SIAdmin (configuration: delivery-mode, latency-limit, transfer-buffer-size) and IRAF_SIUpdate (lock statuses, production status) interfaces. Five RAF operation objects are added (START, TRANSFER-DATA, SYNC-NOTIFY, STATUS-REPORT, GET-PARAMETER), and a security section covers privacy, integrity, authentication levels and threats. Section 3 gives the normative behaviour: configuration rules, how frame counters and requested-frame-quality are maintained, the START time-window checks per delivery mode, and SYNC-NOTIFY restrictions. Annex A gives the C++ type definitions and interfaces.",
+  "contents": [
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 9
+    },
+    {
+      "section": "1.1",
+      "title": "Purpose",
+      "pdf_page": 9
+    },
+    {
+      "section": "1.2",
+      "title": "Scope",
+      "pdf_page": 9
+    },
+    {
+      "section": "1.3",
+      "title": "Applicability",
+      "pdf_page": 10
+    },
+    {
+      "section": "1.4",
+      "title": "Rationale",
+      "pdf_page": 10
+    },
+    {
+      "section": "1.5",
+      "title": "Document Structure",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.6",
+      "title": "Definitions, Nomenclature, and Conventions",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.7",
+      "title": "References",
+      "pdf_page": 16
+    },
+    {
+      "section": "2",
+      "title": "Overview",
+      "pdf_page": 17
+    },
+    {
+      "section": "2.1",
+      "title": "Introduction",
+      "pdf_page": 17
+    },
+    {
+      "section": "2.2",
+      "title": "Package RAF Service Instances",
+      "pdf_page": 17
+    },
+    {
+      "section": "2.3",
+      "title": "Package RAF Operations",
+      "pdf_page": 21
+    },
+    {
+      "section": "2.4",
+      "title": "Security Aspects of the SLE RAF Transfer Service",
+      "pdf_page": 24
+    },
+    {
+      "section": "3",
+      "title": "RAF Specific Specifications for API Components",
+      "pdf_page": 28
+    },
+    {
+      "section": "3.1",
+      "title": "API Service Element",
+      "pdf_page": 28
+    },
+    {
+      "section": "3.2",
+      "title": "SLE Operations",
+      "pdf_page": 33
+    },
+    {
+      "section": "3.3",
+      "title": "SLE Application",
+      "pdf_page": 34
+    },
+    {
+      "section": "3.4",
+      "title": "Sequence of Diagnostic Codes",
+      "pdf_page": 34
+    },
+    {
+      "section": "Annex A",
+      "title": "RAF Specific Interfaces (Normative)",
+      "pdf_page": 36
+    },
+    {
+      "section": "A2",
+      "title": "RAF Type Definitions",
+      "pdf_page": 37
+    },
+    {
+      "section": "A3",
+      "title": "RAF Operation Objects",
+      "pdf_page": 40
+    },
+    {
+      "section": "A4",
+      "title": "RAF Service Instance Interfaces",
+      "pdf_page": 58
+    },
+    {
+      "section": "Annex B",
+      "title": "Acronyms (Informative)",
+      "pdf_page": 65
+    },
+    {
+      "section": "Annex C",
+      "title": "Informative References (Informative)",
+      "pdf_page": 66
+    }
+  ],
+  "key_points": [
+    {
+      "text": "The API core specification (CCSDS 914.0-M-2) defines a C++ API for SLE transfer services at a generic level. Each service needs a supplementary Recommended Practice, and this one covers RAF.",
+      "pdf_page": 9
+    },
+    {
+      "text": "The API supports three RAF generations: Generation 1 (BIND version 1, draft RAF 911.1-R-1.7), Generation 2 (version 2, RAF B-2) and Generation 3 (version 4, RAF B-3). Support for Generations 1 and 2 is for backward compatibility for a limited time.",
+      "pdf_page": 10
+    },
+    {
+      "text": "Generation 1 implementations interoperate with peers that follow ESOC's 'Specification of a SLE API Proxy for TCP/IP and ASN.1' (SLES-SW-API-0002-TOS-GCI, Issue 1.1, February 2001). Generations 2 and 3 use the ISP1 transport mapping layer.",
+      "pdf_page": 10
+    },
+    {
+      "text": "The RAF SI Provider class exports IRAF_SIAdmin for RAF configuration parameters and IRAF_SIUpdate for dynamic status. It answers RAF-GET-PARAMETER and generates RAF-STATUS-REPORT autonomously.",
+      "pdf_page": 17
+    },
+    {
+      "text": "The RAF configuration parameters are delivery-mode, latency-limit (for the timely and complete online modes) and transfer-buffer-size, which is the maximum number of TRANSFER-DATA and SYNC-NOTIFY invocations per transfer buffer PDU.",
+      "pdf_page": 28
+    },
+    {
+      "text": "The status information comprises number-of-error-free-frames-delivered, number-of-frames-delivered, requested-frame-quality, the frame-sync, symbol-sync, subcarrier and carrier lock statuses, and the production-status.",
+      "pdf_page": 21
+    },
+    {
+      "text": "RAF-specific operation objects are IRAF_Start, IRAF_TransferData, IRAF_SyncNotify, IRAF_StatusReport and IRAF_GetParameter. BIND, UNBIND, STOP, SCHEDULE-STATUS-REPORT, PEER-ABORT and the TRANSFER-BUFFER pseudo-operation use the common SLE operation objects.",
+      "pdf_page": 22
+    },
+    {
+      "text": "SLE transfer authentication can be set to one of three levels: every invocation and return, only BIND, or none.",
+      "pdf_page": 25
+    },
+    {
+      "text": "Frame counters are incremented when a TRANSFER-BUFFER PDU is sent to the user. Frames in a discarded buffer are not counted.",
+      "pdf_page": 30
+    },
+    {
+      "text": "For RAF-START in offline mode, the start and stop times must not be null and the stop time must be in the past. In online mode, the times must lie within the scheduled provision period.",
+      "pdf_page": 32
+    },
+    {
+      "text": "In offline mode, RAF-SYNC-NOTIFY may not report loss of frame sync, a production status change or data discarded for excessive backlog. In timely online mode, data discard for excessive backlog is not allowed.",
+      "pdf_page": 33
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 910.4-B-2",
+      "title": "Cross Support Reference Model—Part 1: Space Link Extension Services",
+      "issue": "Issue 2",
+      "date": "October 2005",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 911.1-B-3",
+      "title": "Space Link Extension—Return All Frames Service Specification",
+      "issue": "Issue 3",
+      "date": "January 2010",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[3]",
+      "doc_id": "CCSDS 914.0-M-2",
+      "title": "Space Link Extension—Application Program Interface for Transfer Services—Core Specification",
+      "issue": "Issue 2",
+      "date": "September 2015",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[4]",
+      "doc_id": "ISO/IEC 14882:2011",
+      "title": "Programming Languages—C++",
+      "issue": "3rd ed.",
+      "date": "2011",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[5]",
+      "doc_id": "ISO/IEC 8824-1:2008",
+      "title": "Information Technology—Abstract Syntax Notation One (ASN.1): Specification of Basic Notation",
+      "issue": "4th ed.",
+      "date": "2008",
+      "kind": "normative",
+      "pdf_page": 16
+    },
+    {
+      "label": "[C1]",
+      "doc_id": "CCSDS A02.1-Y-4",
+      "title": "Organization and Processes for the Consultative Committee for Space Data Systems",
+      "issue": "Issue 4",
+      "date": "April 2014",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C2]",
+      "doc_id": "CCSDS 911.1-R-1.7",
+      "title": "Space Link Extension—Return All Frames Service Specification",
+      "issue": "Issue 1.7 (Draft Red Book)",
+      "date": "September 1999",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C3]",
+      "doc_id": "CCSDS 911.1-B-2-S",
+      "title": "Space Link Extension—Return All Frames Service Specification",
+      "issue": "Issue 2-S (Historical)",
+      "date": "(December 2004) January 2010",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C4]",
+      "doc_id": "CCSDS 910.3-G-3",
+      "title": "Cross Support Concept—Part 1: Space Link Extension Services",
+      "issue": "Issue 3",
+      "date": "March 2006",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C5]",
+      "doc_id": "CCSDS 913.1-B-2",
+      "title": "Space Link Extension—Internet Protocol for Transfer Services",
+      "issue": "Issue 2",
+      "date": "September 2015",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C6]",
+      "doc_id": "CCSDS 914.1-G-1",
+      "title": "Space Link Extension—Application Program Interface for Transfer Services—Summary of Concept and Rationale",
+      "issue": "Issue 1",
+      "date": "January 2006",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C7]",
+      "doc_id": "CCSDS 914.2-G-2",
+      "title": "Space Link Extension—Application Program Interface for Transfer Services—Application Programmer's Guide",
+      "issue": "Issue 2",
+      "date": "October 2008",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C8]",
+      "doc_id": "AX-01",
+      "title": "The COM/DCOM Reference. COM/DCOM Product Documentation",
+      "issue": null,
+      "date": "1999",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": "[C9]",
+      "doc_id": null,
+      "title": "Unified Modeling Language (UML)",
+      "issue": "Version 2.4.1",
+      "date": "August 2011",
+      "kind": "informative",
+      "pdf_page": 66
+    },
+    {
+      "label": null,
+      "doc_id": "SLES-SW-API-0002-TOS-GCI",
+      "title": "Specification of a SLE API Proxy for TCP/IP and ASN.1 (ESOC)",
+      "issue": "Issue 1.1",
+      "date": "February 2001",
+      "kind": "mentioned",
+      "pdf_page": 10
+    }
+  ],
+  "topics": [
+    "ccsds/sle/isp1-and-api.md",
+    "ccsds/sle/return-services.md",
+    "ccsds/sle/index.md",
+    "scos2000/nctrs-nis.md"
+  ],
+  "notes": "PDF pages 1-2 are duplicate covers. The extracted text has 67 form-feed pages (registry: 66); the last one is empty. The running header reads 'CCSDS Recommended Practice: API for the SLE RAF Service'. The UML class and interface diagrams (Figures 2-1, 2-2) survive only as scattered labels. Oddities as printed: the Foreword says 'This Recommended Standard is therefore subject to CCSDS document management', although the book is a Recommended Practice; 1.5.2 lists the cross support parts as Part 2 'Ground Domain Services' and Part 3 'Ground Communications Services', the reverse of the reference model CCSDS 910.4-B-2 (ccsds-910-4-910x4b2e1s); and Generation 3 is identified by BIND version number 4, not 3. The normative RAF reference is issue 3 (January 2010), while the library holds RAF issue 5 (ccsds-911-1-911x1b5e1 and the duplicate ccsds-911x1b5e1-sle-raf), so the generations listed here may not cover later RAF versions. The library holds the companion API core specification (ccsds-914-0-914x0m2c1) and ISP1 (ccsds-913-1-913x1b2). ESOC's 2001 API proxy specification is mentioned but not in the library. No individual authors are named. The registry copy was taken from ccsds.org on 2026-11-12."
+}

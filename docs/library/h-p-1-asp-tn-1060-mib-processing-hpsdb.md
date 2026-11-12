@@ -153,8 +153,8 @@ Chapter 5 then works through every MIB table field by field. For each field it g
 |---|---|---|---|---|
 | AD1 | [H-P-1-ASP-SP-0141](../references/index.md#ref-h-p-1-asp-sp-0141) | Naming convention |  | applicable |
 | AD2 | [S2K-MCS-ICD-0001-TOS-GCI](../references/index.md#ref-s2k-mcs-icd-0001-tos-gci) · [library](icd-5-1-tos-gci.md) | SCOS-2000 Data base import ICD | 5.1 | applicable |
-| AD3 | [H-P-4-TE-ID-8020](../references/index.md#ref-h-p-4-te-id-8020) | CCS External Interface Control Document |  | applicable |
-| RD1 | [SCI-PT-ICD-07527](../references/index.md#ref-sci-pt-icd-07527) | Packet Structure Interface Control Document (PSICD) |  | reference |
+| AD3 | [H-P-4-TE-ID-8020](../references/index.md#ref-h-p-4-te-id-8020) · [library](rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) | CCS External Interface Control Document |  | applicable |
+| RD1 | [SCI-PT-ICD-07527](../references/index.md#ref-sci-pt-icd-07527) · [library](ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) | Packet Structure Interface Control Document (PSICD) |  | reference |
 |  | [H-P-ASP-MN-6913](../references/index.md#ref-h-p-asp-mn-6913) | MOM: Herschel Instruments – data base meeting on 29 and 30/09/05 in ASED Munchen | 29 and 30/09/05 | mentioned |
 |  | [H-P-ASP-MN-7063](../references/index.md#ref-h-p-asp-mn-7063) | MOM: Herschel / Planck – PM#32 – HPSDB splinter | 30/11/05 and 01/12/05 | mentioned |
 |  | [catalogue](../references/index.md#ref-psicd) | PSICD | 5.0 | mentioned |

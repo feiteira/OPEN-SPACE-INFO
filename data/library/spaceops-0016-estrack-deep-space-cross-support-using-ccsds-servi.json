@@ -1,0 +1,234 @@
+{
+  "slug": "spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi",
+  "title": "ESTRACK Deep Space Cross support using CCSDS Service Management",
+  "short_title": "ESTRACK deep-space cross support with CCSDS SM (SpaceOps25)",
+  "doc_id": "SpaceOps-2025, ID # 16",
+  "issue": null,
+  "date": "2025-05",
+  "organisation": "ESA/ESOC (with SERCO and Scotty Consulting); presented at the 18th International Conference on Space Operations (SpaceOps 2025), Montreal, Canada, 26 - 30 May 2025",
+  "authors": [
+    "Martin UNAL",
+    "Matthew REED",
+    "Szymon STUGLIK",
+    "Colin Haddow"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "Conference paper. 'Copyright ©2025 by European Space Agency', published by the Canadian Space Agency on behalf of SpaceOps (PDF p. 1).",
+  "summary": "A SpaceOps 2025 paper from the ESTRACK Scheduling Office (ESO) at ESOC on cross support: booking ground station passes from other networks for ESA missions, and selling ESTRACK deep-space capacity to other agencies and commercial users. ESTRACK interfaces with 6 providers and serves 5 external partners, using CCSDS Service Management (SM) formats wherever possible. These are the Simple Schedule Format (SSF) and the then-draft Service Management Utilization Request Formats (SMURF).\n\nThe paper describes the internal tools. The ESTRACK Planning System (EPS) solves the users' standing orders into a baseline booking, covering 4 weeks for low Earth orbit and up to 12 months for deep space. The ESTRACK Management System web Portal (EMSP) handles change requests as a state machine, as user or provider, through the web or system to system over REST and files. External formats are mapped onto a stable core by XSL transforms ('XSL shielding'), so that each bilateral interface can change independently.\n\nIt identifies the minimal common data set of every cross-support interface (spacecraft, ground station, beginning and end of track, service definition, service parameters, user and provider IDs). It contrasts 'replace all' bulk requests with SMURF add/modify/delete requests. It explains why ESTRACK closes the loop with the provider's SSF support list rather than per-request confirmation (SPDF), and why named service bundles such as 'TTC' worked better than layered CCSDS functional services. The lessons learned favour minimal exchanged information, files as well as REST, and XML with XSD validation. The way forward and conclusion discuss standing orders, flexible requests and other CCSDS SM topics (SMAC, SACP, SMASH), against the risk of proprietary commercial APIs. It is a practical companion to [SLE service management](../ccsds/sle/service-management.md).",
+  "contents": [
+    {
+      "section": "Abstract",
+      "title": "Abstract",
+      "pdf_page": 1
+    },
+    {
+      "section": "Acronyms",
+      "title": "Acronyms/Abbreviations",
+      "pdf_page": 2
+    },
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 2
+    },
+    {
+      "section": "2",
+      "title": "Inside the box – ESTRACK Scheduling Office tools & processes",
+      "pdf_page": 2
+    },
+    {
+      "section": "3",
+      "title": "Interfacing the world",
+      "pdf_page": 3
+    },
+    {
+      "section": "3.1",
+      "title": "Overall process",
+      "pdf_page": 3
+    },
+    {
+      "section": "3.2",
+      "title": "Interfacing with Users",
+      "pdf_page": 4
+    },
+    {
+      "section": "3.3",
+      "title": "Interfacing with provider",
+      "pdf_page": 4
+    },
+    {
+      "section": "4",
+      "title": "Cross Support Interface Commonality",
+      "pdf_page": 5
+    },
+    {
+      "section": "4.1",
+      "title": "Data",
+      "pdf_page": 5
+    },
+    {
+      "section": "4.2",
+      "title": "Format",
+      "pdf_page": 6
+    },
+    {
+      "section": "4.3",
+      "title": "Process",
+      "pdf_page": 6
+    },
+    {
+      "section": "4.4",
+      "title": "Service Definition",
+      "pdf_page": 6
+    },
+    {
+      "section": "4.5",
+      "title": "Support execution",
+      "pdf_page": 7
+    },
+    {
+      "section": "5",
+      "title": "Lessons Learned",
+      "pdf_page": 7
+    },
+    {
+      "section": "5.1",
+      "title": "Things that worked well",
+      "pdf_page": 7
+    },
+    {
+      "section": "5.2",
+      "title": "It looked like a good idea…",
+      "pdf_page": 7
+    },
+    {
+      "section": "6",
+      "title": "Way forward",
+      "pdf_page": 8
+    },
+    {
+      "section": "6.1",
+      "title": "Service definition",
+      "pdf_page": 8
+    },
+    {
+      "section": "6.2",
+      "title": "Planning",
+      "pdf_page": 8
+    },
+    {
+      "section": "7",
+      "title": "Conclusion",
+      "pdf_page": 9
+    },
+    {
+      "section": "References",
+      "title": "References",
+      "pdf_page": 9
+    }
+  ],
+  "key_points": [
+    {
+      "text": "The latest ESTRACK Deep Space Terminal loading forecast shows ESTRACK deep-space capacity being exhausted, so access to external resources is needed at peak periods.",
+      "pdf_page": 1
+    },
+    {
+      "text": "In two decades the number of ESA flying spacecraft tripled while ESTRACK capacity stayed stable. ESTRACK now interfaces with 6 providers and serves 5 external partners, and uses CCSDS Service Management [1] for its interfaces whenever possible.",
+      "pdf_page": 2
+    },
+    {
+      "text": "The EPS solver turns mission agreements and standing orders into a baseline booking covering typically 4 weeks for the LEO network and up to 12 months for deep-space assets. Change requests are checked for validity, conflict, technical feasibility and, for external providers, availability.",
+      "pdf_page": 2
+    },
+    {
+      "text": "The SSF data format [2] proved a good way to 'close the loop' in all circumstances, such as provider-initiated changes, pending negotiations and disputed cancellations. Immediate confirmation alone does not cover every case.",
+      "pdf_page": 3
+    },
+    {
+      "text": "EMSP supports both REST and file-based exchange, and treats manual and machine-generated requests identically. Gaia's MPS used standing orders to specify tracking time for every day of its 10-year mission (daily downlink needs of 6 to 24 hours).",
+      "pdf_page": 4
+    },
+    {
+      "text": "All exchanges are XML files. XSL transforms ('User-Provider translators') map each third party's format onto a stable core, so that each point-to-point interface is independent and transforms can be edited without stopping the application.",
+      "pdf_page": 5
+    },
+    {
+      "text": "Every cross-support interface contains five items: user (spacecraft codename), resource (site or terminal), beginning of track, end of track, and service definition. Service parameters, user ID and provider ID complete the minimal set. With it, ESTRACK interfaces with 6 agencies and 5 commercial entities.",
+      "pdf_page": 6
+    },
+    {
+      "text": "Since 2017 ESTRACK has used the published SSF and the draft SMURF (White Book 0.06) for all new interfaces. SMURF's add/modify/delete requests allow per-request change tracking, at the cost of more complexity in the booking system than legacy 'replace all' requests.",
+      "pdf_page": 6
+    },
+    {
+      "text": "ESTRACK network operations are fully automated: each service type maps to a scheduling template. A published catalogue of 'user scheduled events' (e.g. start/stop uplink or recording at absolute times) has become a de facto standard for ESTRACK users and providers.",
+      "pdf_page": 7
+    },
+    {
+      "text": "File-based interfaces proved more robust than REST alone, because cybersecurity changes can block ports with little notice. The CCSDS layered functional service list (online telemetry, uplink, ranging, DDOR...) was awkward in practice, and bundled service names such as 'TTC' worked better.",
+      "pdf_page": 7
+    },
+    {
+      "text": "Individual request confirmation (CCSDS SPDF) was rated essential during EPS design but never used. ESTRACK relies on the passes listed in the SSF reply, and only one provider supports SPDF.",
+      "pdf_page": 8
+    },
+    {
+      "text": "SMURF proposes flexible requests (earliest start, latest end, minimum and maximum track duration), but no implementation supports them yet.",
+      "pdf_page": 9
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 910.11-B-1",
+      "title": "\"Space Communication Cross Support— Service Management—Service Specification\", Recommended Standard, Blue Book Issue 1",
+      "issue": "Issue 1",
+      "date": "August 2009",
+      "kind": "bibliography",
+      "pdf_page": 9
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 902.1-B-1",
+      "title": "\"Simple Schedule Format Specification\", Draft Recommended Standard, Blue",
+      "issue": null,
+      "date": "May 2018",
+      "kind": "bibliography",
+      "pdf_page": 9
+    },
+    {
+      "label": "[3]",
+      "doc_id": "CCSDS 902.9-W-0.06",
+      "title": "\"Service Management Utilization Request Formats\", Proposed Draft Recommended Standard, White Book Draft",
+      "issue": "0.06",
+      "date": "July 2018",
+      "kind": "bibliography",
+      "pdf_page": 9
+    },
+    {
+      "label": "[4]",
+      "doc_id": null,
+      "title": "H. Dreihahn, C. Haddow and M. Unal, \"CCSDS compliant Ground Network Schedule Interfaces from an ESA perspective\", Spaceops, Daejeon, Republic of Korea",
+      "issue": null,
+      "date": "2016",
+      "kind": "bibliography",
+      "pdf_page": 9
+    },
+    {
+      "label": "[5]",
+      "doc_id": "DHSO-ESOC-EMSP-SUM-1001-HSO-GIB",
+      "title": "\"EMS Portal - Software User Manual\"",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 9
+    }
+  ],
+  "topics": [
+    "ccsds/sle/service-management.md",
+    "scos2000/nctrs-nis.md",
+    "ccsds/sle/index.md",
+    "scos2000/ancillary-and-egs-cc.md"
+  ],
+  "notes": "The extraction reports 10 PDF pages against 9 printed pages, and the last PDF page is empty. Figure 1 (EMSP request state machine, PDF p. 3) and Figure 2 (XSL shielding, PDF p. 5) are images. The author block prints e-mail addresses, which are omitted here. The design list on PDF p. 5 calls the portal 'EMPS', a typo for EMSP. Reference [2] is printed as a 'Draft Recommended Standard' with a Blue Book number (902.1-B-1). The paper is about scheduling and booking (service management), not the SLE transfer services, and does not mention SCOS-2000 or NCTRS/NIS. Related library items: ccsds-902-0-902x0g1 (extensible service management concept, Green Book) and ccsds-902-4-902x4b1 (service package data formats); CCSDS 910.11-B-1 and the SSF/SMURF books are not in the library."
+}

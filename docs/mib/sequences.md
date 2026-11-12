@@ -573,7 +573,8 @@ The SWA database also has no sequences at all.[^mib-swa] The Herschel/Planck Sys
 which ingested and generated MIB files both for the SCOS-2000 based instrument EGSE and for the Central
 Checkout System (CCS), marked `csf`, `css`, `sdf` and all parameter set tables as not supported by CCS
 ("do not use") and left `csp` "to be written", while HPSDB itself could still load them, for the sequence
-tables "in order to interface with MOIS for operations".[^tn1060]
+tables "in order to interface with MOIS for operations".[^tn1060] MOIS itself, the procedure preparation
+tool, is described on [operations preparation](../scos2000/operations-preparation.md#mois-and-astral-prepare).
 
 !!! warning "Inference"
     Parameter sets solve a problem that Solar Orbiter's large sequence library handles differently: preset
@@ -629,6 +630,8 @@ tables "in order to interface with MOIS for operations".[^tn1060]
 * [ST[11] Time-based scheduling](../ecss/pus/st11-time-based-scheduling.md),
   [ST[21] Request sequencing](../ecss/pus/st21-request-sequencing.md) (the on-board counterpart of a sequence)
 * [Mission archives: PARC, DARC and FARC](../scos2000/archives.md), [SCOS-2000 architecture](../scos2000/architecture.md)
+* [Operations preparation](../scos2000/operations-preparation.md) (procedures, MOIS and OPEN) and
+  [ECSS-E-ST-70-32C PLUTO](../ecss/e-st-70-32c.md#command-sequences-in-the-mib) (sequences compared with procedures)
 * [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md), [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
 * Generated table references: [csf](tables/csf.md), [css](tables/css.md), [sdf](tables/sdf.md), [csp](tables/csp.md),
   [pst](tables/pst.md), [psv](tables/psv.md), [cps](tables/cps.md), [pvs](tables/pvs.md), [psm](tables/psm.md)

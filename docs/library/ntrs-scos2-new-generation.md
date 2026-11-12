@@ -43,8 +43,10 @@ For monitoring, the paper introduces raw, engineering, functional and status rep
 - Release 1 preliminary delivery expected November 1994; Release 2 (1995-6) and Release 3 (1996-7) add modelling, mission planning and data distribution; first client missions HUYGENS, ARTEMIS and ENVISAT, to be launched in 1997-1998. *(PDF p. 7)*
 
 
-## Cited by these wiki pages (4)
+## Cited by these wiki pages (6)
 
+- [From ESA PSS to CCSDS and ECSS: how the packet standards evolved](../overview/history.md)
+- [How it all fits together](../overview/index.md)
 - [Other missions and SCOS-2000 users](../missions/other-missions.md)
 - [SCOS-2000 architecture](../scos2000/architecture.md)
 - [SCOS-2000: ESA's mission control system](../scos2000/index.md)
@@ -94,7 +96,7 @@ For monitoring, the paper introduces raw, engineering, functional and status rep
 
 | Label | Document | Title | Issue / date | Kind |
 |---|---|---|---|---|
-| 1 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) | Packet Utilisation Standard | issue 1 May 1994 | reference |
+| 1 | [ESA PSS-07-101](../references/index.md#ref-esa-pss-07-101) · [library](esa-pss-07-101-issue1-may1994.md) | Packet Utilisation Standard | issue 1 May 1994 | reference |
 | 2 | [catalogue](../references/index.md#ref-n-head-j-f-kaufeler-evolution-of-the-agency-s-software-infrastructure-for-spacec) | N.Head & J.F.Kaufeler, Evolution of the Agency's Software Infrastructure for Spacecraft and Mission Control, ESA Bulletin no.67 | August 1991 | reference |
 | 3 | [catalogue](../references/index.md#ref-m-jones-et-al-scosii-esa-s-new-generation-of-mission-control-system-esa-bulletin) | M.Jones et al., SCOSII: ESA's New Generation of Mission Control System, ESA Bulletin no.75 | August 1993 | reference |
 | 4 | [catalogue](../references/index.md#ref-a-baldi-et-al-scosii-ol-a-dedicated-language-for-mission-operations-spaceops-94) | A.Baldi et al., SCOSII OL: A Dedicated Language for Mission Operations, SpaceOps 94 |  | reference |

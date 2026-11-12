@@ -555,6 +555,10 @@ conventions in [Mission tailoring of the MIB](tailoring.md).
 * [Monitoring checks: limits and out-of-limits](monitoring-checks.md), [Synthetic parameters](synthetic-parameters.md)
 * [NCTRS, NIS and the ground station interface](../scos2000/nctrs-nis.md), [COP-1](../ccsds/cop-1.md)
 * [Uplink: from operator command to on-board execution](../overview/uplink.md)
+* The instrument verification stages in context: [Solar Orbiter STIX instrument database](../missions/solar-orbiter/stix.md),
+  [SWA](../missions/solar-orbiter/swa.md) and [Solar Orbiter instrument interfaces](../missions/solar-orbiter/instrument-interfaces.md)
+* [Operations preparation](../scos2000/operations-preparation.md#command-verification-beyond-the-database)
+  (command verification that the database cannot express)
 * Generated table references: [cvs](tables/cvs.md), [cve](tables/cve.md), [cvp](tables/cvp.md)
 * Sources: [ICD 7.0](../library/icd-7-0-final.md), [ECSS-E-ST-70-41C](../library/ecss-e-st-70-41c-15april2016.md),
   [Solar Orbiter MIB 2025](../library/mib-20250916m25925pfms001-sol.md); terms in the [glossary](../glossary.md)

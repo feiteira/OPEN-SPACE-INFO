@@ -1,0 +1,159 @@
+{
+  "slug": "icalepcs2019-weapp01-esa-control-systems",
+  "title": "Old and New Generation Control Systems at ESA",
+  "short_title": "Old and new generation control systems at ESA (ICALEPCS19)",
+  "doc_id": "doi:10.18429/JACoW-ICALEPCS2019-WEAPP01 (paper WEAPP01)",
+  "issue": null,
+  "date": "2019",
+  "organisation": "ESA/ESOC, Darmstadt, Germany; published in the proceedings of the 17th Int. Conf. on Accelerator and Large Experimental Physics Control Systems (ICALEPCS2019, New York, NY, USA), JACoW Publishing",
+  "authors": [
+    "M. Pecchioli"
+  ],
+  "doc_type": "Paper",
+  "status_notes": "Conference paper, published under CC BY 3.0 (© 2019), ISBN 978-3-95450-209-7, ISSN 2226-0358, proceedings pages 859-865 (PDF pp. 1-7).",
+  "summary": "A conference paper from ESOC on how ESA's mission control system (MCS) infrastructure has evolved. ESOC builds its MCSs on domain-specific (not mission-specific) infrastructure: configurable, generic implementations reused across missions. The stated reasons are stable costs, shorter mission preparation, lower risk and less familiarisation effort for staff. The paper lists the design drivers this approach imposes: heterogeneous space systems, the [PUS](../ecss/pus/index.md), multiple mission types, standardised interfaces, modular and layered architecture, data-driven tailoring through a TM/TC 'database' (i.e. the [MIB](../mib/index.md)), automation, performance, longevity, portability and scalability.\n\nIt then compares four generations: the **Multi-Satellite Support System (MSSS, 1970s to late 1990s)**, **SCOS 1** (from the early 1990s), **SCOS II, renamed [SCOS-2000](../scos2000/index.md)** (in use since the early 2000s and still the basis of most ESOC control systems), and **M4C** (Mission Control Core based on Common Core), which offers equivalent features on the [EGS-CC](../scos2000/ancillary-and-egs-cc.md) framework. The comparison covers the MCS's role in preparation (up to the Eclipse-based OPEN environment), planning, critical operations (display types), routine operations (from time-separated command release in MSSS to M4C activities with ground and on-board triggers, and file-based operations), and evaluation. It also covers system design: modularity, deployment (mainframe, then distributed client-server, then 'conceptually centralised' with thin clients), scalability, tailoring, extensibility, interoperability ([SLE](../ccsds/sle/index.md), PUS), performance, technology stacks and maintainability.\n\nIt is useful for the [history](../overview/history.md) of ESA control systems and for placing SCOS-2000 between MSSS and EGS-CC.",
+  "contents": [
+    {
+      "section": "Abstract",
+      "title": "Abstract",
+      "pdf_page": 1
+    },
+    {
+      "section": "Introduction",
+      "title": "Introduction",
+      "pdf_page": 1
+    },
+    {
+      "section": "Introduction",
+      "title": "Background",
+      "pdf_page": 1
+    },
+    {
+      "section": "Introduction",
+      "title": "Mission Control Systems Infrastructure Design",
+      "pdf_page": 2
+    },
+    {
+      "section": "Infrastructure Evolution",
+      "title": "Infrastructure Evolution",
+      "pdf_page": 3
+    },
+    {
+      "section": "Infrastructure Evolution",
+      "title": "System Context",
+      "pdf_page": 3
+    },
+    {
+      "section": "Infrastructure Evolution",
+      "title": "System Design",
+      "pdf_page": 5
+    },
+    {
+      "section": "Conclusion",
+      "title": "Conclusion",
+      "pdf_page": 7
+    },
+    {
+      "section": "Acronyms",
+      "title": "Acronyms List",
+      "pdf_page": 7
+    },
+    {
+      "section": "References",
+      "title": "References",
+      "pdf_page": 7
+    }
+  ],
+  "key_points": [
+    {
+      "text": "The paper names four factors behind the evolution of MCS implementations: spacecraft orbits (pass frequency and delays), space asset design (TM/TC protocols, on-board monitoring and control services, data volumes, autonomy), operations concepts, and software and IT technologies.",
+      "pdf_page": 1
+    },
+    {
+      "text": "ESA ground segments rely on domain-specific (not mission-specific) infrastructure, for strategic and programmatic reasons: shared development and maintenance costs, shorter preparation of new missions, lower risk and less familiarisation effort for staff.",
+      "pdf_page": 2
+    },
+    {
+      "text": "Control functions are tailored through a data-driven approach: TM/TC characteristics are defined in a 'database' that converts human-readable artefacts into data units for uplink and downlink.",
+      "pdf_page": 3
+    },
+    {
+      "text": "Four MCS infrastructure generations: MSSS (Multi-Satellite Support System, 1970s to late 1990s); SCOS 1 (from the early 1990s, still in some legacy missions); SCOS II, renamed SCOS-2000 (from the start of this century, the basis of most ESOC control systems); and M4C (Mission Control Core based on Common Core, equivalent features on EGS-CC).",
+      "pdf_page": 3
+    },
+    {
+      "text": "Operations preparation tools evolved from basic text editors, through stand-alone Windows tools, to OPEN, the Eclipse-based Operations Preparation Environment.",
+      "pdf_page": 4
+    },
+    {
+      "text": "MSSS could only open full-screen displays, up to three. MSSS could only authorise the release of consecutive commands at specified time intervals, whereas M4C natively executes any control action ('Activities') from ground or on-board triggers based on times, events or procedures.",
+      "pdf_page": 4
+    },
+    {
+      "text": "Both SCOS-2000 and M4C support file-based operations concepts.",
+      "pdf_page": 5
+    },
+    {
+      "text": "Deployment evolved from MSSS (two redundant mainframe instances serving all missions via hard-wired workstations), to SCOS-2000 (distributed client-server, first with 'very fat' clients, later re-engineered for remote access), to M4C ('conceptually centralised', with thin clients and options up to multi-mission virtual data centres).",
+      "pdf_page": 5
+    },
+    {
+      "text": "Ground station interfaces are standardised through CCSDS SLE. Both SCOS-2000 and M4C natively support PUS 'service level' operations. Standardisation between ground systems such as planning, flight dynamics and payload data processing is described as still lagging behind.",
+      "pdf_page": 6
+    },
+    {
+      "text": "MSSS processed TM at a few kbit/s. The SCOS-2000 based Gaia MCS sustains more than 10 Mbit/s incoming and about 1 Mbit/s of full TM processing. MSSS supported up to 20 workstations for the whole centre, while more than 50 users on one MCS are now common during LEOP.",
+      "pdf_page": 6
+    },
+    {
+      "text": "The paper concludes that the infrastructure kept up with mission demands through continuous improvement within generations and step-wise change across them.",
+      "pdf_page": 7
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "doi:10.18429/JACoW-ICALEPCS2017-THCPL02",
+      "title": "M. Pecchioli, J.M. Carranza, \"Highlights of the European Ground Systems - Common Core Initiative\", in Proc. 16th Int. Conf. on Accelerator and Large Experimental Physics Control Systems (ICALEPCS'17), Barcelona, Spain, paper THCPL02, pp. 1175-1181",
+      "issue": null,
+      "date": "October 2017",
+      "kind": "bibliography",
+      "pdf_page": 7
+    },
+    {
+      "label": "[2]",
+      "doc_id": "doi.org/10.2514/6.2010-2190",
+      "title": "M. Pecchioli et al. \"Towards File based Operations\", in SpaceOps 2010 Conference, Huntsville, Alabama, USA",
+      "issue": null,
+      "date": "April 2010",
+      "kind": "bibliography",
+      "pdf_page": 7
+    },
+    {
+      "label": "[3]",
+      "doc_id": null,
+      "title": "Space Link Extension, Consultative Committee for Space Data Standardisation, https://public.ccsds.org/Publications/default.aspx",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 7
+    },
+    {
+      "label": "[4]",
+      "doc_id": "ECSS-E-70-41A",
+      "title": "ECSS-E-70-41A Packet Utilisation Standard, European Co-operation for Space Standardisation, http://ecss.nl/standards/",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 7
+    }
+  ],
+  "topics": [
+    "overview/history.md",
+    "scos2000/index.md",
+    "scos2000/ancillary-and-egs-cc.md",
+    "scos2000/architecture.md",
+    "scos2000/operations-preparation.md"
+  ],
+  "notes": "Two-column layout; the extracted text interleaves the columns line by line, so read it carefully. The extraction reports 8 PDF pages against 7 in the registry, and the last page is empty. Figure 1 (Operational Ground Segment, conceptual; PDF p. 1) is an image. The acronym list expands PUS as 'Packet Utilization Standard', while the body and [4] use 'Utilisation'. Reference [3] expands CCSDS as 'Consultative Committee for Space Data Standardisation', which is not the official name. Reference [4] cites ECSS-E-70-41A (2003; library item ecss-e-70-41a-30jan2003-pus) rather than the current ECSS-E-ST-70-41C. Same author as the library item pecchioli-egs-cc-esoc (EGS-CC adoption at ESOC)."
+}

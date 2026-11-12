@@ -44,7 +44,7 @@ Informative Annex A lists further differences from ECSS-E-ST-50-04C: formal serv
 - Annex A notes that, unlike ECSS-E-ST-50-04C, CCSDS 232.0-B-4 offers formal service interfaces, optional SDLS, normative managed parameters (formerly 'mission configuration parameters' in Annex E of ECSS-E-ST-50-04) and a normative PICS. *(PDF p. 21)*
 
 
-## Cited by these wiki pages (12)
+## Cited by these wiki pages (14)
 
 - [CCSDS: overview of the protocol stack](../ccsds/index.md)
 - [COP-1: FOP-1, FARM-1 and the CLCW (CCSDS 232.1-B-2)](../ccsds/cop-1.md)
@@ -54,9 +54,11 @@ Informative Annex A lists further differences from ECSS-E-ST-50-04C: formal serv
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Space Data Link Security (CCSDS 355.0-B-2)](../ccsds/sdls.md)
 - [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../ccsds/tc-sdlp.md)
+- [TC synchronization and channel coding: the CLTU (CCSDS 231.0-B-4)](../ccsds/tc-coding-cltu.md)
 - [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../ccsds/tm-sdlp.md)
 - [TM synchronization and channel coding (CCSDS 131.0-B-5)](../ccsds/tm-coding.md)
 - [The standards landscape](../overview/standards-map.md)
+- [Uplink: from operator command to on-board execution](../overview/uplink.md)
 - [Worked example: building a real Solar Orbiter telecommand](../overview/worked-example-tc.md)
 
 
@@ -87,14 +89,14 @@ Informative Annex A lists further differences from ECSS-E-ST-50-04C: formal serv
 |---|---|---|---|---|
 |  | [CCSDS 232.0-B-4](../references/index.md#ref-ccsds-232-0-b-4) · [library](ccsds-232-0-232x0b4e1c1.md) | TC Space Data Link Protocol | Issue 4 October 2021 | normative |
 |  | [ECSS-E-AS-50-21C Rev.1](../references/index.md#ref-ecss-e-as-50-21c-rev-1) | Space engineering - Adoption Notice of CCSDS 131.0-B-4, TM Synchronization and Channel Coding | Rev.1 | bibliography |
-|  | [ECSS-E-AS-50-22C Rev.1](../references/index.md#ref-ecss-e-as-50-22c-rev-1) | Space engineering - Adoption Notice of CCSDS 132.0-B-3, TM Space Data Link Protocol | Rev.1 | bibliography |
-|  | [ECSS-E-AS-50-23C Rev.1](../references/index.md#ref-ecss-e-as-50-23c-rev-1) | Space engineering -Adoption Notice of CCSDS 232.0-B-4, AOS Space Data Link Protocol | Rev.1 | bibliography |
-|  | [ECSS-E-AS-50-24C Rev.1](../references/index.md#ref-ecss-e-as-50-24c-rev-1) | Space engineering - Adoption Notice of CCSDS 231.0-B-4, TC Synchronization and Channel Coding | Rev.1 | bibliography |
+|  | [ECSS-E-AS-50-22C Rev.1](../references/index.md#ref-ecss-e-as-50-22c-rev-1) · [library](ecss-e-as-50-22c-rev-1-13january2023.md) | Space engineering - Adoption Notice of CCSDS 132.0-B-3, TM Space Data Link Protocol | Rev.1 | bibliography |
+|  | [ECSS-E-AS-50-23C Rev.1](../references/index.md#ref-ecss-e-as-50-23c-rev-1) · [library](ecss-e-as-50-23c-rev-1-13january2023.md) | Space engineering -Adoption Notice of CCSDS 232.0-B-4, AOS Space Data Link Protocol | Rev.1 | bibliography |
+|  | [ECSS-E-AS-50-24C Rev.1](../references/index.md#ref-ecss-e-as-50-24c-rev-1) · [library](ecss-e-as-50-24c-rev-1-13january2023.md) | Space engineering - Adoption Notice of CCSDS 231.0-B-4, TC Synchronization and Channel Coding | Rev.1 | bibliography |
 |  | [ECSS-E-AS-50-25C Rev.1](../references/index.md#ref-ecss-e-as-50-25c-rev-1) ·  | Space engineering - Adoption Notice of CCSDS 232.0-B-4, TC Space Data Link Protocol | Rev.1 | bibliography |
 |  | [ECSS-E-AS-50-26C](../references/index.md#ref-ecss-e-as-50-26c) · [library](ecss-e-as-50-26c-1march2021.md) | Space engineering - Adoption Notice of CCSDS 232.1-B-2, Communications Operation Procedure-1 |  | bibliography |
-|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) | Space engineering - Space data links - Telemetry synchronization and channel coding | 31 July 2008 | bibliography |
+|  | [ECSS-E-ST-50-01C](../references/index.md#ref-ecss-e-st-50-01c) · [library](ecss-e-st-50-01c31july2008.md) | Space engineering - Space data links - Telemetry synchronization and channel coding | 31 July 2008 | bibliography |
 |  | [ECSS-E-ST-50-03C](../references/index.md#ref-ecss-e-st-50-03c) · [library](ecss-e-st-50-03c-31july2008.md) | Space engineering - Space data links - Telemetry transfer frame protocol | 31 July 2008 | bibliography |
-|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) | Space engineering - Space data links - Telecommand protocols synchronization and channel coding | 31 July 2008 | bibliography |
+|  | [ECSS-E-ST-50-04C](../references/index.md#ref-ecss-e-st-50-04c) · [library](ecss-e-st-50-04c31july2008.md) | Space engineering - Space data links - Telecommand protocols synchronization and channel coding | 31 July 2008 | bibliography |
 
 !!! note "Notes"
     Adoption notices contain no normative-references clause; the adopted CCSDS 232.0-B-4 is listed above as 'normative' because requirement ECSS-E-AS-50-25_1560001 makes it applicable (p. 8). The bibliography (p. 23) prints ECSS-E-AS-50-23C Rev.1 as 'Adoption Notice of CCSDS 232.0-B-4, AOS Space Data Link Protocol', an apparent typo for CCSDS 732.0-B-x (the context table on p. 6 maps ECSS-E-AS-50-23 to CCSDS 732.0-B-x). The change log (p. 3) says Rev.1 'adds a protocol implementation conformance statement proforma as new normative Annex A', but this document's Annex A is the informative 'Differences from ECSS-E-ST-50-04C'; the PICS meant is Annex A of CCSDS 232.0-B-4 itself (p. 22). The scope text runs '232.0-B-4TC' together (p. 5). The comment on the Table 5-4 row says 'Table 5-1' (p. 19). The registry gives 23 pages, while srcgrep shows 24 PDF pages (the last one is blank). Printed page numbers equal PDF page numbers.

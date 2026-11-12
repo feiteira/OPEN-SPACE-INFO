@@ -2,7 +2,7 @@
 title: "Worked example: building a real Solar Orbiter telecommand"
 description: Step-by-step construction of a real Solar Orbiter command from the public MIB (METIS TC(3,5) ZIT00305, enable housekeeping report SID 108) - CCF, CDF, CPC, PAF/PAS, TCP/PCPC/PCDF, verification stages, PUS-A packet, TC segment, TC transfer frame and BCH-coded CLTU, with every byte computed.
 tags: [Worked example, Solar Orbiter, MIB, SCOS-2000, Telecommand, PUS, TC frame, CLTU]
-sources: [mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final, sol-s-astr-tn-00079-07, solo-ddid-i1r2, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-15april2016, ccsds-133-0-133x0b2e2, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-230-1-230x1g3e1, ecss-e-hb-50a-15november2008, ecss-e-as-50-25c-rev-1-13january2023, ccsds-912-1-912x1b5e1]
+sources: [mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icd-7-0-final, sol-s-astr-tn-00079-07, solo-ddid-i1r2, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-15april2016, ccsds-133-0-133x0b2e2, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-230-1-230x1g3e1, ecss-e-hb-50a-15november2008, ecss-e-as-50-25c-rev-1-13january2023, ccsds-912-1-912x1b5e1, ccsds-910x3g3-sle-cross-support, ccsds-912-3-912x3b3s]
 ---
 
 # Worked example: building a real Solar Orbiter telecommand
@@ -180,8 +180,11 @@ has one raw range, 1 to 192, although its description reads "Integer between 1 a
 SCOS-2000 accepts a value equal to either bound.[^icd-prv]
 
 !!! warning "Inference"
-    The mismatch between the `VCD00353` description ("1 and 19") and its values (1 to 192) looks
-    like a truncated description or a later change of the range. The MIB does not say which.
+    The mismatch between the `VCD00353` description ("1 and 19") and its values (1 to 192) is most
+    likely a truncation: `PRF_DESCR` holds at most 24 characters, and "Integer between 1 and 192"
+    has 25.[^icd-prf-descr] The April 2020 release has the same description and range.[^mib2020]
+    The MIB itself does not say which is intended; the PRV values are what SCOS-2000 checks. The
+    [uplink walk-through](uplink.md#commands-and-their-parameters) reaches the same reading.
 
 ## Step 3: the packet header template (TCP, PCPC, PCDF)
 
@@ -329,8 +332,7 @@ criteria of parameter-based stages.[^icd-verif] `ZIT00305` has two stages:[^mib-
 | [59001](../explorer/index.md#/solo/verif/59001) | `A` acceptance | `R` report | 0 s | 16 s | (empty) | (empty → −1, standard window) |
 | [59003](../explorer/index.md#/solo/verif/59003) | `C` completion | `R` report | 0 s | 32 s | (empty) | (empty → −1, standard window) |
 
-Values from the MIB (the CVS, CVE and CVP files have no column names in this database; this wiki
-maps them in ICD field order);[^mib-cvs] meanings from the ICD.[^icd-cvs][^icd-cvp] `CVS_START` is the
+Values from the MIB, columns in ICD field order;[^mib-cvs] meanings from the ICD.[^icd-cvs][^icd-cvp] `CVS_START` is the
 delay after release before the window opens, `CVS_INTERVAL` the sampling interval used to compute
 the window, and an empty `CVS_UNCERTAINTY` keeps the default window of the TC Spacon.[^icd-cvs]
 Report-based stages need no CVE rows, and there are none for these two stages.[^mib-cvs] Stage
@@ -550,9 +552,14 @@ Acquisition and idle sequences around the CLTU depend on the physical layer oper
 With no DST entry for APID 1084, SCOS-2000 releases the command to the NCTRS, the default
 destination for spacecraft commands.[^icd-dst][^mib-stats] Towards the ground station, the CCSDS
 [SLE forward CLTU service](../ccsds/sle/fcltu.md) is the standard service "that enables a mission to
-send CLTUs to a spacecraft".[^fcltu] Which ground component encodes the frame and the CLTU for Solar
+send CLTUs to a spacecraft".[^fcltu] (The alternative [Forward Space Packet](../ccsds/sle/fsp.md)
+service, whose book the library holds as a historical copy, takes packets instead and leaves the
+frames and CLTUs to the provider.)[^sle-fwd][^fsp-hist] Which ground component encodes the frame and the CLTU for Solar
 Orbiter is not stated in the sources used for this page; see
-[NCTRS, NIS and the ground station interface](../scos2000/nctrs-nis.md). The ICD notes that a
+[NCTRS, NIS and the ground station interface](../scos2000/nctrs-nis.md). The CLTU then modulates the
+uplink carrier at one of the telecommand bit rates of the spacecraft transponder (7.8125 to
+4000 bit/s in the MIB's calibration of the transponder's TC bit rate parameter);[^mib-dst] see
+[radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md). The ICD notes that a
 CLTU has a mission-specific maximum size, which constrains `CMDP_MAX_BLOCK_SIZE`.[^icd-maxsize]
 
 The released command is archived too. The Solar Orbiter data delivery ICD says the archive keeps
@@ -560,12 +567,24 @@ a TC packet per released command (SPID 100) with its verification status and the
 to the spacecraft, plus a separate packet (SPID 200) with the static PTV and verification details
 from the MIB.[^ddid-tc]
 
+## Related pages
+
+* The general chain: [Uplink: from operator command to on-board execution](uplink.md); the report
+  this command enables: [Worked example: decoding a real Solar Orbiter telemetry packet](worked-example-tm.md).
+* The layers used here: [Space Packet](../ccsds/space-packet.md), [PUS packet structures](../ecss/pus/packets.md),
+  [ST[03] housekeeping](../ecss/pus/st03-housekeeping.md), [ST[01] request verification](../ecss/pus/st01-request-verification.md),
+  [TC SDLP](../ccsds/tc-sdlp.md), [COP-1](../ccsds/cop-1.md), [CLTU](../ccsds/tc-coding-cltu.md) and the
+  identifiers they carry, on [space link identifiers](../ccsds/space-link-identifiers.md).
+* The MIB tables: [commanding](../mib/commanding.md) and [command verification](../mib/command-verification.md).
+* Where the TC frame, CLTU and CPDU conventions came from: [From ESA PSS to CCSDS and ECSS](history.md).
+* How a Solar Orbiter instrument specifies its own telecommands: [instrument interface documents](../missions/solar-orbiter/instrument-interfaces.md).
+
 ??? example "SQL used"
     Run against `solo-2025-09-16.sqlite` (release `MIB__20250916M25925PFMS001_SOL`) and, for the
-    comparison, `solo-2020-04-16.sqlite`. In this database `cvs`, `cve` and `cvp` have generic
-    columns; in ICD order `cvs` COL1..COL7 = `CVS_ID`, `CVS_TYPE`, `CVS_SOURCE`, `CVS_START`,
-    `CVS_INTERVAL`, `CVS_SPID`, `CVS_UNCERTAINTY`, and `cvp` COL1..COL3 = `CVP_TASK`, `CVP_TYPE`,
-    `CVP_CVSID`.
+    comparison, `solo-2020-04-16.sqlite`. In the current build of these databases `cvs`, `cve`
+    and `cvp` carry their ICD column names: `CVS_ID`, `CVS_TYPE`, `CVS_SOURCE`, `CVS_START`,
+    `CVS_INTERVAL`, `CVS_SPID`, `CVS_UNCERTAINTY`; `CVE_CVSID` ... `CVE_CHECK`; and `CVP_TASK`,
+    `CVP_TYPE`, `CVP_CVSID`.
 
     ```sql
     SELECT * FROM vdf;
@@ -586,11 +605,11 @@ from the MIB.[^ddid-tc]
     SELECT CCF_CRITICAL, count(*) FROM ccf GROUP BY 1;
     SELECT count(*) FROM ccf WHERE CCF_APID = '1084';
     -- verification
-    SELECT * FROM cvp WHERE COL1 = 'ZIT00305';
-    SELECT * FROM cvs WHERE COL1 IN ('59001', '59003');
-    SELECT * FROM cve WHERE COL1 IN ('59001', '59003');               -- no rows
-    SELECT count(*) FROM cvp v JOIN ccf c ON c.CCF_CNAME = v.COL1
-     WHERE c.CCF_APID = '1084' AND v.COL3 = '59001';
+    SELECT * FROM cvp WHERE CVP_TASK = 'ZIT00305';
+    SELECT * FROM cvs WHERE CVS_ID IN ('59001', '59003', '59004');
+    SELECT * FROM cve WHERE CVE_CVSID IN ('59001', '59003');          -- no rows
+    SELECT count(*) FROM cvp v JOIN ccf c ON c.CCF_CNAME = v.CVP_TASK
+     WHERE c.CCF_APID = '1084' AND v.CVP_CVSID = '59001';             -- 126
     SELECT PID_TYPE, PID_STYPE, PID_PI1_VAL, PID_SPID, PID_DESCR FROM pid
      WHERE PID_APID = '1073' ORDER BY 2, 3;
     SELECT * FROM pic WHERE PIC_TYPE = '1';
@@ -671,6 +690,10 @@ from the MIB.[^ddid-tc]
 [^icd-decal]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §3.3.3.6 Command/Sequence Parameters (De-)calibrations, PDF p. 205.
 [^icd-paf]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §3.3.3.6.3–3.3.3.6.4 Textual (de-)calibrations: paf and pas, PDF pp. 208–210.
 [^icd-prv]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §3.3.3.7.2 Parameter range values: prv, PDF p. 213.
+[^sle-fwd]: [CCSDS 910.3-G-3, Cross Support Concept Part 1: SLE Services](../library/ccsds-910x3g3-sle-cross-support.md), §4.3.1 "List of forward telecommand SLE services and their interfaces" (FSP, FTCVCA, FTCF and FCLTU; the VC and packet service provider uses the CLCW to decide on COP-1 retransmissions), PDF p. 28.
+[^fsp-hist]: [CCSDS 912.3-B-3, SLE Forward Space Packet Service](../library/ccsds-912-3-912x3b3s.md), cover note ("CCSDS Historical Document", no longer current), PDF p. 1.
+[^mib-dst]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pcf` (`NDSD0012` "DST-A TC Bit Rate") and `txp` (`CDST0003TM`: 7.8125, 15.625, 250, 1000, 2000 and 4000 bps); queries by this wiki.
+[^icd-prf-descr]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §3.3.3.7.1 Parameter range sets: prf, field 2 `PRF_DESCR` Char(24), PDF p. 211.
 [^icd-appa]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Appendix A SCOS-2000 Parameter Types (PTC 2 and PTC 3 rows), PDF pp. 214–215.
 [^icd-appc-s1]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Appendix C §3.1 Service 1 (4-byte echo, failure code ignored), PDF p. 237.
 [^icd-appc-s2]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), Appendix C §3.2 Service 2 (aggregation of commands at TC segment level), PDF p. 238.
@@ -680,8 +703,8 @@ from the MIB.[^ddid-tc]
 [^mib-paf]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `paf` and `pas` (`CITT1120TC`), compared with `txp` (`CITT1120TM`); queries by this wiki.
 [^mib-zcd]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `ccf`, `cdf`, `cpc`, `prf` and `prv` for `ZCD00305`, `PCD03011` and `VCD00353`; queries by this wiki.
 [^mib-tcp]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `tcp`, `pcpc` and `pcdf`; queries by this wiki.
-[^mib-cvs]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `cvp`, `cvs` and `cve` (generic columns mapped in ICD field order), joined with `ccf`; queries by this wiki.
+[^mib-cvs]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `cvp`, `cvs` and `cve` (ICD column names), joined with `ccf`; queries by this wiki.
 [^mib-tm]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pid`, `pic`, `tpcf` and `plf` for APIDs 1073 and 1092 (service 1 reports and TM(3,25) SID 108); queries by this wiki.
 [^mib-bc]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `ccf` (`CCF_CTYPE` not empty) and `cdf` for `UNLOCK` and `SETVR`; queries by this wiki.
 [^mib-stats]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), table `ccf` (counts by `CCF_PKTID`, `CCF_ACK`, `CCF_CRITICAL`) and table `dst`; queries by this wiki.
-[^mib2020]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), tables `ccf`, `cdf`, `cpc`, `cvp`, `cvs`, `paf` and `pas` for `ZIT00305`, and `tcp`, `pcpc` and `pcdf` (template `NOM_TC`), compared with the 2025 release; queries by this wiki.
+[^mib2020]: [Solar Orbiter MIB release MIB__20200416M10720PFMS001_SOL](../library/mib-20200416m10720pfms001-sol.md), tables `ccf`, `cdf`, `cpc`, `cvp`, `cvs`, `paf` and `pas` for `ZIT00305`, `tcp`, `pcpc` and `pcdf` (template `NOM_TC`), and `prf` and `prv` for `VCD00353`, compared with the 2025 release; queries by this wiki.

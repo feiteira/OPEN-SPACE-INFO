@@ -2,7 +2,7 @@
 title: "ST[02] Device access"
 description: The PUS device access service - on/off device commands, register load and dump, CPDU command pulses, physical and logical device commanding and data acquisition, every message type and its data field, capability rules, PUS-A differences, and Solar Orbiter's CPDU, MIL-STD-1553 and SpaceWire commands in the MIB.
 tags: [ECSS, PUS, Service 2, Telecommand, CPDU, MIL-STD-1553, MIB, Solar Orbiter]
-sources: [ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-rev1-dir1, ccsds-232-0-232x0b4e1c1, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+sources: [ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ecss-e-st-70-41c-rev1-dir1, esa-pss-04-151-issue1-september1992, ccsds-232-0-232x0b4e1c1, icd-7-0-final, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
 ---
 
 # ST[02] Device access
@@ -381,7 +381,9 @@ device driver (the address structure is mission-dependent and may contain subfie
 them in packet order. Annex A.3 of PUS-A gives an example with a 24-bit OBDH command.[^a-721]
 
 The PUS-A CPDU is described in more detail than in PUS-C, in Annex D, which is transcribed from ESA
-PSS-04-151 (the telecommand decoder specification, issue 1, September 1993):[^a-722][^a-d1]
+PSS-04-151 (the telecommand decoder specification, issue 1, which PUS-A dates September 1993; the
+cover of the document itself says September 1992 and its inner pages September 1993, see
+[the history page](../../overview/history.md#pss-04-151-the-telecommand-decoder-specification-1992-1993)):[^a-722][^a-d1][^pss151]
 
 - a CPDU is solely accessible from the ground, has up to 256 output lines and a dedicated APID, and
   receives one complete packet per telecommand segment, in practice on MAP 0 (MAP 1 is a likely second
@@ -674,6 +676,7 @@ inserted into a time-tagged TC(11,4) or aggregated with other commands in the sa
 [^a-74]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), §7.4, Tables 5 and 6, PDF pp. 59-60.
 [^a-b]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), Annex B, `<CPDU_DURATION_UNIT>` and `<CPDU_MAX_INSTR>`, PDF p. 215.
 [^a-d1]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), Annex D.1, PDF p. 221.
+[^pss151]: [ESA PSS-04-151, Telecommand Decoder Specification, Issue 1](../../library/esa-pss-04-151-issue1-september1992.md), cover (September 1992) and page headers (Issue 1, September 1993), PDF pp. 1-3 (scanned; OCR text).
 [^a-d21]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), Annex D.2.1, PDF p. 222.
 [^a-d22]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), Annex D.2.2, PDF pp. 222-223.
 [^a-d23]: [ECSS-E-70-41A](../../library/ecss-e-70-41a-30jan2003-pus.md), Annex D.2.3, PDF p. 223.

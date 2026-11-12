@@ -312,7 +312,8 @@ maximum length.[^icd-sum] 18 units have a TC(17,1) in the MIB and 17 have a TM(1
 Suspend, resume, communicate parameters, report the OBCP list and private load-and-start,
 stop-and-delete and OBCP HK subtypes; TM(18,144) carries OBCP telemetry.[^icd-sum] The 38
 TC(18,140) "Load and start OBCP" variants account for most of the 46 commands, which grew from 32
-in 2020.[^mib25][^mib20]
+in 2020.[^mib25][^mib20] How the ICD's OBCP description lines up with the OBCP standard is on
+[ECSS-E-ST-70-01C](../../ecss/e-st-70-01c.md#solar-orbiter-an-obcp-system-in-flight).
 
 ### Service 19: event-action
 
@@ -486,6 +487,9 @@ services numbered in the standard range (16, 20, 21, 22) and 70 are private; ser
 * [PUS overview](../../ecss/pus/index.md), [PUS packet structures](../../ecss/pus/packets.md),
   [PUS-A vs PUS-C](../../ecss/pus/pus-a-vs-pus-c.md), [message types](../../ecss/pus/message-types.md)
 * [Commanding in the MIB](../../mib/commanding.md), [Monitoring in the MIB](../../mib/monitoring.md)
+* [Solar Orbiter STIX instrument database](stix.md), [Solar Orbiter instrument interfaces](instrument-interfaces.md)
+* [ECSS-E-ST-70-01C on-board control procedures](../../ecss/e-st-70-01c.md),
+  [space link identifiers](../../ccsds/space-link-identifiers.md#identifiers-in-the-solar-orbiter-database)
 
 [^icd-sum]: [SOL.S.ASTR.TN.00079 issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../../library/sol-s-astr-tn-00079-07.md), §5.1 Summary, Table 5.1-1 (service and subservice list, mnemonics R/M/O/X), PDF pp. 31-39.
 [^icd-sum40]: [SOL.S.ASTR.TN.00079 issue 7](../../library/sol-s-astr-tn-00079-07.md), §5.1, note after Table 5.1-1 ("Services 4, 7 and 10 are not used at all"), PDF p. 40.
@@ -513,7 +517,7 @@ services numbered in the standard range (16, 20, 21, 22) and 70 are private; ser
 [^a-table2]: [ECSS-E-70-41A (PUS-A)](../../library/ecss-e-70-41a-30jan2003-pus.md), §5.5 Standard services, Table 2, PDF p. 50.
 [^c-ver]: [ECSS-E-ST-70-41C (PUS-C)](../../library/ecss-e-st-70-41c-15april2016.md), §7.4.3.1c and §7.4.4.1c (PUS version number 2), PDF pp. 439 and 442.
 [^c-hdr]: [ECSS-E-ST-70-41C (PUS-C)](../../library/ecss-e-st-70-41c-15april2016.md), §7.4.3.1 Figure 7-7 (TM secondary header, 16-bit destination ID) and §7.4.4.1 Figure 7-9 (TC secondary header, 16-bit source ID), PDF pp. 439 and 442.
-[^c-table41]: [ECSS-E-ST-70-41C (PUS-C)](../../library/ecss-e-st-70-41c-15april2016.md), §4.2.3.2, Table 4-1 The standardized service types, PDF pp. 23-24.
+[^c-table41]: [ECSS-E-ST-70-41C (PUS-C)](../../library/ecss-e-st-70-41c-15april2016.md), §4.2.3.2, Table 4-1 The standardized service types, PDF p. 23.
 [^c-fmon]: [ECSS-E-ST-70-41C (PUS-C)](../../library/ecss-e-st-70-41c-15april2016.md), §6.12.1.3 Functional monitoring subservice, PDF p. 198.
 [^i70-pid]: [SCOS-2000 Database Import ICD, issue 7.0](../../library/icd-7-0-final.md), §3.3.2.4-3.3.2.4.1 (packetiser key APID/type/subtype/PI1/PI2, one SPID per key), PDF pp. 82-83.
 [^i70-pic]: [SCOS-2000 Database Import ICD, issue 7.0](../../library/icd-7-0-final.md), §3.3.2.4.2 Packets identification criteria: pic, PDF pp. 91-93.

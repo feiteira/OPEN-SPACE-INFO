@@ -121,7 +121,7 @@ It shows how the SCOS-2000 MIB has become a de facto exchange format beyond ESOC
 |  | [catalogue](../references/index.md#ref-ksat-lite) | KSAT LITE |  | mentioned |
 |  | [CCSDS 355-0-B1](../references/index.md#ref-ccsds-355-0-b1) | CCSDS 355-0-B1 (Space Data Link Security) extended procedures |  | mentioned |
 |  | [CCSDS 355-1-B1](../references/index.md#ref-ccsds-355-1-b1) | CCSDS 355-1-B1 (SDLS extended procedures) |  | mentioned |
-|  | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) | ESA PSS-04-151 hard knapsack authentication |  | mentioned |
+|  | [ESA PSS-04-151](../references/index.md#ref-esa-pss-04-151) · [library](esa-pss-04-151-issue1-september1992.md) | ESA PSS-04-151 hard knapsack authentication |  | mentioned |
 |  | [NIST FIPS-140](../references/index.md#ref-nist-fips-140) | NIST FIPS-140 compliance |  | mentioned |
 
 !!! note "Notes"

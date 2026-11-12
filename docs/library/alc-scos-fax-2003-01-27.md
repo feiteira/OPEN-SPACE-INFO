@@ -34,9 +34,10 @@ The document shows concretely how a prime contractor constrained the generic MIB
 - REF1 is the SCOS-2000 Data base import ICD S2K-MCS-ICD-0001-TOS-GCI issue 5.1; REF2 is the naming convention specification H-P-1-ASPI-SP-0141 issue 01/02. *(PDF p. 1)*
 
 
-## Cited by these wiki pages (4)
+## Cited by these wiki pages (5)
 
 - [Herschel/Planck: SCOS-2000 in a science mission ground segment](../scos2000/herschel-planck-ground.md)
+- [Methodology](../about/methodology.md)
 - [Mission tailoring of the MIB](../mib/tailoring.md)
 - [SCOS-2000 as EGSE and central checkout](../scos2000/egse.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)

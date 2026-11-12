@@ -1,8 +1,8 @@
 ---
 title: AOS Space Data Link Protocol (CCSDS 732.0-B-4)
-description: The CCSDS Advanced Orbiting Systems data link protocol in full detail, covering the fixed-length AOS Transfer Frame field by field (header, signaling field, header error control, Insert Zone, M_PDU, B_PDU, OCF, FECF), its seven services, sending and receiving procedures, managed parameters, the SDLS option, and how it compares with TM frames.
+description: The CCSDS Advanced Orbiting Systems data link protocol in full detail, covering the fixed-length AOS Transfer Frame field by field (header, signaling field, header error control, Insert Zone, M_PDU, B_PDU, OCF, FECF), its seven services, sending and receiving procedures, managed parameters, the SDLS option, how it compares with TM frames, the ECSS adoption notice, and what Issue 5 (2025) changes: a 10-bit spacecraft ID and a 16-bit First Header Pointer.
 tags: [CCSDS, Data link layer, AOS, Transfer frames, Telemetry]
-sources: [ccsds-732-0-732x0b4, ccsds-130-2-130x2g3, ccsds-130-0-130x0g4e1, ecss-e-hb-50a-15november2008, ccsds-131-0-131x0b5, ccsds-132-0-132x0b3, ccsds-133-0-133x0b2e2, ccsds-133-1-133x1b3e1, ccsds-355-0-355x0b2, ccsds-911-1-911x1b5e1, ecss-e-st-50c-rev-1-1march2021, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol]
+sources: [ccsds-732-0-732x0b4, ccsds-732-0-732x0b5ec1, ecss-e-as-50-23c-rev-1-13january2023, ecss-e-as-50-21c-rev-2-5december2024, ccsds-131-0-131x0b6ec1, ccsds-130-3-130x3g1, ccsds-130-2-130x2g3, ccsds-130-0-130x0g4e1, ecss-e-hb-50a-15november2008, ccsds-131-0-131x0b5, ccsds-132-0-132x0b3, ccsds-133-0-133x0b2e2, ccsds-133-1-133x1b3e1, ccsds-355-0-355x0b2, ccsds-911-1-911x1b5e1, ecss-e-st-50c-rev-1-1march2021, sol-s-astr-tn-00079-07, mib-20250916m25925pfms001-sol]
 ---
 
 # AOS Space Data Link Protocol (CCSDS 732.0-B-4)
@@ -22,12 +22,14 @@ The AOS frame is a close relative of the TM frame. Both are fixed-length, both r
 [TM Synchronization and Channel Coding](tm-coding.md), both carry [Space Packets](space-packet.md)
 using a First Header Pointer, and both can carry the [CLCW](cop-1.md) of the uplink in an
 Operational Control Field. The differences are a wider Virtual Channel ID (6 bits instead of 3)
-but a narrower Spacecraft ID (8 bits instead of 10), longer counters, an optional
+but, up to Issue 4, a narrower Spacecraft ID (8 bits instead of 10; Issue 5 widens it to 10[^aos5-mcid]), longer counters, an optional
 Reed-Solomon-protected header, an **Insert Zone** for small periodic data and a **Bitstream
 Service**.[^hb-diff][^hb-ins] This page follows the October 2021 issue, CCSDS 732.0-B-4, held in the
 [library](../library/ccsds-732-0-732x0b4.md). Issue 4 adds support for the SDLS Extended
 Procedures, a conformance proforma (annex A) and options for randomizing idle frames
-(annex D).[^aos-doc]
+(annex D).[^aos-doc] Issue 5 (October 2025) widens the Spacecraft Identifier to 10 bits and the First
+Header Pointer to 16 bits, so that frames can be up to 65,536 octets long; it is described in
+[Newer issue](#newer-issue-ccsds-7320-b-5-2025) at the end of this page.[^aos5-ctl]
 
 !!! info "At a glance"
     | Property | Value |
@@ -35,7 +37,8 @@ Procedures, a conformance proforma (annex A) and options for randomizing idle fr
     | Transfer Frame Version Number | `0b01` (Version 2 Transfer Frame)[^aos-tfvn] |
     | Frame length | Fixed per Physical Channel and Mission Phase[^aos-frame] |
     | Primary Header | 6 octets, or 8 with the optional Frame Header Error Control[^aos-frame] |
-    | Spacecraft Identifier | 8 bits (0 to 255)[^aos-tfvn][^g4-ids] |
+    | Issue followed here | CCSDS 732.0-B-4, October 2021; newer issue 732.0-B-5, October 2025 (with Editorial Change 1)[^aos-doc][^aos5-ctl] |
+    | Spacecraft Identifier | 8 bits (0 to 255) in Issue 4[^aos-tfvn][^g4-ids]; 10 bits (0 to 1023) from Issue 5, split over bits 2–9 and 42–43[^aos5-mcid] |
     | Virtual Channel Identifier | 6 bits; 63 reserved for Only Idle Data frames[^aos-vcid] |
     | Virtual Channel Frame Count | 24 bits, optionally extended to 28 bits[^aos-vcfc][^aos-cycle] |
     | Data units in the data field | M_PDU (packets), B_PDU (bitstream), VCA_SDU or idle data[^aos-tfdf] |
@@ -44,7 +47,7 @@ Procedures, a conformance proforma (annex A) and options for randomizing idle fr
     | Lower layer | TM Synchronization and Channel Coding (CCSDS 131.0, 131.2, 131.3)[^aos-arch] |
     | Retransmission | None (no ARQ); use a higher layer if completeness matters[^g3-retx] |
     | Security | Optional [SDLS](sdls.md) per Virtual Channel[^aos-sdls-opt] |
-    | ECSS adoption | ECSS-E-AS-50-23, based on CCSDS 732.0-B-3[^e50-an] |
+    | ECSS adoption | ECSS-E-AS-50-23: first issue (2021) based on CCSDS 732.0-B-3; Rev.1 (13 January 2023) adopts 732.0-B-4 and forbids replay frames[^e50-an][^as23-ctx][^as23-req] |
 
 ## History and context
 
@@ -57,13 +60,13 @@ restructured the Packet Telemetry, Telecommand and AOS standards into a cleaner 
 [Space Packet Protocol](space-packet.md), the TM, TC and AOS Space Data Link Protocols, and the
 TM and TC synchronization and coding standards.[^g4-hist] For AOS the replacement, CCSDS
 732.0-B, came in 2003. It covers only data transfer over a single space link.[^hb-bg-2] It has
-had four issues: September 2003, July 2006, September 2015 and October 2021.[^aos-doc]
+had five issues: September 2003, July 2006, September 2015, October 2021 and October 2025.[^aos-doc][^aos5-ctl]
 
 The ECSS communications handbook describes what happened next. The demand for a high-rate
 uplink largely vanished once projects were realistic about it, and the symmetric reliability
 features failed for lack of firm requirements. What was left is a protocol that suits high-rate
 downlinks.[^hb-later] CCSDS now expects the [Unified Space Data Link Protocol](uslp.md) to be
-used by future missions in place of TM, TC, AOS and Proximity-1.[^g4-uslp]
+used by future missions in place of TM, TC, AOS and [Proximity-1](proximity-1.md).[^g4-uslp]
 
 ## Where AOS sits in the protocol stack
 
@@ -143,11 +146,16 @@ CCSDS overview compares the identifier ranges of all the data link protocols:[^g
 | VCID | 0 to 7 | 0 to 63 | 0 to 63 | not used | 0 to 63 |
 | MAP ID | not used | 0 to 63 | not used | not used | 0 to 15 |
 
+The overview predates AOS Issue 5, which widens the AOS SCID to 10 bits (0 to 1023) while keeping the
+TFVN `01` in the MCID; the MCID thus grows from 10 to 12 bits.[^g4-ids][^aos5-mcid]
+
 !!! warning "Inference"
     Solar Orbiter's TM frames carry the global spacecraft ID 650 (`0x28A`).[^solo-frame] That
-    value does not fit in the 8-bit AOS SCID field. If the mission had used AOS frames, it would
-    have needed a separate AOS SCID. This illustrates the separate number spaces; it is not a
-    statement about any real assignment.
+    value does not fit in the 8-bit AOS SCID field of Issue 4. If the mission had used AOS frames
+    under Issue 4, it would have needed a separate AOS SCID. This illustrates the separate number
+    spaces; it is not a statement about any real assignment. The 10-bit SCID of Issue 5 could hold
+    the value 650, but the TFVN still distinguishes an AOS MCID from a TM or TC one, and the
+    available sources do not say whether SANA would assign the same number in both spaces.[^aos5-mcid][^g3-scid]
 
 ## The AOS Transfer Frame
 
@@ -207,7 +215,9 @@ Error Control, is optional.[^aos-hdr]
 
 Bits 40–47 form the **Signaling Field**. It warns the receiver about things that change faster
 than management can handle, and it gives a cross-check against manual or automated setups for
-fault detection.[^aos-sig]
+fault detection.[^aos-sig] Issue 5 shrinks the Signaling Field to bits 40–41, puts the two most
+significant SCID bits in the former spare bits 42–43 and lists the cycle count as a field of its own;
+see the [Issue 5 header](#the-issue-5-primary-header).[^aos5-hdr][^aos5-sig]
 
 The Replay Flag is deliberately loosely specified. On-board storage technologies vary widely, so
 projects and cross-support organizations must agree on what it means exactly. For example, it may
@@ -215,7 +225,10 @@ mean that the frame count on the replayed VC runs downwards because the data is 
 reverse. If frames were stored after channel coding, they must be re-encoded when the flag
 changes on retrieval.[^aos-replay] The ECSS handbook contrasts this with TM. With TM, recorded
 frames are nested inside the data field of realtime frames ("asynchronous insertion"), whereas
-AOS simply flags the replayed frame.[^hb-replay]
+AOS simply flags the replayed frame.[^hb-replay] The ECSS adoption notice ECSS-E-AS-50-23C Rev.1
+removes the choice: under ECSS the Replay Flag **shall** be `0`, the interpretation requirement and
+its two notes are deleted, and a new note explains that other means of replaying frames exist and that
+replay frames would add processing complexity at the receiving end.[^as23-req]
 
 !!! example "Why 24 bits matter (illustrative calculation by this wiki)"
     Take 1115-octet frames (8920 bits) on a 1 Mbit/s return link, about 112 frames per second.
@@ -248,7 +261,11 @@ decoders give a data field loss rate of $2\times10^{-5}$ at an equivalent operat
 point.[^aos-fhec-map]
 The receiving All Frames Reception Function uses the field to try to correct the key header
 elements. A frame with an uncorrectable header error need not be delivered in cross-support
-situations.[^aos-afr]
+situations.[^aos-afr] ECSS adds a note when adopting Issue 4: the Frame Header Error Control may be
+restricted to physical channels whose frames are not protected by an error-correcting code in the
+coding sublayer; when the frames are, for example, Reed-Solomon coded, the field brings no benefit and
+is strongly discouraged.[^as23-req] Issue 5 restates the code as a Reed-Solomon (15,11) code shortened by
+five symbols (see [below](#frame-header-error-control-in-issue-5)).[^aos5-fhec]
 
 ### Transfer Frame Insert Zone
 
@@ -311,7 +328,9 @@ The FHP exists so that variable-length packets can be found inside fixed-length 
 receiver reads the first packet header at the FHP, takes its length field to locate the next
 packet, and so on. If the last packet of frame N carries on into frame M of the same VC, the FHP
 of frame M skips the leftover part and points to the next packet that starts there.[^aos-mpdu-fhp]
-This is what lets the receiver resynchronize after a lost frame.
+This is what lets the receiver resynchronize after a lost frame. Issue 5 drops the five spare bits
+and makes the pointer 16 bits wide, with `0xFFFF` and `0xFFFE` as the special values (see
+[the Issue 5 M_PDU](#the-issue-5-m_pdu-header)).[^aos5-mpdu]
 
 Packets go into the Packet Zone one after another, in forward order. So the first and last
 packets in an M_PDU may be incomplete.[^aos-mpdu-idle] If not enough packets are ready at
@@ -339,10 +358,13 @@ VC.[^aos-mpdu-idle]
     one. It does not have to deliver the incomplete packet. If the location it worked out from
     packet lengths disagrees with the FHP, the standard tells it to trust the FHP.[^aos-pef]
 
-!!! warning "Inference"
+!!! note "Pointer width and frame length"
     An 11-bit FHP can address octet offsets up to 2045. That matches the 2048-octet maximum
-    frame length that TM Synchronization and Channel Coding allows for AOS.[^tmc-len] This wiki
-    infers that the two limits were chosen to match. The AOS standard does not say so.
+    frame length that TM Synchronization and Channel Coding Issue 5 allows for AOS.[^tmc-len] The
+    AOS standard of 2021 does not link the two, but later documents do: Issue 5 of the AOS
+    standard widens the pointer to 16 bits "to accommodate frames up to 65,536 octets", and Issue 6
+    of the coding standard states that the maximum frame length is constrained by the number of FHP
+    bits (11 for TM, 16 for AOS and USLP).[^aos5-ctl][^tmc6-len]
 
 ### Bitstream Protocol Data Unit (B_PDU)
 
@@ -366,7 +388,9 @@ full, the provider pads it with a locally specified idle pattern and marks the b
 pointer.[^aos-bpf] At the receiving end the Bitstream Extraction Function removes the idle data.
 It may also raise a **Bitstream Data Loss Flag**, derived from gaps in the VC Frame Count. That
 flag tells the user that an unknown amount of data may have been lost. It stays set through
-discarded idle-only B_PDUs until valid data is delivered again.[^aos-bef][^aos-bsloss]
+discarded idle-only B_PDUs until valid data is delivered again.[^aos-bef][^aos-bsloss] The B_PDU
+header is unchanged in Issue 5, which adds a note that the 14-bit pointer limits frames used with the
+Bitstream Service to 16384 bits.[^aos5-bpdu]
 
 ### Operational Control Field
 
@@ -378,7 +402,7 @@ for the whole Mission Phase.[^aos-ocf] Bit 0 is a **Type Flag**:[^aos-ocf-type]
   of [COP-1](cop-1.md), which closes the retransmission loop of the TC uplink.
 * `1`: **Type-2 Report**. Bit 1 then tells the two uses apart: `0` means the content is
   project-specific, and `1` means it is an SDLS **Frame Security Report** (FSR) as defined in the
-  SDLS Extended Procedures.
+  SDLS Extended Procedures (see [The Frame Security Report](security.md#the-frame-security-report)).
 
 <div class="bitfield" data-title="Operational Control Field (32 bits)" data-width="32"
      data-fields='[{"n":"Type Flag","b":1,"d":"0 = Type-1 Report (CLCW); 1 = Type-2 Report"},
@@ -445,7 +469,9 @@ $C^*$ is zero when no error is detected.[^aos-fecf-eq][^aos-fecf-dec]
     codeword was checked to vanish at α^6 to α^9, and the generator expands to the coefficients
     printed in the standard. A second, independent recomputation during review, using the same
     convention, gave the same check symbols; taking symbol 0 as the lowest power of x instead gives
-    different ones. Check this against a validated implementation before relying on it.
+    different ones. Check this against a validated implementation before relying on it. The Issue 5
+    formulation, five leading zero symbols of virtual fill followed by the six header symbols, gives
+    the same check symbols when computed the same way.[^aos5-fhec]
 
 ## Services
 
@@ -544,7 +570,9 @@ ground the Insert Zone is read from all incoming frames, whatever their GVCID. I
 not need error protection, they may even be read before the FECF check.[^aos-afr] The ECSS
 handbook notes the trade-off with TM's secondary-header services. Those are more flexible
 because they are not tied to the Physical Channel, but they allow a shorter maximum
-length.[^hb-ins]
+length.[^hb-ins] The CCSDS Green Book on the packet protocols names the Insert Zone of AOS (and of
+USLP) as one way to carry isochronous data such as voice or launch-vehicle telemetry, since neither the
+Space Packet nor the Encapsulation Packet guarantees a minimum delay.[^g5-rt]
 
 ### Restrictions on combining services
 
@@ -715,17 +743,17 @@ flowchart LR
 |---|---|---|
 | TFVN | `0b01` (Version 2)[^aos-tfvn] | `0b00` (Version 1)[^tm-tfvn] |
 | Primary Header | 6 octets (8 with FHEC)[^aos-frame] | 6 octets[^tm-hdr] |
-| Spacecraft ID | 8 bits[^aos-tfvn] | 10 bits[^tm-tfvn] |
+| Spacecraft ID | 8 bits (Issue 4)[^aos-tfvn]; 10 bits in two parts (Issue 5)[^aos5-mcid] | 10 bits[^tm-tfvn] |
 | Virtual Channel ID | 6 bits (64 VCs, 63 reserved for OID)[^aos-vcid] | 3 bits (8 VCs)[^tm-tfvn] |
 | Master Channel Frame Count | none | 8 bits[^tm-vcfc] |
 | Virtual Channel Frame Count | 24 bits, +4-bit cycle[^aos-vcfc][^aos-cycle] | 8 bits (extension possible in the secondary header)[^tm-vcfc][^hb-diff] |
-| First Header Pointer | In the 2-octet M_PDU header in the data field[^aos-mpdu] | In the Data Field Status field of the Primary Header[^tm-fhp] |
+| First Header Pointer | In the 2-octet M_PDU header in the data field: 11 bits (Issue 4), 16 bits (Issue 5)[^aos-mpdu][^aos5-mpdu] | 11 bits, in the Data Field Status field of the Primary Header[^tm-fhp] |
 | Header error control | Optional RS(10,6) FHEC[^aos-fhec] | none[^hb-diff] |
 | Auxiliary data | Insert Zone (per Physical Channel, periodic)[^aos-iz] | Frame Secondary Header (up to 64 octets, per VC or MC)[^tm-fsh] |
-| Replay indication | Replay Flag in the header[^aos-replay] | No replay flag in the header; legacy systems nest recorded frames in realtime frames[^tm-hdr][^hb-replay] |
+| Replay indication | Replay Flag in the header (fixed at `0` under ECSS)[^aos-replay][^as23-req] | No replay flag in the header; legacy systems nest recorded frames in realtime frames[^tm-hdr][^hb-replay] |
 | Bitstream service | Yes[^aos-bs] | No[^g3-svc] |
 | OCF services | VC_OCF only[^g3-short] | VC_OCF and MC_OCF[^g3-short] |
-| Maximum length (uncoded or convolutional) | 2048 octets[^tmc-len] | 2048 octets[^tmc-len] |
+| Maximum length (uncoded or convolutional) | 2048 octets under coding Issue 5[^tmc-len]; 65536 octets for AOS Issue 5 under coding Issue 6[^tmc6-len] | 2048 octets[^tmc-len][^tmc6-len] |
 
 TM and AOS frames must not be mixed on the same Physical Channel.[^g3-link][^hb-practice]
 
@@ -746,10 +774,45 @@ The sources give the following reasons and patterns:
 * **Isochronous side data.** The Insert Service gives a slot for small periodic data units in
   every frame, without the cost of a Virtual Channel.[^aos-ins]
 
-ECSS has adopted CCSDS 732.0-B-3 as ECSS-E-AS-50-23. Note that the earlier ECSS-E-ST-50-03
-covered only the TM frame.[^e50-an] ECSS-E-ST-50C names the SDLS option of AS-50-22 (TM) and
-AS-50-23 (AOS) as one way to provide telemetry authentication and encryption.[^e50-tmsec] See the
-[ECSS communications page](../ecss/e-st-50-communications.md) for the adoption notices.
+ECSS applies the protocol through the adoption notice ECSS-E-AS-50-23, described
+[below](#ecss-adoption-notice-ecss-e-as-50-23); the earlier ECSS-E-ST-50-03 covered only the TM
+frame.[^e50-an][^as23-ctx] ECSS-E-ST-50C names the SDLS option of AS-50-22 (TM) and AS-50-23 (AOS) as
+one way to provide telemetry authentication and encryption.[^e50-tmsec] See the
+[ECSS communications page](../ecss/e-st-50-communications.md) for all the adoption notices.
+
+## ECSS adoption notice ECSS-E-AS-50-23
+
+ECSS-E-ST-50-03C (2008) was limited to the TM Transfer Frame and did not include the AOS frame. It is
+superseded by two adoption notices, ECSS-E-AS-50-22 for the [TM protocol](tm-sdlp.md) and
+ECSS-E-AS-50-23 for AOS. The notice states that the AOS protocol has a purpose similar to that of the TM
+protocol and supports some features the TM protocol lacks.[^as23-ctx]
+
+| Issue | Date | CCSDS issue applied | Change |
+|---|---|---|---|
+| ECSS-E-AS-50-23C | 1 March 2021 | 732.0-B-3 (dated August 2016 by ECSS; the CCSDS Document Control dates Issue 3 September 2015[^aos5-ctl]) | First issue; with ECSS-E-AS-50-22C it replaces ECSS-E-ST-50-03C[^as23-log][^e50-an] |
+| Rev.1 | 13 January 2023 | 732.0-B-4 (October 2021) | Update to the new CCSDS issue, which adds support for the SDLS Extended Procedures (CCSDS 355.1-B-1), the PICS proforma of annex A and the OID randomization options of annex D[^as23-log][^as23-ctx] |
+
+Rev.1 makes CCSDS 732.0-B-4 applicable with the amendments of its Table 4-1:[^as23-req]
+
+| Clause (as printed) | Kind | Effect for ECSS users |
+|---|---|---|
+| 4.1.2.5.2 | Modified | "The Replay Flag shall be set to '0'" replaces the sentence on storing frames for later replay |
+| 4.1.2.5.2 | New note | `0` means a realtime frame; CCSDS also allows `1` for replay frames, ECSS does not, because frames can be replayed by other means and replay frames add processing complexity at the receiving end |
+| 4.1.2.5.3 | Deleted requirement and notes | The interpretation `0` realtime, `1` replay, and the notes on negotiated meaning (reverse playback) and on re-encoding stored frames, are deleted |
+| 4.1.2.6.1 | Note renumbered, new note 2 | The Frame Header Error Control may be restricted to physical channels without an error-correcting code; with Reed-Solomon coding it brings no benefit and is strongly discouraged |
+
+The deleted interpretation and notes are numbered 4.1.2.5.2.3 and its notes in CCSDS 732.0-B-4 itself,
+where 4.1.2.5.3 is the VC Frame Count Cycle Use Flag; the notice's own "original text" column quotes the
+Replay Flag text.[^as23-req][^aos-replay][^aos-cycle] The bibliography of the December 2024 notice for TM
+coding still lists ECSS-E-AS-50-23C Rev.1 (732.0-B-4) as the current AOS notice; whether ECSS has adopted
+732.0-B-5 is not stated in the available sources.[^as21-bib]
+
+!!! warning "Inference"
+    With the Replay Flag fixed at `0`, an ECSS AOS link uses only realtime frames, so recorded data
+    must come back by other means, for example as packets played back from on-board storage on
+    dedicated Virtual Channels, which is how the [TM frames of Solar Orbiter](tm-sdlp.md#virtual-channel-multiplexing-and-quality-of-service)
+    handle playback. The notice says only that "alternative means" exist; it does not name them. The FHEC note matches the arithmetic of the coding layer: a Reed-Solomon decoder that has
+    corrected the whole frame leaves nothing for the header code to correct.[^as23-req][^aos-fhec]
 
 !!! note "Solar Orbiter uses TM frames, not AOS"
     The Solar Orbiter TM/TC ICD requires all telemetry transfer frames to follow
@@ -774,6 +837,145 @@ annex A. Implementers complete its requirements list, marked M (mandatory), O (o
 (conditional), to state which features they support. SDLS items, for example, become mandatory
 only if the SDLS option is claimed.[^aos-pics][^aos-pics-sdls]
 
+## Newer issue: CCSDS 732.0-B-5 (2025)
+
+!!! info "Newer issue"
+    The sections above follow Issue 4 (October 2021). Issue 5 was published in October 2025, together
+    with Editorial Change 1, which corrects the note in §4.1.2.1 and the issue year, adds a status
+    description, and restates §4.1.2.6 as a Reed-Solomon (15,11) code. This section describes what
+    Issue 5 changes.[^aos5-ctl]
+
+The Document Control table gives the purpose in one sentence: the SCID field is extended to 10 bits and
+the First Header Pointer of the M_PDU to 16 bits, to accommodate frames up to 65,536 octets.[^aos5-ctl]
+The changes, marked "Issue 5" in the margin of the standard, are confined to the frame format and one
+conformance item:[^aos5-frame][^aos5-pics]
+
+| Item | Issue 4 (2021) | Issue 5 (2025) |
+|---|---|---|
+| Spacecraft Identifier | 8 bits, bits 2–9; bits 42–43 reserved spare `00`[^aos-tfvn][^aos-cycle] | 10 bits: 8 least significant bits in bits 2–9, 2 most significant bits in bits 42–43[^aos5-mcid] |
+| Master Channel Identifier | 10 bits (TFVN + SCID)[^aos-tfvn] | 12 bits, from two non-contiguous parts[^aos5-mcid] |
+| Signaling Field | 8 bits (40–47): Replay Flag, Cycle Use Flag, spare, VC Frame Count Cycle[^aos-sig] | 2 bits (40–41): Replay Flag and Cycle Use Flag; the cycle count becomes a header field of its own[^aos5-hdr][^aos5-sig] |
+| Frame Header Error Control | Shortened RS (10,6) over the MCID, VCID and Signaling Field[^aos-fhec-code] | RS (15,11) shortened by five symbols, a binary (40,24) code over the MCID, VCID, Signaling Field and cycle count, the same 24 bits[^aos5-fhec] |
+| M_PDU header | 5-bit spare and 11-bit FHP; `0x7FF` no packet start, `0x7FE` idle[^aos-mpdu-fhp][^aos-mpdu-idle] | 16-bit FHP; all ones (`0xFFFF`) no packet start, all ones minus one (`0xFFFE`) idle[^aos5-mpdu] |
+| B_PDU header | 2-bit spare, 14-bit pointer[^aos-bpdu] | Unchanged; a note limits Bitstream frames to 16384 bits[^aos5-bpdu] |
+| Managed parameters | Tables 5-1 to 5-4[^aos-mp-pc] | Unchanged[^aos5-mp] |
+| PICS | Table A-4[^aos-pics] | Adds item AOS-47.1 "SCID Length" (mandatory)[^aos5-pics] |
+
+### The Issue 5 primary header
+
+<div class="bitfield" data-title="AOS Transfer Frame Primary Header, Issue 5 (48 bits, plus 16-bit optional FHEC)" data-width="16"
+     data-fields='[{"n":"TFVN","b":2,"v":"01","g":"Master Channel ID","d":"Transfer Frame Version Number; 01 = AOS Version 2 frame"},
+                   {"n":"Spacecraft ID (LSB)","b":8,"g":"Master Channel ID","d":"8 least significant bits of the 10-bit SCID"},
+                   {"n":"Virtual Channel ID","b":6,"d":"0 to 62; 63 for Only Idle Data frames"},
+                   {"n":"Virtual Channel Frame Count","b":24,"d":"Modulo 16777216 count per Virtual Channel (unchanged)"},
+                   {"n":"Replay Flag","b":1,"g":"Signaling Field","d":"0 = realtime, 1 = replay"},
+                   {"n":"VC Frame Count Cycle Use Flag","b":1,"g":"Signaling Field","d":"1 = the cycle field is used"},
+                   {"n":"Spacecraft ID (MSB)","b":2,"g":"Master Channel ID (high SCID bits)","d":"2 most significant SCID bits; 00 in Issue 4 or earlier"},
+                   {"n":"VC Frame Count Cycle","b":4,"d":"Incremented each time the VC Frame Count wraps; all zeros if unused"},
+                   {"n":"Frame Header Error Control (optional)","b":16,"d":"RS(15,11) over GF(16), shortened by 5 symbols"}]'
+     data-caption="CCSDS 732.0-B-5 §4.1.2 and figure 4-2; the MCID is TFVN + SCID (MSB) + SCID (LSB)"></div>
+
+| Field | Bits | Values | Meaning |
+|---|---|---|---|
+| Transfer Frame Version Number | 0–1 | `0b01` | AOS Version 2 frame, as before.[^aos5-mcid] |
+| Spacecraft ID (LSB) | 2–9 | 0 to 255 | The 8 least significant bits of the SCID.[^aos5-mcid] |
+| Virtual Channel Identifier | 10–15 | 0 to 62; 63 | Unchanged; all ones marks OID frames.[^aos5-vc] |
+| Virtual Channel Frame Count | 16–39 | 0 to 16 777 215 | Unchanged.[^aos5-vc] |
+| Replay Flag | 40 | `0`, `1` | Realtime or replay frame, unchanged in meaning.[^aos5-sig] |
+| VC Frame Count Cycle Use Flag | 41 | `0`, `1` | Whether bits 44–47 are used.[^aos5-sig] |
+| Spacecraft ID (MSB) | 42–43 | `0b00` to `0b11` | The 2 most significant SCID bits; missions implementing Issue 4 or earlier set them to `00`.[^aos5-sig] |
+| VC Frame Count Cycle | 44–47 | 0 to 15 | Extends the frame count to 28 bits; all zeros if not used.[^aos5-sig] |
+| Frame Header Error Control | 48–63 | check symbols | Optional, presence fixed for the physical channel and mission phase.[^aos5-fhec] |
+
+The standard defines the MCID as the concatenation TFVN + SCID (MSB) + SCID (LSB), so the SCID itself is
+$256 \times \text{MSB} + \text{LSB}$; it notes that Issue 4 and earlier define the SCID as the 8 least
+significant bits only, giving a 10-bit MCID.[^aos5-hdr][^aos5-mcid] The addressing rules of §2.1.3
+(MCID = TFVN + SCID, GVCID = MCID + VCID) are unchanged.[^aos5-addr]
+
+!!! example "Worked example: SCID 650 in an Issue 5 header (illustrative, computed by this wiki)"
+    Take SCID 650 = `0x28A` = `0b10 1000 1010`, so SCID (MSB) = `0b10` and SCID (LSB) = `0x8A`, with
+    VCID 3, VC Frame Count 300, Replay Flag 0, Cycle Use Flag 1 and cycle count 2. The header is
+    `62 83 00 01 2C 62`: `01` + `10001010` + `000011` gives `0x6283`, the count gives `00 01 2C`, and
+    `0` `1` `10` `0010` gives `0x62`. The Issue 4 example header used [above](#frame-error-control-field),
+    `56 83 00 01 2C 42`, has `00` in bits 42–43 and so decodes under Issue 5 to the same SCID `0x5A`.
+
+!!! warning "Inference: compatibility of the two layouts"
+    An Issue 4 frame always reads correctly under Issue 5, because its spare bits 42–43 are `00`. The
+    reverse holds only for SCIDs below 256: equipment built to Issue 4 that ignores the spare bits
+    would read SCID 650 as `0x8A` = 138. The PICS item "SCID Length" lets an implementation state which
+    layout it supports. These consequences are this wiki's reading of the field definitions; the
+    standard states only that older missions set bits 42–43 to `00`.[^aos5-sig][^aos5-pics]
+
+### Frame Header Error Control in Issue 5
+
+Issue 5 (Editorial Change 1) describes the Frame Header Error Control as a Reed-Solomon (15,11) code over
+GF(2⁴), shortened by 5 symbols and converted to GF(2) to form a binary (40,24) code. Its parameters are
+those of Issue 4: $J = 4$, $E = 2$, $F(x) = x^4 + x + 1$ and
+$g(x) = (x+\alpha^6)(x+\alpha^7)(x+\alpha^8)(x+\alpha^9) = x^4 + \alpha^3x^3 + \alpha x^2 + \alpha^3 x + 1$,
+with $\alpha^6$ = `1100`, $\alpha^7$ = `1011`, $\alpha^8$ = `0101` and $\alpha^9$ = `1010` as before. Two items
+are new: five symbols of all-zero virtual fill, not transmitted and inserted only at the beginning of the
+codeword, complete it, and the code is declared systematic; the symbols are now numbered 1 to 15
+instead of 0 to 9.[^aos5-fhec][^aos-fhec-code][^aos-fhec-map]
+
+| Symbol | Header bits | Function |
+|---|---|---|
+| 1–5 | none | Virtual fill |
+| 6, 7, 8, 9 | 0–3, 4–7, 8–11, 12–15 | Systematic: TFVN, SCID (LSB), VCID |
+| 10, 11 | 40–43, 44–47 | Systematic: Signaling Field, SCID (MSB), VC Frame Count Cycle |
+| 12, 13, 14, 15 | 48–51, 52–55, 56–59, 60–63 | Parity |
+
+(After §4.1.2.6.5 h.)[^aos5-fhec] The 24 protected bits are the 12-bit MCID, the 6-bit VCID, the 2-bit
+Signaling Field and the 4-bit cycle count; the VC Frame Count is still unprotected, and the performance
+note (fewer than 10⁻⁷ lost data fields at a 10⁻⁵ random bit error rate, 2 × 10⁻⁵ on interleaved
+convolutional channels) is unchanged.[^aos5-fhec]
+
+!!! warning "Inference"
+    Prefixing a systematic Reed-Solomon codeword with zero symbols changes neither its check symbols nor
+    the header bits it covers, so the Issue 5 code produces exactly the same 16 bits as the Issue 4
+    (10,6) code. This wiki checked this for the example header above: both formulations give `0x4D5C`
+    for `56 83 00 01 2C 42`, and `0xE47F` for the Issue 5 header `62 83 00 01 2C 62`, with the
+    symbol-ordering convention discussed earlier on this page. Bits 42–43 were already inside symbol
+    10 (symbol 4 in Issue 4), so the new SCID bits are protected without any change to the encoder.[^aos5-fhec][^aos-fhec-map]
+
+### The Issue 5 M_PDU header
+
+<div class="bitfield" data-title="M_PDU Header, Issue 5 (16 bits)" data-width="16"
+     data-fields='[{"n":"First Header Pointer","b":16,"d":"Octet offset of the first packet starting in the Packet Zone; 0xFFFF = no packet starts; 0xFFFE = only Idle Data"}]'></div>
+
+| Field | Bits | Values | Meaning |
+|---|---|---|---|
+| First Header Pointer | 0–15 | offset | Position of the first octet of the first packet that starts in the M_PDU Packet Zone, counting from 0.[^aos5-mpdu] |
+| | | `0xFFFF` (all ones) | No packet starts in the Packet Zone.[^aos5-mpdu] |
+| | | `0xFFFE` (all ones minus one) | The Packet Zone contains only Idle Data.[^aos5-mpdu] |
+
+The rest of the M_PDU rules (contiguous forward-ordered packets, the FHP skipping the residue of a split
+packet, idle M_PDUs that are not OID frames) are unchanged.[^aos5-mpdu] For a 65,536-octet frame with a
+6-octet primary header the Packet Zone is at most 65,528 octets, so the largest real offset is 65,527
+and never meets the two reserved values (arithmetic by this wiki).
+
+!!! warning "Inference: pointer values in the two issues"
+    For real offsets the two headers carry the same octets, because the Issue 4 spare bits are zero:
+    the pointers 40 and 237 of the [worked example above](#multiplexing-protocol-data-unit-m_pdu) are
+    `00 28` and `00 ED` in both issues. The special values differ: "no packet starts" is `07 FF` in
+    Issue 4 and `FF FF` in Issue 5. A receiver built to Issue 5 would take the Issue 4 value as offset
+    2047, while an Issue 4 receiver that ignores the spare bits would read `FF FF` and `FF FE` correctly
+    as 2047 and 2046. Sender and receiver must therefore agree on the issue; the standard does not
+    discuss mixed configurations.[^aos5-mpdu][^aos-mpdu-fhp]
+
+### Frame length and the coding layer
+
+Issue 5 still requires the frame length to be consistent with the coding standards it references:
+CCSDS 131.0-B-5, 131.2-B-2 and 131.3-B-2. Of these, the library holds only 131.0-B-5, whose §11 limits
+uncoded and convolutionally coded AOS frames to 2048 octets; the limits of the other two are not stated in
+the available sources.[^aos5-frame][^aos5-refs][^tmc-len] Within the 131.0 series, the 65,536-octet AOS
+maximum appears in Issue 6 (2026), which references AOS Issue 5, allows that length
+for uncoded, convolutional and sliced block-coded links, and ties it to the 16-bit FHP; without slicing,
+Reed-Solomon, turbo and LDPC codes still dictate the frame lengths given [on the coding page](tm-coding.md#frame-lengths-and-managed-parameters-in-issue-6).[^tmc6-len]
+The Bitstream Service keeps its 14-bit bit pointer, hence the 16384-bit limit on frames that carry
+B_PDUs.[^aos5-bpdu] The services, procedures, managed parameters and SDLS provisions show no Issue 5
+change marks, and the managed-parameter tables list the same parameters and values as those above,
+with only editorial rewording.[^aos5-mp][^aos-mp-pc]
+
 ## Related pages
 
 * [CCSDS protocol stack overview](index.md) and [standards landscape](../overview/standards-map.md)
@@ -781,6 +983,10 @@ only if the SDLS option is claimed.[^aos-pics][^aos-pics-sdls]
 * [TM Synchronization and Channel Coding](tm-coding.md) (ASM, randomizer, RS, LDPC, frame lengths)
 * [COP-1 and the CLCW](cop-1.md), [Space Data Link Security](sdls.md)
 * [Space Packet Protocol](space-packet.md), [Encapsulation Packet Protocol](encapsulation.md)
+* [Space link identifiers: SCIDs, VCIDs, APIDs and SANA](space-link-identifiers.md) (including the 10-bit AOS SCID of Issue 5)
+* [Proximity-1](proximity-1.md), the other protocol that USLP is expected to replace
+* [Security in CCSDS space links](security.md) (the Frame Security Report and the Extended Procedures) and [Radio frequency, modulation and ranging](rf-and-ranging.md) (the physical layer below)
+* [ECSS-E-ST-50C communications and the adoption notices](../ecss/e-st-50-communications.md)
 * [Glossary](../glossary.md) and [reference catalogue](../references/index.md)
 
 [^aos-purpose]: [CCSDS 732.0-B-4, AOS Space Data Link Protocol](../library/ccsds-732-0-732x0b4.md), §1.1 Purpose, PDF p. 11.
@@ -913,3 +1119,22 @@ only if the SDLS option is claimed.[^aos-pics][^aos-pics-sdls]
 [^e50-tmsec]: [ECSS-E-ST-50C Rev.1](../library/ecss-e-st-50c-rev-1-1march2021.md), §5.5.7 Telemetry authentication and encryption, note, PDF p. 41.
 [^solo-frame]: [SOL.S.ASTR.TN.00079 issue 7, Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md), §4.3 Telemetry Frame (PUS-240 to PUS-264: frames per [RD1], 1115 octets, version `00`, SCID `0x28A`, VC usage and priorities), PDF pp. 27–28; [RD1] = ECSS-E-ST-50-03C in the reference list, PDF p. 13.
 [^mib-clcw]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), table pcf; this wiki's query (see "SQL used").
+[^aos5-ctl]: [CCSDS 732.0-B-5, AOS Space Data Link Protocol, Issue 5 (October 2025, with EC 1)](../library/ccsds-732-0-732x0b5ec1.md), Document Control, PDF p. 7.
+[^aos5-addr]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §2.1.3 Addressing, PDF pp. 18–19.
+[^aos5-refs]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §1.7 References, PDF pp. 15–16.
+[^aos5-frame]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §4.1.1 AOS Transfer Frame and figure 4-1, PDF pp. 54–55.
+[^aos5-hdr]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §4.1.2.1 and figure 4-2 Transfer Frame Primary Header (issues 4 or prior and issue 5), PDF pp. 55–56.
+[^aos5-mcid]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §4.1.2.2 Master Channel Identifier (TFVN, SCID LSB and MSB) and notes, PDF pp. 56–57.
+[^aos5-vc]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §§4.1.2.3–4.1.2.4 Virtual Channel Identifier and Virtual Channel Frame Count, PDF pp. 57–58.
+[^aos5-sig]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §4.1.2.5 Signaling Field, Replay Flag, Cycle Use Flag, Spacecraft Identifier (MSB) and VC Frame Count Cycle, PDF pp. 58–60.
+[^aos5-fhec]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §4.1.2.6 Frame Header Error Control, §4.1.2.6.5 a) to h) and notes 1–3, PDF pp. 60–62.
+[^aos5-mpdu]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §4.1.4.2 Multiplexing Protocol Data Unit and figure 4-3, PDF pp. 64–66.
+[^aos5-bpdu]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §4.1.4.3 Bitstream Protocol Data Unit and note on the 16384-bit limit, PDF pp. 66–68.
+[^aos5-mp]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), §5 and tables 5-1 to 5-4, PDF pp. 87–89.
+[^aos5-pics]: [CCSDS 732.0-B-5](../library/ccsds-732-0-732x0b5ec1.md), annex A, table A-4 (item AOS-47.1 SCID Length), PDF p. 103.
+[^tmc6-len]: [CCSDS 131.0-B-6, TM Synchronization and Channel Coding, Issue 6 (April 2026)](../library/ccsds-131-0-131x0b6ec1.md), §11 Transfer Frame Lengths (note in §11.1 on the FHP width; cases 11.3–11.5), PDF pp. 73–74; reference [2] to CCSDS 732.0-B-5 in §1.7, PDF p. 19.
+[^as23-log]: [ECSS-E-AS-50-23C Rev.1, Adoption Notice of CCSDS 732.0-B-4 (13 January 2023)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), Change log, PDF p. 3.
+[^as23-ctx]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), §1 Scope and §2 Context information, PDF pp. 5–6.
+[^as23-req]: [ECSS-E-AS-50-23C Rev.1](../library/ecss-e-as-50-23c-rev-1-13january2023.md), §4, requirement ECSS-E-AS-50-23_1540001 and table 4-1, PDF pp. 8–10.
+[^as21-bib]: [ECSS-E-AS-50-21C Rev.2, Adoption Notice of CCSDS 131.0-B-5 (5 December 2024)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), Bibliography, PDF p. 12.
+[^g5-rt]: [CCSDS 130.3-G-1, Space Packet Protocols, Informational Report (April 2023)](../library/ccsds-130-3-130x3g1.md), §4 (question on real-time operations), PDF p. 26.

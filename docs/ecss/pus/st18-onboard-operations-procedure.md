@@ -37,7 +37,7 @@ Rev.1 draft, SCOS-2000 support, and the OBCP commands and reports of the real
 | Service type | 18[^c-p181] |
 | PUS-C name | ST[18] on-board control procedure (Annex C: on-board operations procedure)[^c-1811][^c-annex18] |
 | PUS-A name | On-board operations procedure service (clause 20)[^a-201] |
-| Companion standard | ECSS-E-ST-70-01, spacecraft on-board control procedures (not in this wiki's library)[^c-1811] |
+| Companion standard | ECSS-E-ST-70-01, spacecraft on-board control procedures; see [ECSS-E-ST-70-01C](../e-st-70-01c.md)[^c-1811] |
 | Subservice types | OBCP management (exactly one); OBCP engine management (at most one)[^c-182] |
 | OBCP execution status | inactive (0), active and running (1), active and held (2)[^c-1843][^c-p18e] |
 | Observability levels | no-observability (0), at-procedure-level (1), at-step-level (2), at-detailed-level (3)[^c-p18e] |
@@ -626,7 +626,9 @@ whose names start with `OBCP_STR1:`.[^mib-18]
 * [ST[19] Event-action](st19-event-action.md), [ST[11] Time-based scheduling](st11-time-based-scheduling.md) and [ST[21] Request sequencing](st21-request-sequencing.md) - the other on-board automation services
 * [ST[23] File management](st23-file-management.md) - where load-by-reference OBCPs live
 * [ST[05] Event reporting](st05-event-reporting.md) - carrier of the observability events
+* [ECSS-E-ST-70-01C](../e-st-70-01c.md), the OBCP standard that ST[18] complements: OBCP concept, language, preparation and execution environments, and Solar Orbiter's OBCP system
 * [ECSS-E-ST-70-31C](../e-st-70-31c.md) and [ECSS-E-ST-70-11C](../e-st-70-11c.md)
+* [Herschel/Planck interface documents](../../scos2000/herschel-planck-interfaces.md#payload-management-and-obcps), with the payload management and OBCP note
 * [Commanding in the MIB](../../mib/commanding.md) and [Command verification in the MIB](../../mib/command-verification.md)
 * [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md) and [Herschel and Planck](../../missions/herschel-planck.md)
 

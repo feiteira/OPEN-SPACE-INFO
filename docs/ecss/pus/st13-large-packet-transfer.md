@@ -534,6 +534,14 @@ carries `s13ObFileId` (the file a command was uplinked in) and `s13ObFileAttribu
     SELECT name FROM sqlite_master WHERE name LIKE 's13%';   -- returns nothing
     ```
 
+## Related pages
+
+* [PUS: the Packet Utilization Standard](index.md), the [message type catalogue](message-types.md) and [PUS-A vs PUS-C](pus-a-vs-pus-c.md)
+* [ST[23] File management](st23-file-management.md) and [CFDP](../../ccsds/cfdp.md), the file-based alternatives
+* [ST[15] On-board storage and retrieval](st15-onboard-storage-retrieval.md), whose PUS-A packet store contents report (15,8) can be long, and [ST[18] On-board operations procedure](st18-onboard-operations-procedure.md), whose OBCP files Solar Orbiter uploads with service 13
+* [Space Packet Protocol](../../ccsds/space-packet.md), the 65 542-octet packet limit that the service works around
+* [How Solar Orbiter uses PUS](../../missions/solar-orbiter/pus-usage.md) and [the Solar Orbiter MIB](../../missions/solar-orbiter/mib.md)
+
 [^spp-len]: [CCSDS 133.0-B-2, Space Packet Protocol](../../library/ccsds-133-0-133x0b2e2.md), §4.1.2.2, PDF p. 31.
 [^c-scope]: [ECSS-E-ST-70-41C, Telemetry and telecommand packet utilization](../../library/ecss-e-st-70-41c-15april2016.md), §6.13.1.1-6.13.1.2, PDF p. 229.
 [^c-uplscope]: [ECSS-E-ST-70-41C](../../library/ecss-e-st-70-41c-15april2016.md), §6.13.1.3, PDF p. 230.

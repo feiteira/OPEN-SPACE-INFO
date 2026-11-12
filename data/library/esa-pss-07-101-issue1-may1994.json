@@ -1,0 +1,743 @@
+{
+ "slug": "esa-pss-07-101-issue1-may1994",
+ "title": "Packet utilisation standard",
+ "short_title": "ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)",
+ "doc_id": "ESA PSS-07-101",
+ "issue": "Issue 1",
+ "date": "May 1994",
+ "organisation": "European Space Agency (ESA), PSS-07 ground segment branch; prepared by the ESA Committee for Operations and EGSE Standards (COES), approved by the Inspector General, ESA, and published by ESA Publications Division, ESTEC, Noordwijk",
+ "authors": [
+  "ESA Committee for Operations and EGSE Standards (COES)"
+ ],
+ "doc_type": "Standard",
+ "status_notes": "Issue 1 of May 1994 is the only issue listed in the Document Change Record, as a new document (PDF p. 5). The text expects an Issue 2: chapter 20 defers the On-board Traffic Management Service to it (p. 178), and chapter 2 says the standard will be extended for on-board autonomy (p. 20). No Issue 2 is in the library. The ECSS successors are ECSS-E-70-41A (30 January 2003, library item ecss-e-70-41a-30jan2003-pus) and ECSS-E-ST-70-41C (15 April 2016). The latter notes that PUS version number 0 in the TC and TM packet headers 'was used by the ESA PUS (ESA PSS-07-101)' and version 1 by ECSS-E-70-41A (ecss-e-st-70-41c-15april2016, PDF pp. 439 and 442), and lists PSS-07-101 in its bibliography (p. 656). This scanned copy was downloaded from ecss.nl. Its cover carries an ESTEC Technical Information & Documentation Centre stamp.",
+ "summary": "The first **Packet Utilisation Standard (PUS)**, ESA PSS-07-101 Issue 1 (May 1994), was prepared by ESA's Committee for Operations and EGSE Standards. It defines the application-level interface between ground and spacecraft, on top of the [PSS-04-106](esa-pss-04-106-issue1-january1988.md) packet telemetry and [PSS-04-107](esa-pss-04-107-issue2-april1992.md) packet telecommand standards. It is the ancestor of the ECSS [PUS](../ecss/pus/index.md) (see [PUS-A vs PUS-C](../ecss/pus/pus-a-vs-pus-c.md)). The library copy is a scanned PDF and its text comes from OCR.\n\nChapter 3 lists numbered operational requirements, from telecommanding and verification to testability. Each mission is meant to treat the standard as a 'shopping list', de-select what it does not need, and record the result in a ground/space ICD. Chapter 4 fixes the [packet structures](../ecss/pus/packets.md). Every TC packet carries a 24-bit data field header (PUS version, checksum type, 4-bit Ack, service type and subtype) and a packet error control field. TM source packets use packet version 2 and a header with PUS version, checksum type, a spare field, type, subtype and optional CUC or CDS time. The TC sequence count may be split into a source ID and a per-source count.\n\nChapters 5 to 21 specify 17 service types: verification, device commanding (including CPDU packets), housekeeping and diagnostic reporting, parameter statistics, events, memory, task and function management, time management and reporting, scheduling with sub-schedules and interlocks, monitoring, large data transfer, packet transmission control, storage and retrieval, traffic management (left to Issue 2) and test. Chapter 22 summarises the requests and reports, and chapter 23 defines the [parameter types](../ecss/pus/parameter-types.md) (PTC/PFC). The appendices give examples, the CRC and ISO checksum algorithms, and the mission parameters.",
+ "contents": [
+  {
+   "section": null,
+   "title": "Abstract",
+   "pdf_page": 4
+  },
+  {
+   "section": null,
+   "title": "Document Change Record",
+   "pdf_page": 5
+  },
+  {
+   "section": null,
+   "title": "Contents",
+   "pdf_page": 6
+  },
+  {
+   "section": null,
+   "title": "List of Figures",
+   "pdf_page": 10
+  },
+  {
+   "section": null,
+   "title": "List of Tables",
+   "pdf_page": 11
+  },
+  {
+   "section": null,
+   "title": "Applicable Documents",
+   "pdf_page": 13
+  },
+  {
+   "section": null,
+   "title": "Reference Documents",
+   "pdf_page": 14
+  },
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 16
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 16
+  },
+  {
+   "section": "1.2",
+   "title": "Scope",
+   "pdf_page": 17
+  },
+  {
+   "section": "1.3",
+   "title": "Structure of the Standard",
+   "pdf_page": 18
+  },
+  {
+   "section": "1.4",
+   "title": "Applicability",
+   "pdf_page": 18
+  },
+  {
+   "section": "2",
+   "title": "Context of the PUS",
+   "pdf_page": 19
+  },
+  {
+   "section": "3",
+   "title": "Operational Requirements",
+   "pdf_page": 22
+  },
+  {
+   "section": "3.1",
+   "title": "Introduction",
+   "pdf_page": 22
+  },
+  {
+   "section": "3.2",
+   "title": "Telecommanding",
+   "pdf_page": 24
+  },
+  {
+   "section": "3.3",
+   "title": "Telecommand Transmission and Distribution",
+   "pdf_page": 27
+  },
+  {
+   "section": "3.4",
+   "title": "Telecommand Verification",
+   "pdf_page": 27
+  },
+  {
+   "section": "3.5",
+   "title": "Satellite Status Reporting",
+   "pdf_page": 31
+  },
+  {
+   "section": "3.6",
+   "title": "Telemetry Timing",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.7",
+   "title": "Memory Management",
+   "pdf_page": 37
+  },
+  {
+   "section": "3.8",
+   "title": "Software Management",
+   "pdf_page": 38
+  },
+  {
+   "section": "3.9",
+   "title": "On-board Scheduling",
+   "pdf_page": 39
+  },
+  {
+   "section": "3.10",
+   "title": "On-board Monitoring",
+   "pdf_page": 42
+  },
+  {
+   "section": "3.11",
+   "title": "Large Data Transfer",
+   "pdf_page": 44
+  },
+  {
+   "section": "3.12",
+   "title": "Telemetry Generation and Transmission Control",
+   "pdf_page": 45
+  },
+  {
+   "section": "3.13",
+   "title": "On-board Storage and Retrieval",
+   "pdf_page": 46
+  },
+  {
+   "section": "3.14",
+   "title": "On-board Traffic Management",
+   "pdf_page": 48
+  },
+  {
+   "section": "3.15",
+   "title": "Packet Routing",
+   "pdf_page": 48
+  },
+  {
+   "section": "3.16",
+   "title": "Testability",
+   "pdf_page": 49
+  },
+  {
+   "section": "4",
+   "title": "Service Specification",
+   "pdf_page": 50
+  },
+  {
+   "section": "4.1",
+   "title": "Introduction",
+   "pdf_page": 50
+  },
+  {
+   "section": "4.2",
+   "title": "Definitions",
+   "pdf_page": 51
+  },
+  {
+   "section": "4.3",
+   "title": "Conventions",
+   "pdf_page": 52
+  },
+  {
+   "section": "4.4",
+   "title": "Telecommand Packet Structure",
+   "pdf_page": 54
+  },
+  {
+   "section": "4.5",
+   "title": "Telemetry Source Packet Structure",
+   "pdf_page": 58
+  },
+  {
+   "section": "4.6",
+   "title": "Standard Services",
+   "pdf_page": 61
+  },
+  {
+   "section": "5",
+   "title": "Telecommand Verification Service",
+   "pdf_page": 62
+  },
+  {
+   "section": "6",
+   "title": "Device Command Distribution Service",
+   "pdf_page": 66
+  },
+  {
+   "section": "7",
+   "title": "Housekeeping and Diagnostic Data Reporting Service",
+   "pdf_page": 71
+  },
+  {
+   "section": "8",
+   "title": "Parameter Statistics Reporting Service",
+   "pdf_page": 83
+  },
+  {
+   "section": "9",
+   "title": "Event Reporting Service",
+   "pdf_page": 89
+  },
+  {
+   "section": "10",
+   "title": "Memory Management Service",
+   "pdf_page": 91
+  },
+  {
+   "section": "11",
+   "title": "Task Management Service",
+   "pdf_page": 99
+  },
+  {
+   "section": "12",
+   "title": "Function Management Service",
+   "pdf_page": 104
+  },
+  {
+   "section": "13",
+   "title": "Time Management Service",
+   "pdf_page": 108
+  },
+  {
+   "section": "14",
+   "title": "Time Reporting Service",
+   "pdf_page": 110
+  },
+  {
+   "section": "15",
+   "title": "Onboard Scheduling Service",
+   "pdf_page": 112
+  },
+  {
+   "section": "16",
+   "title": "Onboard Monitoring Service",
+   "pdf_page": 131
+  },
+  {
+   "section": "17",
+   "title": "Large Data Transfer Service",
+   "pdf_page": 147
+  },
+  {
+   "section": "18",
+   "title": "Packet Transmission Control Service",
+   "pdf_page": 158
+  },
+  {
+   "section": "19",
+   "title": "Onboard Storage and Retrieval Service",
+   "pdf_page": 166
+  },
+  {
+   "section": "20",
+   "title": "Onboard Traffic Management Service",
+   "pdf_page": 178
+  },
+  {
+   "section": "21",
+   "title": "Test Service",
+   "pdf_page": 179
+  },
+  {
+   "section": "22",
+   "title": "Summary of Service Requests and Reports",
+   "pdf_page": 181
+  },
+  {
+   "section": "23",
+   "title": "Parameter Types and Structure Rules",
+   "pdf_page": 186
+  },
+  {
+   "section": "23.1",
+   "title": "Introduction",
+   "pdf_page": 186
+  },
+  {
+   "section": "23.2",
+   "title": "Conventions",
+   "pdf_page": 186
+  },
+  {
+   "section": "23.3",
+   "title": "Encoding Formats of Parameter Types",
+   "pdf_page": 187
+  },
+  {
+   "section": "23.4",
+   "title": "Tailoring of Packet Structures for a Mission",
+   "pdf_page": 187
+  },
+  {
+   "section": "23.5",
+   "title": "Simple Parameter Types",
+   "pdf_page": 189
+  },
+  {
+   "section": "23.6",
+   "title": "Structured Field Types",
+   "pdf_page": 196
+  },
+  {
+   "section": "Appendix A",
+   "title": "Examples",
+   "pdf_page": 203
+  },
+  {
+   "section": "A.1",
+   "title": "Examples/Explanations for Operational Requirements",
+   "pdf_page": 203
+  },
+  {
+   "section": "A.2",
+   "title": "Specification of the Cyclic Redundancy Code (CRC)",
+   "pdf_page": 207
+  },
+  {
+   "section": "A.3",
+   "title": "Specification of the ISO Checksum",
+   "pdf_page": 213
+  },
+  {
+   "section": "A.4",
+   "title": "Use of Service Type 2, Device Command Distribution",
+   "pdf_page": 216
+  },
+  {
+   "section": "Appendix B",
+   "title": "Mission Parameters",
+   "pdf_page": 217
+  },
+  {
+   "section": "Appendix C",
+   "title": "Glossary of Terms",
+   "pdf_page": 220
+  },
+  {
+   "section": "Appendix D",
+   "title": "Glossary of Abbreviations",
+   "pdf_page": 224
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The PUS complements the ESA packet telemetry and telecommand standards (PSS-04-106 and PSS-04-107), which cover end-to-end transport, by defining the application-level interface between ground and space for electrical integration and testing and for flight operations.",
+   "pdf_page": 4
+  },
+  {
+   "text": "The PUS sits under the Mission Data Utilisation Standards (PSS-07-10) in the PSS-07 ground segment tree. Its siblings are the Orbit & Navigation (PSS-07-102), Station M&C (PSS-07-103) and Time (PSS-07-104) Data Utilisation Standards.",
+   "pdf_page": 17
+  },
+  {
+   "text": "The standard does not define protocols between on-board application processes or the content of payload/science packets, but science packets must conform and must have a data field header. Audio and video, which are multiplexed at frame level, are out of scope.",
+   "pdf_page": 17
+  },
+  {
+   "text": "The PUS is a 'shopping list'. Missions should de-select requirements and services rather than pick them, record the result in a mission ground/space ICD, and always implement at least the minimum capability set of each service they use.",
+   "pdf_page": 18
+  },
+  {
+   "text": "The three factors that drive telemetry and telecommand demands are on-board complexity, on-board autonomy and data transmission capacity. Autonomy support is deliberately basic in this issue.",
+   "pdf_page": 19
+  },
+  {
+   "text": "The operational requirements in chapter 3 carry identifiers such as OBSCH-1. Mission-dependent values appear as named mission parameters in angle brackets (for example <TIME_CORREL_ACCUR>), often with typical values, and Appendix B lists them.",
+   "pdf_page": 23
+  },
+  {
+   "text": "A service is defined by its requests and reports, a minimum capability set and optional additional capability sets. The service provider is an on-board application process, the service user is the ground system, and reports are either responses (to a request) or indications.",
+   "pdf_page": 51
+  },
+  {
+   "text": "TC packets use packet version 0, type 1 and an 11-bit destination APID. The data field header and packet error control are mandatory, except that CPDU packets have no data field header.",
+   "pdf_page": 54
+  },
+  {
+   "text": "TC sequence flags are set to 11 (stand-alone packet) for all ESA missions. The 14-bit sequence count is split into <NUM_SOURCE_BITS> of source ID (for example, the control centre) and a sequence count kept by each source for each APID. Acknowledgement packets must include the packet sequence control field to identify the telecommand they acknowledge.",
+   "pdf_page": 55
+  },
+  {
+   "text": "The 24-bit TC data field header holds a 3-bit PUS version (0), a 1-bit checksum type (0 = ISO 16-bit checksum, 1 = CRC), a 4-bit Ack field, an 8-bit service type and an 8-bit subtype.",
+   "pdf_page": 56
+  },
+  {
+   "text": "The four Ack bits request success reports for acceptance, start of execution, progress and completion of execution. Failure reports are always generated, and reports go only to the source of the telecommand.",
+   "pdf_page": 57
+  },
+  {
+   "text": "Service types and subtypes 0 to 127 are reserved for the standard; 128 to 255 are mission-specific.",
+   "pdf_page": 57
+  },
+  {
+   "text": "TM source packets use packet version 2 (field value 4) and type 0. A data field header is mandatory except in the spacecraft time packet. APID 0 is reserved for the time packet and APID all ones for idle packets, segmentation flags are always 11, and the 14-bit count wraps without short-cycling.",
+   "pdf_page": 58
+  },
+  {
+   "text": "The TM data field header holds a 3-bit PUS version (0), a 1-bit checksum type, 4 spare bits, the service type and subtype, and an optional (mission-defined) CUC or CDS time field. The CDS format uses the CCSDS epoch of 1 January 1958.",
+   "pdf_page": 59
+  },
+  {
+   "text": "Table 4-1 numbers 17 standard services: 1 telecommand verification, 2 device-level commanding, 3 housekeeping & diagnostic data reporting, 4 parameter statistics, 5 events, 6 memory management, 7 task management, 8 function management, 9 time management, 10 time reporting, 11 onboard scheduling, 12 onboard monitoring, 13 large data transfer, 14 packet transmission control, 15 onboard storage and retrieval, 16 onboard traffic management and 17 test.",
+   "pdf_page": 61
+  },
+  {
+   "text": "Telecommand verification: subtypes 1 and 2 (acceptance success and failure) form the minimum set. Subtypes 3 to 8 report start, progress and completion of execution, each as a success/failure pair.",
+   "pdf_page": 65
+  },
+  {
+   "text": "Device command distribution covers on/off and register-load commands in TC packets, CPDU packets (no data field header, up to 256 output lines) and device commands carried directly in a TC segment for non-nominal cases.",
+   "pdf_page": 67
+  },
+  {
+   "text": "In housekeeping and diagnostic reporting, the parameter reports are subtypes 25 (housekeeping) and 26 (diagnostic).",
+   "pdf_page": 80
+  },
+  {
+   "text": "Event reporting has four subtypes: 1 normal/progress report and 2 to 4 error/anomaly reports of low, medium and high severity. Each report carries a report ID that, with the APID, defines its parameters.",
+   "pdf_page": 90
+  },
+  {
+   "text": "The time reporting service (type 10) is provided by a single application process. It emits Time Report (10,1) without a data field header, sampling the clock at the first sync-marker bit of selected virtual channel 0 frames as defined in PSS-04-106.",
+   "pdf_page": 110
+  },
+  {
+   "text": "The on-board schedule supports <NUM_SUB_SCHEDS> sub-schedules (typically five to ten) and command interlocks, so a command's release can depend on the success or failure of an earlier command in the same sub-schedule.",
+   "pdf_page": 39
+  },
+  {
+   "text": "Chapter 20 (On-board Traffic Management Service) contains only a scope statement; the specification is deferred to Issue 2 of the standard.",
+   "pdf_page": 178
+  },
+  {
+   "text": "The test service (type 17) defines only the connection test: request (17,1), with the report as subtype 2.",
+   "pdf_page": 179
+  },
+  {
+   "text": "Parameter types are a subset of ISO 8824 (ASN.1). The standard uses its own compact encodings rather than the ISO 8825 basic encoding rules because of space-link bandwidth constraints.",
+   "pdf_page": 186
+  },
+  {
+   "text": "A parameter code is a PTC (type code) plus a PFC (format code). PTC 1 is Boolean, 2 enumerated, 3 unsigned integer, 4 signed integer, 5 real, 6 bit string, 7 octet string, 8 character string, 9 absolute time, 10 relative time and 11 deduced.",
+   "pdf_page": 189
+  },
+  {
+   "text": "Appendix A specifies the CRC (A.2) and the ISO 16-bit checksum (A.3) used in the packet error control field, and gives an example of a 24-bit OBDH command in service type 2 (A.4).",
+   "pdf_page": 207
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD1]",
+   "doc_id": "ESA PSS-04-106",
+   "title": "Packet telemetry standard",
+   "issue": "Issue 1",
+   "date": "January 1988",
+   "kind": "applicable",
+   "pdf_page": 13
+  },
+  {
+   "label": "[AD2]",
+   "doc_id": "ESA PSS-04-103",
+   "title": "Telemetry channel coding standard",
+   "issue": "Issue 1",
+   "date": "September 1989",
+   "kind": "applicable",
+   "pdf_page": 13
+  },
+  {
+   "label": "[AD3]",
+   "doc_id": "ESA PSS-04-107",
+   "title": "Packet telecommand standard",
+   "issue": "Issue 2",
+   "date": "April 1992",
+   "kind": "applicable",
+   "pdf_page": 13
+  },
+  {
+   "label": "[AD4]",
+   "doc_id": "ESA PSS-04-202",
+   "title": "Time code formats and procedures standard (not available before mid 1995; [AD1] and [RD2] cover the topic until then)",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 13
+  },
+  {
+   "label": "[AD5]",
+   "doc_id": "ESA PSS-04-105",
+   "title": "Radio frequency and modulation standard",
+   "issue": "Issue 1",
+   "date": "December 1989",
+   "kind": "applicable",
+   "pdf_page": 13
+  },
+  {
+   "label": "[AD6]",
+   "doc_id": "ESA PSS-01-40",
+   "title": "System safety requirements for ESA space systems and associated equipment",
+   "issue": "Issue 2",
+   "date": "September 1988",
+   "kind": "applicable",
+   "pdf_page": 13
+  },
+  {
+   "label": "[AD7]",
+   "doc_id": "ESA PSS-04 151",
+   "title": "Telecommand decoder specification",
+   "issue": "Issue 1",
+   "date": "September 1993",
+   "kind": "applicable",
+   "pdf_page": 13
+  },
+  {
+   "label": "[RD1]",
+   "doc_id": "CCSDS 203.0-B-1",
+   "title": "Telecommand: Part 3, Data Management Service",
+   "issue": "Blue Book",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[RD2]",
+   "doc_id": "CCSDS 301.0-B-1",
+   "title": "Time Code Format",
+   "issue": "Blue Book",
+   "date": "January 1987",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[RD3]",
+   "doc_id": "ESA PSS-07-10",
+   "title": "Mission Data Utilisation Standards",
+   "issue": "Draft 4",
+   "date": "May 1992",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[RD4]",
+   "doc_id": "ESA PSS-07-501",
+   "title": "Space Segment Operability Requirements",
+   "issue": "to be issued",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[RD5]",
+   "doc_id": "ESA PSS-07-201",
+   "title": "Packet Data Description standard",
+   "issue": "to be issued",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[RD6]",
+   "doc_id": "NASA NSTS 1700.7B",
+   "title": "Safety Policy and Requirements for Payloads using STS",
+   "issue": "Basic Issue",
+   "date": "January 1989",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[RD7]",
+   "doc_id": null,
+   "title": "J.G. Fletcher, An Arithmetic Checksum for Serial Transmission, IEEE Transactions on Communication, COM-30(1)",
+   "issue": null,
+   "date": "January 1982",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "[RD8]",
+   "doc_id": "ISO/IEC 8473-1",
+   "title": "Information Technology - Protocol for Providing the Connectionless-mode Network Service",
+   "issue": "Second Edition",
+   "date": "1994",
+   "kind": "reference",
+   "pdf_page": 14
+  },
+  {
+   "label": "PSS-07-0",
+   "doc_id": "ESA PSS-07-0",
+   "title": "Ground Segment Infrastructure (root of the PSS-07 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 16
+  },
+  {
+   "label": "PSS-07-20",
+   "doc_id": "ESA PSS-07-20",
+   "title": "Mission Data Description (PSS-07 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 16
+  },
+  {
+   "label": "PSS-07-30",
+   "doc_id": "ESA PSS-07-30",
+   "title": "Mission Data Exchange (PSS-07 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 16
+  },
+  {
+   "label": "PSS-07-40",
+   "doc_id": "ESA PSS-07-40",
+   "title": "Ground System Functions (PSS-07 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 16
+  },
+  {
+   "label": "PSS-07-50",
+   "doc_id": "ESA PSS-07-50",
+   "title": "Missions Operations Requirements (PSS-07 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 16
+  },
+  {
+   "label": "PSS-07-60",
+   "doc_id": "ESA PSS-07-60",
+   "title": "Man/Computer Interaction (PSS-07 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 16
+  },
+  {
+   "label": "PSS-07-70",
+   "doc_id": "ESA PSS-07-70",
+   "title": "Ground System Testing & Validation (PSS-07 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 16
+  },
+  {
+   "label": "PSS-07-102",
+   "doc_id": "ESA PSS-07-102",
+   "title": "Orbit & Navigation Data Utilisation Standard (PSS-07-10 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 17
+  },
+  {
+   "label": "PSS-07-103",
+   "doc_id": "ESA PSS-07-103",
+   "title": "Station M&C Data Utilisation Standard (PSS-07-10 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 17
+  },
+  {
+   "label": "PSS-07-104",
+   "doc_id": "ESA PSS-07-104",
+   "title": "Time Data Utilisation Standard (PSS-07-10 documentation tree)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 17
+  },
+  {
+   "label": "ISO 8824",
+   "doc_id": "ISO 8824",
+   "title": "Specification of Abstract Syntax Notation One (ASN.1)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 186
+  },
+  {
+   "label": "ISO 8825",
+   "doc_id": "ISO 8825",
+   "title": "Specification of Basic Encoding Rules for Abstract Syntax Notation One (ASN.1)",
+   "issue": null,
+   "date": null,
+   "kind": "mentioned",
+   "pdf_page": 186
+  }
+ ],
+ "topics": [
+  "overview/history.md",
+  "ecss/pus/index.md",
+  "ecss/pus/pus-a-vs-pus-c.md",
+  "ecss/pus/packets.md",
+  "ecss/pus/parameter-types.md",
+  "ecss/pus/message-types.md",
+  "ecss/pus/st01-request-verification.md",
+  "ecss/pus/st02-device-access.md",
+  "ecss/pus/st03-housekeeping.md",
+  "ecss/pus/st04-parameter-statistics.md",
+  "ecss/pus/st05-event-reporting.md",
+  "ecss/pus/st06-memory-management.md",
+  "ecss/pus/st08-function-management.md",
+  "ecss/pus/st09-time-management.md",
+  "ecss/pus/st11-time-based-scheduling.md",
+  "ecss/pus/st12-onboard-monitoring.md",
+  "ecss/pus/st13-large-packet-transfer.md",
+  "ecss/pus/st14-real-time-forwarding-control.md",
+  "ecss/pus/st15-onboard-storage-retrieval.md",
+  "ecss/pus/st17-test.md",
+  "mib/parameter-types.md",
+  "overview/standards-map.md"
+ ],
+ "notes": "This is a scanned PDF. Its text was produced by OCR (RapidOCR) and has merged words, dropped lines and partly scrambled tables (the service data unit tables and the chapter 22 summary table), so every number, field size and bit pattern in this entry was checked against rendered page images. Page numbering: printed page n is PDF page n + 15 in the body (printed page 1 is PDF p. 16). PDF p. 1 is the coloured cover with a stamp; p. 2 is the inner title page. Oddities: the contents page lists the Applicable Documents at page ix and the Reference Documents at page x, but they are printed on pages xii and xiii (PDF pp. 13-14). Service type 2 is called 'Device-Level Commanding Service' in Table 4-1 (p. 61) but 'Device Command Distribution Service' in the contents and in chapter 6. The contents spell chapter titles 'On-board ...', while the body headings use 'Onboard ...'. Applicable document [AD7] is printed 'ESA PSS-04 151' (missing hyphen) and dated September 1993, although the PSS-04-151 title page says September 1992. The TM packet version is described as 'Version 2 (value = 4)', i.e. bits 100, matching PSS-04-106, while the TC packet uses version 0. The OCR of Table 4-1 misreads service 6 as '9'; the scan shows the services numbered 1 to 17 in order."
+}

@@ -2,7 +2,7 @@
 title: "Uplink: from operator command to on-board execution"
 description: The complete telecommand path of an ESA mission, step by step, from the MIB command definition and command sequences through the SCOS-2000 manual stack, pre-transmission validation, the PUS TC header, Space Packet, TC transfer frame and segment, COP-1, CLTU coding, PLOP and SLE FCLTU, to on-board execution and its verification by PUS ST[01] reports and MIB verification stages, with real Solar Orbiter definitions.
 tags: [Overview, Telecommand, Uplink, PUS, Space Packet, TC SDLP, COP-1, CLTU, SLE, FCLTU, SCOS-2000, MIB, Solar Orbiter]
-sources: [icd-7-0-final, ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ccsds-133-0-133x0b2e2, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-912-1-912x1b5e1, sol-s-astr-tn-00079-07, solo-ddid-i1r2, ro-esc-if-5003-ddid-c2, gsaw2003-peccia, gsaw2005-guerrucci, emcs-sum-4-0, spaceops2021-dlr-mobile-mcs, mib-20250916m25925pfms001-sol]
+sources: [icd-7-0-final, ecss-e-st-70-41c-15april2016, ecss-e-70-41a-30jan2003-pus, ccsds-133-0-133x0b2e2, ccsds-232-0-232x0b4e1c1, ccsds-232-1-232x1b2e2c1, ccsds-231-0-231x0b4e1, ccsds-912-1-912x1b5e1, sol-s-astr-tn-00079-07, solo-ddid-i1r2, ro-esc-if-5003-ddid-c2, gsaw2003-peccia, gsaw2005-guerrucci, emcs-sum-4-0, spaceops2021-dlr-mobile-mcs, mib-20250916m25925pfms001-sol, ecss-e-as-50-25c-rev-1-13january2023, ccsds-910x3g3-sle-cross-support, ccsds-912-3-912x3b3s, ccsds-401-0-401x0b32, ecss-e-st-50-05c-rev24october2011, ecss-e-st-70c31july2008]
 ---
 
 # Uplink: from operator command to on-board execution
@@ -203,6 +203,13 @@ Solar Orbiter's release has 3,404 sequences with 13,879 elements, 50,014 element
 and 10,981 formal parameters. 3,354 sequences have `CSF_IFTT` = `B`, and the rest `N`.[^mib-seq]
 See [Command sequences and parameter sets](../mib/sequences.md).
 
+MIB sequences are one way of grouping commands. ECSS standardises two others: a language for
+checkout and operations procedures (PLUTO, ECSS-E-ST-70-32), and on-board control procedures that
+run on the spacecraft itself (OBCPs, ECSS-E-ST-70-01), which the PUS controls through
+[ST[18]](../ecss/pus/st18-onboard-operations-procedure.md).[^e70-annexl] See
+[PLUTO](../ecss/e-st-70-32c.md), [OBCPs](../ecss/e-st-70-01c.md) and, for how missions prepare
+their databases and procedures, [operations preparation](../scos2000/operations-preparation.md).
+
 ## 3. The command stack and the release chain
 
 SCOS-2000's commanding functions include the **manual stack**, where commands are loaded with
@@ -390,11 +397,14 @@ segments with `CCF_CTYPE` = `R`: `RESET`, `REIN_TTR` and `TC_ONLY`.[^mib-bc] The
 recommends a global interlock on at least the uplink stage for BC frames.[^icd-ctype] Solar
 Orbiter's BC-frame commands carry no default interlock, `CCF_ILSCOPE` = `N`.[^mib-bc]
 
-!!! warning "Inference"
-    A 256-octet frame holds exactly one maximum-size Solar Orbiter packet. 5 octets of frame
-    header, 1 octet of segment header, 248 octets of packet and 2 octets of FECF add up to 256.
-    This suggests that the TC frames carry an FECF, but the presence of the TC FECF for Solar
-    Orbiter is not stated in the extracted text of the ICD.[^sol-tcf2][^sol-tcph]
+A 256-octet frame holds exactly one maximum-size Solar Orbiter packet: 5 octets of frame header,
+1 octet of segment header, 248 octets of packet and 2 octets of FECF add up to 256. The text of
+§3.4 only says the frame length runs to the FECF "if present", but the ICD's telecommand overview
+drawing (figure 3.1-1, a picture that is not in the extracted text, read in the PDF) ends every TC
+frame with a 2-octet frame error control field (CRC).[^sol-tcf2][^sol-tcph][^sol-tcov] The ECSS
+adoption notice of CCSDS 232.0-B-4 also makes the FECF mandatory.[^an-fecf] The
+[telecommand worked example](worked-example-tc.md#the-frame-header) discusses the frame drawing
+in detail.
 
 ## 8. COP-1: FOP-1 on the ground, FARM-1 on board
 
@@ -559,6 +569,19 @@ PLOP.[^fcltu-fg]
     the CLTU is not stated in the available sources. The SCOS-2000 ICD does say that commands
     can be blocked into one segment and sent "as a single frame/CLTU".[^fcltu-ovw][^icd-s2]
 
+SLE also defines forward services at higher levels. With the **Forward Space Packet** service the
+user hands over only packets, and the provider builds the frames, runs COP-1 (using the CLCWs of the
+ROCF service) and generates the CLTUs, so that several users can command one spacecraft without
+coordinating with each other.[^sle-fwd] The library's copy of that book is stamped historical;
+see [FSP](../ccsds/sle/fsp.md) for a side-by-side comparison with FCLTU.[^fsp-api] Which service
+instances run in a pass, and with which production parameters, is agreed through
+[SLE service management](../ccsds/sle/service-management.md).
+
+The radiated CLTU modulates the uplink carrier, the subject of the CCSDS radio frequency and
+modulation book 401.0 and of ECSS-E-ST-50-05C.[^rf-401][^rf-5005] The Solar Orbiter MIB lists the telecommand bit
+rates that its deep-space transponder can be set to: 7.8125, 15.625, 250, 1000, 2000 and 4000
+bit/s.[^mib-dst] See [radio frequency, modulation and ranging](../ccsds/rf-and-ranging.md).
+
 ## 12. Closing the loop: ST[01] reports and MIB verification
 
 ### On board: ST[01] request verification
@@ -655,10 +678,9 @@ stages and 167 parameter-based completion stages, with 171 CVE criteria and 10,6
 
 ??? example "SQL used"
     Run with `sqlite3 -readonly` against `solo-2025-09-16.sqlite` (release
-    `MIB__20250916M25925PFMS001_SOL`). All columns are text. The tables `cvs`, `cve` and `cvp` use
-    generic column names in ICD field order: `cvs.COL1` = `CVS_ID`, `COL2` = `CVS_TYPE`,
-    `COL3` = `CVS_SOURCE`, `COL4` = `CVS_START`, `COL5` = `CVS_INTERVAL`; `cvp.COL1` =
-    `CVP_TASK`, `COL3` = `CVP_CVSID`; `cve.COL1` = `CVE_CVSID`, `COL2` = `CVE_PARNAM`.
+    `MIB__20250916M25925PFMS001_SOL`). All columns are text. The tables `cvs`, `cve` and `cvp`
+    carry their ICD column names (`CVS_ID` ... `CVS_UNCERTAINTY`, `CVE_CVSID` ... `CVE_CHECK`,
+    `CVP_TASK`, `CVP_TYPE`, `CVP_CVSID`) in the current build of the database.
 
     ```sql
     -- headers and command population
@@ -691,11 +713,13 @@ stages and 167 parameter-based completion stages, with 171 CVE criteria and 10,6
     SELECT * FROM csp WHERE CSP_SQNAME = 'AACC309A';
 
     -- verification
-    SELECT COL2, COL3, count(*) FROM cvs GROUP BY 1,2;
-    SELECT COL3, count(*) n FROM cvp GROUP BY 1 ORDER BY n DESC LIMIT 4;
-    SELECT p.COL3, s.* FROM cvp p JOIN cvs s ON s.COL1 = p.COL3 WHERE p.COL1 IN ('ZCD00305','ZPW04604');
-    SELECT * FROM cve WHERE COL1 = '32';
-    SELECT count(*) FROM ccf WHERE CCF_CNAME NOT IN (SELECT COL1 FROM cvp);
+    SELECT CVS_TYPE, CVS_SOURCE, count(*) FROM cvs GROUP BY 1,2;
+    SELECT CVP_CVSID, count(*) n FROM cvp GROUP BY 1 ORDER BY n DESC LIMIT 4;
+    SELECT p.CVP_CVSID, s.* FROM cvp p JOIN cvs s ON s.CVS_ID = p.CVP_CVSID
+     WHERE p.CVP_TASK IN ('ZCD00305','ZPW04604');
+    SELECT * FROM cve WHERE CVE_CVSID = '32';
+    SELECT count(*) FROM ccf WHERE CCF_CNAME NOT IN (SELECT CVP_TASK FROM cvp);
+    SELECT * FROM txp WHERE TXP_NUMBR IN ('CDST0003TM', 'CDST0001TM');   -- transponder options
     SELECT cast(PID_STYPE AS int), count(*) FROM pid WHERE PID_TYPE = '1' GROUP BY 1;
     ```
 
@@ -707,7 +731,8 @@ is TC(3,5) to APID 172, with `NOM_TC` header and Ack 9. It has one editable elem
 board it asks the housekeeping service to enable periodic generation of the report with the given
 SID. Solar Orbiter lists TC(3,5) as "Enable Housekeeping Parameter Report Generation".[^pus-hk5][^sol-s3]
 The values below are **illustrative**: SID 1, source ID 120 (direct commands),
-sequence count 1, VC 1, MAP ID 1, N(S) = `0x2A`, a TC FECF assumed present, and no randomization.
+sequence count 1, VC 1, MAP ID 1, N(S) = `0x2A` and no randomization; the TC FECF is included, as
+the ICD's figure 3.1-1 shows.[^sol-tcov]
 The CRCs and BCH parity were computed by this wiki with the algorithms cited. The bytes are not
 taken from a real uplink.
 
@@ -734,9 +759,11 @@ these arrive within their verification windows, which are computed from the 20 s
 
 * A byte-level build of a different real command: [Worked example: building a real Solar Orbiter telecommand](worked-example-tc.md).
 * Every on-board service that commands reach: [PUS overview](../ecss/pus/index.md), time-tagged commands in [ST[11]](../ecss/pus/st11-time-based-scheduling.md), [ST[13] large packet transfer](../ecss/pus/st13-large-packet-transfer.md), and on-board procedures in [ST[18]](../ecss/pus/st18-onboard-operations-procedure.md).
-* Link security on the uplink: [SDLS](../ccsds/sdls.md); the unified link protocol: [USLP](../ccsds/uslp.md).
-* MIB background: [data model](../mib/data-model.md), [tailoring](../mib/tailoring.md), [tooling](../mib/tooling.md).
-* Solar Orbiter specifics: [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md), [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md).
+* Link security on the uplink: [SDLS](../ccsds/sdls.md) and [security in CCSDS space links](../ccsds/security.md); identifiers (SCID, VCID, MAP ID, APID): [space link identifiers](../ccsds/space-link-identifiers.md); the unified link protocol: [USLP](../ccsds/uslp.md).
+* Ground-station services and scheduling: [FCLTU](../ccsds/sle/fcltu.md), [FSP](../ccsds/sle/fsp.md), [SLE service management](../ccsds/sle/service-management.md); the radio link itself: [RF and ranging](../ccsds/rf-and-ranging.md).
+* Where the TC frame, COP-1, CLTU and CPDU came from: [From ESA PSS to CCSDS and ECSS](history.md).
+* MIB background: [data model](../mib/data-model.md), [tailoring](../mib/tailoring.md), [tooling](../mib/tooling.md), [operations preparation](../scos2000/operations-preparation.md).
+* Solar Orbiter specifics: [How Solar Orbiter uses PUS](../missions/solar-orbiter/pus-usage.md), [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md), instrument commanding in the [instrument interface documents](../missions/solar-orbiter/instrument-interfaces.md) and the [STIX](../missions/solar-orbiter/stix.md) and [SWA](../missions/solar-orbiter/swa.md) databases.
 
 [^icd-cmd]: [SCOS-2000 Database Import ICD, EGOS-MCS-S2K-ICD-0001 issue 7.0](../library/icd-7-0-final.md), §3.3.3 Commanding data (relationships), PDF pp. 126–128.
 [^icd-hdr]: [SCOS-2000 Database Import ICD issue 7.0](../library/icd-7-0-final.md), §3.3.3.1.1–3.3.3.1.3 tcp, pcpc and pcdf (PCDF_TYPE values and remark on header parameters), PDF pp. 128–131.
@@ -841,3 +868,11 @@ these arrive within their verification windows, which are computed from the 20 s
 [^mib-bc]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `ccf`, `cdf` and `cpc` for `UNLOCK`, `SETVR`, `RESET`, `REIN_TTR`, `TC_ONLY`; queries by this wiki.
 [^mib-clcw]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pcf` and `plf` (parameters `PDEC_CLCW.A.*`, SPIDs 19541 and 19550); queries by this wiki.
 [^mib-verif]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `cvs`, `cve`, `cvp`, `ccf`, `pcf`, `txp`, `pic` and `pid`; queries by this wiki.
+[^sol-tcov]: [SOL.S.ASTR.TN.00079 issue 7](../library/sol-s-astr-tn-00079-07.md), §3.1 Telecommand overview, figure 3.1-1 (TC frame: 5-octet header, data field, 2-octet TC frame error control (CRC); segment of at most 249 octets; packet of 6 + at most 242 octets; a drawing, read in the PDF because it is not in the extracted text), PDF p. 14.
+[^an-fecf]: [ECSS-E-AS-50-25C Rev.1](../library/ecss-e-as-50-25c-rev-1-13january2023.md), Table 4-1, rows 4.1.4.1.1 to 4.1.4.1.3 (FECF made mandatory), PDF p. 9.
+[^sle-fwd]: [CCSDS 910.3-G-3, Cross Support Concept Part 1: SLE Services](../library/ccsds-910x3g3-sle-cross-support.md), §4.3.1 "List of forward telecommand SLE services and their interfaces" (FSP, FTCVCA, FTCF, FCLTU; the ROCF as input to the VC and packet service provider), PDF p. 28.
+[^fsp-api]: [CCSDS 912.3-B-3, SLE Forward Space Packet Service](../library/ccsds-912-3-912x3b3s.md), cover note on the historical status, PDF p. 1.
+[^mib-dst]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pid` (SPID 33793 "PLF DST HK"), `pcf` (`NDSD0012` "DST-A TC Bit Rate", `NDSD0022` "DST-A RNG Type") and `txp` (`CDST0003TM`: 7.8125, 15.625, 250, 1000, 2000 and 4000 bps; `CDST0001TM`: PN, STD); queries by this wiki.
+[^rf-401]: [CCSDS 401.0-B-32, Radio Frequency and Modulation Systems, Part 1](../library/ccsds-401-0-401x0b32.md), §1.1 "Purpose", §1.2 "Scope" and §1.3 "Applicability", PDF p. 25.
+[^rf-5005]: [ECSS-E-ST-50-05C Rev.2, Radio frequency and modulation](../library/ecss-e-st-50-05c-rev24october2011.md), clause 1 "Scope", PDF p. 9.
+[^e70-annexl]: [ECSS-E-ST-70C, Ground systems and operations](../library/ecss-e-st-70c31july2008.md), Annex L, Table L-1 "ECSS-E-ST-70 level 3 standards", PDF pp. 126–127.

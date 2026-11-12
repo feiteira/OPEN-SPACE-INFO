@@ -23,8 +23,8 @@ sources: []
 </div>
 
 <div class="osi-stats">
-<a class="osi-stat" href="library/"><span>119</span>source documents &amp; datasets</a>
-<a class="osi-stat" href="references/"><span>1,013</span>referenced documents catalogued</a>
+<a class="osi-stat" href="library/"><span>197</span>source documents &amp; datasets</a>
+<a class="osi-stat" href="references/"><span>1,506</span>referenced documents catalogued</a>
 <a class="osi-stat" href="explorer/#/solo/search/params/"><span>126,745</span>Solar Orbiter TM parameters</a>
 <a class="osi-stat" href="explorer/#/solo/search/commands/"><span>5,454</span>telecommands with full definitions</a>
 </div>

@@ -1,0 +1,437 @@
+{
+ "slug": "ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp",
+ "title": "Payload Management & OBCP",
+ "short_title": "Herschel/Planck Payload Management & OBCP (TN-1072)",
+ "doc_id": "H-P-1-ASP-TN-1072",
+ "issue": "06",
+ "date": "2008-03-10",
+ "organisation": "Thales Alenia Space - France",
+ "authors": [
+  "G.P. Dragan",
+  "N. Lebonnois",
+  "P. Couzin",
+  "C. Cailler",
+  "P. Rideau",
+  "T. Grassin",
+  "J.M. Reix"
+ ],
+ "doc_type": "Technical Note",
+ "status_notes": "Issue 06 dated 10/03/2008. The change record (PDF p. 4) lists issues 01 (20/03/2006, initial revision), 02 Draft (15/02/2007), 02 (11/07/2007), 03 (07/11/2007), 04 (20/01/2008), 05 (26/02/2008, PACS OBCPs modified after NCR-3958) and 06 (10/03/2008, TBCs removed after instrument answers). A change-traceability table since version 04 is on PDF p. 5. Many values are still marked TBC.",
+ "summary": "A Thales Alenia Space technical note that specifies the on-board control procedures (OBCPs) the Herschel/Planck CDMS on-board software runs on behalf of the scientific instruments. It also defines the Event/Action Table (EAT) entries that tie instrument or platform event reports to those OBCPs. OBCPs that ground needs for nominal payload operations are out of scope.\n\nSection 3 sets the framework. It covers instrument-internal FDIR (the instrument raises a PUS service 5 event and the CDMS starts an OBCP through an EAT entry), spacecraft FDIR that affects the payload (1553B bus DLL, TFL TC and TFL TM failures, science data monitoring through the service 12 monitoring table, and Class B heater-loop failures), and the five spacecraft modes. On any transition to Sun or Earth Acquisition Mode the CDMS starts one 'mother' OBCP per spacecraft (DB_H_PL_SC_MODE_OBCP or DB_P_PL_SC_MODE_OBCP), which calls the instrument OBCPs.\n\nSections 4 (Herschel: SPIRE, PACS, HIFI) and 5 (Planck: HFI, LFI, sorption cooler SCE) repeat the same structure per instrument. Each gives the triggering event reports with APIDs and event IDs, the EAT entries (APID, event ID, TC(18,3) start-OBCP packet, action handling ID, parameter-passing and action status), and a specification table per OBCP. That table gives its ID, trigger, time-out and parameters, and the PUS telecommands it sends, such as TC(18,4) stop procedure, TC(19,5) disable actions, TC(11,2) disable sub-schedule release and TC(8,4,112,3) PCDU unit off. Section 6 lists the data-pool IDs the OBCPs use, and section 7 lists open issues on verification reports, TC rate and FDIR hierarchy. For an engineer it is a detailed real example of PUS services 5, 11, 12, 18 and 19 working together for payload FDIR.",
+ "contents": [
+  {
+   "section": "1.",
+   "title": "INTRODUCTION",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.1",
+   "title": "Purpose",
+   "pdf_page": 10
+  },
+  {
+   "section": "1.2",
+   "title": "Limitations",
+   "pdf_page": 10
+  },
+  {
+   "section": "2.",
+   "title": "DOCUMENTATION AND TERMINOLOGY",
+   "pdf_page": 10
+  },
+  {
+   "section": "2.1",
+   "title": "Applicable documents",
+   "pdf_page": 10
+  },
+  {
+   "section": "2.2",
+   "title": "Reference documents",
+   "pdf_page": 11
+  },
+  {
+   "section": "2.3",
+   "title": "Glossary of terms and acronyms",
+   "pdf_page": 11
+  },
+  {
+   "section": "3.",
+   "title": "PAYLOAD MANAGEMENT OVERVIEW",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.1",
+   "title": "FDIR",
+   "pdf_page": 12
+  },
+  {
+   "section": "3.2",
+   "title": "S/C Mode Transition",
+   "pdf_page": 14
+  },
+  {
+   "section": "4.",
+   "title": "HERSCHEL",
+   "pdf_page": 21
+  },
+  {
+   "section": "4.1",
+   "title": "SPIRE",
+   "pdf_page": 21
+  },
+  {
+   "section": "4.2",
+   "title": "PACS",
+   "pdf_page": 40
+  },
+  {
+   "section": "4.3",
+   "title": "HIFI",
+   "pdf_page": 71
+  },
+  {
+   "section": "4.4",
+   "title": "Common HERSCHEL OBCP",
+   "pdf_page": 81
+  },
+  {
+   "section": "5.",
+   "title": "PLANCK",
+   "pdf_page": 82
+  },
+  {
+   "section": "5.1",
+   "title": "HFI",
+   "pdf_page": 82
+  },
+  {
+   "section": "5.2",
+   "title": "LFI",
+   "pdf_page": 97
+  },
+  {
+   "section": "5.3",
+   "title": "SCE",
+   "pdf_page": 109
+  },
+  {
+   "section": "5.4",
+   "title": "Common PLANCK OBCP",
+   "pdf_page": 122
+  },
+  {
+   "section": "6.",
+   "title": "LIST OF ID OF THE DATAPOOL USED BY THOSE OBCPS",
+   "pdf_page": 123
+  },
+  {
+   "section": "7.",
+   "title": "IN ADDITION TO THE SPECIFIC TBD/TBC IDENTIFIED IN THE PREVIOUS SECTIONS, THE FOLLOWING GENERAL ISSUES NEED TO BE CLARIFIED.",
+   "pdf_page": 123
+  },
+  {
+   "section": "7.1",
+   "title": "OBCP Telecommand Verification Report",
+   "pdf_page": 123
+  },
+  {
+   "section": "7.2",
+   "title": "OBCP TM/TC rate",
+   "pdf_page": 123
+  },
+  {
+   "section": "7.3",
+   "title": "OBCP simplification vs. P/L FDIR hierarchy",
+   "pdf_page": 124
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Purpose: specify the OBCPs needed for Herschel/Planck payload management in the CDMS OBSW and the Event/Action Table entries linking payload event reports to nominal or recovery actions.",
+   "pdf_page": 10
+  },
+  {
+   "text": "EAT entries for instrument-internal FDIR use Action Handling ID 0b01 (disabled in AFS, enabled in AFO), action status enabled by default and parameter passing usually disabled; an instrument with separate nominal and redundant APIDs needs two EAT entries per failure case.",
+   "pdf_page": 12
+  },
+  {
+   "text": "EAT entries for spacecraft 1553B bus FDIR (DLL, TFL TC, TFL TM events generated by the CDMU BSW) use Action Handling ID 0b11, enabled in both AFS and AFO; the OBCP to start is HPSDB- and flight-configurable through the EAT.",
+   "pdf_page": 13
+  },
+  {
+   "text": "The hard-coded TFL TM FDIR triggers when the CDMU receives no more than 1 TM packet from an instrument in 90 s (SDB_FDIR_TFL_TM_PERIOD_<Instrument>_VALUE = 90 s, SDB_FDIR_TFL_TM_MIN_<Instrument>_VALUE = 1); the service 12 monitoring-table-based science data monitoring allows thresholds to be changed in flight.",
+   "pdf_page": 13
+  },
+  {
+   "text": "A Class B heater loop failure generates event TM(5,4,114,5) and a switch to redundant heaters; only HIFI uses Class B loops and requests no extra action.",
+   "pdf_page": 14
+  },
+  {
+   "text": "There are five spacecraft modes: Launch, Sun Acquisition (SAM), Earth Acquisition (EAM), Nominal (NOM) and Survival (SM); transitions are commanded by ground (direct TC, MTL or OBCP) or autonomously on separation or CDMS/ACMS level 3/4 alarms.",
+   "pdf_page": 14
+  },
+  {
+   "text": "Because only one OBCP is started during a mode transition, a 'mother' payload OBCP per spacecraft (DB_H/P_PL_SC_MODE_OBCP) calls the instrument OBCPs; the survival-mode OBCP is a placeholder because instruments are switched off by the reconfiguration module after a level 4 alarm.",
+   "pdf_page": 18
+  },
+  {
+   "text": "SPIRE event reports use APIDs 0x0500 (prime) and 0x0501 (redundant), so each SPIRE failure case needs two EAT entries.",
+   "pdf_page": 21
+  },
+  {
+   "text": "Spacecraft 1553B bus FDIR events (for example 152 DLL, 171 TFL TC, 185 TFL TM for SPIRE) come from CDMS APID 0x0010.",
+   "pdf_page": 23
+  },
+  {
+   "text": "PACS event reports use APIDs 0x0480 (prime) and 0x0481 (redundant).",
+   "pdf_page": 40
+  },
+  {
+   "text": "LFI event reports use a single APID, 0x0600, for prime and redundant.",
+   "pdf_page": 97
+  },
+  {
+   "text": "SCE event reports use APIDs 0x0680 (prime) and 0x0681 (redundant).",
+   "pdf_page": 109
+  },
+  {
+   "text": "SPIRE internal FDIR events (TM(5,2)) 0xC000 (DRCU anomaly), 0xC010 (DPU power anomaly), 0xC100 (operations anomaly) and 0xC110 (operations resume) start the DRCU_OFF, OFF, OPE_STOP and OPE_RESUME OBCPs via TC(18,3).",
+   "pdf_page": 21
+  },
+  {
+   "text": "Example OBCP DB_OBCP_H_SPIRE_DRCU_OFF (ID 0x1102, time-out 600 s TBC) stops conflicting OBCPs with TC(18,4), disables EAT entries with TC(19,5), disables SPIRE sub-schedule releases with TC(11,2), and switches off the SPIRE HSFCU LCLs with TC(8,4,112,3).",
+   "pdf_page": 27
+  },
+  {
+   "text": "OBCP IDs are grouped by instrument, for example SPIRE 0x1102-0x1107, PACS 0x1208-0x120C and HIFI 0x130D-0x130E; the Herschel mode-transition mother OBCP DB_H_PL_SC_MODE_OBCP has ID 0x0001.",
+   "pdf_page": 81
+  },
+  {
+   "text": "Planck OBCP IDs continue the scheme: HFI 0x2102-0x2103, LFI 0x2204-0x2205, SCE 0x2306-0x2308, and DB_P_PL_SC_MODE_OBCP is also 0x0001 (time-out 30 s TBC; all Planck instruments 'do nothing').",
+   "pdf_page": 122
+  },
+  {
+   "text": "HIFI requests no CDMS support for internal failures; for 1553B bus FDIR events 151, 170 and 184 it requests a reset (DB_OBCP_H_HIFI_RESET).",
+   "pdf_page": 71
+  },
+  {
+   "text": "Section 6 maps the OBCP parameters (sub-schedule IDs, payload side, restart indices, temporary outputs) to data pool IDs DID_OBCP_32_OFFSET_000 to _110.",
+   "pdf_page": 123
+  },
+  {
+   "text": "Open issues: which verification reports OBCP-generated TCs should request (including TM(1,9)), and a suggested limit of one TC per second per OBCP to reduce TM(1,x) load.",
+   "pdf_page": 123
+  }
+ ],
+ "references": [
+  {
+   "label": "[AD1]",
+   "doc_id": "SCI-PT-ICD-7527",
+   "title": "Packet Structure Interface Control Document",
+   "issue": "5.0",
+   "date": "2004-07-20",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD2]",
+   "doc_id": "SPIRE-RAL-PRJ-001078",
+   "title": "SPIRE Data ICD",
+   "issue": "2.0",
+   "date": "2004-11-15",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD3]",
+   "doc_id": "ACS-CR-UM-024",
+   "title": "PACS DPUOBS User Manual",
+   "issue": "1.7",
+   "date": "2004-09-15",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD4]",
+   "doc_id": "SRON-U/HIFI/SP/2001-001",
+   "title": "HIFI TC Packet ICD",
+   "issue": "1.5",
+   "date": "2005-10-05",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD5]",
+   "doc_id": "SRON-U/HIFI/SP/2001-002",
+   "title": "HIFI TM Packet ICD",
+   "issue": "1.6",
+   "date": "2005-10-05",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD6]",
+   "doc_id": "SRON-U/HIFI/SP/2001-003",
+   "title": "HIFI HK Packet ICD",
+   "issue": "1.8",
+   "date": "2005-10-05",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD7]",
+   "doc_id": "LI-PHBC-300081-LAL",
+   "title": "HFI OBSW TCTM List",
+   "issue": "2.1",
+   "date": "2004-11-19",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD8]",
+   "doc_id": "PL-LFI-PST-MA-001",
+   "title": "LFI User Manual Document",
+   "issue": "2.2",
+   "date": "2007-06-30",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD9]",
+   "doc_id": "TS-PSCBC-100010-LPSC",
+   "title": "SCE TC and TM Structures",
+   "issue": "7.12",
+   "date": "2005-10-19",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD10]",
+   "doc_id": "P-HPL-NOT-00076-SE",
+   "title": "CDMU Software ICD for the BSW",
+   "issue": "12",
+   "date": "2006-04-05",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[AD11]",
+   "doc_id": "H-P-4-SSF-IC-0001",
+   "title": "CDMU ASW ICD",
+   "issue": "4.1",
+   "date": "2007-06-26",
+   "kind": "applicable",
+   "pdf_page": 10
+  },
+  {
+   "label": "[RD1]",
+   "doc_id": "H-P-1-ASPI-LI-0077",
+   "title": "List of Acronyms",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD2]",
+   "doc_id": "H-P-1-ASPI-SP-0209",
+   "title": "System Operations & FDIR Requirements",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD3]",
+   "doc_id": "SPIRE-RAL-PRJ-001978",
+   "title": "SPIRE FDIR",
+   "issue": "1.0",
+   "date": "2004-07-13",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD4]",
+   "doc_id": "PACS-ME-GP-002",
+   "title": "PACS FDIR",
+   "issue": "1.2",
+   "date": "2007-04-17",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD5]",
+   "doc_id": "SRON-U/HIFI/SP/2004-002",
+   "title": "HIFI FDIR Specification",
+   "issue": "1.2",
+   "date": "2006-06-09",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD6]",
+   "doc_id": "IC-PHBC-200031-LAL",
+   "title": "HFI Instrument Main Electronics OBSW ICD A",
+   "issue": "3.1",
+   "date": "2005-03-16",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD7]",
+   "doc_id": "PL-LFI-PST-AN-002",
+   "title": "Planck LFI – FDIR description",
+   "issue": "1.0",
+   "date": "2005-05-18",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD8]",
+   "doc_id": "PA-PSCB-100006-ISN",
+   "title": "Planck Sorption Cooler Electronics FMECA",
+   "issue": "1.15",
+   "date": "2005-03-01",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD9]",
+   "doc_id": "H-P-SP-AI-0031",
+   "title": "CDMU ASW Requirements Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD10]",
+   "doc_id": "PT-CMOC-OPS-TN-6605-OPS-OGH",
+   "title": "Intended Operational Usage of Sub-Schedules",
+   "issue": "Draft1",
+   "date": "2004-03-31",
+   "kind": "reference",
+   "pdf_page": 11
+  },
+  {
+   "label": "[RD11]",
+   "doc_id": "H-P-ASP-MN-5558",
+   "title": "Data Management Working Group Meeting #21",
+   "issue": null,
+   "date": "2004-10-20",
+   "kind": "reference",
+   "pdf_page": 11
+  }
+ ],
+ "topics": [
+  "ecss/pus/st18-onboard-operations-procedure.md",
+  "ecss/pus/st19-event-action.md",
+  "ecss/pus/st05-event-reporting.md",
+  "ecss/pus/st11-time-based-scheduling.md",
+  "ecss/pus/st12-onboard-monitoring.md",
+  "ecss/e-st-70-01c.md",
+  "missions/herschel-planck.md",
+  "scos2000/herschel-planck-interfaces.md"
+ ],
+ "notes": "Clean text-based PDF with 124 pages (the text extraction shows a 125th, empty page). Printed page numbers match PDF page indexes. PDF p. 2 is blank apart from headers, and the mode-transition tables (PDF pp. 16 and 20) are landscape tables that extract poorly; PDF pp. 17 and 19 are mostly empty overflow pages. AD1 is printed 'SCI-PT-ICD-7527' issue 5.0; the library holds issue 6.0 of that Packet Structure ICD as ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d. AD4 (HIFI TC Packet ICD, issue 1.5) is an older issue of the library item hifi-telecommand-packet-structure-icd. The PDF p. 38 heading for DB_OBCP_H_SPIRE_OPE_RESUME prints the OBCP name as DB_OBCP_H_SPIRE_OPE_STOP with ID 0x1107 (apparent typo). The HIFI 1553B EAT text says 'to support PACS' (copy-paste slip, PDF p. 71). The source URL labels the file 'AD19' in SPIRE's IIDA applicable-documents archive."
+}

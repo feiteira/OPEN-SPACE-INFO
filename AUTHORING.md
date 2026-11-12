@@ -80,8 +80,8 @@ Lead paragraph: what it is, why it exists, where it sits in the chain.
   | Verification stage | `explorer/index.md#/solo/verif/<CVS_ID>` |
   | Search | `explorer/index.md#/solo/search/<text>` |
 
-  Use `swa` instead of `solo` for the SWA instrument database, and `solo2020` for the
-  April 2020 release.
+  Use `solo2020` for the April 2020 spacecraft MIB release, `swa` (2021 ASCII set) or `swa65`
+  (v6.5.0) for the SWA instrument database, and `stix` for the STIX instrument database.
 * Link generously: the first mention of a concept on a page should link to its page.
   Acronyms get hover tooltips automatically from the glossary.
 

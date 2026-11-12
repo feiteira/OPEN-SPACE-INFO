@@ -6,12 +6,12 @@ sources: []
 
 # Reference catalogue
 
-This catalogue merges the reference lists of all 119 library sources: **1013 distinct documents**, cited 1843 times in total. **44** of them are in our [library](../library/index.md); the rest are cited but not publicly available as far as we know (for example ESA-internal SUMs, ADDs and ICDs). Entries are merged by normalised document identifier, or by title when there is no identifier, so variant spellings may still appear separately.
+This catalogue merges the reference lists of all 197 library sources: **1506 distinct documents**, cited 2920 times in total. **84** of them are in our [library](../library/index.md); the rest are cited but not publicly available as far as we know (for example ESA-internal SUMs, ADDs and ICDs). Entries are merged by normalised document identifier, or by title when there is no identifier, so variant spellings may still appear separately.
 
 !!! tip "Looking for an internal document?"
     Many SCOS-2000 documents are distributed only with the software (MICONYS, under the ESA Software Community License). The catalogue tells you their exact identifiers and which public documents cite them.
 
-## CCSDS (261)
+## CCSDS (347)
 
 <a id="ref-102-0-b-4"></a>
 **102.0-B-4**: Packet Telemetry (CCSDS, Tech. Rep., CCSDS Secretariat) 
@@ -48,17 +48,40 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([1]), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md)
 
+<a id="ref-ccsds-101-0-b-2"></a>
+**CCSDS 101.0-B-2**: Telemetry Channel Coding 
+
+: Issues cited: Recommendation, Issue 2, 'Blue Book' January 1987
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([3])
+
+<a id="ref-ccsds-101-0-b-5"></a>
+**CCSDS 101.0-B-5**: CCSDS Telemetry Channel Coding 
+
+: Issues cited: blue book B-5 June 2001
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 7)
+
 <a id="ref-ccsds-101-0-b-6-s"></a>
 **CCSDS 101.0-B-6-S**: Telemetry Channel Coding 
 
 : Issues cited: Issue 6-S (Historical) (October 2002) August 2005; Issue 6-S (October 2002) August 2005
 
-: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E2]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F1]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F1]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F1])
+: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E2]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([E2]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F1]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F1]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F1])
+
+<a id="ref-ccsds-102-0-b-2"></a>
+**CCSDS 102.0-B-2**: Packet Telemetry 
+
+: Issues cited: Recommendation, Issue 2, 'Blue Book' January 1987
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([1])
 
 <a id="ref-ccsds-102-0-b-4"></a>
 **CCSDS 102.0-B-4**: CCSDS Packet Telemetry 
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (1))
+: Issues cited: B-4 November 1995
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (RD-2), [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (1)), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 4), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (1))
 
 <a id="ref-ccsds-102-0-b-5"></a>
 **CCSDS 102.0-B-5**: Packet Telemetry 
@@ -73,6 +96,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: Issue 5-S (Historical) (November 2000) August 2005
 
 : Cited by: [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F2]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F2]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F2]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F2])
+
+<a id="ref-ccsds-102-0-b-2"></a>
+**CCSDS 102.0-B.2**: (CCSDS) Packet Telemetry, Blue Book 
+
+: Issues cited: B.2 January 1987
+
+: Cited by: [The ESA Packet Utilisation Standard (PUS) paper](../library/ntrs-19950011180-esa-pus-paper.md) (4.)
 
 <a id="ref-ccsds-120-0-g"></a>
 **CCSDS 120.0-G**: Lossless Data Compression – Informational Report 
@@ -101,7 +131,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-121-0-b"></a>
 **CCSDS 121.0-B**: Lossless Data Compression 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 121.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 121.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
+
+<a id="ref-ccsds-121-0-b-1"></a>
+**CCSDS 121.0-B-1**: Lossless Data Compression 
+
+: Issues cited: Issue 1 May 1997
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([2])
 
 <a id="ref-ccsds-121-0-b-3"></a>
 **CCSDS 121.0-B-3**: Lossless Data Compression 
@@ -113,7 +150,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-122-0-b"></a>
 **CCSDS 122.0-B**: Image Data Compression 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 122.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 122.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-122-0-b-2"></a>
 **CCSDS 122.0-B-2**: Image Data Compression 
@@ -125,7 +162,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-122-1-b"></a>
 **CCSDS 122.1-B**: Image Data Compression (second entry in Figure 4-2) 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-122-1-b-1"></a>
 **CCSDS 122.1-B-1**: Spectral Preprocessing Transform for Multispectral and Hyperspectral Image Compression 
@@ -137,7 +174,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-123-0-b"></a>
 **CCSDS 123.0-B**: Lossless Multi &amp; Hyper spectral Image Compression 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-123-0-b-2"></a>
 **CCSDS 123.0-B-2**: Low-Complexity Lossless and Near-Lossless Multispectral and Hyperspectral Image Compression 
@@ -151,182 +188,213 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 3 July 2014
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([12]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C2]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C2]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([2]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C2]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D4]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C2])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([12]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C2]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C2]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([2]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C2]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D4]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C7]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C2])
 
 <a id="ref-ccsds-130-0-g-4"></a>
 **CCSDS 130.0-G-4**: Overview of Space Communications Protocols [:material-book-check: in library](../library/ccsds-130-0-130x0g4e1.md)
 
 : Issues cited: Issue 4 April 2023
 
-: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F2])
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([7], [RD 1]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([C2]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F2])
 
 <a id="ref-ccsds-130-1-g"></a>
 **CCSDS 130.1-G**: TM Synchronization and Channel Coding – Summary of Concept and Rationale 
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 130.1-G)
 
+<a id="ref-ccsds-130-1-g-1"></a>
+**CCSDS 130.1-G-1**: TM Synchronization and Channel Coding, Summary of Concept and Rationale – Green Book 
+
+: Issues cited: Issue 1 June 2006
+
+: Cited by: [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (CCSDS 130.1-G-1)
+
 <a id="ref-ccsds-130-1-g-3"></a>
 **CCSDS 130.1-G-3**: TM Synchronization and Channel Coding—Summary of Concept and Rationale [:material-book-check: in library](../library/ccsds-130-1-130x1g3e1.md)
 
 : Issues cited: Issue 3 June 2020
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([33]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([12]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F16])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([33]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([12]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([29]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F16]), [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md)
+
+<a id="ref-ccsds-130-2-g-1"></a>
+**CCSDS 130.2-G-1**: Space data link protocols – Summary of concept and rationale (URD reference document) 
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([RD 2])
 
 <a id="ref-ccsds-130-2-g-3"></a>
 **CCSDS 130.2-G-3**: Space Data Link Protocols—Summary of Concept and Rationale [:material-book-check: in library](../library/ccsds-130-2-130x2g3.md)
 
-: Issues cited: Issue 3 September 2015
+: Issues cited: G-3; Issue 3 September 2015
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([31]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F18])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([31]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F18]), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (73)
+
+<a id="ref-ccsds-131-b-3"></a>
+**CCSDS 131-B-3**: TM Synchronization and Channel Coding, September 2017, or later issue (cited in 2.4.9 for the pseudo-randomizer) 
+
+: Issues cited: September 2017
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
 
 <a id="ref-ccsds-131-0-b"></a>
-**CCSDS 131.0-B**: TM Synchronization and Channel Coding 
+**CCSDS 131.0-B**: TM Synch. and Channel Coding 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 131.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 131.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-131-0-b-1"></a>
 **CCSDS 131.0-B-1**: TM Synchronization and Channel Coding 
 
-: Issues cited: Blue Book. Issue 1 September 2003
+: Issues cited: Blue Book. Issue 1 September 2003; Issue 1 September 2003
 
-: Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([3])
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([14]), [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([2]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([3]), [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (CCSDS 131.0-B-1)
 
 <a id="ref-ccsds-131-0-b-2"></a>
 **CCSDS 131.0-B-2**: TM Synchronization and Channel Coding 
 
 : Issues cited: Issue 2 August 2011
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([10])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([10]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([4])
 
 <a id="ref-ccsds-131-0-b-3"></a>
 **CCSDS 131.0-B-3**: TM Synchronization and Channel Coding 
 
 : Issues cited: Issue 3 September 2017
 
-: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([3]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([3]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([5]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([3]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([2]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([2]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([2]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([2])
+: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([3]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([3]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([2]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([5]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([3]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([3]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([2]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([2]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([2]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([2])
 
 <a id="ref-ccsds-131-0-b-4"></a>
 **CCSDS 131.0-B-4**: TM Synchronization and Channel Coding 
 
 : Issues cited: B-4; Issue 4 April 2022
 
-: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 131.0-B-4), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([8]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D5])
+: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 131.0-B-4), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([8]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D5]), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (68)
 
 <a id="ref-ccsds-131-0-b-5"></a>
 **CCSDS 131.0-B-5**: TM Synchronization and Channel Coding [:material-book-check: in library](../library/ccsds-131-0-131x0b5.md)
 
-: Issues cited: Issue 5 September 2023
+: Issues cited: Issue 4 September 2023; Issue 5 September 2023
 
-: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([3])
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([30]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([3]), [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md)
+
+<a id="ref-ccsds-131-1-g-3"></a>
+**CCSDS 131.1-G-3**: TM Synchronization and Channel Coding—Summary of Concept and Rationale 
+
+: Issues cited: Issue 3 June 2020
+
+: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([E7])
 
 <a id="ref-ccsds-131-2-b"></a>
 **CCSDS 131.2-B**: Flexible advanced coding and modulation scheme for high rate TM applications (SCCC) 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-131-2-b-1"></a>
 **CCSDS 131.2-B-1**: Flexible Advanced Coding and Modulation Scheme for High Rate Telemetry Applications 
 
 : Issues cited: Issue 1 March 2012
 
-: Cited by: [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([4]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([4])
+: Cited by: [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([4]), [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([4])
 
 <a id="ref-ccsds-131-2-b-2"></a>
 **CCSDS 131.2-B-2**: Flexible Advanced Coding and Modulation Scheme for High Rate Telemetry Applications 
 
 : Issues cited: Issue 2 February 2023
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([50]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([4]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([3]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([3])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([50]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E6]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([E5]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([4]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([4]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([3]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([3])
 
 <a id="ref-ccsds-131-3-b"></a>
 **CCSDS 131.3-B**: CCSDS Space Data Link Protocols over ETSI DVB-S2 standard 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-131-3-b-1"></a>
 **CCSDS 131.3-B-1**: CCSDS Space Link Protocols over ETSI DVB-S2 Standard 
 
 : Issues cited: Issue 1 March 2013
 
-: Cited by: [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([5]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([5])
+: Cited by: [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([5]), [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([5])
 
 <a id="ref-ccsds-131-3-b-2"></a>
 **CCSDS 131.3-B-2**: CCSDS Space Link Protocols over ETSI DVB-S2 Standard 
 
 : Issues cited: Issue 2 April 2022
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([51]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E7]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([4]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([4])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([51]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E7]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([E6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([5]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([4]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([4])
 
 <a id="ref-ccsds-131-4-m-1-s"></a>
-**CCSDS 131.4-M-1-S**: TM Channel Coding Profiles 
+**CCSDS 131.4-M-1-S**: TM Channel Coding Profiles – Silver Book 
 
-: Issues cited: Issue 1-S (July 2011) December 2017
+: Issues cited: Issue 1 July 2011; Issue 1-S (July 2011) December 2017
 
-: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E5])
+: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E5]), [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-132-0-b"></a>
 **CCSDS 132.0-B**: TM Space Data Link Protocol 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 132.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 132.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-132-0-b-1"></a>
-**CCSDS 132.0-B-1**: TM Space Data Link Protocol – Blue Book 
+**CCSDS 132.0-B-1**: TM Space Data Link Protocol 
 
 : Issues cited: Blue Book. Issue 1 September 2003; Issue 1 September 2003
 
-: Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([2]), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 132.0-B-1)
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([8]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([AD 1]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([6]), [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([1]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([2]), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 132.0-B-1)
 
 <a id="ref-ccsds-132-0-b-2"></a>
 **CCSDS 132.0-B-2**: TM Space Data Link Protocol 
 
 : Issues cited: Issue 2 September 2015
 
-: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([2]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([2]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C3]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([1]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([2])
+: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([2]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([2]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C3]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([1]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H7]), [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([2]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([4]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([4]), [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([2])
 
 <a id="ref-ccsds-132-0-b-3"></a>
 **CCSDS 132.0-B-3**: TM Space Data Link Protocol [:material-book-check: in library](../library/ccsds-132-0-132x0b3.md)
 
 : Issues cited: B-3; Issue 3 October 2021
 
-: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 132.0-B-3), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([5]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([1]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C6]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([1]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F19]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([5]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([3]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([3]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([5]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([8])
+: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 132.0-B-3), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([5]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([3]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([1]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([1]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C6]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([4]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([1]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F19]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([5]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([3]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([3]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([5]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([8]), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (63)
+
+<a id="ref-ccsds-132x0b3"></a>
+**CCSDS 132x0b3**: TM Space Data Link Protocol 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([CCSDLP])
 
 <a id="ref-ccsds-133-0-b"></a>
 **CCSDS 133.0-B**: Space Packet Protocol 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 133.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 133.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-133-0-b-1"></a>
 **CCSDS 133.0-B-1**: Space Packet Protocol 
 
 : Issues cited: Blue Book. Issue 1 September 2003; Issue 1 September 2003; September 2003
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([13]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([7]), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 133.0-B-1), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 133.0-B-1), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([13]), [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([6]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([8]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([8]), [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md), [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([6]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([7]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([6]), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 133.0-B-1), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 133.0-B-1), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
 
 <a id="ref-ccsds-133-0-b-2"></a>
 **CCSDS 133.0-B-2**: Space Packet Protocol [:material-book-check: in library](../library/ccsds-133-0-133x0b2e2.md)
 
 : Issues cited: B-2; Issue 2 June 2020; June 2020
 
-: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 133.0-B-2), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([4]), [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([7]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([8]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([3]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([8]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([12]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([7]), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (CCSDS 133.0-B-2), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 133.0-B-2), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([4]), [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([7]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([1]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([8]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([3]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([8]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([8]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([12]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([7]), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (CCSDS 133.0-B-2), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (70)
 
 <a id="ref-ccsds-133-1-b"></a>
 **CCSDS 133.1-B**: Encapsulation Service / Encapsulation Packet 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 133.1-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 133.1-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-133-1-b-2"></a>
-**CCSDS 133.1-B-2**: Encapsulation Service (cited as the reference for the SANA registry renaming requests) 
+**CCSDS 133.1-B-2**: Encapsulation Service 
 
 : Issues cited: Issue 2 October 2009
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([16]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md)
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([16]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md), [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([13])
 
 <a id="ref-ccsds-133-1-b-3"></a>
 **CCSDS 133.1-B-3**: Encapsulation Packet Protocol [:material-book-check: in library](../library/ccsds-133-1-133x1b3e1.md)
 
-: Issues cited: Issue 3 April 2020; Issue 3 May 2020
+: Issues cited: B-3; Issue 3 April 2020; Issue 3 May 2020
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([29]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([9]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C8]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([8]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([9]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([13])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([29]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([2]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([9]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C8]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([8]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([9]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([9]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([13]), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (71)
 
 <a id="ref-ccsds-135-0-b"></a>
 **CCSDS 135.0-B**: Space Link Identifiers 
@@ -338,24 +406,24 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 3 October 2006
 
-: Cited by: [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 135.0-B-3)
+: Cited by: [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 135.0-B-3), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 135.0-B-3)
 
 <a id="ref-ccsds-141-0-b"></a>
 **CCSDS 141.0-B**: Optical Communications Physical Layer 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-142-0-b"></a>
 **CCSDS 142.0-B**: Optical Communications Coding and Synchronization 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-200-0-g-6"></a>
 **CCSDS 200.0-G-6**: Telecommand Summary of Concept and Rationale 
 
-: Issues cited: Green Book January 1987; Issue 6 January 1987; January 1987
+: Issues cited: Green Book January 1987; Issue 6 January 1987; January 1987; Report, Issue 6, Green Book January 1987
 
-: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F15]), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([2]), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 200.0-G-6), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F15]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I2]), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([2]), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 200.0-G-6), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) ([1])
 
 <a id="ref-ccsds-201-0-b-3"></a>
 **CCSDS 201.0-B-3**: Telecommand Part 1 -- Channel Service, Blue Book 
@@ -369,7 +437,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 3-S (Historical) (June 2000) August 2005; Issue 3-S (June 2000) August 2005
 
-: Cited by: [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([D2]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G1])
+: Cited by: [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([D2]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([D2]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G1]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I4])
+
+<a id="ref-ccsds-202-0-b-1"></a>
+**CCSDS 202.0-B-1**: Telecommand Part 2.1: Command Operation Procedures, Detailed Specifications and State Matrices 
+
+: Issues cited: Document, Issue 1 (Blue Book yet to be issued); Recommendation, Issue 1, Blue Book January 1987
+
+: Cited by: [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) ([3], [3] (second document))
+
+<a id="ref-ccsds-202-0-b-2"></a>
+**CCSDS 202.0-B-2**: CCSDS Telecommand Part 2 Data Routing Service 
+
+: Issues cited: B-2 November 1992
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 8)
 
 <a id="ref-ccsds-202-0-b-3"></a>
 **CCSDS 202.0-B-3**: Telecommand Part 2 – Data Routing Service 
@@ -383,7 +465,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 3-S (Historical) (June 2001) August 2005
 
-: Cited by: [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F3]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G2])
+: Cited by: [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F3]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G2]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I5])
 
 <a id="ref-ccsds-202-1-b-1-s"></a>
 **CCSDS 202.1-B-1-S**: Telecommand Part 2.1—Command Operation Procedures 
@@ -397,7 +479,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Blue Book June 2001; Issue 2 June 2001
 
-: Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (CCSDS 202.1-B-2), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+: Cited by: [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I6]), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (CCSDS 202.1-B-2), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
 
 <a id="ref-ccsds-202-1-b-2-s"></a>
 **CCSDS 202.1-B-2-S**: Telecommand Part 2.1—Command Operation Procedures 
@@ -409,7 +491,9 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-203-0-b-1"></a>
 **CCSDS 203.0-B-1**: CCSDS Telecommand 
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (2))
+: Issues cited: Blue Book January 1987; Recommendation, Issue 1, Blue Book January 1987
+
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (2)), [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) ([2], [4]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD1]), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (2))
 
 <a id="ref-ccsds-203-0-b-2"></a>
 **CCSDS 203.0-B-2**: Telecommand Part 3 -- Data Management Service, Blue Book 
@@ -421,64 +505,85 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-203-0-b-2-s"></a>
 **CCSDS 203.0-B-2-S**: Telecommand Part 3—Data Management Service 
 
-: Issues cited: Issue 2-S (Historical Recommendation) (June 2001) August 2005
+: Issues cited: Issue 2-S (Historical Recommendation) (June 2001) August 2005; Issue 2-S (Historical) (June 2001) August 2005
 
-: Cited by: [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G4])
+: Cited by: [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G4]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I7])
+
+<a id="ref-ccsds-203-0-b-1"></a>
+**CCSDS 203.0-B.1**: (CCSDS) Telecommand: Part 3, Data Routing Service, Blue Book 
+
+: Issues cited: B.1 January 1987
+
+: Cited by: [The ESA Packet Utilisation Standard (PUS) paper](../library/ntrs-19950011180-esa-pus-paper.md) (5.)
 
 <a id="ref-ccsds-210-0-g-2"></a>
 **CCSDS 210.0-G-2**: Proximity-1 Space Link Protocol—Rationale, Architecture, and Scenarios 
 
 : Issues cited: Issue 2 December 2013
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([32]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([8]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F14])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([32]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([8]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H9]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F14])
 
 <a id="ref-ccsds-211-0-b"></a>
 **CCSDS 211.0-B**: Proximity-1 Space Link Protocol - Data Link Layer 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 211.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 211.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
+
+<a id="ref-ccsds-211-0-b-4"></a>
+**CCSDS 211.0-B-4**: Proximity-1 Space data link protocol – Data Link Layer (URD applicable document) 
+
+: Issues cited: Issue 4 July 2006
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([11]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([AD 3])
 
 <a id="ref-ccsds-211-0-b-5"></a>
 **CCSDS 211.0-B-5**: Proximity-1 Space Link Protocol—Data Link Layer 
 
 : Issues cited: Issue 5 December 2013
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([7]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C6]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([4])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([7]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C6]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([4]), [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([4]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([13])
 
 <a id="ref-ccsds-211-0-b-6"></a>
-**CCSDS 211.0-B-6**: Proximity-1 Space Link Protocol—Data Link Layer 
+**CCSDS 211.0-B-6**: Proximity-1 Space Link Protocol—Data Link Layer [:material-book-check: in library](../library/ccsds-211-0-211x0b6e1.md)
 
 : Issues cited: Issue 6 July 2020
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([18]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D10]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([10])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([18]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([6]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D10]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([10])
 
 <a id="ref-ccsds-211-1-b"></a>
-**CCSDS 211.1-B**: Proximity-1 Space Link Protocol - Physical Layer 
+**CCSDS 211.1-B**: Proximity-1 Physical Layer 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 211.1-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 211.1-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-211-1-b-4"></a>
 **CCSDS 211.1-B-4**: Proximity-1 Space Link Protocol—Physical Layer 
 
 : Issues cited: Issue 4 December 2013
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([20]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F21])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([20]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F21])
 
 <a id="ref-ccsds-211-2-b"></a>
-**CCSDS 211.2-B**: Proximity-1 Space Link Protocol - Coding and Synchronization Sublayer 
+**CCSDS 211.2-B**: Proximity-1 Channel Coding &amp; Sync. Layer 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 211.2-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 211.2-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-211-2-b-3"></a>
 **CCSDS 211.2-B-3**: Proximity-1 Space Link Protocol—Coding and Synchronization Sublayer 
 
 : Issues cited: Issue 3 October 2019
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([19]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([D6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([7])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([19]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([5]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([D6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([7])
 
 <a id="ref-ccsds-230-1-g"></a>
 **CCSDS 230.1-G**: TC Synchronization and Channel Coding – Summary of Concept and Rationale 
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 230.1-G)
+
+<a id="ref-ccsds-230-1-g-1"></a>
+**CCSDS 230.1-G-1**: TC Synchronization and Channel Coding – Green Book 
+
+: Issues cited: Issue 1 June 2006
+
+: Cited by: [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 230.1-G-1)
 
 <a id="ref-ccsds-230-1-g-2"></a>
 **CCSDS 230.1-G-2**: TC Synchronization and Channel Coding—Summary of Concept and Rationale 
@@ -492,7 +597,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 3 October 2021
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([34]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F13])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([34]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([28]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F13]), [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md)
 
 <a id="ref-ccsds-230-2-g-1"></a>
 **CCSDS 230.2-G-1**: Next Generation Uplink 
@@ -504,92 +609,106 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-231-0-b"></a>
 **CCSDS 231.0-B**: TC Synchronization and Channel Coding 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 231.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 231.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md)
 
 <a id="ref-ccsds-231-0-b-1"></a>
 **CCSDS 231.0-B-1**: TC Synchronization and Channel Coding 
 
-: Issues cited: Blue Book. Issue 1 September 2003
+: Issues cited: Blue Book. Issue 1 September 2003; Issue 1 September 2003
 
-: Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([5])
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([15]), [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([4]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([5]), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 231.0-B-1)
 
 <a id="ref-ccsds-231-0-b-2"></a>
 **CCSDS 231.0-B-2**: TC Synchronization and Channel Coding 
 
 : Issues cited: Issue 2 September 2010
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([9])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([9]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([5]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([3])
 
 <a id="ref-ccsds-231-0-b-3"></a>
 **CCSDS 231.0-B-3**: TC Synchronization and Channel Coding 
 
 : Issues cited: Issue 3 September 2017
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([9])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([9]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([1])
 
 <a id="ref-ccsds-231-0-b-4"></a>
-**CCSDS 231.0-B-4**: TC Synchronization and Channel Coding [:material-book-check: in library](../library/ccsds-231-0-231x0b4e1.md)
+**CCSDS 231.0-B-4**: TC Synchronization and Channel Coding [:material-book-check: in library](../library/ccsds-231-0-231x0b4e1.md) · [:material-book-check: in library](../library/ccsds-231-0-231x0b4e1c1.md)
 
 : Issues cited: B-4; Issue 4 July 2021
 
-: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 231.0-B-4), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C8]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([1]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([6]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([2])
+: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 231.0-B-4), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C8]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([1]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([3]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([15]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([6]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([2]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G12]), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (67)
 
 <a id="ref-ccsds-232-0-b"></a>
 **CCSDS 232.0-B**: TC Space Data Link Protocol 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 232.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 232.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md)
 
 <a id="ref-ccsds-232-0-b-1"></a>
 **CCSDS 232.0-B-1**: TC Space Data Link Protocol 
 
-: Issues cited: Blue Book. Issue 1 September 2003
+: Issues cited: Blue Book. Issue 1 September 2003; Issue 1 September 2003
 
-: Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([6])
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([9]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([AD 2]), [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([5]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([6]), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 232.0-B-1)
 
 <a id="ref-ccsds-232-0-b-2"></a>
 **CCSDS 232.0-B-2**: TC Space Data Link Protocol 
 
-: Issues cited: Blue Book. Issue 2 July 2010
+: Issues cited: Blue Book. Issue 2 July 2010; Issue 2 September 2010
 
-: Cited by: [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([3])
+: Cited by: [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([3]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([8]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([1])
 
 <a id="ref-ccsds-232-0-b-3"></a>
 **CCSDS 232.0-B-3**: TC Space Data Link Protocol 
 
 : Issues cited: Issue 3 September 2015
 
-: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([55]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([1]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C4]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([2]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([1]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([4]), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md)
+: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([55]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([1]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C4]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([2]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H6]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([1]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([1]), [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([1]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([2]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([6]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([4]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([4]), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md)
 
 <a id="ref-ccsds-232-0-b-4"></a>
 **CCSDS 232.0-B-4**: TC Space Data Link Protocol [:material-book-check: in library](../library/ccsds-232-0-232x0b4e1c1.md)
 
 : Issues cited: B-4; Issue 4 October 2021
 
-: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 232.0-B-4), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([6]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C6]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([3]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([2]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F6]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([4]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([3]), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md)
+: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 232.0-B-4), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([6]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([4]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C6]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([3]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([5]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([2]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([C6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F6]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([4]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([3]), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (65)
 
 <a id="ref-ccsds-232-1-b"></a>
 **CCSDS 232.1-B**: Communications Operation Procedure-1 
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 232.1-B), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (CCSDS 232.1-B)
 
+<a id="ref-ccsds-232-1-b-1"></a>
+**CCSDS 232.1-B-1**: Communications Operations Procedure -1 (COP-1) (URD applicable document) 
+
+: Issues cited: Issue 1 September 2003
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([AD 7]), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 232.1-B-1)
+
 <a id="ref-ccsds-232-1-b-2"></a>
 **CCSDS 232.1-B-2**: Communications Operation Procedure-1 [:material-book-check: in library](../library/ccsds-232-1-232x1b2e2c1.md)
 
-: Issues cited: Issue 2 September 2010
+: Issues cited: B-2; Issue 2 September 2010
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([30]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([4]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([11]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([4]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D11]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([9]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([4]), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md)
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([30]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([4]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([11]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H5]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([11]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([4]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D11]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([9]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([4]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([5]), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (69)
 
 <a id="ref-ccsds-301-0-b"></a>
 **CCSDS 301.0-B**: Time Code Formats 
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 301.0-B)
 
+<a id="ref-ccsds-301-0-b-1"></a>
+**CCSDS 301.0-B-1**: Time Code Formats 
+
+: Issues cited: Blue Book January 1987; Recommendation, Issue 1, 'Blue Book' January 1987
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([6]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD2])
+
 <a id="ref-ccsds-301-0-b-2"></a>
 **CCSDS 301.0-B-2**: CCSDS Time Code Formats 
 
 : Issues cited: Blue Book, Issue 2 April 1990; Issue 2 April 1990
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (7)), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (CCSDS 301.0-B-2), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-8), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-8), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-8), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-8), [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-6), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-6)
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (7)), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (CCSDS 301.0-B-2), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-8), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-8), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-8), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-8), [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-6), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (7)), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-6)
 
 <a id="ref-ccsds-301-0-b-3"></a>
 **CCSDS 301.0-B-3**: Time Code Formats 
@@ -601,9 +720,9 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-301-0-b-4"></a>
 **CCSDS 301.0-B-4**: Time Code Formats [:material-book-check: in library](../library/ccsds-301-0-301x0b4e1.md)
 
-: Issues cited: Issue 4 November 2010; November 2010
+: Issues cited: B-4; Issue 4 November 2010; November 2010
 
-: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F22]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([7]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([5]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([7]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([5]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([13]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([1]), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 301.0-B-4), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([3]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([4]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F22]), [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([7]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([5]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([7]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([5]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([2]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([13]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([1]), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 301.0-B-4), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (37)
 
 <a id="ref-ccsds-311-0-m-1"></a>
 **CCSDS 311.0-M-1**: Reference Architecture for Space Data Systems 
@@ -617,19 +736,33 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 1 May 2016
 
-: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C13])
+: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C13]), [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([12])
 
 <a id="ref-ccsds-320-0-b"></a>
 **CCSDS 320.0-B**: CCSDS Global Spacecraft Identification Field: Code Assignment Control Procedures 
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 320.0-B)
 
+<a id="ref-ccsds-320-0-b-3"></a>
+**CCSDS 320.0-B-3**: CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures 
+
+: Issues cited: Issue 3 April 2003
+
+: Cited by: [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([7])
+
 <a id="ref-ccsds-320-0-b-4"></a>
 **CCSDS 320.0-B-4**: CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures – Blue Book 
 
-: Issues cited: Issue 4 January 2006
+: Issues cited: Issue 3 January 2006; Issue 4 January 2006
 
-: Cited by: [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 320.0-B-4)
+: Cited by: [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 320.0-B-4), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 320.0-B-4)
+
+<a id="ref-ccsds-320-0-b-5"></a>
+**CCSDS 320.0-B-5**: CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures 
+
+: Issues cited: Issue 5 September 2007
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([12])
 
 <a id="ref-ccsds-320-0-b-6"></a>
 **CCSDS 320.0-B-6**: CCSDS Global Spacecraft Identification Field Code Assignment Control Procedures 
@@ -639,11 +772,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([17])
 
 <a id="ref-ccsds-320-0-m-7"></a>
-**CCSDS 320.0-M-7**: CCSDS Spacecraft Identification Field Code Assignment Control Procedures 
+**CCSDS 320.0-M-7**: CCSDS Spacecraft Identification Field Code Assignment Control Procedures [:material-book-check: in library](../library/ccsds-320-0-320x0m7c1.md)
 
 : Issues cited: Issue 7 November 2017
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([52]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([7]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([7]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([11])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([52]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([7]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([3]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([7]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([7]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([11])
 
 <a id="ref-ccsds-350-0-g"></a>
 **CCSDS 350.0-G**: The Application of CCSDS Protocols to Secure Systems 
@@ -658,11 +791,32 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([18]), [Time Code Formats (CCSDS 301.0-B-4)](../library/ccsds-301-0-301x0b4e1.md) ([4]), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (CCSDS 350.0-G-2)
 
 <a id="ref-ccsds-350-0-g-3"></a>
-**CCSDS 350.0-G-3**: The Application of Security to CCSDS Protocols 
+**CCSDS 350.0-G-3**: The Application of Security to CCSDS Protocols [:material-book-check: in library](../library/ccsds-350-0-350x0g3.md)
 
 : Issues cited: Issue 3 March 2019
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([37]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C7]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C8]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C7]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F7])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([37]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C7]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C8]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H4]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([13]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B1]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D6]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C4]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C7]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([C7]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F7])
+
+<a id="ref-ccsds-350-1-g-2"></a>
+**CCSDS 350.1-G-2**: Security Threats against Space Missions 
+
+: Issues cited: Issue 2 December 2015
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([14]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B18]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C12])
+
+<a id="ref-ccsds-350-2-g-1-s"></a>
+**CCSDS 350.2-G-1-S**: Encryption Algorithm Trade Survey 
+
+: Issues cited: Issue 1-S (March 2008) April 2016
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B11])
+
+<a id="ref-ccsds-350-4-g-1"></a>
+**CCSDS 350.4-G-1**: CCSDS Guide for Secure System Interconnection 
+
+: Issues cited: Issue 1 November 2007
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([19])
 
 <a id="ref-ccsds-350-5-g"></a>
 **CCSDS 350.5-G**: Space Data Link Security Protocol-Summary of Concept and Rationale 
@@ -672,37 +826,89 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-350-5-g-1"></a>
 **CCSDS 350.5-G-1**: Space Data Link Security Protocol—Summary of Concept and Rationale 
 
-: Issues cited: Issue 1 June 2018
+: Issues cited: Issue 1 June 2018; June 2018
 
-: Cited by: [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D3])
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B7]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D3]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C3])
 
 <a id="ref-ccsds-350-6-g-1"></a>
 **CCSDS 350.6-G-1**: Space Missions Key Management Concept 
 
 : Issues cited: Issue 1 November 2011
 
-: Cited by: [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D8])
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([20]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([11]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B22]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D8]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C6])
+
+<a id="ref-ccsds-350-7-g-1"></a>
+**CCSDS 350.7-G-1**: Security Guide for Mission Planners 
+
+: Issues cited: Issue 1 October 2011
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([17])
 
 <a id="ref-ccsds-350-8-m-2"></a>
 **CCSDS 350.8-M-2**: Information Security Glossary of Terms 
 
 : Issues cited: Issue 2 February 2020
 
-: Cited by: [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([7])
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([2]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([7]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([3])
+
+<a id="ref-ccsds-350-8-p-1-1"></a>
+**CCSDS 350.8-P-1.1**: Information Security Glossary of Terms (Draft Recommended Practice, Pink Book) 
+
+: Issues cited: Issue 1.1 August 2018
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([18])
+
+<a id="ref-ccsds-350-9-g-1"></a>
+**CCSDS 350.9-G-1**: CCSDS Cryptographic Algorithms 
+
+: Issues cited: Issue 1 December 2014
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([16])
+
+<a id="ref-ccsds-350-9-g-2"></a>
+**CCSDS 350.9-G-2**: CCSDS Cryptographic Algorithms 
+
+: Issues cited: Issue 2 July 2023
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([21])
 
 <a id="ref-ccsds-351-0-m-1"></a>
 **CCSDS 351.0-M-1**: Security Architecture for Space Data Systems 
 
 : Issues cited: Issue 1 November 2012
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([53]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D7])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([53]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B17]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D7]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C5])
+
+<a id="ref-ccsds-352-0-b-1"></a>
+**CCSDS 352.0-B-1**: CCSDS Cryptographic Algorithms 
+
+: Issues cited: Issue 1 November 2012
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([15])
 
 <a id="ref-ccsds-352-0-b-2"></a>
-**CCSDS 352.0-B-2**: CCSDS Cryptographic Algorithms 
+**CCSDS 352.0-B-2**: CCSDS Cryptographic Algorithms [:material-book-check: in library](../library/ccsds-352-0-352x0b2.md)
 
 : Issues cited: Issue 2 August 2019
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([54]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([4])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([54]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([10]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([4]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([7])
+
+<a id="ref-ccsds-352-0-r-0"></a>
+**CCSDS 352.0-R-0**: CCSDS recommended practice for authentication (draft; URD applicable document) 
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([AD 6])
+
+<a id="ref-ccsds-353-0-r-1"></a>
+**CCSDS 353.0-R-1**: CCSDS recommended practice for symmetric encryption (draft; URD applicable document) 
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([AD 5])
+
+<a id="ref-ccsds-354-0-r-1"></a>
+**CCSDS 354.0-R-1**: Symmetric Key Management (Draft Recommended Practice, Red Book) 
+
+: Issues cited: Issue 1 June 2018
+
+: Cited by: [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([2])
 
 <a id="ref-ccsds-355-0-b1"></a>
 **CCSDS 355-0-B1**: CCSDS 355-0-B1 (Space Data Link Security) extended procedures 
@@ -717,21 +923,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-355-0-b"></a>
 **CCSDS 355.0-B**: Space Data Link Security Protocol (optional) 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (CCSDS 355.0-B)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (CCSDS 355.0-B)
 
 <a id="ref-ccsds-355-0-b-1"></a>
 **CCSDS 355.0-B-1**: Space Data Link Security Protocol 
 
 : Issues cited: Issue 1 September 2015
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([21]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([10]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([355.0-B-1]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C3]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([7]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([10])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([21]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([10]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([355.0-B-1]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C3]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([7]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([21]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B23]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([1]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([10]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I9])
 
 <a id="ref-ccsds-355-0-b-2"></a>
 **CCSDS 355.0-B-2**: Space Data Link Security Protocol [:material-book-check: in library](../library/ccsds-355-0-355x0b2.md)
 
-: Issues cited: Issue 2 July 2022
+: Issues cited: B-2; Issue 2 July 2022
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([43]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([15]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F5]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F5]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G6])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([43]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([1]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([10]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([15]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F5]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F5]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G6]), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (72)
 
 <a id="ref-ccsds-355-1-b"></a>
 **CCSDS 355.1-B**: Space Data Link Security (SDLS) protocols (Extended Procedures) 
@@ -739,16 +945,30 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([355.1-B]), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (CCSDS 355.1-B)
 
 <a id="ref-ccsds-355-1-b-1"></a>
-**CCSDS 355.1-B-1**: Space Data Link Security Protocol—Extended Procedures 
+**CCSDS 355.1-B-1**: Space Data Link Security Protocol—Extended Procedures [:material-book-check: in library](../library/ccsds-355-1-355x1b1.md)
 
 : Issues cited: Issue 1 February 2019; Issue 1 February 2020
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([58]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([11]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C4]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([11]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([16])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([58]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([11]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C4]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([22]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([11]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([11]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([16]), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md)
 
 <a id="ref-ccsds-401-0-b"></a>
-**CCSDS 401.0-B**: Radio Frequency and Modulation Systems – Part 1 Earth Stations and Spacecraft 
+**CCSDS 401.0-B**: CCSDS Physical Layer standard 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 401.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 401.0-B), [ECSS Ranging and Doppler Tracking (2008)](../library/ecss-e-st-50-02c31july2008.md) (CCSDS 401.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
+
+<a id="ref-ccsds-401-0-b-20"></a>
+**CCSDS 401.0-B-20**: CCSDS Radio Frequency and Modulation Systems, Part 1: Earth Stations and Spacecraft, Blue Book 
+
+: Issues cited: Edition April 2009 April 2009
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (CCSDS 401.0-B-20, Edition April 2009)
+
+<a id="ref-ccsds-401-0-b-23"></a>
+**CCSDS 401.0-B-23**: Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft 
+
+: Issues cited: Issue 23 December 2013
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([3])
 
 <a id="ref-ccsds-401-0-b-25"></a>
 **CCSDS 401.0-B-25**: Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft 
@@ -762,19 +982,48 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 30 February 2020
 
-: Cited by: [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([4])
+: Cited by: [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([4]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([4])
 
 <a id="ref-ccsds-401-0-b-32"></a>
-**CCSDS 401.0-B-32**: Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft 
+**CCSDS 401.0-B-32**: Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft [:material-book-check: in library](../library/ccsds-401-0-401x0b32.md)
 
 : Issues cited: B-32; Issue 32 October 2021
 
-: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 401.0-B-32), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([10]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([5]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([6])
+: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (CCSDS 401.0-B-32), [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([10]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([5]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([5]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([6]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G10])
 
 <a id="ref-ccsds-413-0-g"></a>
 **CCSDS 413.0-G**: Bandwidth-Efficient Modulations: Summary of Definition, Implementation and Performance 
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 413.0-G)
+
+<a id="ref-ccsds-413-0-g-3"></a>
+**CCSDS 413.0-G-3**: Cited for GMSK precoding in 2.4.17A 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
+
+<a id="ref-ccsds-413-1-g-1"></a>
+**CCSDS 413.1-G-1**: Cited in 2.4.22A 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
+
+<a id="ref-ccsds-414-1-b-2"></a>
+**CCSDS 414.1-B-2**: PN ranging (cited in 2.4.22A and 2.4.24) 
+
+: Issues cited: Issue 2 February 2014
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([30])
+
+<a id="ref-ccsds-415-1-b-1"></a>
+**CCSDS 415.1-B-1**: Data Transmission and PN Ranging for 2 GHz CDMA Link via Data Relay Satellite 
+
+: Issues cited: Issue 1 September 2011
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([31]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G11])
+
+<a id="ref-ccsds-431-1-r-1"></a>
+**CCSDS 431.1-R-1**: Cited in 2.4.18 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
 
 <a id="ref-ccsds-502-0-b-1"></a>
 **CCSDS 502.0-B-1**: Orbit Data Messages 
@@ -783,12 +1032,26 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([19])
 
+<a id="ref-ccsds-502-0-b-2"></a>
+**CCSDS 502.0-B-2**: Orbit Data Messages 
+
+: Issues cited: Issue 2 November 2009
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([28])
+
 <a id="ref-ccsds-502-0-r-1"></a>
 **CCSDS 502.0-R-1**: Orbit Data Messages (Red Book) 
 
 : Issues cited: Issue 2 Jun/02
 
 : Cited by: [Rosetta/Mars Express FDS-MCS Interface Control Document](../library/mex-esc-id-5003-fds-icd.md) (A-15 [CCSDS-502])
+
+<a id="ref-ccsds-505-0-b-1"></a>
+**CCSDS 505.0-B-1**: XML Specification for Navigation Data Messages 
+
+: Issues cited: Issue 1 December 2010
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([29])
 
 <a id="ref-ccsds-520-0-g-3"></a>
 **CCSDS 520.0-G-3**: Mission Operations Services Concept, CCSDS Green Book 
@@ -867,6 +1130,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Mars Express spacecraft and payload data handling](../library/sp-1291-data-handling.md) (CCSDS (1999))
 
+<a id="ref-ccsds-660-0-b-1-2"></a>
+**CCSDS 660.0-B-1.2**: XML Telemetric and Command Exchange—Version 1.2 
+
+: Issues cited: Issue 1.2 (Draft Blue Book) December 2019
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([1])
+
 <a id="ref-ccsds-660-0-b-2"></a>
 **CCSDS 660.0-B-2**: XML Telemetric and Command Exchange—Version 1.2 [:material-book-check: in library](../library/ccsds-660-0-660x0b2.md)
 
@@ -874,8 +1144,22 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C16])
 
+<a id="ref-ccsds-660-1-g-1"></a>
+**CCSDS 660.1-G-1**: XML Telemetric and Command Exchange (XTCE)—Element Description 
+
+: Issues cited: Issue 1 May 2012
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([2])
+
+<a id="ref-ccsds-660-2-g-1-1"></a>
+**CCSDS 660.2-G-1.1**: XML Telemetric and Command Exchange (XTCE) 
+
+: Issues cited: Issue 1.1 (Draft Green Book) October 2019
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([3])
+
 <a id="ref-ccsds-660-2-g-2"></a>
-**CCSDS 660.2-G-2**: XML Telemetric and Command Exchange (XTCE) 
+**CCSDS 660.2-G-2**: XML Telemetric and Command Exchange (XTCE) [:material-book-check: in library](../library/ccsds-660-2-660x2g2.md)
 
 : Issues cited: Issue 2 February 2021
 
@@ -902,24 +1186,36 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([59]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F11])
 
+<a id="ref-ccsds-701-0-b-2"></a>
+**CCSDS 701.0-B-2**: Advanced Orbiting Systems, Networks and Data Links: Architectural Specification 
+
+: Cited by: [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (CCSDS 701.0-B-2)
+
 <a id="ref-ccsds-701-0-b-3-s"></a>
 **CCSDS 701.0-B-3-S**: Advanced Orbiting Systems, Networks and Data Links: Architectural Specification 
 
 : Issues cited: Issue 3 June 2001; Issue 3-S (Historical) (June 2001) August 2005; Issue 3-S (June 2001) August 2005
 
-: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E3]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C2]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F3]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F3]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F4]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F3]), [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 701.0-B-3-S)
+: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E3]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([E3]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C2]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F3]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F3]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F4]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F3]), [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 701.0-B-3-S)
 
 <a id="ref-ccsds-702-1-b"></a>
 **CCSDS 702.1-B**: IP over CCSDS 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-702-1-b-1"></a>
 **CCSDS 702.1-B-1**: IP over CCSDS Space Links 
 
 : Issues cited: Issue 1 September 2012
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([45]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([27])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([45]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([27]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([13])
+
+<a id="ref-ccsds-713-0-b-1"></a>
+**CCSDS 713.0-B-1**: Space Communications Protocol Specification—Network Protocol (SCPS-NP) 
+
+: Issues cited: Issue 1 May 1999
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([7])
 
 <a id="ref-ccsds-713-0-b-1-s"></a>
 **CCSDS 713.0-B-1-S**: Space Communications Protocol Specification (SCPS)—Network Protocol (SCPS-NP) 
@@ -945,7 +1241,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 2 October 2006
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([13])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([13]), [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([5]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([6])
+
+<a id="ref-ccsds-717-0-b-1"></a>
+**CCSDS 717.0-B-1**: Space Communications Protocol Specification—File Protocol (SCPS-FP) 
+
+: Issues cited: Issue 1 May 1999
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([3])
 
 <a id="ref-ccsds-717-0-b-1-s"></a>
 **CCSDS 717.0-B-1-S**: Space Communications Protocol Specification (SCPS)—File Protocol (SCPS-FP) 
@@ -1000,7 +1303,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-727-0-b"></a>
 **CCSDS 727.0-B**: CCSDS File Delivery Protocol (CFDP) 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 727.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 727.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-727-0-b-2"></a>
 **CCSDS 727.0-b-2**: CCSDS File Delivery Protocol (CFDP) 
@@ -1014,14 +1317,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 4 January 2007
 
-: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C10]), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 727.0-B-4)
+: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C10]), [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([4]), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 727.0-B-4)
 
 <a id="ref-ccsds-727-0-b-5"></a>
-**CCSDS 727.0-B-5**: CCSDS File Delivery Protocol (CFDP) Recommended Standard [:material-book-check: in library](../library/ccsds-727-0-727x0b5e1.md)
+**CCSDS 727.0-B-5**: CCSDS File Delivery Protocol (CFDP) [:material-book-check: in library](../library/ccsds-727-0-727x0b5e1.md)
 
-: Issues cited: Issue 5 July 2020; July 2020
+: Issues cited: B-5; Issue 5 July 2020; July 2020
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([15]), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([15]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([8]), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (115)
 
 <a id="ref-ccsds-727-0-r-5"></a>
 **CCSDS 727.0-R-5**: CCSDS File Delivery Protocol (CFDP), Red Book 
@@ -1030,83 +1333,122 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (CCSDS 727.0-R-5)
 
-<a id="ref-ccsds-732-0-b"></a>
-**CCSDS 732.0-B**: AOS Space Data Link Protocol 
+<a id="ref-ccsds-727x0b5"></a>
+**CCSDS 727x0b5**: CCSDS File Delivery Protocol (CFDP) 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 732.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([CCSFDP])
+
+<a id="ref-ccsds-732-0-b"></a>
+**CCSDS 732.0-B**: AOS Data Link Protocol 
+
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (CCSDS 732.0-B), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-732-0-b-1"></a>
 **CCSDS 732.0-B-1**: AOS Space Data Link Protocol 
 
-: Issues cited: Blue Book. Issue 1 September 2003
+: Issues cited: Blue Book. Issue 1 September 2003; Issue 1 September 2003
 
-: Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([4])
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([AD 4]), [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([3]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([4])
 
 <a id="ref-ccsds-732-0-b-2"></a>
 **CCSDS 732.0-B-2**: AOS Space Data Link Protocol 
 
-: Issues cited: issue 2 23 May 2007
+: Issues cited: Issue 2 July 2006; issue 2 23 May 2007
 
-: Cited by: [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 732.0-B-2), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([10]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([7]), [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (CCSDS 732.0-B-2), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 732.0-B-2), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 732.0-B-2), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
 
 <a id="ref-ccsds-732-0-b-3"></a>
 **CCSDS 732.0-B-3**: AOS Space Data Link Protocol 
 
 : Issues cited: Issue 3 September 2015
 
-: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([5]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([3]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C5]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([3]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([1])
+: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([5]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([3]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C5]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([3]), [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([3]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([5]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([5]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([1])
 
 <a id="ref-ccsds-732-0-b-4"></a>
 **CCSDS 732.0-B-4**: AOS Space Data Link Protocol [:material-book-check: in library](../library/ccsds-732-0-732x0b4.md)
 
 : Issues cited: Issue 4 October 2021
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([7]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([2]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C7]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F20]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([6]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([4]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([6]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([6]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([9])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([7]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([5]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([2]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C7]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([6]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F20]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([6]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([4]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([6]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([6]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([9]), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md)
+
+<a id="ref-ccsds-732-0-b-5"></a>
+**CCSDS 732.0-B-5**: AOS Space Data Link Protocol [:material-book-check: in library](../library/ccsds-732-0-732x0b5ec1.md)
+
+: Issues cited: B-5; Issue 5 October 2025
+
+: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([2]), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (64)
 
 <a id="ref-ccsds-732-1-b"></a>
 **CCSDS 732.1-B**: USLP 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-732-1-b-1"></a>
 **CCSDS 732.1-B-1**: Unified Space Data Link Protocol 
 
 : Issues cited: Issue 1 October 2018
 
-: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C7]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([5]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([6]), [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([4])
+: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C7]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([5]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([7]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([6]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([6]), [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([4]), [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([5]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([9])
 
 <a id="ref-ccsds-732-1-b-2"></a>
 **CCSDS 732.1-B-2**: Unified Space Data Link Protocol 
 
-: Issues cited: Issue 2 October 2021
+: Issues cited: B-2; Issue 2 October 2021; Issue 3 October 2021
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([57]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([6]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([4]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([10]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([8]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([10]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([10]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([10])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([57]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([7]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([6]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([6]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([4]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([31]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([10]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([8]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([10]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([10]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([10]), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (66)
+
+<a id="ref-ccsds-732-1-b-3"></a>
+**CCSDS 732.1-B-3**: Unified Space Data Link Protocol – Blue Book [:material-book-check: in library](../library/ccsds-732-1-732x1b3e1.md)
+
+: Issues cited: Issue 3 June 2024
+
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md)
+
+<a id="ref-ccsds-732x0b5"></a>
+**CCSDS 732x0b5**: AOS Space Data Link Protocol 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([CCSADL])
+
+<a id="ref-ccsds-732x1b3"></a>
+**CCSDS 732x1b3**: Unified Space data Link Protocol 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([CCSUDL])
+
+<a id="ref-ccsds-734-1-b"></a>
+**CCSDS 734.1-B**: LTP 
+
+: Cited by: [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-734-1-b-1"></a>
 **CCSDS 734.1-B-1**: Licklider Transmission Protocol (LTP) for CCSDS 
 
 : Issues cited: Issue 1 May 2015; May 2015
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([55]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([25]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C11]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (CCSDS 734.1-B-1)
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([55]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([25]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([9]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C11]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (CCSDS 734.1-B-1), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (CCSDS 734.1-B-1)
+
+<a id="ref-ccsds-734-2-b"></a>
+**CCSDS 734.2-B**: Bundle Protocol (BP) 
+
+: Cited by: [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-734-2-b-1"></a>
 **CCSDS 734.2-B-1**: CCSDS Bundle Protocol Specification 
 
 : Issues cited: Issue 1 September 2015; September 2015
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([56]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C9]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([9]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (CCSDS 734.2-B-1)
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([56]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([12]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C9]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([9]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (CCSDS 734.2-B-1), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (CCSDS 734.2-B-1)
 
 <a id="ref-ccsds-734-5-b"></a>
 **CCSDS 734.5-B**: Bundle Security Protocol (BSP) (under development) 
 
-: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([734.5-B]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([734.5-B]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-ccsds-734-5-r-1"></a>
-**CCSDS 734.5-R-1**: CCSDS Streamlined Bundle Security Protocol Specification 
+**CCSDS 734.5-R-1**: CCSDS Streamlined Bundle Security Protocol Specification (Draft Recommended Standard, Red Book) 
 
 : Issues cited: Issue 1 March 2018
 
-: Cited by: [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C5])
+: Cited by: [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C5]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([23])
 
 <a id="ref-ccsds-735-1-b-1"></a>
 **CCSDS 735.1-B-1**: Asynchronous Message Service 
@@ -1139,21 +1481,107 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 1 November 2013
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([23]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C3]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C3]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F3])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([23]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C3]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C3]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([33]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C3]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([C3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F3]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([16]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G9])
 
 <a id="ref-ccsds-901-1-m-1"></a>
 **CCSDS 901.1-M-1**: Space Communications Cross Support—Architecture Requirements Document 
 
 : Issues cited: Issue 1 May 2015
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([60]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([24]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C4]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C4]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C4]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F4])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([60]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([24]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C4]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C4]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([34]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C4]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([C4]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F4]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G13])
 
 <a id="ref-ccsds-902-0-g-1"></a>
-**CCSDS 902.0-G-1**: Extensible Space Communication Cross Support—Service Management—Concept 
+**CCSDS 902.0-G-1**: Extensible Space Communication Cross Support—Service Management—Concept [:material-book-check: in library](../library/ccsds-902-0-902x0g1.md)
 
 : Issues cited: Issue 1 September 2014
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([28])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([28]), [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G8])
+
+<a id="ref-ccsds-902-1-b-1"></a>
+**CCSDS 902.1-B-1**: "Simple Schedule Format Specification", Draft Recommended Standard, Blue 
+
+: Issues cited: Issue 1 May 2018; May 2018
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G7]), [ESTRACK deep-space cross support with CCSDS SM (SpaceOps25)](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md) ([2])
+
+<a id="ref-ccsds-902-1-b-2"></a>
+**CCSDS 902.1-B-2**: Cross Support Service Management—Simple Schedule Format Specification 
+
+: Issues cited: Issue 2 Forthcoming
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([9])
+
+<a id="ref-ccsds-902-10-o-1"></a>
+**CCSDS 902.10-O-1**: Service Management Automation Support Handling (SMASH) (Figure 1-1) 
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md)
+
+<a id="ref-ccsds-902-11-m-1"></a>
+**CCSDS 902.11-M-1**: Best Practices (BPR) (Figure 1-1) 
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md)
+
+<a id="ref-ccsds-902-12-m-1"></a>
+**CCSDS 902.12-M-1**: Common Data Entities (CDE) (Figure 1-1) 
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md)
+
+<a id="ref-ccsds-902-12-m-2"></a>
+**CCSDS 902.12-M-2**: Cross Support Service Management—Common Data Entities 
+
+: Issues cited: Issue 2 February 2026
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([4])
+
+<a id="ref-ccsds-902-13-m-1-cor-1"></a>
+**CCSDS 902.13-M-1 Cor. 1**: Abstract Event Definition 
+
+: Issues cited: Issue 1 Cor. 1 February 2024
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([7])
+
+<a id="ref-ccsds-902-2-b-1"></a>
+**CCSDS 902.2-B-1**: Communications Planning Information Formats (CPIF) (Figure 1-1) 
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md)
+
+<a id="ref-ccsds-902-5-b-1"></a>
+**CCSDS 902.5-B-1**: Cross Support Service Management—Service Agreement and Configuration Profile Formats 
+
+: Issues cited: Proposed
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([3])
+
+<a id="ref-ccsds-902-6-b-1"></a>
+**CCSDS 902.6-B-1**: Cross Support Service Management—Space Link Event Sequence Data Format 
+
+: Issues cited: Proposed
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([6])
+
+<a id="ref-ccsds-902-7-m-1"></a>
+**CCSDS 902.7-M-1**: Service Catalog (SECA) (Figure 1-1) 
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md)
+
+<a id="ref-ccsds-902-8-b-1"></a>
+**CCSDS 902.8-B-1**: Service Management Accounting (SMAC) (Figure 1-1) 
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md)
+
+<a id="ref-ccsds-902-9-b-1"></a>
+**CCSDS 902.9-B-1**: Cross Support Service Management—Service Management Utilization Request Formats 
+
+: Issues cited: Issue 1 Forthcoming; Issue 1 forthcoming
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([8]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G6])
+
+<a id="ref-ccsds-902-9-w-0-06"></a>
+**CCSDS 902.9-W-0.06**: "Service Management Utilization Request Formats", Proposed Draft Recommended Standard, White Book Draft 
+
+: Issues cited: 0.06 July 2018
+
+: Cited by: [ESTRACK deep-space cross support with CCSDS SM (SpaceOps25)](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md) ([3])
 
 <a id="ref-ccsds-910-0-g"></a>
 **CCSDS 910.0-G**: Space Link Extension Services – Executive Summary 
@@ -1172,7 +1600,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 1 August 2009
 
-: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J2])
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([1]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J2]), [ESTRACK deep-space cross support with CCSDS SM (SpaceOps25)](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md) ([1])
 
 <a id="ref-ccsds-910-11-r-1"></a>
 **CCSDS 910.11-R-1**: Space Link Extension—Service Management—Service Specification 
@@ -1181,6 +1609,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([9])
 
+<a id="ref-ccsds-910-14-g-1"></a>
+**CCSDS 910.14-G-1**: Space Communication Cross Support—Service Management—Operations Concept 
+
+: Issues cited: Issue 1 May 2011
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([2])
+
 <a id="ref-ccsds-910-2-g-1"></a>
 **CCSDS 910.2-G-1**: Standard Terminology, Conventions and Methodology (TCM) for defining Data Services 
 
@@ -1188,26 +1623,33 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (CCSDS 910.2-G-1), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
 
+<a id="ref-ccsds-910-3-g-2"></a>
+**CCSDS 910.3-G-2**: Cross Support Concept — Part 1: Space Link Extension Services 
+
+: Issues cited: Issue 2 April 2002
+
+: Cited by: [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([9])
+
 <a id="ref-ccsds-910-3-g-3"></a>
 **CCSDS 910.3-G-3**: Cross Support Concept—Part 1: Space Link Extension Services [:material-book-check: in library](../library/ccsds-910x3g3-sle-cross-support.md)
 
-: Issues cited: Issue 3 March 2006
+: Issues cited: Issue 2 March 2006; Issue 3 March 2006
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E1]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([2])
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([10]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([C5]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([14]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I3]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E1]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([2]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C4]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C2]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G1])
 
 <a id="ref-ccsds-910-4-b-2"></a>
-**CCSDS 910.4-B-2**: Cross Support Reference Model—Part 1: Space Link Extension Services 
+**CCSDS 910.4-B-2**: Cross Support Reference Model—Part 1: Space Link Extension Services [:material-book-check: in library](../library/ccsds-910-4-910x4b2e1s.md)
 
 : Issues cited: Blue Book. Issue 2 September 2005; Issue 2 October 2005
 
-: Cited by: [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C5]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C5]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C5]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([8]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([1]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([1]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([1]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([1]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([1]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([3])
+: Cited by: [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C5]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C5]), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([9]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C5]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([15]), [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([10]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([8]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([1]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([1]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([1]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([1]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([1]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([1]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([3]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([1]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([2]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([2])
 
 <a id="ref-ccsds-910-4-b-2-s"></a>
 **CCSDS 910.4-B-2-S**: Cross Support Reference Model—Part 1: Space Link Extension Services 
 
-: Issues cited: Issue 2-S (Historical) (October 2005) December 2023
+: Issues cited: Issue 2-S (Historical) (October 2005) December 2023; Issue 2-S (October 2005) December 2023
 
-: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F5])
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F5])
 
 <a id="ref-ccsds-911-1-b-2"></a>
 **CCSDS 911.1-B-2**: Space Link Extension—Return All Frames Service Specification 
@@ -1221,21 +1663,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 2-S (Historical) (December 2004) January 2010
 
-: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J9])
+: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J9]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C3])
 
 <a id="ref-ccsds-911-1-b-3"></a>
 **CCSDS 911.1-B-3**: Space Link Extension—Return All Frames Service Specification 
 
 : Issues cited: Issue 3 January 2010
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([2]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([4])
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([10]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([2]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([4]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([2])
 
 <a id="ref-ccsds-911-1-b-4"></a>
 **CCSDS 911.1-B-4**: Space Link Extension—Return All Frames Service Specification 
 
 : Issues cited: Issue 4 August 2016
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([38])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([38]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G5])
 
 <a id="ref-ccsds-911-1-b-5"></a>
 **CCSDS 911.1-B-5**: Space Link Extension—Return All Frames Service Specification [:material-book-check: in library](../library/ccsds-911-1-911x1b5e1.md) · [:material-book-check: in library](../library/ccsds-911x1b5e1-sle-raf.md)
@@ -1247,9 +1689,9 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ccsds-911-1-r-1-7"></a>
 **CCSDS 911.1-R-1.7**: Space Link Extension—Return All Frames Service Specification (Proposed Draft Recommendation, Draft Red Book) 
 
-: Issues cited: Issue 1.7 September 1999
+: Issues cited: Issue 1.7 (Draft Red Book) September 1999; Issue 1.7 September 1999
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E2]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([C1])
+: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E2]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([C1]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C2])
 
 <a id="ref-ccsds-911-2-b-1"></a>
 **CCSDS 911.2-B-1**: Space Link Extension—Return Channel Frames Service Specification 
@@ -1270,7 +1712,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 2 January 2010
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([3]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([5])
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([11]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([3]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([5])
 
 <a id="ref-ccsds-911-2-b-3"></a>
 **CCSDS 911.2-B-3**: Space Link Extension—Return Channel Frames Service Specification 
@@ -1312,7 +1754,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 2 January 2010
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([4]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([6])
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([12]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([4]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([6])
 
 <a id="ref-ccsds-911-5-b-3"></a>
 **CCSDS 911.5-B-3**: Space Link Extension—Return Operational Control Fields Service Specification 
@@ -1347,14 +1789,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 3 July 2010
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([5]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([7])
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([9]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([9]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([5]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([7])
 
 <a id="ref-ccsds-912-1-b-4"></a>
 **CCSDS 912.1-B-4**: Space Link Extension—Forward CLTU Service Specification 
 
 : Issues cited: Issue 4 August 2016
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([41]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([7]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([5])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([41]), [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([7]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([5]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([5]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G4])
 
 <a id="ref-ccsds-912-1-r-1-99h"></a>
 **CCSDS 912.1-R-1.99h**: Space Link Extension—Forward CLTU Service (Proposed Draft Recommendation, Draft Red Book) 
@@ -1364,25 +1806,25 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E4]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([C3])
 
 <a id="ref-ccsds-912-3-b-1"></a>
-**CCSDS 912.3-B-1**: Space Link Extension—Forward Space Packet Service Specification 
+**CCSDS 912.3-B-1**: Space Link Extension – Forward Space Packet Service Specification – Blue Book 
 
-: Issues cited: Blue Book. Issue 1 December 2004
+: Issues cited: Blue Book. Issue 1 December 2004; Issue 1 November 2004
 
-: Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([14])
+: Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([14]), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (CCSDS 912.3-B-1)
 
 <a id="ref-ccsds-912-3-b-1-s"></a>
 **CCSDS 912.3-B-1-S**: Space Link Extension—Forward Space Packet Service Specification 
 
 : Issues cited: Issue 1-S (Historical) (December 2004) July 2010
 
-: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J13])
+: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J13]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C8])
 
 <a id="ref-ccsds-912-3-b-2"></a>
 **CCSDS 912.3-B-2**: Space Link Extension—Forward Space Packet Service Specification 
 
 : Issues cited: Issue 2 July 2010
 
-: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([19]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([6]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([8])
+: Cited by: [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([19]), [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([13]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([6]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([8]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([3])
 
 <a id="ref-ccsds-912-3-b-3-s"></a>
 **CCSDS 912.3-B-3-S**: Space Link Extension—Forward Space Packet Service Specification 
@@ -1403,7 +1845,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 2 September 2015
 
-: Cited by: [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F4]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F4]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F4]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G5]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([9])
+: Cited by: [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([F4]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F4]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F5]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([F4]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([G5]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([9]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C5]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C4]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G2])
+
+<a id="ref-ccsds-913-1-p-1-1"></a>
+**CCSDS 913.1-P-1.1**: Space Link Extension—Internet Protocol for Transfer Services 
+
+: Issues cited: Issue 1.1 (Draft, Pink Sheets) February 2015
+
+: Cited by: [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I8])
 
 <a id="ref-ccsds-913-1-r-1"></a>
 **CCSDS 913.1-R-1**: Space Link Extension—Internet Protocol for Transfer Services 
@@ -1412,22 +1861,29 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([15])
 
+<a id="ref-ccsds-914-0-m-2"></a>
+**CCSDS 914.0-M-2**: Space Link Extension—Application Program Interface for Transfer Services—Core Specification [:material-book-check: in library](../library/ccsds-914-0-914x0m2c1.md)
+
+: Issues cited: Issue 2 September 2015
+
+: Cited by: [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([3]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([4])
+
 <a id="ref-ccsds-914-1-g-1"></a>
 **CCSDS 914.1-G-1**: Space Link Extension—Application Program Interface for Transfer Services—Summary of Concept and Rationale 
 
 : Issues cited: Issue 1 January 2006
 
-: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J3])
+: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J3]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C6]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C3])
 
 <a id="ref-ccsds-914-2-g-2"></a>
 **CCSDS 914.2-G-2**: Space Link Extension—Application Program Interface for Transfer Services—Application Programmer's Guide 
 
 : Issues cited: Issue 2 October 2008
 
-: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J4])
+: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J4]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C7]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C5])
 
 <a id="ref-ccsds-915-1-m-2"></a>
-**CCSDS 915.1-M-2**: Space Link Extension—Application Program Interface for Return All Frames Service 
+**CCSDS 915.1-M-2**: Space Link Extension—Application Program Interface for Return All Frames Service [:material-book-check: in library](../library/ccsds-915-1-915x1m2.md)
 
 : Issues cited: Issue 2 September 2015
 
@@ -1455,32 +1911,67 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([13])
 
 <a id="ref-ccsds-916-3-m-2"></a>
-**CCSDS 916.3-M-2**: Space Link Extension—Application Program Interface for the Forward Space Packet Service 
+**CCSDS 916.3-M-2**: Space Link Extension—Application Program Interface for the Forward Space Packet Service [:material-book-check: in library](../library/ccsds-916-3-916x3m2.md)
 
 : Issues cited: Issue 2 September 2015
 
 : Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([14])
+
+<a id="ref-ccsds-920-0-g-1"></a>
+**CCSDS 920.0-G-1**: Cross Support Transfer Service Specification Framework Concept 
+
+: Issues cited: Issue 1 forthcoming
+
+: Cited by: [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([G3])
 
 <a id="ref-ccsds-921-1-b-2"></a>
 **CCSDS 921.1-B-2**: Cross Support Transfer Service—Specification Framework 
 
 : Issues cited: Issue 2 February 2021
 
-: Cited by: [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F7]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F7])
+: Cited by: [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([F7]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([F7]), [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([1])
+
+<a id="ref-ccsds-921-1-r-2"></a>
+**CCSDS 921.1-R-2**: Cross Support Transfer Service—Specification Framework 
+
+: Issues cited: Issue 2 (Draft Red Book) May 2014
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([21])
+
+<a id="ref-ccsds-921-2-m-1"></a>
+**CCSDS 921.2-M-1**: Guidelines for the Specification of Cross Support Transfer Services 
+
+: Issues cited: Issue 1 March 2019
+
+: Cited by: [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([4])
 
 <a id="ref-ccsds-a00-0-y-9"></a>
 **CCSDS A00.0-Y-9**: Procedures Manual for the Consultative Committee for Space Data Systems 
 
-: Issues cited: Yellow Book. Issue 9 November 2003
+: Issues cited: Issue 9 November 2003; Yellow Book. Issue 9 November 2003
 
-: Cited by: [Time Code Formats (CCSDS 301.0-B-4)](../library/ccsds-301-0-301x0b4e1.md) ([1]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([1])
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([C1]), [Time Code Formats (CCSDS 301.0-B-4)](../library/ccsds-301-0-301x0b4e1.md) ([1]), [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([1])
 
 <a id="ref-ccsds-a02-1-y-4"></a>
 **CCSDS A02.1-Y-4**: Organization and Processes for the Consultative Committee for Space Data Systems 
 
 : Issues cited: Issue 4 April 2014; Y-4 April 2014
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([1]), [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([1]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([5]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E1]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C1]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C1]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C1]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([D1]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C1]), [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([B1]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md), [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md), [XTCE Element Description (CCSDS 660.1-G-2)](../library/ccsds-660-1-660x1g2.md), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([D1]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C1]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) (CCSDS A02.1-Y-4), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) (CCSDS A02.1-Y-4), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J1]), [CCSDS Mission Product Distribution vs EDDS (SpaceOps 2025)](../library/spaceops2025-0309-mpd-edds.md) ([11])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([1]), [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([1]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([5]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E1]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([E1]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([C1]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([C1]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C1]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([D1]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([D1]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([C1]), [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([B1]), [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md), [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md) ([1]), [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md), [XTCE Element Description (CCSDS 660.1-G-2)](../library/ccsds-660-1-660x1g2.md), [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([D1]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([C1]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([C1]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F1]), [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) (CCSDS A02.1-Y-4), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) (CCSDS A02.1-Y-4), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([I1]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J1]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C1]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C1]), [CCSDS Mission Product Distribution vs EDDS (SpaceOps 2025)](../library/spaceops2025-0309-mpd-edds.md) ([11])
+
+<a id="ref-ccsds-a20-0-y-2"></a>
+**CCSDS A20.0-Y-2**: CCSDS Publications Manual 
+
+: Issues cited: Issue 2 June 2005
+
+: Cited by: [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([8])
+
+<a id="ref-ccsds-a20-0-y-4"></a>
+**CCSDS A20.0-Y-4**: CCSDS Publications Manual (Yellow Book, Issue 4, April 2014) 
+
+: Issues cited: Issue 4 April 2014
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
 
 <a id="ref-ccsds-a30-0-g-3"></a>
 **CCSDS A30.0-G-3**: CCSDS Glossary 
@@ -1492,7 +1983,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ecss-e-as-50-21"></a>
 **ECSS-E-AS-50-21**: Space engineering – ECSS Adoption Notice of CCSDS 131.0-B-3 (Sept. 2017) - TM Synchronization and Channel Coding 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-21)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-21), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-AS-50-21)
 
 <a id="ref-ecss-e-as-50-21c"></a>
 **ECSS-E-AS-50-21C**: Space engineering - Adoption Notice of CCSDS 131.0-B-3, TM Synchronization and Channel Coding 
@@ -1504,12 +1995,19 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Rev.1
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md)
+
+<a id="ref-ecss-e-as-50-21c-rev-2"></a>
+**ECSS-E-AS-50-21C Rev.2**: Space engineering - Adoption Notice of CCSDS 131.0-B-5, TM Synchronization and Channel Coding 
+
+: Issues cited: Rev.2
+
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-as-50-22"></a>
 **ECSS-E-AS-50-22**: Space engineering – ECSS Adoption Notice of CCSDS 132.0-B-2 (Sept. 2015) - TM Space Data Link Protocol 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-22)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-22), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-AS-50-22)
 
 <a id="ref-ecss-e-as-50-22c"></a>
 **ECSS-E-AS-50-22C**: Space engineering - Adoption Notice of CCSDS 132.0-B-2, TM Space Data Link Protocol 
@@ -1517,16 +2015,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md)
 
 <a id="ref-ecss-e-as-50-22c-rev-1"></a>
-**ECSS-E-AS-50-22C Rev.1**: Space engineering - Adoption Notice of CCSDS 132.0-B-3, TM Space Data Link Protocol 
+**ECSS-E-AS-50-22C Rev.1**: Space engineering - Adoption Notice of CCSDS 132.0-B-3, TM Space Data Link Protocol [:material-book-check: in library](../library/ecss-e-as-50-22c-rev-1-13january2023.md)
 
 : Issues cited: Rev.1
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-as-50-23"></a>
 **ECSS-E-AS-50-23**: Space engineering – ECSS Adoption Notice of CCSDS 732.0-B-3 (August 2016) - AOS Space Data Link Protocol 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-23)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-23), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-AS-50-23)
 
 <a id="ref-ecss-e-as-50-23c"></a>
 **ECSS-E-AS-50-23C**: Space engineering -Adoption Notice of CCSDS 732.0-B-3, AOS Space Data Link Protocol 
@@ -1534,16 +2032,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md)
 
 <a id="ref-ecss-e-as-50-23c-rev-1"></a>
-**ECSS-E-AS-50-23C Rev.1**: Space engineering -Adoption Notice of CCSDS 232.0-B-4, AOS Space Data Link Protocol 
+**ECSS-E-AS-50-23C Rev.1**: Space engineering -Adoption Notice of CCSDS 732.0-B-4, AOS Space Data Link Protocol [:material-book-check: in library](../library/ecss-e-as-50-23c-rev-1-13january2023.md)
 
 : Issues cited: Rev.1
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-as-50-24"></a>
 **ECSS-E-AS-50-24**: Space engineering – ECSS Adoption Notice of CCSDS 231.0-B-3 (Sept. 2017) - TC Synchronization and Channel Coding 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-24), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-AS-50-24)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-24), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-AS-50-24), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-AS-50-24)
 
 <a id="ref-ecss-e-as-50-24c"></a>
 **ECSS-E-AS-50-24C**: Space engineering - Adoption Notice of CCSDS 231.0-B-3, TC Synchronization and Channel Coding 
@@ -1551,16 +2049,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md)
 
 <a id="ref-ecss-e-as-50-24c-rev-1"></a>
-**ECSS-E-AS-50-24C Rev.1**: Space engineering - Adoption Notice of CCSDS 231.0-B-4, TC Synchronization and Channel Coding 
+**ECSS-E-AS-50-24C Rev.1**: Space engineering - Adoption Notice of CCSDS 231.0-B-4, TC Synchronization and Channel Coding [:material-book-check: in library](../library/ecss-e-as-50-24c-rev-1-13january2023.md)
 
 : Issues cited: Rev.1
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-as-50-25"></a>
 **ECSS-E-AS-50-25**: Space engineering – ECSS Adoption Notice of CCSDS 232.0-B-3 (Sept. 2015) - TC Space Data Link Protocol 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-25), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-AS-50-25)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-25), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-AS-50-25), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-AS-50-25)
 
 <a id="ref-ecss-e-as-50-25c"></a>
 **ECSS-E-AS-50-25C**: Space engineering - Adoption Notice of CCSDS 232.0-B-3, TC Space Data Link Protocol 
@@ -1572,17 +2070,17 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Rev.1
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-as-50-26"></a>
 **ECSS-E-AS-50-26**: Space engineering – ECSS Adoption Notice of CCSDS 232.1-B-2 (Sept. 2010) - Communications Operation Procedure-1 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-26), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-AS-50-26)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-AS-50-26), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-AS-50-26), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-AS-50-26)
 
 <a id="ref-ecss-e-as-50-26c"></a>
 **ECSS-E-AS-50-26C**: Space engineering - Adoption Notice of CCSDS 232.1-B-2, Communications Operation Procedure-1 [:material-book-check: in library](../library/ecss-e-as-50-26c-1march2021.md)
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-presented-at-ccsds-coding-and-synchronization-working-group-meeting-london"></a>
 **Presented at CCSDS Coding and Synchronization Working Group meeting, London**: Input to the Ongoing CCSDS Books Revision (E. Paolini and M. Chiani) 
@@ -1597,6 +2095,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: October 2002
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([37])
+
+<a id="ref-thb-cs-2077-av"></a>
+**THB/CS/2077/av**: Specification for a Standard ESA/CCSDS Telecommand Decoder (development contract document, forerunner of this specification) 
+
+: Issues cited: first issue 1986; last issue May 1988
+
+: Cited by: [ESA PSS-04-151 Telecommand Decoder Specification (Issue 1)](../library/esa-pss-04-151-issue1-september1992.md) (THB/CS/2077/av)
 
 <a id="ref-ccsds-cfdp-protocol"></a>
 **(no identifier)**: CCSDS CFDP protocol 
@@ -1613,10 +2118,25 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [The EGS-CC based Mission Control Infrastructure at ESOC](../library/pecchioli-egs-cc-esoc.md) (CFDP)
 
+<a id="ref-ccsds-green-book-xtce-example-yamcs-core-test-resource-ccsds-green-book-xml"></a>
+**(no identifier)**: CCSDS green book XTCE example (yamcs-core test resource ccsds-green-book.xml) 
+
+: Cited by: [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (80)
+
 <a id="ref-ccsds-mission-operations-directory-service-paving-the-road-for-a-new-world-of-se"></a>
 **(no identifier)**: CCSDS Mission Operations Directory service: Paving the road for a new world of services' discoverability, C Coelho, S Cooper, M Sarkarati, M Merri, O Koudelka, 4S Symposium 
 
 : Cited by: [CCSDS Mission Product Distribution vs EDDS (SpaceOps 2025)](../library/spaceops2025-0309-mpd-edds.md) ([8])
+
+<a id="ref-ccsds-mo"></a>
+**(no identifier)**: CCSDS-MO 
+
+: Cited by: [Advanced Telecommand Verification (Terma CCS5)](../library/1530-armitage.md)
+
+<a id="ref-ccsds-object-identifiers-oid-space-assigned-numbers-authority-registry-http-sana"></a>
+**(no identifier)**: CCSDS Object Identifiers (OID) (Space Assigned Numbers Authority registry, http://sanaregistry.org/r/oid/) 
+
+: Cited by: [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([11])
 
 <a id="ref-ccsds-sm-c-wg-issue-tracker-https-github-com-ccsdsmo-smc-backlog-issues"></a>
 **(no identifier)**: CCSDS SM&amp;C WG Issue Tracker: https://github.com/ccsdsmo/smc-backlog/issues 
@@ -1628,6 +2148,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-ST-70-41C status (SAVOIR Mass Memory Day 2014)](../library/valera-2014-ecss-e-st-70-41c-status.md)
 
+<a id="ref-ccsds-space-packet-protocol-footnote-23"></a>
+**(no identifier)**: CCSDS space packet protocol (footnote 23) 
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md)
+
 <a id="ref-ccsds-space-packet-spp"></a>
 **(no identifier)**: CCSDS Space Packet (SPP) 
 
@@ -1637,6 +2162,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: CCSDS standards for Packet Telemetry and Telecommands 
 
 : Cited by: [SCOS-2000: ESA's Spacecraft Control for the 21st Century](../library/gsaw2003-peccia.md)
+
+<a id="ref-ccsds-symmetric-key-management-recommended-standard-cited-in-a1-not-in-the-refer"></a>
+**(no identifier)**: CCSDS Symmetric Key Management Recommended Standard (cited in A1, not in the reference list) 
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md)
 
 <a id="ref-ccsds-telemetry-packets-and-command-packet-data-stream-tm-tc-front-end"></a>
 **(no identifier)**: CCSDS telemetry packets and command packet data stream (TM/TC front end) 
@@ -1668,10 +2198,22 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOS-2000: ESA's Spacecraft Control for the 21st Century](../library/gsaw2003-peccia.md)
 
+<a id="ref-h-dreihahn-c-haddow-and-m-unal-ccsds-compliant-ground-network-schedule-interface"></a>
+**(no identifier)**: H. Dreihahn, C. Haddow and M. Unal, "CCSDS compliant Ground Network Schedule Interfaces from an ESA perspective", Spaceops, Daejeon, Republic of Korea 
+
+: Issues cited: 2016
+
+: Cited by: [ESTRACK deep-space cross support with CCSDS SM (SpaceOps25)](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md) ([4])
+
 <a id="ref-packet-tm-tc-standards-from-ccsds"></a>
 **(no identifier)**: Packet TM/TC standards (from CCSDS) 
 
 : Cited by: [Mission Families: cost-effective MCS development (GSAW 2005)](../library/gsaw2005-guerrucci.md) (CCSDS packet TM/TC)
+
+<a id="ref-space-link-extension-consultative-committee-for-space-data-standardisation-https"></a>
+**(no identifier)**: Space Link Extension, Consultative Committee for Space Data Standardisation, https://public.ccsds.org/Publications/default.aspx 
+
+: Cited by: [Old and new generation control systems at ESA (ICALEPCS19)](../library/icalepcs2019-weapp01-esa-control-systems.md) ([3])
 
 <a id="ref-space-link-extension-sle-standard-an-ccsds-standard"></a>
 **(no identifier)**: Space Link Extension (SLE) standard, an CCSDS standard 
@@ -1690,7 +2232,19 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) ([7])
 
-## ECSS (58)
+<a id="ref-xtce-1-1-magenta-books-user-guide-ccsds-tailoring"></a>
+**(no identifier)**: XTCE 1.1 Magenta Books (user guide / CCSDS tailoring) 
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
+<a id="ref-xtce-1-1-published-by-ccsds-as-blue-book"></a>
+**(no identifier)**: XTCE 1.1 published by CCSDS as Blue Book 
+
+: Issues cited: 1.1 October 2007
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
+## ECSS (102)
 
 <a id="ref-bssc-20051"></a>
 **BSSC 2005(1)**: Tailoring of ECSS software Engineering Standards for Ground segments in ESA 
@@ -1714,15 +2268,50 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-ST-70-41C status (ADCSS 2015)](../library/valera-2015-adcss-ecss-e-st-70-41c-status.md)
 
+<a id="ref-ecss-10-04-a"></a>
+**ECSS-10-04 A**: Space Environment 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR16])
+
 <a id="ref-ecss-e-00"></a>
 **ECSS-E-00**: ECSS-E-00 standard (Space System concept) 
 
 : Cited by: [EGSE based on SCOS 2000 (EMCS) User Manual](../library/emcs-sum-4-0.md)
 
+<a id="ref-ecss-e-10-12"></a>
+**ECSS-E-10-12**: ECSS-E-10-12 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR4])
+
+<a id="ref-ecss-e-10-4"></a>
+**ECSS-E-10-4**: ECSS-E-10-4 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR5])
+
+<a id="ref-ecss-e-20a"></a>
+**ECSS-E-20A**: ECSS-E-20A section 6.3.3.3d and par. 5.9 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR7])
+
+<a id="ref-ecss-e-30-01a"></a>
+**ECSS-E-30-01a**: ECSS-E-30-01a 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR19])
+
+<a id="ref-ecss-e-30-02"></a>
+**ECSS-E-30-02**: ECSS-E-30-02 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR8])
+
+<a id="ref-ecss-e-30-part-1a"></a>
+**ECSS-E-30 Part 1A**: ECSS-E-30 Part 1A 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR3])
+
 <a id="ref-ecss-e-40"></a>
 **ECSS-E-40**: ECSS-E-40 European Standard 
 
-: Cited by: [Checking whether SCOS is up to SPEC (certification)](../library/esa-bulletin-115-ch8.md)
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR20]), [Checking whether SCOS is up to SPEC (certification)](../library/esa-bulletin-115-ch8.md)
 
 <a id="ref-ecss-e-40b-draft"></a>
 **ECSS-E-40B draft**: Space Engineering : Software 
@@ -1736,102 +2325,153 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (ECSS-E-50), [ECSS-E-ST-70-41C status (SAVOIR Mass Memory Day 2014)](../library/valera-2014-ecss-e-st-70-41c-status.md)
 
+<a id="ref-ecss-e-50-05"></a>
+**ECSS E-50-05**: ECSS Radio Frequency and Modulation Standard 
+
+: Issues cited: Draft 9.4 April 2002
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (AD 5)
+
+<a id="ref-ecss-e-50-12"></a>
+**ECSS-E-50-12**: SpaceWire - Links, nodes, routers and networks 
+
+: Issues cited: Jan 2003
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR2], [NR6])
+
 <a id="ref-ecss-e-70"></a>
 **ECSS-E-70**: Space engineering -- Ground systems and operations 
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (ECSS-E-70)
 
 <a id="ref-ecss-e-70-41"></a>
-**ECSS-E-70-41**: Ground systems and operations – Telemetry and telecommand packet utilization 
+**ECSS-E-70-41**: Telemetry and Telecommand Packet Utilisation 
 
 : Issues cited: Draft 5.3 5 Apr 2001; Issue A January 2003
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (3)), [SRDB Translator: from S2K MIB to ECHO databases](../library/indico-109-comi-2009436.md) ([1])
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (3)), [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-E-70-41), [SRDB Translator: from S2K MIB to ECHO databases](../library/indico-109-comi-2009436.md) ([1]), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (3))
 
 <a id="ref-ecss-e-70-41a"></a>
 **ECSS-E-70-41A**: Ground Systems And Operations – Telemetry And Telecommand Packet Utilisation Standard (PUS). This document will be replaced by ECSS- E-ST-70-41C [:material-book-check: in library](../library/ecss-e-70-41a-30jan2003-pus.md)
 
-: Issues cited: 30 January 2003; A Jan. 2003; Issue 1 2002
+: Issues cited: 2003; 2003-01; 30 January 2003; A Jan. 2003; Issue 1 2002; Issue 1 2002-11-06
 
-: Cited by: [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([3]), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-20), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-20), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-20), [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (AD1), [DLR V3C mobile compact control center (SpaceOps 2021)](../library/spaceops2021-dlr-mobile-mcs.md) ([5]), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+: Cited by: [Advanced Telecommand Verification (Terma CCS5)](../library/1530-armitage.md) ([2]), [Managing TM Definitions on the Fly (CCS5 dynamic HK)](../library/1530-kazmirchuk-paper.md) ([2]), [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (RD-1), [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([3]), [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md), [Old and new generation control systems at ESA (ICALEPCS19)](../library/icalepcs2019-weapp01-esa-control-systems.md) ([4]), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-20), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-20), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-20), [MIB Generator 0.1: SCOS-2000 MIB tables from C headers](../library/mib-generator-documentation-generate-scos-2000-mib-tables-from-c-heade.md), [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[1]), [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (AD1), [DLR V3C mobile compact control center (SpaceOps 2021)](../library/spaceops2021-dlr-mobile-mcs.md) ([5]), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
 
 <a id="ref-ecss-e-70-41"></a>
-**ECSS-E-70/41**: Telemetry and Telecommand Packet Utilisation Standard 
+**ECSS-E-70/41**: ECSS Telemetry and Telecommand Packet Utilisation Standard 
 
-: Issues cited: Draft 5.3 April 2001
+: Issues cited: Draft 04 April 1999; Draft 5.3 April 2001
 
-: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-1)
+: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-1), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 5)
 
 <a id="ref-ecss-e-hb-50"></a>
 **ECSS-E-HB-50**: Space engineering – Communications guidelines 
 
-: Cited by: [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-HB-50), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-HB-50)
+: Cited by: [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (ECSS-E-HB-50), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-HB-50), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (ECSS-E-HB-50), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-HB-50), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-HB-50)
+
+<a id="ref-ecss-e-hb-50a"></a>
+**ECSS-E-HB-50A**: Space engineering – Communications guidelines [:material-book-check: in library](../library/ecss-e-hb-50a-15november2008.md)
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-E-HB-50A), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-10"></a>
-**ECSS-E-ST-10**: Space engineering – System engineering – general requirements 
+**ECSS-E-ST-10**: Space engineering – System engineering general requirements 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-10), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-10), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-ST-10), [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-E-ST-10), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-E-ST-10), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-10)
 
 <a id="ref-ecss-e-st-10-02"></a>
 **ECSS-E-ST-10-02**: Space engineering – Verification 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-10-02)
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-E-ST-10-02), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-10-02), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-ST-10-02), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-E-ST-10-02), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-10-02)
+
+<a id="ref-ecss-e-st-10-03"></a>
+**ECSS-E-ST-10-03**: Space engineering – Testing 
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-E-ST-10-03), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-E-ST-10-03)
+
+<a id="ref-ecss-e-st-10-06"></a>
+**ECSS-E-ST-10-06**: Space engineering - Technical specification 
+
+: Cited by: [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-10-06)
 
 <a id="ref-ecss-e-st-20"></a>
 **ECSS-E-ST-20**: ECSS-E-ST-20 (source of the term 'essential function') 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
+
+<a id="ref-ecss-e-st-40"></a>
+**ECSS-E-ST-40**: Space engineering – Software general requirements 
+
+: Cited by: [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-E-ST-40), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-40)
+
+<a id="ref-ecss-e-st-40c"></a>
+**ECSS-E-ST-40C**: Software General Requirements 
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[2])
+
+<a id="ref-ecss-e-st-40c-rev-1"></a>
+**ECSS-E-ST-40C Rev.1**: Software general requirements 
+
+: Issues cited: Rev.1
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-50"></a>
-**ECSS-E-ST-50**: Space engineering - Communications 
+**ECSS-E-ST-50**: Space engineering – Communications 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-ST-50), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50), [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (ECSS-E-ST-50), [ECSS Ranging and Doppler Tracking (2008)](../library/ecss-e-st-50-02c31july2008.md) (ECSS-E-ST-50), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-ST-50), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (ECSS-E-ST-50), [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-E-ST-50), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-E-ST-50), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md)
 
 <a id="ref-ecss-e-st-50-01"></a>
 **ECSS-E-ST-50-01**: Space engineering – Space data links – Telemetry synchronization and channel coding 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-01), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-ST-50-01)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-01), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-ST-50-01), [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-E-ST-50-01)
 
 <a id="ref-ecss-e-st-50-01c"></a>
-**ECSS-E-ST-50-01C**: Space engineering - Space data links - Telemetry synchronization and channel coding 
+**ECSS-E-ST-50-01C**: Space engineering - Space data links - Telemetry synchronization and channel coding [:material-book-check: in library](../library/ecss-e-st-50-01c31july2008.md)
 
 : Issues cited: 31 July 2008
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
 
 <a id="ref-ecss-e-st-50-02"></a>
 **ECSS-E-ST-50-02**: Ranging and Doppler tracking 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-02), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-02), [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-E-ST-50-02), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
+
+<a id="ref-ecss-e-st-50-02c"></a>
+**ECSS-E-ST-50-02C**: Ranging and Doppler tracking [:material-book-check: in library](../library/ecss-e-st-50-02c31july2008.md)
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-50-03"></a>
 **ECSS-E-ST-50-03**: Space engineering – Space data links – Telemetry transfer frame protocol 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-03), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-50-03), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-03), [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (ECSS-E-ST-50-03), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (ECSS-E-ST-50-03), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-50-03), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
 
 <a id="ref-ecss-e-st-50-03c"></a>
 **ECSS-E-ST-50-03C**: Space engineering - Space data links - Telemetry transfer frame protocol [:material-book-check: in library](../library/ecss-e-st-50-03c-31july2008.md)
 
 : Issues cited: 31 July 2008; July 2008
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (RD1), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+: Cited by: [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (RD1), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
 
 <a id="ref-ecss-e-st-50-04"></a>
-**ECSS-E-ST-50-04**: Space engineering – Space data links – Telecommand protocols synchronization and channel coding 
+**ECSS-E-ST-50-04**: Space engineering – Space data links – Telecommand protocols, synchronization and channel coding 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-04), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-ST-50-04), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-50-04), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-04), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-E-ST-50-04), [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-E-ST-50-04), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-50-04), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
 
 <a id="ref-ecss-e-st-50-04c"></a>
-**ECSS-E-ST-50-04C**: Space engineering - Space data links - Telecommand protocols synchronization and channel coding 
+**ECSS-E-ST-50-04C**: Space engineering - Space data links - Telecommand protocols synchronization and channel coding [:material-book-check: in library](../library/ecss-e-st-50-04c31july2008.md)
 
 : Issues cited: 31 July 2008; July 2008
 
-: Cited by: [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (RD2), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([24]), [ECSS Adoption Notice of CCSDS 131.0-B-5 (TM coding)](../library/ecss-e-as-50-21c-rev-2-5december2024.md), [ECSS Adoption Notice of CCSDS 132.0-B-3 (TM SDLP)](../library/ecss-e-as-50-22c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 231.0-B-4 (TC coding)](../library/ecss-e-as-50-24c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.0-B-4 (TC SDLP)](../library/ecss-e-as-50-25c-rev-1-13january2023.md), [ECSS Adoption Notice of CCSDS 232.1-B-2 (COP-1)](../library/ecss-e-as-50-26c-1march2021.md), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (RD2), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
 
 <a id="ref-ecss-e-st-50-05"></a>
 **ECSS-E-ST-50-05**: Space engineering – Radio frequency and modulation 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-05), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-50-05)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-05), [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (ECSS-E-ST-50-05), [ECSS Ranging and Doppler Tracking (2008)](../library/ecss-e-st-50-02c31july2008.md) (ECSS-E-ST-50-05), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (ECSS-E-ST-50-05), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-50-05), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-ST-50-05)
 
 <a id="ref-ecss-e-st-50-05c"></a>
 **ECSS-E-ST-50-05C**: Space Engineering: Radio Frequency and Modulation 
@@ -1839,6 +2479,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: Rev. 1 March 2009
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([64])
+
+<a id="ref-ecss-e-st-50-05c-rev-2"></a>
+**ECSS-E-ST-50-05C Rev.2**: Radio frequency and modulation 
+
+: Issues cited: Rev.2
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-50-11"></a>
 **ECSS-E-ST-50-11**: SpaceWire RMAP protocol 
@@ -1860,47 +2507,108 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-50-14)
 
+<a id="ref-ecss-e-st-50c-rev-2"></a>
+**ECSS-E-ST-50C Rev.2**: Communications [:material-book-check: in library](../library/ecss-e-st-50c-rev-2-5december2024.md)
+
+: Issues cited: Rev.2
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
+
 <a id="ref-ecss-e-st-70"></a>
 **ECSS-E-ST-70**: Space engineering – Ground systems and operations 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-70), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-E-ST-70), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-E-ST-70), [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-E-ST-70), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-E-ST-70), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
 
 <a id="ref-ecss-e-st-70-01"></a>
 **ECSS-E-ST-70-01**: Space engineering – Spacecraft on-board control procedures 
 
-: Cited by: [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70-01), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70-01), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-70-01)
+
+<a id="ref-ecss-e-st-70-01c"></a>
+**ECSS-E-ST-70-01C**: On-board control procedures [:material-book-check: in library](../library/ecss-e-st-70-01c16april2010.md)
+
+: Cited by: [Generic OIRD (GOIRD), ADCSS 2019](../library/15-05-generic-oird.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-70-11"></a>
 **ECSS-E-ST-70-11**: Space engineering – Space segment operability 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70-11), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70-11), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-70-11)
+
+<a id="ref-ecss-e-st-70-11c"></a>
+**ECSS-E-ST-70-11C**: Space segment operability (ECSS Space Segment Operability Standard) 
+
+: Cited by: [Generic OIRD (GOIRD), ADCSS 2019](../library/15-05-generic-oird.md)
+
+<a id="ref-ecss-e-st-70-11c-rev-1"></a>
+**ECSS-E-ST-70-11C Rev.1**: Space segment operability [:material-book-check: in library](../library/ecss-e-st-70-11c-rev-1-15october2025.md)
+
+: Issues cited: Rev.1
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-70-31"></a>
 **ECSS-E-ST-70-31**: Space engineering – Ground systems and operations – Monitoring and control data definition 
 
-: Cited by: [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70-31), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-E-ST-70-31), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-E-ST-70-31), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-E-ST-70-31), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-70-31)
+
+<a id="ref-ecss-e-st-70-31c"></a>
+**ECSS-E-ST-70-31C**: Ground systems and operations - Monitoring and control data definition [:material-book-check: in library](../library/ecss-e-st-70-31c.md)
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-70-32"></a>
 **ECSS-E-ST-70-32**: Space engineering - Test and operations procedure language 
 
-: Cited by: [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md)
+: Cited by: [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-70-32)
+
+<a id="ref-ecss-e-st-70-32c"></a>
+**ECSS-E-ST-70-32C**: Test and operations procedure language [:material-book-check: in library](../library/ecss-e-st-70-32c31july2008.md)
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e-st-70-41"></a>
-**ECSS-E-ST-70-41**: Ground systems and operations - Telemetry and telecommand packet utilization 
+**ECSS-E-ST-70-41**: Space engineering – Telemetry and telecommand packet utilization 
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-70-41), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-ST-70-41), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (ECSS-E-ST-70-41), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-E-ST-70-41), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-E-ST-70-41), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-E-ST-70-41)
 
 <a id="ref-ecss-e-st-70-41c"></a>
 **ECSS E-ST-70-41C / ECSS-E-ST-70-41C**: Telemetry and telecommand packet utilization (example of an application-specific source/sink in Figure 4-2) [:material-book-check: in library](../library/ecss-e-st-70-41c-15april2016.md)
 
-: Issues cited: C; DIR1 (public review draft); Feb 2014 ECSS WG Draft
+: Issues cited: 15 April 2016; 2016; C; DIR1 (public review draft); Feb 2014 ECSS WG Draft
 
-: Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (ECSS E-ST-70-41C), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-70-41C status (SAVOIR Mass Memory Day 2014)](../library/valera-2014-ecss-e-st-70-41c-status.md), [ECSS-E-ST-70-41C status (ADCSS 2015)](../library/valera-2015-adcss-ecss-e-st-70-41c-status.md)
+: Cited by: [Generic OIRD (GOIRD), ADCSS 2019](../library/15-05-generic-oird.md), [Managing TM Definitions on the Fly (CCS5 dynamic HK)](../library/1530-kazmirchuk-paper.md) ([3]), [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) (ECSS E-ST-70-41C), [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([22]), [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([9]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md), [MIB Generator 0.1: SCOS-2000 MIB tables from C headers](../library/mib-generator-documentation-generate-scos-2000-mib-tables-from-c-heade.md), [PUS-C Gen: automatic generation toolset (2020)](../library/presentation-deployment-of-the-pus-c-standard.md), [ECSS-E-ST-70-41C status (SAVOIR Mass Memory Day 2014)](../library/valera-2014-ecss-e-st-70-41c-status.md), [ECSS-E-ST-70-41C status (ADCSS 2015)](../library/valera-2015-adcss-ecss-e-st-70-41c-status.md), [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md)
+
+<a id="ref-ecss-e-st-70-41c-rev-1"></a>
+**ECSS-E-ST-70-41C Rev.1**: Telemetry and telecommand packet utilization (Rev.1, ongoing update) 
+
+: Issues cited: Rev.1
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
+
+<a id="ref-ecss-e-st-70c"></a>
+**ECSS-E-ST-70C**: Ground systems and operations [:material-book-check: in library](../library/ecss-e-st-70c31july2008.md)
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
+
+<a id="ref-ecss-e-st-80c"></a>
+**ECSS-E-ST-80C**: Security in space systems lifecycles 
+
+: Cited by: [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-e40"></a>
 **ECSS-E40**: Project control and documentation (ECSS-E40) 
 
 : Cited by: [SCOS-2000: ESA's Spacecraft Control for the 21st Century](../library/gsaw2003-peccia.md)
+
+<a id="ref-ecss-e50-03a"></a>
+**ECSS-E50-03A**: Space data links – Telemetry transfer frame protocol (URD reference document) 
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([RD 4])
+
+<a id="ref-ecss-e50-04a"></a>
+**ECSS-E50-04A**: Space data links – Telecommand protocols, synchronization and channel coding (URD reference document) 
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([RD 3])
 
 <a id="ref-ecss-e70-31"></a>
 **ECSS- E70-31**: ECSS - Ground Systems and Operations. Monitoring and Control Data Definition Standard. 
@@ -1937,22 +2645,87 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-ecss-m-st-10"></a>
 **ECSS-M-ST-10**: Space project management – Project planning and implementation 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-M-ST-10)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-M-ST-10), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-M-ST-10), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-M-ST-10)
 
 <a id="ref-ecss-m-st-40"></a>
 **ECSS-M-ST-40**: Space project management – Configuration and information management 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-M-ST-40), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-M-ST-40), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-M-ST-40), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-M-ST-40)
+
+<a id="ref-ecss-m-st-70"></a>
+**ECSS-M-ST-70**: Space project management - Integrated logistic support 
+
+: Cited by: [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-M-ST-70)
 
 <a id="ref-ecss-p-001"></a>
 **ECSS-P-001**: Glossary of terms 
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) (ECSS-P-001)
 
+<a id="ref-ecss-q-00a"></a>
+**ECSS-Q-00A**: ECSS-Q-00A 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR9])
+
+<a id="ref-ecss-q-20-04a"></a>
+**ECSS-Q-20-04A**: ECSS-Q-20-04A 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR21])
+
+<a id="ref-ecss-q-20-09"></a>
+**ECSS-Q-20-09**: ECSS-Q-20-09 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR22])
+
+<a id="ref-ecss-q-20b"></a>
+**ECSS-Q-20B**: Quality Assurance 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR10])
+
+<a id="ref-ecss-q-30-02-a"></a>
+**ECSS-Q-30-02 A**: ECSS-Q-30-02 A 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR11])
+
+<a id="ref-ecss-q-30-b"></a>
+**ECSS-Q-30 B**: ECSS-Q-30 B 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR12])
+
+<a id="ref-ecss-q-60-01-a"></a>
+**ECSS-Q-60-01 A**: European Preferred Parts List and its Management 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR17])
+
+<a id="ref-ecss-q-60-a"></a>
+**ECSS-Q-60 A**: EEE Components Control 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR14])
+
+<a id="ref-ecss-q-70-01a"></a>
+**ECSS-Q-70-01A**: Contamination and cleanliness control 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR29])
+
+<a id="ref-ecss-q-70-08-a"></a>
+**ECSS-Q-70-08 A**: The manual soldering of high-reliability electrical connections 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR26])
+
+<a id="ref-ecss-q-70-28-a"></a>
+**ECSS-Q-70-28 A**: Repair and modification of printed circuit board assemblies for space use 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR27])
+
+<a id="ref-ecss-q-70-a"></a>
+**ECSS-Q-70 A**: Materials, Mechanical Parts and Processes 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR15])
+
 <a id="ref-ecss-q-80"></a>
 **ECSS-Q-80**: ECSS-Q-80 European Standard 
 
-: Cited by: [Checking whether SCOS is up to SPEC (certification)](../library/esa-bulletin-115-ch8.md)
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR28]), [Checking whether SCOS is up to SPEC (certification)](../library/esa-bulletin-115-ch8.md)
 
 <a id="ref-ecss-q-80b"></a>
 **ECSS-Q-80B**: Software Product Assurance 
@@ -1961,15 +2734,25 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (S4)
 
+<a id="ref-ecss-q-st-10-09"></a>
+**ECSS-Q-ST-10-09**: Space product assurance - Nonconformance control system 
+
+: Cited by: [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-Q-ST-10-09)
+
+<a id="ref-ecss-q-st-80"></a>
+**ECSS-Q-ST-80**: Space product assurance – Software product assurance 
+
+: Cited by: [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-Q-ST-80), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-Q-ST-80)
+
 <a id="ref-ecss-s-st-00"></a>
 **ECSS-S-ST-00**: ECSS system – Description, implementation and general requirements 
 
-: Cited by: [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-S-ST-00), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-S-ST-00), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-S-ST-00), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-S-ST-00), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (ECSS-S-ST-00), [ECSS Ranging and Doppler Tracking (2008)](../library/ecss-e-st-50-02c31july2008.md) (ECSS-S-ST-00), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-S-ST-00), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (ECSS-S-ST-00), [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-S-ST-00), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-S-ST-00), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-S-ST-00), [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-S-ST-00), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-S-ST-00), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-S-ST-00), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-S-ST-00), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-S-ST-00), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-ecss-s-st-00-01"></a>
 **ECSS-S-ST-00-01**: ECSS system – Glossary of terms 
 
-: Cited by: [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-S-ST-00-01), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
+: Cited by: [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (ECSS-S-ST-00-01), [ECSS Ranging and Doppler Tracking (2008)](../library/ecss-e-st-50-02c31july2008.md) (ECSS-S-ST-00-01), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ECSS-S-ST-00-01), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (ECSS-S-ST-00-01), [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ECSS-S-ST-00-01), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ECSS-S-ST-00-01), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-11C Rev.1 Space segment operability](../library/ecss-e-st-70-11c-rev-1-15october2025.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ECSS-S-ST-00-01), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ECSS-E-ST-70C: Ground systems and operations (2008)](../library/ecss-e-st-70c31july2008.md) (ECSS-S-ST-00-01), [ECSS document trees (November 2025)](../library/ecss-trees-nov2025.md)
 
 <a id="ref-esa-bssc-20051"></a>
 **ESA - BSSC 2005(1)**: Tailoring of ECSS Software Engineering Standards for Ground Segments: Part A: Software Engineering; Part B: Product Assurance and Management; Part C: Documents Templates; Part D: Traceability against ECSS standards 
@@ -1981,7 +2764,12 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-h-p-1-aspi-sp-0110"></a>
 **H-P-1-ASPI-SP-0110**: Ground Support Equipment Applicability Matrix of ECSS-E-40B 
 
-: Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD11)
+: Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD11), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (S1)
+
+<a id="ref-ecss-packet-utilisation-service"></a>
+**(no identifier)**: ECSS Packet Utilisation Service 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([PUS])
 
 <a id="ref-ecss-packet-utilisation-standard"></a>
 **(no identifier)**: ECSS Packet Utilisation Standard 
@@ -2008,21 +2796,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-ST-70-41C status (SAVOIR Mass Memory Day 2014)](../library/valera-2014-ecss-e-st-70-41c-status.md)
 
-## ISO / IEC (24)
+## ISO / IEC (31)
 
 <a id="ref-iso-7498-2-1989"></a>
 **ISO 7498-2:1989**: Information Processing Systems—Open Systems Interconnection—Basic Reference Model—Part 2: Security Architecture 
 
 : Issues cited: 1989
 
-: Cited by: [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D2])
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([7]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([12]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D2]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C2])
 
 <a id="ref-iso-7498-1984"></a>
 **ISO 7498:1984**: ISO Information processing systems – Open systems interconnection — Basic reference model 
 
 : Issues cited: 1984
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ISO 7498:1984)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md) (ISO 7498:1984), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md) (ISO 7498:1984)
 
 <a id="ref-iso-8473-1-1998"></a>
 **ISO 8473-1:1998**: Information Technology - Protocol for Providing the Connectionless-Mode Network Service: Protocol specification second edition 
@@ -2039,14 +2827,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [Time Code Formats (CCSDS 301.0-B-4)](../library/ccsds-301-0-301x0b4e1.md) ([2])
 
 <a id="ref-iso-8824"></a>
-**ISO 8824**: Information Technology - Abstract Syntax Notation One (ASN.1) 
+**ISO 8824**: Information technology — Open Systems Interconnection — Specification of Abstract Syntax Notation One (ASN.1) 
 
-: Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([5])
+: Issues cited: 2nd ed. 1990
+
+: Cited by: [SLE Cross Support Reference Model (CCSDS 910.4-B-2)](../library/ccsds-910-4-910x4b2e1s.md) ([10]), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([5]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (ISO 8824)
 
 <a id="ref-iso-8825"></a>
 **ISO 8825**: Information Technology – Open Systems Interconnection - Specification of Basic Encoding Rules for Abstract Syntax Notation One (ASN.1) 
 
-: Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([6])
+: Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([6]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (ISO 8825)
 
 <a id="ref-iso-9126"></a>
 **ISO 9126**: Information Technology: Software Quality Characteristics and Metrics 
@@ -2060,24 +2850,45 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([19])
 
+<a id="ref-iso-iec-10116-2017"></a>
+**ISO/IEC 10116:2017**: Information Technology—Security Techniques—Modes of Operation for an n-Bit Block Cipher 
+
+: Issues cited: 4th ed. 2017
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([18])
+
 <a id="ref-iso-iec-10731-1994"></a>
 **ISO/IEC 10731:1994**: Information Technology—Open Systems Interconnection—Basic Reference Model—Conventions for the Definition of OSI Services 
 
 : Issues cited: 1994
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([21]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([4]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([2]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([2]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([7]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([3]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([2]), [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([2]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([2]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([2])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([21]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([4]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([4]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([2]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([2]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([7]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([3]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([3]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([2]), [Communications Operation Procedure-1 (CCSDS 232.1-B-2)](../library/ccsds-232-1-232x1b2e2c1.md) ([2]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([2]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([2]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([2])
 
 <a id="ref-iso-iec-14882-2011"></a>
 **ISO/IEC 14882:2011**: Programming Languages—C++ 
 
 : Issues cited: 3rd ed. 2011
 
-: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([20])
+: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([20]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([4]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([5])
 
 <a id="ref-iso-iec-14977"></a>
-**ISO/IEC 14977**: Information technology - Syntactic metalanguage - Extended BNF 
+**ISO/IEC 14977**: Information technology - Syntactic metalanguage – Extended BNF 
 
-: Cited by: [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md)
+: Cited by: [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (ISO/IEC 14977)
+
+<a id="ref-iso-iec-14977-1996"></a>
+**ISO/IEC 14977:1996**: Information Technology - Syntactic Metalanguage - Extended BNF - First Edition 
+
+: Issues cited: First Edition 1996
+
+: Cited by: [ECSS-E-ST-70-01C: On-board control procedures (2010)](../library/ecss-e-st-70-01c16april2010.md) (ISO/IEC 14977:1996)
+
+<a id="ref-iso-iec-18033-3-2010"></a>
+**ISO/IEC 18033-3:2010**: Information Technology—Security Techniques—Encryption Algorithms—Part 3: Block Ciphers 
+
+: Issues cited: 2nd ed. 2010
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([12])
 
 <a id="ref-iso-iec-19501-2005"></a>
 **ISO/IEC 19501:2005**: Information Technology—Open Distributed Processing—Unified Modeling Language (UML) Version 1.4.2 
@@ -2085,6 +2896,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 1st ed. 2005
 
 : Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E9])
+
+<a id="ref-iso-iec-19772-2009"></a>
+**ISO/IEC 19772:2009**: Information Technology—Security Techniques—Authenticated Encryption 
+
+: Issues cited: 2009
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([11])
 
 <a id="ref-iso-iec-7498-1"></a>
 **ISO/IEC 7498-1**: Information Technology—Open Systems Interconnection—Basic Reference Model: The Basic Model 
@@ -2098,7 +2916,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 2nd ed. 1994
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([2]), [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([4]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([6]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([3]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([1]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([1]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([6]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([2]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([1]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D1]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([5]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([1]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([8]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([6]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([8]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([8]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([7]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([14])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([2]), [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([4]), [Space Data Link Protocols Rationale (CCSDS 130.2-G-3)](../library/ccsds-130-2-130x2g3.md) ([6]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([15]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([3]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([3]), [TM Space Data Link Protocol (CCSDS 132.0-B-3)](../library/ccsds-132-0-132x0b3.md) ([1]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([1]), [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([6]), [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([1]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([1]), [TC Synchronization and Channel Coding (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1.md) ([2]), [TC Sync and Channel Coding, Cor. 1 (CCSDS 231.0-B-4)](../library/ccsds-231-0-231x0b4e1c1.md) ([2]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([1]), [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D1]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C1]), [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([5]), [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([1]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([1]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([1]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([8]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([6]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([8]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([8]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([7]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([8]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([14])
 
 <a id="ref-iso-iec-7498-4-1989"></a>
 **ISO/IEC 7498-4:1989**: Information Processing Systems—Open Systems Interconnection—Basic Reference Model—Part 4: Management Framework 
@@ -2106,6 +2924,20 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 1989
 
 : Cited by: [SLE Cross Support Concept, Part 1 (CCSDS 910.3-G-3)](../library/ccsds-910x3g3-sle-cross-support.md) ([17])
+
+<a id="ref-iso-iec-8473-1"></a>
+**ISO/IEC 8473-1**: Information Technology - Protocol for Providing the Connectionless-mode Network Service 
+
+: Issues cited: Second Edition 1994
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD8])
+
+<a id="ref-iso-iec-8473-1-1998"></a>
+**ISO/IEC 8473-1:1998**: Information Technology—Protocol for Providing the Connectionless-Mode Network Service: Protocol Specification 
+
+: Issues cited: 2nd ed. 1998
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([16])
 
 <a id="ref-iso-iec-8824-1-2002"></a>
 **ISO/IEC 8824-1:2002**: Information Technology—Abstract Syntax Notation One (ASN.1): Specification of Basic Notation 
@@ -2119,7 +2951,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 4th ed. 2008
 
-: Cited by: [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([9]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([7]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([9]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([9]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([6]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([9]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([15])
+: Cited by: [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911-1-911x1b5e1.md) ([9]), [SLE Return Channel Frames (RCF) Service (CCSDS 911.2-B-4)](../library/ccsds-911-2-911x2b4e1.md) ([7]), [SLE Return Operational Control Fields (ROCF) Service](../library/ccsds-911-5-911x5b4e1.md) ([9]), [SLE Return All Frames (RAF) Service (CCSDS 911.1-B-5)](../library/ccsds-911x1b5e1-sle-raf.md) ([9]), [SLE Forward CLTU (FCLTU) Service (CCSDS 912.1-B-5)](../library/ccsds-912-1-912x1b5e1.md) ([6]), [SLE Forward Space Packet (FSP) Service (CCSDS 912.3-B-3)](../library/ccsds-912-3-912x3b3s.md) ([7]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([9]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([15]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([5]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([6])
 
 <a id="ref-iso-iec-8825-1-2002"></a>
 **ISO/IEC 8825-1:2002**: Information Technology—ASN.1 Encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER) 
@@ -2131,9 +2963,9 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-iso-iec-8825-1-2008"></a>
 **ISO/IEC 8825-1:2008**: Information Technology—ASN.1 Encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER) 
 
-: Issues cited: 4th ed. 2008
+: Issues cited: 2008; 4th ed. 2008
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([10])
+: Cited by: [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([10])
 
 <a id="ref-iso-iec-8859-1-1998"></a>
 **ISO/IEC 8859-1:1998**: Information Technology—8-Bit Single-Byte Coded Graphic Character Sets—Part 1: Latin Alphabet No. 1 
@@ -2168,9 +3000,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 1995
 
-: Cited by: [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D9])
+: Cited by: [Space Data Link Security (SDLS) Protocol](../library/ccsds-355-0-355x0b2.md) ([D9]), [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C11])
 
-## ESA/ESOC ground segment (SCOS-2000, EGOS, EDDS, NIS ...) (177)
+<a id="ref-iso-iec-9797-1-2011"></a>
+**ISO/IEC 9797-1:2011**: Information Technology—Security Techniques—Message Authentication Codes (MACs)—Part 1: Mechanisms Using a Block Cipher 
+
+: Issues cited: 2nd ed. 2011
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([17])
+
+## ESA/ESOC ground segment (SCOS-2000, EGOS, EDDS, NIS ...) (191)
 
 <a id="ref-add-0003"></a>
 **ADD-0003**: SCOS-2000 Telemetry Monitoring ADD 
@@ -2585,11 +3424,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [EDDS External User ICD (issue 15.0)](../library/euicd-i15r0.md) ([RD-10]), [EDDS External User ICD (issue 7.0)](../library/euicd-unversioned.md) ([RD-10]), [EDDS External User ICD (issue 13.0)](../library/euicd-v13.md) ([RD-10]), [EDDS External User ICD (issue 24.0)](../library/euicd-v25.md) ([RD-10])
 
 <a id="ref-egos-mcs-s2k-icd-0001"></a>
-**EGOS-MCS-S2K-ICD-0001**: Scos2000 database Import ICD [:material-book-check: in library](../library/icd-7-0-final.md) · [:material-book-check: in library](../library/icd-6-7-drafta.md) · [:material-book-check: in library](../library/icd-6-9-archive-org.md)
+**EGOS-MCS-S2K-ICD-0001**: SCOS-2000 Database Import ICD [:material-book-check: in library](../library/icd-7-0-final.md) · [:material-book-check: in library](../library/icd-6-7-drafta.md) · [:material-book-check: in library](../library/icd-6-9-archive-org.md)
 
-: Issues cited: Version 6.1 February 2006
+: Issues cited: Version 6.1 February 2006; version 6.9 2010; version 6.9 2010-07-06
 
-: Cited by: [SRDB Translator: from S2K MIB to ECHO databases](../library/indico-109-comi-2009436.md) ([2]), [Solar Orbiter Data Delivery ICD (DDID)](../library/solo-ddid-i1r2.md) (R-10)
+: Cited by: [Advanced Telecommand Verification (Terma CCS5)](../library/1530-armitage.md) ([1]), [Managing TM Definitions on the Fly (CCS5 dynamic HK)](../library/1530-kazmirchuk-paper.md) ([1]), [SRDB Translator: from S2K MIB to ECHO databases](../library/indico-109-comi-2009436.md) ([2]), [Solar Orbiter Data Delivery ICD (DDID)](../library/solo-ddid-i1r2.md) (R-10)
 
 <a id="ref-egos-mcs-s2k-icd-0017"></a>
 **EGOS-MCS-S2K-ICD-0017**: TDRS External Interfaces Control Document [:material-book-check: in library](../library/icd-0017-tdrs-5-1.md)
@@ -2597,6 +3436,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: Version 5.1 2008-08-22
 
 : Cited by: [EDDS External User ICD (issue 15.0)](../library/euicd-i15r0.md) ([RD-14]), [EDDS External User ICD (issue 7.0)](../library/euicd-unversioned.md) ([RD-14]), [EDDS External User ICD (issue 13.0)](../library/euicd-v13.md) ([RD-14]), [EDDS External User ICD (issue 24.0)](../library/euicd-v25.md) ([RD-14])
+
+<a id="ref-egos-mcs-s2k-icd-0022-tos-gic"></a>
+**EGOS-MCS-S2K-ICD-0022-TOS-GIC**: SCOS-2000 TM Packet Data Provision Services Interface Control Document 
+
+: Issues cited: Issue 1.6 2007-11-26
+
+: Cited by: [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-3)
 
 <a id="ref-egos-mcs-s2k-icd-1004"></a>
 **EGOS-MCS-S2K-ICD-1004**: MONITORING &amp; CONTROL SCOS-2000 - SFM SERVICE ICD 
@@ -2751,6 +3597,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-3), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-3), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-3), [SCOS-2000 Time Correlation Technical Note](../library/tn-1030-time-correlation.md) (RD1)
 
+<a id="ref-h-p-1-asp-id-0569"></a>
+**H-P-1-ASP-ID-0569**: CCS &amp; SCOS 2000 TO HPSDB &amp; MOIS ICD 
+
+: Cited by: [HPSDB Software User Manual (v2.6, GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md) ([RD.1.])
+
 <a id="ref-h-p-1-aspi-tn-0100"></a>
 **H-P-1-ASPI-TN-0100**: SCOS 2000 Evaluation 
 
@@ -2812,6 +3663,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [FIRST/Planck SCOS-2000 meeting slides, complete set (2000)](../library/scos2000-complete-presentation-2000.md), [FIRST/Planck SCOS-2000 meeting slides (TOS-GC, 2000)](../library/tos-gc-first-planck-presentation-2000.md)
 
+<a id="ref-pt-mp-tn-1001-tos-ogh"></a>
+**PT-MP-TN-1001-TOS-OGH**: Herschel mission planning concept 
+
+: Issues cited: Issue 2.0
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-18])
+
 <a id="ref-s2k-7699"></a>
 **S2K-7699**: SCOS-2000 change request for which the document was created 
 
@@ -2847,7 +3705,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 5.1; 5.2; Issue 4.3 16/10/01; Issue 5.0 19 Jun 2001; Issue 5.1; Issue 5.1 Oct. 2001; v5.1
 
-: Cited by: [Alcatel fax: SCOS MIB naming limits, part 2 (Mar 2003)](../library/alc-scos-2003-03-27.md) (REF1), [Alcatel fax: SCOS MIB naming limits, part 1 (Jan 2003)](../library/alc-scos-fax-2003-01-27.md) (REF1), [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (4)), [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-8), [EGSE based on SCOS 2000 (EMCS) User Manual](../library/emcs-sum-4-0.md) ([R5]), [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md) (AD2), [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-1), [Rosetta/Mars Express FDS-MCS Interface Control Document](../library/mex-esc-id-5003-fds-icd.md) (R-6 [S2K-MIB-ICD])
+: Cited by: [Alcatel fax: SCOS MIB naming limits, part 2 (Mar 2003)](../library/alc-scos-2003-03-27.md) (REF1), [Alcatel fax: SCOS MIB naming limits, part 1 (Jan 2003)](../library/alc-scos-fax-2003-01-27.md) (REF1), [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (4)), [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-8), [EGSE based on SCOS 2000 (EMCS) User Manual](../library/emcs-sum-4-0.md) ([R5]), [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md) (AD2), [HPSDB Software User Manual (v2.6, GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md) ([AD.5.]), [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-1), [Rosetta/Mars Express FDS-MCS Interface Control Document](../library/mex-esc-id-5003-fds-icd.md) (R-6 [S2K-MIB-ICD]), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (4)), [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) ([AD-002])
 
 <a id="ref-s2k-mcs-icd-0001-tos-gic"></a>
 **S2K-MCS-ICD-0001-TOS-GIC**: SCOS-2000 Database Import ICD 
@@ -2879,9 +3737,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-s2k-mcs-icd-0008-tos-gci"></a>
 **S2K-MCS-ICD-0008-TOS-GCI**: SCOS-2000 Command History Data Provision Services ICD 
 
-: Issues cited: Issue 1.2 7th Aug 2000
+: Issues cited: Issue 1.2 7 August 2000; Issue 1.2 7th Aug 2000
 
-: Cited by: [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD4])
+: Cited by: [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (RD4), [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD4])
+
+<a id="ref-s2k-mcs-icd-0014-tos-gci"></a>
+**S2K-MCS-ICD-0014-TOS-GCI**: SCOS-2000 OBSM External Interfaces Control Document 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD13)
 
 <a id="ref-s2k-mcs-icd-0017-tos-gic"></a>
 **S2K-MCS-ICD-0017-TOS-GIC**: TDRS External Interfaces Control Document 
@@ -2889,6 +3752,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 4.3 31.03.04; Issue 4.3 2004-03-31
 
 : Cited by: [EDDS Glossary](../library/glo.md) ([RD-26]), [EDDS Software Design Document (issue 15.0)](../library/sdd.md) ([RD-11]), [EDDS Software Design Document (issue 25.0)](../library/sdd-v24.md) ([RD-11]), [EDDS Software Requirements Specification (issue 18.0)](../library/srs.md) ([RD-11])
+
+<a id="ref-s2k-mcs-icd-0020-tos-gic"></a>
+**S2K-MCS-ICD-0020-TOS-GIC**: CORBA based External I/F Services for SCOS-2000 Data Provision Interface Control Document 
+
+: Issues cited: Issue 1.6 02 March 2004
+
+: Cited by: [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-4)
 
 <a id="ref-s2k-mcs-icd-1-tos-gci"></a>
 **S2K-MCS-ICD-1-TOS-GCI**: SCOS-2000 database import ICD 
@@ -2942,7 +3812,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 3.1 September 2001
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (8)), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-9)
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (8)), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-9), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (8))
 
 <a id="ref-s2k-mcs-sum-0026-tos-gci"></a>
 **S2K-MCS-SUM-0026-TOS-GCI**: SCOS-2000 Events &amp; Actions SUM 
@@ -3033,6 +3903,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EGSE based on SCOS 2000 (EMCS) User Manual](../library/emcs-sum-4-0.md) ([R6])
 
+<a id="ref-scos-2000-mib-6-9"></a>
+**SCOS-2000 MIB 6.9**: SCOS-2000 MIB (Database Import ICD issue 6.9) 
+
+: Issues cited: 6.9
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md)
+
 <a id="ref-scosii-sys-srd"></a>
 **SCOSII-SYS-SRD**: SCOSII Software Requirements Document, ESOC 
 
@@ -3052,7 +3929,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: Issue 1.1 February 2001
 
-: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E5]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md)
+: Cited by: [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([E5]), [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md)
 
 <a id="ref-soe-emcs-sum-0001"></a>
 **SOE-EMCS-SUM-0001**: SCOS-2000 2.3e EMCS SUM 
@@ -3146,6 +4023,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOSII: the user's perspective (SpaceOps 94 paper)](../library/ntrs-scos2-new-generation.md) (5)
 
+<a id="ref-peccia-n-scos-2000-esa-s-spacecraft-control-for-the-21st-century-in-2003-ground-"></a>
+**(no identifier)**: Peccia, N., Scos-2000 esa's spacecraft control for the 21st century, in: 2003 Ground System Architectures Workshop 
+
+: Issues cited: 2003
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Peccia 2003)
+
 <a id="ref-s2k-tm-icd-cited-for-the-scos-2000-fdif-interface-not-in-the-reference-list"></a>
 **(no identifier)**: [S2K-TM-ICD] (cited for the SCOS-2000 FDIF interface; not in the reference list) 
 
@@ -3171,6 +4055,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [FIRST/Planck SCOS-2000 meeting slides, complete set (2000)](../library/scos2000-complete-presentation-2000.md), [FIRST/Planck SCOS-2000 meeting slides (TOS-GC, 2000)](../library/tos-gc-first-planck-presentation-2000.md)
 
+<a id="ref-scos-2000-esa-mission-control-system-mib-databases"></a>
+**(no identifier)**: SCOS 2000 (ESA mission control system) MIB databases 
+
+: Cited by: [MIB Generator 0.1: SCOS-2000 MIB tables from C headers](../library/mib-generator-documentation-generate-scos-2000-mib-tables-from-c-heade.md)
+
+<a id="ref-scos-2000-eud-used-as-replacement-gui"></a>
+**(no identifier)**: SCOS-2000 (EUD used as replacement GUI) 
+
+: Cited by: [EGOS User Desktop (EUD) GUI framework (GSAW 2014)](../library/2014s12b-schutz.md)
+
+<a id="ref-scos-2000-exif-interface-corba-for-tm-injection"></a>
+**(no identifier)**: SCOS-2000 EXIF interface (CORBA) for TM injection 
+
+: Cited by: [EGSE Health Monitoring plug-in for SCOS-2000](../library/2009393-troso.md)
+
 <a id="ref-scos-2000-license-agreement-and-template-for-license-application"></a>
 **(no identifier)**: SCOS 2000 license agreement and template for license application 
 
@@ -3186,6 +4085,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [The EGS-CC based Mission Control Infrastructure at ESOC](../library/pecchioli-egs-cc-esoc.md) (SCOS-2000 MIB ICD)
 
+<a id="ref-scos-2000-mib-tm-parameter-and-packet-definitions-for-hm-data"></a>
+**(no identifier)**: SCOS-2000 MIB (TM parameter and packet definitions for HM data) 
+
+: Cited by: [EGSE Health Monitoring plug-in for SCOS-2000](../library/2009393-troso.md)
+
 <a id="ref-scos-2000-r5-0-full-documentation-set"></a>
 **(no identifier)**: SCOS-2000 R5.0 Full documentation set 
 
@@ -3200,6 +4104,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: SCOS-2000 Service and Support proposal (ESOC) 
 
 : Cited by: [SCOS-2000 Evaluation: FIRST/Planck project position](../library/spire-000397-07671.md)
+
+<a id="ref-scos-2000-smf-module"></a>
+**(no identifier)**: SCOS-2000 SMF module 
+
+: Cited by: [EGSE Health Monitoring plug-in for SCOS-2000](../library/2009393-troso.md)
 
 <a id="ref-scos2000-mib-database-interface"></a>
 **(no identifier)**: SCOS2000 MIB database interface 
@@ -3225,6 +4134,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EGSE based on SCOS 2000 (EMCS) User Manual](../library/emcs-sum-4-0.md)
 
+<a id="ref-scos2000-target-of-srdb-component-integration"></a>
+**(no identifier)**: SCOS2000 (target of SRDB component integration) 
+
+: Cited by: [PUS-C Gen: automatic generation toolset (2020)](../library/presentation-deployment-of-the-pus-c-standard.md)
+
 <a id="ref-scosii-a-distributed-architecture-for-ground-system-control-vitrociset-keyte-int"></a>
 **(no identifier)**: SCOSII - A Distributed Architecture for Ground System Control, Vitrociset Keyte, International Symposium on Spacecraft Ground Control and Flight Dynamics, Brazil 
 
@@ -3247,7 +4161,12 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOSII OL: a dedicated language for mission operations](../library/ntrs-scosii-ol.md) ([1])
 
-## Herschel / Planck (73)
+<a id="ref-yamcs-scos2k-scos-2000-mib-loader"></a>
+**(no identifier)**: yamcs-scos2k (SCOS-2000 MIB loader) 
+
+: Cited by: [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md)
+
+## Herschel / Planck (172)
 
 <a id="ref-adass-xiii-asp-conference-series-vol-314-pp-440"></a>
 **ADASS XIII, ASP Conference Series vol. 314, pp. 440**: From INTEGRAL to Planck: Geneva’s contribution to the LFI data processing (M. Türler et al.) 
@@ -3298,6 +4217,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([6])
 
+<a id="ref-esa-spc9722"></a>
+**ESA/SPC(97)22**: Herschel Science management plan (SMP) 
+
+: Issues cited: 20 August 1997
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([AD-1])
+
 <a id="ref-first-fsc-doc-0200"></a>
 **FIRST-FSC-DOC-0200**: Herschel Science Ground Segment to Instruments ICD 
 
@@ -3313,43 +4239,167 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-first-spi-doc-000127"></a>
 **FIRST-SPI-DOC-000127**: EGSE-ILT Users Requirements Document 
 
-: Cited by: [Herschel EGSE integration plan](../library/cosmos-herschel-egse-integration-plan.md) (RD.2)
+: Issues cited: draft 1
+
+: Cited by: [Herschel EGSE integration plan](../library/cosmos-herschel-egse-integration-plan.md) (RD.2), [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-15])
+
+<a id="ref-first-fsc-doc-0114"></a>
+**FIRST/FSC/DOC/0114**: Herschel Operation Scenario Document 
+
+: Issues cited: Issue 1.2 17 March 2003
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([AD-2])
 
 <a id="ref-first-fsc-doc-0115"></a>
 **FIRST/FSC/DOC/0115**: HCSS User Requirements Document 
 
-: Issues cited: Issue 2.0 xx May 2001
+: Issues cited: Issue 2.0 3 May 2001; Issue 2.0 xx May 2001
 
-: Cited by: [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD7])
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-5]), [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (RD1), [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD7])
+
+<a id="ref-first-fsc-doc-0116"></a>
+**FIRST/FSC/DOC/0116**: HCSS SPMP 
+
+: Issues cited: issue 2
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-9])
+
+<a id="ref-first-fsc-doc-0117"></a>
+**FIRST/FSC/DOC/0117**: FIRST ground segment Interface Requirements Document 
+
+: Issues cited: 2.0 6 December 2001; Issue 1 rev 3 2000-11-03
+
+: Cited by: [Herschel EGSE Packet Router ICD (HIFI, 2001)](../library/herschel-egse-packet-router-icd.md) ([AD 3]), [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (AD3)
+
+<a id="ref-first-fsc-doc-0120"></a>
+**FIRST/FSC/DOC/0120**: Glossary document 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-8])
 
 <a id="ref-first-fsc-doc-0146"></a>
 **FIRST/FSC/DOC/0146**: FIRST Ground Segment Design Description 
 
-: Issues cited: 1.1; Issue 1.0, Revision 0 3rd Nov 2000
+: Issues cited: 1.1; 1.1 10 December 2001; Issue 1.0, Revision 0 3rd Nov 2000; Issue 1.2 xx August 2003; v1.0 2000-11-03
 
-: Cited by: [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-4), [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD1], [RD2])
+: Cited by: [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-4), [Herschel EGSE Packet Router ICD (HIFI, 2001)](../library/herschel-egse-packet-router-icd.md) ([AD 2]), [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([AD-3]), [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (AD2), [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD1], [RD2])
+
+<a id="ref-first-fsc-doc-0150"></a>
+**FIRST/FSC/DOC/0150**: Ground Segment List of ICDs 
+
+: Issues cited: 1.0 24 November 2000; v1.0 2000-11-23
+
+: Cited by: [Herschel EGSE Packet Router ICD (HIFI, 2001)](../library/herschel-egse-packet-router-icd.md) ([RD 1]), [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (RD5)
 
 <a id="ref-first-fsc-doc-0158"></a>
 **FIRST/FSC/DOC/0158**: FIRST Common Science System: Use Case Definitions 
 
-: Issues cited: Issue 1.0 7th November 2000
+: Issues cited: Issue 1.0 7 November 2000; Issue 1.0 7th November 2000
 
-: Cited by: [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD11])
+: Cited by: [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (AD1), [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD11])
+
+<a id="ref-first-fsc-mom-0097"></a>
+**FIRST/FSC/MOM/0097**: Herschel Ground Segment System Engineering Group meeting #1 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#1])
+
+<a id="ref-first-fsc-mom-0101"></a>
+**FIRST/FSC/MOM/0101**: Herschel Ground Segment System Engineering Group meeting #2 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#2])
+
+<a id="ref-first-fsc-mom-0104"></a>
+**FIRST/FSC/MOM/0104**: Herschel Ground Segment System Engineering Group meeting #3 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#3])
+
+<a id="ref-first-fsc-mom-0107"></a>
+**FIRST/FSC/MOM/0107**: Herschel Ground Segment System Engineering Group meeting #4 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#4])
+
+<a id="ref-first-fsc-mom-0129"></a>
+**FIRST/FSC/MOM/0129**: Herschel Ground Segment System Engineering Group meeting #5 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#5])
+
+<a id="ref-first-fsc-mom-0132"></a>
+**FIRST/FSC/MOM/0132**: Herschel Ground Segment System Engineering Group meeting #6 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#6])
+
+<a id="ref-first-fsc-mom-0142"></a>
+**FIRST/FSC/MOM/0142**: Herschel Ground Segment System Engineering Group meeting #7 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#7])
+
+<a id="ref-first-fsc-mom-0150"></a>
+**FIRST/FSC/MOM/0150**: Herschel Ground Segment System Engineering Group meeting #8 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#8])
+
+<a id="ref-first-fsc-mom-0165"></a>
+**FIRST/FSC/MOM/0165**: Herschel Ground Segment System Engineering Group meeting #10 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#10])
+
+<a id="ref-first-fsc-mom-0171"></a>
+**FIRST/FSC/MOM/0171**: Herschel Ground Segment System Engineering Group meeting #11 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#11])
+
+<a id="ref-first-fsc-mom-0179"></a>
+**FIRST/FSC/MOM/0179**: Herschel Ground Segment System Engineering Group meeting #12 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#12])
+
+<a id="ref-first-fsc-mom-0190"></a>
+**FIRST/FSC/MOM/0190**: Herschel Ground Segment System Engineering Group meeting #13 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#13])
+
+<a id="ref-first-fsc-mom-0206"></a>
+**FIRST/FSC/MOM/0206**: Herschel Ground Segment System Engineering Group meeting #14 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#14])
+
+<a id="ref-h-p-1-asp-id-0856"></a>
+**H-P-1-ASP-ID-0856**: HPSDB/SW OBSW Interface Data Sheet 
+
+: Issues cited: 4.0
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD3])
 
 <a id="ref-h-p-1-asp-sp-0141"></a>
 **H-P-1-ASP-SP-0141**: Naming convention 
 
 : Cited by: [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md) (AD1)
 
-<a id="ref-h-p-1-aspi-is-0121"></a>
-**H-P-1-ASPI-IS-0121**: EGSE INTERFACE REQUIREMENTS SPECIFICATIONS 
+<a id="ref-h-p-1-asp-tn-0543"></a>
+**H-P-1-ASP-TN-0543**: Generic Data Collection 
 
-: Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD9)
+: Issues cited: 10.0
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD1])
+
+<a id="ref-h-p-1-aspi-is-0121"></a>
+**H-P-1-ASPI-IS-0121**: Herschel Plank EGSE Interface Requirement Specification [:material-book-check: in library](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md)
+
+: Cited by: [Herschel/Planck CDMU DFE TM/TC Services](../library/h-p-1-asp-tn-0591-1-0-signed.md) ([AD2]), [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD9), [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) ([AD-001])
+
+<a id="ref-h-p-1-aspi-li-0077"></a>
+**H-P-1-ASPI-LI-0077**: List of Acronyms 
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD1])
 
 <a id="ref-h-p-1-aspi-sp-0018"></a>
 **H-P-1-ASPI-SP-0018**: PA Requirements for Subcontractors 
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD12)
+
+<a id="ref-h-p-1-aspi-sp-0027"></a>
+**H-P-1-ASPI-SP-0027**: General Design and Interface Requirements 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD7)
 
 <a id="ref-h-p-1-aspi-sp-0029"></a>
 **H-P-1-ASPI-SP-0029**: Safety Requirements 
@@ -3361,22 +4411,149 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD7)
 
+<a id="ref-h-p-1-aspi-sp-0045"></a>
+**H-P-1-ASPI-SP-0045**: EGSE General Requirements Specifications [:material-book-check: in library](../library/h-p-1-aspi-sp-0045-egse-general-req.md)
+
+: Cited by: [Herschel/Planck CDMU DFE TM/TC Services](../library/h-p-1-asp-tn-0591-1-0-signed.md) ([AD1]), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD1)
+
+<a id="ref-h-p-1-aspi-sp-0082"></a>
+**H-P-1-ASPI-SP-0082**: H-P System Database Specification 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD2)
+
 <a id="ref-h-p-1-aspi-sp-0141"></a>
 **H-P-1-ASPI-SP-0141**: Naming convention specification 
 
 : Issues cited: 01/00; Issue 01/02
 
-: Cited by: [Alcatel fax: SCOS MIB naming limits, part 2 (Mar 2003)](../library/alc-scos-2003-03-27.md) (REF2), [Alcatel fax: SCOS MIB naming limits, part 1 (Jan 2003)](../library/alc-scos-fax-2003-01-27.md) (REF2), [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (RD 1), [SPIRE MIB Naming Convention](../library/spire-mib-naming-convention-1-2.md) (AD01)
+: Cited by: [Alcatel fax: SCOS MIB naming limits, part 2 (Mar 2003)](../library/alc-scos-2003-03-27.md) (REF2), [Alcatel fax: SCOS MIB naming limits, part 1 (Jan 2003)](../library/alc-scos-fax-2003-01-27.md) (REF2), [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (RD 1), [HPSDB Software User Manual (v2.6, GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md) ([AD.4.]), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD6), [SPIRE MIB Naming Convention](../library/spire-mib-naming-convention-1-2.md) (AD01)
+
+<a id="ref-h-p-1-aspi-sp-0209"></a>
+**H-P-1-ASPI-SP-0209**: System Operations &amp; FDIR Requirements (SOFDIR) 
+
+: Issues cited: issue 4.4
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 RD-7, RD-8), [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD2])
+
+<a id="ref-h-p-1-aspi-sp-0252"></a>
+**H-P-1-ASPI-SP-0252**: Herschel/Planck Suitcase Requirements Specification 
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 3)
 
 <a id="ref-h-p-1-aspi-sp-xxxx"></a>
 **H-P-1-ASPI-SP-xxxx**: DISSIP SCOE (TBC) Requirement Specification 
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md)
 
-<a id="ref-h-p-4-te-id-8020"></a>
-**H-P-4-TE-ID-8020**: CCS External Interface Control Document 
+<a id="ref-h-p-1-aspi-tn-0127"></a>
+**H-P-1-ASPI-TN-0127**: EGSE Quick Load/Dump Interfaces 
 
-: Cited by: [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md) (AD3)
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD9)
+
+<a id="ref-h-p-1-gmv-add-2732"></a>
+**H-P-1-GMV-ADD-2732**: HPSDB Architectural Design Document 
+
+: Cited by: [HPSDB Software User Manual (v2.6, GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md) ([AD.3.])
+
+<a id="ref-h-p-1-gmv-sr-2171"></a>
+**H-P-1-GMV-SR-2171**: HPSDB Software Requirement Document 
+
+: Cited by: [HPSDB Software User Manual (v2.6, GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md) ([AD.2.])
+
+<a id="ref-h-p-1-sp-ai-0015"></a>
+**H-P-1-SP-AI-0015**: SAS REQUIREMENT SPECIFICATION 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD5)
+
+<a id="ref-h-p-1-sp-ai-0022"></a>
+**H-P-1-SP-AI-0022**: Batteries REQUIREMENT SPECIFICATION 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD6)
+
+<a id="ref-h-p-2-asp-li-1333"></a>
+**H-P-2-ASP-LI-1333**: CIDL_HERSCHEL_OBCP 
+
+: Issues cited: 11.0
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD4])
+
+<a id="ref-h-p-2-asp-li-1464"></a>
+**H-P-2-ASP-LI-1464**: System 
+
+: Issues cited: 5.0
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD10])
+
+<a id="ref-h-p-4-aspi-is-0042"></a>
+**H-P-4-ASPI-IS-0042**: SVM Interface Specification 
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 RD-8, RD-7)
+
+<a id="ref-h-p-4-aspi-sp-0019"></a>
+**H-P-4-ASPI-SP-0019**: SVM Requirements Specification 
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 RD-5, RD-4)
+
+<a id="ref-h-p-4-ds-ic-005"></a>
+**H-P-4-DS-IC-005**: ACMS SCOE CCS ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD18)
+
+<a id="ref-h-p-4-sia-ic-1001"></a>
+**H-P-4-SIA-IC-1001**: H P TT&amp;C SCOE ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD20)
+
+<a id="ref-h-p-4-sia-ic-2001"></a>
+**H-P-4-SIA-IC-2001**: H P POWER SCOE ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD19)
+
+<a id="ref-h-p-4-ssf-ic-0001"></a>
+**H-P-4-SSF-IC-0001**: CDMU ASW ICD 
+
+: Issues cited: 4.1 2007-06-26
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD11])
+
+<a id="ref-h-p-4-te-id-8020"></a>
+**H-P-4-TE-ID-8020**: CCS External Interface Control Document [:material-book-check: in library](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md)
+
+: Issues cited: 01/08
+
+: Cited by: [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md) (AD3), [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([AD1]), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD3)
+
+<a id="ref-h-p-4-te-rb-0010"></a>
+**H-P-4-TE-RB-0010**: Herschel Plank Central Checkout System, Requirements Baseline 
+
+: Cited by: [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) ([RB])
+
+<a id="ref-h-p-4-te-tn-9001"></a>
+**H-P-4-TE-TN-9001**: Herschel Plank Central Checkout System Glossary, Definitions and Acronyms 
+
+: Cited by: [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) ([RD-001])
+
+<a id="ref-h-p-4-te-tn-9002"></a>
+**H-P-4-TE-TN-9002**: Herschel-Planck Central Checkout System Packet Analysis Tools 
+
+: Cited by: [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md) ([AD-003])
+
+<a id="ref-h-p-asp-lt-5167"></a>
+**H-P-ASP-LT-5167**: Fax H-P-ASP-LT-5167 (event packet and TC report source data alignment with the PS-ICD) 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md)
+
+<a id="ref-h-p-asp-mn-2708"></a>
+**H-P-ASP-MN-2708**: Questions/Open Points for CDMU DFE 
+
+: Cited by: [Herschel/Planck CDMU DFE TM/TC Services](../library/h-p-1-asp-tn-0591-1-0-signed.md) ([RD2])
+
+<a id="ref-h-p-asp-mn-5558"></a>
+**H-P-ASP-MN-5558**: Data Management Working Group Meeting #21 
+
+: Issues cited: 2004-10-20
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD11])
 
 <a id="ref-h-p-asp-mn-6913"></a>
 **H-P-ASP-MN-6913**: MOM: Herschel Instruments – data base meeting on 29 and 30/09/05 in ASED Munchen 
@@ -3395,19 +4572,81 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-h-p-aspi-sp-0141"></a>
 **H-P-ASPI-SP-0141**: Herschel/Planck Naming Convention Specification Document 
 
-: Issues cited: 1.2; 2.1
+: Issues cited: 02/02; 1.2; 2.1
 
-: Cited by: [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-2)
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([AD2]), [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-2)
+
+<a id="ref-h-p-li-ai-0052-14-pdf"></a>
+**H-P-LI-AI-0052_14.pdf**: Herschel SVM HPSDB CIDL 
+
+: Issues cited: 14.0
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD9])
+
+<a id="ref-h-p-mi-ai-0156"></a>
+**H-P-MI-AI-0156**: MoM (action item AI#32, addressed in issue 1.3) 
+
+: Cited by: [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md)
+
+<a id="ref-h-p-mi-ai-225"></a>
+**H-P-MI-AI-225**: SSBV Progress Meeting 2 
+
+: Cited by: [Herschel/Planck CDMU DFE TM/TC Services](../library/h-p-1-asp-tn-0591-1-0-signed.md) ([RD3])
+
+<a id="ref-h-p-sat-dd-1002"></a>
+**H-P-SAT-DD-1002**: CDMU DFE System Design Description 
+
+: Cited by: [Herschel/Planck CDMU DFE TM/TC Services](../library/h-p-1-asp-tn-0591-1-0-signed.md) ([RD3])
+
+<a id="ref-h-p-sat-if-1003"></a>
+**H-P-SAT-IF-1003**: PLM SCOE CCS Command and Data ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD14)
+
+<a id="ref-h-p-sat-if-1004"></a>
+**H-P-SAT-IF-1004**: CDMU DFE CCS Command and Data ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD15)
+
+<a id="ref-h-p-sat-if-1008"></a>
+**H-P-SAT-IF-1008**: TM/TC DFE CCS Command and Data ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD16)
+
+<a id="ref-h-p-sat-if-1009"></a>
+**H-P-SAT-IF-1009**: CDMU SCOE CCS Command and Data ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD17)
+
+<a id="ref-h-p-sp-ai-0003"></a>
+**H-P-SP-AI-0003**: CDMU Hardware REQUIREMENT SPECIFICATION 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD3)
 
 <a id="ref-h-p-sp-ai-0010"></a>
 **H-P-SP-AI-0010**: CCS Requirement Specification 
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md)
 
+<a id="ref-h-p-sp-ai-0011"></a>
+**H-P-SP-AI-0011**: ACMS REQUIREMENT SPECIFICATION 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD4)
+
+<a id="ref-h-p-sp-ai-0012"></a>
+**H-P-SP-AI-0012**: Herschel/Planck Transponder Specifications 
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 6), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD7)
+
 <a id="ref-h-p-sp-ai-0013"></a>
 **H-P-SP-AI-0013**: ACMS SCOE Requirement Specification 
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md)
+
+<a id="ref-h-p-sp-ai-0014"></a>
+**H-P-SP-AI-0014**: PCDU REQUIREMENT SPECIFICATION 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD2)
 
 <a id="ref-h-p-sp-ai-0019"></a>
 **H-P-SP-AI-0019**: PLM SCOE Requirement Specification 
@@ -3418,6 +4657,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **H-P-SP-AI-0020**: CDMU DFE Requirement Specification 
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md)
+
+<a id="ref-h-p-sp-ai-0023"></a>
+**H-P-SP-AI-0023**: RFDN Specification 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD8)
+
+<a id="ref-h-p-sp-ai-0024"></a>
+**H-P-SP-AI-0024**: X Band LGA Specification 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD9)
+
+<a id="ref-h-p-sp-ai-0025"></a>
+**H-P-SP-AI-0025**: X Band MGA Specification 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD10)
 
 <a id="ref-h-p-sp-ai-0027"></a>
 **H-P-SP-AI-0027**: CDMU SCOE Requirements Specification 
@@ -3439,10 +4693,62 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md)
 
+<a id="ref-h-p-sp-ai-0031"></a>
+**H-P-SP-AI-0031**: CDMU Application SW Requirements Specification 
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (RD-6), [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD9])
+
+<a id="ref-herschel-fsc-mom-0213"></a>
+**Herschel/FSC/MOM/0213**: Herschel Ground Segment System Engineering Group meeting #13 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#15])
+
+<a id="ref-herschel-hsc-mom-0383"></a>
+**Herschel/HSC/MOM/0383**: Herschel Ground Segment System Engineering Group meeting #25 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#25])
+
+<a id="ref-herschel-hsc-mom-0404"></a>
+**Herschel/HSC/MOM/0404**: Herschel Ground Segment System Engineering Group meeting #26 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#26])
+
+<a id="ref-herschel-hsc-mom-0545"></a>
+**Herschel/HSC/MOM/0545**: Herschel Ground Segment System Engineering Group meeting #28 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#28])
+
+<a id="ref-hifi-mib-139"></a>
+**HIFI MIB 139**: HIFI MIB issue 139, equivalent to HIFI_ASPI MIB 11.7 
+
+: Issues cited: 139 / ASPI 11.7
+
+: Cited by: [HIFI MIB 139 (ASPI 11.7) overview](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md)
+
+<a id="ref-hp-2-absp-ic-0002"></a>
+**HP-2-ABSP-IC-0002**: Cryo PFM SCOE Internal &amp; External ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD21)
+
 <a id="ref-hp-2-ased-ps-0013"></a>
 **HP-2-ASED-PS-0013**: Herschel Cryo SCOE Requirements Specification 
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md)
+
+<a id="ref-hp-2-ased-tn-0048"></a>
+**HP-2-ASED-TN-0048**: Description of the PLM-FM Cryo Control Instrumentation 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD11)
+
+<a id="ref-hp-4-te-id-8020"></a>
+**HP-4-TE-ID-8020**: CCS External ICD 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD23)
+
+<a id="ref-hpsdb"></a>
+**HPSDB**: Herschel / Planck System Data Base 
+
+: Cited by: [SRDB: from Herschel/Planck HPSDB to EGS-CC (SESP 2015)](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md)
 
 <a id="ref-hsc-herschel-doc-0427"></a>
 **HSC-HERSCHEL-DOC-0427**: HCSS Installation Instructions 
@@ -3458,12 +4764,24 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SPIRE Database Management and CUS Configuration Control](../library/spire-db-management-1-0.md) (RD01)
 
+<a id="ref-hscdt-tn-017"></a>
+**HSCDT-TN-017**: Understanding of the Interfaces between the CCS and the Herschel Instrument EGSEs in the IST 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD1)
+
 <a id="ref-icc-2001-001"></a>
 **ICC/2001-001**: Technical Note on Observation and Building Block Identifiers for Herschel 
 
 : Issues cited: Issue 1.0 6th June 2001
 
 : Cited by: [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD5])
+
+<a id="ref-int-moc-sys-icd-0001-ogi"></a>
+**INT–MOC-SYS-ICD-0001-OGI**: HERSCHEL-PLANCK OGS-SGS ICD Chapter 4.1: Real-Time Telemetry Data (MOC-HPSDS) 
+
+: Issues cited: May 26th 1998
+
+: Cited by: [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-6)
 
 <a id="ref-journal-of-instrumentation-12-dec-2009-12018"></a>
 **Journal of Instrumentation 12 (Dec., 2009) 12018**: Optimization of Planck-LFI on-board data handling (M. Maris et al.) 
@@ -3486,6 +4804,25 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([4])
 
+<a id="ref-pa-pscb-100006-isn"></a>
+**PA-PSCB-100006-ISN**: Planck Sorption Cooler Electronics FMECA 
+
+: Issues cited: 1.15 2005-03-01
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD8])
+
+<a id="ref-pacs-kl-mm-010"></a>
+**PACS-KL-MM-010**: Herschel Ground Segment System Engineering Group meeting #9 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HGSSE#9])
+
+<a id="ref-pacs-me-gp-002"></a>
+**PACS-ME-GP-002**: PACS FDIR 
+
+: Issues cited: 1.2 2007-04-17
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD4])
+
 <a id="ref-pacs-me-sw-001"></a>
 **PACS-ME-SW-001**: EGSE test-control SOW 
 
@@ -3493,12 +4830,36 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel common EGSE document overview](../library/cosmos-common-egse-document-overview.md) (Test control SOW [PACS])
 
+<a id="ref-picc-me-xx-yyy"></a>
+**PICC-ME-xx-yyy**: Validation Plan for CCS – IEGSE Test sequence Commanding Interface 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD22)
+
+<a id="ref-pl-lfi-pst-an-002"></a>
+**PL-LFI-PST-AN-002**: Planck LFI – FDIR description 
+
+: Issues cited: 1.0 2005-05-18
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD7])
+
 <a id="ref-pl-lfi-pst-ma-001"></a>
 **PL-LFI-PST-MA-001**: Planck LFI User Manual (A. Gregorio et al., University of Trieste) 
 
-: Issues cited: 2008
+: Issues cited: 2.2 2007-06-30; 2008
 
-: Cited by: [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([9])
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD8]), [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([9])
+
+<a id="ref-pp-is-f-07527"></a>
+**PP-IS-F-07527**: Herschel-PLANCK Packet Structure ICD 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-7])
+
+<a id="ref-pt-cmoc-mcs-srs-3201-ops-gds"></a>
+**PT-CMOC-MCS-SRS-3201-OPS-GDS**: HERSCHEL-PLANCK MCS SRS 
+
+: Issues cited: Issue 2.3 April 2005
+
+: Cited by: [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-7)
 
 <a id="ref-pt-cmoc-mds-3108-ops-gds"></a>
 **PT-CMOC-MDS-3108-OPS-GDS**: Interface Control Document, Data Disposition System 
@@ -3507,6 +4868,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [HCSS TC History and OOL Ingestion User Manual (2.3)](../library/tch-ool-user-guide-v2-3.md) ([RD6])
 
+<a id="ref-pt-cmoc-ops-tn-6605-ops-ogh"></a>
+**PT-CMOC-OPS-TN-6605-OPS-OGH**: Intended Operational Usage of Sub-Schedules 
+
+: Issues cited: Draft1 2004-03-31
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD10])
+
 <a id="ref-sci-ot-icd-7527"></a>
 **SCI-OT-ICD-7527**: FIRST/Planck Packet Structure Interface Control Document 
 
@@ -3514,44 +4882,79 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD8])
 
-<a id="ref-sci-pt-icd-07418"></a>
-**SCI-PT-ICD-07418**: Herschel/Planck Space / Ground Interface Control Document (SG-ICD) 
+<a id="ref-sci-pt-03646"></a>
+**SCI-PT-03646**: Herschel Science Implementation Requirements Document (SIRD) 
 
-: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-2)
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-2])
+
+<a id="ref-sci-pt-icd-07418"></a>
+**SCI-PT-ICD-07418**: Herschel/Planck Space / Ground Interface Control Document (SG-ICD) [:material-book-check: in library](../library/herschel-planck-space-ground-interface-control-document-sgicd.md)
+
+: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-2), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD8)
 
 <a id="ref-sci-pt-icd-07527"></a>
-**SCI-PT-ICD-07527**: Packet Structure Interface Control Document (PSICD) 
+**SCI-PT-ICD-07527**: Herschel / Planck Packet Structure Interface Control Document PS-ICD [:material-book-check: in library](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md)
 
-: Cited by: [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md) (RD1)
+: Issues cited: Issue 5.0 20 July 2004
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 RD-2), [Herschel/Planck CDMU DFE TM/TC Services](../library/h-p-1-asp-tn-0591-1-0-signed.md) ([RD1]), [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md) (RD1), [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-5)
 
 <a id="ref-sci-pt-icd-7527"></a>
 **SCI-PT-ICD-7527**: Packet Structure ICD 
 
-: Issues cited: issue 2.0 draft 2
+: Issues cited: 5.0 2004-07-20; Issue 1.0 2000-09-01; issue 2.0 draft 2
 
-: Cited by: [HIFI TEI TM/TC packet ICD](../library/cosmos-tei-tmtc-packet-icd.md) (AD 1)
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD1]), [HIFI TEI TM/TC packet ICD](../library/cosmos-tei-tmtc-packet-icd.md) (AD 1), [Herschel EGSE Packet Router ICD (HIFI, 2001)](../library/herschel-egse-packet-router-icd.md) ([AD 1]), [HIFI Telecommand Packet Structure ICD (issue 1.10)](../library/hifi-telecommand-packet-structure-icd.md) (AD 1.)
 
 <a id="ref-sci-pt-if-07527"></a>
 **SCI-PT-IF-07527**: Herschel/Planck Packet Structure Interface Control Document (PS-ICD) 
 
-: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-5), [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD6)
+: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-5), [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD6), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 9), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (S4)
 
 <a id="ref-sci-pt-iida-04624"></a>
-**SCI-PT-IIDA-04624**: FIRST/Planck Instrument Interface Document (IID-A) 
+**SCI-PT-IIDA-04624**: Herschel / Planck Instrument Interface Document – IID Part A 
 
-: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-3)
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 RD-1, RD-5), [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-3)
+
+<a id="ref-sci-pt-iida"></a>
+**SCI-PT-IIDA/**: Instrument Interface Document-Part A 
+
+: Issues cited: issue 1.0
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-11])
+
+<a id="ref-sci-pt-iidb-hifi-02125"></a>
+**SCI-PT-IIDB/HIFI-02125**: HIFI Instrument Interface Document-Part B 
+
+: Issues cited: issue 1.0
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-12])
+
+<a id="ref-sci-pt-iidb-pacs-02126"></a>
+**SCI-PT-IIDB/PACS-02126**: PACS Instrument Interface Document-Part B 
+
+: Issues cited: issue 1.0
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-13])
+
+<a id="ref-sci-pt-iidb-spire-02124"></a>
+**SCI-PT-IIDB/SPIRE-02124**: SPIRE Instrument Interface Document-Part B 
+
+: Issues cited: issue 1.0
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-14])
 
 <a id="ref-sci-pt-rs-05991"></a>
-**SCI-PT-RS-05991**: FIRST/Planck System Requirements Specification(SRS) 
+**SCI-PT-RS-05991**: system requirements specification (top level requirement SINT-075 H/P) 
 
-: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-4)
+: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-4), [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 14)
 
 <a id="ref-sci-pt-rs-07360"></a>
-**SCI-PT-RS-07360**: Herschel/Planck Operations Interface Requirements Document [:material-book-check: in library](../library/cosmos-operations-interface-requirements.md)
+**SCI-PT-RS-07360**: Herschel / Planck Operations Interface Requirements Document (H/P-OIRD) [:material-book-check: in library](../library/cosmos-operations-interface-requirements.md)
 
-: Issues cited: 2.1; v2.1
+: Issues cited: 2.1; Issue 2.1 December 2001; v2.1
 
-: Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD8), [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-3)
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (AD-3), [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD8), [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md) (RD-3), [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-4]), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 1)
 
 <a id="ref-sci-pt-rs-7360"></a>
 **SCI-PT-RS-7360**: FIRST/PLANCK Operations Interface Requirements Document 
@@ -3573,7 +4976,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [HCSS TC History and OOL Ingestion User Manual (2.3)](../library/tch-ool-user-guide-v2-3.md) ([RD4], [RD5])
 
 <a id="ref-spire-ics-doc-000900"></a>
-**SPIRE-ICS-DOC-000900**: TC History Interface Control Document, M.J.Graham 
+**SPIRE-ICS-DOC-000900**: TC History Interface Control Document, M.J.Graham [:material-book-check: in library](../library/tc-history-icd.md)
 
 : Issues cited: 1.0 30th October 2002
 
@@ -3589,14 +4992,42 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-spire-ics-doc-000975"></a>
 **SPIRE-ICS-DOC-000975**: RTA-HCSS Data Interface Control Document, M.J.Graham 
 
-: Issues cited: 1.0 30th October 2002
+: Issues cited: 0.1 draft 25 January 2002; 1.0 30th October 2002
 
-: Cited by: [HCSS TC History and OOL Ingestion User Manual (2.3)](../library/tch-ool-user-guide-v2-3.md) ([RD3])
+: Cited by: [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (RD7), [HCSS TC History and OOL Ingestion User Manual (2.3)](../library/tch-ool-user-guide-v2-3.md) ([RD3])
+
+<a id="ref-spire-ics-not-000899"></a>
+**SPIRE-ICS-NOT-000899**: TC History Technical Note 
+
+: Issues cited: 0.1 7 September 2001
+
+: Cited by: [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (RD2)
+
+<a id="ref-spire-mib-fm-2-2-h1-pr-20feb2008-release-note"></a>
+**SPIRE_MIB_FM_2.2.H1_PR_20Feb2008_release_note**: SPIRE 2.2 H1 PR release note 
+
+: Issues cited: FM_2.2.H1_PR
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD6])
 
 <a id="ref-spire-ral-doc-001172"></a>
 **SPIRE-RAL-DOC-001172**: TFCS Requirements Document 
 
 : Cited by: [SPIRE MIB Naming Convention](../library/spire-mib-naming-convention-1-2.md) (RD03)
+
+<a id="ref-spire-ral-prj-001078"></a>
+**SPIRE-RAL-PRJ-001078**: SPIRE Data ICD 
+
+: Issues cited: 2.0 2004-11-15
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD2])
+
+<a id="ref-spire-ral-prj-001978"></a>
+**SPIRE-RAL-PRJ-001978**: SPIRE FDIR 
+
+: Issues cited: 1.0 2004-07-13
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD3])
 
 <a id="ref-sron-g-2001"></a>
 **SRON-G/2001**: Herschel EGSE packet router ICD 
@@ -3616,6 +5047,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **SRON-U-HIFI-SP-2000-5**: FIRST-PLANCK CDMS interface test-requirements specifications 
 
 : Cited by: [Herschel EGSE integration plan](../library/cosmos-herschel-egse-integration-plan.md) (RD.1)
+
+<a id="ref-sron-u-hif-um-2004-001"></a>
+**SRON-U/HIF/UM/2004-001**: HIFI User Manual (parent document of this annex) 
+
+: Cited by: [HIFI MIB 139 (ASPI 11.7) overview](../library/hifi-user-manual-annex-3-mib-139-aspi-11-7-overview.md)
 
 <a id="ref-sron-u-hifi-sp-2000-2"></a>
 **SRON-U/HIFI-SP-2000-2.**: MIB editor Requirements specification document [:material-book-check: in library](../library/hifi-mib-editor-requirements.md)
@@ -3655,6 +5091,32 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel common EGSE document overview](../library/cosmos-common-egse-document-overview.md) (CDMSsim Spec [HIFI])
 
+<a id="ref-sron-u-hifi-sp-2001-001"></a>
+**SRON-U/HIFI/SP/2001-001**: HIFI TC Packet ICD [:material-book-check: in library](../library/hifi-telecommand-packet-structure-icd.md)
+
+: Issues cited: 1.5 2005-10-05
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD4])
+
+<a id="ref-sron-u-hifi-sp-2001-002"></a>
+**SRON-U/HIFI/SP/2001-002**: HIFI TM Packet ICD 
+
+: Issues cited: 1.6 2005-10-05
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD5])
+
+<a id="ref-sron-u-hifi-sp-2001-003"></a>
+**SRON-U/HIFI/SP/2001-003**: HIFI Housekeeping packet structure ICD 
+
+: Issues cited: 1.8 2005-10-05
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD6]), [HIFI Telecommand Packet Structure ICD (issue 1.10)](../library/hifi-telecommand-packet-structure-icd.md) (RD 2.)
+
+<a id="ref-sron-u-hifi-sp-2001-004"></a>
+**SRON-U/HIFI/SP/2001-004**: HIFI Command specification 
+
+: Cited by: [HIFI Telecommand Packet Structure ICD (issue 1.10)](../library/hifi-telecommand-packet-structure-icd.md) (RD 1.)
+
 <a id="ref-sron-u-hifi-sp-2001-005"></a>
 **SRON-U/HIFI/SP/2001-005**: Herschel EGSE Router SOW 
 
@@ -3675,6 +5137,20 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: D3
 
 : Cited by: [Herschel common EGSE document overview](../library/cosmos-common-egse-document-overview.md) (TEI URD [HIFI]), [HIFI TEI TM/TC packet ICD](../library/cosmos-tei-tmtc-packet-icd.md) (RD 1)
+
+<a id="ref-sron-u-hifi-sp-2004-002"></a>
+**SRON-U/HIFI/SP/2004-002**: HIFI FDIR Specification 
+
+: Issues cited: 1.2 2006-06-09
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD5])
+
+<a id="ref-sron-u-hifi-sp-2006-003"></a>
+**SRON-U/HIFI/SP/2006-003**: HIFI 11.6 release note 
+
+: Issues cited: 11.6
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD5])
 
 <a id="ref-sron-u-hifi-tn-2000"></a>
 **SRON-U/HIFI/TN/2000**: EGSE Interface unit, functional description 
@@ -3700,7 +5176,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel common EGSE document overview](../library/cosmos-common-egse-document-overview.md) (EGSE TOR [PACS])
 
-## Mission documents (Rosetta, Mars Express, Venus Express, Solar Orbiter ...) (70)
+<a id="ref-herschel-ground-segment-workshop-2-vilspa-13-15-october-1999"></a>
+**(no identifier)**: Herschel Ground Segment Workshop#2, Vilspa 13-15 October 1999 
+
+: Issues cited: 13-15 October 1999
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([FGSSW#2])
+
+<a id="ref-herschel-planck-radio-frequency-test-procedure-and-report"></a>
+**(no identifier)**: Herschel/Planck Radio Frequency Test Procedure and Report 
+
+: Issues cited: Issue TBD Date TBD
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 10)
+
+## Mission documents (Rosetta, Mars Express, Venus Express, Solar Orbiter ...) (85)
 
 <a id="ref-bc-esc-dd-22001"></a>
 **BC-ESC-DD-22001**: BepiColombo MCS S/W Design Document (SDD) 
@@ -3745,6 +5235,20 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: May 2011
 
 : Cited by: [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (RD6)
+
+<a id="ref-esa-contract-12398"></a>
+**ESA Contract 12398**: Study of the Interaction between the Rosetta Orbiter and the Cometary Plasma, Final Report of ESA Contract 12398 
+
+: Issues cited: 1999
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([IR4])
+
+<a id="ref-mao-wp-483"></a>
+**MAO-WP-483**: Solar Orbiter Mission Analysis 
+
+: Issues cited: issue 1, revision 1 November 2005
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([IR6])
 
 <a id="ref-mex-esc-rp-5500"></a>
 **MEX-ESC-RP-5500**: Consolidate Report on Mission ANALYSIS (CREMA) 
@@ -3794,6 +5298,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: Issue 3, Rev. 0 15th January 2003
 
 : Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-18), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-18)
+
+<a id="ref-ndiu3-dr-0001-gsy"></a>
+**NDIU3-DR-0001-GSY**: NDIU3 for ROSETTA SVT's Design Report (NDIU full) 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD4)
 
 <a id="ref-p-solo-icd-10131-rse"></a>
 **P-SOLO-ICD-10131-RSE**: Solar Orbiter OBC Hardware Software Interface 
@@ -3919,6 +5428,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Rosetta/Mars Express FDS-MCS Interface Control Document](../library/mex-esc-id-5003-fds-icd.md) (A-1 [ROS-GLOSS]), [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (A-5), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (A-5)
 
+<a id="ref-ro-esc-rs-5002"></a>
+**RO-ESC-RS-5002**: I/F ROSETTA Gateway – TM/TC FEE (NDIU lite) 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD4)
+
 <a id="ref-ro-esc-rs-5310"></a>
 **RO-ESC-RS-5310**: R(ME)MCS User Requirements Document 
 
@@ -3968,6 +5482,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-17), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-17)
 
+<a id="ref-ros-moc-ndiu-0001-gsy"></a>
+**ROS-MOC-NDIU-0001-GSY**: NDIU3 for ROSETTA SVT's User Manual (NDIU full) 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (AD4)
+
 <a id="ref-so-esc-rs-05001"></a>
 **SO-ESC-RS-05001**: Solar Orbiter OIRD 
 
@@ -3979,6 +5498,41 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: March 2010
 
 : Cited by: [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (AD2)
+
+<a id="ref-so-swa-dpu-cd-ad-001"></a>
+**SO-SWA-DPU_CD-AD-001**: SWA DPU FLIGHT SW DESIGN DOCUMENT Volume 1 
+
+: Issues cited: 2
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (AD[7], AD[8], AD[9])
+
+<a id="ref-so-swa-dpu-cd-rq-001"></a>
+**SO-SWA-DPU_CD-RQ-001**: SWA DPU Flight SW Requirement Document 
+
+: Issues cited: 2
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (AD[6])
+
+<a id="ref-so-swa-mssl-rq-001"></a>
+**SO-SWA-MSSL-RQ-001**: EAS Unit Specifications. 
+
+: Issues cited: 4
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[7])
+
+<a id="ref-so-swa-mssl-rq-010"></a>
+**SO-SWA-MSSL-RQ-010**: Solar Orbiter SWA Scientific Operations, Algorithms and Processes Requirements Document. Issue 1 
+
+: Issues cited: 2RevB
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (AD[5])
+
+<a id="ref-so-swa-mssl-sp-012"></a>
+**SO-SWA-MSSL-SP-012**: EAS-DPU Interface Specification 
+
+: Issues cited: 1
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[8])
 
 <a id="ref-sol-a-tas-icd-00001"></a>
 **SOL-A-TAS-ICD-00001**: SSMM TMTC ICD 
@@ -4015,6 +5569,27 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: v2_3 Jan 2021
 
 : Cited by: [Solar Orbiter E-FECS planning skeleton ICD](../library/sol-sgs-icd-0006-efecs-icd-3-0.md) ([SGS FD])
+
+<a id="ref-sol-est-rcd-0050"></a>
+**SOL-EST-RCD-0050**: Solar Orbiter – Experiment Interface Document – Part A 
+
+: Issues cited: 5
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (AD[2])
+
+<a id="ref-sol-est-rs-0049"></a>
+**Sol-EST-RS-0049**: Mission Requirements Document for Solar Orbiter 
+
+: Issues cited: Issue 3 June 2006
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR1])
+
+<a id="ref-sol-est-sp-00705"></a>
+**SOL-EST-SP-00705**: Solar Orbiter Payload Definition Document 
+
+: Issues cited: issue 6 October 2007
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([IR1])
 
 <a id="ref-sol-sgs-icd-0009"></a>
 **SOL-SGS-ICD-0009**: File-Transfer SOC&lt;-&gt;Instrument Teams ICD 
@@ -4091,9 +5666,9 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (AD3)
 
 <a id="ref-sol-s-astr-rs-00038"></a>
-**SOL.S.ASTR.RS.00038**: SpaceWire Protocol Specification 
+**SOL.S.ASTR.RS.00038**: Spacewire Application Protocol Specification 
 
-: Cited by: [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (AD4)
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[4]), [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md) (AD4)
 
 <a id="ref-sol-s-astr-tn-00011"></a>
 **SOL.S.ASTR.TN.00011**: Mission Operations Concept Document 
@@ -4103,9 +5678,9 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-sol-s-astr-tn-00079"></a>
 **SOL.S.ASTR.TN.00079**: Solar Orbiter TM-TC and Packet Structure ICD [:material-book-check: in library](../library/sol-s-astr-tn-00079-07.md)
 
-: Issues cited: Issue 6
+: Issues cited: 7; Issue 6
 
-: Cited by: [Solar Orbiter inter-instrument communication (S3/S20)](../library/sol-sgs-tn-0007-s20-2-0.md) ([RD 01])
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[3]), [Solar Orbiter inter-instrument communication (S3/S20)](../library/sol-sgs-tn-0007-s20-2-0.md) ([RD 01])
 
 <a id="ref-sol-s-astr-tn-00088"></a>
 **SOL.S.ASTR.TN.00088**: Solar Orbiter Instrument Data Management Overview for PIs (CATs for packets routed to the OBC) 
@@ -4113,6 +5688,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: Issue 3
 
 : Cited by: [Solar Orbiter TM-TC and Packet Structure ICD](../library/sol-s-astr-tn-00079-07.md), [Solar Orbiter inter-instrument communication (S3/S20)](../library/sol-sgs-tn-0007-s20-2-0.md) ([RD 02])
+
+<a id="ref-tec-ees-03-034-js"></a>
+**TEC-EES-03-034/JS**: Solar Orbiter Environmental Specification 
+
+: Issues cited: issue 1, revision 3 January 2006
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([IR2])
 
 <a id="ref-vex-esc-if-5002"></a>
 **VEX-ESC-IF-5002**: VEX Space Ground ICD 
@@ -4147,6 +5729,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS / DDID presentation and demo (Solar Orbiter)](../library/sol-esc-prs-22100-edds-ddid-demo.md)
 
+<a id="ref-solar-orbiter-science-requirements-document"></a>
+**(no identifier)**: Solar Orbiter Science Requirements Document 
+
+: Issues cited: issue 1, revision 0 December 2003
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([IR5])
+
 <a id="ref-solar-orbiter-spice-out-of-field-straylight-calibration-tn"></a>
 **(no identifier)**: Solar Orbiter SPICE Out-Of-Field Straylight Calibration TN 
 
@@ -4154,7 +5743,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Solar Orbiter E-FECS planning skeleton ICD](../library/sol-sgs-icd-0006-efecs-icd-3-0.md) ([OOF])
 
-## Other documents (350)
+## Other documents (578)
 
 <a id="ref-makalumedia-mr-ifms-icd-ftp-occ"></a>
 **/MakaluMedia/MR/IFMS/ICD/FTP-OCC**: IFMS-OCC Interface, Interface Control Document [:material-book-check: in library](../library/ifms-occ-icd-mex.md)
@@ -4177,6 +5766,34 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Rosetta/Mars Express FDS-MCS Interface Control Document](../library/mex-esc-id-5003-fds-icd.md) (A-11 [IFMS-OCC])
 
+<a id="ref-11775-96-d-im"></a>
+**11775/96/D/IM**: INTEGRAL TC History File ICD 
+
+: Issues cited: Issue A.1 11 December 2000
+
+: Cited by: [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (RD3)
+
+<a id="ref-15164-cmddef-01"></a>
+**15164-CMDDEF-01**: Heavy Ion Sensor Instrument Software Boot and Science Programs 
+
+: Issues cited: 1
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[5])
+
+<a id="ref-15164-teldef-01"></a>
+**15164-TELDEF-01**: Heavy Ion Sensor Instrument Software Boot and Science Programs 
+
+: Issues cited: 1
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[6])
+
+<a id="ref-a5-sg-1-x-35-asai"></a>
+**A5-SG-1-X-35-ASAI**: Specifications générales de compatibilité electromagnétique 
+
+: Issues cited: Edition 4, Rev 1
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (A5-SG-1-X-35-ASAI Edition 4, Rev 1)
+
 <a id="ref-acm-sigcomm-computer-communication-review-20-no-5-october-1990-12-17"></a>
 **ACM SIGCOMM Computer Communication Review 20, no. 5 (October 1990): 12–17**: A Note on the Modified CRC (T. G. Berry) 
 
@@ -4190,6 +5807,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: October 1994
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([59])
+
+<a id="ref-acs-cr-um-024"></a>
+**ACS-CR-UM-024**: PACS DPUOBS User Manual 
+
+: Issues cited: 1.7 2004-09-15
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD3])
 
 <a id="ref-adass-xiii-asp-conference-series-vol-314-pp-384"></a>
 **ADASS XIII, ASP Conference Series vol. 314, pp. 384**: The ROOT C++ Framework for Astronomy (R. Rohlfs) 
@@ -4219,12 +5843,17 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([9]), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md)
 
+<a id="ref-ansi-x9-52"></a>
+**ANSI X9.52**: Triple Data Encryption Standard (3-DES), used by the ESA ATV 
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md)
+
 <a id="ref-ax-01"></a>
-**AX-01**: The COM/DCOM Reference. COM/DCOM Product Documentation (The Open Group) 
+**AX-01**: The COM/DCOM Reference. COM/DCOM Product Documentation 
 
 : Issues cited: 1999
 
-: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J5])
+: Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J5]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C8]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C6])
 
 <a id="ref-bell-system-technical-journal-27-no-3-july-1948-379-423"></a>
 **Bell System Technical Journal 27, no. 3 (July 1948): 379–423**: A Mathematical Theory of Communication (C.E. Shannon) 
@@ -4247,6 +5876,18 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS Glossary](../library/glo.md) ([BSSC-Java], [RD-11])
 
+<a id="ref-ccdsd-132-0-b-3"></a>
+**CCDSD 132.0-B-3**: TM Space Data Link Protocol – Blue Book 
+
+: Issues cited: Issue 3 October 2021
+
+: Cited by: [ECSS Adoption Notice of CCSDS 732.0-B-4 (AOS SDLP)](../library/ecss-e-as-50-23c-rev-1-13january2023.md)
+
+<a id="ref-ccitt-recommendation-v-41"></a>
+**CCITT Recommendation V.41**: Source of the generating polynomial G(X) = X^16 + X^12 + X^5 + 1 used for the frame check sequence 
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) (CCITT V.41)
+
 <a id="ref-ccitt-v-41"></a>
 **CCITT V.41**: CCITT Recommendation V.41 generating polynomial 
 
@@ -4258,6 +5899,27 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: Issue 3 February 1993
 
 : Cited by: [SCOSII OL: a dedicated language for mission operations](../library/ntrs-scosii-ol.md) ([9])
+
+<a id="ref-clsb-0409-1109"></a>
+**CLSB-0409-1109**: Atlas Launch System Mission Planner's Guide 
+
+: Issues cited: Revision 10a January 2007
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([IR7])
+
+<a id="ref-cnssi-no-4009"></a>
+**CNSSI No. 4009**: National Information Assurance (IA) Glossary 
+
+: Issues cited: Revised April 6, 2015
+
+: Cited by: [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C8])
+
+<a id="ref-cryptology-eprint-archive-report-2011-202"></a>
+**Cryptology ePrint Archive: Report 2011/202**: Cycling Attacks on GCM, GHASH and Other Polynomial MACs and Hashes (Markku-Juhani O. Saarinen) 
+
+: Issues cited: 2011
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([27])
 
 <a id="ref-csg-rs-10a-cn"></a>
 **CSG-RS-10A-CN**: CSG Safety regulations Volume 1 - General rules (Volume 1 taken precedence) 
@@ -4280,10 +5942,36 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (AD3)
 
+<a id="ref-cssa-1-tn-0-03"></a>
+**CSSA 1-TN-0.03**: Functional Resources for Cross Support Services (Draft Technical Note) 
+
+: Issues cited: March 2014
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([25])
+
+<a id="ref-dc-eos-2013-267"></a>
+**DC-EOS-2013-267**: Allegato tecnico gestionale al contratto ASI Nr. 2013-055-I.O. del 16/09/2013 
+
+: Issues cited: 2013-09-16
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (AD[1])
+
 <a id="ref-dcl-1001"></a>
 **DCL-1001**: EUD4S2K Document control List 
 
 : Cited by: [SCOS-2000 Time Correlation Technical Note](../library/tn-1030-time-correlation.md) (CNF-02)
+
+<a id="ref-dhso-esoc-emsp-sum-1001-hso-gib"></a>
+**DHSO-ESOC-EMSP-SUM-1001-HSO-GIB**: "EMS Portal - Software User Manual" 
+
+: Cited by: [ESTRACK deep-space cross support with CCSDS SM (SpaceOps25)](../library/spaceops-0016-estrack-deep-space-cross-support-using-ccsds-servi.md) ([5])
+
+<a id="ref-doi-org-10-2514-6-2010-2190"></a>
+**doi.org/10.2514/6.2010-2190**: M. Pecchioli et al. "Towards File based Operations", in SpaceOps 2010 Conference, Huntsville, Alabama, USA 
+
+: Issues cited: April 2010
+
+: Cited by: [Old and new generation control systems at ESA (ICALEPCS19)](../library/icalepcs2019-weapp01-esa-control-systems.md) ([2])
 
 <a id="ref-doi-10-2514-6-2016-2599"></a>
 **doi: 10.2514/6.2016-2599**: B. Eilertsen, M. Krynitz, and K. Olafsson, Newspace - forcing a rethink of ground networks, in SpaceOps 2016 Conference 
@@ -4291,6 +5979,69 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 2016
 
 : Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) ([2])
+
+<a id="ref-doi-10-1007-s10686-014-9383-4"></a>
+**doi:10.1007/s10686-014-9383-4**: Rauer, H., Catala, C., Aerts, C. et al., The PLATO 2.0 mission. Experimental Astronomy 38, 249–330 
+
+: Issues cited: 2014
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Rauer 2014)
+
+<a id="ref-doi-10-1007-s10686-020-09679-4"></a>
+**doi:10.1007/s10686-020-09679-4**: Benz, W., Broeg, C., Fortier, A. et al., The CHEOPS mission. Experimental Astronomy 51, 109–151 
+
+: Issues cited: 2021
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Benz 2021)
+
+<a id="ref-doi-10-1007-s11214-006-8315-7"></a>
+**doi:10.1007/s11214-006-8315-7**: Gardner, J.P., Mather, J.C., Clampin, M. et al., The James Webb Space Telescope. Space Science Reviews 123, 485–606 
+
+: Issues cited: 2006
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Gardner 2006)
+
+<a id="ref-doi-10-1016-0032-06339500107-7"></a>
+**doi:10.1016/0032-0633(95)00107-7**: Acton, C.H., Ancillary data services of nasa's navigation and ancillary information facility. Planetary and Space Science 44, 65–70 
+
+: Issues cited: 1996
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Acton 1996)
+
+<a id="ref-doi-10-1051-0004-6361-201015362"></a>
+**doi:10.1051/0004-6361/201015362**: Pence, W. D., Chiappetti, L., Page, C. G. et al., Definition of the flexible image transport system (fits), version 3.0. A&amp;A 524, A42 
+
+: Issues cited: 2010
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Pence 2010)
+
+<a id="ref-doi-10-1051-0004-6361-201936325"></a>
+**doi:10.1051/0004-6361/201936325**: Hoyer, S., Guterman, P., Demangeon, O. et al., Expected performances of the characterising exoplanet satellite (cheops) - iii. data reduction pipeline: architecture and simulated performances. A&amp;A 635, A24 
+
+: Issues cited: 2020
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Hoyer 2020)
+
+<a id="ref-doi-10-1051-0004-6361-201936616"></a>
+**doi:10.1051/0004-6361/201936616**: Futyan, D., Fortier, A., Beck, M. et al., Expected performances of the Characterising Exoplanet Satellite (CHEOPS). II. The CHEOPS simulator. A&amp;A 635, A23 
+
+: Issues cited: 2020
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Futyan 2020)
+
+<a id="ref-doi-10-1051-0004-6361-202348576"></a>
+**doi:10.1051/0004-6361/202348576**: Fortier, A., Simon, A.E., Broeg, C. et al., CHEOPS in-flight performance. A comprehensive look at the first 3.5 yr of operations. A&amp;A 687, A302 
+
+: Issues cited: 2024
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Fortier 2024)
+
+<a id="ref-doi-10-18429-jacow-icalepcs2017-thcpl02"></a>
+**doi:10.18429/JACoW-ICALEPCS2017-THCPL02**: M. Pecchioli, J.M. Carranza, "Highlights of the European Ground Systems - Common Core Initiative", in Proc. 16th Int. Conf. on Accelerator and Large Experimental Physics Control Systems (ICALEPCS'17), Barcelona, Spain, paper THCPL02, pp. 1175-1181 
+
+: Issues cited: October 2017
+
+: Cited by: [Old and new generation control systems at ESA (ICALEPCS19)](../library/icalepcs2019-weapp01-esa-control-systems.md) ([1])
 
 <a id="ref-doi-10-2514-6-2004-316-163"></a>
 **doi:10.2514/6.2004-316-163**: Peat, C., and Hofmann, H., "SATMON - A Generic User Interface for Satellite Control," SpaceOps Conferences, American Institute of Aeronautics and Astronautics 
@@ -4326,6 +6077,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 2018
 
 : Cited by: [DLR V3C mobile compact control center (SpaceOps 2021)](../library/spaceops2021-dlr-mobile-mcs.md) ([8])
+
+<a id="ref-doi-10-48550-arxiv-1001-2010"></a>
+**doi:10.48550/arXiv.1001.2010**: Winn, J.N., Exoplanet Transits and Occultations, in: Seager, S. (Ed.), Exoplanets, pp. 55–77 
+
+: Issues cited: 2010
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Winn 2010)
 
 <a id="ref-dops-com-pol-34555-ops-ect"></a>
 **DOPS-COM-POL-34555-OPS-ECT**: Implementation of the ESA Network Security Policy for OPSNET 
@@ -4368,6 +6126,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 1.1.1 31.10.08; 3.0 18.02.09; Issue 1.0 2006-11-10; Issue 1.1.1 2008-10-31
 
 : Cited by: [EDDS Glossary](../library/glo.md) ([AD-14], [EGGS-SRS]), [EDDS Software Design Document (issue 15.0)](../library/sdd.md) ([AD-7]), [EDDS Software Design Document (issue 25.0)](../library/sdd-v24.md) ([AD-7]), [EDDS Software Requirements Specification (issue 18.0)](../library/srs.md) ([AD-41])
+
+<a id="ref-egs-cc"></a>
+**EGS-CC**: European Ground Systems Common Core (product structure package) 
+
+: Cited by: [SRDB: from Herschel/Planck HPSDB to EGS-CC (SESP 2015)](../library/02-sesp-2015-from-hpsdb-to-egs-cc-presentation.md)
 
 <a id="ref-egscc-sys-tn-1022"></a>
 **EGSCC-SYS-TN-1022**: EGS-CC Modelling and Documentation Guidelines 
@@ -4416,6 +6179,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOSII OL: a dedicated language for mission operations](../library/ntrs-scosii-ol.md) ([10])
 
+<a id="ref-esa-community-license-v2-3-type-3-weak-copyleft"></a>
+**ESA Community License v2.3 Type 3 (Weak Copyleft)**: ESA Community License with Weak Copyleft 
+
+: Issues cited: v2.3
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md)
+
 <a id="ref-esa-contract-report-esoc-contract-no-20959-07-d-mrp"></a>
 **ESA Contract Report, ESOC Contract No. 20959/07/D/MRP**: Randomizer for High Data Rates (R. Garello, M. Baldi, and F. Chiaraluce) 
 
@@ -4423,31 +6193,71 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([65])
 
-<a id="ref-esa-pss-04-105"></a>
-**ESA-PSS-04-105**: TM Packet Standard 
+<a id="ref-esa-pss-01-40"></a>
+**ESA PSS-01-40**: System safety requirements for ESA space systems and associated equipment 
 
-: Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (S2)
+: Issues cited: Issue 2 September 1988
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([AD6])
+
+<a id="ref-esa-pss-01-605"></a>
+**ESA PSS-01-605**: Capability Approval Programme for Hermetic Thin Film Hybrid Micro-Circuits 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR24])
+
+<a id="ref-esa-pss-01-606"></a>
+**ESA PSS-01-606**: Capability Approval Programme for Hermetic Thick Film Hybrid Micro-Circuits 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR23])
+
+<a id="ref-esa-pss-01-608"></a>
+**ESA PSS-01-608**: Generic Specification for Hybrid Micro-circuits 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR18])
+
+<a id="ref-esa-pss-04-103"></a>
+**ESA PSS-04-103 / ESA-PSS-04-103**: Telemetry channel coding standard 
+
+: Issues cited: Issue 1 1989; Issue 1 September 1989
+
+: Cited by: [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md) (ESA-PSS-04-103), [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([2]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([AD2])
+
+<a id="ref-esa-pss-04-105"></a>
+**ESA PSS-04-105 / ESA-PSS-04-105**: Radio Frequency and Modulation Standard 
+
+: Note: one citing document (H-P-1-ASPI-SP-0045) prints this as a TM packet standard; ESA PSS-04-107 reference [5] identifies PSS-04-105 as the Radio Frequency and Modulation Standard.
+
+: Issues cited: Issue 1 1989; Issue 1 December 1989; Issue 1, or later compatible issue 1989
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([7]), [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) ([5]), [ESA PSS-04-151 Telecommand Decoder Specification (Issue 1)](../library/esa-pss-04-151-issue1-september1992.md) ([1]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([AD5]), [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (S2), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (S2)
 
 <a id="ref-esa-pss-04-106"></a>
-**ESA PSS-04-106 / ESA-PSS-04-106**: ESA Packet Telemetry Standard 
+**ESA PSS-04-106 / ESA-PSS-04-106**: ESA Packet Telemetry Standard [:material-book-check: in library](../library/esa-pss-04-106-issue1-january1988.md)
 
-: Issues cited: Issue 1 January 1988; Issue 1 January 1998; Issue 1 January, 1988
+: Issues cited: Issue 1 January 1988; Issue 1 January 1998; Issue 1 January, 1988; Issue 1, or later compatible issue 1988
 
-: Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ESA-PSS-04-106), [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (S3), [SCOS-2000 TDRS External Interfaces ICD (issue 5.1)](../library/icd-0017-tdrs-5-1.md) (RD-5), [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (A-2), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (A-2), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+: Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md), [ECSS Telemetry Transfer Frame Protocol (2008)](../library/ecss-e-st-50-03c-31july2008.md) (ESA-PSS-04-106), [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) ([7]), [ESA PSS-04-151 Telecommand Decoder Specification (Issue 1)](../library/esa-pss-04-151-issue1-september1992.md) ([3]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([AD1]), [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (S3), [SCOS-2000 TDRS External Interfaces ICD (issue 5.1)](../library/icd-0017-tdrs-5-1.md) (RD-5), [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (A-2), [The ESA Packet Utilisation Standard (PUS) paper](../library/ntrs-19950011180-esa-pus-paper.md) (2.), [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (S3), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (A-2), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
 
 <a id="ref-esa-pss-04-107"></a>
-**ESA PSS-04-107**: Packet Telecommand Standard 
+**ESA PSS-04-107 / ESA-PSS-04-107**: Packet Telecommand Standard [:material-book-check: in library](../library/esa-pss-04-107-issue2-april1992.md)
 
-: Issues cited: Issue 2 1992
+: Issues cited: Issue 1 (to be issued in 1990); Issue 2 1992; Issue 2 April 1992; Issue 2, or later compatible issue 1992
 
-: Cited by: [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-7), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([20]), [Herschel/Planck Operations Interface Requirements (OIRD)](../library/cosmos-operations-interface-requirements.md) (AD-7), [ECSS Telecommand Protocols, Sync and Coding (2008)](../library/ecss-e-st-50-04c31july2008.md) (ESA-PSS-04-107), [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([4]), [ESA PSS-04-151 Telecommand Decoder Specification (Issue 1)](../library/esa-pss-04-151-issue1-september1992.md) ([2]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([AD3]), [The ESA Packet Utilisation Standard (PUS) paper](../library/ntrs-19950011180-esa-pus-paper.md) (3.), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
 
 <a id="ref-esa-pss-04-151"></a>
-**ESA PSS-04-151 / ESA-PSS-04-151**: Telecommand Decoder Specification 
+**ESA PSS-04 151 / ESA PSS-04-151 / ESA-PSS-04-151**: Telecommand Decoder Specification [:material-book-check: in library](../library/esa-pss-04-151-issue1-september1992.md)
 
-: Issues cited: Issue 1 September 1993
+: Issues cited: Issue 1 (to be issued in 1991/92); Issue 1 September 1993
 
-: Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ESA PSS-04-151), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md), [Terma CCS5 &amp; TSC presentation](../library/terma-ccs5-tsc-presentation.md)
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([RD 5]), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md), [ECSS-E-ST-70-31C Monitoring and control data definition](../library/ecss-e-st-70-31c.md), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ESA PSS-04-151), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) ([8]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([AD7]), [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md), [Terma CCS5 &amp; TSC presentation](../library/terma-ccs5-tsc-presentation.md)
+
+<a id="ref-esa-pss-04-202"></a>
+**ESA PSS-04-202**: Time code formats and procedures standard (not available before mid 1995; [AD1] and [RD2] cover the topic until then) 
+
+: Issues cited: Issue 1 (to be issued in 1990/91)
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([5]), [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([AD4])
 
 <a id="ref-esa-pss-05"></a>
 **ESA PSS-05**: ESA Software Engineering Standard 
@@ -4456,12 +6266,90 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOS-2000 TDRS External Interfaces ICD (issue 5.1)](../library/icd-0017-tdrs-5-1.md) (RD-4)
 
+<a id="ref-esa-pss-07-0"></a>
+**ESA PSS-07-0**: Ground Segment Infrastructure (root of the PSS-07 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-0)
+
+<a id="ref-esa-pss-07-10"></a>
+**ESA PSS-07-10**: Mission Data Utilisation Standards 
+
+: Issues cited: Draft 4 May 1992
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD3])
+
 <a id="ref-esa-pss-07-101"></a>
-**ESA PSS-07-101**: Packet Utilisation Standard 
+**ESA PSS-07-101**: Packet Utilisation Standard [:material-book-check: in library](../library/esa-pss-07-101-issue1-may1994.md)
 
-: Issues cited: Issue 1 May 1994; issue 1 May 1994
+: Issues cited: Issue 1 (to be issued in 1991/92); Issue 1 May 1994; issue 1 May 1994
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (6)), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ESA PSS-07-101), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-6), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-6), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-6), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-6), [SCOSII: the user's perspective (SpaceOps 94 paper)](../library/ntrs-scos2-new-generation.md) (1)
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (6)), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ESA PSS-07-101), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md), [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) ([6]), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-6), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-6), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-6), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-6), [The ESA Packet Utilisation Standard (PUS) paper](../library/ntrs-19950011180-esa-pus-paper.md) (1.), [SCOSII: the user's perspective (SpaceOps 94 paper)](../library/ntrs-scos2-new-generation.md) (1), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (6))
+
+<a id="ref-esa-pss-07-102"></a>
+**ESA PSS-07-102**: Orbit &amp; Navigation Data Utilisation Standard (PSS-07-10 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-102)
+
+<a id="ref-esa-pss-07-103"></a>
+**ESA PSS-07-103**: Station M&amp;C Data Utilisation Standard (PSS-07-10 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-103)
+
+<a id="ref-esa-pss-07-104"></a>
+**ESA PSS-07-104**: Time Data Utilisation Standard (PSS-07-10 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-104)
+
+<a id="ref-esa-pss-07-20"></a>
+**ESA PSS-07-20**: Mission Data Description (PSS-07 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-20)
+
+<a id="ref-esa-pss-07-201"></a>
+**ESA PSS-07-201**: Packet Data Description standard 
+
+: Issues cited: to be issued
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD5])
+
+<a id="ref-esa-pss-07-30"></a>
+**ESA PSS-07-30**: Mission Data Exchange (PSS-07 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-30)
+
+<a id="ref-esa-pss-07-40"></a>
+**ESA PSS-07-40**: Ground System Functions (PSS-07 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-40)
+
+<a id="ref-esa-pss-07-401"></a>
+**ESA PSS-07-401**: (ESA) EGSE &amp; Mission Control System (EMCS) Functional Requirements Specification 
+
+: Issues cited: Issue 1, Draft 8 November 1992
+
+: Cited by: [The ESA Packet Utilisation Standard (PUS) paper](../library/ntrs-19950011180-esa-pus-paper.md) (6.)
+
+<a id="ref-esa-pss-07-50"></a>
+**ESA PSS-07-50**: Missions Operations Requirements (PSS-07 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-50)
+
+<a id="ref-esa-pss-07-501"></a>
+**ESA PSS-07-501**: Space Segment Operability Requirements 
+
+: Issues cited: to be issued
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD4])
+
+<a id="ref-esa-pss-07-60"></a>
+**ESA PSS-07-60**: Man/Computer Interaction (PSS-07 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-60)
+
+<a id="ref-esa-pss-07-70"></a>
+**ESA PSS-07-70**: Ground System Testing &amp; Validation (PSS-07 documentation tree) 
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) (PSS-07-70)
 
 <a id="ref-esa-pss-074-107"></a>
 **ESA PSS-074-107**: ESA Packet Telecommand Standard 
@@ -4531,12 +6419,26 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS Glossary](../library/glo.md) ([RD-19]), [EDDS Software Design Document (issue 15.0)](../library/sdd.md) ([RD-5]), [EDDS Software Design Document (issue 25.0)](../library/sdd-v24.md) ([RD-5]), [EDDS Software Requirements Specification (issue 18.0)](../library/srs.md) ([RD-5])
 
+<a id="ref-esaw-2021-b5"></a>
+**ESAW-2021, B5**: PME – A New Lightweight Procedure Management Environment for future Ground Segments, W. Heinen, S. Pearson 
+
+: Issues cited: 2021
+
+: Cited by: [Operations preparation when moving to EGS-CC (SpaceOps 2023)](../library/spaceops-0415-challenges-in-operations-preparations-when-transit.md) ([3])
+
 <a id="ref-est-mex-tn-4009"></a>
 **EST-MEX-TN-4009**: Mars Express Data Generation, Validation and Transfer Plan 
 
 : Issues cited: Issue 1 21 June 2001
 
 : Cited by: [Mars Express spacecraft and payload data handling](../library/sp-1291-data-handling.md) (ESA (2001))
+
+<a id="ref-estec-contract-no-4000103681"></a>
+**ESTEC Contract No. 4000103681**: Cryptographic Key Infrastructure for Security Services Protecting TT&amp;C and Payload Links of Space Missions (Marcio Juliato, Catherine Gebotys, and Ignacio Aguilar Sanchez; ESA Contract Report) 
+
+: Issues cited: 2015
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([25])
 
 <a id="ref-estec-tos-emg-98-015-psh"></a>
 **ESTEC/TOS- EMG/98.015/PSH**: EGSE Gateway ICD. 
@@ -4548,7 +6450,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: V1.1.2 1997
 
-: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F8])
+: Cited by: [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H1]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F8])
 
 <a id="ref-eurasip-journal-on-wireless-communications-and-networking-2016-no-1-december-201"></a>
 **EURASIP Journal on Wireless Communications and Networking 2016, no. 1 (December 2016)**: On the Use of Ordered Statistics Decoders for Low-Density Parity-Check Codes in Space Telecommand Links (M. Baldi, et al) 
@@ -4571,6 +6473,34 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([9])
 
+<a id="ref-fips-180-4"></a>
+**FIPS 180-4**: Secure Hash Standard 
+
+: Issues cited: March 2012
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([10])
+
+<a id="ref-fips-186-3"></a>
+**FIPS 186-3**: Digital Signature Standard (DSS) 
+
+: Issues cited: June 2009
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([8])
+
+<a id="ref-fips-197"></a>
+**FIPS 197**: Advanced Encryption Standard (AES) (Federal Information Processing Standards Special Publication 197, NIST) 
+
+: Issues cited: 2001
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([12]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([1])
+
+<a id="ref-fips-198-1"></a>
+**FIPS 198-1**: The Keyed-Hash Message Authentication Code (HMAC) 
+
+: Issues cited: July 2008
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([6])
+
 <a id="ref-fips-pub-180-4"></a>
 **FIPS PUB 180-4**: Secure Hash Standard (SHS). Federal Information Processing Standards Publication 180-4 
 
@@ -4585,6 +6515,18 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md)
 
+<a id="ref-fp-ma-rp-0010-tos-gma"></a>
+**FP-MA-RP-0010-TOS/GMA**: Consolidated Report on Mission Analysis 
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 13)
+
+<a id="ref-frf-20"></a>
+**FRF.20**: Frame Relay IP Header Compression Implementation Agreement (George Wilkie, ed.; The Frame Relay Forum) 
+
+: Issues cited: June 2001
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([21])
+
 <a id="ref-fscdt-tn-012"></a>
 **FSCDT/TN-012**: Analysis of ILT use-cases 
 
@@ -4595,9 +6537,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-fscdt-tn-014"></a>
 **FSCDT/TN/014**: Trading-off Technical solutions for relating TC History and HCSS commanding 
 
-: Issues cited: Issue 0, Revision 1 14th Feb 2001
+: Issues cited: 0.1 draft 14 February 2001; Issue 0, Revision 1 14th Feb 2001
 
-: Cited by: [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD6])
+: Cited by: [Herschel TC History File (THF) ICD](../library/tc-history-icd.md) (RD6), [HCSS TC History Ingestion Technical Note](../library/tc-history-ingestion-tn.md) ([RD6])
+
+<a id="ref-fsg-ir-4-2-21-fsg-ir-4-2-40-fsg-ir-4-2-50"></a>
+**FSG-IR-4.2-21, FSG-IR-4.2-40, FSG-IR-4.2-50**: Requirements of [AD 3] section 4.2.1 not met by the router 
+
+: Cited by: [Herschel EGSE Packet Router ICD (HIFI, 2001)](../library/herschel-egse-packet-router-icd.md)
 
 <a id="ref-gaia-esc-icd-0015-03"></a>
 **GAIA-ESC-ICD-0015.03**: Command Source Handler ICD 
@@ -4632,6 +6579,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Integrating TOPE with EGS-CC (SESP 2019)](../library/airdrive-9d40c91.md) ([2])
 
+<a id="ref-herschel-hsc-mom-0617"></a>
+**HERSCHEL-HSC-MOM-0617**: FCT – HSC Teleconference #1 MoM 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([HSC-FCT#1])
+
 <a id="ref-herschel-hsc-doc-0293"></a>
 **Herschel/HSC/DOC/0293**: Comments on Alcatel's Naming Convention Specification H-P-ASPI-SP-0141, Issue 1.2 
 
@@ -4646,6 +6598,27 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel common EGSE document overview](../library/cosmos-common-egse-document-overview.md) (EGSE URD [HIFI])
 
+<a id="ref-hicc-2000-01"></a>
+**HICC-2000/01**: RTA and MIB editor URD 
+
+: Issues cited: draft 2
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-16])
+
+<a id="ref-ic-phbc-200031-lal"></a>
+**IC-PHBC-200031-LAL**: HFI Instrument Main Electronics OBSW ICD A 
+
+: Issues cited: 3.1 2005-03-16
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([RD6])
+
+<a id="ref-ict-2007-216676"></a>
+**ICT-2007-216676**: ECRYPT II Yearly Report on Algorithms and Keysizes (2009-2010) (Nigel Smart, ed.) 
+
+: Issues cited: Revision 1.0 30 September 2012; Revision 1.0 March 2010
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([26]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B24])
+
 <a id="ref-ieee-754"></a>
 **IEEE 754**: IEEE 754 Standard for binary floating-point arithmetic 
 
@@ -4658,6 +6631,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([7])
 
+<a id="ref-ieee-802-11i"></a>
+**IEEE 802.11i**: Mentioned as making CCM mandatory; GCM is noted as adopted by IEEE 802.1AE, IETF IPsec, SSH and TLS/SSL 
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md)
+
 <a id="ref-ieee-aerospace-and-electronic-systems-magazine-32-no-6-june-2017-4-15"></a>
 **IEEE Aerospace and Electronic Systems Magazine 32, no. 6 (June 2017): 4–15**: State-Of-The-Art Space Mission Telecommand Receivers (M. Baldi, et al) 
 
@@ -4665,12 +6643,19 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([29])
 
+<a id="ref-ieee-standard-149"></a>
+**IEEE Standard 149**: IEEE Standard 149 
+
+: Issues cited: 1979
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 12)
+
 <a id="ref-ieee-std-100-1996"></a>
-**IEEE Std 100-1996**: IEEE Std 100-1996 (definition of 'Telemetering') 
+**IEEE Std 100-1996**: IEEE Std 100-1996 (source of the definition of 'Telemetering') 
 
 : Issues cited: 1996
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md)
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md)
 
 <a id="ref-ieee-std-1003-1-2008"></a>
 **IEEE Std 1003.1-2008**: Standard for Information Technology—Portable Operating System Interface (POSIX(R)) 
@@ -4823,11 +6808,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Cited by: [XTCE Element Description (CCSDS 660.1-G-2)](../library/ccsds-660-1-660x1g2.md)
 
 <a id="ref-iess-308"></a>
-**IESS 308**: Performance Characteristics for Intermediate Data Rate Digital Carriers Using Convolutional Encoding/Viterbi Encoding 
+**IESS 308**: Performance Characteristics for Intermediate Data Rate Digital Carriers Using Convolutional Encoding/Viterbi Encoding (INTELSAT) 
 
 : Issues cited: Rev. 10 2000
 
-: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F10])
+: Cited by: [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H3]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F10])
 
 <a id="ref-in-2008-information-theory-and-applications-workshop-january-27-february-1-2008-"></a>
 **In 2008 Information Theory and Applications Workshop (January 27–February 1, 2008, San Diego, California), 523–530. Piscataway, New Jersey: IEEE, 2008**: Buffering Requirements for Variable-Iterations LDPC Decoders (Sarah L. Sweatlock, Sam Dolinar, and Kenneth Andrews) 
@@ -4939,6 +6924,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md) (ANSI)
 
+<a id="ref-ioag-t-sp-001-v1"></a>
+**IOAG.T.SP.001.V1**: Solar System Internetwork (SSI) Issue Investigation and Resolution 
+
+: Issues cited: 1 August 2010
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([24])
+
 <a id="ref-ipn-progress-report-42-154-august-15-2003"></a>
 **IPN Progress Report 42-154 (August 15, 2003)**: Low-Density Parity-Check (LDPC) Codes Constructed from Protographs (J. Thorpe) 
 
@@ -4970,7 +6962,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-irig-106"></a>
 **IRIG-106**: Telemetry Attributes Transfer Standard (TMATS) 
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (9))
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (9)), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (9))
 
 <a id="ref-itt-15-132-06"></a>
 **ITT 15.132.06**: ESA Intended Invitation to Tender: deployment of PUS-C standard in projects supported by an automatic generation toolset 
@@ -5005,7 +6997,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 1996
 
-: Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F9])
+: Cited by: [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H2]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([F9])
 
 <a id="ref-itu-t-recommendation-z-100"></a>
 **ITU-T Recommendation Z.100**: Specification and Description Language—Overview of SDL-2010 
@@ -5021,12 +7013,26 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([10]), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (ITU-T V.41), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md)
 
+<a id="ref-itu-rr-2004"></a>
+**ITU/RR:2004**: ITU Radio Regulations 
+
+: Issues cited: 2004
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (ITU/RR:2004)
+
 <a id="ref-journal-on-selected-areas-in-communications-19-no-5-may-2001-800-812"></a>
 **Journal on Selected Areas in Communications 19, no. 5 (May 2001): 800–812**: Computing the Free Distance of Turbo Codes and Serially Concatenated Codes with Interleavers: Algorithms and Applications (R. Garello, P. Pierleoni, and S. Benedetto) 
 
 : Issues cited: May 2001
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([30])
+
+<a id="ref-jpl-810-005"></a>
+**JPL 810-005**: JPL Deep Space Mission Systems Telecommunication Link Design Handbook 
+
+: Issues cited: Rev. E
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (JPL document 810-005, Rev. E)
 
 <a id="ref-jpl-d-7116"></a>
 **JPL D-7116**: Planetary Science Data Dictionary Document 
@@ -5061,7 +7067,14 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: December 1, 1982
 
-: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([12]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E4])
+: Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([12]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md) ([E4]), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md) ([E4])
+
+<a id="ref-jpl-technical-memorandum-33-732"></a>
+**JPL Technical Memorandum 33-732**: A Practical Statistical Model for Telecommunications Performance Uncertainty (Joseph Yuen) 
+
+: Issues cited: June 15, 1975
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md) ([2] (4.1.4))
 
 <a id="ref-kluwer-international-series-in-engineering-and-computer-science"></a>
 **Kluwer International Series in Engineering and Computer Science**: Finite Field for Scientists and Engineers (R. J. McEliece) 
@@ -5069,6 +7082,34 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 1987
 
 : Cited by: [TC Sync and Channel Coding Rationale (CCSDS 230.1-G-3)](../library/ccsds-230-1-230x1g3e1.md) ([10])
+
+<a id="ref-li-phbc-300081-lal"></a>
+**LI-PHBC-300081-LAL**: HFI OBSW TCTM List 
+
+: Issues cited: 2.1 2004-11-19
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD7])
+
+<a id="ref-lncs-1039"></a>
+**LNCS 1039**: RIPEMD-160: A Strengthened Version of RIPEMD (Hans Dobbertin, Antoon Bosselaers, and Bart Preneel), in Fast Software Encryption: Third International Workshop 
+
+: Issues cited: 1996
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B14])
+
+<a id="ref-lncs-1666"></a>
+**LNCS 1666**: UMAC: Fast and Secure Message Authentication (J. Black, et al.), in Advances in Cryptology—CRYPTO '99 
+
+: Issues cited: 1999
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B15])
+
+<a id="ref-lncs-1976"></a>
+**LNCS 1976**: Authenticated Encryption: Relations among Notions and Analysis of the Generic Composition Paradigm (Mihir Bellare and Chanathip Namprempre), in Advances in Cryptology — ASIACRYPT 2000 
+
+: Issues cited: 2000
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([9]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B25])
 
 <a id="ref-me-esc-if-5001"></a>
 **ME-ESC-IF-5001**: MEX Space Ground ICD 
@@ -5084,15 +7125,29 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-19), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-19)
 
+<a id="ref-mil-hdbk-1553a"></a>
+**MIL-HDBK-1553A**: Multiplex Applications Handbook 
+
+: Issues cited: 1988-11-01
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 AD-2)
+
+<a id="ref-mil-hdbk-5"></a>
+**MIL-HDBK-5**: MIL-HDBK-5 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR25])
+
 <a id="ref-mil-std-1553"></a>
 **MIL-STD-1553**: MIL-STD-1553 messages (Star Tracker and Gyro unit software) 
 
 : Cited by: [XTCE Element Description (CCSDS 660.1-G-2)](../library/ccsds-660-1-660x1g2.md), [Herschel/Planck ACMS Database Experience (NLR-TP-2007-240)](../library/nlr-report-e0d9e9a5.md) (MIL-STD-1553)
 
 <a id="ref-mil-std-1553b"></a>
-**Mil-Std-1553B**: Mil-Std-1553B bus (low-level commanding of a remote terminal) 
+**MIL-STD-1553B / Mil-Std-1553B**: Mil-Std-1553B bus (low-level commanding of a remote terminal) 
 
-: Cited by: [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md)
+: Issues cited: Notice 2 1986-09-08
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 AD-1), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md)
 
 <a id="ref-mil-std-1750a"></a>
 **MIL STD 1750A / MIL-STD-1750A / MIL-STD-1750a**: MIL-STD-1750A floating point formats (32-bit and 48-bit reals, PTC=5 PFC=3/4) 
@@ -5100,6 +7155,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 2nd July 1980
 
 : Cited by: [XTCE Element Description (CCSDS 660.1-G-2)](../library/ccsds-660-1-660x1g2.md), [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([8]), [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (Reference [8]), [ECSS-E-ST-70-41C Rev.1 DIR1 (PUS public review draft)](../library/ecss-e-st-70-41c-rev1-dir1.md) (Reference [8]), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md)
+
+<a id="ref-mil-std-1553-b"></a>
+**MIL-Std.-1553 B**: Digital Internal Time Division Command/Response Multiplex Data Bus 
+
+: Issues cited: Issue Notice 2 1986-09-08
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (RD-3)
 
 <a id="ref-mvda"></a>
 **MVDA**: MVDA Retriever Programmer's Guide 
@@ -5113,10 +7175,59 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOSII OL: a dedicated language for mission operations](../library/ntrs-scosii-ol.md) ([13])
 
+<a id="ref-nasa-nsts-1700-7b"></a>
+**NASA NSTS 1700.7B**: Safety Policy and Requirements for Payloads using STS 
+
+: Issues cited: Basic Issue January 1989
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD6])
+
 <a id="ref-nist-fips-140"></a>
 **NIST FIPS-140**: NIST FIPS-140 compliance 
 
 : Cited by: [Terma CCS5 &amp; TSC presentation](../library/terma-ccs5-tsc-presentation.md)
+
+<a id="ref-nist-ir-7298"></a>
+**NIST IR 7298**: Glossary of Key Information Security Terms (Richard Kissel, ed.) 
+
+: Issues cited: Rev. 2 May 2013
+
+: Cited by: [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C9])
+
+<a id="ref-nist-sp-800-107"></a>
+**NIST SP 800-107**: Recommendation for Applications Using Approved Hash Algorithms (Quynh Dang) 
+
+: Issues cited: February 2009
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([7])
+
+<a id="ref-nist-sp-800-38a"></a>
+**NIST SP 800-38A**: Recommendation for Block Cipher Modes of Operation: Methods and Techniques (Morris Dworkin) 
+
+: Issues cited: 2001
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([2])
+
+<a id="ref-nist-sp-800-38b"></a>
+**NIST SP 800-38B**: Recommendation for Block Cipher Modes of Operation: The CMAC Mode for Authentication (Morris Dworkin) 
+
+: Issues cited: May 2005; May 2005 (Updated 10/6/2016)
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([19]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([9])
+
+<a id="ref-nist-sp-800-38d"></a>
+**NIST SP 800-38D**: Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC (Morris Dworkin) 
+
+: Issues cited: November 2007
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([16]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([4])
+
+<a id="ref-nist-sp-800-57"></a>
+**NIST SP 800-57**: Recommendation for Key Management—Part 1: General (Elaine Barker) 
+
+: Issues cited: Revision 4 January 2016
+
+: Cited by: [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C10])
 
 <a id="ref-no-reference"></a>
 **No reference / no reference**: MUST Server Software Requirements Specification 
@@ -5132,10 +7243,53 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS Glossary](../library/glo.md) ([GDS])
 
+<a id="ref-p-hpl-icd-00001-se"></a>
+**P-HPL-ICD-00001-SE**: CDMU HW / SW ICD 
+
+: Issues cited: issue 1
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (App9 RD-6)
+
+<a id="ref-p-hpl-not-00076-se"></a>
+**P-HPL-NOT-00076-SE**: CDMU Software ICD for the BSW 
+
+: Issues cited: 12 2006-04-05
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD10])
+
 <a id="ref-pb-5j"></a>
 **PB-5J**: NASA PB-5J time code (truncated Julian day and SI fine time), used as an example of an Agency-defined code 
 
 : Cited by: [Time Code Formats (CCSDS 301.0-B-4)](../library/ccsds-301-0-301x0b4e1.md)
+
+<a id="ref-pe-tn-esa-gs-586"></a>
+**PE-TN-ESA-GS-586**: EO generic RAW and L0 specification 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([L0RAW])
+
+<a id="ref-pe-tn-esa-sy-0305"></a>
+**PE-TN-ESA-SY-0305**: (position-based schedule angle definition, cited in R-610) 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([PE-TN-ESA-SY-0305])
+
+<a id="ref-pe-tn-esa-sy-0338"></a>
+**PE-TN-ESA-SY-0338**: (position-based schedule angle definition, cited in R-610) 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([PE-TN-ESA-SY-0338])
+
+<a id="ref-pkcs-1-v2-1"></a>
+**PKCS #1 v2.1**: RSA Cryptography Standard (RSA Laboratories) 
+
+: Issues cited: v2.1 June 2002
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B12])
+
+<a id="ref-pkcs-3"></a>
+**PKCS #3**: Diffie-Hellman Key-Agreement Standard (RSA Laboratories) 
+
+: Issues cited: Revised ed. November 1993
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B13])
 
 <a id="ref-planet-space-sci-55"></a>
 **Planet. Space Sci. 55**: The High-resolution Stereo Camera (HRSC) Experiment on Mars Express: Instrument Aspects and Experiment Conduct from Interplanetary Cruise through the Nominal Mission 
@@ -5186,26 +7340,74 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS Glossary](../library/glo.md) ([AD-06])
 
+<a id="ref-pss-01-301"></a>
+**PSS-01-301**: PSS-01-301 
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([NR13])
+
+<a id="ref-pss-04-103"></a>
+**PSS-04-103**: Telemetry Channel Coding Standard 
+
+: Issues cited: Issue 1 September 1989
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (AD 3)
+
+<a id="ref-pss-04-104"></a>
+**PSS-04-104**: Ranging Standard 
+
+: Issues cited: Vol. I, Issue 2 March 1991
+
+: Cited by: [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (AD 4)
+
 <a id="ref-pss-04-106"></a>
-**PSS-04-106**: Packet Telemetry Standard (ESA Publications, Tech. Rep., ESA Procedures Standards and Specifications) 
+**PSS-04-106**: ESA Packet Telemetry Standard 
 
-: Issues cited: 1988
+: Issues cited: 1988; Issue 1 1988; Issue 1 January 1988
 
-: Cited by: [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([2])
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (AD-1, App9 RD-3), [Planck LFI Level 1 telemetry handling (JINST 2009)](../library/arxiv-1001-4730-planck-lfi-tm.md) ([2]), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (AD 1), [Packet Utilisation Definitions for XMM (Nye)](../library/ntrs-19950011181-xmm-packet-utilisation.md) (1)
+
+<a id="ref-pss-04-107"></a>
+**PSS-04-107**: ESA Packet Telecommand Standard 
+
+: Issues cited: Issue 2 1992; Issue 2 April 1992
+
+: Cited by: [Herschel/Planck Packet Structure ICD (PS-ICD 6.0)](../library/ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d.md) (AD-2, App9 RD-4), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (AD 2), [Packet Utilisation Definitions for XMM (Nye)](../library/ntrs-19950011181-xmm-packet-utilisation.md) (2)
 
 <a id="ref-pss-04-151"></a>
 **PSS-04-151**: ESA Telecommand decoder specification [obsolete document] 
 
 : Issues cited: Issue 1 September 1993
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (PSS-04-151)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (PSS-04-151), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 2)
+
+<a id="ref-pss-05-05"></a>
+**PSS-05-05**: Guide to the detailed design phase 
+
+: Cited by: [HPSDB Software User Manual (v2.6, GMV)](../library/h-p-1-gmv-ma-20487-2-6-hpsdb-user-manual.md) ([AD.1.])
+
+<a id="ref-pss-07-101"></a>
+**PSS-07-101**: ESA Packet Utilisation Standard 
+
+: Issues cited: not yet approved
+
+: Cited by: [Packet Utilisation Definitions for XMM (Nye)](../library/ntrs-19950011181-xmm-packet-utilisation.md) (3)
+
+<a id="ref-recommendation-itu-r-ra-769-2"></a>
+**Recommendation ITU-R RA.769-2**: Threshold levels of interference detrimental to radio astronomy (cited in Tables 5-7 and 5-8) 
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md)
+
+<a id="ref-recommendation-itu-r-sa-509"></a>
+**Recommendation ITU-R SA.509**: Cited in 3.2.1A (Earth station antenna requirement) 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
 
 <a id="ref-rfc-1883"></a>
-**RFC 1883 / RFC-1883**: Internet Protocol, Version 6 (IPv6) Specification (S. Deering and R. Hinden) 
+**RFC 1883 / RFC-1883**: IP version 6 
 
 : Issues cited: Dec 1995; December 1995
 
-: Cited by: [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C7]), [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (RFC 1883), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([C7]), [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (RFC 1883), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-rfc-2045"></a>
 **RFC 2045**: Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies 
@@ -5214,12 +7416,73 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS External User ICD (issue 15.0)](../library/euicd-i15r0.md) ([RD-2]), [EDDS External User ICD (issue 7.0)](../library/euicd-unversioned.md) ([RD-2]), [EDDS External User ICD (issue 13.0)](../library/euicd-v13.md) ([RD-2]), [EDDS External User ICD (issue 24.0)](../library/euicd-v25.md) ([RD-2])
 
+<a id="ref-rfc-2104"></a>
+**RFC 2104**: HMAC: Keyed-Hashing for Message Authentication (H. Krawczyk, M. Bellar, and M. Bellar) 
+
+: Issues cited: February 1997
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B19])
+
+<a id="ref-rfc-2401"></a>
+**RFC 2401**: Security Architecture for the Internet Protocol (S. Kent and R. Atkinson) 
+
+: Issues cited: November 1998
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md) ([11])
+
+<a id="ref-rfc-2404"></a>
+**RFC 2404**: The Use of HMAC-SHA-1-96 within ESP and AH (C. Madson and R. Glenn) 
+
+: Issues cited: November 1998
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B5])
+
 <a id="ref-rfc-2460"></a>
-**RFC 2460**: Internet Protocol, Version 6 (IPv6) Specification 
+**RFC 2460**: Internet Protocol, Version 6 (IPv6) Specification (S. Deering and R. Hinden) 
 
 : Issues cited: December 1998
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([23])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([23]), [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([18])
+
+<a id="ref-rfc-2507"></a>
+**RFC 2507**: IP Header Compression (M. Degermark, B. Nordgren, and B. Nordgren) 
+
+: Issues cited: February 1999
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([19])
+
+<a id="ref-rfc-2508"></a>
+**RFC 2508**: Compressing IP/UDP/RTP Headers for Low-Speed Serial Links (S. Casner and V. Jacobson) 
+
+: Issues cited: February 1999
+
+: Cited by: [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([20])
+
+<a id="ref-rfc-2560"></a>
+**RFC 2560**: X.509 Internet Public Key Infrastructure Online Certificate Status Protocol—OCSP (M. Myers, et al.) 
+
+: Issues cited: June 1999
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B16])
+
+<a id="ref-rfc-3164"></a>
+**RFC 3164**: BSD syslog message format (syslog logging handler) 
+
+: Cited by: [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md)
+
+<a id="ref-rfc-3602"></a>
+**RFC 3602**: The AES-CBC Cipher Algorithm and Its Use with IPsec (S. Frankel, R. Glenn, and R. Glenn) 
+
+: Issues cited: September 2003
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B9])
+
+<a id="ref-rfc-3686"></a>
+**RFC 3686**: Using Advanced Encryption Standard (AES) Counter Mode with IPsec Encapsulating Security Payload (ESP) (R. Housley) 
+
+: Issues cited: January 2004
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([3])
 
 <a id="ref-rfc-3986"></a>
 **RFC 3986**: T. Berners-Lee, R. Fielding, and L. Masinter, Uniform Resource Identifier (URI): Generic Syntax, RFC 3986, Reston, Virginia, ISOC 
@@ -5228,12 +7491,40 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [CCSDS Mission Product Distribution vs EDDS (SpaceOps 2025)](../library/spaceops2025-0309-mpd-edds.md) ([9])
 
+<a id="ref-rfc-4106"></a>
+**RFC 4106**: The Use of Galois/Counter Mode (GCM) in IPsec Encapsulating Security Payload (ESP) (J. Viega and D. McGrew) 
+
+: Issues cited: June 2005
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([5])
+
 <a id="ref-rfc-4301"></a>
-**RFC 4301 / RFC-4301**: Security Architecture for the Internet Protocol 
+**RFC 4301 / RFC-4301**: Security Architecture for the Internet Protocol (S. Kent and K. Seo) 
 
 : Issues cited: December 2005
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([27]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([27]), [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([14]), [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B3]), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
+
+<a id="ref-rfc-4303"></a>
+**RFC 4303**: IP Encapsulating Security Payload (ESP) (S. Kent) 
+
+: Issues cited: December 2005
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B4])
+
+<a id="ref-rfc-4346"></a>
+**RFC 4346**: The Transport Layer Security (TLS) Protocol (T. Dierks and E. Rescorla) 
+
+: Issues cited: Version 1.1 April 2006
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B2])
+
+<a id="ref-rfc-4634"></a>
+**RFC 4634**: US Secure Hash Algorithms (SHA and SHA-based HMAC and HKDF) (D. Eastlake III and T. Hansen) 
+
+: Issues cited: May 2011
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B20])
 
 <a id="ref-rfc-4960"></a>
 **RFC 4960**: Stream Control Transmission Protocol (R. Stewart, ed.) 
@@ -5242,27 +7533,58 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([D7])
 
+<a id="ref-rfc-6234"></a>
+**RFC 6234**: Cited in 4.2.2.2 as illustrating SHA-256, under the label of reference [B20] 
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md)
+
 <a id="ref-rfc-768"></a>
 **RFC-768**: UDP 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-rfc-791"></a>
-**RFC 791 / RFC-791**: Internet Protocol, Protocol Specification [now known as IPv4] 
+**RFC 791 / RFC-791**: IP version 4 
 
 : Issues cited: Sep 1981
 
-: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (RFC 791), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (RFC 791), [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-rfc-793"></a>
 **RFC-793**: TCP 
 
-: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md)
+: Cited by: [ECSS-E-ST-50C Rev.1 Communications](../library/ecss-e-st-50c-rev-1-1march2021.md), [ECSS-E-ST-50C Rev.2: Communications (2024)](../library/ecss-e-st-50c-rev-2-5december2024.md)
 
 <a id="ref-rfc-959"></a>
 **RFC 959**: File Transfer Protocol (FTP), ARPA Request For Comment (RFC) 959 
 
 : Cited by: [IFMS-OCC Interface ICD (IF and Modem System)](../library/ifms-occ-icd-mex.md) ([FTP])
+
+<a id="ref-rn-pacs-mib-n-8-17"></a>
+**RN_PACS_MIB_N_8_17**: PACS V8.17 release note 
+
+: Issues cited: 8.17
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD7])
+
+<a id="ref-rs-px-0028"></a>
+**RS-PX-0028**: XMM Operations Interface Requirements Document 
+
+: Issues cited: Issue 2a March 1994
+
+: Cited by: [Packet Utilisation Definitions for XMM (Nye)](../library/ntrs-19950011181-xmm-packet-utilisation.md) (4)
+
+<a id="ref-rs-px-0032"></a>
+**RS-PX-0032**: XMM Packet Structure Definition 
+
+: Issues cited: Issue 2 1994-06-29
+
+: Cited by: [Packet Utilisation Definitions for XMM (Nye)](../library/ntrs-19950011181-xmm-packet-utilisation.md) (5)
+
+<a id="ref-sc-pt-8818"></a>
+**SC-PT-8818**: Mission Implementation Requirements Document (MIRD) 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-3])
 
 <a id="ref-sco-tta-sum-0001"></a>
 **SCO-TTA-SUM-0001**: Test technology activities TTA-2000 
@@ -5273,6 +7595,53 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **SCR-0272**: SCR-0272 (cited in point 6.3.5 on CPC_CATEG, CPC_INTER and CDF_INTER) 
 
 : Cited by: [HCSS MIB Clarification and Tailoring Note](../library/hcss-mib-clarification-tailoring-note.md)
+
+<a id="ref-sfcg-administrative-resolution-a12-1r2"></a>
+**SFCG Administrative Resolution A12-1R2**: Establishment of procedures for inter-agency frequency coordination 
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (SFCG Administrative Resolution A12-1R2)
+
+<a id="ref-sfcg-recommendation-12-4r3"></a>
+**SFCG Recommendation 12-4R3**: Methods for reduction of potential interference between systems in the space science services in densely occupied bands 
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (SFCG Recommendation 12-4R3)
+
+<a id="ref-sfcg-recommendation-14-1"></a>
+**SFCG Recommendation 14-1**: Protection of deep space research Earth Stations from line-of-sight interference in the bands 2290-2300 MHz, 8400-8450 MHz and 31.8-32.3 GHz 
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (SFCG Recommendation 14-1)
+
+<a id="ref-sfcg-recommendation-14-1r1"></a>
+**SFCG Recommendation 14-1R1**: Protection of the deep-space allocation contiguous to 8400 MHz (cited in 2.4.18) 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
+
+<a id="ref-sfcg-recommendation-14-3r10"></a>
+**SFCG Recommendation 14-3R10**: Use of the 8025-8400 MHz band (cited in 2.4.18) 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
+
+<a id="ref-sfcg-recommendation-21-2r4"></a>
+**SFCG Recommendation 21-2R4**: Spectrum mask (cited in 2.4.17A and 2.4.18, 'or latest version') 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
+
+<a id="ref-sfcg-recommendation-32-2"></a>
+**SFCG Recommendation 32-2**: Use of 23.15-23.55 GHz and 27.0-27.5 GHz for lunar orbit-to-surface and surface-to-orbit links (cited in 2.6.15) 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
+
+<a id="ref-sfcg-recommendation-5-1r5"></a>
+**SFCG Recommendation 5-1R5**: Maximum bandwidth of 10 MHz per mission in 8450-8500 MHz (cited in 2.4.17A) 
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md)
+
+<a id="ref-sfcg-hb"></a>
+**SFCG/HB**: Space frequency coordination group, Hand book 
+
+: Issues cited: Edition 2007 2007
+
+: Cited by: [ECSS Radio Frequency and Modulation (Rev. 2, 2011)](../library/ecss-e-st-50-05c-rev24october2011.md) (SFCG/HB 19, Edition 2007)
 
 <a id="ref-siam-journal-on-applied-mathematics-8-no-2-1960-300-304"></a>
 **SIAM Journal on Applied Mathematics 8, no. 2 (1960): 300–304**: Polynomial Codes Over Certain Finite Fields (I. S. Reed and G. Solomon) 
@@ -5314,7 +7683,28 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 20 Aug 2001
 
-: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (5))
+: Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md) (5)), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md) (5))
+
+<a id="ref-spaceops-2021-4-x1341"></a>
+**SpaceOps-2021,4,x1341**: FAVOUR – A new generation of editors for the EGS-CC, Wolfgang Heinen, Steve Pearson, Francesco Sgaramella 
+
+: Issues cited: 2021
+
+: Cited by: [Operations preparation when moving to EGS-CC (SpaceOps 2023)](../library/spaceops-0415-challenges-in-operations-preparations-when-transit.md) ([1])
+
+<a id="ref-spaceops-2023-id-292"></a>
+**SpaceOps-2023, ID #292**: Multi-Mission Spacecraft Operations by a single operator with minimal impact on science return, M. Edirimanne, E. Coe, M. Kirsch, D. Webert, I. Benson, T. Godard, U. Weissmann 
+
+: Issues cited: 2023
+
+: Cited by: [Operations preparation when moving to EGS-CC (SpaceOps 2023)](../library/spaceops-0415-challenges-in-operations-preparations-when-transit.md) ([2])
+
+<a id="ref-st-gtd-sum-01"></a>
+**ST-GTD-SUM-01**: Soyuz User's Manual 
+
+: Issues cited: issue 3, revision 0 April 2001
+
+: Cited by: [Solar Orbiter EID-A (issue 1.0, 2007)](../library/12-3-solarorbiter-eid-a-issue-1-0-2007-10-09.md) ([IR3])
 
 <a id="ref-std-3"></a>
 **STD 3**: Requirements for Internet Hosts (R. Braden, ed.) 
@@ -5328,7 +7718,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: September 1981
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([22]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([8])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([22]), [Space Link Identifiers (CCSDS 135.0-B-4, historical)](../library/ccsds-135-0-135x0b4s.md) ([17]), [SLE Internet Protocol for Transfer Services (ISP1)](../library/ccsds-913-1-913x1b2.md) ([8])
 
 <a id="ref-std-6"></a>
 **STD 6**: User Datagram Protocol 
@@ -5350,6 +7740,20 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: October 1985
 
 : Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([26])
+
+<a id="ref-swa-sp-22300-irap-059-gen"></a>
+**SWA-SP-22300-IRAP-059-GEN**: PAS Unit Specifications 
+
+: Issues cited: 3
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[9])
+
+<a id="ref-swa-sp-22440-irap-590-gen"></a>
+**SWA-SP-22440-IRAP-590-GEN**: PAS-DPU Interface Specification 
+
+: Issues cited: 1
+
+: Cited by: [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (RD[10])
 
 <a id="ref-tda-progress-report-42-120-october-december-1994-february-15-1995-29-39"></a>
 **TDA Progress Report 42-120, October–December 1994 (February 15, 1995): 29–39**: Turbo Codes for Deep-Space Communications (D. Divsalar and F. Pollara) 
@@ -5421,6 +7825,27 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-HB-50A Communications guidelines (handbook)](../library/ecss-e-hb-50a-15november2008.md) (TEC-ETC/2008.66/PMcM report)
 
+<a id="ref-tech-report-n71-32505"></a>
+**Tech. Report N71-32505**: A.J. Viterbi et al., 'Concatenation of Convolutional and Block Codes - Final Report', Nat. Tech. Inf. Service, U.S. Dep. of Com. (Appendix D reference list) 
+
+: Issues cited: 1971
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([B])
+
+<a id="ref-terma-spd-63-hpmcs-ddf-sad-sys"></a>
+**TERMA/SPD/63/HPMCS/DDF/SAD/SYS**: HPMCS SAD System Level Architecture 
+
+: Issues cited: Issue 2.0 31 October 2005
+
+: Cited by: [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-8)
+
+<a id="ref-terma-spd-63-hpmcs-ts-glos"></a>
+**TERMA/SPD/63/HPMCS/TS/GLOS**: HPMCS Glossary, Definitions and Acronyms 
+
+: Issues cited: Issue 2.0 31 October
+
+: Cited by: [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-2)
+
 <a id="ref-terma-sssl-imcs-man-0002"></a>
 **TERMA/SSSL/IMCS/MAN/0002**: Integral Mission Control System Database Subsystem SUM 
 
@@ -5447,6 +7872,30 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Herschel common EGSE document overview](../library/cosmos-common-egse-document-overview.md) (Router ICD [ESA])
 
+<a id="ref-ts-pscbc-100010-lpsc"></a>
+**TS-PSCBC-100010-LPSC**: SCE TC and TM Structures 
+
+: Issues cited: 7.12 2005-10-19
+
+: Cited by: [Herschel/Planck Payload Management &amp; OBCP (TN-1072)](../library/ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp.md) ([AD9])
+
+<a id="ref-ttc-a-01"></a>
+**TTC-A-01**: PCM Telecommand Standard (superseded by this standard) 
+
+: Cited by: [ESA PSS-04-107 Packet Telecommand Standard (Issue 2, 1992)](../library/esa-pss-04-107-issue2-april1992.md) (TTC-A-01)
+
+<a id="ref-ttc-a-02"></a>
+**TTC-A-02**: PCM Telemetry Standard (superseded) 
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) (TTC-A-02)
+
+<a id="ref-ttc-a-06"></a>
+**TTC-A-06**: Previous version of this standard (superseded) 
+
+: Issues cited: Issue No. 1 February 1986
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) (TTC-A-06)
+
 <a id="ref-uls-rst-rer005"></a>
 **ULS.RST.RER005**: User Language Study, VEGA (ESOC) 
 
@@ -5457,12 +7906,12 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-us-patent-5-446-747"></a>
 **US Patent 5,446,747**: Turbo coding patent of France Télécom and Télédiffusion de France (expired in 2012) 
 
-: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md)
+: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md), [ECSS TM Synchronization and Channel Coding (2008)](../library/ecss-e-st-50-01c31july2008.md)
 
 <a id="ref-us-patent-7-343-539"></a>
 **US Patent 7,343,539**: Patent covering the rate-1/2, 2/3 and 4/5 LDPC codes (licensing via California Institute of Technology) 
 
-: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md)
+: Cited by: [TM Synchronization and Channel Coding (CCSDS 131.0-B-5)](../library/ccsds-131-0-131x0b5.md), [TM Synchronization and Channel Coding (CCSDS 131.0-B-6)](../library/ccsds-131-0-131x0b6ec1.md)
 
 <a id="ref-us-patent-7499490"></a>
 **US Patent 7499490**: Encoders for Block-Circulant LDPC Codes (Dariush Divsalar, et al) 
@@ -5507,10 +7956,22 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOSII OL: a dedicated language for mission operations](../library/ntrs-scosii-ol.md) ([2])
 
+<a id="ref-about-the-linux-foundation"></a>
+**(no identifier)**: About The Linux Foundation 
+
+: Issues cited: The Linux Foundation, retrieved 2019-02-01 2019-02-01
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md) ([5])
+
 <a id="ref-accounts-appendix-c-provided-as-a-separate-document"></a>
 **(no identifier)**: Accounts (Appendix C provided as a separate document) 
 
 : Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (A-8)
+
+<a id="ref-additional-mib-specifications-by-ohb-italia-mnemonic-in-description-field"></a>
+**(no identifier)**: Additional MIB specifications by OHB Italia (mnemonic in description field) 
+
+: Cited by: [MIB Generator 0.1: SCOS-2000 MIB tables from C headers](../library/mib-generator-documentation-generate-scos-2000-mib-tables-from-c-heade.md)
 
 <a id="ref-advanced-encryption-standard-aes"></a>
 **(no identifier)**: Advanced Encryption Standard (AES) 
@@ -5521,6 +7982,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: Aeolus Mission (http://www.esa.int/export/esaLP/aeolus.html) 
 
 : Cited by: [Mission Families: cost-effective MCS development (GSAW 2005)](../library/gsaw2005-guerrucci.md) (Aeolus Mission)
+
+<a id="ref-agency-representatives-space-assigned-numbers-authority-registry-http-sanaregist"></a>
+**(no identifier)**: Agency Representatives (Space Assigned Numbers Authority registry, http://sanaregistry.org/r/agency_representatives/) 
+
+: Cited by: [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([7])
 
 <a id="ref-agenda-see-attached"></a>
 **(no identifier)**: Agenda (see attached) 
@@ -5575,12 +8041,29 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Mars Express spacecraft and payload data handling](../library/sp-1291-data-handling.md) (Thompson et al. (2001))
 
+<a id="ref-ariane-5-user-s-manual"></a>
+**(no identifier)**: ARIANE 5 User's Manual 
+
+: Cited by: [Herschel/Planck EGSE Interface Requirements Spec (PIPE)](../library/rd03-h-p-1-aspi-is-0121-4-1-egse-interface-requirement-specification.md) (RD12)
+
+<a id="ref-articles-vol-1-in-radio-regulations-itu"></a>
+**(no identifier)**: Articles. Vol. 1 in Radio Regulations (ITU) 
+
+: Issues cited: Edition of 2016 2016
+
+: Cited by: [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([6])
+
 <a id="ref-aspi-comments-to-version-1-0-of-this-note-email-from-f-chatte-15th-february-2002"></a>
 **(no identifier)**: ASPI comments to version 1.0 of this note (email from F. Chatte, 15th February 2002) 
 
 : Issues cited: 15th February 2002
 
 : Cited by: [SPIRE MIB Naming Convention](../library/spire-mib-naming-convention-1-2.md) (RD02)
+
+<a id="ref-atop-activity-in-which-pus-system-objects-were-modelled-specifically"></a>
+**(no identifier)**: ATOP (activity in which PUS system objects were modelled specifically) 
+
+: Cited by: [PUS-C Gen: automatic generation toolset (2020)](../library/presentation-deployment-of-the-pus-c-standard.md)
 
 <a id="ref-c-c-protocol"></a>
 **(no identifier)**: C&amp;C Protocol 
@@ -5603,6 +8086,21 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: “Checksum Identifiers.” Space Assigned Numbers Authority. https://sanaregistry.org/r/checksum_identifiers 
 
 : Cited by: [CCSDS File Delivery Protocol (CFDP)](../library/ccsds-727-0-727x0b5e1.md) ([10])
+
+<a id="ref-cheops-data-products-definition-document-footnote-19"></a>
+**(no identifier)**: CHEOPS Data Products Definition Document (footnote 19) 
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md)
+
+<a id="ref-cited-for-the-launch-ccdb-value-not-in-the-reference-list"></a>
+**(no identifier)**: (cited for the launch CCDB value; not in the reference list) 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([CCDBTN])
+
+<a id="ref-cited-in-r-510-r-520-for-file-naming-apparently-the-l0raw-entry"></a>
+**(no identifier)**: (cited in R-510/R-520 for file naming; apparently the [L0RAW] entry) 
+
+: Cited by: [ESA EO ground segment inputs to on-board data architecture](../library/pe-tn-esa-gs-405-gs-inputs-to-on-board-data-architecture-v2-6.md) ([RAWL0])
 
 <a id="ref-cmdvs-web-site-http-projects-nl-terma-com-cmdvs"></a>
 **(no identifier)**: CMDVS web site (http://projects.nl.terma.com/CMDVS) 
@@ -5628,6 +8126,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([26])
 
+<a id="ref-contacts-space-assigned-numbers-authority-registry-http-sanaregistry-org-r-conta"></a>
+**(no identifier)**: Contacts (Space Assigned Numbers Authority registry, http://sanaregistry.org/r/contacts/) 
+
+: Cited by: [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([10])
+
 <a id="ref-corba-idl"></a>
 **(no identifier)**: CORBA IDL 
 
@@ -5643,10 +8146,30 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [The EGS-CC based Mission Control Infrastructure at ESOC](../library/pecchioli-egs-cc-esoc.md) (CSTS)
 
+<a id="ref-cross-support-transfer-services-monitored-data-service-forthcoming"></a>
+**(no identifier)**: Cross Support Transfer Services—Monitored Data Service. Forthcoming. 
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([20])
+
+<a id="ref-cross-support-transfer-services-service-control-proposed"></a>
+**(no identifier)**: Cross Support Transfer Services—Service Control. Proposed. 
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([22])
+
+<a id="ref-cross-support-transfer-services-tracking-data-proposed"></a>
+**(no identifier)**: Cross Support Transfer Services—Tracking Data. Proposed. 
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([27])
+
 <a id="ref-cryosat-mission-http-www-esa-int-export-esalp-cryosat-html"></a>
 **(no identifier)**: Cryosat Mission (http://www.esa.int/export/esaLP/cryosat.html) 
 
 : Cited by: [Mission Families: cost-effective MCS development (GSAW 2005)](../library/gsaw2005-guerrucci.md) (Cryosat Mission)
+
+<a id="ref-cryostat"></a>
+**(no identifier)**: Cryostat 
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD8])
 
 <a id="ref-cubesat-space-protocol-https-github-com-libcsp-libcsp"></a>
 **(no identifier)**: CubeSat Space Protocol (https://github.com/libcsp/libcsp) 
@@ -5659,6 +8182,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: CubeSat Space Protocol v1 &amp; v2 (CSP) 
 
 : Cited by: [Terma CCS5 &amp; TSC presentation](../library/terma-ccs5-tsc-presentation.md)
+
+<a id="ref-david-peterson-et-al-eds-w3c-xml-schema-definition-language-xsd-w3c-recommendati"></a>
+**(no identifier)**: David Peterson, et al., eds. W3C XML Schema Definition Language (XSD). W3C Recommendation 
+
+: Issues cited: Version 1.1
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([5])
 
 <a id="ref-dcp-oper-dcp-interface-controls-data-set-deletion"></a>
 **(no identifier)**: [DCP-OPER] (DCP interface, controls data-set deletion) 
@@ -5684,12 +8214,19 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Payload Command Request File framework (SpaceOps 2025)](../library/spaceops2025-0141.md) ([1])
 
+<a id="ref-deep-space-telecommunications-systems-engineering-joseph-yuen-editor-plenum-pres"></a>
+**(no identifier)**: Deep Space Telecommunications Systems Engineering (Joseph Yuen, Editor; Plenum Press), Chapter 1 
+
+: Issues cited: 1983
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md) ([1] (4.1.4))
+
 <a id="ref-deleted"></a>
 **(no identifier)**: Deleted 
 
 : Issues cited: Deleted
 
-: Cited by: [EDDS External User ICD (issue 15.0)](../library/euicd-i15r0.md) ([RD-8], [RD-9]), [EDDS External User ICD (issue 7.0)](../library/euicd-unversioned.md) ([RD-8], [RD-9]), [EDDS External User ICD (issue 13.0)](../library/euicd-v13.md) ([RD-8], [RD-9]), [EDDS External User ICD (issue 24.0)](../library/euicd-v25.md) ([RD-8], [RD-9]), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-5), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-4, RD-5), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-4, RD-5), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-4, RD-5), [EDDS Software Design Document (issue 15.0)](../library/sdd.md) ([RD-19], [RD-2]), [EDDS Software Design Document (issue 25.0)](../library/sdd-v24.md) ([RD-19], [RD-2])
+: Cited by: [EDDS External User ICD (issue 15.0)](../library/euicd-i15r0.md) ([RD-8], [RD-9]), [EDDS External User ICD (issue 7.0)](../library/euicd-unversioned.md) ([RD-8], [RD-9]), [EDDS External User ICD (issue 13.0)](../library/euicd-v13.md) ([RD-8], [RD-9]), [EDDS External User ICD (issue 24.0)](../library/euicd-v25.md) ([RD-8], [RD-9]), [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-10], [RD-1], [RD-6]), [Herschel/Planck Space/Ground ICD (SGICD)](../library/herschel-planck-space-ground-interface-control-document-sgicd.md) (RD 11), [HPMCS science ground segment real-time TM ICD (RTSI)](../library/hpmcs-science-ground-segment-real-time-telemetry-icd.md) (A-1, R-1), [SCOS-2000 Database Import ICD, issue 5.1](../library/icd-5-1-tos-gci.md) (RD-5), [SCOS-2000 Database Import ICD, version 6.7 Draft A](../library/icd-6-7-drafta.md) (RD-4, RD-5), [SCOS-2000 Database Import ICD, version 6.9](../library/icd-6-9-archive-org.md) (RD-4, RD-5), [SCOS-2000 Database Import ICD, version 7.0](../library/icd-7-0-final.md) (RD-4, RD-5), [EDDS Software Design Document (issue 15.0)](../library/sdd.md) ([RD-19], [RD-2]), [EDDS Software Design Document (issue 25.0)](../library/sdd-v24.md) ([RD-19], [RD-2]), [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](../library/so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) (AD[3], AD[4])
 
 <a id="ref-delta-urd-pacs-consolidated-04-04-00"></a>
 **(no identifier)**: Delta URD (PACS, "consolidated" 04/04/00) 
@@ -5722,6 +8259,18 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Mission Families: cost-effective MCS development (GSAW 2005)](../library/gsaw2005-guerrucci.md) (Earth Explorer Missions)
 
+<a id="ref-eclipse-forms-independent-organization"></a>
+**(no identifier)**: Eclipse Forms Independent Organization 
+
+: Issues cited: Press Release, archived 2004-04-07 2004-02-04
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md) ([7])
+
+<a id="ref-eclipse-rcp-emf-gef-gmf-birt-and-eclipse-rap-eclipse-foundation-frameworks"></a>
+**(no identifier)**: Eclipse RCP, EMF, GEF, GMF, BIRT and Eclipse RAP (Eclipse Foundation frameworks) 
+
+: Cited by: [EGOS User Desktop (EUD) GUI framework (GSAW 2014)](../library/2014s12b-schutz.md)
+
 <a id="ref-edds-glossary-referred-to-as-glo"></a>
 **(no identifier)**: EDDS Glossary (referred to as [GLO]) 
 
@@ -5736,6 +8285,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: EDEN protocol (checkout and EGSE) 
 
 : Cited by: [Terma CCS5, SCS5 &amp; TSC data sheet](../library/terma-ccs5-datasheet.md)
+
+<a id="ref-egs-cc-european-ground-system-common-core"></a>
+**(no identifier)**: EGS-CC (European Ground System Common Core) 
+
+: Cited by: [Advanced Telecommand Verification (Terma CCS5)](../library/1530-armitage.md)
+
+<a id="ref-egs-cc-planned-eud-usage"></a>
+**(no identifier)**: EGS-CC (planned EUD usage) 
+
+: Cited by: [EGOS User Desktop (EUD) GUI framework (GSAW 2014)](../library/2014s12b-schutz.md)
 
 <a id="ref-egs-cc-the-european-infrastructure-for-monitoring-and-control-of-space-systems-h"></a>
 **(no identifier)**: EGS-CC - The European Infrastructure for Monitoring and Control of Space Systems (http://www.egscc.esa.int/index.html) 
@@ -5757,6 +8316,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 2nd ed. 1972
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([57])
+
+<a id="ref-esa-asn1scc-compiler-v4-and-dmt"></a>
+**(no identifier)**: ESA ASN1SCC compiler (v4) and DMT 
+
+: Cited by: [PUS-C Gen: automatic generation toolset (2020)](../library/presentation-deployment-of-the-pus-c-standard.md)
 
 <a id="ref-esa-ground-stations-m-c-interface-corba-m-c-icd"></a>
 **(no identifier)**: ESA Ground Stations M&amp;C Interface (CORBA M&amp;C ICD) 
@@ -5785,6 +8349,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md)
 
+<a id="ref-esa-pus-packet-utilization-standard-mission-in-an-exchange-example"></a>
+**(no identifier)**: ESA PUS (Packet Utilization Standard) mission, in an exchange example 
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
 <a id="ref-esa-xfdu-web-page-http-www-gael-fr-xfdu-site"></a>
 **(no identifier)**: ESA XFDU web page (http://www.gael.fr/xfdu/site/) 
 
@@ -5801,6 +8370,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: ESOC contract with the COTS vendor authorising deployment at preferential conditions 
 
 : Cited by: [FIRST/Planck software licence, support and service note](../library/spire-sw-licence-application.md)
+
+<a id="ref-esoc-qm-manual"></a>
+**(no identifier)**: ESOC QM Manual 
+
+: Cited by: [INTEGRAL Flight Operations Plan Vol. 1: Mission Management](../library/fop-vol01.md) (RD 27)
+
+<a id="ref-extended-protocol-identifier-for-encapsulation-packet-protocol-space-assigned-nu"></a>
+**(no identifier)**: Extended Protocol Identifier for Encapsulation Packet Protocol (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/extended_protocol_id) 
+
+: Cited by: [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([17])
 
 <a id="ref-extended-protocol-identifiers-space-assigned-numbers-authority-registry-http-san"></a>
 **(no identifier)**: Extended Protocol Identifiers (Space Assigned Numbers Authority registry, http://sanaregistry.org/r/extended_protocol_id/) 
@@ -5821,15 +8400,42 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Developing EGS-CC based applications at ESOC (SESP 2019)](../library/airdrive-b8b986f.md) ([3])
 
+<a id="ref-file-transfer-protocol-cdfp-implemented-in-a-tmtc-front-end"></a>
+**(no identifier)**: File transfer protocol 'CDFP' implemented in a TMTC front end 
+
+: Cited by: [Advanced Telecommand Verification (Terma CCS5)](../library/1530-armitage.md)
+
+<a id="ref-fop-vol-10-11-management-set-ups-for-leop-and-commissioning-phase"></a>
+**(no identifier)**: FOP Vol 10 &amp; 11 (management set-ups for LEOP and Commissioning Phase) 
+
+: Cited by: [INTEGRAL Flight Operations Plan Vol. 1: Mission Management](../library/fop-vol01.md)
+
+<a id="ref-fop-vol-2-book-1-constraints-considered-at-planning"></a>
+**(no identifier)**: FOP Vol. 2 Book 1 (constraints considered at planning) 
+
+: Cited by: [INTEGRAL Flight Operations Plan Vol. 1: Mission Management](../library/fop-vol01.md)
+
 <a id="ref-ftp-hostreqs-cited-for-experimental-ftp-commands-4-1-3-1"></a>
 **(no identifier)**: [FTP-HostReqs] (cited for experimental FTP commands, §4.1.3.1) 
 
 : Cited by: [IFMS-OCC Interface ICD (IF and Modem System)](../library/ifms-occ-icd-mex.md) ([FTP-HostReqs])
 
+<a id="ref-functional-resources-space-assigned-numbers-authority-https-sanaregistry-org-r-f"></a>
+**(no identifier)**: “Functional Resources.” Space Assigned Numbers Authority. https://sanaregistry.org/r/functional_resources/ 
+
+: Cited by: [CSTS Monitored Data Service (CCSDS 922.1-B-2)](../library/ccsds-922-1-922x1b2.md) ([3])
+
 <a id="ref-gaia-tco-document-source-of-section-5-2"></a>
 **(no identifier)**: GAIA TCO document (source of section 5.2) 
 
 : Cited by: [SCOS-2000 Time Correlation Technical Note](../library/tn-1030-time-correlation.md)
+
+<a id="ref-generic-oird-1-0-released-july-2019"></a>
+**(no identifier)**: Generic OIRD 1.0 (released July 2019) 
+
+: Issues cited: 1.0 July 2019
+
+: Cited by: [Generic OIRD (GOIRD), ADCSS 2019](../library/15-05-generic-oird.md)
 
 <a id="ref-generic-operational-interface-requirements"></a>
 **(no identifier)**: Generic Operational Interface Requirements 
@@ -5854,6 +8460,18 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 2012-09-17
 
 : Cited by: [EDDS External User ICD (issue 15.0)](../library/euicd-i15r0.md) ([RD-16]), [EDDS External User ICD (issue 7.0)](../library/euicd-unversioned.md) ([RD-16]), [EDDS External User ICD (issue 13.0)](../library/euicd-v13.md) ([RD-16]), [EDDS External User ICD (issue 24.0)](../library/euicd-v25.md) ([RD-16]), [EDDS / DDID presentation and demo (Solar Orbiter)](../library/sol-esc-prs-22100-edds-ddid-demo.md)
+
+<a id="ref-handbook-of-applied-cryptography-alfred-j-menezes-paul-c-van-oorschot-and-scott-"></a>
+**(no identifier)**: Handbook of Applied Cryptography (Alfred J. Menezes, Paul C. van Oorschot, and Scott A. Vanstone; CRC Press) 
+
+: Issues cited: 1996
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([8])
+
+<a id="ref-hiegse"></a>
+**(no identifier)**: HIEGSE 
+
+: Cited by: [Herschel FM HPSDB Release Note (issue 9.0)](../library/h-p-2-asp-li-1441-09-herschel-hpsdb-release-note.md) ([RD2])
 
 <a id="ref-http-www-factbasedmodeling-org"></a>
 **(no identifier)**: http://www.factbasedmodeling.org 
@@ -5885,6 +8503,16 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [IFMS-OCC Interface ICD (IF and Modem System)](../library/ifms-occ-icd-mex.md) ([ICD-STC])
 
+<a id="ref-ieee-754-floating-point-written-ieee-745-and-ieee784-on-some-slides"></a>
+**(no identifier)**: IEEE-754 floating point (written 'IEEE-745' and 'IEEE784' on some slides) 
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
+<a id="ref-iers-utc-tai-history-leap-second-file-and-iers-bulletin-c"></a>
+**(no identifier)**: IERS UTC-TAI.history leap second file and IERS Bulletin C 
+
+: Cited by: [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md)
+
 <a id="ref-ifms-itt-extended-spacecraft-identifier"></a>
 **(no identifier)**: IFMS ITT (extended spacecraft identifier) 
 
@@ -5897,10 +8525,41 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Solar Orbiter inter-instrument communication (S3/S20)](../library/sol-sgs-tn-0007-s20-2-0.md)
 
+<a id="ref-industry-leaders-announce-open-platform-for-mobile-devices"></a>
+**(no identifier)**: Industry Leaders Announce Open Platform for Mobile Devices 
+
+: Issues cited: Open Handset Alliance 2007-11-05
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md) ([6])
+
+<a id="ref-information-security-glossary-of-terms-forthcoming"></a>
+**(no identifier)**: Information Security Glossary of Terms (forthcoming) 
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B21])
+
+<a id="ref-integral-users-manual-ium-chapter-4-4-5-constraints-for-the-routine-mission"></a>
+**(no identifier)**: INTEGRAL Users Manual (IUM), chapter 4.4.5 (constraints for the Routine Mission) 
+
+: Cited by: [INTEGRAL Flight Operations Plan Vol. 1: Mission Management](../library/fop-vol01.md) (AD 1)
+
 <a id="ref-internet-protocol-extension-header-space-assigned-numbers-authority-registry-htt"></a>
 **(no identifier)**: Internet Protocol Extension Header (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/ipe_header) 
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([44])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([44]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([18])
+
+<a id="ref-ioag-service-catalog-1"></a>
+**(no identifier)**: IOAG Service Catalog #1 
+
+: Issues cited: Issue 1 revision 4 June 2013
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([18])
+
+<a id="ref-ioag-service-catalog-2"></a>
+**(no identifier)**: IOAG Service Catalog #2 
+
+: Issues cited: Issue 1 revision 1 June 2013
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([19])
 
 <a id="ref-itt-documentation-iid"></a>
 **(no identifier)**: ITT documentation (IID) 
@@ -5919,6 +8578,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-70-41A Packet Utilization Standard (PUS-A)](../library/ecss-e-70-41a-30jan2003-pus.md) ([3])
 
+<a id="ref-j-g-fletcher-an-arithmetic-checksum-for-serial-transmission-ieee-transactions-on"></a>
+**(no identifier)**: J.G. Fletcher, An Arithmetic Checksum for Serial Transmission, IEEE Transactions on Communication, COM-30(1) 
+
+: Issues cited: January 1982
+
+: Cited by: [ESA PSS-07-101 Packet Utilisation Standard (ESA PUS, Issue 1, 1994)](../library/esa-pss-07-101-issue1-may1994.md) ([RD7])
+
 <a id="ref-j-g-proakis-digital-communications-false-decoding-probability-formula"></a>
 **(no identifier)**: J.G. Proakis, Digital Communications (false decoding probability formula) 
 
@@ -5931,6 +8597,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS Configuration and Installation Guide (i14r0)](../library/cig-i14r0.md) ([AD-4]), [EDDS Configuration and Installation Guide (issue 25.0)](../library/cig-v24.md) ([AD-4])
 
+<a id="ref-jmx-java-management-extensions-mbean-technology"></a>
+**(no identifier)**: JMX (Java Management Extensions) MBean technology 
+
+: Cited by: [EGSE Health Monitoring plug-in for SCOS-2000](../library/2009393-troso.md)
+
 <a id="ref-k-wideg-rd-m-pecchioli-harmonisation-of-products-for-ground-segment-operations-a"></a>
 **(no identifier)**: K. Widegård, M. Pecchioli, "Harmonisation of products for ground segment operations at ESA" SpaceOps 2018 
 
@@ -5942,6 +8613,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: KSAT LITE 
 
 : Cited by: [Terma CCS5 &amp; TSC presentation](../library/terma-ccs5-tsc-presentation.md)
+
+<a id="ref-m-pecchioli-a-walsh-the-egs-cc-based-mission-control-infrastructure-at-esoc-sesp"></a>
+**(no identifier)**: M. Pecchioli, A. Walsh, "The EGS-CC based Mission Control Infrastructure at ESOC" SESP 2017, Noordwijk 
+
+: Issues cited: 2017
+
+: Cited by: [Next-generation ops preparation environment OPEN (SESP17)](../library/1400-trifin-paper.md) ([1])
 
 <a id="ref-m-pecchioli-j-m-carranza-a-walsh-the-highlights-of-the-european-ground-systems-c"></a>
 **(no identifier)**: M. Pecchioli, J. M. Carranza, A. Walsh, "The Highlights of the European Ground Systems - Common Core Initiative," SpaceOps 2014, Pasadena 
@@ -5967,12 +8645,34 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [EDDS Glossary](../library/glo.md) ([RD-13])
 
+<a id="ref-mib-generator-package-on-pypi-source-repository-https-github-com-vachaj11-mib-ge"></a>
+**(no identifier)**: mib-generator package on PyPI; source repository https://github.com/vachaj11/MIB-Generator.git 
+
+: Cited by: [MIB Generator 0.1: SCOS-2000 MIB tables from C headers](../library/mib-generator-documentation-generate-scos-2000-mib-tables-from-c-heade.md)
+
+<a id="ref-mil-1750a-floating-point-format"></a>
+**(no identifier)**: MIL-1750A floating point format 
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
 <a id="ref-minutes-to-fds-mcs-interface-meeting-on-04-02-00"></a>
 **(no identifier)**: Minutes to FDS-MCS interface meeting on 04/02/00 
 
 : Issues cited: 14/02/00
 
 : Cited by: [Rosetta/Mars Express FDS-MCS Interface Control Document](../library/mex-esc-id-5003-fds-icd.md) (R-3 [MIN-1])
+
+<a id="ref-mois-and-apex-external-obcp-management-tools"></a>
+**(no identifier)**: MOIS and APEX (external OBCP management tools) 
+
+: Cited by: [Advanced Telecommand Verification (Terma CCS5)](../library/1530-armitage.md)
+
+<a id="ref-monitoring-and-control-operations-preparation-framework-for-egs-cc-based-environ"></a>
+**(no identifier)**: Monitoring and Control Operations Preparation Framework for EGS-CC Based Environments 
+
+: Issues cited: SpaceOps 2018, Marseille (F. Trifin, A. Walsh) 2018
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md) ([4])
 
 <a id="ref-n-head-j-f-kaufeler-evolution-of-the-agency-s-software-infrastructure-for-spacec"></a>
 **(no identifier)**: N.Head &amp; J.F.Kaufeler, Evolution of the Agency's Software Infrastructure for Spacecraft and Mission Control, ESA Bulletin no.67 
@@ -5990,6 +8690,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: NIS (+ optional SLE) 
 
 : Cited by: [Terma CCS5 &amp; TSC presentation](../library/terma-ccs5-tsc-presentation.md)
+
+<a id="ref-norma-object-role-modelling-tool"></a>
+**(no identifier)**: NORMA (Object Role Modelling tool) 
+
+: Cited by: [PUS-C Gen: automatic generation toolset (2020)](../library/presentation-deployment-of-the-pus-c-standard.md)
 
 <a id="ref-novelty-detection-with-deep-learning-by-jose-martinez-and-alessandro-donati-spac"></a>
 **(no identifier)**: Novelty Detection with Deep Learning, by Jose Martinez and Alessandro Donati (SpaceOps2018 paper) 
@@ -6012,6 +8717,45 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SCOSII OL: a dedicated language for mission operations](../library/ntrs-scosii-ol.md) ([8])
 
+<a id="ref-objectives-and-concepts-of-the-european-ground-systems-common-core-egs-cc"></a>
+**(no identifier)**: Objectives and Concepts of the European Ground Systems Common Core (EGS-CC) 
+
+: Issues cited: SESP 2012, Noordwijk (M. Pecchioli et al.) 2012
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md) ([1])
+
+<a id="ref-obs-maintenance-urd-tbw"></a>
+**(no identifier)**: OBS Maintenance URD, TBW 
+
+: Cited by: [Herschel Ground Segment IRD (FIRST/HSC/DOC/0117)](../library/herschel-ground-segment-interface-requirements-document.md) ([RD-17])
+
+<a id="ref-odb-configuration-control-concept"></a>
+**(no identifier)**: ODB configuration control concept 
+
+: Cited by: [INTEGRAL Flight Operations Plan Vol. 1: Mission Management](../library/fop-vol01.md) (RD 26)
+
+<a id="ref-omg-bug-issue-reporting-form-object-management-group-https-issues-omg-org-issues"></a>
+**(no identifier)**: “OMG Bug/Issue Reporting Form.” Object Management Group. https://issues.omg.org/issues/create-new-issue 
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([7])
+
+<a id="ref-omg-space-domain-task-force-space-dtf-object-management-group-https-www-omg-org-"></a>
+**(no identifier)**: “OMG Space Domain Task Force (Space DTF).” Object Management Group. https://www.omg.org/space/ 
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([5])
+
+<a id="ref-omg-systems-modeling-language-omg-sysml"></a>
+**(no identifier)**: OMG Systems Modeling Language (OMG SysML™) 
+
+: Issues cited: Version 1.3 June 2012
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([23])
+
+<a id="ref-omg-xtce-schema-object-management-group-https-www-omg-org-spec-xtce-20180204-spa"></a>
+**(no identifier)**: “OMG XTCE Schema.” Object Management Group. https://www.omg.org/spec/XTCE/20180204/SpaceSystem.xsd 
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([4])
+
 <a id="ref-on-board-sw-maintenance-facility-urd"></a>
 **(no identifier)**: On-Board SW maintenance facility URD 
 
@@ -6024,10 +8768,25 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [CCSDS Mission Product Distribution vs EDDS (SpaceOps 2025)](../library/spaceops2025-0309-mpd-edds.md) ([6])
 
+<a id="ref-organizations-space-assigned-numbers-authority-registry-http-sanaregistry-org-r-"></a>
+**(no identifier)**: Organizations (Space Assigned Numbers Authority registry, http://sanaregistry.org/r/organizations/) 
+
+: Cited by: [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([9])
+
 <a id="ref-others-see-docs"></a>
 **(no identifier)**: others: see [DOCS] 
 
 : Cited by: [IFMS-OCC Interface ICD (IF and Modem System)](../library/ifms-occ-icd-mex.md) (others)
+
+<a id="ref-overall-ground-segment-configuration-control-during-the-routine-mission-phase-ti"></a>
+**(no identifier)**: (overall ground segment configuration control during the Routine Mission Phase; title not given) 
+
+: Cited by: [INTEGRAL Flight Operations Plan Vol. 1: Mission Management](../library/fop-vol01.md) (RD29)
+
+<a id="ref-packet-utilisation-standard-pus-service-type-1-and-service-type-11-on-board-tc-s"></a>
+**(no identifier)**: Packet Utilisation Standard (PUS) service type 1 and service type 11 (on board TC scheduling / Mission Time Line) 
+
+: Cited by: [Advanced Telecommand Verification (Terma CCS5)](../library/1530-armitage.md)
 
 <a id="ref-packet-utilisation-standard-type-codes-function-codes"></a>
 **(no identifier)**: Packet utilisation standard type codes/function codes 
@@ -6047,7 +8806,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-packet-version-number-space-assigned-numbers-authority-https-sanaregistry-org-r-"></a>
 **(no identifier)**: “Packet Version Number.” Space Assigned Numbers Authority. https://sanaregistry.org/r/packet_version_number 
 
-: Cited by: [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([8])
+: Cited by: [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../library/ccsds-732-0-732x0b4.md) ([6]), [AOS Space Data Link Protocol (CCSDS 732.0-B-5)](../library/ccsds-732-0-732x0b5ec1.md) ([6]), [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([8])
 
 <a id="ref-packet-version-number-space-assigned-numbers-authority-registry-http-sanaregistr"></a>
 **(no identifier)**: Packet Version Number (Space Assigned Numbers Authority registry, http://sanaregistry.org/r/packet_version_number/) 
@@ -6057,12 +8816,29 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-packet-version-number-space-assigned-numbers-authority-registry-https-sanaregist"></a>
 **(no identifier)**: Packet Version Number (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/packet_version_number) 
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([28]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([5])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([28]), [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([14]), [TC Space Data Link Protocol (CCSDS 232.0-B-4)](../library/ccsds-232-0-232x0b4e1c1.md) ([5])
+
+<a id="ref-pence-w-cfitsio-v2-0-a-new-full-featured-data-interface-in-mehringer-d-m-plante-"></a>
+**(no identifier)**: Pence, W., CFITSIO, v2.0: A New Full-Featured Data Interface, in: Mehringer, D.M., Plante, R.L., Roberts, D.A. (Eds.), Astronomical Data Analysis Software and Systems VIII, p. 487 
+
+: Issues cited: 1999
+
+: Cited by: [CHEOPS ground segment systems and automation (2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) (Pence 1999)
 
 <a id="ref-pipe-protocol"></a>
 **(no identifier)**: PIPE protocol 
 
 : Cited by: [CCS – IEGSE telecommand interface approach](../library/ccs-tc-if-1-0.md)
+
+<a id="ref-pipe-protocol-defined-in-ad-001"></a>
+**(no identifier)**: PIPE Protocol (defined in [AD-001]) 
+
+: Cited by: [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md)
+
+<a id="ref-pocket-housekeeping-compression-used-on-proba-3"></a>
+**(no identifier)**: Pocket (housekeeping compression used on Proba 3) 
+
+: Cited by: [PUS-C Gen: automatic generation toolset (2020)](../library/presentation-deployment-of-the-pus-c-standard.md)
 
 <a id="ref-presentation-slides-17-37-egse-and-supporting-elements-licence-cost-and-service-"></a>
 **(no identifier)**: Presentation slides 17-37 (EGSE and supporting elements; licence, cost and service options) 
@@ -6076,6 +8852,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [TM Sync and Channel Coding Rationale (CCSDS 130.1-G-3)](../library/ccsds-130-1-130x1g3e1.md) ([21])
 
+<a id="ref-problem-areas-for-the-ip-security-protocols-steven-m-bellovin-proceedings-of-the"></a>
+**(no identifier)**: Problem Areas for the IP Security Protocols (Steven M. Bellovin), Proceedings of the Sixth USENIX Security Symposium 
+
+: Issues cited: 1996
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B6])
+
 <a id="ref-producer-archive-interface-specification"></a>
 **(no identifier)**: Producer-Archive Interface Specification 
 
@@ -6088,6 +8871,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Encapsulation Packet Protocol (CCSDS 133.1-B-3)](../library/ccsds-133-1-133x1b3e1.md) ([9])
 
+<a id="ref-protocol-identifier-for-encapsulation-service-space-assigned-numbers-authority-r"></a>
+**(no identifier)**: Protocol Identifier for Encapsulation Service (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/protocol_id) 
+
+: Cited by: [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([16])
+
 <a id="ref-psicd"></a>
 **(no identifier)**: PSICD 
 
@@ -6095,15 +8883,46 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [MIB Files Processing by HPSDB](../library/h-p-1-asp-tn-1060-mib-processing-hpsdb.md)
 
+<a id="ref-psicd-packet-structure-icd-for-permitted-sub-schedule-ids"></a>
+**(no identifier)**: PSICD (Packet Structure ICD), for permitted sub-schedule IDs 
+
+: Cited by: [Herschel/Planck CCS External ICD (Terma, issue 1.8)](../library/rd19-h-p-4-te-id-8020-1-8-herschel-planck-ccs-external-icd.md)
+
 <a id="ref-pus-a"></a>
 **(no identifier)**: PUS-A 
 
-: Cited by: [ECSS-E-ST-70-41C status (ADCSS 2015)](../library/valera-2015-adcss-ecss-e-st-70-41c-status.md)
+: Cited by: [Generic OIRD (GOIRD), ADCSS 2019](../library/15-05-generic-oird.md), [ECSS-E-ST-70-41C status (ADCSS 2015)](../library/valera-2015-adcss-ecss-e-st-70-41c-status.md)
 
 <a id="ref-pus-c"></a>
 **(no identifier)**: PUS-C 
 
 : Cited by: [Towards EGS-CC at ESOC (SpaceOps 2025)](../library/spaceops2025-egs-cc.md) (PUS-C)
+
+<a id="ref-python-libraries-json5-python-docx-and-pyside6"></a>
+**(no identifier)**: Python libraries json5, python-docx and PySide6 
+
+: Cited by: [MIB Generator 0.1: SCOS-2000 MIB tables from C headers](../library/mib-generator-documentation-generate-scos-2000-mib-tables-from-c-heade.md)
+
+<a id="ref-r-j-mceliece-the-theory-of-information-and-coding-encyclopedia-of-mathematics-an"></a>
+**(no identifier)**: R.J. McEliece, 'The Theory of Information and Coding', Encyclopedia of Mathematics and its Applications, Vol. 3, Addison-Wesley (Appendix D reference list) 
+
+: Issues cited: 1977
+
+: Cited by: [ESA PSS-04-106 Packet Telemetry Standard (Issue 1, 1988)](../library/esa-pss-04-106-issue1-january1988.md) ([A])
+
+<a id="ref-radio-regulations-itu"></a>
+**(no identifier)**: Radio Regulations (ITU) 
+
+: Issues cited: 2008 Edition September 2008
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md) ([2])
+
+<a id="ref-recommendations-and-reports-of-the-ccir-16th-plenary-assembly-1986-dubrovnik-yug"></a>
+**(no identifier)**: Recommendations and Reports of the CCIR, 16th Plenary Assembly (1986, Dubrovnik, Yugoslavia) 
+
+: Issues cited: 1986
+
+: Cited by: [RF and Modulation Systems, Part 1 (CCSDS 401.0-B-32)](../library/ccsds-401-0-401x0b32.md) ([3])
 
 <a id="ref-registries-space-assigned-number-authority-http-sanaregistry-org-r"></a>
 **(no identifier)**: Registries (Space Assigned Number Authority, http://sanaregistry.org/r/) 
@@ -6113,7 +8932,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-registries-space-assigned-numbers-authority-https-sanaregistry-org-r"></a>
 **(no identifier)**: Registries (Space Assigned Numbers Authority, https://sanaregistry.org/r) 
 
-: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([48])
+: Cited by: [Overview of Space Communications Protocols (CCSDS 130.0-G-4)](../library/ccsds-130-0-130x0g4e1.md) ([48]), [Proximity-1 Data Link Layer (CCSDS 211.0-B-6)](../library/ccsds-211-0-211x0b6e1.md) ([H8])
 
 <a id="ref-reile-h-lorenz-e-and-terzibaschian-t-the-firebird-mission-a-scientific-mission-f"></a>
 **(no identifier)**: Reile, H., Lorenz, E., and Terzibaschian, T., "The FireBird Mission – A Scientific Mission for Earth Observation and Hot SpotDetection," Digest of the 9th International Symposium of the International Academy of Astronautics, Wissenschaft und Technik Verlag (https://elib.dlr.de/83866/) 
@@ -6129,12 +8948,31 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Solar Orbiter inter-instrument communication (S3/S20)](../library/sol-sgs-tn-0007-s20-2-0.md) ([RD 04])
 
+<a id="ref-report-on-the-development-of-the-advanced-encryption-standard-aes-james-nechvata"></a>
+**(no identifier)**: Report on the Development of the Advanced Encryption Standard (AES) (James Nechvatal, et al.), Journal of Research of the National Institute of Standards and Technology 106, no. 3 
+
+: Issues cited: May-June 2001
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B10])
+
+<a id="ref-representation-of-numerical-values-and-si-units-in-character-strings-for-informa"></a>
+**(no identifier)**: Representation of numerical values and SI units in character strings for information interchange (http://swiss.csail.mit.edu/~jaffer/MIXF) 
+
+: Issues cited: 2003
+
+: Cited by: [ECSS-E-ST-70-32C: PLUTO procedure language (2008)](../library/ecss-e-st-70-32c31july2008.md) (Voluntocracy 2003)
+
 <a id="ref-rf-suitcase-specification"></a>
 **(no identifier)**: RF suitcase Specification 
 
 : Issues cited: To be issued
 
 : Cited by: [Herschel/Planck EGSE General Requirements Specification](../library/h-p-1-aspi-sp-0045-egse-general-req.md) (RD1)
+
+<a id="ref-rmi-connector-hm-main-architecture-fig-2"></a>
+**(no identifier)**: RMI Connector (HM main architecture, Fig. 2) 
+
+: Cited by: [EGSE Health Monitoring plug-in for SCOS-2000](../library/2009393-troso.md)
 
 <a id="ref-s2k-database-icd-cited-for-the-mib-table-format-not-in-the-reference-list"></a>
 **(no identifier)**: [S2K-DATABASE-ICD] (cited for the MIB table format; not in the reference list) 
@@ -6165,6 +9003,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Integrating small satellites at GSOC with EGS-CC (4S 2024)](../library/4s-2024-egscc-bruegge.md) ([5])
 
+<a id="ref-sdls-extended-procedures-otar-process-cited-in-a1"></a>
+**(no identifier)**: SDLS Extended Procedures (OTAR process, cited in A1) 
+
+: Cited by: [Application of Security to CCSDS Protocols (350.0-G-3)](../library/ccsds-350-0-350x0g3.md)
+
 <a id="ref-simulator-model-portability-smp-standard"></a>
 **(no identifier)**: Simulator Model Portability (SMP) standard 
 
@@ -6187,6 +9030,26 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [ECSS-E-ST-70-41C Packet Utilization Standard (PUS-C)](../library/ecss-e-st-70-41c-15april2016.md) (SANA)
 
+<a id="ref-space-category-specifications-associated-object-management-group-https-www-omg-o"></a>
+**(no identifier)**: “Space Category—Specifications Associated.” Object Management Group. https://www.omg.org/spec/category/space/ 
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([6])
+
+<a id="ref-space-communications-cross-support-architecture-requirements-document-forthcomin"></a>
+**(no identifier)**: Space Communications Cross Support—Architecture Requirements Document. Forthcoming. 
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([17])
+
+<a id="ref-space-data-link-security-protocol-extended-procedures-summary-of-concept-of-rati"></a>
+**(no identifier)**: Space Data Link Security Protocol—Extended Procedures—Summary of Concept of Rationale (forthcoming) 
+
+: Cited by: [SDLS Extended Procedures (CCSDS 355.1-B-1)](../library/ccsds-355-1-355x1b1.md) ([C13])
+
+<a id="ref-space-data-link-security-protocol-extended-procedures-summary-of-concept-of-rati"></a>
+**(no identifier)**: Space Data Link Security Protocol—Extended Procedures—Summary of Concept of Rationale (Green Book, under development) 
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([32])
+
 <a id="ref-space-link-extension-sle"></a>
 **(no identifier)**: Space Link Extension (SLE) 
 
@@ -6205,7 +9068,26 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 <a id="ref-space-packet-protocol-secondary-header-format-document-space-assigned-numbers-au"></a>
 **(no identifier)**: Space Packet Protocol Secondary Header Format Document (Space Assigned Numbers Authority registry, https://sanaregistry.org/r/space_packet_protocol_secondary_header_format_document) 
 
-: Cited by: [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([5])
+: Cited by: [Space Packet Protocols Report (CCSDS 130.3-G-1)](../library/ccsds-130-3-130x3g1.md) ([10]), [Space Packet Protocol (CCSDS 133.0-B-2)](../library/ccsds-133-0-133x0b2e2.md) ([5])
+
+<a id="ref-spacecraft-identifiers-space-assigned-numbers-authority-registry-http-sanaregist"></a>
+**(no identifier)**: Spacecraft Identifiers (Space Assigned Numbers Authority registry, http://sanaregistry.org/r/spacecraftid/) 
+
+: Cited by: [SCID Code Assignment Procedures (CCSDS 320.0-M-7)](../library/ccsds-320-0-320x0m7c1.md) ([8])
+
+<a id="ref-spaceops-2016-new-generation-mission-operations-preparation-framework-w-heinen-s"></a>
+**(no identifier)**: SpaceOps-2016, New Generation Mission Operations Preparation Framework, W. Heinen, S. Reid, S. Pearson 
+
+: Issues cited: 2016
+
+: Cited by: [Operations preparation when moving to EGS-CC (SpaceOps 2023)](../library/spaceops-0415-challenges-in-operations-preparations-when-transit.md) ([5])
+
+<a id="ref-spaceops-2018-the-new-generation-toolset-providing-comprehensive-support-for-mis"></a>
+**(no identifier)**: SpaceOps-2018, The New-Generation Toolset Providing Comprehensive Support for Mission Operations Preparation and Validation, S. Reid, W. Heinen, S. Pearson 
+
+: Issues cited: 2018
+
+: Cited by: [Operations preparation when moving to EGS-CC (SpaceOps 2023)](../library/spaceops-0415-challenges-in-operations-preparations-when-transit.md) ([4])
 
 <a id="ref-ssbv-cms-product"></a>
 **(no identifier)**: SSBV CMS product 
@@ -6224,6 +9106,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Towards EGS-CC at ESOC (SpaceOps 2025)](../library/spaceops2025-egs-cc.md) (EGS-CC TDM)
 
+<a id="ref-taste-esa-toolchain-msp430-target-support-project"></a>
+**(no identifier)**: TASTE (ESA toolchain; MSP430 target support project) 
+
+: Cited by: [PUS-C Gen: automatic generation toolset (2020)](../library/presentation-deployment-of-the-pus-c-standard.md)
+
 <a id="ref-tc-history-file-icd"></a>
 **(no identifier)**: TC History File ICD 
 
@@ -6239,12 +9126,33 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [Promoting ESA software: the SCOS-2000 example](../library/esa-bulletin-108-ch8.md)
 
+<a id="ref-the-egs-cc-based-mission-control-infrastructure-at-esoc"></a>
+**(no identifier)**: The EGS-CC based Mission Control Infrastructure at ESOC [:material-book-check: in library](../library/pecchioli-egs-cc-esoc.md)
+
+: Issues cited: SESP 2017, Noordwijk (M. Pecchioli, A. Walsh) 2017
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md) ([2])
+
+<a id="ref-the-next-generation-mission-operations-preparation-environment-at-esoc"></a>
+**(no identifier)**: The Next Generation Mission Operations Preparation Environment at ESOC [:material-book-check: in library](../library/1400-trifin-paper.md)
+
+: Issues cited: SESP 2017, Noordwijk (F. Trifin, A. Walsh) 2017
+
+: Cited by: [OPEN: community preparation environment for EGS-CC](../library/open-a-community-based-preparation-environment-for-egs-cc-based-system.md) ([3])
+
 <a id="ref-the-presentation-on-18-04-2000-cost-figures"></a>
 **(no identifier)**: The presentation on 18.04.2000 (cost figures) 
 
 : Issues cited: 18.04.2000
 
 : Cited by: [FIRST/Planck software licence, support and service note](../library/spire-sw-licence-application.md)
+
+<a id="ref-the-telecommand-authentication-concept-for-the-esa-gmes-sentinels-i-aguilar-d-fi"></a>
+**(no identifier)**: The Telecommand Authentication Concept for the ESA GMES Sentinels (I. Aguilar, D. Fischer, and P. Bargellini), Proceedings of the 5th ESA International Workshop on Tracking, Telemetry and Command Systems for Space Applications 
+
+: Issues cited: 2010
+
+: Cited by: [SDLS Concept and Rationale (CCSDS 350.5-G-2)](../library/ccsds-350-5-350x5g2.md) ([23])
 
 <a id="ref-the-unified-modeling-language-user-guide-grady-booch-ivar-jacobson-and-james-rum"></a>
 **(no identifier)**: The Unified Modeling Language User Guide (Grady Booch, Ivar Jacobson, and James Rumbaugh) 
@@ -6253,12 +9161,33 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J8])
 
+<a id="ref-the-use-of-galois-message-authentication-code-gmac-in-ipsec-esp-and-ah-d-mcgrew-"></a>
+**(no identifier)**: The Use of Galois Message Authentication Code (GMAC) in IPsec ESP and AH (D. McGrew and J. Viega; ISOC) 
+
+: Issues cited: May 2006
+
+: Cited by: [CCSDS Cryptographic Algorithms (CCSDS 352.0-B-2)](../library/ccsds-352-0-352x0b2.md) ([B8])
+
+<a id="ref-tim-bray-et-al-eds-extensible-markup-language-xml-1-0-w3c-recommendation"></a>
+**(no identifier)**: Tim Bray, et al., eds. Extensible Markup Language (XML) 1.0. W3C Recommendation 
+
+: Issues cited: 5th ed. November 2008
+
+: Cited by: [Extensible SCCS Service Management Concept (902.0-G-1)](../library/ccsds-902-0-902x0g1.md) ([26])
+
 <a id="ref-uml-distilled-a-brief-guide-to-the-standard-object-modeling-language-martin-fowl"></a>
 **(no identifier)**: UML Distilled: A Brief Guide to the Standard Object Modeling Language (Martin Fowler) 
 
 : Issues cited: 3rd ed. 2003
 
 : Cited by: [SLE API for Transfer Services—Core Specification](../library/ccsds-914-0-914x0m2c1.md) ([J7])
+
+<a id="ref-unified-modeling-language-uml"></a>
+**(no identifier)**: Unified Modeling Language (UML) 
+
+: Issues cited: Version 2.4.1 August 2011
+
+: Cited by: [SCCS-SM Service Package Data Formats (CCSDS 902.4-B-1)](../library/ccsds-902-4-902x4b1.md) ([2]), [SLE API for the RAF Service (CCSDS 915.1-M-2)](../library/ccsds-915-1-915x1m2.md) ([C9]), [SLE API for the FSP Service (CCSDS 916.3-M-2)](../library/ccsds-916-3-916x3m2.md) ([C7])
 
 <a id="ref-unified-modeling-language-uml-object-management-group"></a>
 **(no identifier)**: Unified Modeling Language (UML) (Object Management Group) 
@@ -6271,6 +9200,11 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 **(no identifier)**: “USLP Protocol Identifier (UPID).” Space Assigned Numbers Authority (SANA). https://sanaregistry.org/r/uslp_protocol_id 
 
 : Cited by: [Unified Space Data Link Protocol (USLP)](../library/ccsds-732-1-732x1b3e1.md) ([14])
+
+<a id="ref-vega-launcher-egse"></a>
+**(no identifier)**: VEGA Launcher EGSE 
+
+: Cited by: [EGSE Health Monitoring plug-in for SCOS-2000](../library/2009393-troso.md)
 
 <a id="ref-w3c-recommendation-extensible-markup-language-xml-1-0-http-www-w3-org-tr-rec-xml"></a>
 **(no identifier)**: W3C Recommendation - Extensible Markup Language (XML) 1.0 (http://www.w3.org/TR/REC-xml) 
@@ -6286,6 +9220,13 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Cited by: [XTCE Version 1.2 (CCSDS 660.0-B-2)](../library/ccsds-660-0-660x0b2.md)
 
+<a id="ref-w3c-recommendation-extensible-markup-language-xml-1-0-second-edition-http-www-w3"></a>
+**(no identifier)**: W3C Recommendation - Extensible Markup Language (XML) 1.0 (Second Edition) http://www.w3.org/TR/REC-xml 
+
+: Issues cited: Second Edition 6 October 2000
+
+: Cited by: [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md)
+
 <a id="ref-w3c-recommendation-xml-schema-part-0-primer-2-may-2001"></a>
 **(no identifier)**: W3C Recommendation - XML Schema Part 0: Primer (2 May 2001) 
 
@@ -6298,7 +9239,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 2 May 2001
 
-: Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-12), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-12)
+: Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-12), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-12)
 
 <a id="ref-w3c-recommendation-xml-schema-part-1-structures-2-may-2001"></a>
 **(no identifier)**: W3C Recommendation - XML Schema Part 1: Structures (2 May 2001) 
@@ -6312,7 +9253,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 2 May 2001
 
-: Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-13), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-13)
+: Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-13), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-13)
 
 <a id="ref-w3c-recommendation-xml-schema-part-2-datatypes-2-may-2001"></a>
 **(no identifier)**: W3C Recommendation - XML Schema Part 2: Datatypes (2 May 2001) 
@@ -6326,7 +9267,7 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 
 : Issues cited: 2 May 2001
 
-: Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-14), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-14)
+: Cited by: [Rosetta/Mars Express DDID, issue B5 (2003)](../library/mex-esc-if-5003-b5.md) (R-14), [OMG XTCE 1.3 specification (formal/26-06-09)](../library/omg-xtce-1-3-specification.md), [Rosetta/MEX/VEX Data Delivery Interface Document (DDID)](../library/ro-esc-if-5003-ddid-c2.md) (R-14)
 
 <a id="ref-web-services-definition-language-wsdl-1-1-http-www-w3-org-tr-wsdl"></a>
 **(no identifier)**: Web Services Definition Language (WSDL) 1.1 (http://www.w3.org/TR/wsdl) 
@@ -6368,6 +9309,54 @@ This catalogue merges the reference lists of all 119 library sources: **1013 dis
 : Issues cited: 1999-11-16
 
 : Cited by: [EDDS External User ICD (issue 15.0)](../library/euicd-i15r0.md) ([RD-5]), [EDDS External User ICD (issue 7.0)](../library/euicd-unversioned.md) ([RD-5]), [EDDS External User ICD (issue 13.0)](../library/euicd-v13.md) ([RD-5]), [EDDS External User ICD (issue 24.0)](../library/euicd-v25.md) ([RD-5])
+
+<a id="ref-xtce-1-0-omg-space-domain-task-force-first-published-2005"></a>
+**(no identifier)**: XTCE 1.0 (OMG Space Domain Task Force), first published 2005 
+
+: Issues cited: 1.0 2005
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
+<a id="ref-xtce-1-1-green-book-overview"></a>
+**(no identifier)**: XTCE 1.1 Green Book (overview) 
+
+: Issues cited: 2007
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
+<a id="ref-xtce-1-2-early-drafts"></a>
+**(no identifier)**: XTCE 1.2 early drafts 
+
+: Issues cited: 1.2
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
+<a id="ref-xtce-exchange-format-coordinated-by-omg-http-www-xtce-org-xtce-1-0-1-1-and-1-2"></a>
+**(no identifier)**: XTCE exchange format coordinated by OMG (http://www.xtce.org); XTCE 1.0, 1.1 and 1.2 
+
+: Cited by: [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md)
+
+<a id="ref-xtce-schema-namespace-http-www-omg-org-space-xtce-spacesystemv1-1-xsd-jaxb-examp"></a>
+**(no identifier)**: XTCE schema namespace http://www.omg.org/space/xtce, SpaceSystemV1.1.xsd (JAXB example) 
+
+: Issues cited: 1.1
+
+: Cited by: [XTCE 1.1 Tutorial (NASA GSFC / Harris, 2009)](../library/ntrs-20090017706-xtce-tutorial.md)
+
+<a id="ref-xtce-us-govt-satellite-conformance-profile-object-management-group-https-www-omg"></a>
+**(no identifier)**: “XTCE US Govt Satellite Conformance Profile.” Object Management Group. https://www.omg.org/spec/XUSP/ 
+
+: Cited by: [XTCE Informational Report (CCSDS 660.2-G-2)](../library/ccsds-660-2-660x2g2.md) ([8])
+
+<a id="ref-xtcetools-project-https-gitlab-com-dovereem-xtcetools"></a>
+**(no identifier)**: xtcetools project (https://gitlab.com/dovereem/xtcetools) 
+
+: Cited by: [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md) (27)
+
+<a id="ref-yamcs-sle-plugin-space-link-extension-links-earth-reception-time"></a>
+**(no identifier)**: yamcs-sle plugin (Space Link Extension links, Earth Reception Time) 
+
+: Cited by: [Yamcs Server Manual (5.14.1-SNAPSHOT)](../library/yamcs-server-manual.md)
 
 <a id="ref-zds-cortex-ground-station-protocol"></a>
 **(no identifier)**: ZDS Cortex ground station protocol 

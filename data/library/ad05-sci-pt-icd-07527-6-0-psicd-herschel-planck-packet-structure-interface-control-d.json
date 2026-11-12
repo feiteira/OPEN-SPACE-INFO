@@ -1,0 +1,590 @@
+{
+ "slug": "ad05-sci-pt-icd-07527-6-0-psicd-herschel-planck-packet-structure-interface-control-d",
+ "title": "Packet Structure Interface Control Document (PSICD)",
+ "short_title": "Herschel/Planck Packet Structure ICD (PS-ICD 6.0)",
+ "doc_id": "SCI-PT-ICD-07527",
+ "issue": "6.0",
+ "date": "2008-01-25",
+ "organisation": "ESA Herschel/Planck Project; maintained by Thales Alenia Space (formerly Alcatel Space)",
+ "authors": [
+  "F. Sauvage",
+  "R. Sghedoni",
+  "I. Bénilan",
+  "Christiane Giacometti"
+ ],
+ "doc_type": "Interface Control Document",
+ "status_notes": "Issue 6.0 of 25 Jan. 2008, 'Formal release for application' (change record, PDF p. 32). Earlier issues: 1 (1-9-2000), 2 (12-7-2001), 3 Draft 2 (12-11-2002), 3.0 (2-04-2003), 4 Draft 0 (25-07-2003, the first after hand-over of the document to Alcatel Space), 4 Draft 1 (04-11-2003), 4.0 (07-Nov-2003), 5.0 (20-Jul-2004) and 6.draftA (17 Dec. 2007). Section 1.1 says the document is agreed between the ESA Project Manager, ESOC and the Prime Contractor and is controlled by the Prime Contractor after approval.",
+ "summary": "The Herschel/Planck Packet Structure Interface Control Document (PS-ICD) is the mission-specific application-layer definition of every telemetry and telecommand packet exchanged between ground and the Herschel and Planck on-board units, subsystems and instruments. It complements ESA PSS-04-106/107. Being tailored for the mission, it states that it supersedes the Packet Utilisation Standard (ECSS-E-70-41A), and requirement 1000-GEN allows only the type/subtype combinations and data field layouts it defines.\n\nAfter the operations scenario, Table 2-1 lists which of the 22 service types are used by the CDMS, the ACMS and the instruments. Chapters 3 and 4 fix the TC and TM packet headers: 3-bit command source codes in the TC sequence count, the Ack flags, a maximum TC packet of 248 octets (228 usable inside an MTL command), a maximum TM packet of 1024 octets, a 48-bit CUC time in the TM data field header, and on-board consistency checks of TM packets. Chapter 5 specifies the packet data fields of each service: verification, device commands, housekeeping and diagnostic reporting, events, memory management, function management, time, on-board scheduling (mission timeline with sub-schedules), monitoring, packet transmission control, storage and retrieval, test, OBCPs, event/action and science data transfer.\n\nAppendices cover bit and field conventions, the type/subtype usage matrix per unit, the APID allocation with base address and offset per packet category, the virtual channel mapping, the CRC-16 checksum with test vectors, parameter types (PTC/PFC), and the time and idle packets. Appendix 9 is a self-contained MIL-STD-1553B Satellite Data Bus Protocol specification. It is the key reference for anyone reading Herschel or Planck MIBs or raw packets.",
+ "contents": [
+  {
+   "section": "1.",
+   "title": "INTRODUCTION AND SCOPE",
+   "pdf_page": 39
+  },
+  {
+   "section": "1.1",
+   "title": "Scope",
+   "pdf_page": 39
+  },
+  {
+   "section": "1.2",
+   "title": "Operations Scenario",
+   "pdf_page": 40
+  },
+  {
+   "section": "1.3",
+   "title": "APPLICABLE DOCUMENTS",
+   "pdf_page": 42
+  },
+  {
+   "section": "1.4",
+   "title": "REFERENCE DOCUMENTS",
+   "pdf_page": 42
+  },
+  {
+   "section": "2.",
+   "title": "PACKET SERVICES",
+   "pdf_page": 44
+  },
+  {
+   "section": "3.",
+   "title": "TELECOMMAND STRUCTURE",
+   "pdf_page": 46
+  },
+  {
+   "section": "3.1",
+   "title": "Telecommand Source Packets",
+   "pdf_page": 46
+  },
+  {
+   "section": "4.",
+   "title": "TELEMETRY STRUCTURE",
+   "pdf_page": 50
+  },
+  {
+   "section": "4.1",
+   "title": "Telemetry Source Packet",
+   "pdf_page": 50
+  },
+  {
+   "section": "4.2",
+   "title": "Telemetry Packet Verification",
+   "pdf_page": 53
+  },
+  {
+   "section": "5.",
+   "title": "PACKET DATA FIELD STRUCTURES",
+   "pdf_page": 54
+  },
+  {
+   "section": "5.1",
+   "title": "Service Type 1 : Telecommand Verification Service",
+   "pdf_page": 54
+  },
+  {
+   "section": "5.2",
+   "title": "Service Type 2 : Device Command Distribution",
+   "pdf_page": 59
+  },
+  {
+   "section": "5.3",
+   "title": "Service Type 3 : Housekeeping & Diagnostic Data Reporting",
+   "pdf_page": 61
+  },
+  {
+   "section": "5.4",
+   "title": "Service Type 4 : Not Used",
+   "pdf_page": 70
+  },
+  {
+   "section": "5.5",
+   "title": "Service Type 5 : Event Reporting",
+   "pdf_page": 70
+  },
+  {
+   "section": "5.6",
+   "title": "Service Type 6 : Memory Management",
+   "pdf_page": 72
+  },
+  {
+   "section": "5.7",
+   "title": "Service Type 7 : Not Used",
+   "pdf_page": 78
+  },
+  {
+   "section": "5.8",
+   "title": "Service Type 8 : Function Management",
+   "pdf_page": 78
+  },
+  {
+   "section": "5.9",
+   "title": "Service Type 9 : Time Management",
+   "pdf_page": 84
+  },
+  {
+   "section": "5.10",
+   "title": "Service Type 10 : Not Used",
+   "pdf_page": 88
+  },
+  {
+   "section": "5.11",
+   "title": "Service Type 11 : On-board Scheduling",
+   "pdf_page": 88
+  },
+  {
+   "section": "5.12",
+   "title": "Service Type 12 : On-board Monitoring",
+   "pdf_page": 101
+  },
+  {
+   "section": "5.13",
+   "title": "Service Type 13 : Not Used",
+   "pdf_page": 111
+  },
+  {
+   "section": "5.14",
+   "title": "Service Type 14 : Packet Transmission Control",
+   "pdf_page": 111
+  },
+  {
+   "section": "5.15",
+   "title": "Service Type 15 : On-board Storage and Retrieval",
+   "pdf_page": 117
+  },
+  {
+   "section": "5.16",
+   "title": "Service Type 16 : On-board Traffic Management",
+   "pdf_page": 128
+  },
+  {
+   "section": "5.17",
+   "title": "Service Type 17 : Test Service",
+   "pdf_page": 128
+  },
+  {
+   "section": "5.18",
+   "title": "Service Type 18 : On-board Control Procedures",
+   "pdf_page": 129
+  },
+  {
+   "section": "5.19",
+   "title": "Service Type 19 : Event / Action Service",
+   "pdf_page": 142
+  },
+  {
+   "section": "5.20",
+   "title": "Service Type 20 : Information Distribution Service",
+   "pdf_page": 148
+  },
+  {
+   "section": "5.21",
+   "title": "Service Type 21 : Science Data Transfer",
+   "pdf_page": 149
+  },
+  {
+   "section": "5.22",
+   "title": "Service Type 22 : Context Saving Service",
+   "pdf_page": 150
+  },
+  {
+   "section": "Appendix 1",
+   "title": "Conventions",
+   "pdf_page": 151
+  },
+  {
+   "section": "Appendix 2",
+   "title": "TM/TC Packet Types and Subtypes for Herschel/Planck",
+   "pdf_page": 153
+  },
+  {
+   "section": "Appendix 3",
+   "title": "Application Process ID Assignment",
+   "pdf_page": 158
+  },
+  {
+   "section": "Appendix 4",
+   "title": "The Checksum Algorithms",
+   "pdf_page": 166
+  },
+  {
+   "section": "Appendix 5",
+   "title": "Acronyms and Glossary of Terms",
+   "pdf_page": 168
+  },
+  {
+   "section": "Appendix 6",
+   "title": "Parameter Types and Structures",
+   "pdf_page": 172
+  },
+  {
+   "section": "Appendix 7",
+   "title": "Standard Spacecraft Time Source Packet",
+   "pdf_page": 180
+  },
+  {
+   "section": "Appendix 8",
+   "title": "Idle Packet Structure",
+   "pdf_page": 182
+  },
+  {
+   "section": "Appendix 9",
+   "title": "Satellite Data Bus Protocol Specification",
+   "pdf_page": 184
+  },
+  {
+   "section": "App9 1.",
+   "title": "Introduction",
+   "pdf_page": 192
+  },
+  {
+   "section": "App9 2.",
+   "title": "Physical Layer",
+   "pdf_page": 196
+  },
+  {
+   "section": "App9 3.",
+   "title": "Data Link Layer",
+   "pdf_page": 198
+  },
+  {
+   "section": "App9 3.2",
+   "title": "Command Word",
+   "pdf_page": 202
+  },
+  {
+   "section": "App9 3.3",
+   "title": "RT Status Word",
+   "pdf_page": 208
+  },
+  {
+   "section": "App9 3.5",
+   "title": "Data Link Layer FDIR",
+   "pdf_page": 210
+  },
+  {
+   "section": "App9 4.",
+   "title": "Transfer Layer",
+   "pdf_page": 215
+  },
+  {
+   "section": "App9 4.2",
+   "title": "Frame Synchronization by BC",
+   "pdf_page": 223
+  },
+  {
+   "section": "App9 4.3",
+   "title": "Time Synchronization",
+   "pdf_page": 224
+  },
+  {
+   "section": "App9 4.4",
+   "title": "Status Polling",
+   "pdf_page": 225
+  },
+  {
+   "section": "App9 4.5",
+   "title": "Telecommand Packet Delivery",
+   "pdf_page": 227
+  },
+  {
+   "section": "App9 4.6",
+   "title": "Telemetry Packet Retrieval",
+   "pdf_page": 232
+  },
+  {
+   "section": "App9 4.7",
+   "title": "Transfer Layer FDIR",
+   "pdf_page": 242
+  },
+  {
+   "section": "App9 4.8",
+   "title": "Data Rate Monitoring",
+   "pdf_page": 243
+  }
+ ],
+ "key_points": [
+  {
+   "text": "The PS-ICD complements PSS-04-106/107 with all mission-specific details of data transfer between ground and on-board applications and, being tailored for Herschel/Planck, supersedes the PUS (ECSS-E-70-41A); requirement 1000-GEN allows only the services and data structures it defines.",
+   "pdf_page": 39
+  },
+  {
+   "text": "Service usage (Table 2-1): services 4, 7, 10, 13, 20 and 22 are not used; service 11 (scheduling), 15 (storage) and 16 (traffic management) are CDMS-only; service 21 (science data transfer) is instruments-only; 8, 12 and 18 are optional for instruments.",
+   "pdf_page": 45
+  },
+  {
+   "text": "TC sequence count source codes (3 MSBs): 0b000 ground high priority, 0b001 CDMU FDIR, 0b010 mission time line, 0b011 OBCPs, 0b100 ground low priority, 0b101 ACC FDIR, 0b110 other CDMU sources, 0b111 other ACMS sources; applications must not check sequence count monotony.",
+   "pdf_page": 47
+  },
+  {
+   "text": "Maximum TC packet data field is 242 octets (maximum TC packet 248 octets), but TCs encapsulated in MTL commands are limited to an overall 228 octets; packet length must be an integer number of 16-bit words.",
+   "pdf_page": 47
+  },
+  {
+   "text": "TC data field header: CCSDS secondary header flag 0, PUS version 0 only, 4-bit Ack (acceptance, start, progress, completion), type, subtype and a spare octet; failure reports are always generated, and Ack bit 3 = 0 suppresses only TM(1,1).",
+   "pdf_page": 48
+  },
+  {
+   "text": "All commands except the 'Standard Distribute CPDU command' TC(2,3) carry a data field header; because the type and subtype sit in that header, (2,3) is not indicated in the CPDU command packet itself.",
+   "pdf_page": 46
+  },
+  {
+   "text": "The mandatory 16-bit Packet Error Control field lets the receiving application verify the whole TC packet; its type is fixed for the mission and defined in Appendix 4.",
+   "pdf_page": 49
+  },
+  {
+   "text": "Maximum TM packet is 1024 octets (data field at most 1018 octets); segmentation flags are 0b11, except that TM(21,x) science packets may use them for packet grouping, which neither the on-board system nor the ESA ground system supports specially.",
+   "pdf_page": 51
+  },
+  {
+   "text": "The TM data field header holds spare bits, PUS version 0, type, subtype, a spare octet and a 48-bit CUC time; a user unable to provide time synchronised with the central time reference sets the MSB of the time field to 1.",
+   "pdf_page": 52
+  },
+  {
+   "text": "TM packets used on board by the CDMU or ACC are checked for APID, length, PEC, type and subtype (failure codes 0 to 4); on failure an event report TM(5,x) is raised, and unidentifiable packets go to ground on VC4.",
+   "pdf_page": 53
+  },
+  {
+   "text": "APID structure: the upper bits are a base address per unit and the 4 LSBs encode packet category and prime/redundant unit, for example CDMS 16 (0x10), ACMS 512 (0x200), HIFI 1024 (0x400), PACS 1152 (0x480), SPIRE 1280 (0x500), HFI 1408 (0x580), LFI 1536 (0x600), SCS 1664 (0x680); APIDs 2016-2046 are reserved for SCOE/EGSE and 2047 for idle packets.",
+   "pdf_page": 158
+  },
+  {
+   "text": "Packet category mapping: verification, events, essential HK TM(3,25) and most reports use base address + 0 (or + 1 for a redundant instrument) on VC0; non-essential HK TM(3,25) and diagnostic TM(3,26) use base + 2 (+ 3) on VC4; science TM(21,x) uses VC1; stored packets go out on the VC of their packet store (VC3 recommended for science, VC2 for others).",
+   "pdf_page": 164
+  },
+  {
+   "text": "The PEC is a CRC-16 with generator polynomial X^16 + X^12 + X^5 + 1, initialised to all ones; test vectors include 00 00 -> 0x1D0F and AB CD EF 01 -> 0x04A2.",
+   "pdf_page": 166
+  },
+  {
+   "text": "Parameter types: PTC 1 Boolean, 2 Enumerated, 3 Unsigned, 4 Signed, 5 Real, 6 Bit-string, 7 Octet-string, 8 Character-string (on-board use limited to software version identification), 9 Absolute time, 10 Relative time (not used), 11 Deduced.",
+   "pdf_page": 172
+  },
+  {
+   "text": "Absolute time is PTC 9, PFC 17: 6 octets CUC (4 coarse, 2 fine) of spacecraft elapsed time without P-field, synchronised to TAI after the on-board time is set.",
+   "pdf_page": 178
+  },
+  {
+   "text": "The Standard Spacecraft Time Source Packet uses APID 0 (all zeros) and carries spacecraft elapsed time for ground time correlation with UTC.",
+   "pdf_page": 180
+  },
+  {
+   "text": "The time packet's P-field is 0b00101110, meaning 4 coarse and 2 fine time octets.",
+   "pdf_page": 181
+  },
+  {
+   "text": "Idle packets, which fill transfer frames when no data is ready, use APID 0x7FF (all ones).",
+   "pdf_page": 182
+  },
+  {
+   "text": "Appendix 9 specifies the MIL-STD-1553B Satellite Data Bus Protocol (physical, data link and transfer layers) for units connected to the data management subsystem; its transfer layer uses a 1-second frame divided into 64 subframes, and instrument TM packets must fit subframe boundaries.",
+   "pdf_page": 217
+  }
+ ],
+ "references": [
+  {
+   "label": "AD-1",
+   "doc_id": "PSS-04-106",
+   "title": "Packet Telemetry Standard",
+   "issue": "Issue 1",
+   "date": "January 1988",
+   "kind": "applicable",
+   "pdf_page": 42
+  },
+  {
+   "label": "AD-2",
+   "doc_id": "PSS-04-107",
+   "title": "Packet Telecommand Standard",
+   "issue": "Issue 2",
+   "date": "April 1992",
+   "kind": "applicable",
+   "pdf_page": 42
+  },
+  {
+   "label": "AD-3",
+   "doc_id": "SCI-PT-RS-07360",
+   "title": "Herschel / Planck Operations Interface Requirements Document (H/P-OIRD)",
+   "issue": null,
+   "date": null,
+   "kind": "applicable",
+   "pdf_page": 42
+  },
+  {
+   "label": "RD-1",
+   "doc_id": "ECSS-E-70-41A",
+   "title": "Packet Utilisation Standard (PUS)",
+   "issue": "Issue 1",
+   "date": "2002-11-06",
+   "kind": "reference",
+   "pdf_page": 42
+  },
+  {
+   "label": "RD-2",
+   "doc_id": "CCSDS 102.0-B-4",
+   "title": "CCSDS Packet Telemetry",
+   "issue": "B-4",
+   "date": "November 1995",
+   "kind": "reference",
+   "pdf_page": 42
+  },
+  {
+   "label": "RD-3",
+   "doc_id": "MIL-Std.-1553 B",
+   "title": "Digital Internal Time Division Command/Response Multiplex Data Bus",
+   "issue": "Issue Notice 2",
+   "date": "1986-09-08",
+   "kind": "reference",
+   "pdf_page": 42
+  },
+  {
+   "label": "RD-4",
+   "doc_id": "H-P-4-ASPI-SP-0019",
+   "title": "SVM Requirements Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 42
+  },
+  {
+   "label": "RD-5",
+   "doc_id": "SCI-PT-IIDA-04624",
+   "title": "Herschel / Planck Instrument Interface Document Part A",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 42
+  },
+  {
+   "label": "RD-6",
+   "doc_id": "H-P-SP-AI-0031",
+   "title": "CDMU Application SW Requirements Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 42
+  },
+  {
+   "label": "RD-7",
+   "doc_id": "H-P-4-ASPI-IS-0042",
+   "title": "SVM Interface Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 43
+  },
+  {
+   "label": "RD-8",
+   "doc_id": "H-P-1-ASPI-SP-0209",
+   "title": "System Operations & FDIR Requirements (SOFDIR)",
+   "issue": "issue 4.4",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 43
+  },
+  {
+   "label": "App9 AD-1",
+   "doc_id": "MIL-STD-1553B",
+   "title": "Digital Time Division Command/Response Multiplex Data Bus",
+   "issue": "Notice 2",
+   "date": "1986-09-08",
+   "kind": "applicable",
+   "pdf_page": 192
+  },
+  {
+   "label": "App9 AD-2",
+   "doc_id": "MIL-HDBK-1553A",
+   "title": "Multiplex Applications Handbook",
+   "issue": null,
+   "date": "1988-11-01",
+   "kind": "applicable",
+   "pdf_page": 192
+  },
+  {
+   "label": "App9 RD-1",
+   "doc_id": "SCI-PT-IIDA-04624",
+   "title": "Herschel / Planck Instrument Interface Document – IID Part A",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 192
+  },
+  {
+   "label": "App9 RD-2",
+   "doc_id": "SCI-PT-ICD-07527",
+   "title": "Herschel / Planck Packet Structure Interface Control Document PS-ICD",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 193
+  },
+  {
+   "label": "App9 RD-3",
+   "doc_id": "PSS-04-106",
+   "title": "ESA Packet Telemetry Standard",
+   "issue": "Issue 1",
+   "date": "1988",
+   "kind": "reference",
+   "pdf_page": 193
+  },
+  {
+   "label": "App9 RD-4",
+   "doc_id": "PSS-04-107",
+   "title": "ESA Packet Telecommand Standard",
+   "issue": "Issue 2",
+   "date": "1992",
+   "kind": "reference",
+   "pdf_page": 193
+  },
+  {
+   "label": "App9 RD-5",
+   "doc_id": "H-P-4-ASPI-SP-0019",
+   "title": "SVM Requirements Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 193
+  },
+  {
+   "label": "App9 RD-6",
+   "doc_id": "P-HPL-ICD-00001-SE",
+   "title": "CDMU HW / SW ICD",
+   "issue": "issue 1",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 193
+  },
+  {
+   "label": "App9 RD-7",
+   "doc_id": "H-P-1-ASPI-SP-0209",
+   "title": "System Operations & FDIR Requirements (SOFDIR)",
+   "issue": "issue 4.4",
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 193
+  },
+  {
+   "label": "App9 RD-8",
+   "doc_id": "H-P-4-ASPI-IS-0042",
+   "title": "SVM Interface Specification",
+   "issue": null,
+   "date": null,
+   "kind": "reference",
+   "pdf_page": 193
+  }
+ ],
+ "topics": [
+  "scos2000/herschel-planck-interfaces.md",
+  "missions/herschel-planck.md",
+  "ecss/pus/pus-a-vs-pus-c.md",
+  "ecss/pus/packets.md",
+  "ecss/pus/message-types.md",
+  "ecss/pus/parameter-types.md",
+  "ccsds/space-packet.md",
+  "ccsds/space-link-identifiers.md",
+  "ccsds/time-codes.md",
+  "ecss/pus/st11-time-based-scheduling.md",
+  "ecss/pus/st18-onboard-operations-procedure.md",
+  "ecss/pus/st19-event-action.md",
+  "mib/parameter-types.md"
+ ],
+ "notes": "PDF page 1 (cover) has no text layer. The main body is paginated 'n/184' (a few pages print 'n/185') and these printed page numbers match the PDF page index up to page 184. Appendix 9 (PDF pp. 185-243) is a separate sub-document 'SCI-PT-ICD-07527 (App9)' with its own title page, change record (issues 4.0 of 07-Nov-2003, 5.0 of 20-Jul-2004 and later), pagination 1/59 to 59/59, paragraph numbers and reference list; some App9 headers print the date as 25-Jan-2005. The text extraction shows a 244th, empty page. The distribution list (PDF pp. 2-3) names many ESA, industry and instrument staff. The change record is long (PDF pp. 4-32) and lists requirement-level changes. Typos as printed include 'treceability' and 'MLT/MTI' for MTL (PDF p. 41). The SGICD (herschel-planck-space-ground-interface-control-document-sgicd) cites this document as SCI-PT-IF-07527, and TN-1072 (ad19-h-p-1-asp-tn-1072-06-payload-management-and-obcp) cites issue 5.0 as SCI-PT-ICD-7527. The OIRD (AD-3) is in the library as cosmos-operations-interface-requirements. AD-1 and AD-2 are esa-pss-04-106-issue1-january1988 and esa-pss-04-107-issue2-april1992; RD-1 PUS-A is ecss-e-70-41a-30jan2003-pus (the library holds a 30 Jan 2003 printing, while this document cites 6 November 2002). The source URL labels the file 'AD05' in SPIRE's IIDA applicable documents."
+}

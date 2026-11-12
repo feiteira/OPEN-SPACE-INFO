@@ -73,7 +73,7 @@ flowchart TB
 *Redrawn after CCSDS 133.1-B-3 figure 2-1.*[^epp-concept]
 
 EPP is used together with one of the Space Data Link Protocols ([TM](tm-sdlp.md), [TC](tc-sdlp.md),
-[AOS](aos.md), Proximity-1 or [USLP](uslp.md)). It relies on their Virtual Channel Packet, MAP
+[AOS](aos.md), [Proximity-1](proximity-1.md) or [USLP](uslp.md)). It relies on their Virtual Channel Packet, MAP
 Packet or Proximity-1 Packet services, and management decides which data link protocol is
 used.[^epp-concept]
 
@@ -440,7 +440,8 @@ at the network layer.[^epp-sec]
 * [CCSDS protocol stack overview](index.md), [Space Packet Protocol](space-packet.md)
 * [TM Space Data Link Protocol](tm-sdlp.md), [AOS](aos.md), [USLP](uslp.md),
   [TC Space Data Link Protocol](tc-sdlp.md)
-* [CFDP](cfdp.md), [SDLS](sdls.md)
+* [CFDP](cfdp.md), [SDLS](sdls.md), [Proximity-1](proximity-1.md)
+* [Space link identifiers](space-link-identifiers.md) (PVNs and Encapsulation Protocol IDs as listed in the historical CCSDS 135.0-B-4)
 * [ECSS-E-ST-50C communications](../ecss/e-st-50-communications.md)
 
 [^epp-doc]: [CCSDS 133.1-B-3, Encapsulation Packet Protocol](../library/ccsds-133-1-133x1b3e1.md), Document Control, PDF p. 7.

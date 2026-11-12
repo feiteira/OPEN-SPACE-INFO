@@ -1,8 +1,8 @@
 ---
 title: "SCOS-2000: ESA's mission control system"
-description: History, releases, missions, licensing, community, certification and cost-reduction strategy of SCOS-2000, ESA/ESOC's generic mission control system, from its MSSS and SCOS-I/SCOS-II ancestors to the move to EGS-CC.
-tags: [SCOS-2000, ESOC, Mission control system, History, EGOS, EGS-CC, Licensing]
-sources: [gsaw2003-peccia, s2k-guide-for-the-impatient, esa-bulletin-108-ch8, esa-bulletin-115-ch8, bul130-merri-happy-families, ntrs-scos2-new-generation, ntrs-scosii-ol, scos2000-complete-presentation-2000, scos2000-and-first-planck-mom, spaceops2025-egs-cc, pecchioli-egs-cc-esoc, airdrive-b8b986f, icd-7-0-final, srn, cig-v24, emcs-sum-4-0, arxiv-1001-4730-planck-lfi-tm, indico-109-armitage-2011926, spaceops2021-dlr-mobile-mcs, 4s-2024-egscc-bruegge, gsaw2005-guerrucci, ro-esc-if-5003-ddid-c2, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol]
+description: History, releases, missions, licensing, community, certification and cost-reduction strategy of SCOS-2000, ESA/ESOC's generic mission control system, from its MSSS and SCOS-I/SCOS-II ancestors to the move to EGS-CC, with ESOC's 2019 comparison of four control-system generations and the INTEGRAL and CHEOPS operator views.
+tags: [SCOS-2000, ESOC, Mission control system, History, EGOS, EGS-CC, Licensing, INTEGRAL, CHEOPS]
+sources: [gsaw2003-peccia, s2k-guide-for-the-impatient, esa-bulletin-108-ch8, esa-bulletin-115-ch8, bul130-merri-happy-families, ntrs-scos2-new-generation, ntrs-scosii-ol, scos2000-complete-presentation-2000, scos2000-and-first-planck-mom, spaceops2025-egs-cc, pecchioli-egs-cc-esoc, airdrive-b8b986f, icd-7-0-final, srn, cig-v24, emcs-sum-4-0, arxiv-1001-4730-planck-lfi-tm, indico-109-armitage-2011926, spaceops2021-dlr-mobile-mcs, 4s-2024-egscc-bruegge, gsaw2005-guerrucci, ro-esc-if-5003-ddid-c2, mib-20250916m25925pfms001-sol, mib-20200416m10720pfms001-sol, icalepcs2019-weapp01-esa-control-systems, cheops-ground-segment-systems-and-automation-for-mission-and-science-o, fop-vol01, 2014s12b-schutz]
 ---
 
 # SCOS-2000: ESA's mission control system
@@ -19,16 +19,23 @@ telecommands and displays: the [Mission Information Base (MIB)](../mib/index.md)
 This page tells the history of SCOS-2000 and puts it in context: its ancestors, its
 releases, the missions and organisations that used it, its licensing and user community,
 its independent quality certification, the "mission family" strategy that made it cheaper,
-and its planned replacement by the European Ground Systems Common Core (EGS-CC). The
-companion pages explain the internals:
+ESOC's own comparison of its four control-system generations, and the planned replacement
+by the European Ground Systems Common Core (EGS-CC). The companion pages explain the
+internals:
 
 * [SCOS-2000 architecture](architecture.md): servers, client applications, the telemetry
   and telecommand chains, archives, events, external interfaces and configuration.
 * [SCOS-2000 as EGSE and central checkout](egse.md): the EGSE variant, the TOPE test
   language and the Herschel/Planck checkout systems.
+* [Operations preparation](operations-preparation.md): the databases, procedures and tools
+  that prepare a SCOS-2000 mission, with the INTEGRAL and CHEOPS practice.
 * [Ancillary systems, MICONYS and the move to EGS-CC](ancillary-and-egs-cc.md), and the
   pages on [EDDS](edds.md), [TDRS](tdrs.md), [archives](archives.md),
   [NCTRS and NIS](nctrs-nis.md) and [time correlation](time-correlation.md).
+
+The packet standards that SCOS-2000 implements have their own history, from the ESA PSS
+standards to CCSDS and ECSS; it is told on
+[From ESA PSS to CCSDS and ECSS](../overview/history.md).
 
 ## At a glance
 
@@ -38,11 +45,12 @@ companion pages explain the internals:
 | Lineage | MSSS (1970s), SCOS-I (1989), SCOS-II (mid-1990s), renamed SCOS-2000 from release R2.0 in 1999 | [^ntrs2-abs][^p2000-name] |
 | First operational missions | Huygens, the Meteosat (MTP) LEOP and Teamsat, in 1997. SOHO used it for telemetry only from 1995. | [^b108-hist][^p2000-util] |
 | Architecture | Distributed client-server system on networked workstations. It scales down to a single-workstation "SCOS-2000 in-a-box". | [^b115-what][^gsaw03-cs] |
-| Technology | C++ with the STL on Unix. Solaris first, then Linux. COTS libraries for GUI, archive and middleware (ILOG Views, C-Tree+, ObjectStore or POST++, Orbix or omniORB). | [^gsaw03-tech] |
+| Technology | C++ with the STL on Unix. Solaris first, then Linux. COTS libraries for GUI, archive and middleware (ILOG Views, C-Tree+, ObjectStore or POST++, Orbix or omniORB). By 2014 the Java/Eclipse-based EGOS User Desktop (EUD) was used as a replacement GUI for SCOS-2000. | [^gsaw03-tech][^eud-stat] |
 | Standards | CCSDS packet telemetry and telecommand, the ECSS Packet Utilisation Standard (PUS) and the CCSDS Space Link Extension (SLE) | [^gsaw03-tech][^lfi-31] |
 | Configuration | ASCII database tables (the MIB) defined by the Database Import ICD, plus system configuration files | [^b115-what][^lfi-31] |
+| Performance (2019) | The SCOS-2000-based Gaia MCS sustains more than 10 Mbps of incoming data and about 1 Mbps of full TM processing; more than 50 users on one MCS is common in a LEOP | [^ical-perf] |
 | Licence | Free of charge and non-exclusive for bodies in ESA member states, for peaceful purposes | [^b108-lic][^gsaw03-pl] |
-| Successor | EGS-CC, which ESOC reconfirmed in April 2024 as the basis of its next MCS. SCOS end of life is predicted no earlier than 2033. | [^so25-intro][^so25-ms] |
+| Successor | EGS-CC, which ESOC reconfirmed in April 2024 as the basis of its next MCS; ESOC's EGS-CC-based mission control core is called M4C. SCOS end of life is predicted no earlier than 2033. | [^so25-intro][^so25-ms][^ical-gen] |
 
 ## What a mission control system does
 
@@ -90,7 +98,10 @@ This started a product line whose first member, the Multi Mission Support System
 entered service in 1977.[^ntrs2-abs] The Bulletin article of 2007 calls MSSS the
 "Multi-Satellite Support System", developed in the 1970s and used for over 20 years. It
 dates the first generation of the Spacecraft Control and Operations System (SCOS) to the
-mid-1980s and its replacement by SCOS-2000 to the late 1990s.[^b130-p3]
+mid-1980s and its replacement by SCOS-2000 to the late 1990s.[^b130-p3] In 2019 ESOC counted
+"more than 40 years" of this infrastructure-based approach and four generations: MSSS,
+SCOS 1, SCOS II (renamed SCOS-2000) and the EGS-CC-based M4C, compared in
+[Four generations compared](#four-generations-compared-2019) below.[^ical-gen]
 
 | Generation | Period | Architecture | Telemetry | Telecommand | Technology | Missions named in the sources |
 |---|---|---|---|---|---|---|
@@ -108,9 +119,15 @@ ESOC presentation of April 2000 and Bulletin 108.[^p2000-name][^b108-hist][^b108
     The GSAW 2003 slide gives "MSSS - 1984-1996", while the SCOS-II paper says MSSS entered
     service in 1977 and Bulletin 130 says it was developed in the 1970s.[^gsaw03-hist][^ntrs2-abs][^b130-p3]
     The 1984–1996 range may describe a later MSSS period, but the sources do not explain the
-    difference. This wiki uses 1977 as the entry into service. The expansion of MSSS also
+    difference. This wiki uses 1977 as the entry into service. ESOC's ICALEPCS paper of 2019
+    gives coarser periods: MSSS in operational use from the 1970s to the end of the 1990s,
+    SCOS 1 from the beginning of the 1990s (the SCOS-II paper dates SCOS-I to 1989) and still in
+    use in "some legacy missions" in 2019, and SCOS II, later renamed SCOS-2000, from the
+    beginning of the 2000s, later than the first operational missions of 1997 named by
+    Bulletin 108.[^ical-gen][^ntrs2-abs][^b108-hist] The expansion of MSSS also
     varies: "Multi Mission Support System" in the SCOS-II paper, "Multi-Spacecraft Support
-    System" in the OL paper, and "Multi-Satellite Support System" in Bulletins 108 and 130.[^ntrs2-abs][^ol-bg][^b108-lic][^b130-p3]
+    System" in the OL paper, and "Multi-Satellite Support System" in Bulletins 108 and 130
+    and in the 2019 paper.[^ntrs2-abs][^ol-bg][^b108-lic][^b130-p3][^ical-acr]
 
 ### SCOS-II: the new generation (1994)
 
@@ -243,6 +260,7 @@ documents that mention release numbers.
 | R4.1, R4.2, R4.5 | 2006–2010 | ICD issues 6.2 (Aug 2006), 6.5 (Dec 2007) and 6.7 (2009–2010) | [^i70-log] |
 | R5.0 | ICD issue 6.4 of Mar 2007 | Packets stored in a database; sequence and display definitions moved to the file archive (FARC) as XML; SLE throw-event command type | [^i70-log][^i70-r5] |
 | R5.2, R5.3, R5.3.1, R5.4 | 2009–2010 | ICD issues 6.7 and 6.9; generic time correlation and on-board schedule reconstruction from R5.2 | [^i70-log][^i70-c9] |
+| 5.4.2 | in operation in 2025 | Basis of the CHEOPS MCS at the consortium-run mission operations centre at INTA (CHEOPS launched in December 2019) | [^ch-mcs][^ch-intro] |
 | R5.5.x and R6.0.x | to 2017 | Targets of the change requests in ICD issue 7.0 (Aug 2017) | [^i70-a2] |
 | S2K 6.0.1, 6.2.x and 6.3.x | by Feb 2018 | EDDS release 14.0 (16 Feb 2018) was tested against SCOS 6.0.1 and adapted to S2K 6.X, 6.2.0+, 6.2.x and 6.3.x; the EDDS configuration guide (version 25.0, 2025) still distinguishes S2K before and from 6.2.0 | [^srn-dep][^srn][^cig] |
 
@@ -277,14 +295,17 @@ timeline
     2005 : ICD 6.0 for R4.0 : Venus Express launches with an MCS on R3.1
     2007 : ICD 6.4 for R5
     2010 : ICD 6.9 for R5.3 and R5.4
+    2013 : EGOS User Desktop in mission operation
     2017 : ICD 7.0 for R5.5 and R6.0 : EGOS-CC extension development starts
     2018 : EDDS 14.0 tested against SCOS 6.0.1 : S2K 6.2 and 6.3 in its release note
+    2019 : ICALEPCS paper compares MSSS, SCOS 1, SCOS-2000 and M4C : CHEOPS launched
     2024 : ESOC reconfirms EGS-CC for its next MCS
+    2025 : CHEOPS MOC described on SCOS-2000 5.4.2
     2026 : EGS-CC planned to enter operations at ESOC
     2033 : Predicted SCOS end of life (no earlier than)
 ```
 
-The timeline uses the sources cited in the sections of this page.[^ntrs2-abs][^ntrs2-rel][^b108-hist][^p2000-rel][^mom-concl][^b108-comm][^gsaw03-pl][^b115-eval][^i70-log][^b130-cost][^i70-a2][^airb-prog][^srn][^so25-ms][^so25-intro]
+The timeline uses the sources cited in the sections of this page.[^ntrs2-abs][^ntrs2-rel][^b108-hist][^p2000-rel][^mom-concl][^b108-comm][^gsaw03-pl][^b115-eval][^i70-log][^b130-cost][^i70-a2][^airb-prog][^srn][^so25-ms][^so25-intro][^eud-what][^ical-gen][^ch-intro][^ch-mcs]
 
 ## Missions and users
 
@@ -300,7 +321,9 @@ The sources list SCOS-2000 users at several points in time.
 | March 2003, done | SOHO (NASA Goddard), Teamsat, MTP, Huygens (via the NASA system at JPL), PROBA, MSG LEOP, INTEGRAL | [^gsaw03-clients] |
 | March 2003, in development | Rosetta, Mars Express, SMART-1, Venus Express, CryoSat, GOCE, ADM, Herschel/Planck MCS and central checkout (EGSE), Vega launcher EGSE and Galileo MCS (both under evaluation) | [^gsaw03-clients] |
 | May 2007, mission families | Interplanetary: Rosetta, Mars Express, Venus Express, then BepiColombo and Solar Orbiter. Earth observation: CryoSat, GOCE, Aeolus, then CryoSat-2, Swarm, EarthCARE and Sentinels. | [^b130-fam] |
+| 2019 | SCOS-2000 is the basis of "the vast majority" of ESOC control systems, for operational missions and for those to be launched next; the Gaia MCS is the paper's performance example | [^ical-gen][^ical-perf] |
 | 2025 | More than 40 missions at ESOC; Swarm chosen as the pilot for migration to EGS-CC | [^so25-intro][^so25-swarm] |
+| 2025, outside ESOC | CHEOPS, an ESA mission operated by its consortium, with an MCS on SCOS-2000 5.4.2 at INTA's Torrejón centre (CEIT) in Spain | [^ch-intro][^ch-mcs] |
 
 GSAW 2003 shows how a SCOS-2000-based MCS fits in a ground segment, using INTEGRAL as the
 example: the MCS imports the satellite database, connects to the stations through NCTRS,
@@ -328,6 +351,56 @@ packet definitions, 5,238 commands and 2,701 sequences.[^mib-solo][^mib-solo2020
     SELECT * FROM vdf;   -- 25925PFM | 20250916-CSW3.1.2_MAS7.33 | 0 | 25925 | 733
     ```
 
+### INTEGRAL and CHEOPS: two operator views
+
+Two operations documents in the library show a SCOS-2000-era control system from the
+operator's side, twenty-two years apart. INTEGRAL's Flight Operations Plan (FOP), Volume 1,
+issue 2 of 21 February 2003 (compared with the mission operations plan of the standard on
+[ECSS-E-ST-70C](../ecss/e-st-70c.md#a-real-flight-operations-plan-integral)), describes the mission four months after its launch of 17 October
+2002. It never uses the name SCOS-2000: it speaks of the **INTEGRAL Monitoring and Control
+System (IMCS)**, which includes the mission planning (timeline generation) system and the
+mission archive and data distribution system (MADDS).[^int-title][^int-sum][^int-gs] The link to
+SCOS-2000 comes from ESOC's own material: R2.0 was the release of the INTEGRAL system
+validation tests, and the GSAW 2003 slide of an "S2K based MCS" uses INTEGRAL as its
+example.[^p2000-rel][^gsaw03-ctx] The 2025 CHEOPS paper describes an ESA small-class mission whose
+operations are run by the mission consortium rather than by ESA, with a mission operations
+centre (MOC) at INTA's Torrejón centre near Madrid and a science operations centre (SOC) in
+Geneva; its MCS "is based on ESA's SCOS-2000 (version 5.4.2.)".[^ch-intro][^ch-concl][^ch-mcs]
+
+| Aspect | INTEGRAL (FOP Vol. 1, February 2003) | CHEOPS (paper of May 2025) |
+|---|---|---|
+| Operator | ESA; MOC at ESOC, Darmstadt[^int-gs] | CHEOPS consortium; MOC at INTA CEIT, SOC at the University of Geneva[^ch-intro] |
+| Orbit and passes | Highly eccentric orbit, 72 h period; Redu, Goldstone and Villafranca (backup), Perth for LEOP[^int-sum][^int-gs] | Sun-synchronous orbit at 690 km, 98.7 min period; 4 to 6 passes per day[^ch-intro] |
+| Control system | IMCS, including the timeline generation system (MPS) and MADDS[^int-gs] | SCOS-2000 5.4.2, configured through environment variables and the MIB[^ch-mcs] |
+| Other MOC elements | Flight Dynamics System, Offline Performance Analysis System (PAS), On-Board Software Maintenance System (OBSMS), INTEGRAL Overall Simulator (IOS), INTEGRAL Security Distribution System (ISDS)[^int-gs] | GMV's Flyplan for automation, GMV's Focus suite with Autofocus for flight dynamics, the Generic File Transfer System (GFTS), a Python module library for the MCS[^ch-auto][^ch-fds][^ch-mcs] |
+| Operational database | ODB derived from the manufacturer's satellite database (SDB), which is no longer maintained; S/C analysts update IMCS, the FOP generation tool and OBSMS after each approved change[^int-odb] | The MIB defines "every TC and TM packet"[^ch-mcs] |
+| Hardware | Only generic items: control-room workstations, displays and printers, and office PCs, all under configuration control[^int-cc] | Two servers, three clients and a RAID-5 disk array; a reference platform for training and validation, virtualised in 2022[^ch-hw] |
+| Staff | Spacecraft Operations Manager (SOM), 5 engineers, 2 analysts (who maintain the database), a controller team of 6 SPACONs on shift, and 1 mission planning engineer[^int-team] | 5 at the MOC (3 to 4 at the SOC), with no presence outside working hours for routine tasks[^ch-concl][^ch-auto] |
+
+INTEGRAL's mission rules show what the MCS meant to the mission. The ground segment counted as
+"not operational", and the launch countdown was to stop, unless the IMCS (in particular TM
+reception and processing and TC generation and release), flight dynamics and communications were
+available in hot redundancy and the MOC could send TCs to, and receive data from, Redu or
+Villafranca.[^int-rule] The IMCS, the FDS and the [NCTRS](nctrs-nis.md) were under ESOC's
+standard configuration control, with every modification approved by the SOM; the IMCS had been
+developed under the responsibility of the ESOC unit TOS-GMC, accepted by the
+flight control team, and kept under a maintenance contract with its developer.[^int-cc][^int-tools]
+Flight procedures were generated with a tool, FOPGEN, that reads the actual database, which gave
+an implicit check of the parameters they use.[^int-odb]
+
+CHEOPS shows SCOS-2000 inside a heavily automated small ground segment. Its own Python layer
+drives the kernel: the **CommandBuilder** turns the weekly activity plan into telecommands
+through a rule file and writes them to an "SSF file", an ASCII file "that can be read by any
+standard SCOS-2000 using the MIB"; Auto Stack instances uplink pre-generated stacks; SMON reads parameter
+values from the packet archive; MISC variables are read and set to check the ground commanding
+capability and to switch to AD mode; after each pass the TM Processor and TM Replayer split and
+ingest the recorded telemetry.[^ch-mcs][^ch-during][^ch-post] For trend analysis the team uses
+ESA's MUST and WebMUST "as alternatives to SCOS-2000, which is limited in certain
+functionalities".[^ch-tools] The [operations preparation page](operations-preparation.md#operations-preparation-in-practice-cheops)
+follows the CHEOPS chain step by step, and
+[the INTEGRAL model](operations-preparation.md#configuration-control-the-integral-model) covers
+INTEGRAL's configuration control boards and database items.
+
 ### Users outside ESA
 
 In 2003 ESOC listed external users: Canada (Radarsat 2), DLR's German Space Operations
@@ -341,7 +414,12 @@ branched off from SCOS-2000. It reads telemetry and sends telecommands through t
 interface, or ingests telemetry from files.[^dlr21] In 2024 DLR still described GECCOS as
 the SCOS-2000-based heart of its multi-mission environment, and noted that spacecraft
 manufacturers are now expected, as an "industry standard", to deliver a MIB so that
-SCOS-2000-based systems can operate the spacecraft.[^4s24]
+SCOS-2000-based systems can operate the spacecraft.[^4s24] ESOC's 2019 overview adds that the
+generation in operation had served "all categories of missions, including many commercial ones
+operated outside ESOC", without naming them.[^ical-abs] CHEOPS is a documented case of a
+SCOS-2000 MCS run outside ESOC for an ESA mission: by the mission consortium, at INTA's
+Torrejón centre, with the Spanish MOC funded through Spain's CDTI under the GSTP and PRODEX
+programmes.[^ch-intro][^ch-mcs][^ch-ack]
 
 Herschel/Planck instrument teams used SCOS-2000 for their ground test equipment. The Planck
 LFI team, for example, built its real-time assessment system on SCOS-2000 and used it as an
@@ -556,7 +634,124 @@ configuration control manager, ground systems monitoring and control, NCTRS/SLE,
 simulator infrastructure, generic file transfer and data disposition systems, operations
 preparation, data analysis, automated procedure execution, an archive, EGSE, mission
 planning, a TM/TC baseband system and flight dynamics.[^gsaw03-egos] By 2007 the Bulletin
-called SCOS-2000 and SIMSAT the cornerstones of EGOS.[^b130-p3]
+called SCOS-2000 and SIMSAT the cornerstones of EGOS.[^b130-p3] By 2014 most EGOS user
+interfaces, SCOS-2000's included, were built on one Java and Eclipse-based framework, the EGOS
+User Desktop, described with the other products on
+[ancillary systems](ancillary-and-egs-cc.md#eud-the-common-user-interface-2014).[^eud-stat]
+
+## Four generations compared (2019)
+
+At the ICALEPCS conference of 2019 (New York), M. Pecchioli of ESOC gave a technical comparison of
+the mission control infrastructure generations developed at ESOC. The paper starts from an
+observation: the basic needs of mission operators have not radically changed since the first
+spacecraft operations, but the implementation of the infrastructure has. Five factors drove that
+evolution: spacecraft orbits (from long or continuous visibility with short delays to short
+passes in polar orbits or long delays in deep space), space asset design (the TM/TC protocol, the
+on-board monitoring and control services, data volumes and rates, and on-board autonomy),
+operations concepts (from manual commanding to procedures, ground automation and on-board
+autonomy, to cut the cost of long routine phases), software technologies and IT
+infrastructure.[^ical-bg]
+
+### Why an infrastructure at all
+
+Most space organisations, the paper notes, develop each MCS on a fully mission-specific life cycle.
+ESA instead built its operational ground segment on infrastructure that is specific to a domain
+but not to a mission, for strategic and programmatic rather than technical reasons: costs shared
+across missions are stable, predictable and low; a "nearly ready" solution shortens the
+preparation of a new mission; a proven common infrastructure reduces risk; and staff who move
+between missions need less familiarisation.[^ical-design] These benefits only materialise with a
+careful design, and the paper lists the drivers that a mission-specific system would weigh less:[^ical-drivers]
+
+| Design driver | What the paper means by it |
+|---|---|
+| Support of heterogeneous space systems | Standard TM/TC protocols reduced the number of protocols to support, and PUS standardised access to on-board functions, so that common ground solutions became possible |
+| Support of multiple mission types | The orbit sets the type: long passes and short delays (geostationary), short passes and short delays (polar Earth observation), long passes and long delays (deep space) |
+| Standardised interfaces | Generic file-based and programmatic interfaces to preparation, planning, execution and evaluation systems; international (CCSDS) standards between facilities of different organisations, such as control centres and ground stations |
+| Modular architecture | Hierarchical decomposition with separation of concerns, so that generic and mission-specific parts can be developed in parallel |
+| Generic and extensible functionality | Extensibility means integrating application-specific features without changing the infrastructure source code |
+| Capability to tailor | A data-driven design: the TM/TC characteristics are defined in a database that converts human-readable definitions into data units |
+| Functional richness | More functions than the specified needs, for safe and "comfortable" operations |
+| Layered design | Strict separation of reusable parts from mission extensions, through interfaces and services; ideally no infrastructure change is needed to build a full MCS |
+| Operations abstraction | Operators concentrate on "what" has to be done, not on low-level details |
+| Support of automation | Automation at all levels, from deployment to the execution of planned operations, to control routine costs |
+| High performance | Storage, distribution and processing rates, data volumes and parallel users, without dependence on expensive hardware |
+| Longevity and long-term maintainability | Decades of use without explosive costs, with the expertise continuously created and sustained |
+| Portability and technology isolation | Business logic isolated from the reused off-the-shelf technologies |
+| Scalability | From large constellations to small low-cost satellites, on scalable computing and storage |
+
+Several of these drivers were already goals of the
+[SCOS-II design](#scos-ii-the-new-generation-1994) a quarter of a century earlier: scalability down
+to a single workstation, database-driven configuration and support for a wide range of mission
+types, sizes and complexities.[^ntrs2-abs][^ntrs2-roles][^ical-drivers]
+
+### The generations
+
+| Generation | Operational use, as stated in 2019 |
+|---|---|
+| MSSS (Multi-Satellite Support System) | From the 1970s to the end of the 1990s |
+| SCOS 1 | From the beginning of the 1990s; still in use by some legacy missions |
+| SCOS II, later renamed SCOS-2000 | From the beginning of the 2000s; the basis of the vast majority of ESOC control systems, for operational missions and for those to be launched next |
+| M4C (Mission Control Core based on Common Core) | Equivalent features to SCOS-2000 and its complementary systems, built on EGS-CC |
+
+[^ical-gen][^ical-acr]
+
+Which legacy missions still ran SCOS 1 in 2019 is not stated in the available sources.
+
+### The MCS across the operations phases
+
+The role of the MCS as the only ground system that manages all interactions with the space assets
+(through the ground station network) did not change. Its interactions with other systems grew,
+with open architectures and both file-based and API-based interfaces:[^ical-ctx]
+
+| Phase | How the support evolved |
+|---|---|
+| Preparation | From basic text editors, through heterogeneous stand-alone Windows tools, to OPEN, an expandable Eclipse-based framework for editors of each data type, used in a distributed but centrally managed environment (see [operations preparation](operations-preparation.md)) |
+| Planning and scheduling | From manual work by mission engineers with ad hoc tools to a generic infrastructure that processes requests from mission exploitation centres (for example science operations centres) against on-board resources, visibility passes and flight dynamics needs. The MCS receives the resulting commanding artefacts and reports their upload and execution status |
+| Critical operations (for example LEOP) | Little conceptual change. Snapshot displays (alphanumeric, non-nominal summaries, synoptics), log displays, trend displays, operations stack displays and object detail displays existed from the start; what changed is how many displays a user can open (MSSS allowed only full-screen displays, "up to three!") and how rich the interaction is |
+| Routine operations | MSSS could only pre-authorise a series of commands separated by given time intervals. M4C natively executes any control action ("activity") from ground or on-board triggers based on delta or absolute times, events or procedures. Both SCOS-2000 and M4C support file based operations, for example whole schedule increments uploaded and activated with few operations |
+| Evaluation | Management, dissemination and analysis of data for increasingly distributed teams, now including big data capabilities |
+
+### System design, generation by generation
+
+The paper compares the generations aspect by aspect. The table collects what it says about each;
+where a cell is empty the paper does not characterise that generation.[^ical-sys][^ical-perf]
+
+!!! warning "Inference"
+    For modularity and for adaptability and extensibility the paper describes a progression
+    ("from a completely monolithic implementation", "the early generation", "the recent
+    generations") without naming MSSS or SCOS-2000. Placing the monolithic and common-solution
+    end under MSSS, and software-level customisation under SCOS-2000, is this wiki's reading.
+    User-defined scripts, routines and displays are credited to "the recent generations", not to
+    M4C alone.[^ical-sys][^ical-perf]
+
+| Aspect | MSSS | SCOS-2000 | M4C |
+|---|---|---|---|
+| Modularity | A completely monolithic implementation | | A truly component-based system: each component carries its design model, external interfaces, test environment and procedures, configuration data and tailoring data |
+| Deployment | Completely centralised: two redundant instances on mainframe infrastructure served all missions, with remote access from hardwired workstations | Fully distributed client-server; first "very fat" clients, then re-engineered for remote access from dumb terminals and a clearer split between user interaction and business logic | "Conceptually centralised": only the user interaction layer runs in installation-free thin clients; central functions run on scalable tiers (software-defined networks, cloud computing, cluster storage); several missions can share most functions ("multi-mission" deployments) |
+| Scalability | "Wasn't really scalable": one resource-bound platform for all missions | Each MCS on dedicated physical machines, bound by their limits | From dedicated machines with local storage to fully shared multi-mission virtual data centres |
+| Tailoring | All generations let the user define the exact structure of the TM and TC data units; little conceptual change, but growing complexity of the definitions | (same) | (same) |
+| Adaptability and extensibility | Common solutions for all missions, with configurability ensuring compatibility | Customisation and extension at software level | Mission-specific functions and behaviour changes without source-code changes to the infrastructure, the design focus of M4C; user-defined customisations such as scripts, processing routines and displays |
+| Interoperability | All generations adopted the standards that their interfacing systems supported, such as SLE for the TM/TC exchange between control centres and ground stations | Native support of PUS "service level" operations | (same as SCOS-2000) |
+| Performance | TM reception and processing of a few kbit/s; up to 20 user workstations "in the full centre (!)" for all missions | The Gaia MCS: more than 10 Mbit/s incoming, about 1 Mbit/s of full TM processing | |
+| Maintainability | | | Portable technologies with few direct COTS dependencies; widely used, mature languages; modules visible only through service interfaces; extension and customisation hooks; automated production, deployment and validation |
+
+Today's LEOPs, the paper adds, commonly have more than 50 users connected to a single MCS.[^ical-perf]
+The technology stacks changed completely across the generations: languages (Fortran, C, C++,
+Java, Groovy, XML, XMI), middleware (broker-based, component frameworks, plug-ins, message buses),
+user interfaces (fat, rich, smart and thin clients), storage (binary files, relational databases,
+NoSQL, big data) and operating systems (Unix, Linux, Windows). The paper singles out the last
+three maintainability measures (modules behind service interfaces, extension hooks, and automated
+production, deployment and validation) as a significant improvement of M4C over
+SCOS-2000.[^ical-perf]
+
+For scale: the 1994 SCOS-II targets were 2 Mbit/s of telemetry and up to 50 workstations, and
+the 2003 LEOP configuration had 35 SCOS-2000 client workstations in six rooms.[^ntrs2-roles][^gsaw03-leop]
+The paper's PUS reference is ECSS-E-70-41A, the "PUS-A" issue (see
+[PUS-A vs PUS-C](../ecss/pus/pus-a-vs-pus-c.md)).[^ical-ref]
+
+The conclusion describes the evolution as "continuous" within generations and "step-wise"
+across them, each step capitalising on operational and engineering experience and on newer
+off-the-shelf technology.[^ical-concl]
 
 ## Towards EGS-CC
 
@@ -589,7 +784,9 @@ SCOS-2000 and the complementary systems around it form **MICONYS** (MIssion COnt
 sYStem), ESOC's suite of generic mission control products. Their EGS-CC-based successor is called MICONYS-CC in an
 undated ESOC paper (it plans development to start in the second quarter of 2017) and M4C
 (Mission Control Core based on Common Core) in a 2019 paper, with a functional scope "very
-similar" to SCOS-2000.[^so25-abs][^pecc-egoscc][^airb-m4c] The MIB
+similar" to SCOS-2000.[^so25-abs][^pecc-egoscc][^airb-m4c] ESOC's ICALEPCS paper of the same
+year says M4C provides features equivalent to "SCOS-2000 and its complementary systems" and
+compares it with its predecessors (see [above](#four-generations-compared-2019)).[^ical-gen] The MIB
 remains central during the transition. ESOC sorts missions into three categories: missions
 that keep a SCOS-2000 MIB and its tools (DABYS, MOIS, ProToS, MATIS, FOPPER) and use a MIB to
 EGS-CC converter (Swarm); missions that convert all tailoring data once to the EGS-CC formats
@@ -607,14 +804,19 @@ The sources expand the acronym in several ways:
 | Spacecraft Control & Operating Systems | Herschel PACS user guide (2004) |
 | Satellite Control System | EMCS software user manual (2004) |
 | Spacecraft Control System | ESOC EGOS-CC paper (undated; it plans development to start in Q2 2017) |
+| Spacecraft Control Operations System | ESOC ICALEPCS 2019 paper (body text and acronym list) |
 | Satellite Control and Operation System | DLR SpaceOps 2021 paper; ESOC SpaceOps 2025 paper |
 
 The first expansion is the one ESA itself used when presenting SCOS-2000 as a
-product.[^ol-abs][^b108-hist][^b130-p3][^lfi-hk][^guide-acr][^emcs-acr][^pecc-acr][^pecc-prog][^dlr21-acr][^so25-abs]
+product.[^ol-abs][^b108-hist][^b130-p3][^lfi-hk][^guide-acr][^emcs-acr][^pecc-acr][^pecc-prog][^ical-acr][^dlr21-acr][^so25-abs]
 
 ## Related pages
 
 * [SCOS-2000 architecture](architecture.md) and [SCOS-2000 as EGSE](egse.md)
+* [Operations preparation](operations-preparation.md) and
+  [ancillary systems, MICONYS and EGS-CC](ancillary-and-egs-cc.md)
+* [From ESA PSS to CCSDS and ECSS](../overview/history.md): the standards history next to
+  this control-system history
 * [The MIB](../mib/index.md), [MIB data model](../mib/data-model.md) and
   [history of the Database Import ICD](../mib/icd-history.md)
 * [Missions](../missions/index.md), [Herschel and Planck](../missions/herschel-planck.md),
@@ -622,13 +824,17 @@ product.[^ol-abs][^b108-hist][^b130-p3][^lfi-hk][^guide-acr][^emcs-acr][^pecc-ac
   [other missions and SCOS-2000 users](../missions/other-missions.md)
 * [PUS: the Packet Utilization Standard](../ecss/pus/index.md) and
   [SLE](../ccsds/sle/index.md)
+* The ECSS ground segment standards: [ECSS-E-ST-70C](../ecss/e-st-70c.md) (ground systems and
+  operations), [ECSS-E-ST-70-31C](../ecss/e-st-70-31c.md) (monitoring and control data),
+  [ECSS-E-ST-70-32C](../ecss/e-st-70-32c.md) (PLUTO) and
+  [ECSS-E-ST-70-01C](../ecss/e-st-70-01c.md) (on-board control procedures)
 * The [glossary](../glossary.md) and the [reference catalogue](../references/index.md)
 
 ## Sources and copies
 
 Each footnote links the library page of its source. Each library page gives the original
 URL, the SHA-256 of the copy and the time of copy. The main sources of this page were copied
-on 5 November 2026:
+on 5 November 2026, and the second-round additions on 12 November 2026:
 
 | Library page | Document | Copied (UTC) |
 |---|---|---|
@@ -641,6 +847,10 @@ on 5 November 2026:
 | [scos2000-complete-presentation-2000](../library/scos2000-complete-presentation-2000.md) | ESOC presentation to the FIRST/Planck instrument teams, 18–19 April 2000 | 2026-11-05 14:09 |
 | [spaceops2025-egs-cc](../library/spaceops2025-egs-cc.md) | "Towards EGS-CC at ESOC", SpaceOps 2025 | 2026-11-05 14:12 |
 | [mib-20250916m25925pfms001-sol](../library/mib-20250916m25925pfms001-sol.md) | Solar Orbiter MIB release of 16 September 2025 | 2026-11-05 14:24 |
+| [icalepcs2019-weapp01-esa-control-systems](../library/icalepcs2019-weapp01-esa-control-systems.md) | M. Pecchioli, "Old and New Generation Control Systems at ESA", ICALEPCS 2019, paper WEAPP01 | 2026-11-12 17:48 |
+| [fop-vol01](../library/fop-vol01.md) | INTEGRAL Flight Operations Plan, Volume 1 Mission Management, issue 2.0 (21 February 2003) | 2026-11-12 17:52 |
+| [cheops-ground-segment-systems-and-automation-for-mission-and-science-o](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md) | Heitzmann et al., "CHEOPS Ground Segment: Systems and Automation for Mission and Science Operations" (arXiv:2505.08352, May 2025) | 2026-11-12 17:52 |
+| [2014s12b-schutz](../library/2014s12b-schutz.md) | J. Schütz, "EGOS User Desktop", GSAW 2014 | 2026-11-12 17:52 |
 
 [^b115-what]: [ESA Bulletin 115, "Checking Whether SCOS is up to SPEC"](../library/esa-bulletin-115-ch8.md), section "What exactly is SCOS-2000?", PDF p. 2.
 [^b115-intro]: [ESA Bulletin 115](../library/esa-bulletin-115-ch8.md), introduction and "What exactly is SPEC?", PDF p. 1.
@@ -739,3 +949,34 @@ on 5 November 2026:
 [^airb-prog]: [Walsh et al., SESP 2019](../library/airdrive-b8b986f.md), "Programmatics", PDF p. 7.
 [^mib-solo]: [Solar Orbiter MIB release 20250916 (MIB__20250916M25925PFMS001_SOL)](../library/mib-20250916m25925pfms001-sol.md), tables `pcf`, `pid`, `ccf`, `csf`, `vdf` and the synthetic parameter files, queried by this wiki.
 [^mib-solo2020]: [Solar Orbiter MIB release 20200416 (MIB__20200416M10720PFMS001_SOL)](../library/mib-20200416m10720pfms001-sol.md), tables `pcf`, `pid`, `ccf` and `csf`, queried by this wiki.
+[^ical-abs]: [M. Pecchioli, "Old and New Generation Control Systems at ESA", ICALEPCS 2019, paper WEAPP01](../library/icalepcs2019-weapp01-esa-control-systems.md), Abstract, PDF p. 1.
+[^ical-bg]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), Introduction, "Background" (factors driving the evolution), PDF pp. 1–2.
+[^ical-design]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "Mission Control Systems Infrastructure Design" (strategic and programmatic considerations), PDF p. 2.
+[^ical-drivers]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "Mission Control Systems Infrastructure Design" (list of design drivers), PDF pp. 2–3.
+[^ical-gen]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "Infrastructure Evolution" (the four generations), PDF p. 3.
+[^ical-ctx]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Context" (preparation, planning and scheduling, critical operations, routine operations, evaluation), PDF pp. 3–5.
+[^ical-sys]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Design" (modularity, deployment, scalability, tailoring, adaptability/extensibility), PDF pp. 5–6.
+[^ical-perf]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "System Design" (inter-operability, performance, technology, maintainability), PDF pp. 6–7.
+[^ical-concl]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "Conclusion", PDF p. 7.
+[^ical-ref]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), References [1] to [4], PDF p. 7.
+[^ical-acr]: [Pecchioli, ICALEPCS 2019](../library/icalepcs2019-weapp01-esa-control-systems.md), "Infrastructure Evolution" and Acronyms List (MSSS, M4C, SCOS), PDF pp. 3 and 7.
+[^int-title]: [INTEGRAL Flight Operations Plan, Vol. 1 Mission Management, INT-MOC-FOP-FOP-1001-TOS-OGI, issue 2 revision 0 (21 February 2003)](../library/fop-vol01.md), title page and change record sheet, PDF pp. 1–2.
+[^int-sum]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 1 §1.1.1 Mission Characteristics, Table 1, PDF p. 8.
+[^int-gs]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 1 §1.1.4 Ground Segment Set-Up (OGS, SGS and the MOC elements), PDF pp. 10–11.
+[^int-team]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 2 §1.2.3 MOC Team Structure, Figure 2 FCT Organisation, PDF p. 19.
+[^int-rule]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 3 §1.3.2 Launch Hold Criteria, Mission Rules 2.1 and 2.2, PDF p. 25.
+[^int-cc]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 4 §1.4.3.1.1 MOC, PDF p. 33.
+[^int-odb]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 4 §1.4.3.2.1 Flight Operations Plan (procedure validation step 3, FOPGEN) and §1.4.3.2.2 Operational Database, PDF p. 35.
+[^int-tools]: [INTEGRAL FOP Vol. 1](../library/fop-vol01.md), Book 4 §1.4.3.2.5 Mission Control System, PDF p. 36.
+[^ch-intro]: [Heitzmann et al., "CHEOPS Ground Segment: Systems and Automation for Mission and Science Operations", arXiv:2505.08352 (13 May 2025)](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), Abstract and §1 Introduction, PDF p. 1.
+[^ch-fds]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §2.2 Predicted orbit and G/S contacts from MOC (Focus, Autofocus, CEIT G/S Planner), PDF pp. 3–4.
+[^ch-auto]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §3 Activity Plan processing (GFTS, Flyplan, monitorCHEOPS) and Figure 3, PDF p. 5.
+[^ch-mcs]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §3.2 TC Conversion and Pass Assignment (SCOS-2000 version 5.4.2, MIB, CommandBuilder, SSF file, Python module library), PDF p. 6.
+[^ch-during]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §4.2 Pass activities (Auto Stack, SMON, MISC variables, AD mode), PDF p. 7.
+[^ch-post]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §4.3 Post-pass activities (TM Processor, TM Replayer, RGTgenerator, HKTMreporter), PDF p. 8.
+[^ch-tools]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §6.1 Parameter Archive and Plotting tool and §6.2 CHEOPS Spacecraft Simulator, PDF p. 12.
+[^ch-concl]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), §7 Conclusions, PDF p. 12.
+[^ch-hw]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), Appendix A.1 Mission Operations Center, Figures 8 and 9, PDF p. 13.
+[^ch-ack]: [CHEOPS ground segment paper](../library/cheops-ground-segment-systems-and-automation-for-mission-and-science-o.md), Acknowledgments (funding of the Spanish MOC), PDF p. 14.
+[^eud-what]: [J. Schütz, "EGOS User Desktop: A Generic User Interface Framework for Ground Segment Software", GSAW 2014 (26 February 2014)](../library/2014s12b-schutz.md), slide 2 "What is EGOS User Desktop (EUD)", PDF p. 2.
+[^eud-stat]: [Schütz, GSAW 2014](../library/2014s12b-schutz.md), slide 4 "EUD Overview" (Java, Eclipse RCP) and slide 11 "Current Status" (majority of ground-system GUIs EUD-based; replacement GUI for SCOS-2000, SIMSAT, NIS and FARC), PDF pp. 4 and 11.

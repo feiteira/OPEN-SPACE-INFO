@@ -1,0 +1,686 @@
+{
+  "slug": "ccsds-902-0-902x0g1",
+  "title": "Extensible Space Communication Cross Support—Service Management—Concept",
+  "short_title": "Extensible SCCS Service Management Concept (902.0-G-1)",
+  "doc_id": "CCSDS 902.0-G-1",
+  "issue": "Informational Report, Issue 1 (Green Book)",
+  "date": "September 2014",
+  "organisation": "Consultative Committee for Space Data Systems (CCSDS)",
+  "authors": [],
+  "doc_type": "Informational Report",
+  "status_notes": "Original issue according to the Document Control table (PDF p. 6). The report is the concept for a second generation of Space Communication Cross Support Service Management (SCCS SM) standards that replaces the Version-1 SCCS SM Blue Book CCSDS 910.11-B-1 (2009) and its operations concept CCSDS 910.14-G-1 (PDF p. 11). Current/superseded status is not stated beyond 'Original issue'.",
+  "summary": "A CCSDS Green Book that sets out the concept for the **extensible Space Communication Cross Support Service Management (SCCS SM)**. SCCS SM covers the processes and information that a mission (user) and a ground-station network (provider) exchange to agree, configure, schedule, execute and account for space link and ground data transfer services, such as the [SLE](../ccsds/sle/index.md) services used by ESA ground stations. The report explains why the first-generation SM standard (CCSDS 910.11-B-1) was too narrow: it covered scheduling only and could not take new technologies. The new concept defines standard XML **Information Entities** with built-in extension points.\n\nSection 2 is a summary. Section 3 describes the SCCS SM Enterprise Model: the Mission (Earth User and Space User CSSS) and the Provider CSSS, the Utilization Management and Provision Management functions, and functional and physical views, including Delta-DOR and three-way tracking examples. Section 4 gives the mission support lifecycle: Service Catalog Consultation, Service Agreement Development, and a Service Agreement Period with repeating planning/scheduling, execution and accounting stages. Section 5 describes 19 Information Entities, from Service Catalog, Service Agreement and Configuration Profile to Trajectory Prediction, Service Package Request, Schedule of Services and Accounting Report. Section 6 shows how extensibility works through Abstract Service Components, technology-specific Service Components and Functional Resources, using a telecommand mission and an AOS mission as examples. Sections 7 and 8 cover management services and the roadmap of follow-on Blue Books, including the Simple Schedule Format (CCSDS 902.1). Annex B maps the model onto the SLE Cross Support Reference Model ([CCSDS 910.4-B-2](../library/ccsds-910-4-910x4b2e1s.md)). See [SLE service management](../ccsds/sle/service-management.md).",
+  "contents": [
+    {
+      "section": "1",
+      "title": "Introduction",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.1",
+      "title": "Purpose of This Report",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.2",
+      "title": "Background",
+      "pdf_page": 11
+    },
+    {
+      "section": "1.3",
+      "title": "Scope",
+      "pdf_page": 12
+    },
+    {
+      "section": "1.4",
+      "title": "Approach",
+      "pdf_page": 13
+    },
+    {
+      "section": "1.5",
+      "title": "Document Organization",
+      "pdf_page": 14
+    },
+    {
+      "section": "1.6",
+      "title": "Definitions",
+      "pdf_page": 15
+    },
+    {
+      "section": "1.7",
+      "title": "References",
+      "pdf_page": 18
+    },
+    {
+      "section": "2",
+      "title": "Concept Overview",
+      "pdf_page": 21
+    },
+    {
+      "section": "2.1",
+      "title": "What Is the Extensible Space Communication Cross Support Service Management Concept?",
+      "pdf_page": 21
+    },
+    {
+      "section": "2.2",
+      "title": "SCCS Service Management Enterprise Model",
+      "pdf_page": 21
+    },
+    {
+      "section": "2.3",
+      "title": "Information Entities",
+      "pdf_page": 26
+    },
+    {
+      "section": "2.4",
+      "title": "Extensibility of SCCS SM Information Entities",
+      "pdf_page": 27
+    },
+    {
+      "section": "2.5",
+      "title": "Management Services",
+      "pdf_page": 29
+    },
+    {
+      "section": "2.6",
+      "title": "Roadmap",
+      "pdf_page": 30
+    },
+    {
+      "section": "3",
+      "title": "SCCS Service Management Enterprise Model",
+      "pdf_page": 31
+    },
+    {
+      "section": "3.1",
+      "title": "General",
+      "pdf_page": 31
+    },
+    {
+      "section": "3.2",
+      "title": "Organizational Domains in the SCCS SM Enterprise Model",
+      "pdf_page": 31
+    },
+    {
+      "section": "3.3",
+      "title": "Functional View",
+      "pdf_page": 32
+    },
+    {
+      "section": "3.4",
+      "title": "Physical View",
+      "pdf_page": 35
+    },
+    {
+      "section": "4",
+      "title": "SCCS Mission Support Lifecycle",
+      "pdf_page": 42
+    },
+    {
+      "section": "4.1",
+      "title": "General",
+      "pdf_page": 42
+    },
+    {
+      "section": "4.2",
+      "title": "Service Catalog Consultation",
+      "pdf_page": 42
+    },
+    {
+      "section": "4.3",
+      "title": "Service Agreement Development",
+      "pdf_page": 43
+    },
+    {
+      "section": "4.4",
+      "title": "Service Agreement Period",
+      "pdf_page": 44
+    },
+    {
+      "section": "5",
+      "title": "Information Entities",
+      "pdf_page": 48
+    },
+    {
+      "section": "5.1",
+      "title": "General",
+      "pdf_page": 48
+    },
+    {
+      "section": "5.2",
+      "title": "Service Catalog",
+      "pdf_page": 48
+    },
+    {
+      "section": "5.3",
+      "title": "Planning Request",
+      "pdf_page": 48
+    },
+    {
+      "section": "5.4",
+      "title": "Provisional Plan",
+      "pdf_page": 49
+    },
+    {
+      "section": "5.5",
+      "title": "Service Agreement",
+      "pdf_page": 50
+    },
+    {
+      "section": "5.6",
+      "title": "Configuration Profile",
+      "pdf_page": 51
+    },
+    {
+      "section": "5.7",
+      "title": "Communications Geometry",
+      "pdf_page": 52
+    },
+    {
+      "section": "5.8",
+      "title": "Sustainable Data Rates & Volume Estimates",
+      "pdf_page": 53
+    },
+    {
+      "section": "5.9",
+      "title": "Radio Frequency Interference",
+      "pdf_page": 54
+    },
+    {
+      "section": "5.10",
+      "title": "Resource Conflicts",
+      "pdf_page": 55
+    },
+    {
+      "section": "5.11",
+      "title": "Cost Estimates",
+      "pdf_page": 56
+    },
+    {
+      "section": "5.12",
+      "title": "Space Link Event Sequence",
+      "pdf_page": 56
+    },
+    {
+      "section": "5.13",
+      "title": "Resource Availability Information",
+      "pdf_page": 58
+    },
+    {
+      "section": "5.14",
+      "title": "Trajectory Prediction Segment",
+      "pdf_page": 58
+    },
+    {
+      "section": "5.15",
+      "title": "Service Package Request",
+      "pdf_page": 59
+    },
+    {
+      "section": "5.16",
+      "title": "Service Package",
+      "pdf_page": 60
+    },
+    {
+      "section": "5.17",
+      "title": "Schedule of Services",
+      "pdf_page": 61
+    },
+    {
+      "section": "5.18",
+      "title": "Service Package Execution Event Notification",
+      "pdf_page": 61
+    },
+    {
+      "section": "5.19",
+      "title": "Accounting Report",
+      "pdf_page": 62
+    },
+    {
+      "section": "5.20",
+      "title": "Information Entity Cross-Referencing Framework",
+      "pdf_page": 62
+    },
+    {
+      "section": "6",
+      "title": "Extensibility of SCCS SM Information Entities",
+      "pdf_page": 66
+    },
+    {
+      "section": "6.1",
+      "title": "Concepts of Information Entity Extensibility",
+      "pdf_page": 66
+    },
+    {
+      "section": "6.2",
+      "title": "Extensibility of the Service Agreement and Configuration Profile Information Entities",
+      "pdf_page": 67
+    },
+    {
+      "section": "6.3",
+      "title": "Extensibility of the Service Package Request and Service Package Information Entities",
+      "pdf_page": 94
+    },
+    {
+      "section": "6.4",
+      "title": "Extensibility of Planning Data Information Entities",
+      "pdf_page": 99
+    },
+    {
+      "section": "7",
+      "title": "Management Services",
+      "pdf_page": 101
+    },
+    {
+      "section": "7.1",
+      "title": "General",
+      "pdf_page": 101
+    },
+    {
+      "section": "7.2",
+      "title": "SCCS SM Information Entities in Provider-Specific Management Services",
+      "pdf_page": 101
+    },
+    {
+      "section": "7.3",
+      "title": "Extensible SCCS Management Services",
+      "pdf_page": 102
+    },
+    {
+      "section": "8",
+      "title": "Roadmap",
+      "pdf_page": 103
+    },
+    {
+      "section": "8.1",
+      "title": "Overview",
+      "pdf_page": 103
+    },
+    {
+      "section": "8.2",
+      "title": "Deliverables",
+      "pdf_page": 103
+    },
+    {
+      "section": "Annex A",
+      "title": "Acronyms and Abbreviations",
+      "pdf_page": 108
+    },
+    {
+      "section": "Annex B",
+      "title": "Comparison of the SCCS SM Enterprise Model to the Cross Support Reference Model, Part 1: Space Link Extension",
+      "pdf_page": 111
+    },
+    {
+      "section": "Annex C",
+      "title": "SysML SCCS Service Management Enterprise Model",
+      "pdf_page": 113
+    },
+    {
+      "section": "Annex D",
+      "title": "Solar System Internetwork Enterprise Model",
+      "pdf_page": 118
+    },
+    {
+      "section": "Annex E",
+      "title": "Service Components and Functional Resource Types Used by the Example AOS and Telecommand Missions",
+      "pdf_page": 125
+    }
+  ],
+  "key_points": [
+    {
+      "text": "SCCS SM is the set of processes for collecting and exchanging the information needed to negotiate, configure, schedule, prepare, access and report on SCCS services. The Mission and the SCCS service provider carry them out together.",
+      "pdf_page": 11
+    },
+    {
+      "text": "The Version-1 SCCS SM standard (CCSDS 910.11-B-1) focused on requesting and scheduling services and could not gracefully accommodate new technologies. The extensible concept was developed to remove these shortcomings.",
+      "pdf_page": 21
+    },
+    {
+      "text": "The near-term scope is the single-hop Earth-space link (the 'ABA' configuration) and the IOAG Service Catalog #1 services. The Solar System Internetwork is left for later.",
+      "pdf_page": 13
+    },
+    {
+      "text": "The Mission consists of an Earth User CSSS and a Space User CSSS. The Provider CSSS transports Data Link Layer data units between them and tracks the spacecraft. Utilization Management (mission side) and Provision Management (provider side) exchange the service management information.",
+      "pdf_page": 22
+    },
+    {
+      "text": "The mission support lifecycle has three phases: Service Catalog Consultation, Service Agreement Development, and the Service Agreement Period. In the last phase, planning and scheduling, Service Package execution and accounting stages repeat cyclically.",
+      "pdf_page": 42
+    },
+    {
+      "text": "Several Service Agreements, each for a different mission phase (for example LEOP or cruise), may exist concurrently and overlap.",
+      "pdf_page": 43
+    },
+    {
+      "text": "Almost all SCCS SM Information Entities are formatted in W3C XML.",
+      "pdf_page": 48
+    },
+    {
+      "text": "An extensible Information Entity has fixed core parameters and abstract extension points. A valid Information Entity has one extension for every extension point, and provider-unique capabilities can be added as extensions.",
+      "pdf_page": 66
+    },
+    {
+      "text": "Abstract Service Components (ASCs) are the extension points of the Service Agreement and Configuration Profile. They are specialised into technology-specific Service Components, whose management parameters are represented by Functional Resources.",
+      "pdf_page": 67
+    },
+    {
+      "text": "There are six basic ESLT configurations: SLS, SLS data delivery, retrieval data delivery, forward offline data delivery, SLS radiometric and retrieval radiometric.",
+      "pdf_page": 68
+    },
+    {
+      "text": "The layered model used for the ASCs comprises aperture, physical channel, channel synchronization and coding, and space data link protocols. Data stores, such as the Offline Frame Buffer of SLE RAF/RCF, buffer data between sessions.",
+      "pdf_page": 68
+    },
+    {
+      "text": "Standard SCCS Management Services were expected around 2020. Until then, the standard Information Entities can be carried by provider-specific management services.",
+      "pdf_page": 101
+    },
+    {
+      "text": "Streaming, low-latency management services are expected to be built on the CCSDS CSTS Specification Framework.",
+      "pdf_page": 102
+    },
+    {
+      "text": "The roadmap orders the follow-on Blue Books: Simple Schedule Format first, then Planning Data Formats, Trajectory Prediction, Service Request and Service Package, Service Agreement and Configuration Profile, Space Link Event Sequence, Service Catalog, Service Accounting, Management Services, and a Best Practices Magenta Book.",
+      "pdf_page": 103
+    },
+    {
+      "text": "Table 8-1 estimated the Simple Schedule Format Blue Book for late 2014 and the Management Services (Automation) Blue Book for late 2020.",
+      "pdf_page": 107
+    },
+    {
+      "text": "The SCCS SM Enterprise Model evolves from the SLE Cross Support Reference Model. The CSRM SLE Complex became the SCCS Complex (now the Provider CSSS), and the MDOS corresponds to the Earth User CSSS.",
+      "pdf_page": 111
+    }
+  ],
+  "references": [
+    {
+      "label": "[1]",
+      "doc_id": "CCSDS 910.11-B-1",
+      "title": "Space Communication Cross Support—Service Management—Service Specification",
+      "issue": "Issue 1",
+      "date": "August 2009",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[2]",
+      "doc_id": "CCSDS 910.14-G-1",
+      "title": "Space Communication Cross Support—Service Management—Operations Concept",
+      "issue": "Issue 1",
+      "date": "May 2011",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[3]",
+      "doc_id": "CCSDS 401.0-B-23",
+      "title": "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft",
+      "issue": "Issue 23",
+      "date": "December 2013",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[4]",
+      "doc_id": "CCSDS 131.0-B-2",
+      "title": "TM Synchronization and Channel Coding",
+      "issue": "Issue 2",
+      "date": "August 2011",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[5]",
+      "doc_id": "CCSDS 231.0-B-2",
+      "title": "TC Synchronization and Channel Coding",
+      "issue": "Issue 2",
+      "date": "September 2010",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[6]",
+      "doc_id": "CCSDS 132.0-B-1",
+      "title": "TM Space Data Link Protocol",
+      "issue": "Issue 1",
+      "date": "September 2003",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[7]",
+      "doc_id": "CCSDS 732.0-B-2",
+      "title": "AOS Space Data Link Protocol",
+      "issue": "Issue 2",
+      "date": "July 2006",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[8]",
+      "doc_id": "CCSDS 232.0-B-2",
+      "title": "TC Space Data Link Protocol",
+      "issue": "Issue 2",
+      "date": "September 2010",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[9]",
+      "doc_id": "CCSDS 912.1-B-3",
+      "title": "Space Link Extension—Forward CLTU Service Specification",
+      "issue": "Issue 3",
+      "date": "July 2010",
+      "kind": "reference",
+      "pdf_page": 18
+    },
+    {
+      "label": "[10]",
+      "doc_id": "CCSDS 911.1-B-3",
+      "title": "Space Link Extension—Return All Frames Service Specification",
+      "issue": "Issue 3",
+      "date": "January 2010",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[11]",
+      "doc_id": "CCSDS 911.2-B-2",
+      "title": "Space Link Extension—Return Channel Frames Service Specification",
+      "issue": "Issue 2",
+      "date": "January 2010",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[12]",
+      "doc_id": "CCSDS 911.5-B-2",
+      "title": "Space Link Extension—Return Operational Control Fields Service Specification",
+      "issue": "Issue 2",
+      "date": "January 2010",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[13]",
+      "doc_id": "CCSDS 912.3-B-2",
+      "title": "Space Link Extension—Forward Space Packet Service Specification",
+      "issue": "Issue 2",
+      "date": "July 2010",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[14]",
+      "doc_id": "CCSDS 910.3-G-3",
+      "title": "Cross Support Concept—Part 1: Space Link Extension Services",
+      "issue": "Issue 3",
+      "date": "March 2006",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[15]",
+      "doc_id": "CCSDS 910.4-B-2",
+      "title": "Cross Support Reference Model—Part 1: Space Link Extension Services",
+      "issue": "Issue 2",
+      "date": "October 2005",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[16]",
+      "doc_id": "CCSDS 901.0-G-1",
+      "title": "Space Communications Cross Support—Architecture Description Document",
+      "issue": "Issue 1",
+      "date": "November 2013",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[17]",
+      "doc_id": null,
+      "title": "Space Communications Cross Support—Architecture Requirements Document. Forthcoming.",
+      "issue": null,
+      "date": null,
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[18]",
+      "doc_id": null,
+      "title": "IOAG Service Catalog #1",
+      "issue": "Issue 1 revision 4",
+      "date": "June 2013",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[19]",
+      "doc_id": null,
+      "title": "IOAG Service Catalog #2",
+      "issue": "Issue 1 revision 1",
+      "date": "June 2013",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[20]",
+      "doc_id": null,
+      "title": "Cross Support Transfer Services—Monitored Data Service. Forthcoming.",
+      "issue": null,
+      "date": null,
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[21]",
+      "doc_id": "CCSDS 921.1-R-2",
+      "title": "Cross Support Transfer Service—Specification Framework",
+      "issue": "Issue 2 (Draft Red Book)",
+      "date": "May 2014",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[22]",
+      "doc_id": null,
+      "title": "Cross Support Transfer Services—Service Control. Proposed.",
+      "issue": null,
+      "date": null,
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[23]",
+      "doc_id": null,
+      "title": "OMG Systems Modeling Language (OMG SysML™)",
+      "issue": "Version 1.3",
+      "date": "June 2012",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[24]",
+      "doc_id": "IOAG.T.SP.001.V1",
+      "title": "Solar System Internetwork (SSI) Issue Investigation and Resolution",
+      "issue": null,
+      "date": "1 August 2010",
+      "kind": "reference",
+      "pdf_page": 19
+    },
+    {
+      "label": "[25]",
+      "doc_id": "CSSA 1-TN-0.03",
+      "title": "Functional Resources for Cross Support Services (Draft Technical Note)",
+      "issue": null,
+      "date": "March 2014",
+      "kind": "reference",
+      "pdf_page": 20
+    },
+    {
+      "label": "[26]",
+      "doc_id": null,
+      "title": "Tim Bray, et al., eds. Extensible Markup Language (XML) 1.0. W3C Recommendation",
+      "issue": "5th ed.",
+      "date": "November 2008",
+      "kind": "reference",
+      "pdf_page": 20
+    },
+    {
+      "label": "[27]",
+      "doc_id": null,
+      "title": "Cross Support Transfer Services—Tracking Data. Proposed.",
+      "issue": null,
+      "date": null,
+      "kind": "reference",
+      "pdf_page": 20
+    },
+    {
+      "label": "[28]",
+      "doc_id": "CCSDS 502.0-B-2",
+      "title": "Orbit Data Messages",
+      "issue": "Issue 2",
+      "date": "November 2009",
+      "kind": "reference",
+      "pdf_page": 20
+    },
+    {
+      "label": "[29]",
+      "doc_id": "CCSDS 505.0-B-1",
+      "title": "XML Specification for Navigation Data Messages",
+      "issue": "Issue 1",
+      "date": "December 2010",
+      "kind": "reference",
+      "pdf_page": 20
+    },
+    {
+      "label": "[30]",
+      "doc_id": "CCSDS 414.1-B-2",
+      "title": "Pseudo-Noise (PN) Ranging Systems",
+      "issue": "Issue 2",
+      "date": "February 2014",
+      "kind": "reference",
+      "pdf_page": 20
+    },
+    {
+      "label": "[31]",
+      "doc_id": "CCSDS 415.1-B-1",
+      "title": "Data Transmission and PN Ranging for 2 GHz CDMA Link via Data Relay Satellite",
+      "issue": "Issue 1",
+      "date": "September 2011",
+      "kind": "reference",
+      "pdf_page": 20
+    }
+  ],
+  "topics": [
+    "ccsds/sle/service-management.md",
+    "ccsds/sle/index.md",
+    "ccsds/sle/return-services.md",
+    "ccsds/sle/fcltu.md",
+    "ccsds/rf-and-ranging.md",
+    "scos2000/nctrs-nis.md"
+  ],
+  "notes": "PDF pages 1-2 are duplicate covers. The extracted text has 129 form-feed pages (registry: 128); the last one is empty. The running page header abbreviates the title to 'Extensible SCCS SM Concept'. Most figures (enterprise views, lifecycle, ASC and Functional Resource diagrams, SysML models) survive only as scattered labels in the extraction. As printed, 2.4.2 says 'Fifteen Abstract Service Components have been defined' and, two paragraphs later, that 6.2 identifies 'the twelve Abstract Service Components' (PDF p. 28). Typos as printed include 'relatiohsinp' and 'indocated' (PDF p. 70). The SLE references are the 2010 issues (RAF B-3, RCF B-2, ROCF B-2, FCLTU B-3, FSP B-2) and the CSRM is 910.4-B-2 of 2005, which the library holds as ccsds-910-4-910x4b2e1s. The Simple Schedule Format Blue Book of the roadmap appeared as CCSDS 902.1-B-1, and the library's ccsds-902-4-902x4b1 is a later member of the same 902 family. No individual authors are named. The registry copy was taken from ccsds.org on 2026-11-12."
+}

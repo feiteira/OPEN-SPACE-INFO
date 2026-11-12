@@ -46,13 +46,14 @@ Section 6 is the TOPE language reference (tcsend with verification flags and tim
 - On the H/P CCS each TOPE procedure runs as a separate process and must explicitly connect and attach to a SCOE before commanding it. *(PDF p. 70)*
 
 
-## Cited by these wiki pages (20)
+## Cited by these wiki pages (21)
 
 - [COP-1: FOP-1, FARM-1 and the CLCW (CCSDS 232.1-B-2)](../ccsds/cop-1.md)
 - [Calibration in the MIB](../mib/calibration.md)
 - [Command verification in the MIB](../mib/command-verification.md)
 - [Commanding in the MIB: commands and their parameters](../mib/commanding.md)
 - [Display definitions in the MIB](../mib/displays.md)
+- [ECSS-E-ST-70-32C: PLUTO test and operations procedure language](../ecss/e-st-70-32c.md)
 - [Herschel and Planck](../missions/herschel-planck.md)
 - [History of the Database Import ICD (issues 5.1 to 7.2)](../mib/icd-history.md)
 - [MIB tooling and open-source libraries](../mib/tooling.md)

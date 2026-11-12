@@ -1,0 +1,335 @@
+{
+  "slug": "ecss-e-st-70-01c16april2010",
+  "title": "Space engineering\nSpacecraft on-board control procedures",
+  "short_title": "ECSS-E-ST-70-01C: On-board control procedures (2010)",
+  "doc_id": "ECSS-E-ST-70-01C",
+  "issue": "First issue",
+  "date": "2010-04-16",
+  "organisation": "ECSS Secretariat, ESA-ESTEC Requirements & Standards Division (prepared by the ECSS-E-ST-70-01 Working Group)",
+  "authors": [
+    "ECSS-E-ST-70-01 Working Group"
+  ],
+  "doc_type": "Standard",
+  "status_notes": "First issue, 16 April 2010; ECSS-E-ST-70-01A and -01B were never issued (change log, p. 3). The document does not state that it is superseded, and no later issue is in the library.",
+  "summary": "The ECSS standard for **on-board control procedures (OBCPs)**: small programs that an *OBCP engine* in the on-board software executes and that can be loaded, run and replaced without changing the rest of the flight software. It sets out a mission-independent OBCP concept that serves system, software, AIT and operations engineers. It gives OBCPs a lifecycle independent of the main OBSW, and it builds on the PUS (ECSS-E-70-41, especially **service 18**, the on-board operations procedure service) and on ECSS-E-ST-70-31 monitoring and control data.\n\nWhat it contains:\n\n* **Concept** (clause 4): stakeholders and uses, such as platform and payload functions, late FDIR tuning, one-shot deployments, test automation, fault injection in AIT and on-board execution of operations procedures for autonomy. It distinguishes **OBAPs** (on-board application procedures, part of the qualified spacecraft design) from **OBOPs** (on-board operations procedures, used to operate it). It also describes the OBCP system: a ground preparation environment, a ground execution environment and the on-board engines.\n* **Capabilities** (clause 5): OBCP structure (identifier, arguments, declaration, preconditions, main, confirmation and contingency bodies, steps, local functions), the required **language features** (formal EBNF syntax, data types, engineering units, waits, parameter and activity access with verification stages, events), preparation tools (editor, checkers, reports, step-by-step debugging, flight-representative validation, worst-case memory and timing), the **state model** (in store, inactive, running, held) with Load/Activate/Suspend/Resume/Stop/Abort/Delete mapped to service 18 subtypes, a code checksum, and on-board housekeeping, loading policy and scheduling.\n* **Engineering processes** (clause 6): OBAP versus OBSW and OBOP versus ground trade-offs, management milestones (SRR, software PDR, qualification), and ECSS-E-ST-40 or ECSS-E-ST-70 processes for OBAPs and OBOPs respectively.",
+  "contents": [
+    {
+      "section": null,
+      "title": "Change log",
+      "pdf_page": 3
+    },
+    {
+      "section": null,
+      "title": "Introduction",
+      "pdf_page": 6
+    },
+    {
+      "section": "1",
+      "title": "Scope",
+      "pdf_page": 7
+    },
+    {
+      "section": "2",
+      "title": "Normative references",
+      "pdf_page": 8
+    },
+    {
+      "section": "3",
+      "title": "Terms, definitions and abbreviated terms",
+      "pdf_page": 9
+    },
+    {
+      "section": "3.1",
+      "title": "Terms from other standards",
+      "pdf_page": 9
+    },
+    {
+      "section": "3.2",
+      "title": "Terms specific to the present standard",
+      "pdf_page": 9
+    },
+    {
+      "section": "3.3",
+      "title": "Abbreviated terms",
+      "pdf_page": 10
+    },
+    {
+      "section": "4",
+      "title": "The OBCP concept",
+      "pdf_page": 12
+    },
+    {
+      "section": "4.1",
+      "title": "Introduction",
+      "pdf_page": 12
+    },
+    {
+      "section": "4.2",
+      "title": "Stakeholders and application areas for OBCPs",
+      "pdf_page": 12
+    },
+    {
+      "section": "4.3",
+      "title": "Types of OBCP",
+      "pdf_page": 14
+    },
+    {
+      "section": "4.4",
+      "title": "The OBCP system",
+      "pdf_page": 15
+    },
+    {
+      "section": "5",
+      "title": "OBCP system capabilities",
+      "pdf_page": 18
+    },
+    {
+      "section": "5.1",
+      "title": "OBCP structure",
+      "pdf_page": 18
+    },
+    {
+      "section": "5.2",
+      "title": "OBCP language capabilities",
+      "pdf_page": 19
+    },
+    {
+      "section": "5.3",
+      "title": "The OBCP preparation environment",
+      "pdf_page": 23
+    },
+    {
+      "section": "5.4",
+      "title": "The OBCP execution environment",
+      "pdf_page": 26
+    },
+    {
+      "section": "5.4.1",
+      "title": "Ground capabilities",
+      "pdf_page": 26
+    },
+    {
+      "section": "5.4.2",
+      "title": "OBCP monitoring and control",
+      "pdf_page": 26
+    },
+    {
+      "section": "5.4.3",
+      "title": "OBCP integrity",
+      "pdf_page": 29
+    },
+    {
+      "section": "5.4.4",
+      "title": "On-board capabilities",
+      "pdf_page": 29
+    },
+    {
+      "section": "6",
+      "title": "OBCP engineering processes",
+      "pdf_page": 34
+    },
+    {
+      "section": "6.1",
+      "title": "Introduction",
+      "pdf_page": 34
+    },
+    {
+      "section": "6.2",
+      "title": "Overall management process of the OBCP system",
+      "pdf_page": 35
+    },
+    {
+      "section": "6.2.2",
+      "title": "OBAP vs. OBSW: criteria and trade-off analysis",
+      "pdf_page": 38
+    },
+    {
+      "section": "6.2.3",
+      "title": "OBOP vs. ground-based operations",
+      "pdf_page": 39
+    },
+    {
+      "section": "6.2.4",
+      "title": "Trade-off between OBCP engine capability and engineering effort",
+      "pdf_page": 40
+    },
+    {
+      "section": "6.2.5",
+      "title": "Overall organization and management",
+      "pdf_page": 40
+    },
+    {
+      "section": "6.3",
+      "title": "OBCP engineering",
+      "pdf_page": 41
+    },
+    {
+      "section": null,
+      "title": "Bibliography",
+      "pdf_page": 42
+    }
+  ],
+  "key_points": [
+    {
+      "text": "OBCPs had been implemented ad hoc on several European missions over the previous 25 years; the standard defines a mission-independent concept that conforms with and extends ECSS-E-70-41 and ECSS-E-ST-70-31.",
+      "pdf_page": 6
+    },
+    {
+      "text": "Missions implementing OBCPs are assumed to be compliant with ECSS-E-70-41, whose services support OBCP operation and ground interaction.",
+      "pdf_page": 7
+    },
+    {
+      "text": "An OBCP is a software program executed by an OBCP engine that can easily be loaded, executed and replaced on board; OBCP code is the loadable form (historically token code, executable code or bytecode), called procedure code in service 18 of ECSS-E-70-41A.",
+      "pdf_page": 9
+    },
+    {
+      "text": "OBCP operations are initiated by ECSS-E-70-41 Service 18 telecommands.",
+      "pdf_page": 10
+    },
+    {
+      "text": "Two types: On-board Application Procedures (OBAP), part of the basic spacecraft functionality and qualified with it (historically 'Application Program' or 'Flight Application Program'), and On-Board Operations Procedures (OBOP), used to operate the spacecraft and not part of its qualification.",
+      "pdf_page": 14
+    },
+    {
+      "text": "The OBCP system has a ground preparation environment, a ground execution environment and on-board OBCP engines (optionally with OBCP stores); OBCPs live in the engineering data repository defined by ECSS-E-ST-70-31.",
+      "pdf_page": 17
+    },
+    {
+      "text": "Each OBCP has a unique OBCP Identifier assigned by the ground and may have arguments; it consists of optional declaration, preconditions, confirmation and contingency handling bodies and a mandatory main body, executed in the order declaration, preconditions, main, confirmation.",
+      "pdf_page": 18
+    },
+    {
+      "text": "The OBCP language syntax shall be formally specified, for example with ISO EBNF (ISO/IEC 14977).",
+      "pdf_page": 19
+    },
+    {
+      "text": "The ground system uplinks OBCPs by telecommand as OBCP code; OBCP management and operation telecommands are based on the ECSS-E-70-41 on-board operations procedure service, while the memory management service is reserved for anomaly investigation and exceptional cases.",
+      "pdf_page": 26
+    },
+    {
+      "text": "OBCP execution states: in store; in engine, either inactive or active (running or held).",
+      "pdf_page": 27
+    },
+    {
+      "text": "Engine operations map to service 18 subtypes: Load (1), Delete (2), Activate (3), Stop (4), Suspend (5), Resume (6), Communicate Parameters (7), Abort (12); a stopped OBCP cannot be resumed from that point.",
+      "pdf_page": 28
+    },
+    {
+      "text": "A ground-generated checksum is loaded with the OBCP code and verified at load time; on failure the engine fails the Load request with a telecommand verification failure. Runtime errors and on-board-commanded OBCP requests are reported by event reports.",
+      "pdf_page": 29
+    },
+    {
+      "text": "A given on-board application process shall implement at most one OBCP engine.",
+      "pdf_page": 29
+    },
+    {
+      "text": "The OBCP management process output is reviewed at the system requirements review (SRR); OBCP engine and preparation environment capabilities are frozen at the software PDR; OBAP validation is completed before system qualification.",
+      "pdf_page": 36
+    },
+    {
+      "text": "OBAPs follow the ECSS-E-ST-40 software lifecycle; OBOPs follow the ECSS-E-ST-70 operations procedure engineering process.",
+      "pdf_page": 41
+    }
+  ],
+  "references": [
+    {
+      "label": "ECSS-S-ST-00-01",
+      "doc_id": "ECSS-S-ST-00-01",
+      "title": "ECSS system - Glossary of terms",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-E-ST-40",
+      "doc_id": "ECSS-E-ST-40",
+      "title": "Space engineering - Software",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-E-ST-70",
+      "doc_id": "ECSS-E-ST-70",
+      "title": "Space engineering - Ground systems and operations",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-E-ST-70-31",
+      "doc_id": "ECSS-E-ST-70-31",
+      "title": "Space engineering - Ground systems and operations - Monitoring and control data definition",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-E-70-41",
+      "doc_id": "ECSS-E-70-41",
+      "title": "Space engineering - Ground systems and operations - Telemetry and telecommand packet utilization",
+      "issue": null,
+      "date": null,
+      "kind": "normative",
+      "pdf_page": 8
+    },
+    {
+      "label": "ECSS-S-ST-00",
+      "doc_id": "ECSS-S-ST-00",
+      "title": "ECSS system – Description, implementation and general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 42
+    },
+    {
+      "label": "ECSS-E-ST-10",
+      "doc_id": "ECSS-E-ST-10",
+      "title": "Space engineering – System engineering general requirements",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 42
+    },
+    {
+      "label": "ECSS-Q-ST-80",
+      "doc_id": "ECSS-Q-ST-80",
+      "title": "Space product assurance – Software product assurance",
+      "issue": null,
+      "date": null,
+      "kind": "bibliography",
+      "pdf_page": 42
+    },
+    {
+      "label": "ISO/IEC 14977:1996",
+      "doc_id": "ISO/IEC 14977:1996",
+      "title": "Information Technology - Syntactic Metalanguage - Extended BNF - First Edition",
+      "issue": "First Edition",
+      "date": "1996",
+      "kind": "bibliography",
+      "pdf_page": 42
+    },
+    {
+      "label": null,
+      "doc_id": "ECSS-E-70-41A",
+      "title": "Service 18 of ECSS-E-70-41A (where OBCP code is called procedure code)",
+      "issue": null,
+      "date": null,
+      "kind": "mentioned",
+      "pdf_page": 10
+    }
+  ],
+  "topics": [
+    "ecss/e-st-70-01c.md",
+    "ecss/pus/st18-onboard-operations-procedure.md",
+    "ecss/index.md",
+    "ecss/e-st-70-31c.md",
+    "scos2000/operations-preparation.md",
+    "overview/standards-map.md"
+  ],
+  "notes": "Written before PUS-C: it cites the undated ECSS-E-70-41 (whose 2003 'A' issue is in the library as ecss-e-70-41a-30jan2003-pus; it names ECSS-E-70-41A explicitly on p. 10), not ECSS-E-ST-70-41C (2016, in the library as ecss-e-st-70-41c-15april2016), so the service 18 subtype numbers it quotes should be checked against the PUS issue in use. The extraction carries stray Word bookmark/cross-reference artefacts such as '0B', '1B', '23B' after headings and lone 'X  X' lines (e.g. pp. 3, 6, 13). The introduction bullet ends with ';.' (p. 6), and clause 6.3c reads 'ECSS-E-ST-40,,' (p. 41). Clause 3.1 cites 'ECSS-ST-00-01' (p. 9). Figures 4-1, 5-1 (OBCP state diagram) and 6-1 to 6-3 are graphics; only fragments of Figure 6-3 are extracted (p. 37). Printed page numbers equal PDF page numbers; srcgrep shows 43 PDF pages (the last one blank) while the registry gives 42."
+}
