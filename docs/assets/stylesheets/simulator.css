@@ -128,6 +128,16 @@ body:has(#osi-sim) .md-grid { max-width: 96rem; }
 .sim-legend-inline { display: flex; gap: .8em; white-space: nowrap; } .sim-legend-inline i { margin-right: .3em; vertical-align: .2em; }
 .sim-progress { color: var(--sim-muted); padding: 1em 0; }
 .sim-details { margin-top: 1em; } .sim-details summary { cursor: pointer; font-weight: 600; }
+.sim-ctl { display: flex; flex-wrap: wrap; gap: .5em 1.2em; align-items: center; }
+.sim-seg { display: inline-flex; border: 1px solid var(--sim-bd); border-radius: 999px; overflow: hidden; background: var(--sim-panel); }
+.sim-seg button { border: 0; background: transparent; padding: .3em .85em; cursor: pointer; color: var(--sim-ink2); white-space: nowrap; }
+.sim-seg button + button { border-left: 1px solid var(--sim-bd); }
+.sim-seg button.on { background: var(--sim-accent); color: #fff; }
+.sim-csec + .sim-csec { margin-top: 1.1em; }
+.sim-gh { font-size: .8rem; font-weight: 650; margin: .2em 0 .5em; }
+.sim-card-legend { display: flex; flex-wrap: wrap; gap: .1em .9em; font-size: .64rem; color: var(--sim-ink2); margin: -.1em 0 .35em; }
+.sim-card-legend .sim-key { margin-right: .35em; vertical-align: .2em; width: 1em; height: .3em; }
+.sim-hintcard { border: 1px dashed var(--sim-bd); border-radius: 12px; padding: 1em; margin: 0; }
 
 /* packets */
 .sim-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 1em; }
@@ -147,6 +157,10 @@ body:has(#osi-sim) .md-grid { max-width: 96rem; }
 .sim-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 1.2em; }
 
 /* commanding */
+.sim-tcmode { margin: 0 0 .7em; }
+.sim-nowrap { white-space: nowrap; }
+.sim-tcmode .sim-small { flex: 1 1 18rem; }
+.sim-btn:disabled { opacity: .45; cursor: default; }
 .sim-tcgrid { display: grid; grid-template-columns: 17rem minmax(0, 1fr); gap: 1em; }
 .sim-tclist { display: flex; flex-direction: column; gap: .3em; max-height: 34rem; overflow: auto; }
 .sim-tclist button { text-align: left; border: 1px solid var(--sim-bd); background: var(--sim-panel); border-radius: 10px; padding: .45em .65em; cursor: pointer; display: flex; flex-direction: column; }

@@ -633,6 +633,8 @@ tool, is described on [operations preparation](../scos2000/operations-preparatio
 * [Operations preparation](../scos2000/operations-preparation.md) (procedures, MOIS and OPEN) and
   [ECSS-E-ST-70-32C PLUTO](../ecss/e-st-70-32c.md#command-sequences-in-the-mib) (sequences compared with procedures)
 * [The Solar Orbiter MIB](../missions/solar-orbiter/mib.md), [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
+* [Solar Orbiter simulator](../simulator/index.md#how-to-use-it): load and release 27 real Solar Orbiter sequences, such as
+  [`ADMF011E`](../simulator/index.md#seq=ADMF011E), and watch their commands verified
 * Generated table references: [csf](tables/csf.md), [css](tables/css.md), [sdf](tables/sdf.md), [csp](tables/csp.md),
   [pst](tables/pst.md), [psv](tables/psv.md), [cps](tables/cps.md), [pvs](tables/pvs.md), [psm](tables/psm.md)
 * Sources: [ICD 7.0](../library/icd-7-0-final.md), [ICD 6.9](../library/icd-6-9-archive-org.md),

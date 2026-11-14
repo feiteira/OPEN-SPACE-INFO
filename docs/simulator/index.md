@@ -1,6 +1,6 @@
 ---
 title: Solar Orbiter simulator
-description: Fly Solar Orbiter along its real trajectory and operate it with the real MIB packets, calibrations, limits and telecommands, with light-time delays, ground-station passes and failure injection.
+description: Fly Solar Orbiter along its real trajectory and operate it with the real MIB packets, calibrations, limits, telecommands and command sequences, with light-time delays, ground-station passes and failure injection.
 hide:
   - navigation
   - toc
@@ -39,6 +39,7 @@ wiki and labelled as such below.
 | Parameter types, calibration curves, limits, validity and relevance conditions | MIB tables `pcf`, `caf`/`cap`, `txf`/`txp`, `ocf`/`ocp`[^mib] | real definitions |
 | Synthetic parameters (Sun distance in km and au, wheel speeds in rpm) | MIB OL sources[^mib] | real formulas |
 | Telecommands, their parameters, range checks and calibrations | MIB tables `ccf`, `cdf`, `cpc`, `prf`/`prv`, `pas`, `cca`/`ccs`, `tcp`/`pcdf`[^mib] | real definitions |
+| Command sequences: elements, nesting, release times, formal parameters and element values | MIB tables `csf`, `css`, `sdf`, `csp`[^mib] | real definitions |
 | Packet headers, on-board time and TC checksum | Solar Orbiter TM/TC packet ICD[^icd-tmdfh][^icd-obt][^icd-pec] | real formats |
 | Ground stations and pass lengths | Red Book §7.1.1[^rb-gs]; station coordinates from public web pages[^web-st] | real sites, modelled passes |
 | Spacecraft behaviour: temperatures, steering, wheels, power, link budget, data volume | this wiki's models, anchored on the Red Book and Müller et al. where possible | **modelled** |
@@ -63,10 +64,21 @@ links to its entry in the [MIB Explorer](../explorer/index.md).
 * **Light time.** The 3D view and the state panel show where the spacecraft is now. Telemetry generated on board
   arrives one light time later, and a telecommand takes the same time to arrive. Its TM(1,1) acceptance report
   therefore appears about two light times after release.
+* **Charts.** The first tab plots 38 real MIB parameters in 17 charts, grouped into solar arrays, AOCS, thermal
+  and communications. Choose *6 h*, *1 day* or *7 days* of on-board history, or *Live TM* for what has reached
+  the ground. Hover a chart to read values. Amber and red lines are the MIB soft and hard limits, and shading
+  marks wheel off-loading or ground-station passes. ☆ in the *Telemetry* tab adds any other numeric parameter.
+  The URL can open a view directly, for example
+  [`#t=2027-02-07T08:00&win=7d&grp=aocs`](#t=2027-02-07T08:00&win=7d&grp=aocs).
 * **Tabs.** *Telemetry* is an alphanumeric display of a packet, with raw and engineering values and limit status.
-  *Plots* shows strip charts (☆ adds a parameter). *Mission profile* has 2020-2030 charts; click one to jump to
-  that date. *Packets* decodes headers and hex dumps. *Commanding* holds the command stack and the command
-  history. *Failures & log* has failure injection, ground stations and the event log.
+  *Mission profile* has 2020-2030 charts; click one to jump to that date. *Packets* decodes headers and hex dumps. *Commanding* sends
+  telecommands and loads command sequences, and keeps the command history. *Failures & log* has failure injection,
+  ground stations and the event log.
+* **Sequences.** *Commanding → Sequences* lists the 27 [command sequences](../mib/sequences.md) of the MIB whose
+  commands the simulator models. Fill in the formal parameters, check the expanded list of commands and their
+  release times, then *Load and release*. The ground releases each command at its time while the pass lasts, and
+  *Stop sequence* cancels the rest. The URL can open a sequence directly, for example
+  [`#seq=ADMF011E`](#seq=ADMF011E).
 
 ## Things to try
 
@@ -81,13 +93,24 @@ links to its entry in the [MIB Explorer](../explorer/index.md).
    That lies outside calibration curve `COMB000001` (raw 376 to 30353), and the parameter's `PCF_INTER` flag is
    `F`, so the engineering value becomes invalid instead of being extrapolated.[^icd70-inter][^mib-lim]
 4. **Overheat the battery.** Inject *Battery heater stuck on*. The battery thermistors cross their soft (37 °C)
-   and hard (40 °C) limits about two and three hours later.
+   and hard (40 °C) limits about two and three hours later. Under *Charts → Thermal* the battery line climbs
+   through the amber and red limit lines.
 5. **Lose the link.** Send `ZCSD1013` *TWTA Power Down* with `TWTA_A`. The TM(1,7) report for that command still
    arrives, but nothing after it. `ZCSD1012` brings the transmitter back. Its TM(1,1) report is lost, because it
    is generated while the TWTA is still off.
 6. **Stop a housekeeping report.** Send `ZCF00306` *Disable HK Para Rpt Gen* with SID 2. *PLF Summary Thermal*
    stops arriving one light time after the command executes; `ZCF00305` restarts it.
-7. **Visit a solar conjunction.** Go to 2025-08-15. Seen from Earth, the spacecraft is almost behind the Sun
+7. **Run a procedure sequence.** Open [`ADMF011E`](#seq=ADMF011E) *Def HK Rep Freq AOCS*, generated from
+   procedure DM-FCP-011. Enter SID 1 and a collection interval of 16, then load it during a pass. It releases four
+   commands one second apart: disable the report, set its interval, request a summary, and enable it again. When
+   they have executed, *AOCS Dynamics FAST* arrives every 2 s instead of every 4 s (16 cycles of 1/8 s). The
+   *Packets* tab shows the new rate. [`ASYS001L`](#seq=ASYS001L) nests `ADMF011B` three times and releases 12
+   commands over 19 seconds.[^mib-seq]
+8. **Watch the wheels and the arrays.** Go to a perihelion and open *Charts* with *7 days*. Solar radiation
+   pressure winds the reaction wheels up until an automatic off-loading (shaded) resets them, with a jump in the
+   attitude error each time. The wing temperatures show the steering law tilting the arrays in small steps to
+   stay near 130 °C.
+9. **Visit a solar conjunction.** Go to 2025-08-15. Seen from Earth, the spacecraft is almost behind the Sun
    (Sun-Earth-probe angle 0.0° in the Horizons data), and the simulated link is down.
 
 ## How the telemetry chain works
@@ -130,7 +153,7 @@ sequenceDiagram
 ```
 
 !!! warning "Inference"
-    To enable or disable a housekeeping report, the simulator maps telecommand APID 188 to telemetry APID 178
+    To enable, disable or re-time a housekeeping report, the simulator maps telecommand APID 188 to telemetry APID 178
     (AOCS) and telecommand APID 220 to telemetry APID 210 (platform). The mapping is deduced from the subsystem
     names in the MIB; the MIB does not state it.
 
@@ -146,12 +169,14 @@ sequenceDiagram
 | Solar flux | 1361 W/m² × (1 au / r)² | IAU 2015 nominal solar constant[^iau]; the Red Book quotes up to 12.7 solar constants at perihelion[^rb-chal] |
 | Solar arrays | Wing temperature 325 K × (flux factor × cos tilt)^¼; on-board steering tilts the arrays about their long axis so the wings stay below 130 °C (at most 85°, 0.2°/s) | tilting about the long axis for temperature control: Red Book §5.6 and Müller et al. §3[^rb-chal][^mu-sc]; numbers: **assumptions** |
 | Power | Available power 974 W at 630 W/m² for a cold array, scaled with flux, cos tilt and −0.45 %/K; load 760 W platform + up to 160 W heaters (919 W far from the Sun) + 180 W payload | 974 W, 919 W at 630 W/m², 180 W: Red Book §5.3.6 and §5.5.2[^rb-arch][^rb-pwr]; split and coefficient: **assumptions** |
-| Thermistors | Each `NRU…` temperature follows a first-order lag (time constants of 10 min to 3 h) towards an equilibrium placed inside its MIB soft limits, rising with the logarithm of the solar flux; the HGA also heats when it faces the Sun | limits: MIB[^mib-lim]; everything else **assumption** (real temperatures are not in the sources) |
+| Thermistors | Each `NRU…` temperature follows a first-order lag (time constants of 10 min to 3 h) towards an equilibrium placed inside its MIB soft limits, rising with the logarithm of the solar flux; the HGA also heats when it faces the Sun. Each sensor has a fixed offset of up to ±5 % of its limit half-range, so that sensors with the same limits do not read alike | limits: MIB[^mib-lim]; everything else **assumption** (real temperatures are not in the sources) |
 | Wheels | Four wheels in a pyramid absorb a solar-radiation-pressure torque of 1.2 × 10⁻⁵ N m at 1 au scaled with flux; above 2,500 rpm, or on `ZCAD482A`, a 20-minute off-loading returns them to ±955 rpm | four wheels and thruster off-loading: Red Book §5.3.6[^rb-arch]; torque drives off-loading frequency: Red Book §5.4.1[^rb-cfg]; numbers: **assumptions** |
 | HGA | Azimuth = atan2(Y, X) and elevation = −(angle from +Z) of the Earth direction in the body frame, which puts Earth inside the MIB command ranges (−179.5…179.5°, −180…0°); mechanism speed 0.05°/s | ranges: MIB `prf`/`prv` VCD00348, VCD00349[^mib]; convention: **inference**; speed: **assumption** |
 | Transmitter | TWTA A in use; 180 s warm-up after power-up; EPC-1 helix current 0.35 mA and anode voltage 3300 V when on | limits of `NRU02141`/`NRU02142`: MIB[^mib-lim]; values: **assumptions** |
 | Equipment status | Side A in use: RIU A on and in use, RIU B on but not in use, SADE A on, SADE B off, TWTA A in use. These status parameters drive the validity and relevance checks | **assumption** |
-| Report rates | AOCS FAST every 4 s, AOCS SLOW every 32 s, thermal and comms every 16 s, SADE every 32 s | **assumption** (the MIB does not give rates) |
+| Report rates | AOCS FAST every 4 s, AOCS SLOW every 32 s, thermal and comms every 16 s, SADE every 32 s. `ZCA00382` and `ZCF00382` (TC(3,130)) change them; their interval counts cycles of 8 Hz | interval unit: the description of formal parameter `XF316A01` of sequence `AACF316A`, "Coll Interval (8Hz Cyc)"[^mib-seq]; rates: **assumption** (the MIB does not give them) |
+| Command sequences | The ground expands nested sequences and computes each release time from `CSS_RELTYPE` and `CSS_RELTIME`. `A` counts from the start of the sequence the element belongs to, `R` from the release of the previous command. Element values come from `SDF` as raw values, engineering values, formal parameters or command defaults. The simulator dispatches every command automatically, although the MIB flags most of them for manual dispatch (`CSS_MANDISP`). Sequences that allow either kind of time tag (`CSF_IFTT` `B`) are released ground time-tagged. A sequence stops at the first command that cannot be uplinked | release-time rules, value sources and time-tag modes: ICD 7.0[^icd70-seq]; automatic dispatch and the stop rule: **simplifications** |
+| Chart history | Every housekeeping parameter is sampled every 2 minutes (kept for 25 hours) and every 15 minutes (kept for 7 days), through the same quantisation, calibration and validity checks as the packets. After a jump the simulator starts 7 days earlier in equilibrium, with the wheels at their bias speeds and no failures, and runs the models forward | simulator design, not a property of the spacecraft |
 | On-board time | Seconds since 2000-01-01 00:00 counted in UTC, with no time correlation | epoch: ICD §5.10[^icd-obt]; no correlation: simplification (see [time correlation](../scos2000/time-correlation.md)) |
 
 The heat shield is the spacecraft's defining feature. Its front reaches about 500 °C at perihelion, and the
@@ -164,10 +189,12 @@ heat-shield temperature, so the simulator does not show one.
   distances listed under *Go to* come from separate 5-minute files.[^hz]
 * After 2026-11-03 the Horizons trajectory is a prediction, not a fit to tracking data.[^hz]
 * Not modelled: safe modes and on-board FDIR, eclipses during flybys, manoeuvres, instrument operations, the
-  roll of the spacecraft, and the transfer-frame, CLTU and COP-1 layers. For those, see the
+  roll of the spacecraft, on-board time-tagged commands (PUS service 11), command interlocks, and the
+  transfer-frame, CLTU and COP-1 layers. For those, see the
   [downlink](../overview/downlink.md) and [uplink](../overview/uplink.md) walkthroughs.
-* Telemetry generated outside a pass is discarded. On the real spacecraft, housekeeping is stored on board and
-  dumped later.
+* Real-time telemetry generated outside a pass is discarded, so the *Telemetry* tab and *Live TM* charts show
+  only what arrived. On the real spacecraft, housekeeping is stored on board and dumped later. The history
+  under *Charts* plays that role here, but the simulator does not model the dump as packets.
 
 ## Observations from the data
 
@@ -187,14 +214,16 @@ heat-shield temperature, so the simulator does not show one.
 
 `tools/build_simulator.py` reads the MIB SQLite copy and the Horizons responses. It writes
 `docs/simulator/data/mib.json`, the 8 packets with their 501 parameters, 138 limit sets, 50 calibration curves
-and 12 telecommands, and `docs/simulator/data/ephem.json`, 3,935 daily samples and 113 derived events. The
+16 telecommands and the 27 command sequences built only from them, and `docs/simulator/data/ephem.json`, 3,935 daily samples and 113 derived events. The
 simulator code is in `docs/assets/javascripts/sim/` under the wiki's MIT licence. The 3D views use
 [three.js](https://threejs.org/) r160, loaded from unpkg. The Horizons responses are kept unchanged, with a
 manifest of every query, in the [library entry](../library/jpl-horizons-solar-orbiter-2026-11-13.md).
 
 [^hz]: [JPL Horizons responses for Solar Orbiter, Earth, Venus and Mercury, copied 2026-11-13](../library/jpl-horizons-solar-orbiter-2026-11-13.md): files `vec_-144.txt`, `vec_399.txt`, `vec_299.txt`, `vec_199.txt` (header: "Reference frame: Ecliptic of J2000.0", IAU76 obliquity 84381.448″), `obs_sun_from_solo.txt`, `flyby_*.txt` and `solo_objdata.txt` (trajectory source, "Tracking data fit up to 2026-Nov-03, prediction thereafter", flyby list).
-[^mib]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pid`, `pic`, `plf`, `pcf`, `caf`, `cap`, `txf`, `txp`, `ocf`, `ocp`, `ccf`, `cdf`, `cpc`, `prf`, `prv`, `pas`, `cca`, `ccs`, `tcp`, `pcdf` and the OL sources of the synthetic parameters, queried by this wiki on 2026-11-13.
+[^mib]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `pid`, `pic`, `plf`, `pcf`, `caf`, `cap`, `txf`, `txp`, `ocf`, `ocp`, `ccf`, `cdf`, `cpc`, `prf`, `prv`, `pas`, `cca`, `ccs`, `tcp`, `pcdf`, `csf`, `css`, `sdf`, `csp` and the OL sources of the synthetic parameters, queried by this wiki on 2026-11-13.
 [^mib-lim]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `ocf` and `ocp` for `NRU02263`, `NRU02341`, `NRU02141`, `NRU02142`, `NCFT2PZ0` and `NCFT2PY0`, and `pcf`/`caf`/`cap` for `NRU02341` and `COMB000001`, queried on 2026-11-13.
+[^mib-seq]: [Solar Orbiter MIB release MIB__20250916M25925PFMS001_SOL](../library/mib-20250916m25925pfms001-sol.md), tables `csf`, `css`, `sdf` and `csp` for sequences `ADMF011E`, `ADMF011B`, `ASYS001L` and `AACF316A` (`CSF_DOCNAME`, the procedure each was generated from: DM-FCP-011 and SY-SEQ-001; `CSP_DESCR` of `XF316A01` "Coll Interval (8Hz Cyc)"), queried on 2026-11-14.
+[^icd70-seq]: [SCOS-2000 Database Import ICD, issue 7.0](../library/icd-7-0-final.md), `csf` field `CSF_IFTT` (PDF p. 166), `css` fields `CSS_MANDISP`, `CSS_RELTYPE` and `CSS_RELTIME` (PDF p. 170), `sdf` field `SDF_VTYPE` (PDF p. 181) and `csp` field `CSP_DEFVAL` (PDF p. 187); summarised on this wiki's [command sequences](../mib/sequences.md) page.
 [^icd-tmdfh]: [SOL.S.ASTR.TN.00079 issue 7](../library/sol-s-astr-tn-00079-07.md), §4.2.1.3-4.2.2.1 (10-octet data field header, CUC time with 4 octets of coarse and 2 of fine time), PDF pp. 25-26.
 [^icd-dest]: [SOL.S.ASTR.TN.00079 issue 7](../library/sol-s-astr-tn-00079-07.md), §13.3 Destination ID ("00000000" = ground), PDF p. 276.
 [^icd-obt]: [SOL.S.ASTR.TN.00079 issue 7](../library/sol-s-astr-tn-00079-07.md), §5.10 Service 9: Time Management (zero time reference 00:00 on 1 January 2000), PDF p. 95.

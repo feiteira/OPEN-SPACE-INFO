@@ -1,6 +1,6 @@
 // OPEN-SPACE-INFO Solar Orbiter simulator: page UI.
 import { Ephemeris, STATIONS, hex, parseTmHeader, ptcName, bitWidth, OBT_EPOCH_MS, obtOf } from "./core.js";
-import { Simulator, FAILURES, HK, missionProfile, SSMM_GBIT, CONJ_SEP, rsWindows, SA_TARGET_C, HGA_BEAM_OK } from "./model.js";
+import { Simulator, FAILURES, HK, CONFIG, ARCHIVE, missionProfile, SSMM_GBIT, CONJ_SEP, rsWindows, SA_TARGET_C, HGA_BEAM_OK, relText } from "./model.js";
 import { LineChart, fmtNum, fmtUtc } from "./charts.js";
 
 const THREE_URL = "https://unpkg.com/three@0.160.0/build/three.module.js";
@@ -12,6 +12,41 @@ const h = (tag, attrs = {}, html = "") => { const e = document.createElement(tag
 const paramLink = (n) => `<a class="sim-pname" href="${WIKI}explorer/#/solo/param/${encodeURIComponent(n)}" title="Open ${esc(n)} in the MIB Explorer">${esc(n)}</a>`;
 const pktLink = (s) => `<a href="${WIKI}explorer/#/solo/packet/${s}" title="Open packet ${s} in the MIB Explorer">${s}</a>`;
 const tcLink = (c) => `<a href="${WIKI}explorer/#/solo/command/${encodeURIComponent(c)}" title="Open ${esc(c)} in the MIB Explorer">${esc(c)}</a>`;
+const seqLink = (c) => `<a href="${WIKI}explorer/#/solo/sequence/${encodeURIComponent(c)}" title="Open sequence ${esc(c)} in the MIB Explorer">${esc(c)}</a>`;
+const listJoin = (a) => (a.length > 1 ? a.slice(0, -1).join(", ") + " and " + a[a.length - 1] : a.join(""));
+const IFTT = { Y: "contains execution time-tagged commands", B: "may be loaded on-board time-tagged or ground time-tagged; the simulator uses the ground release times", N: "no execution time tags" };
+// Charts tab: real MIB parameters grouped by subsystem; the short labels are the direct line labels.
+const CHART_GROUPS = [
+  { key: "sa", label: "Solar arrays", charts: [
+    { title: "Solar-array wing temperatures", params: [["NRU02263", "PY wing"], ["NRU02266", "MY wing"]] },
+    { title: "Solar-array position, SADE A sensors", params: [["NCFT55P0", "PY"], ["NCFT55U0", "MY"]] },
+    { title: "Solar-array drive mechanism temperatures", params: [["NCFT55Y0", "PY"], ["NCFT5600", "MY"]] },
+  ] },
+  { key: "aocs", label: "AOCS", charts: [
+    { title: "Reaction-wheel speeds", params: [["NCASXAG0", "RW1"], ["NCASXB10", "RW2"], ["NCASXBK0", "RW3"], ["NCASXC40", "RW4"]], bands: "wol" },
+    { title: "Wheel friction-torque estimates", params: [["NCAD6VZ1", "RW1"], ["NCAD6VZ2", "RW2"], ["NCAD6VZ3", "RW3"], ["NCAD6VZ4", "RW4"]], bands: "wol" },
+    { title: "Attitude error", params: [["NCAD4NP1", "X"], ["NCAD4NP2", "Y"], ["NCAD4NP3", "Z"]], bands: "wol" },
+    { title: "Estimated body rate", params: [["NCAD6VN1", "X"], ["NCAD6VN2", "Y"], ["NCAD6VN3", "Z"]] },
+    { title: "Distance from the Sun, on-board ephemeris", params: [["NCASX003", "distance"]], unit: "au" },
+  ] },
+  { key: "thermal", label: "Thermal", charts: [
+    { title: "Battery temperature", params: [["NRU02341", "battery"]] },
+    { title: "Antenna temperatures", params: [["NRU02664", "HGA"], ["NRU02673", "MGA"], ["NRU02663", "LGA"]] },
+    { title: "Avionics temperatures", params: [["NRU02301", "OBC"], ["NRU02275", "PCDU"], ["NRU02310", "RIU"]] },
+    { title: "PHI telescope HREW temperatures", params: [["NRU02721", "HRT"], ["NRU02783", "FDT"]] },
+    { title: "Transmitter temperatures", params: [["NRU02231", "TWTA-1"], ["NRU02230", "DST-1"]] },
+  ] },
+  { key: "comms", label: "Communications", charts: [
+    { title: "HGA acquired azimuth and elevation", params: [["NCFT29S0", "azimuth"], ["NCFT29T0", "elevation"]], wrap: 360 },
+    { title: "HGA pointing error", params: [["NCFT29V0", "azimuth"], ["NCFT29X0", "elevation"]], bands: "pass" },
+    { title: "TWTA EPC-1 helix current", params: [["NRU02141", "helix"]], bands: "pass" },
+    { title: "TWTA EPC-1 anode voltage", params: [["NRU02142", "anode"]], bands: "pass" },
+  ] },
+];
+const WINDOWS = [["live", "Live TM", 0], ["6h", "6 h", 6 * 3600e3], ["1d", "1 day", 86400e3], ["7d", "7 days", 7 * 86400e3]];
+const UNITS = { DegC: "°C", degC: "°C", deg: "°", "dg/s": "°/s" };
+// smallest y range per unit, so that a steady signal is not blown up into quantisation noise
+const MIN_SPAN = { "°C": 2, "°": 1, "°/s": 0.02, rpm: 20, mA: 0.02, V: 2, au: 0.002 };
 const SPEEDS = [[1, "1×"], [10, "10×"], [60, "1 min/s"], [600, "10 min/s"], [3600, "1 h/s"], [21600, "6 h/s"], [86400, "1 day/s"], [432000, "5 days/s"]];
 const STATUS = {
   OK: ["ok", "✓", "OK"], S: ["soft", "▲", "Soft limit"], H: ["hard", "✖", "Hard limit"], INV: ["inv", "?", "Invalid"], NS: ["ns", "·", "Not simulated"],
@@ -56,12 +91,17 @@ async function boot() {
   const ui = new UI(root, sim, mib, eph, q);
   window.addEventListener("hashchange", () => {
     const h2 = new URLSearchParams(location.hash.slice(1));
-    if (!h2.get("t")) return;
-    const t2 = Date.parse(h2.get("t").length <= 16 ? h2.get("t") + "Z" : h2.get("t"));
+    const seq = mib.seqs && mib.seqs[h2.get("seq")] ? h2.get("seq") : null;
+    if (!h2.get("t") && !seq) return;
+    const t2 = h2.get("t") ? Date.parse(h2.get("t").length <= 16 ? h2.get("t") + "Z" : h2.get("t")) : NaN;
     if (Number.isFinite(t2)) { sim.jump(t2); ui.afterJump(); }
+    if (seq) { ui.seqSel = seq; ui.tcMode = "seq"; if (ui.tab === "tc" && !h2.get("tab")) ui.renderPanel(); }
     if (h2.get("speed")) { sim.speed = +h2.get("speed"); ui.el.speed.value = h2.get("speed"); }
     if (h2.get("view")) ui.root.querySelector(`[data-view="${h2.get("view") === "craft" ? "craft" : "system"}"]`)?.click();
-    if (h2.get("tab")) ui.root.querySelector(`[data-tab="${h2.get("tab")}"]`)?.click();
+    if (WINDOWS.some((w) => w[0] === h2.get("win"))) ui.plotWin = h2.get("win");
+    if (CHART_GROUPS.some((g) => g.key === h2.get("grp")) || ["all", "star"].includes(h2.get("grp"))) ui.plotGroup = h2.get("grp");
+    const tab = h2.get("tab") || (h2.get("win") || h2.get("grp") ? "plots" : seq ? "tc" : null);
+    if (tab) ui.root.querySelector(`[data-tab="${tab}"]`)?.click();
     root.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 }
@@ -69,10 +109,15 @@ async function boot() {
 class UI {
   constructor(root, sim, mib, eph, q = new URLSearchParams()) {
     this.root = root; this.sim = sim; this.mib = mib; this.ephRaw = eph;
-    this.tab = ["tm", "plots", "profile", "packets", "tc", "ops"].includes(q.get("tab")) ? q.get("tab") : "tm";
+    this.tab = ["tm", "plots", "profile", "packets", "tc", "ops"].includes(q.get("tab")) ? q.get("tab") : "plots";
+    this.plotWin = WINDOWS.some((w) => w[0] === q.get("win")) ? q.get("win") : "1d";
+    this.plotGroup = CHART_GROUPS.some((g) => g.key === q.get("grp")) || q.get("grp") === "star" ? q.get("grp") : "all";
     this.pktFilter = HK[q.get("pkt")] || ["synth", "verif"].includes(q.get("pkt")) ? q.get("pkt") : "33501";
-    this.initialView = q.get("view") === "craft" ? "craft" : "system"; this.selPkt = null; this.plotList = ["NCASX003", "NRU02263", "NCFT55P0", "NRU02664", "NRU02341", "NCASXAG0", "NCASXB10", "NCASXBK0", "NCASXC40", "NCFT29V0", "NRU02141"];
+    this.initialView = q.get("view") === "craft" ? "craft" : "system"; this.selPkt = null; this.plotList = (q.get("star") || "").split(",").filter((n) => mib.params[n]);
     this.tcSel = "ZCD01101"; this.tcVals = {};
+    this.seqSel = mib.seqs && mib.seqs[q.get("seq")] ? q.get("seq") : "ADMF011E"; this.seqVals = {};
+    this.tcMode = mib.seqs && mib.seqs[q.get("seq")] ? "seq" : "tc";
+    if (this.tcMode === "seq" && !q.get("tab")) this.tab = "tc";
     this.charts = new Map(); this.profile = null;
     this.build();
     sim.on((k, d) => this.onSim(k, d));
@@ -129,7 +174,7 @@ class UI {
       </div>
       <aside class="sim-state" data-k="state"></aside>`;
     const tabs = h("div", { class: "sim-tabs", role: "tablist" });
-    const TABS = [["tm", "Telemetry"], ["plots", "Plots"], ["profile", "Mission profile"], ["packets", "Packets"], ["tc", "Commanding"], ["ops", "Failures & log"]];
+    const TABS = [["plots", "Charts"], ["tm", "Telemetry"], ["profile", "Mission profile"], ["packets", "Packets"], ["tc", "Commanding"], ["ops", "Failures & log"]];
     tabs.innerHTML = TABS.map(([k, l]) => `<button data-tab="${k}" class="${k === this.tab ? "on" : ""}">${l}<span class="sim-badge" data-badge="${k}"></span></button>`).join("");
     const panel = h("div", { class: "sim-panel" });
     this.root.append(bar, main, tabs, panel);
@@ -169,7 +214,7 @@ class UI {
   }
   afterJump() { this.charts.forEach((c) => c.set(null)); this.selPkt = null; this.renderPanel(); this.refresh(); }
   onSim(kind) {
-    if (kind === "tc" && this.tab === "tc") this.renderTcHistory();
+    if ((kind === "tc" || kind === "seq") && this.tab === "tc") { this.renderTcHistory(); this.renderSeqRuns(); if (this.tcMode === "seq") this.renderSeqPlan(); }
     if (kind === "log") this.logDirty = true;
   }
   // ---------------------------------------------------------------- periodic refresh
@@ -244,7 +289,7 @@ class UI {
     P.innerHTML = `<div class="sim-row sim-wrap"><div class="sim-chips">${chips.map(([k, l]) => `<button data-f="${k}" class="${k === this.pktFilter ? "on" : ""}">${esc(l)}${/^\d+$/.test(k) ? ` <span class="sim-mut">${k}</span>` : ""}</button>`).join("")}</div>
       <label class="sim-chk"><input type="checkbox" data-k="onlysim" ${this.onlySim ? "checked" : ""}> Hide parameters the simulator does not model</label></div>
       <div class="sim-pkthdr" data-k="pkthdr"></div>
-      <div class="sim-scroll sim-tablewrap"><table class="sim-table"><thead><tr><th>Parameter</th><th>Description</th><th>Raw</th><th>Engineering</th><th>Unit</th><th>Limits (MIB)</th><th>Status</th><th>Generated on board (UTC)</th><th title="Add to plots">Plot</th></tr></thead><tbody data-k="tmbody"></tbody></table></div>
+      <div class="sim-scroll sim-tablewrap"><table class="sim-table"><thead><tr><th>Parameter</th><th>Description</th><th>Raw</th><th>Engineering</th><th>Unit</th><th>Limits (MIB)</th><th>Status</th><th>Generated on board (UTC)</th><th title="Add to the starred charts">Chart</th></tr></thead><tbody data-k="tmbody"></tbody></table></div>
       <p class="sim-foot">Raw values are decoded from the packet bytes using the PLF offsets and PCF types; engineering values use the MIB calibration curves (CAF/CAP, TXF/TXP); limits and the relevance and validity conditions come from OCF/OCP and PCF_VALID. Rows marked “not simulated” are real fields of the packet that this simulator leaves at zero.</p>`;
     P.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () => { this.pktFilter = b.dataset.f; P.querySelectorAll("[data-f]").forEach((x) => x.classList.toggle("on", x === b)); this.renderTmTable(true); }));
     this.el.onlysim = P.querySelector('[data-k="onlysim"]'); this.el.tmbody = P.querySelector('[data-k="tmbody"]'); this.el.pkthdr = P.querySelector('[data-k="pkthdr"]');
@@ -264,7 +309,7 @@ class UI {
     const f = this.pktFilter;
     if (/^\d+$/.test(f)) {
       const pk = M.packets[f], last = sim.ground.latest[f], hk = sim.hk[f];
-      this.el.pkthdr.innerHTML = `Packet ${pktLink(f)} · <b>${esc(pk.descr)}</b> · APID ${pk.apid} · TM(${pk.type},${pk.stype}) SID ${pk.pi1} · ${pk.length} octets · every ${HK[f].period} s (assumed)${hk && !hk.enabled ? ' · <b class="sim-warn-t">generation disabled by TC</b>' : ""} · ${last ? `last received ${fmtUtc(last.t).slice(11)} UTC via ${esc(STATIONS.find((s) => s.id === last.station)?.name)}` : "not received yet"}`;
+      this.el.pkthdr.innerHTML = `Packet ${pktLink(f)} · <b>${esc(pk.descr)}</b> · APID ${pk.apid} · TM(${pk.type},${pk.stype}) SID ${pk.pi1} · ${pk.length} octets · every ${+sim.hk[f].period.toFixed(3)} s ${sim.hk[f].byTc ? "(set by TC(3,130))" : "(assumed)"}${hk && !hk.enabled ? ' · <b class="sim-warn-t">generation disabled by TC</b>' : ""} · ${last ? `last received ${fmtUtc(last.t).slice(11)} UTC via ${esc(STATIONS.find((s) => s.id === last.station)?.name)}` : "not received yet"}`;
     } else this.el.pkthdr.innerHTML = f === "synth" ? "Synthetic parameters are computed on the ground from other parameters with the OL source published in the MIB." : "Fields of the last TM(1,1)/TM(1,7) verification report received.";
     const rows = [];
     for (const n of this.tmNames()) {
@@ -286,36 +331,113 @@ class UI {
         <td>${esc(p.u || "")}</td><td class="sim-small">${limTxt}</td>
         <td>${stKey ? `<span class="sim-status ${cls}"><span aria-hidden="true">${ico}</span> ${lab}</span>` : '<span class="sim-mut">–</span>'}</td>
         <td class="sim-small">${q ? fmtUtc(q.gen).slice(5) : "–"}</td>
-        <td>${q && typeof q.eng === "number" ? `<button class="sim-star ${plotted ? "on" : ""}" data-plot="${esc(n)}" title="${plotted ? "Remove from" : "Add to"} the Plots tab">${plotted ? "★" : "☆"}</button>` : ""}</td></tr>`);
+        <td>${q && typeof q.eng === "number" ? `<button class="sim-star ${plotted ? "on" : ""}" data-plot="${esc(n)}" title="${plotted ? "Remove from" : "Add to"} the starred charts">${plotted ? "★" : "☆"}</button>` : ""}</td></tr>`);
     }
     this.el.tmbody.innerHTML = rows.join("") || `<tr><td colspan="9" class="sim-mut">No telemetry received yet. Telemetry flows only during a ground-station pass: press “Next pass ▸”.</td></tr>`;
   }
-  // ---------------------------------------------------------------- plots
+  // ---------------------------------------------------------------- charts
+  unitOf(n, def) { const p = this.mib.params[n] || {}; return (def && def.unit) || UNITS[p.u] || p.u || ""; }
   buildPlots(P) {
-    P.innerHTML = `<p class="sim-foot">Live telemetry as decoded on the ground, plotted against the on-board generation time. Add or remove parameters with the ☆ buttons in the Telemetry tab. Limit lines are the MIB soft (amber) and hard (red) limits that apply in the current configuration.</p><div class="sim-grid" data-k="plotgrid"></div>`;
-    const grid = P.querySelector('[data-k="plotgrid"]');
-    for (const n of this.plotList) {
-      const p = this.mib.params[n] || {};
-      const card = h("div", { class: "sim-card" });
-      card.innerHTML = `<div class="sim-card-h"><div>${paramLink(n)} <span class="sim-mut">${esc(p.d || "")}</span></div><div class="sim-card-v" data-v></div></div>`;
-      grid.append(card);
-      const ch = new LineChart(card, { height: 140, unit: p.u || "" });
-      ch.valueEl = card.querySelector("[data-v]");
-      this.charts.set(n, ch);
+    const groups = CHART_GROUPS.map((g) => [g.key, g.label]).concat([["star", `☆ Starred${this.plotList.length ? ` (${this.plotList.length})` : ""}`]]);
+    P.innerHTML = `<div class="sim-ctl">
+        <div class="sim-seg" role="group" aria-label="Time window">${WINDOWS.map(([k, l]) => `<button data-win="${k}" class="${k === this.plotWin ? "on" : ""}">${l}</button>`).join("")}</div>
+        <div class="sim-chips" role="group" aria-label="Subsystem"><button data-grp="all" class="${this.plotGroup === "all" ? "on" : ""}">All</button>${groups.map(([k, l]) => `<button data-grp="${k}" class="${k === this.plotGroup ? "on" : ""}">${esc(l)}</button>`).join("")}</div>
+      </div>
+      <p class="sim-foot" data-k="plotnote"></p><div data-k="plotgroups"></div>`;
+    P.querySelectorAll("[data-win]").forEach((b) => b.addEventListener("click", () => { this.plotWin = b.dataset.win; this.renderPanel(); }));
+    P.querySelectorAll("[data-grp]").forEach((b) => b.addEventListener("click", () => { this.plotGroup = b.dataset.grp; this.renderPanel(); }));
+    const live = this.plotWin === "live";
+    P.querySelector('[data-k="plotnote"]').textContent = live
+      ? "Real-time telemetry as decoded on the ground, plotted against the on-board generation time. It arrives only during ground-station passes, one light time after it was generated."
+      : `On-board history of every housekeeping parameter, sampled every ${ARCHIVE.fine.step / 60e3} min (6 h, 1 day) or ${ARCHIVE.coarse.step / 60e3} min (7 days) through the same encoding, calibration and validity checks as live telemetry. A jump in time re-runs the models over the previous 7 days; a failure starts when you inject it. Amber and red lines are the MIB soft and hard limits.`;
+    const host = P.querySelector('[data-k="plotgroups"]');
+    const sections = CHART_GROUPS.filter((g) => this.plotGroup === "all" || this.plotGroup === g.key).map((g) => [g.label, g.charts]);
+    if (this.plotGroup === "all" || this.plotGroup === "star") sections.push(["☆ Starred", this.plotList.map((n) => ({ title: (this.mib.params[n] || {}).d || n, params: [[n, n]] })), true]);
+    for (const [label, defs, star] of sections) {
+      const sec = h("section", { class: "sim-csec" });
+      sec.innerHTML = `<div class="sim-gh">${esc(label)}</div>`;
+      const grid = h("div", { class: "sim-grid" });
+      sec.append(grid);
+      host.append(sec);
+      if (star && !defs.length) { grid.innerHTML = `<p class="sim-mut sim-hintcard">Add any numeric parameter here with its ☆ button in the Telemetry tab.</p>`; continue; }
+      for (const def of defs) {
+        const multi = def.params.length > 1, p0 = this.mib.params[def.params[0][0]] || {}, unit = this.unitOf(def.params[0][0], def);
+        const card = h("div", { class: "sim-card" });
+        const keys = def.params.map(([n, l], k) => multi ? `<span><i class="sim-key" style="background:var(--sim-s${k + 1})"></i>${esc(l)} ${paramLink(n)}</span>` : `<span>${paramLink(n)} ${esc(p0.d || "")}</span>`).join("");
+        const note = def.bands === "wol" ? "shaded: wheel off-loading" : def.bands === "pass" ? "shaded: ground-station passes" : "";
+        card.innerHTML = `<div class="sim-card-h"><div><b>${esc(def.title)}</b>${unit ? ` <span class="sim-mut">${esc(unit)}</span>` : ""}</div><div class="sim-card-v" data-v></div></div>
+          <div class="sim-card-legend">${keys}${note ? `<span class="sim-mut">${note}</span>` : ""}</div>`;
+        grid.append(card);
+        const ch = new LineChart(card, { height: 150, unit });
+        ch.def = def; ch.valueEl = card.querySelector("[data-v]");
+        this.charts.set("c" + this.charts.size, ch);
+      }
     }
+    this.plotKey = null;
     this.renderPlots();
   }
-  renderPlots() {
+  limitLines(n) {
+    const sim = this.sim, ctx = (x) => { const v = sim.ground.params.get(x); return v && typeof v.raw === "number" ? v.raw : CONFIG[x]; };
+    const out = [];
+    for (const L of sim.mib.limitsFor(n, ctx)) {
+      if (L.lo !== undefined) out.push({ v: L.lo, kind: L.type, label: `${L.type === "H" ? "hard" : "soft"} low ${L.lo}` });
+      if (L.hi !== undefined) out.push({ v: L.hi, kind: L.type, label: `${L.type === "H" ? "hard" : "soft"} high ${L.hi}` });
+    }
+    return out;
+  }
+  bandsFor(kind, x0, x1) {
     const sim = this.sim;
-    for (const [n, ch] of this.charts) {
-      if (!ch.valueEl) continue;
-      const s = sim.series(n), p = this.mib.params[n] || {};
-      const q = sim.ground.params.get(n);
-      ch.valueEl.innerHTML = q && typeof q.eng === "number" ? `<b>${fmtEng(q.eng, p)}</b> ${esc(p.u || "")}` : "";
-      const lim = sim.mib.limitsFor(n, (x) => { const v = sim.ground.params.get(x); return v && typeof v.raw === "number" ? v.raw : undefined; });
-      const limits = [];
-      for (const L of lim) { if (L.lo !== undefined) limits.push({ v: L.lo, kind: L.type, label: `${L.type === "H" ? "hard" : "soft"} low ${L.lo}` }); if (L.hi !== undefined) limits.push({ v: L.hi, kind: L.type, label: `${L.type === "H" ? "hard" : "soft"} high ${L.hi}` }); }
-      ch.set({ series: [{ name: n, t: s.t, v: s.v }], limits, unit: p.u || "", empty: "Waiting for telemetry: it flows during ground-station passes" });
+    if (kind === "wol") return sim.wolHist.filter((b) => b.to >= x0 && b.from <= x1);
+    if (kind !== "pass") return [];
+    // passes are ground times; the charts use on-board generation time, one light time earlier
+    const out = [], owlt = sim.geo.owlt * 1000;
+    for (let d = Math.floor(x0 / 864e5) - 1; d <= Math.floor(x1 / 864e5) + 1; d++) {
+      for (const p of sim.passes.day(d)) if (sim.stationsOn.has(p.st) && p.los - owlt >= x0 && p.aos - owlt <= x1) out.push({ from: p.aos - owlt, to: p.los - owlt });
+    }
+    return out;
+  }
+  renderPlots(force) {
+    const sim = this.sim, win = WINDOWS.find((w) => w[0] === this.plotWin), live = !win[2];
+    // redraw only when something changed (new samples, new packets, time moved)
+    const key = `${sim.arch.ver}|${sim.ground.recv}|${this.plotWin}|${Math.round(sim.t / 1000)}`;
+    if (!force && key === this.plotKey) return;
+    this.plotKey = key;
+    const x1 = sim.t, x0 = live ? sim.t - 86400e3 : Math.max(sim.eph.tStart, x1 - win[2]);
+    for (const ch of this.charts.values()) {
+      const def = ch.def;
+      if (!def) continue;
+      const series = def.params.map(([n, label], k) => {
+        const s = live ? sim.series(n) : sim.archiveSeries(n, x0, x1);
+        // break lines only across real holes: several times the typical (median) sample spacing
+        const step = live ? 6 * 60e3 : win[2] > 86400e3 ? ARCHIVE.coarse.step : ARCHIVE.fine.step;
+        const dts = [];
+        for (let i = 1; i < s.t.length; i += Math.max(1, Math.floor(s.t.length / 200))) dts.push(s.t[i] - s.t[i - 1]);
+        dts.sort((a, b) => a - b);
+        const med = dts.length ? dts[dts.length >> 1] : step;
+        return { name: label, label, t: s.t, v: s.v, slot: k, gap: Math.max(2.5 * step, 5 * med), wrap: def.wrap };
+      });
+      const unit = this.unitOf(def.params[0][0], def);
+      // limit lines only when every line shares the same MIB limits and there are at most three lines
+      let limits = [];
+      if (def.params.length <= 3) {
+        const sets = def.params.map(([n]) => this.limitLines(n));
+        if (sets.every((x) => JSON.stringify(x) === JSON.stringify(sets[0]))) limits = sets[0];
+        // a limit the data crosses, or comes within one display span of, is always drawn
+        let lo = Infinity, hi = -Infinity;
+        for (const s of series) for (let i = 0; i < s.v.length; i++) { const v = s.v[i]; if (Number.isFinite(v) && s.t[i] >= x0) { if (v < lo) lo = v; if (v > hi) hi = v; } }
+        const near = Math.max(hi - lo, MIN_SPAN[this.unitOf(def.params[0][0], def)] || 0);
+        limits = limits.map((L) => (Number.isFinite(lo) && L.v > lo - near && L.v < hi + near) || (/high/.test(L.label) && hi > L.v) || (/low/.test(L.label) && lo < L.v) ? { ...L, show: "always" } : L);
+      }
+      const bands = def.bands ? this.bandsFor(def.bands, x0, x1) : [];
+      ch.set({ series, limits, unit, bands, minSpan: MIN_SPAN[unit] || 0, x0: live ? undefined : x0, x1: live ? undefined : x1,
+        empty: live ? "Waiting for telemetry: it flows during ground-station passes" : "No samples in this window (housekeeping disabled?)" });
+      if (def.params.length === 1) {
+        const n = def.params[0][0], p = this.mib.params[n] || {}, s = series[0];
+        let v = null;
+        if (live) { const q = sim.ground.params.get(n); if (q && typeof q.eng === "number") v = q.eng; }
+        else for (let i = s.v.length - 1; i >= 0; i--) if (Number.isFinite(s.v[i])) { v = s.v[i]; break; }
+        ch.valueEl.innerHTML = v === null ? "" : `<b>${fmtEng(v, p)}</b> ${esc(unit)}`;
+      }
     }
   }
   redrawCharts() { this.charts.forEach((c) => c.draw()); }
@@ -407,14 +529,99 @@ class UI {
   }
   // ---------------------------------------------------------------- commanding
   buildTc(P) {
-    const tcs = this.mib.tcs;
-    P.innerHTML = `<div class="sim-tcgrid"><div class="sim-tclist">${Object.entries(tcs).map(([k, c]) => `<button data-tc="${k}" class="${k === this.tcSel ? "on" : ""}"><b>${esc(k)}</b><span>${esc(c.d)}</span><span class="sim-mut">TC(${c.type},${c.stype}) · APID ${c.apid}</span></button>`).join("")}</div>
-      <div class="sim-tcform" data-k="tcform"></div></div>
-      <h4 class="sim-h4">Command history</h4><div class="sim-scroll"><table class="sim-table"><thead><tr><th>Released (UTC)</th><th>Command</th><th>SSC</th><th>Via</th><th>On board (UTC)</th><th>TM(1,1) accepted</th><th>TM(1,7) completed</th><th>Result</th></tr></thead><tbody data-k="tchist"></tbody></table></div>`;
+    const tcs = this.mib.tcs, seqs = this.mib.seqs || {}, seqMode = this.tcMode === "seq";
+    const items = seqMode
+      ? Object.entries(seqs).map(([k, q]) => { const n = this.seqCount(k), nested = q.el.some((e) => e.t === "S");
+        return `<button data-sq="${k}" class="${k === this.seqSel ? "on" : ""}"><b>${esc(k)}</b><span>${esc(q.d)}</span><span class="sim-mut">${n} command${n > 1 ? "s" : ""}${nested ? " · nested sequences" : ""}${q.fp.length ? ` · ${q.fp.length} parameter${q.fp.length > 1 ? "s" : ""}` : ""}${q.doc ? ` · ${esc(q.doc)}` : ""}</span></button>`; }).join("")
+      : Object.entries(tcs).map(([k, c]) => `<button data-tc="${k}" class="${k === this.tcSel ? "on" : ""}"><b>${esc(k)}</b><span>${esc(c.d)}</span><span class="sim-mut">TC(${c.type},${c.stype}) · APID ${c.apid}</span></button>`).join("");
+    P.innerHTML = `<div class="sim-ctl sim-tcmode"><div class="sim-seg" role="group" aria-label="Show commands or sequences"><button data-tcm="tc" class="${seqMode ? "" : "on"}" aria-pressed="${!seqMode}">Commands (${Object.keys(tcs).length})</button><button data-tcm="seq" class="${seqMode ? "on" : ""}" aria-pressed="${seqMode}">Sequences (${Object.keys(seqs).length})</button></div>
+      <span class="sim-small sim-mut">${seqMode ? "Command sequences of the MIB (tables CSF, CSS, SDF, CSP) whose commands this simulator models. The ground releases each command at its release time during a pass." : "Telecommands of the MIB (tables CCF, CDF, CPC). Each one is encoded bit by bit and uplinked during a pass."}</span></div>
+      <div class="sim-tcgrid"><div class="sim-tclist">${items}</div><div class="sim-tcform" data-k="tcform"></div></div>
+      <div data-k="seqruns"></div>
+      <h4 class="sim-h4">Command history</h4><div class="sim-scroll"><table class="sim-table"><thead><tr><th>Released (UTC)</th><th>Command</th><th>Sequence</th><th>SSC</th><th>Via</th><th>On board (UTC)</th><th>TM(1,1) accepted</th><th>TM(1,7) completed</th><th>Result</th></tr></thead><tbody data-k="tchist"></tbody></table></div>`;
+    P.querySelectorAll("[data-tcm]").forEach((b) => b.addEventListener("click", () => { if (this.tcMode !== b.dataset.tcm) { this.tcMode = b.dataset.tcm; this.buildTc(P); } }));
     P.querySelectorAll("[data-tc]").forEach((b) => b.addEventListener("click", () => { this.tcSel = b.dataset.tc; this.tcVals = {}; P.querySelectorAll("[data-tc]").forEach((x) => x.classList.toggle("on", x === b)); this.renderTcForm(); }));
-    this.el.tcform = P.querySelector('[data-k="tcform"]'); this.el.tchist = P.querySelector('[data-k="tchist"]');
-    this.renderTcForm();
+    P.querySelectorAll("[data-sq]").forEach((b) => b.addEventListener("click", () => { this.seqSel = b.dataset.sq; this.seqShow = null; P.querySelectorAll("[data-sq]").forEach((x) => x.classList.toggle("on", x === b)); this.renderSeqForm(); }));
+    this.el.tcform = P.querySelector('[data-k="tcform"]'); this.el.tchist = P.querySelector('[data-k="tchist"]'); this.el.seqruns = P.querySelector('[data-k="seqruns"]');
+    if (seqMode) this.renderSeqForm(); else this.renderTcForm();
+    this.renderSeqRuns();
     this.renderTcHistory();
+    if (seqMode) P.querySelector("[data-sq].on")?.scrollIntoView({ block: "nearest" });
+  }
+  // number of commands a sequence releases once its nested sequences are expanded
+  seqCount(name) { return this.mib.seqs[name].el.reduce((n, e) => n + (e.t === "C" ? 1 : this.seqCount(e.id)), 0); }
+  seqHasHk(name) { return this.mib.seqs[name].el.some((e) => (e.t === "C" ? /^ZC[AF]003/.test(e.id) : this.seqHasHk(e.id))); }
+  renderSeqForm() {
+    const sim = this.sim, name = this.seqSel, q = this.mib.seqs[name];
+    const vals = this.seqVals[name] || (this.seqVals[name] = Object.fromEntries(q.fp.map((f) => [f.n, sim.fpDefault(f) ?? ""])));
+    const uses = (f) => q.el.flatMap((e) => e.v.filter((v) => v.vt === "F" && v.v === f.n).map((v) => `${v.p} of element ${e.e} (${e.id})`));
+    const sids = Object.entries(HK).map(([sp, h]) => { const pk = this.mib.packets[sp]; return `${pk.apid === 178 ? "AOCS" : "platform"} SID ${pk.pi1} ${esc(h.label)}`; }).join(", ");
+    this.el.tcform.innerHTML = `<h4>${seqLink(name)} ${esc(q.d)}</h4>
+      ${q.d2 ? `<p class="sim-small">${esc(q.d2)}</p>` : ""}
+      <p class="sim-small sim-mut">${q.doc ? `Generated from procedure ${esc(q.doc)}${q.issue ? ` issue ${esc(q.issue)}` : ""}${q.date ? `, ${esc(q.date)}` : ""} · ` : ""}${q.el.length} element${q.el.length > 1 ? "s" : ""}, ${this.seqCount(name)} command${this.seqCount(name) > 1 ? "s" : ""} once expanded · time tags (CSF_IFTT ${esc(q.iftt)}): ${esc(IFTT[q.iftt] || q.iftt)} · critical: ${q.crit === "Y" ? "yes" : "no"}</p>
+      ${q.fp.length ? `<div class="sim-tcparams">${q.fp.map((f) => { const pp = sim.fpParam(f), d = sim.fpDefault(f), u = uses(f);
+        return `<label class="sim-field sim-tcp"><span>${esc(f.n)} · ${esc(f.d)}${f.u ? ` (${esc(f.u)})` : ""}</span>
+        ${pp.choices ? `<select data-f="${esc(f.n)}"><option value="">— choose —</option>${pp.choices.map((x) => `<option ${x === vals[f.n] ? "selected" : ""}>${esc(x)}</option>`).join("")}</select>` : `<input data-f="${esc(f.n)}" value="${esc(vals[f.n])}" inputmode="decimal" placeholder="required">`}
+        <span class="sim-mut sim-small">${ptcName(f.ptc, f.pfc)}${pp.range ? ` · range ${pp.range.map(([a, b]) => `${a} … ${b}`).join(", ")} (${esc(f.prf)})` : ""} · ${d !== null ? `default ${esc(d)} (CSP_DEFVAL)` : "no default in the MIB: the operator enters it"}${u.length ? ` · sets ${esc(u.join(", "))}` : ""}</span></label>`; }).join("")}</div>` : '<p class="sim-small sim-mut">This sequence has no formal parameters: every value is fixed in the MIB.</p>'}
+      ${this.seqHasHk(name) ? `<p class="sim-small sim-mut">Housekeeping reports this simulator generates: ${sids}. Commands for other SIDs are accepted and verified but have no visible effect. Collection intervals are in cycles of 8 Hz (1/8 s), as the MIB's own parameter description “Coll Interval (8Hz Cyc)” states.</p>` : ""}
+      <div class="sim-row"><button class="sim-btn sim-primary" data-k="sqgo">Load and release</button><button class="sim-btn" data-k="sqstop">Stop sequence</button><span data-k="sqmsg" class="sim-small"></span></div>
+      <div data-k="sqplan"></div>`;
+    this.el.tcform.querySelectorAll("[data-f]").forEach((inp) => inp.addEventListener("input", () => { vals[inp.dataset.f] = inp.value; this.seqShow = null; this.renderSeqPlan(); }));
+    this.el.tcform.querySelector('[data-k="sqgo"]').addEventListener("click", () => {
+      const r = sim.startSequence(name, vals), m = this.el.tcform.querySelector('[data-k="sqmsg"]');
+      m.className = "sim-small " + (r.ok ? "sim-good-t" : "sim-warn-t");
+      if (r.ok) this.seqShow = r.run.id;
+      m.textContent = r.ok ? `Loaded. ${r.run.items.length} command${r.run.items.length > 1 ? "s" : ""} released over ${relText(r.run.items[r.run.items.length - 1].off)}; the first reaches the spacecraft in ${fmtDur(sim.geo.owlt)}.` : r.error || "Fix the parameters first: " + r.errors.join("; ");
+      this.renderSeqPlan(); this.renderSeqRuns(); this.renderTcHistory();
+    });
+    this.el.tcform.querySelector('[data-k="sqstop"]').addEventListener("click", () => { const run = sim.seqRuns.find((r) => r.name === name && r.state === "running"); if (run) sim.abortSequence(run.id); });
+    this.renderSeqPlan();
+  }
+  // the expanded sequence: from the latest run of this sequence, or a preview from the current parameter values
+  renderSeqPlan() {
+    const box = this.el.tcform && this.el.tcform.querySelector('[data-k="sqplan"]');
+    if (!box || this.tcMode !== "seq") return;
+    const sim = this.sim, name = this.seqSel, q = this.mib.seqs[name];
+    const run = sim.seqRuns.find((r) => r.id === this.seqShow && r.name === name) || sim.seqRuns.find((r) => r.name === name && r.state === "running");
+    const stop = this.el.tcform.querySelector('[data-k="sqstop"]');
+    if (stop) stop.disabled = !(run && run.state === "running");
+    let rows;
+    if (run) rows = run.items;
+    else {
+      const r = sim.expandSequence(name, this.seqVals[name] || {});
+      if (!r.ok) {
+        const errs = r.errors || [r.error], missing = errs.filter((e) => /a value is required/.test(e)), other = errs.filter((e) => !missing.includes(e));
+        box.innerHTML = `<div class="sim-small sim-mut">${missing.length ? `Enter ${missing.length > 1 ? "the formal parameters" : "the formal parameter"} ${listJoin(missing.map((e) => esc(e.split(" ")[0])))} to see the commands this sequence will release.` : "Expanded sequence:"}</div>${other.map((e) => `<div class="sim-small sim-warn-t">${esc(e)}</div>`).join("")}`;
+        return;
+      }
+      rows = r.items.map((it) => ({ ...it, at: null, tc: null }));
+    }
+    const st = (it) => {
+      if (!run) return '<span class="sim-mut">–</span>';
+      const c = it.tc;
+      if (!c) return run.state === "aborted" ? '<span class="sim-status soft">▲ Not released</span>' : '<span class="sim-mut">Queued</span>';
+      if (c.stages.exe) return `<span class="sim-status ok">✓ Completed</span>${c.note ? ` <span class="sim-small">${esc(c.note)}</span>` : ""}`;
+      if (c.stages.fail) return '<span class="sim-status soft">▲ No verification TM</span>';
+      if (c.stages.acc) return '<span class="sim-status inv">Accepted</span>';
+      return `<span class="sim-status inv">${c.stages.onboard ? "On board" : "Uplinking"}</span>`;
+    };
+    box.innerHTML = `<div class="sim-small sim-mut">${run ? `Run ${run.id}, loaded ${fmtUtc(run.start).slice(5)} UTC: ${run.state === "running" ? `${run.released} of ${run.items.length} released` : run.state === "released" ? "all commands released" : `stopped ${esc(run.error)}`}` : "Expanded sequence (preview): what the ground will release, one command after another"}</div>
+      <div class="sim-scroll"><table class="sim-table"><thead><tr><th>Element</th><th title="Release time from the start of the sequence (CSS_RELTYPE and CSS_RELTIME)">Release</th><th>Command</th><th>Values</th><th title="CSS_MANDISP: whether the command needs its own ARM and GO on a SCOS-2000 manual stack. The simulator dispatches every command automatically.">MIB dispatch</th><th>Status</th></tr></thead><tbody>
+      ${rows.map((it) => `<tr><td class="sim-nowrap">${esc(it.label)}${it.path.length > 1 ? `<div class="sim-small sim-mut">in ${it.path.slice(1).map(seqLink).join(" › ")}</div>` : ""}</td><td>T+${relText(it.off)}${it.at ? `<div class="sim-small sim-mut">${fmtUtc(it.at).slice(11)}</div>` : ""}</td>
+        <td>${tcLink(it.cname)} <span class="sim-mut">${esc(this.mib.tcs[it.cname].d)}</span></td>
+        <td class="sim-small">${Object.entries(it.values).map(([k, v]) => `${esc(k)} = <b>${esc(v)}</b>`).join("<br>") || '<span class="sim-mut">none</span>'}</td>
+        <td class="sim-small">${it.man ? "manual" : "with previous"}</td><td>${st(it)}</td></tr>`).join("")}</tbody></table></div>`;
+  }
+  renderSeqRuns() {
+    const box = this.el.seqruns;
+    if (!box || !box.isConnected) return;
+    const runs = this.sim.seqRuns;
+    if (!runs.length) { box.innerHTML = ""; return; }
+    box.innerHTML = `<h4 class="sim-h4">Sequences loaded</h4><div class="sim-scroll"><table class="sim-table"><thead><tr><th>Loaded (UTC)</th><th>Sequence</th><th>Released</th><th>State</th><th></th></tr></thead><tbody>
+      ${runs.slice(0, 20).map((r) => `<tr><td>${fmtUtc(r.start).slice(5)}</td><td>${seqLink(r.name)} <span class="sim-mut">${esc(r.def.d)}</span></td><td>${r.released} of ${r.items.length}</td>
+        <td>${r.state === "running" ? '<span class="sim-status inv">… Releasing</span>' : r.state === "released" ? '<span class="sim-status ok">✓ Released</span>' : `<span class="sim-status soft">▲ Stopped</span> <span class="sim-small">${esc(r.error)}</span>`}</td>
+        <td>${r.state === "running" ? `<button class="sim-btn" data-stop="${r.id}">Stop</button>` : ""}</td></tr>`).join("")}</tbody></table></div>`;
+    box.querySelectorAll("[data-stop]").forEach((b) => b.addEventListener("click", () => this.sim.abortSequence(+b.dataset.stop)));
   }
   renderTcForm() {
     const sim = this.sim, c = this.mib.tcs[this.tcSel], params = sim.tcb.editable(this.tcSel);
@@ -459,10 +666,10 @@ class UI {
     const T = (v) => (v ? fmtUtc(v).slice(5) : '<span class="sim-mut">pending</span>');
     this.el.tchist.innerHTML = this.sim.tcs.map((c) => {
       const res = c.stages.exe ? `<span class="sim-status ok">✓ Completed</span>${c.note ? ` <span class="sim-small">${esc(c.note)}</span>` : ""}` : c.stages.fail ? '<span class="sim-status soft">▲ No verification TM</span>' : '<span class="sim-status inv">… In progress</span>';
-      return `<tr><td>${fmtUtc(c.released).slice(5)}</td><td>${tcLink(c.cname)} <span class="sim-mut">${esc(c.def.d)}</span></td><td>${c.id}</td><td>${esc(c.station)}</td><td>${c.stages.onboard ? fmtUtc(c.stages.onboard).slice(5) : `<span class="sim-mut">due ${fmtUtc(c.arrive).slice(11)}</span>`}</td><td>${T(c.stages.acc)}</td><td>${T(c.stages.exe)}</td><td>${res}</td></tr>`;
-    }).join("") || `<tr><td colspan="8" class="sim-mut">No commands sent yet.</td></tr>`;
+      return `<tr><td>${fmtUtc(c.released).slice(5)}</td><td>${tcLink(c.cname)} <span class="sim-mut">${esc(c.def.d)}</span></td><td class="sim-nowrap">${c.seq ? `${seqLink(c.seq.name)} <span class="sim-mut">· ${esc(c.seq.label)}</span>` : '<span class="sim-mut">–</span>'}</td><td>${c.id}</td><td>${esc(c.station)}</td><td>${c.stages.onboard ? fmtUtc(c.stages.onboard).slice(5) : `<span class="sim-mut">due ${fmtUtc(c.arrive).slice(11)}</span>`}</td><td>${T(c.stages.acc)}</td><td>${T(c.stages.exe)}</td><td>${res}</td></tr>`;
+    }).join("") || `<tr><td colspan="9" class="sim-mut">No commands sent yet.</td></tr>`;
   }
-  renderTcStatus() { if (this.sim.running) { if (!this.tcHistT || performance.now() - this.tcHistT > 1000) { this.tcHistT = performance.now(); this.renderTcHistory(); } } }
+  renderTcStatus() { if (this.sim.running) { if (!this.tcHistT || performance.now() - this.tcHistT > 1000) { this.tcHistT = performance.now(); this.renderTcHistory(); this.renderSeqRuns(); if (this.tcMode === "seq") this.renderSeqPlan(); } } }
   // ---------------------------------------------------------------- failures & log
   buildOps(P) {
     const sim = this.sim;

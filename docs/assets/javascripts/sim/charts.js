@@ -3,9 +3,10 @@
 const TIME_STEPS = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400, 2 * 86400, 7 * 86400,
   14 * 86400, 30.44 * 86400, 91.31 * 86400, 182.6 * 86400, 365.25 * 86400, 2 * 365.25 * 86400].map((s) => s * 1000);
 
-export function niceTicks(min, max, n = 4) {
+// minSpanAbs keeps a nearly constant signal from being blown up into quantisation noise
+export function niceTicks(min, max, n = 4, minSpanAbs = 0) {
   const mag0 = Math.max(Math.abs(min), Math.abs(max));
-  const minSpan = Math.max(mag0 * 2e-5, mag0 === 0 ? 1 : 1e-9);
+  const minSpan = Math.max(mag0 * 1e-3, minSpanAbs, mag0 === 0 ? 1 : 1e-12);
   if (!(max - min >= minSpan)) { const c = (min + max) / 2; min = c - minSpan / 2; max = c + minSpan / 2; }
   const raw = (max - min) / n, mag = 10 ** Math.floor(Math.log10(raw)), f = raw / mag;
   const step = (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * mag;
@@ -18,9 +19,15 @@ export function fmtNum(v, step) {
   if (!Number.isFinite(v)) return "–";
   if (step && Math.abs(v) < step / 2) v = 0;
   const a = Math.abs(v);
-  if (step && step < 1e-4) return v === 0 ? "0" : v.toExponential(Math.max(1, Math.min(4, Math.ceil(Math.log10(a / step)))));
+  if (step && step < 9e-5) {
+    if (v === 0) return "0";
+    // enough mantissa digits for adjacent ticks (steps are 1, 2 or 5 x 10^k) to differ
+    const e = Math.floor(Math.log10(a));
+    return v.toExponential(Math.max(0, Math.min(6, Math.ceil(-Math.log10(step / 10 ** e) - 1e-9))));
+  }
+  if (!step && a !== 0 && a < 1e-3) return v.toExponential(3);
   if (a >= 1e6) return (v / 1e6).toFixed(a >= 1e7 ? 0 : 1) + "M";
-  if (a >= 1e4) return (v / 1e3).toFixed(0) + "K";
+  if (a >= 1e4 && (!step || step >= 1000)) return (v / 1e3).toFixed(0) + "K";
   const dec = step ? Math.max(0, Math.min(6, -Math.floor(Math.log10(step) + 1e-9))) : a >= 100 ? 1 : a >= 1 ? 3 : 5;
   return v.toFixed(dec);
 }
@@ -101,9 +108,12 @@ export class LineChart {
     for (const L of d.limits || []) { if (L.show === "always") { if (L.v < ymin) ymin = L.v; if (L.v > ymax) ymax = L.v; } }
     if (d.yMin !== undefined) ymin = Math.min(ymin, d.yMin);
     if (d.yMax !== undefined) ymax = Math.max(ymax, d.yMax);
-    const yt = niceTicks(ymin, ymax, 4);
+    const yt = niceTicks(ymin, ymax, 4, d.minSpan || 0);
     const labW = Math.max(...yt.ticks.map((v) => ctx.measureText(fmtNum(v, yt.step)).width)) + 10;
-    const L = labW, R = 10, Tp = 8, B = 20, W = w - L - R, H = h - Tp - B;
+    // direct labels at the line ends when there are several series (identity is never colour alone)
+    const endLabels = series.length > 1 && d.endLabels !== false;
+    const endW = endLabels ? Math.max(...series.map((s) => ctx.measureText(s.label || s.name || "").width)) + 20 : 0;
+    const L = labW, R = 10 + endW, Tp = 8, B = 20, W = w - L - R, H = h - Tp - B;
     this.geom = { L, W, x0, x1 };
     const X = (t) => L + (t - x0) / (x1 - x0) * W, Y = (v) => Tp + (1 - (v - yt.lo) / (yt.hi - yt.lo)) * H;
     // grid + y labels
@@ -137,28 +147,50 @@ export class LineChart {
       const right = lim.kind !== "S";
       ctx.font = `10px ${T.font}`;
       const tw = ctx.measureText(lim.label).width + 6;
+      // label above the line, or below it when the line is at the top of the plot
+      const below = y - 13 < Tp;
       ctx.fillStyle = T.surface; ctx.globalAlpha = 0.85;
-      ctx.fillRect(right ? L + W - tw - 2 : L + 2, y - 13, tw, 11); ctx.globalAlpha = 1;
-      ctx.fillStyle = T.ink2; ctx.textAlign = right ? "right" : "left"; ctx.textBaseline = "bottom";
-      ctx.fillText(lim.label, right ? L + W - 5 : L + 5, y - 2);
+      ctx.fillRect(right ? L + W - tw - 2 : L + 2, below ? y + 2 : y - 13, tw, 11); ctx.globalAlpha = 1;
+      ctx.fillStyle = T.ink2; ctx.textAlign = right ? "right" : "left"; ctx.textBaseline = below ? "top" : "bottom";
+      ctx.fillText(lim.label, right ? L + W - 5 : L + 5, below ? y + 3 : y - 2);
       ctx.font = `11px ${T.font}`;
     }
     // series
     series.forEach((s, k) => {
       ctx.strokeStyle = s.color || T.series[(s.slot ?? k) % 8]; ctx.lineWidth = 2; ctx.lineJoin = "round"; ctx.lineCap = "round";
       ctx.beginPath();
-      let pen = false, last = null;
+      let pen = false, last = null, lastV = null;
       for (let i = 0; i < s.t.length; i++) {
         const v = s.v[i];
         if (!Number.isFinite(v) || s.t[i] < x0 || s.t[i] > x1) { pen = false; continue; }
-        const gap = s.gap && last !== null && s.t[i] - last > s.gap;
+        // break the line across missing samples and across angle wrap-around (e.g. azimuth -180/+180)
+        const gap = (s.gap && last !== null && s.t[i] - last > s.gap) || (s.wrap && lastV !== null && Math.abs(v - lastV) > s.wrap / 2);
         const x = X(s.t[i]), y = Y(v);
         if (!pen || gap) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        pen = true; last = s.t[i];
+        pen = true; last = s.t[i]; lastV = v;
       }
       ctx.stroke();
       if (s.t.length === 1 && Number.isFinite(s.v[0])) { ctx.fillStyle = ctx.strokeStyle; ctx.beginPath(); ctx.arc(X(s.t[0]), Y(s.v[0]), 4, 0, 7); ctx.fill(); }
     });
+    if (endLabels) {
+      const items = [];
+      series.forEach((s, k) => {
+        for (let i = s.t.length - 1; i >= 0; i--) {
+          if (s.t[i] > x1 || !Number.isFinite(s.v[i])) continue;
+          if (s.t[i] >= x0) items.push({ y: Y(s.v[i]), col: s.color || T.series[(s.slot ?? k) % 8], label: s.label || s.name || "" });
+          break;
+        }
+      });
+      items.sort((a, b) => a.y - b.y);
+      for (let i = 1; i < items.length; i++) if (items[i].y - items[i - 1].y < 13) items[i].y = items[i - 1].y + 13;
+      const over = items.length ? items[items.length - 1].y - (Tp + H) : 0;
+      if (over > 0) for (const it of items) it.y = Math.max(Tp + 4, it.y - over);
+      ctx.textAlign = "left"; ctx.textBaseline = "middle";
+      for (const it of items) {
+        ctx.fillStyle = it.col; ctx.fillRect(L + W + 5, Math.round(it.y) - 1, 8, 2.5);
+        ctx.fillStyle = T.ink2; ctx.fillText(it.label, L + W + 16, it.y);
+      }
+    }
     // cursor (current time)
     if (d.cursor !== undefined && d.cursor >= x0 && d.cursor <= x1) {
       const x = Math.round(X(d.cursor)) + 0.5;

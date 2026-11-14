@@ -4,7 +4,7 @@
 // types, calibrations, limits, telecommands and synthetic-parameter formulas come from the MIB.
 import {
   DEG, AU_KM, clamp, lerp, v3, noise, hashName, geometry, hgaAnglesFor, hgaDir, PassPlanner, STATIONS,
-  Mib, TcBuilder, compileOL, encodeRaw, decodeRaw, buildTmHeader, parseTmHeader, readBits, bitWidth, geoVector, stationElevation, ELEV_MASK, PASS_MAX_H,
+  Mib, TcBuilder, compileOL, encodeRaw, decodeRaw, roundTripRaw, buildTmHeader, parseTmHeader, readBits, bitWidth, geoVector, stationElevation, ELEV_MASK, PASS_MAX_H,
 } from "./core.js";
 
 // ---------------------------------------------------------------- constants
@@ -27,6 +27,11 @@ export const WHEEL_J = 0.12, WHEEL_MAX_RPM = 2500, WHEEL_BIAS = [100, -100, 100,
 export const SRP_TORQUE_1AU = 1.2e-5; // N m, assumption
 export const WOL_DURATION_S = 1200; // assumption
 export const SCIENCE_START = Date.UTC(2021, 10, 27); // Earth flyby, end of cruise (Horizons object notes)
+// Chart history (simulator design, not a spacecraft property): every housekeeping parameter is sampled
+// into two rings, 2 minutes for the last day and 15 minutes for the last week. After a reset the models
+// are run forward over the previous BACKFILL_MS so that the charts open with history.
+export const ARCHIVE = { fine: { step: 120e3, cap: 750 }, coarse: { step: 900e3, cap: 700 } };
+export const BACKFILL_MS = 7 * 86400000, BACKFILL_STEP_MS = 120e3;
 
 // HK generation periods: assumption (the MIB does not give them)
 export const HK = {
@@ -83,9 +88,35 @@ export function rsWindows(eph) {
     .map((e) => ({ kind: e.kind, from: e.t - 5 * 86400000, to: e.t + 5 * 86400000 }));
 }
 
+// Fixed-capacity time-series store: one shared time column and one value column per parameter.
+export class Ring {
+  constructor(cap, step) { this.cap = cap; this.step = step; this.t = new Float64Array(cap); this.cols = new Map(); this.i = 0; this.n = 0; this.next = -Infinity; }
+  push(t, vals) {
+    const j = this.i;
+    this.t[j] = t;
+    for (const c of this.cols.values()) c[j] = NaN;
+    for (const k in vals) {
+      let c = this.cols.get(k);
+      if (!c) { c = new Float64Array(this.cap).fill(NaN); this.cols.set(k, c); }
+      c[j] = vals[k];
+    }
+    this.i = (j + 1) % this.cap; this.n = Math.min(this.cap, this.n + 1);
+  }
+  get first() { return this.n ? this.t[(this.i - this.n + this.cap) % this.cap] : null; }
+  series(name, from = -Infinity, to = Infinity) {
+    const c = this.cols.get(name), t = [], v = [];
+    if (!c) return { t, v };
+    for (let k = 0; k < this.n; k++) {
+      const j = (this.i - this.n + k + this.cap) % this.cap, tt = this.t[j];
+      if (tt >= from && tt <= to) { t.push(tt); v.push(c[j]); }
+    }
+    return { t, v };
+  }
+}
+
 // ---------------------------------------------------------------- simulator
 export class Simulator {
-  constructor(mibData, ephem) {
+  constructor(mibData, ephem, t0 = Date.now()) {
     this.mib = new Mib(mibData);
     this.eph = ephem;
     this.tcb = new TcBuilder(this.mib);
@@ -94,7 +125,11 @@ export class Simulator {
     this.synth = {};
     for (const [n, src] of Object.entries(mibData.synth)) if (src) { try { this.synth[n] = { fn: compileOL(src), src, refs: [...src.matchAll(/\b(N[A-Z0-9]{7})\b/g)].map((m) => m[1]) }; } catch (e) { console.warn(e); } }
     this.pidIndex = new Map();
-    for (const p of Object.values(this.mib.packets)) this.pidIndex.set(`${p.apid}|${p.type}|${p.stype}|${p.type === 3 ? p.pi1 : 0}`, p);
+    this.pktNames = {};
+    for (const p of Object.values(this.mib.packets)) {
+      this.pidIndex.set(`${p.apid}|${p.type}|${p.stype}|${p.type === 3 ? p.pi1 : 0}`, p);
+      this.pktNames[p.spid] = new Set(p.params.map((x) => x[0]));
+    }
     // thermistor models
     this.therm = {};
     const tp = this.mib.packets[33501].params.concat(this.mib.packets[33582].params, this.mib.packets[33580].params);
@@ -105,21 +140,57 @@ export class Simulator {
       const soft = L && L.checks.find((c) => c.type === "S"), hard = L && L.checks.find((c) => c.type === "H");
       const lim = soft || hard;
       const lo = lim ? lim.lo : -20, hi = lim ? lim.hi : 60;
-      this.therm[n] = { cls: thermalClass(p.d), mid: (lo + hi) / 2, half: (hi - lo) / 2, seed: hashName(n), twin: /^NRU1/.test(n) ? "NRU0" + n.slice(4) : null };
+      const cls = thermalClass(p.d), seed = hashName(n);
+      // fixed per-sensor offset (assumption): no two thermistors read the same, about ±5 % of the limit half-range
+      const off = cls === "bat" || cls === "sa" ? 0 : ((seed % 1000) / 1000 - 0.5) * 0.1 * (hi - lo) / 2;
+      this.therm[n] = { cls, mid: (lo + hi) / 2 + off, half: (hi - lo) / 2, seed, twin: /^NRU1/.test(n) ? "NRU0" + n.slice(4) : null };
     }
+    const TAU = { int: 3 * 3600, bat: 2 * 3600, ant: 1800 };
+    this.thermList = Object.entries(this.therm).map(([n, m]) => ({ n, m, tau: TAU[m.cls] || 3600, my: m.cls === "sa" && /MY/.test(this.mib.P[n].d) }));
+    // per-packet list of archived parameters with their definitions (avoids lookups in the hot loop)
+    this.plan = {};
+    for (const spid of Object.keys(HK)) this.plan[spid] = this.mib.packets[spid].params.map(([n]) => n).filter((n) => this.mib.P[n]).map((n) => ({ n, p: this.mib.P[n], valid: this.mib.P[n].valid }));
+    this.thermBySpid = {};
+    for (const spid of [33501, 33580, 33582]) this.thermBySpid[spid] = Object.keys(this.therm).filter((k) => this.pktNames[spid].has(k));
     this.listeners = new Set();
     this.speed = 60;
     this.running = true;
     this.stationsOn = new Set(["MLG"]);
     this.failures = new Set();
-    this.reset(Date.now());
+    this.reset(t0);
   }
   on(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); }
   emit(kind, data) { for (const f of this.listeners) f(kind, data); }
-  log(sev, text, t = this.t) { const e = { t, sev, text }; this.events.unshift(e); if (this.events.length > 400) this.events.pop(); this.emit("log", e); }
+  log(sev, text, t = this.t) { if (this.quiet) return; const e = { t, sev, text }; this.events.unshift(e); if (this.events.length > 400) this.events.pop(); this.emit("log", e); }
 
   reset(t) {
     t = clamp(t, this.eph.tStart, this.eph.tEnd);
+    // start in equilibrium BACKFILL_MS earlier and run the models forward to t, filling the chart history
+    this.initState(Math.max(this.eph.tStart, t - BACKFILL_MS));
+    this.backfill(t);
+    const g = this.geo;
+    this.hk = {};
+    for (const [spid, h] of Object.entries(HK)) this.hk[spid] = { enabled: true, period: h.period, next: t + Math.random() * h.period * 1000 };
+    this.inflight = [];
+    this.uplink = [];
+    this.onboardQ = [];
+    this.ground = { params: new Map(), packets: [], latest: {}, recv: 0, lost: 0, lastRecv: null };
+    this.hist = new Map();
+    this.tcs = this.tcs || [];
+    this.tcs.length = 0;
+    this.tcSsc = 1;
+    this.relQ = [];
+    this.seqRuns = this.seqRuns || [];
+    this.seqRuns.length = 0;
+    this.seqId = 0;
+    this.events = this.events || [];
+    this.events.length = 0;
+    this.lastPass = null;
+    this.prevStatus = new Map();
+    this.link = this.linkState(t, g);
+    this.emit("reset", t);
+  }
+  initState(t) {
     this.t = t;
     const g = geometry(this.eph, t);
     this.geo = g;
@@ -133,37 +204,91 @@ export class Simulator {
       wheels: WHEEL_BIAS.slice(), wol: 0, wolFrom: null,
       temps: {}, ssmm: 120, ssc: {}, connTest: 0,
     };
-    for (const [n, m] of Object.entries(this.therm)) this.sc.temps[n] = this.thermEq(n, m, g);
-    this.hk = {};
-    for (const [spid, h] of Object.entries(HK)) this.hk[spid] = { enabled: true, period: h.period, next: t + Math.random() * h.period * 1000 };
-    this.inflight = [];
-    this.uplink = [];
-    this.onboardQ = [];
-    this.ground = { params: new Map(), packets: [], latest: {}, recv: 0, lost: 0, lastRecv: null };
-    this.hist = new Map();
-    this.tcs = this.tcs || [];
-    this.tcs.length = 0;
-    this.tcSsc = 1;
-    this.events = this.events || [];
-    this.events.length = 0;
-    this.lastPass = null;
-    this.prevStatus = new Map();
-    this.link = this.linkState(t, g);
-    this.emit("reset", t);
+    for (const { n, m, my } of this.thermList) this.sc.temps[n] = m.cls === "sa" ? (my ? this.sc.saTempMY : this.sc.saTempPY) : this.thermEq(n, m, g);
+    this.arch = { fine: new Ring(ARCHIVE.fine.cap, ARCHIVE.fine.step), coarse: new Ring(ARCHIVE.coarse.cap, ARCHIVE.coarse.step), ver: 0 };
+    this.wolHist = [];
+  }
+  // Run the models from the current (equilibrium) state to tEnd without generating packets or log
+  // entries. Failures are held off so that a failure injected by the user starts at the current time.
+  backfill(tEnd) {
+    const failures = this.failures, hk = this.hk;
+    this.failures = new Set(); this.hk = null; this.quiet = true;
+    const F = this.arch.fine;
+    F.next = Math.max(Math.ceil(this.t / F.step) * F.step, tEnd - (F.cap - 1) * F.step);
+    this.arch.coarse.next = Math.ceil(this.t / this.arch.coarse.step) * this.arch.coarse.step;
+    let g = this.geo;
+    try {
+      this.archive(this.t, g);
+      while (this.t < tEnd) {
+        // coarser physics steps where only the 15-minute ring is being filled
+        const step = this.t < F.next - BACKFILL_STEP_MS ? 2.5 * BACKFILL_STEP_MS : BACKFILL_STEP_MS;
+        const t1 = Math.min(tEnd, F.next > this.t ? Math.min(this.t + step, F.next) : this.t + step), dt = (t1 - this.t) / 1000;
+        this.t = t1;
+        g = geometry(this.eph, t1);
+        this.stepPhysics(dt, g);
+        this.archive(t1, g);
+      }
+    } finally {
+      this.geo = g; this.failures = failures; this.hk = hk; this.quiet = false;
+    }
+  }
+  // Sample every enabled housekeeping packet through the same encode/decode/calibrate chain as live
+  // telemetry and store the engineering values in whichever rings are due.
+  archive(t, g) {
+    const due = [this.arch.fine, this.arch.coarse].filter((r) => t >= r.next);
+    if (!due.length) return;
+    const vals = this.snapshot(t, g);
+    for (const r of due) { r.push(t, vals); r.next = (Math.floor(t / r.step) + 1) * r.step; }
+    this.arch.ver++;
+  }
+  snapshot(t, g) {
+    const vals = {}, raws = {};
+    for (const spid of Object.keys(HK)) {
+      if (this.hk && this.hk[spid] && !this.hk[spid].enabled) continue;
+      const pkt = this.mib.packets[spid], V = this.values(+spid, t, g);
+      for (const { n: name, p } of this.plan[spid]) {
+        const r = this.rawFor(name, pkt, V);
+        if (r === undefined) continue;
+        const raw = roundTripRaw(p.ptc, p.pfc, r);
+        if (typeof raw !== "number") continue;
+        raws[name] = raw;
+        const cal = this.mib.calibrate(name, raw);
+        if (cal.ok && typeof cal.v === "number" && Number.isFinite(cal.v)) vals[name] = cal.v;
+      }
+    }
+    // validity conditions (PCF_VALID) from the same sample, configuration parameters otherwise
+    for (const spid of Object.keys(HK)) for (const { n, p, valid } of this.plan[spid]) {
+      if (!valid || vals[n] === undefined) continue;
+      const v = raws[valid] !== undefined ? raws[valid] : CONFIG[valid];
+      if (v !== p.valpar) delete vals[n];
+    }
+    for (const [n, s] of Object.entries(this.synth)) {
+      if (!s.refs.every((r) => raws[r] !== undefined)) continue;
+      try { const v = s.fn((ref, mode) => (mode === "raw" ? raws[ref] : vals[ref] ?? NaN)); if (Number.isFinite(v)) vals[n] = v; } catch (e) { /* ignore */ }
+    }
+    return vals;
+  }
+  // archived engineering values of one parameter between from and to (ms), from the finest ring that covers from
+  archiveSeries(name, from, to = this.t) {
+    const F = this.arch.fine;
+    return (F.first !== null && F.first <= from ? F : this.arch.coarse).series(name, from, to);
   }
   jump(t) { this.reset(t); this.log("info", "Simulation moved to " + new Date(this.t).toISOString().slice(0, 16).replace("T", " ") + " UTC"); }
 
   science(t) { return t >= SCIENCE_START; }
   inRsWindow(t) { return this.rs.some((w) => t >= w.from && t <= w.to); }
 
-  thermEq(n, m, g) {
+  thermTerms(g) {
     const f = 1 / (g.r * g.r);
-    const u = clamp(Math.log(f / 0.6) / Math.log(12.8 / 0.6), 0, 1);
+    return { f, u: clamp(Math.log(f / 0.6) / Math.log(12.8 / 0.6), 0, 1), ant: Math.sqrt(clamp(f * Math.max(0, Math.cos(g.spe * DEG)) / 12.8, 0, 1)), bat: this.failures.has("batHeater") ? 22 : 0 };
+  }
+  thermEq(n, m, g, q = this.thermTerms(g)) {
+    const u = q.u;
     let T;
     switch (m.cls) {
       case "sa": return null; // computed by the array model
-      case "ant": { const exp = Math.max(0, Math.cos(g.spe * DEG)); T = m.mid + m.half * (-0.55 + 0.9 * Math.sqrt(clamp(f * exp / 12.8, 0, 1))); break; }
-      case "bat": T = m.mid + m.half * (-0.2 + 0.15 * u) + (this.failures.has("batHeater") ? 22 : 0); break;
+      case "ant": T = m.mid + m.half * (-0.55 + 0.9 * q.ant); break;
+      case "bat": T = m.mid + m.half * (-0.2 + 0.15 * u) + q.bat; break;
       case "hrew": T = m.mid + m.half * (-0.5 + 1.0 * u); break;
       case "ext": T = m.mid + m.half * (-0.55 + 0.9 * u); break;
       default: T = m.mid + m.half * (-0.2 + 0.3 * u);
@@ -192,7 +317,9 @@ export class Simulator {
     const g = geometry(this.eph, t1);
     this.geo = g;
     this.stepPhysics(dts, g);
-    // on-board arrival of telecommands
+    this.archive(t1, g);
+    // ground release of sequence elements, then on-board arrival of telecommands
+    while (this.relQ.length && this.relQ[0].at <= t1) this.releaseItem(this.relQ.shift());
     while (this.uplink.length && this.uplink[0].arrive <= t1) this.execute(this.uplink.shift());
     while (this.onboardQ.length && this.onboardQ[0].at <= t1) { const q = this.onboardQ.shift(); q.fn(q.at); }
     // housekeeping generation
@@ -236,11 +363,11 @@ export class Simulator {
     sc.saTempPY += (tSA - sc.saTempPY) * kSA;
     sc.saTempMY += (tSA + 0.6 - sc.saTempMY) * kSA;
     // thermistors (first-order lags)
-    for (const [n, m] of Object.entries(this.therm)) {
-      if (m.cls === "sa") { sc.temps[n] = /MY/.test(this.mib.P[n].d) ? sc.saTempMY : sc.saTempPY; continue; }
-      const tau = m.cls === "int" ? 3 * 3600 : m.cls === "bat" ? 2 * 3600 : m.cls === "ant" ? 1800 : 3600;
-      const eq = this.thermEq(n, m, g);
-      sc.temps[n] += (eq - sc.temps[n]) * (1 - Math.exp(-dt / tau));
+    const q = this.thermTerms(g), k = {};
+    for (const { n, m, tau, my } of this.thermList) {
+      if (m.cls === "sa") { sc.temps[n] = my ? sc.saTempMY : sc.saTempPY; continue; }
+      const kk = k[tau] ?? (k[tau] = 1 - Math.exp(-dt / tau));
+      sc.temps[n] += (this.thermEq(n, m, g, q) - sc.temps[n]) * kk;
     }
     // HGA mechanism
     const h = sc.hga;
@@ -272,7 +399,9 @@ export class Simulator {
     if (this.sc.wol > 0) return false;
     this.sc.wol = WOL_DURATION_S;
     this.sc.wolFrom = t;
-    this.emit("wol", t);
+    this.wolHist.push({ from: t, to: t + WOL_DURATION_S * 1000 });
+    if (this.wolHist.length > 200) this.wolHist.shift();
+    if (!this.quiet) this.emit("wol", t);
     this.onboardLog(t, `Wheel off-loading started (${why})`);
     return true;
   }
@@ -312,9 +441,8 @@ export class Simulator {
       V.NCAT6RA0 = a.az; V.NCAT6RB0 = a.el;
       V.NCAT6M70 = g.r * AU_KM * 1000;
     } else if (spid === 33501 || spid === 33582 || spid === 33580) {
-      for (const [k, T] of Object.entries(sc.temps)) {
-        if (!this.mib.packets[spid].params.some((p) => p[0] === k)) continue;
-        const m = this.therm[k];
+      for (const k of this.thermBySpid[spid]) {
+        const m = this.therm[k], T = sc.temps[k];
         let v = m.twin && sc.temps[m.twin] !== undefined ? sc.temps[m.twin] + 0.3 : T;
         V[k] = v + 0.08 * noise(m.seed, t / 16000);
       }
@@ -369,7 +497,7 @@ export class Simulator {
       NCFT4VS0: "WGS_POS_1", NCFT4VV0: "WGS_POS_1", NCFT4VY0: "WGS_POS_1", NCFT4W10: "WGS_POS_1", NCFT4W40: "WGS_POS_1",
       NCFT5510: "WGS_POS_1", NCFT5520: "WGS_POS_1", NCFT5530: "WGS_POS_1", NCFT5540: "WGS_POS_1", NCFT5550: "WGS_POS_1",
       NCFT5570: "TWTA_A", NCFT1BW0: "HGA", NCFT1BX0: "LGA_B",
-      NRU02141: on ? 0.35 + 0.01 * noise(21, t / 16000) : 0, NRU02142: on ? 3300 + 5 * noise(22, t / 16000) : 0,
+      NRU02141: on ? 0.352 + 0.002 * noise(21, t / 16000) : 0, NRU02142: on ? 3300.4 + 0.6 * noise(22, t / 16000) : 0,
       NRU02161: 0, NRU02162: 0, NRU12141: on ? 0.36 : 0, NRU12142: on ? 3302 : 0, NRU12161: 0, NRU12162: 0,
       NCFT2N20: on ? 1850 : 12, NCFT2N70: 10,
       NRUD2053: "On", NRUD2054: on ? "On" : "Off", NRUD2055: on ? "On" : "Off", NRUD2113: "Off", NRUD2114: "Off", NRUD2115: "Off",
@@ -382,26 +510,35 @@ export class Simulator {
   // ------------------------------------------------------------ packets
   generate(spid, t, g, extra) {
     const pkt = this.mib.packets[spid];
-    const buf = new Uint8Array(pkt.length);
     const ssc = (this.sc.ssc[pkt.apid] = ((this.sc.ssc[pkt.apid] || 0) + 1) & 0x3fff);
+    const { buf, simulated } = this.encodePacket(spid, t, g, extra, ssc);
+    const ok = this.link.tx || (this.sc.twta.on && v3.angle(hgaDir(this.sc.hga.az, this.sc.hga.el), g.eB) / DEG < HGA_BEAM_OK);
+    if (ok && this.sc.twta.on) this.inflight.push({ gen: t, arrive: t + g.owlt * 1000, spid, bytes: buf, simulated, sep: g.sep });
+    return buf;
+  }
+  // packet bytes for the current state: header, then each parameter's raw value at its MIB offset
+  encodePacket(spid, t, g, extra, ssc) {
+    const pkt = this.mib.packets[spid];
+    const buf = new Uint8Array(pkt.length);
     buildTmHeader(buf, pkt, ssc, t);
     const V = extra || this.values(spid, t, g);
     const simulated = new Set();
     for (const [name, by, bi] of pkt.params) {
-      const p = this.mib.P[name];
-      if (!p) continue;
-      let raw;
-      if (name === "NCD030A1") raw = pkt.pi1;
-      else if (V[name] === undefined) continue;
-      else if (typeof V[name] === "object") raw = V[name].raw;
-      else raw = this.mib.calKind(name) ? this.mib.uncalibrate(name, V[name]) : V[name];
-      if (typeof raw === "string") continue;
+      const p = this.mib.P[name], raw = p && this.rawFor(name, pkt, V);
+      if (raw === undefined) continue;
       encodeRaw(buf, by, bi, p.ptc, p.pfc, raw);
       simulated.add(name);
     }
-    const ok = this.link.tx || (this.sc.twta.on && v3.angle(hgaDir(this.sc.hga.az, this.sc.hga.el), g.eB) / DEG < HGA_BEAM_OK);
-    if (ok && this.sc.twta.on) this.inflight.push({ gen: t, arrive: t + g.owlt * 1000, spid, bytes: buf, simulated, sep: g.sep });
-    return buf;
+    return { buf, simulated };
+  }
+  // raw value of one parameter from the engineering values V (undefined if not simulated)
+  rawFor(name, pkt, V) {
+    let raw;
+    if (name === "NCD030A1") raw = pkt.pi1;
+    else if (V[name] === undefined) return undefined;
+    else if (typeof V[name] === "object") raw = V[name].raw;
+    else raw = this.mib.calKind(name) ? this.mib.uncalibrate(name, V[name]) : V[name];
+    return typeof raw === "string" ? undefined : raw;
   }
   receive(pk, pass) {
     const hdr = parseTmHeader(pk.bytes);
@@ -467,27 +604,148 @@ export class Simulator {
   }
 
   // ------------------------------------------------------------ commanding
-  send(cname, values) {
-    const params = this.tcb.editable(cname);
-    for (const p of params) {
+  // uplink availability at time t (a pass of an enabled station, outside solar conjunction)
+  uplinkAt(t) {
+    const g = t === this.t ? this.geo : geometry(this.eph, t);
+    const pass = this.passes.activeAt(t, this.stationsOn), conj = g.sep < CONJ_SEP;
+    return { up: !!pass && !conj, conj, st: pass ? STATIONS.find((s) => s.id === pass.st) : null, owlt: g.owlt };
+  }
+  checkTc(cname, values) {
+    for (const p of this.tcb.editable(cname)) {
       const err = this.tcb.checkValue(p, values[p.name]);
-      if (err) return { ok: false, error: `${p.name} (${p.descr}): ${err}` };
+      if (err) return `${p.name} (${p.descr}): ${err}`;
     }
-    const link = this.link;
+    return null;
+  }
+  send(cname, values, { at = this.t, seq = null } = {}) {
+    const err = this.checkTc(cname, values);
+    if (err) return { ok: false, error: err };
+    const link = this.uplinkAt(at);
     if (!link.up) return { ok: false, error: link.conj ? "No uplink: solar conjunction" : "No uplink: no ground station in view. Use “Next pass” or enable a backup station." };
     const ssc = this.tcSsc++;
     const built = this.tcb.build(cname, values, ssc);
     const def = this.tcb.def(cname);
     const tc = {
-      id: ssc, cname, def, values: { ...values }, built, released: this.t, station: link.st.name,
-      arrive: this.t + this.geo.owlt * 1000, stages: { onboard: null, acc: null, exe: null, fail: null }, ack: def.ack, note: "",
+      id: ssc, cname, def, values: { ...values }, built, released: at, station: link.st.name, seq,
+      arrive: at + link.owlt * 1000, stages: { onboard: null, acc: null, exe: null, fail: null }, ack: def.ack, note: "",
     };
     this.tcs.unshift(tc);
     this.uplink.push(tc);
     this.uplink.sort((a, b) => a.arrive - b.arrive);
-    this.log("info", `TC ${cname} “${def.d}” released via ${link.st.name}; arrives on board in ${(this.geo.owlt / 60).toFixed(1)} min`);
+    this.log("info", `TC ${cname} “${def.d}” released via ${link.st.name}${seq ? ` (sequence ${seq.name}, element ${seq.label})` : ""}; arrives on board in ${(link.owlt / 60).toFixed(1)} min`, at);
     this.emit("tc", tc);
     return { ok: true, tc };
+  }
+
+  // ------------------------------------------------------------ command sequences (CSF/CSS/SDF/CSP)
+  // A formal parameter (CSP) or a command parameter (CPC) as the value checker expects it.
+  fpParam(f) {
+    const d = this.mib.d;
+    return { name: f.n, descr: f.d, ptc: f.ptc, pfc: f.pfc, cat: f.cat, unit: f.u || null, prf: f.prf || null,
+      choices: f.cat === "T" && f.pas ? d.pas[f.pas].map((x) => x[0]) : null, range: f.prf ? d.prf[f.prf].ranges : null };
+  }
+  // raw value (SDF_VTYPE or CSP_VTYPE R) to the engineering value the TC builder takes
+  rawToEng(cat, pas, cca, raw) {
+    const d = this.mib.d;
+    if (cat === "T" && pas) { const m = d.pas[pas].find((x) => Number(x[1]) === Number(raw)); return m ? m[0] : String(raw); }
+    if (cat === "C" && cca) {
+      const c = d.cca[cca], pts = c.raw.map((r, i) => [r, c.eng[i]]).sort((a, b) => a[0] - b[0]), v = Number(raw);
+      for (let i = 0; i < pts.length - 1; i++) if (v >= pts[i][0] && v <= pts[i + 1][0]) return pts[i][1] + (v - pts[i][0]) * (pts[i + 1][1] - pts[i][1]) / (pts[i + 1][0] - pts[i][0]);
+      return v < pts[0][0] ? pts[0][1] : pts[pts.length - 1][1];
+    }
+    return raw;
+  }
+  fpDefault(f) {
+    if (f.def === undefined || f.def === null || f.def === "") return null;
+    return f.vt === "R" ? String(this.rawToEng(f.cat, f.pas, f.cca, f.def)) : String(f.def);
+  }
+  // Expand a sequence into the commands it releases, with values and release offsets (seconds from the start).
+  // Release times follow CSS_RELTYPE: A = start of the sequence the element belongs to + CSS_RELTIME, R = release of the previous command + CSS_RELTIME.
+  expandSequence(name, fpVals) {
+    const seqs = this.mib.d.seqs, items = [], errors = [];
+    const top = seqs[name];
+    if (!top) return { ok: false, error: `Unknown sequence ${name}` };
+    const vals = {};
+    for (const f of top.fp) {
+      const v = fpVals[f.n] ?? "";
+      if (v === "") { errors.push(`${f.n} (${f.d}): a value is required (no default in the MIB)`); continue; }
+      const e = this.tcb.checkValue(this.fpParam(f), v);
+      if (e) errors.push(`${f.n} (${f.d}): ${e}`); else vals[f.n] = v;
+    }
+    if (errors.length) return { ok: false, errors };
+    const state = { last: 0 };
+    const walk = (sq, fp, start, path) => {
+      const def = seqs[sq];
+      for (const el of def.el) {
+        const at = (el.rt === "A" ? start : state.last) + relSeconds(el.rel);
+        const label = [...path.slice(1).map((p) => p.entry), el.e].join(".");
+        if (el.t === "C") {
+          const values = {}, params = this.tcb.editable(el.id);
+          for (const p of params) values[p.name] = p.choices && !p.choices.includes(String(p.def)) ? p.choices[0] : String(p.def);
+          for (const v of el.v) {
+            const p = params.find((q) => q.name === v.p);
+            if (!p) continue;
+            const c = this.mib.d.cpc[v.p] || {};
+            if (v.vt === "F") values[v.p] = fp[v.v];
+            else if (v.vt === "R") values[v.p] = String(this.rawToEng(c.cat, c.pas, c.cca, v.v));
+            else if (v.vt === "E") values[v.p] = String(v.v);
+          }
+          const err = this.checkTc(el.id, values);
+          if (err) errors.push(`element ${label} ${el.id}: ${err}`);
+          items.push({ off: at, cname: el.id, values, label, path: path.map((p) => p.name), man: el.man === "Y" });
+          state.last = at;
+        } else {
+          const child = seqs[el.id], cfp = {};
+          for (const f of child.fp) cfp[f.n] = this.fpDefault(f);
+          for (const v of el.v) {
+            const f = child.fp.find((x) => x.n === v.p);
+            if (!f) continue;
+            if (v.vt === "F") cfp[f.n] = fp[v.v];
+            else if (v.vt === "R") cfp[f.n] = String(this.rawToEng(f.cat, f.pas, f.cca, v.v));
+            else if (v.vt === "E") cfp[f.n] = String(v.v);
+          }
+          walk(el.id, cfp, at, [...path, { name: el.id, entry: el.e }]);
+        }
+      }
+    };
+    walk(name, vals, 0, [{ name, entry: 0 }]);
+    return errors.length ? { ok: false, errors } : { ok: true, items };
+  }
+  // Load a sequence and release its commands from the ground at their release times (ground time-tagged).
+  startSequence(name, fpVals) {
+    const r = this.expandSequence(name, fpVals);
+    if (!r.ok) return r;
+    const link = this.uplinkAt(this.t);
+    if (!link.up) return { ok: false, error: link.conj ? "No uplink: solar conjunction" : "No uplink: no ground station in view. Use “Next pass” or enable a backup station." };
+    const run = { id: ++this.seqId, name, def: this.mib.d.seqs[name], start: this.t, state: "running", released: 0, error: null,
+      items: r.items.map((it) => ({ ...it, at: this.t + it.off * 1000, tc: null })) };
+    this.seqRuns.unshift(run);
+    for (const it of run.items) this.relQ.push({ at: it.at, run, it });
+    this.relQ.sort((a, b) => a.at - b.at);
+    this.log("info", `Sequence ${name} “${run.def.d}” loaded: ${run.items.length} command${run.items.length > 1 ? "s" : ""} over ${relText(r.items[r.items.length - 1].off)}`);
+    while (this.relQ.length && this.relQ[0].at <= this.t) this.releaseItem(this.relQ.shift());
+    this.emit("seq", run);
+    return { ok: true, run };
+  }
+  releaseItem({ at, run, it }) {
+    if (run.state !== "running") return;
+    const r = this.send(it.cname, it.values, { at, seq: { run: run.id, name: run.name, label: it.label } });
+    if (!r.ok) {
+      run.state = "aborted"; run.error = `at element ${it.label} ${it.cname}: ${r.error}`;
+      this.log("warn", `Sequence ${run.name} stopped at element ${it.label}: ${r.error}`, at);
+    } else {
+      it.tc = r.tc; run.released++;
+      if (run.released === run.items.length) { run.state = "released"; this.log("good", `Sequence ${run.name}: all ${run.items.length} commands released`, at); }
+    }
+    this.emit("seq", run);
+  }
+  abortSequence(id) {
+    const run = this.seqRuns.find((r) => r.id === id);
+    if (!run || run.state !== "running") return;
+    run.state = "aborted"; run.error = "by the operator";
+    this.relQ = this.relQ.filter((q) => q.run !== run);
+    this.log("warn", `Sequence ${run.name} stopped by the operator after ${run.released} of ${run.items.length} commands`);
+    this.emit("seq", run);
   }
   execute(tc) {
     const t = tc.arrive, g = geometry(this.eph, t);
@@ -515,6 +773,18 @@ export class Simulator {
         done(a && !wasOn ? 185 : 1, !a ? "TWTA B is not modelled by the simulator" : wasOn ? "TWTA A was already on" : "TWTA A on after 180 s warm-up (assumption)"); break;
       }
       case "ZCAD482A": { const ok = this.startWol(t, "commanded by ZCAD482A"); done(ok ? WOL_DURATION_S : 1, ok ? "Off-loading complete" : "Off-loading already in progress"); break; }
+      case "ZCF00382": case "ZCA00382": {
+        // collection interval in cycles of 8 Hz ("Coll Interval (8Hz Cyc)", CSP_DESCR of AACF316A)
+        const tmApid = TC_TO_TM_APID[tc.def.apid], sid = Number(v.PCD03011), cyc = Number(v.PCD03012);
+        const pk = Object.values(this.mib.packets).find((p) => p.type === 3 && p.stype === 25 && p.apid === tmApid && p.pi1 === sid);
+        if (pk && this.hk[pk.spid]) {
+          const h = this.hk[pk.spid]; h.period = cyc / 8; h.byTc = true;
+          if (h.enabled) h.next = Math.min(h.next, t + h.period * 1000);
+          done(1, `${pk.descr} (SID ${sid}) collection interval ${cyc} × 1/8 s = ${+(cyc / 8).toFixed(3)} s`);
+        } else done(1, `SID ${sid} on APID ${tmApid} is not generated by this simulator`);
+        break;
+      }
+      case "ZCF00380": case "ZCA00380": done(1, "Report definitions summary: not generated by this simulator"); break;
       case "ZCF00305": case "ZCF00306": case "ZCA00305": case "ZCA00306": {
         const tmApid = TC_TO_TM_APID[tc.def.apid], sid = Number(v.PCD03011), on = tc.def.stype === 5;
         const pk = Object.values(this.mib.packets).find((p) => p.type === 3 && p.stype === 25 && p.apid === tmApid && p.pi1 === sid);
@@ -548,6 +818,16 @@ export class Simulator {
     this.log(on ? "warn" : "info", `${on ? "Injected" : "Cleared"} failure: ${FAILURES[id].label}`);
   }
 }
+
+// CSS_RELTIME "hh.mm.ss" (also "hh.mm.ss.mmm" and ':' separators) to seconds; empty means zero delta
+export function relSeconds(s) {
+  if (!s) return 0;
+  const f = String(s).trim().split(/[.:]/).map(Number);
+  if (f.some((x) => !Number.isFinite(x))) return 0;
+  const [h = 0, m = 0, sec = 0, ms = 0] = f.length === 1 ? [0, 0, f[0]] : f.length === 2 ? [0, f[0], f[1]] : f;
+  return h * 3600 + m * 60 + sec + (f.length > 3 ? ms / 1000 : 0);
+}
+export const relText = (s) => (s < 60 ? `${+s.toFixed(3)} s` : `${Math.floor(s / 60)} min ${+(s % 60).toFixed(3)} s`);
 
 // Wheel pyramid (assumption): four wheels at 45 deg + k*90 deg azimuth, 30 deg elevation about body Z.
 const A = [0, 1, 2, 3].map((k) => { const ph = (45 + 90 * k) * DEG, el = 30 * DEG; return [Math.cos(el) * Math.cos(ph), Math.cos(el) * Math.sin(ph), Math.sin(el)]; });

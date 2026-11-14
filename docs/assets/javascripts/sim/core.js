@@ -217,6 +217,11 @@ export const ptcName = (ptc, pfc) => ({ 1: "boolean", 2: `enumerated, ${pfc} bit
 
 export function writeBits(buf, bitOff, n, value) {
   // value: non-negative integer < 2^n (n <= 32)
+  if ((bitOff & 7) === 0 && (n & 7) === 0) {
+    // byte-aligned fast path: big-endian octets
+    for (let b = (bitOff >> 3) + (n >> 3) - 1; b >= bitOff >> 3; b--) { if (b < buf.length) buf[b] = value % 256; value = Math.floor(value / 256); }
+    return;
+  }
   for (let i = 0; i < n; i++) {
     const bit = Math.floor(value / 2 ** (n - 1 - i)) & 1;
     const b = bitOff + i, byte = b >> 3, sh = 7 - (b & 7);
@@ -226,6 +231,10 @@ export function writeBits(buf, bitOff, n, value) {
 }
 export function readBits(buf, bitOff, n) {
   let v = 0;
+  if ((bitOff & 7) === 0 && (n & 7) === 0) {
+    for (let b = bitOff >> 3, e = b + (n >> 3); b < e; b++) v = v * 256 + (b < buf.length ? buf[b] : 0);
+    return v;
+  }
   for (let i = 0; i < n; i++) {
     const b = bitOff + i, byte = b >> 3;
     v = v * 2 + (byte < buf.length ? (buf[byte] >> (7 - (b & 7))) & 1 : 0);
@@ -245,6 +254,15 @@ export function encodeRaw(buf, byteOff, bitOff, ptc, pfc, raw) {
   if (ptc === 4) { const lo = -(2 ** (n - 1)), hi = 2 ** (n - 1) - 1; v = clamp(v, lo, hi); if (v < 0) v += 2 ** n; }
   else v = clamp(v, 0, 2 ** n - 1);
   writeBits(buf, off, n, v);
+}
+// What decodeRaw returns after encodeRaw(raw), without building the packet: the archive uses it to
+// quantise samples exactly as the telemetry chain does. Returns null for types the encoder leaves at zero.
+export function roundTripRaw(ptc, pfc, raw) {
+  const n = bitWidth(ptc, pfc);
+  if (ptc === 5) return pfc === 1 ? Math.fround(raw) : pfc === 2 ? raw : null;
+  if (ptc === 7 || ptc === 8 || ptc === 9 || n > 32 || n === 0) return null;
+  const v = Math.round(raw);
+  return ptc === 4 ? clamp(v, -(2 ** (n - 1)), 2 ** (n - 1) - 1) : clamp(v, 0, 2 ** n - 1);
 }
 export function decodeRaw(buf, byteOff, bitOff, ptc, pfc) {
   const n = bitWidth(ptc, pfc), off = byteOff * 8 + bitOff;
@@ -270,9 +288,13 @@ export class Mib {
     this.num = {};
     for (const [k, c] of Object.entries(d.cal.num)) {
       const pts = c.x.map((x, i) => [x, c.y[i]]).sort((a, b) => a[0] - b[0]);
-      this.num[k] = { ...c, pts };
+      // strictly monotonic curves (all but two in this subset) are inverted by binary search
+      let inc = true, dec = true;
+      for (let i = 0; i < pts.length - 1; i++) { if (!(pts[i + 1][1] > pts[i][1])) inc = false; if (!(pts[i + 1][1] < pts[i][1])) dec = false; }
+      this.num[k] = { ...c, pts, mono: inc ? 1 : dec ? -1 : 0 };
     }
     this.txt = d.cal.txt;
+    this.kinds = new Map();
     this.packets = d.packets;
     for (const p of Object.values(this.packets)) {
       let bits = 0;
@@ -281,11 +303,12 @@ export class Mib {
     }
   }
   calKind(name) {
+    const k = this.kinds.get(name);
+    if (k !== undefined) return k;
     const p = this.P[name];
-    if (!p || !p.cal) return null;
-    if (this.num[p.cal]) return "num";
-    if (this.txt[p.cal]) return "txt";
-    return null;
+    const kind = !p || !p.cal ? null : this.num[p.cal] ? "num" : this.txt[p.cal] ? "txt" : null;
+    this.kinds.set(name, kind);
+    return kind;
   }
   // raw -> engineering. Returns {v, ok, text?}
   calibrate(name, raw) {
@@ -301,10 +324,12 @@ export class Mib {
         const [a, b] = raw < pts[0][0] ? [pts[0], pts[1]] : [pts[n - 2], pts[n - 1]];
         return { v: a[1] + (raw - a[0]) * (b[1] - a[1]) / (b[0] - a[0]), ok: true, extrap: true };
       }
-      for (let i = 0; i < n - 1; i++) {
-        const a = pts[i], b = pts[i + 1];
-        if (raw >= a[0] && raw <= b[0]) return { v: b[0] === a[0] ? a[1] : a[1] + (raw - a[0]) * (b[1] - a[1]) / (b[0] - a[0]), ok: true };
-      }
+      // first segment whose raw interval contains the value (binary search, then step back over shared end points)
+      let lo = 0, hi = n - 1;
+      while (hi - lo > 1) { const m = (lo + hi) >> 1; if (pts[m][0] <= raw) lo = m; else hi = m; }
+      while (lo > 0 && raw <= pts[lo][0]) lo--;
+      const a = pts[lo], b = pts[lo + 1];
+      if (b && raw >= a[0] && raw <= b[0]) return { v: b[0] === a[0] ? a[1] : a[1] + (raw - a[0]) * (b[1] - a[1]) / (b[0] - a[0]), ok: true };
       return { v: pts[n - 1][1], ok: true };
     }
     if (kind === "txt") {
@@ -319,7 +344,16 @@ export class Mib {
     if (!p) return 0;
     const kind = this.calKind(name);
     if (kind === "num") {
-      const pts = this.num[p.cal].pts;
+      const { pts, mono } = this.num[p.cal];
+      if (mono && pts.length > 2) {
+        const y0 = pts[0][1], yn = pts[pts.length - 1][1];
+        if ((eng - y0) * (eng - yn) <= 0) {
+          let lo = 0, hi = pts.length - 1;
+          while (hi - lo > 1) { const m = (lo + hi) >> 1; if ((pts[m][1] - eng) * mono <= 0) lo = m; else hi = m; }
+          const a = pts[lo], b = pts[lo + 1];
+          return a[0] + (eng - a[1]) * (b[0] - a[0]) / (b[1] - a[1]);
+        }
+      }
       // the widest raw segment containing the value wins (handles wrap-around curves such as CCF2Z002TM)
       let bestSeg = -1, span = -1;
       for (let i = 0; i < pts.length - 1; i++) {

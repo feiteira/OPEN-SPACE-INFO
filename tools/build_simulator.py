@@ -28,7 +28,8 @@ OUT = os.path.join(ROOT, "docs", "simulator", "data")
 SPIDS = [29500, 29516, 33501, 33580, 33582, 14181, 14182, 14178]
 # Telecommands the simulator offers (CCF_CNAME).
 TCS = ["ZCD01101", "ZCSD0004", "ZCSD0003", "ZCSD3713", "ZCSD3714", "ZCSD1013", "ZCSD1012",
-       "ZCAD482A", "ZCF00305", "ZCF00306", "ZCA00305", "ZCA00306"]
+       "ZCAD482A", "ZCF00305", "ZCF00306", "ZCA00305", "ZCA00306", "ZCF00382", "ZCA00382", "ZCF00380", "ZCA00380"]
+# Command sequences: every sequence whose elements are all in TCS is copied (see build_sequences).
 # Synthetic (OL) parameters whose published source the simulator evaluates.
 SYNTH = ["NCASX002", "NCASX003", "NCASXAG0", "NCASXB10", "NCASXBK0", "NCASXC40"]
 
@@ -54,7 +55,7 @@ def build_mib(path):
     vdf = rows(db, "select * from vdf")[0]
     out = {"release": {"name": vdf["VDF_NAME"], "comment": vdf["VDF_COMMENT"]},
            "packets": {}, "params": {}, "cal": {"num": {}, "txt": {}, "poly": {}, "log": {}},
-           "lim": {}, "synth": {}, "tcs": {}, "cpc": {}, "prf": {}, "pas": {}, "cca": {}, "tchdr": {}}
+           "lim": {}, "synth": {}, "tcs": {}, "cpc": {}, "prf": {}, "pas": {}, "cca": {}, "tchdr": {}, "seqs": {}}
     pnames = set()
     for spid in SPIDS:
         pid = rows(db, "select * from pid where PID_SPID=?", (str(spid),))[0]
@@ -147,18 +148,64 @@ def build_mib(path):
                                                "u": r["CPC_UNIT"] or None, "prf": r["CPC_PRFREF"] or None, "cca": r["CPC_CCAREF"] or None,
                                                "pas": r["CPC_PAFREF"] or None, "def": r["CPC_DEFVAL"] or None,
                                                "inter": r["CPC_INTER"] or None}.items() if v is not None}
-            if r["CPC_PRFREF"]:
-                f = rows(db, "select * from prf where PRF_NUMBR=?", (r["CPC_PRFREF"],))[0]
-                out["prf"][r["CPC_PRFREF"]] = {"d": f["PRF_DESCR"], "inter": f["PRF_INTER"], "ranges": [[num(v["PRV_MINVAL"]), num(v["PRV_MAXVAL"])]
-                                               for v in rows(db, "select * from prv where PRV_NUMBR=?", (r["CPC_PRFREF"],))]}
-            if r["CPC_PAFREF"]:
-                out["pas"][r["CPC_PAFREF"]] = [[v["PAS_ALTXT"], num(v["PAS_ALVAL"])] for v in rows(db, "select * from pas where PAS_NUMBR=?", (r["CPC_PAFREF"],))]
-            if r["CPC_CCAREF"]:
-                a = rows(db, "select * from cca where CCA_NUMBR=?", (r["CPC_CCAREF"],))[0]
-                pts = rows(db, "select * from ccs where CCS_NUMBR=?", (r["CPC_CCAREF"],))
-                out["cca"][r["CPC_CCAREF"]] = {"d": a["CCA_DESCR"], "u": a["CCA_UNIT"] or None, "eng": [num(p["CCS_XVALS"]) for p in pts],
-                                               "raw": [num(p["CCS_YVALS"]) for p in pts]}
+            add_refs(db, out, r["CPC_PRFREF"], r["CPC_PAFREF"], r["CPC_CCAREF"])
+    build_sequences(db, out)
     return out
+
+
+def add_refs(db, out, prf, pas, cca):
+    """Copy a range set (PRF/PRV), a textual (PAS) and a numeric (CCA/CCS) de-calibration referenced by a CPC or CSP record."""
+    if prf and prf not in out["prf"]:
+        f = rows(db, "select * from prf where PRF_NUMBR=?", (prf,))[0]
+        out["prf"][prf] = {"d": f["PRF_DESCR"], "inter": f["PRF_INTER"], "ranges": [[num(v["PRV_MINVAL"]), num(v["PRV_MAXVAL"])]
+                           for v in rows(db, "select * from prv where PRV_NUMBR=?", (prf,))]}
+    if pas and pas not in out["pas"]:
+        out["pas"][pas] = [[v["PAS_ALTXT"], num(v["PAS_ALVAL"])] for v in rows(db, "select * from pas where PAS_NUMBR=?", (pas,))]
+    if cca and cca not in out["cca"]:
+        a = rows(db, "select * from cca where CCA_NUMBR=?", (cca,))[0]
+        pts = rows(db, "select * from ccs where CCS_NUMBR=?", (cca,))
+        out["cca"][cca] = {"d": a["CCA_DESCR"], "u": a["CCA_UNIT"] or None, "eng": [num(p["CCS_XVALS"]) for p in pts],
+                           "raw": [num(p["CCS_YVALS"]) for p in pts]}
+
+
+def build_sequences(db, out):
+    """Copy every command sequence (CSF/CSS/SDF/CSP) whose elements, nested sequences included, are all commands the simulator offers."""
+    css = {}
+    for r in rows(db, "select * from css order by CSS_SQNAME, cast(CSS_ENTRY as int)"):
+        css.setdefault(r["CSS_SQNAME"], []).append(r)
+
+    def usable(name, path=()):
+        return name in css and name not in path and all(
+            (e["CSS_TYPE"] == "C" and e["CSS_ELEMID"] in TCS) or (e["CSS_TYPE"] == "S" and usable(e["CSS_ELEMID"], path + (name,)))
+            for e in css[name])
+
+    for name in sorted(n for n in css if usable(n)):
+        f = rows(db, "select * from csf where CSF_NAME=?", (name,))[0]
+        sdf = rows(db, "select * from sdf where SDF_SQNAME=? order by cast(SDF_ENTRY as int), cast(SDF_POS as int)", (name,))
+        for v in sdf:
+            if v["SDF_VTYPE"] not in ("R", "E", "F", "D", "S"):
+                raise SystemExit(f"{name}: SDF_VTYPE {v['SDF_VTYPE']} is not supported by the simulator")
+        if any(e["CSS_GROUP"] or e["CSS_BLOCK"] for e in css[name]):
+            raise SystemExit(f"{name}: groups and blocks are not supported by the simulator")
+        fps = rows(db, "select * from csp where CSP_SQNAME=? order by cast(CSP_FPNUM as int)", (name,))
+        for c in fps:
+            add_refs(db, out, c["CSP_PRFREF"], c["CSP_PAFREF"], c["CSP_CCAREF"])
+        out["seqs"][name] = {k: v for k, v in {
+            "d": f["CSF_DESC"], "d2": f["CSF_DESC2"] or None, "iftt": f["CSF_IFTT"] or "N", "crit": f["CSF_CRITICAL"] or "N",
+            "exec": f["CSF_EXEC"] or "Y", "plan": f["CSF_PLAN"] or "N", "doc": f["CSF_DOCNAME"] or None, "issue": f["CSF_ISSUE"] or None,
+            "date": f["CSF_DATE"] or None,
+            "fp": [{k2: v2 for k2, v2 in {"n": c["CSP_FPNAME"], "num": int(c["CSP_FPNUM"]), "d": c["CSP_DESCR"], "ptc": int(c["CSP_PTC"]),
+                                           "pfc": int(c["CSP_PFC"]), "cat": c["CSP_CATEG"] or "N", "vt": c["CSP_VTYPE"] or None,
+                                           "def": c["CSP_DEFVAL"] or None, "prf": c["CSP_PRFREF"] or None, "pas": c["CSP_PAFREF"] or None,
+                                           "cca": c["CSP_CCAREF"] or None, "u": c["CSP_UNIT"] or None}.items() if v2 is not None} for c in fps],
+            "el": [{k2: v2 for k2, v2 in {
+                "e": int(e["CSS_ENTRY"]), "t": e["CSS_TYPE"], "id": e["CSS_ELEMID"], "c": e["CSS_COMM"] or None,
+                "rt": e["CSS_RELTYPE"] or "R", "rel": e["CSS_RELTIME"] or None, "pr": e["CSS_PREVREL"] or "R", "ex": e["CSS_EXTIME"] or None,
+                "man": e["CSS_MANDISP"] or "N",
+                "v": [{"pos": int(v["SDF_POS"]), "p": v["SDF_PNAME"], "ft": v["SDF_FTYPE"] or "E", "vt": v["SDF_VTYPE"], "v": v["SDF_VALUE"]}
+                      for v in sdf if v["SDF_ENTRY"] == e["CSS_ENTRY"]],
+            }.items() if v2 is not None} for e in css[name]],
+        }.items() if v is not None}
 
 
 # ---------------------------------------------------------------- ephemeris
@@ -274,7 +321,7 @@ def main(argv):
     with open(os.path.join(OUT, "ephem.json"), "w", encoding="utf-8") as fh:
         json.dump(eph, fh, separators=(",", ":"))
     print("packets", len(mib["packets"]), "params", len(mib["params"]), "limits", len(mib["lim"]),
-          "cal", {k: len(v) for k, v in mib["cal"].items()}, "tcs", len(mib["tcs"]))
+          "cal", {k: len(v) for k, v in mib["cal"].items()}, "tcs", len(mib["tcs"]), "sequences", len(mib["seqs"]))
     print("ephem samples", eph["n"], "events", len(eph["events"]))
     for e in eph["events"]:
         print(" ", e["utc"], e["kind"], e["label"])
