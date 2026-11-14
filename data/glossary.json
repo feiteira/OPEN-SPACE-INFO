@@ -17550,5 +17550,137 @@
   "expansion": "selection and tailoring of PUS services and packet structures for a particular mission (term used in the 1994 XMM paper)",
   "pages": [],
   "n_pages": 0
+ },
+ {
+  "abbr": "HGA",
+  "expansion": "High-gain Antenna",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "HTHGA",
+  "expansion": "High-Temperature High-Gain Antenna",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "MGA",
+  "expansion": "Medium Gain Antenna",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "GAM",
+  "expansion": "Gravity Assist Manoeuvre",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "MLI",
+  "expansion": "Multi-Layer Insulation",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "OSR",
+  "expansion": "Optical Solar Reflector",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "RIU",
+  "expansion": "Remote Interface Unit",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "SADE",
+  "expansion": "Solar Array Drive Electronics",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "TWTA",
+  "expansion": "Traveling Wave Tube Amplifier",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "RPE",
+  "expansion": "Relative Pointing Error",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "APE",
+  "expansion": "Absolute Pointing Error",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
+ },
+ {
+  "abbr": "TDB",
+  "expansion": "Barycentric Dynamical Time",
+  "pages": [
+   [
+    "Solar Orbiter simulator",
+    "simulator/index.md"
+   ]
+  ],
+  "n_pages": 1
  }
 ]

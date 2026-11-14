@@ -1,0 +1,171 @@
+{
+ "slug": "solar-orbiter-definition-study-report-2011",
+ "title": "Solar Orbiter: Exploring the Sun-heliosphere connection. Definition Study Report",
+ "short_title": "Solar Orbiter Definition Study Report (Red Book, 2011)",
+ "doc_id": "ESA/SRE(2011)14",
+ "issue": "Issue 1",
+ "date": "2011-07",
+ "organisation": "European Space Agency (Solar Orbiter Study Science Team, Project Team and industrial study team led by Astrium UK)",
+ "authors": [
+  "Richard G. Marsden (Study Scientist, ESA)",
+  "Solar Orbiter Science Working Team"
+ ],
+ "doc_type": "Definition study report",
+ "status_notes": "The 'Red Book' prepared for mission adoption, dated July 2011 on the cover (PDF p. 1). It describes the January 2017 launch scenario; Solar Orbiter actually launched on 10 February 2020, so trajectory dates and some design values differ from the flown mission.",
+ "summary": "ESA's definition study report for Solar Orbiter, written before mission adoption, when launch was planned for January 2017. Chapters 2 to 4 set out the science questions, the measurement requirements and the ten-instrument payload. Chapter 5 covers the baseline trajectory with Venus resonances, the spacecraft design, configuration, system budgets, technical challenges and the radiation environment. Chapter 7 describes the ground segment and science operations, and chapter 8 the management.\n\nFor the OPEN-SPACE-INFO simulator the report is the source of the engineering anchors. The solar array is sized to deliver 974 W at a worst-case aphelion of 1.47 au, against a 919 W hibernation demand at 630 W/m2. The payload receives 180 W at a regulated 28 V. The downlink requirement is 150 kbit/s at 1 au to the 35 m Malargüe antenna, with daily 9-hour passes in the nominal phase. The solid-state mass memory stores up to 549 Gbit. Four reaction wheels are off-loaded with 10 N thrusters, and the solar arrays tilt about their long axis to limit cell temperature at perihelion, where the flux reaches about 13 times its 1 au value. Remote sensing is planned in three 10-day windows per orbit, centred on perihelion and on the latitude extremes.",
+ "contents": [
+  {
+   "section": "",
+   "title": "Solar Orbiter Mission Summary (table)",
+   "pdf_page": 5
+  },
+  {
+   "section": "1",
+   "title": "Executive Summary",
+   "pdf_page": 9
+  },
+  {
+   "section": "2.1",
+   "title": "How and where do the solar wind plasma and magnetic field originate in the corona?",
+   "pdf_page": 15
+  },
+  {
+   "section": "2.3",
+   "title": "How do solar eruptions produce energetic particle radiation that fills the heliosphere?",
+   "pdf_page": 29
+  },
+  {
+   "section": "2.4",
+   "title": "How does the solar dynamo work and drive connections between the Sun and the heliosphere?",
+   "pdf_page": 36
+  },
+  {
+   "section": "3.1",
+   "title": "Observations, Measurements, and Orbital Characteristics",
+   "pdf_page": 43
+  },
+  {
+   "section": "4.1",
+   "title": "In-Situ Instruments",
+   "pdf_page": 60
+  },
+  {
+   "section": "4.2",
+   "title": "Remote-Sensing Instruments",
+   "pdf_page": 67
+  },
+  {
+   "section": "5.1",
+   "title": "Mission and Spacecraft Requirements",
+   "pdf_page": 75
+  },
+  {
+   "section": "5.2",
+   "title": "Baseline Orbit Design",
+   "pdf_page": 76
+  },
+  {
+   "section": "5.3",
+   "title": "Spacecraft Design Overview",
+   "pdf_page": 81
+  },
+  {
+   "section": "5.4",
+   "title": "Solar Orbiter Configuration",
+   "pdf_page": 83
+  },
+  {
+   "section": "5.5",
+   "title": "System Budgets",
+   "pdf_page": 92
+  },
+  {
+   "section": "5.6",
+   "title": "Technical Challenges",
+   "pdf_page": 94
+  },
+  {
+   "section": "5.7",
+   "title": "Mission Environment",
+   "pdf_page": 95
+  },
+  {
+   "section": "6.1",
+   "title": "Space-Based Observations Supporting Solar Orbiter Science",
+   "pdf_page": 97
+  },
+  {
+   "section": "7.1",
+   "title": "Ground Segment Facilities and Services",
+   "pdf_page": 101
+  },
+  {
+   "section": "7.2",
+   "title": "Science Operations",
+   "pdf_page": 102
+  },
+  {
+   "section": "7.3",
+   "title": "Mission Operations Concept",
+   "pdf_page": 104
+  },
+  {
+   "section": "8.1",
+   "title": "Project Background Within the Cosmic Vision Programme",
+   "pdf_page": 109
+  },
+  {
+   "section": "8.4",
+   "title": "Summary Master Schedule",
+   "pdf_page": 111
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Mission summary: three-axis stabilised platform, heat shield, two adjustable two-sided solar arrays; 150 kbit/s downlink at 1 au spacecraft-Earth distance; Malargüe 35 m antenna, 4 to 8 hours per day effective.",
+   "pdf_page": 5
+  },
+  {
+   "text": "The solid-state mass memory stores up to 549 Gbit (823 Gbit with the redundant bank); four reaction wheels are complemented by 10 N thrusters used for safe mode, wheel off-loading and manoeuvres (§5.3.6).",
+   "pdf_page": 83
+  },
+  {
+   "text": "The solar array, based on the BepiColombo MPO design, supplies 974 W at the worst-case aphelion of 1.47 au; the PCDU uses a maximum power point tracker and a regulated 28 V main bus; a lithium-ion battery (§5.3.6).",
+   "pdf_page": 83
+  },
+  {
+   "text": "The solar-radiation-pressure torque profile, influenced by the solar-array tilt direction, determines the frequency of wheel off-loading (§5.4.1).",
+   "pdf_page": 84
+  },
+  {
+   "text": "The HGA may need to be stowed in the shadow of the heat shield during close perihelion passages (§5.4.1).",
+   "pdf_page": 85
+  },
+  {
+   "text": "Power budget: the sizing case is hibernation at 1.468 au, 919 W at 630 W/m2; 180 W at a regulated 28 V go to the payload in the science phase (§5.5.2).",
+   "pdf_page": 92
+  },
+  {
+   "text": "Link and storage budgets: 150 kbit/s at 1 au via the HGA to Malargüe; in-situ instruments produce data continuously, remote-sensing instruments during three 10-day windows per orbit (§5.5.3-5.5.4).",
+   "pdf_page": 93
+  },
+  {
+   "text": "Solar flux reaches up to 12.7 Earth solar constants at perihelion; the solar array is tilted about its longitudinal axis to keep cell temperature manageable (§5.6).",
+   "pdf_page": 94
+  },
+  {
+   "text": "For thermal reasons the HTHGA may have to be folded several times during the mission; maximum flux 17424 W/m2 at 0.28 au, minimum 784 W/m2 at 1.32 au (§5.6, §5.7).",
+   "pdf_page": 95
+  },
+  {
+   "text": "Ground stations: ESA deep-space antennas at New Norcia, Cebreros and Malargüe; in the nominal phase Malargüe takes daily 9-hour passes, 8 hours of which are for science telemetry (§7.1.1).",
+   "pdf_page": 101
+  },
+  {
+   "text": "An encounter typically consists of a 10-day window centred on perihelion and two 10-day windows centred on the highest latitudes (§7.2.3).",
+   "pdf_page": 103
+  }
+ ],
+ "references": [],
+ "notes": "Copied from ESA's Solar Orbiter document archive at sci.esa.int. Section numbers are as printed; page numbers in this wiki are PDF page indices (the printed page number is 8 lower in chapter 5)."
+}

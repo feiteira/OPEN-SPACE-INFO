@@ -1,0 +1,86 @@
+{
+ "slug": "muller-2020-solar-orbiter-science-overview",
+ "title": "The Solar Orbiter mission: Science overview",
+ "short_title": "Müller et al. 2020, The Solar Orbiter mission: science overview",
+ "doc_id": "arXiv:2009.00861v1 (A&A 642, A1, 2020)",
+ "issue": "arXiv v1 (accepted manuscript)",
+ "date": "2020-09-02",
+ "organisation": "ESA, NASA and the Solar Orbiter instrument teams",
+ "authors": [
+  "D. Müller",
+  "O.C. St. Cyr",
+  "I. Zouganelis",
+  "H.R. Gilbert",
+  "R. Marsden",
+  "T. Nieves-Chinchilla",
+  "et al."
+ ],
+ "doc_type": "Journal paper (preprint)",
+ "status_notes": "Accepted manuscript posted on arXiv on 2 September 2020 (received 22 May 2020, accepted 24 July 2020). The published version is A&A 642, A1 (2020).",
+ "summary": "The overview paper of the Astronomy & Astrophysics Solar Orbiter special issue, written after launch on 10 February 2020. It summarises the four top-level science questions, the spacecraft, the ten instruments, the mission design and the science operations approach.\n\nTable 1 gives the mission summary: closest perihelion 0.28 au and solar-inclination milestones of 18, 24 and 33 degrees. The nominal mission starts with the Earth gravity assist in November 2021 and lasts 7 years including cruise, with a 3-year extension. The data downlink is 150 kbit/s at 1 au, stated as the requirement, with higher performance in orbit. Section 3 describes the heat shield, whose front reaches about 500 °C at perihelion, and the solar arrays, which rotate about their long axis for temperature control. Section 5 describes the sequence of Venus resonances and the resulting perihelion distances and inclinations.",
+ "contents": [
+  {
+   "section": "1",
+   "title": "Introduction",
+   "pdf_page": 1
+  },
+  {
+   "section": "2",
+   "title": "Science objectives",
+   "pdf_page": 3
+  },
+  {
+   "section": "3",
+   "title": "The Solar Orbiter spacecraft",
+   "pdf_page": 18
+  },
+  {
+   "section": "4",
+   "title": "Instrument overview",
+   "pdf_page": 19
+  },
+  {
+   "section": "5",
+   "title": "Mission design",
+   "pdf_page": 24
+  },
+  {
+   "section": "6",
+   "title": "Science operations",
+   "pdf_page": 25
+  },
+  {
+   "section": "7",
+   "title": "Summary",
+   "pdf_page": 25
+  }
+ ],
+ "key_points": [
+  {
+   "text": "Launched on 10 February 2020 at 04:03 UTC on an Atlas V 411 from Cape Canaveral (Table 1).",
+   "pdf_page": 4
+  },
+  {
+   "text": "Solar inclination milestones: 18 degrees (first reached 22 March 2025), 24 degrees (28 January 2027), 33 degrees (24 July 2029); closest perihelion 0.28 au (Table 1).",
+   "pdf_page": 4
+  },
+  {
+   "text": "Data downlink: 150 kbit/s at 1 au spacecraft-Earth distance, a requirement with higher in-orbit performance (Table 1).",
+   "pdf_page": 4
+  },
+  {
+   "text": "Nominal mission duration 7 years including cruise, the nominal mission starting with the Earth gravity assist; extended mission 3 years (Table 1).",
+   "pdf_page": 4
+  },
+  {
+   "text": "The heat shield's front reaches around 500 °C at perihelion; the solar arrays can be rotated about their longitudinal axis for temperature control (§3).",
+   "pdf_page": 18
+  },
+  {
+   "text": "Venus resonances 5:4, 4:3, 3:2, 3:2 and 3:2 progressively raise the solar inclination; the last Venus gravity assist yields 33.4 degrees (§5).",
+   "pdf_page": 25
+  }
+ ],
+ "references": [],
+ "notes": "Copied from arXiv (version 1). Page numbers in this wiki are PDF page indices of that file."
+}

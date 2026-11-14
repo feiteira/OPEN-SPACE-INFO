@@ -26,6 +26,7 @@ CATEGORY = {
     "edds": "EDDS (EGOS Data Dissemination System)", "core": "SCOS-2000, EGSE and Herschel/Planck",
     "tdrs": "TDRS", "nis": "Ground stations, NCTRS/NIS and SLE", "mission-ddid": "Mission data delivery documents",
     "context": "ESOC evolution and context", "tooling": "Tools, MIB editors and related standards", "mib": "MIB databases (data)",
+    "mission": "Mission design and trajectory data",
 }
 TABLE_ORDER = ["general", "monitoring", "display", "commanding", "verification", "sequence", "parameter-set", "mission-specific"]
 FAMILY_LABEL = {"general": "General", "monitoring": "Monitoring", "display": "Displays", "commanding": "Commanding",
@@ -285,7 +286,7 @@ def build_library(recs, cited):
            "Every entry has a summary, its table of contents, the documents it references, the wiki pages that cite it, a link to its original location, "
            "the UTC time it was copied, and a SHA-256 checksum of the copy kept in this repository. See [Sources & copies](../about/sources-and-copies.md) "
            "for the provenance policy, and the [reference catalogue](../references/index.md) for every document these sources cite.", ""]
-    order = ["ccsds", "ecss", "mib-icd", "mib", "core", "edds", "tdrs", "nis", "mission-ddid", "context", "tooling"]
+    order = ["ccsds", "ecss", "mib-icd", "mib", "core", "edds", "tdrs", "nis", "mission-ddid", "mission", "context", "tooling"]
     for cat in order + [c for c in by if c not in order]:
         if cat not in by:
             continue
@@ -467,7 +468,8 @@ def build_sources_page(recs):
            "Every document and dataset listed below was downloaded from a public web location that needed no login, payment or circumvention of access "
            "controls. Each download was logged with its original URL, the UTC time of the copy and a SHA-256 checksum. Three files that had moved were "
            "retrieved from Internet Archive snapshots of their original addresses; their entries say so. Text was extracted from the PDFs, and every wiki page "
-           "cites the clause and PDF page it relies on. Pages that analyse the Solar Orbiter MIB cite the release they queried.", "",
+           "cites the clause and PDF page it relies on. Pages that analyse the Solar Orbiter MIB cite the release they queried. The JPL Horizons ephemeris used by "
+           "the Solar Orbiter simulator consists of API responses, kept unchanged in one zip file together with a manifest of each query URL, download time and checksum.", "",
            "Copies of the files are kept unchanged in this repository's [`third-party/`](../third-party/NOTICE.md) folder, so the citations stay checkable if an original "
            "location disappears. **They remain the property of their owners and are not covered by the MIT License** of the wiki text and code. "
            "If you are a rights holder and want a file removed, please open an issue on the repository.", "",

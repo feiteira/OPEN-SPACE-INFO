@@ -317,6 +317,7 @@ nav:
     - "Rosetta, Mars Express and Venus Express": missions/rosetta-mex-vex.md
     - "Other missions and SCOS-2000 users": missions/other-missions.md
   - "MIB Explorer": explorer/index.md
+  - "Simulator": simulator/index.md
   - "Library":
     - library/index.md
     - "Reference catalogue": references/index.md

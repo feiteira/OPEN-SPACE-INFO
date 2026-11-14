@@ -6,7 +6,7 @@ sources: []
 
 # Reference catalogue
 
-This catalogue merges the reference lists of all 197 library sources: **1506 distinct documents**, cited 2920 times in total. **84** of them are in our [library](../library/index.md); the rest are cited but not publicly available as far as we know (for example ESA-internal SUMs, ADDs and ICDs). Entries are merged by normalised document identifier, or by title when there is no identifier, so variant spellings may still appear separately.
+This catalogue merges the reference lists of all 200 library sources: **1506 distinct documents**, cited 2920 times in total. **84** of them are in our [library](../library/index.md); the rest are cited but not publicly available as far as we know (for example ESA-internal SUMs, ADDs and ICDs). Entries are merged by normalised document identifier, or by title when there is no identifier, so variant spellings may still appear separately.
 
 !!! tip "Looking for an internal document?"
     Many SCOS-2000 documents are distributed only with the software (MICONYS, under the ESA Software Community License). The catalogue tells you their exact identifiers and which public documents cite them.

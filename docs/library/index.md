@@ -7,7 +7,7 @@ sources: []
 
 # Library
 
-The library holds **197 sources** used to write this wiki: standards, interface control documents, manuals, papers, presentations and MIB databases. Every entry has a summary, its table of contents, the documents it references, the wiki pages that cite it, a link to its original location, the UTC time it was copied, and a SHA-256 checksum of the copy kept in this repository. See [Sources & copies](../about/sources-and-copies.md) for the provenance policy, and the [reference catalogue](../references/index.md) for every document these sources cite.
+The library holds **200 sources** used to write this wiki: standards, interface control documents, manuals, papers, presentations and MIB databases. Every entry has a summary, its table of contents, the documents it references, the wiki pages that cite it, a link to its original location, the UTC time it was copied, and a SHA-256 checksum of the copy kept in this repository. See [Sources & copies](../about/sources-and-copies.md) for the provenance policy, and the [reference catalogue](../references/index.md) for every document these sources cite.
 
 ## CCSDS standards and reports (46)
 
@@ -218,6 +218,14 @@ The library holds **197 sources** used to write this wiki: standards, interface 
 | [Solar Orbiter inter-instrument communication (S3/S20)](sol-sgs-tn-0007-s20-2-0.md) | SOL-SGS-TN-0007 | Issue 2, Revision 0 | 2016-10-07 | Technical Note |
 | [Solar Orbiter SWA DPU Communications ICD (issue 8.2)](so-swa-dpu-cd-ic-003-dpu-communications-interface-control-document-issue8-2.md) | SO-SWA-DPU_CD-IC-003 | Issue 8.2 | 2019-08-07 | Interface Control Document |
 | [Solar Orbiter TM-TC and Packet Structure ICD](sol-s-astr-tn-00079-07.md) | SOL.S.ASTR.TN.00079 | Issue 7 |  | Interface Control Document |
+
+## Mission design and trajectory data (3)
+
+| Document | ID | Issue | Date | Type |
+|---|---|---|---|---|
+| [JPL Horizons: Solar Orbiter trajectory data (copied 2026-11-13)](jpl-horizons-solar-orbiter-2026-11-13.md) | Horizons target -144 (Solar Orbiter) | Trajectory file solo_ANC_soc-orbit-stp_20200210-20301120_435_V1_00592 | 2026-11-13 | Dataset (API responses) |
+| [Müller et al. 2020, The Solar Orbiter mission: science overview](muller-2020-solar-orbiter-science-overview.md) | arXiv:2009.00861v1 (A&A 642, A1, 2020) | arXiv v1 (accepted manuscript) | 2020-09-02 | Journal paper (preprint) |
+| [Solar Orbiter Definition Study Report (Red Book, 2011)](solar-orbiter-definition-study-report-2011.md) | ESA/SRE(2011)14 | Issue 1 | 2011-07 | Definition study report |
 
 ## ESOC evolution and context (16)
 

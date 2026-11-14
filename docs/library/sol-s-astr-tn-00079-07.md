@@ -41,7 +41,7 @@ Chapter 5, the bulk of the document, lists every service and subservice tailored
 - Ground source IDs are 110 mission timeline, 111 TC sequences, 112 recovery actions, 113 backup mission timeline and 120 direct commands; on-board sources are 15 OBCP, 14 system control and 11 AOCS. *(PDF p. 275)*
 
 
-## Cited by these wiki pages (70)
+## Cited by these wiki pages (71)
 
 - [AOS Space Data Link Protocol (CCSDS 732.0-B-4)](../ccsds/aos.md)
 - [CCSDS File Delivery Protocol (CCSDS 727.0-B-5)](../ccsds/cfdp.md)
@@ -96,6 +96,7 @@ Chapter 5, the bulk of the document, lists every service and subservice tailored
 - [Solar Orbiter STIX instrument database](../missions/solar-orbiter/stix.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
 - [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](../missions/solar-orbiter/instrument-interfaces.md)
+- [Solar Orbiter simulator](../simulator/index.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Space Link Extension (SLE): concept and architecture](../ccsds/sle/index.md)
 - [Space Packet Protocol (CCSDS 133.0-B-2)](../ccsds/space-packet.md)

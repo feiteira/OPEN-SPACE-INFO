@@ -17,13 +17,14 @@ sources: []
 
 [Start here](overview/index.md){ .md-button .md-button--primary .osi-btn-lg }
 [Open the MIB Explorer](explorer/index.md){ .md-button .osi-btn-lg .osi-btn-ghost }
+[Fly the Solar Orbiter simulator](simulator/index.md){ .md-button .osi-btn-lg .osi-btn-ghost }
 
 <p class="osi-hero__prov">All information on this site was retrieved from sources publicly available online. <a href="about/sources-and-copies/">See every source →</a></p>
 </div>
 </div>
 
 <div class="osi-stats">
-<a class="osi-stat" href="library/"><span>197</span>source documents &amp; datasets</a>
+<a class="osi-stat" href="library/"><span>200</span>source documents &amp; datasets</a>
 <a class="osi-stat" href="references/"><span>1,506</span>referenced documents catalogued</a>
 <a class="osi-stat" href="explorer/#/solo/search/params/"><span>126,745</span>Solar Orbiter TM parameters</a>
 <a class="osi-stat" href="explorer/#/solo/search/commands/"><span>5,454</span>telecommands with full definitions</a>
@@ -93,6 +94,14 @@ sources: []
     Every parameter, packet, calibration, limit, telecommand and sequence of the public Solar Orbiter MIB, each with its own address.
 
     [:octicons-arrow-right-24: Explore](explorer/index.md)
+
+-   :material-orbit:{ .lg .middle } **Solar Orbiter simulator**
+
+    ---
+
+    Fly Solar Orbiter on its real trajectory, decode real MIB housekeeping packets, send real telecommands across the light-time delay and inject failures.
+
+    [:octicons-arrow-right-24: Simulate](simulator/index.md)
 
 -   :material-rocket-launch:{ .lg .middle } **Missions**
 

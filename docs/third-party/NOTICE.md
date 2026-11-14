@@ -27,3 +27,4 @@ that the wiki's citations stay verifiable even if an original location changes o
 | `edds/`, `tdrs/`, `nis/`, `mission-ddid/` | Ground segment, data dissemination and mission data delivery documents |
 | `context/`, `tooling/` | Papers, presentations and tool documentation |
 | `solo/` | Solar Orbiter MIB releases and the SWA instrument database (zip files as published) |
+| `mission/` | Solar Orbiter mission design documents and the JPL Horizons ephemeris responses used by the simulator |

@@ -32,6 +32,8 @@ This page is the entry point. The data-driven pages are:
 * [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](instrument-interfaces.md) - what
   ESA required of every instrument in 2007 and how one instrument, SWA, defined its packets and
   services.
+* The [Solar Orbiter simulator](../../simulator/index.md), which flies the spacecraft along its JPL Horizons
+  trajectory and generates, decodes and checks real MIB housekeeping packets and telecommands.
 * The [MIB explorer](../../explorer/index.md#/solo/search/SWA), where every parameter,
   packet, command and sequence of the September 2025 release can be browsed, with separate views
   of the [SWA 6.5.0](../../explorer/index.md#/swa65/search/SWA) and

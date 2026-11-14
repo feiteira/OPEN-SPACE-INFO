@@ -2642,5 +2642,44 @@
   "pages": null,
   "host": "pub099.cs.technik.fhnw.ch",
   "round": 2
+ },
+ {
+  "slug": "solar-orbiter-definition-study-report-2011",
+  "local": "docs/mission/1567255601145-Solar-Orbiter_RB_Issue_1_2011-07-22.pdf",
+  "text": "text/mission/solar-orbiter-definition-study-report-2011.txt",
+  "category": "mission",
+  "source_url": "https://sci.esa.int/documents/34903/36699/1567255601145-Solar-Orbiter_RB_Issue_1_2011-07-22.pdf",
+  "retrieved_via": null,
+  "copied_at": "2026-11-13T16:50:11Z",
+  "sha256": "289a115b482159331bac2b4e79ac823d198f5f46e70667c2192799e98ee4a9a4",
+  "bytes": 18971595,
+  "pages": 118,
+  "host": "sci.esa.int"
+ },
+ {
+  "slug": "muller-2020-solar-orbiter-science-overview",
+  "local": "docs/mission/2009.00861.pdf",
+  "text": "text/mission/muller-2020-solar-orbiter-science-overview.txt",
+  "category": "mission",
+  "source_url": "https://arxiv.org/pdf/2009.00861",
+  "retrieved_via": null,
+  "copied_at": "2026-11-13T16:50:11Z",
+  "sha256": "0363babaad7ed8dd83b2721762c03c8a92567f36242cdcdc7ad8356d9387fd3d",
+  "bytes": 21183033,
+  "pages": 32,
+  "host": "arxiv.org"
+ },
+ {
+  "slug": "jpl-horizons-solar-orbiter-2026-11-13",
+  "local": "docs/mission/jpl-horizons-solar-orbiter-2026-11-13.zip",
+  "text": null,
+  "category": "mission",
+  "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+  "retrieved_via": null,
+  "copied_at": "2026-11-13T16:48:58Z",
+  "sha256": "5077c1c375198ca93c2128d723ba077c76a863a847413d4a76a9a6983feb6329",
+  "bytes": 1771877,
+  "pages": null,
+  "host": "ssd.jpl.nasa.gov"
  }
 ]

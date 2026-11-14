@@ -50,7 +50,7 @@ Normative annexes give the CRC and ISO checksum, the mission constants, the spac
 - A CPDU telecommand packet is 10 to 248 octets long, with an even number of octets, ends with a 16-bit CRC, and is carried in a single TC segment and frame (normally on MAP 0). *(PDF p. 222)*
 
 
-## Cited by these wiki pages (48)
+## Cited by these wiki pages (49)
 
 - [CCSDS File Delivery Protocol (CCSDS 727.0-B-5)](../ccsds/cfdp.md)
 - [Command verification in the MIB](../mib/command-verification.md)
@@ -93,6 +93,7 @@ Normative annexes give the CRC and ISO checksum, the mission constants, the spac
 - [ST[21] Request sequencing](../ecss/pus/st21-request-sequencing.md)
 - [ST[22] Position-based scheduling](../ecss/pus/st22-position-based-scheduling.md)
 - [ST[23] File management](../ecss/pus/st23-file-management.md)
+- [Solar Orbiter simulator](../simulator/index.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Space Packet Protocol (CCSDS 133.0-B-2)](../ccsds/space-packet.md)
 - [The standards landscape](../overview/standards-map.md)

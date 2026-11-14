@@ -59,6 +59,7 @@ NAV = [
                                      "missions/solar-orbiter/stix.md", "missions/solar-orbiter/instrument-interfaces.md"]),
                   "missions/herschel-planck.md", "missions/rosetta-mex-vex.md", "missions/other-missions.md"]),
     ("MIB Explorer", "explorer/index.md"),
+    ("Simulator", "simulator/index.md"),
     ("Library", ["library/index.md", ("Reference catalogue", "references/index.md"), ("Glossary", "glossary.md"),
                  ("Sources & copies", "about/sources-and-copies.md"), ("Third-party notice", "third-party/NOTICE.md")]),
     ("About", ["about/index.md", "about/methodology.md"]),

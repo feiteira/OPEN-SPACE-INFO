@@ -44,7 +44,7 @@ Appendix A lists every supported PTC/PFC pair, including Unix time (9,30), and t
 - S2K-6884 lists reserved parameter names, S2K-8572 and S2K-8778 forbid PCF_CORR/CPC_CORR='Y' for relative-time parameters, and S2K-7750 adds the future VPD_FIXREP value '-1'. *(PDF p. 262)*
 
 
-## Cited by these wiki pages (86)
+## Cited by these wiki pages (87)
 
 - [CCSDS: overview of the protocol stack](../ccsds/index.md)
 - [COP-1: FOP-1, FARM-1 and the CLCW (CCSDS 232.1-B-2)](../ccsds/cop-1.md)
@@ -114,6 +114,7 @@ Appendix A lists every supported PTC/PFC pair, including Unix time (9,30), and t
 - [Solar Orbiter STIX instrument database](../missions/solar-orbiter/stix.md)
 - [Solar Orbiter SWA instrument database](../missions/solar-orbiter/swa.md)
 - [Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A](../missions/solar-orbiter/instrument-interfaces.md)
+- [Solar Orbiter simulator](../simulator/index.md)
 - [Sources &amp; copies](../about/sources-and-copies.md)
 - [Space Link Extension (SLE): concept and architecture](../ccsds/sle/index.md)
 - [Space Packet Protocol (CCSDS 133.0-B-2)](../ccsds/space-packet.md)

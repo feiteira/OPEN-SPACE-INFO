@@ -25,6 +25,9 @@ It explains, end to end and with sources for every claim:
 * **The MIB (Mission Information Base)**: the SCOS-2000 Database Import ICD explained table by table and field by
   field. It comes with a **MIB Explorer** over the real, publicly posted Solar Orbiter MIB, where every telemetry
   parameter, packet, calibration, limit, telecommand and sequence has its own linkable page.
+* **A Solar Orbiter simulator** that flies the spacecraft along its JPL Horizons trajectory (2020-2030) and
+  generates, decodes and limit-checks real MIB housekeeping packets, sends real MIB telecommands across the
+  light-time delay, models ground-station passes and lets you inject failures.
 * **A library** of every source document (metadata, summary, contents, reference list, original URL, copy time),
   and a **reference catalogue** of every document those sources cite.
 
@@ -34,6 +37,7 @@ It explains, end to end and with sources for every claim:
 |---|---|
 | `docs/` | Wiki pages (Markdown, MkDocs Material) and the explorer front-end |
 | `docs/explorer/data/` | MIB explorer data derived from the public Solar Orbiter MIB releases |
+| `docs/simulator/data/` | Simulator data: a MIB subset and the JPL Horizons ephemeris (built by `tools/build_simulator.py`) |
 | `data/sources.json` | Source registry: original URL, copy time (UTC), SHA-256, size, pages |
 | `data/library/` | Per-document metadata and reference lists |
 | `data/mib_schema/` | MIB table and field definitions extracted from the ICD |

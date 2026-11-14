@@ -1,0 +1,30 @@
+{
+ "slug": "jpl-horizons-solar-orbiter-2026-11-13",
+ "title": "JPL Horizons ephemeris responses for Solar Orbiter, Earth, Venus and Mercury (2020-2030)",
+ "short_title": "JPL Horizons: Solar Orbiter trajectory data (copied 2026-11-13)",
+ "doc_id": "Horizons target -144 (Solar Orbiter)",
+ "issue": "Trajectory file solo_ANC_soc-orbit-stp_20200210-20301120_435_V1_00592",
+ "date": "2026-11-13",
+ "organisation": "NASA/JPL Solar System Dynamics group (Horizons system); trajectory provided by ESA",
+ "authors": [],
+ "doc_type": "Dataset (API responses)",
+ "status_notes": "Horizons notes that its Solar Orbiter trajectory comes from ESA and is fitted to tracking data up to 2026-11-03, with predictions after that date. The ephemeris covers 2020-02-10 to 2030-11-20.",
+ "summary": "Fourteen unchanged text responses from the JPL Horizons API, packed in one zip file with a MANIFEST.txt that gives each file's exact query URL, download time (UTC), size and SHA-256. Four files hold daily heliocentric state vectors (position and velocity, ecliptic of J2000, TDB) for Solar Orbiter (target -144), Earth, Venus and Mercury from 2020-02-11 to 2030-11-19. One file holds the daily sub-observer latitude and longitude of the Sun seen from Solar Orbiter, which is the spacecraft's heliographic latitude. Nine files hold 5-minute planet-centred vectors around each Earth and Venus gravity assist. The last file is Horizons' object description for Solar Orbiter, including its flyby list.\n\nThe Solar Orbiter simulator in this wiki is built from these files. tools/build_simulator.py turns them into docs/simulator/data/ephem.json and derives perihelia, aphelia, latitude extremes, solar conjunctions and gravity-assist closest approaches.",
+ "contents": [],
+ "key_points": [
+  {
+   "text": "Reference frame: ecliptic of J2000.0 (IAU76 obliquity of 84381.448 arcseconds with respect to the ICRF X-Y plane); time tags in TDB.",
+   "pdf_page": null
+  },
+  {
+   "text": "Trajectory source named by Horizons: solo_ANC_soc-orbit-stp_20200210-20301120_435_V1_00592, fitted to tracking data up to 2026-11-03.",
+   "pdf_page": null
+  },
+  {
+   "text": "Gravity assists listed by Horizons: Venus 2020-12-26, 2021-08-08, 2022-09-04, 2025-02-18, 2026-12-24, 2028-03-17, 2029-06-10, 2030-09-02; Earth 2021-11-27 at about 454 km altitude.",
+   "pdf_page": null
+  }
+ ],
+ "references": [],
+ "notes": "Horizons is a public service of the JPL Solar System Dynamics group. These are copies of query results, made for reproducibility; repeat the queries in the manifest to obtain current data."
+}
