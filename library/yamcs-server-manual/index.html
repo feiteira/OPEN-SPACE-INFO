@@ -1,0 +1,7909 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The Yamcs Server Manual, release 5.14.1-SNAPSHOT (240 pages), published by Space Applications Services, documents Yamcs, a monitoring and control server written in Java (with RocksDB storage) for spac">
+      
+      
+      
+        <link rel="canonical" href="https://feiteira.github.io/OPEN-SPACE-INFO/library/yamcs-server-manual/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Yamcs Server Manual (5.14.1-SNAPSHOT) - OPEN-SPACE-INFO</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#yamcs-server-manual" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+  <div class="osi-announce">
+    <strong>Sourced from public documents.</strong>
+    Everything on this site was compiled from sources publicly available online.
+    <a href="../../about/sources-and-copies/">See every source, its original link and when we copied it&nbsp;→</a>
+  </div>
+
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="OPEN-SPACE-INFO" class="md-header__button md-logo" aria-label="OPEN-SPACE-INFO" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OPEN-SPACE-INFO
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Yamcs Server Manual (5.14.1-SNAPSHOT)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/feiteira/OPEN-SPACE-INFO" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    feiteira/OPEN-SPACE-INFO
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Start here
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ccsds/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  CCSDS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ecss/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ECSS & PUS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../scos2000/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  SCOS-2000
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mib/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  The MIB
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Missions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../explorer/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  MIB Explorer
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../simulator/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Simulator
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Library
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="OPEN-SPACE-INFO" class="md-nav__button md-logo" aria-label="OPEN-SPACE-INFO" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    OPEN-SPACE-INFO
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/feiteira/OPEN-SPACE-INFO" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    feiteira/OPEN-SPACE-INFO
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../overview/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Start here
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/standards-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The standards landscape
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/downlink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downlink walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/uplink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uplink walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/worked-example-tm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Worked example: TM packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/worked-example-tc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Worked example: telecommand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    History of the packet standards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ccsds/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CCSDS
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CCSDS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packets
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Packets
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/space-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Packet Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/encapsulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encapsulation Packet Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data link protocols
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data link protocols
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/tm-sdlp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TM Space Data Link Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/tc-sdlp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TC Space Data Link Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/cop-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COP-1: FOP-1, FARM-1 and the CLCW
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/aos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AOS Space Data Link Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/uslp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unified Space Data Link Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/proximity-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proximity-1 Space Link Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/sdls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Data Link Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security in CCSDS space links
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronization, coding & RF
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Synchronization, coding & RF
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/tm-coding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TM synchronization and channel coding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/tc-coding-cltu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TC synchronization and channel coding: the CLTU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/rf-and-ranging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radio frequency, modulation and ranging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/space-link-identifiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space link identifiers: SCIDs, VCIDs, APIDs and SANA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time, files & data definition
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Time, files & data definition
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/time-codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time code formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/cfdp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CCSDS File Delivery Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/xtce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XTCE: XML Telemetric and Command Exchange
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ccsds/sle/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Link Extension
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Space Link Extension
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/sle/return-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLE return services: RAF, RCF and ROCF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/sle/fcltu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLE forward service: FCLTU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/sle/fsp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLE forward service: Forward Space Packet (FSP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/sle/isp1-and-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLE over TCP/IP (ISP1) and the SLE API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ccsds/sle/service-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLE cross support reference model and service management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ecss/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECSS & PUS
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ECSS & PUS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ecss/pus/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packet Utilization Standard
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Packet Utilization Standard
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PUS packet structures: TC and TM headers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/parameter-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PUS parameter types (PTC/PFC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/pus-a-vs-pus-c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PUS-A vs PUS-C (and the 2024 Rev.1 draft)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/message-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PUS message type catalogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_6" id="__nav_4_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PUS services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PUS services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st01-request-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[01] Request verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st02-device-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[02] Device access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st03-housekeeping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[03] Housekeeping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st04-parameter-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[04] Parameter statistics reporting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st05-event-reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[05] Event reporting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st06-memory-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[06] Memory management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st08-function-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[08] Function management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st09-time-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[09] Time management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st11-time-based-scheduling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[11] Time-based scheduling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st12-onboard-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[12] On-board monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st13-large-packet-transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[13] Large packet transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st14-real-time-forwarding-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[14] Real-time forwarding control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st15-onboard-storage-retrieval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[15] On-board storage and retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st17-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[17] Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st18-onboard-operations-procedure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[18] On-board operations procedure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st19-event-action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[19] Event-action
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st20-onboard-parameter-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[20] On-board parameter management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st21-request-sequencing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[21] Request sequencing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st22-position-based-scheduling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[22] Position-based scheduling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/pus/st23-file-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ST[23] File management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Other ECSS standards
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Other ECSS standards
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/e-st-50-communications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECSS-E-ST-50C communications and the CCSDS adoption notices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/e-st-70c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECSS-E-ST-70C: ground systems and operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/e-st-70-31c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECSS-E-ST-70-31C: monitoring and control data definition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/e-st-70-11c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECSS-E-ST-70-11C: space segment operability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/e-st-70-32c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECSS-E-ST-70-32C: PLUTO test and operations procedure language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecss/e-st-70-01c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECSS-E-ST-70-01C: on-board control procedures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../scos2000/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCOS-2000
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SCOS-2000
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCOS-2000 architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/egse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCOS-2000 as EGSE and central checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/time-correlation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time correlation in SCOS-2000
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data dissemination & archives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data dissemination & archives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/edds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EDDS: EGOS Data Dissemination System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/edds-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EDDS request and data formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/tdrs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDRS: Telemetry Data Retrieval Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/gdds-and-ddids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GDDS and mission data delivery interface documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/archives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission archives: PARC, DARC and FARC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ground stations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ground stations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/nctrs-nis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NCTRS, NIS and the ground station interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations preparation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations preparation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/operations-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations preparation: databases, procedures and tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evolution & case studies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Evolution & case studies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/ancillary-and-egs-cc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ancillary systems, MICONYS and the move to EGS-CC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/herschel-planck-ground/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Herschel/Planck: SCOS-2000 in a science mission ground segment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scos2000/herschel-planck-interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Herschel/Planck interface documents: packets, ground links and the CCS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../mib/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The MIB
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The MIB
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIB data model: how the tables relate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/parameter-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIB parameter types: PTC/PFC in SCOS-2000
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Monitoring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring in the MIB: parameters and packets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calibration in the MIB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/monitoring-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring checks: limits and out-of-limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/synthetic-parameters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthetic parameters and the OL language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commanding
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Commanding
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/commanding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commanding in the MIB: commands and their parameters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/command-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command verification in the MIB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command sequences and parameter sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/displays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display definitions in the MIB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tailoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission tailoring of the MIB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/icd-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    History of the Database Import ICD (issues 5.1 to 7.2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIB tooling and open-source libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../mib/tables/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Table reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/asw_sw_para/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    asw_sw_para.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/caf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    caf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cap.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cca/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cca.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ccf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ccf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ccs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ccs.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cdf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cpc.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cps.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/csf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    csf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/csp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    csp.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/css/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    css.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cur.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cve.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cvp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cvp.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/cvs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cvs.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/dpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dpc.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/dpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dpf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/dst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dst.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/dup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dup.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/gpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gpc.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/gpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gpf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/grp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    grp.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/grpa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    grpa.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/grpk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    grpk.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/lgf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    lgf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/mcf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mcf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ocf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ocf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ocp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ocp.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/paf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    paf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pas.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pcdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pcdf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pcf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pcf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pcf_glob_det/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pcf_glob_det.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pcpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pcpc.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pic.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pid.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/plf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    plf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ppc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ppc.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ppf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ppf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/prf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/prv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prv.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/psm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    psm.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pst.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/psv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    psv.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ptv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ptv.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/pvs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pvs.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/s13a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    s13a.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/s13p/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    s13p.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/s13t/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    s13t.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/sdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/spc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    spc.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/spf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    spf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/ssy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ssy.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/sw_para/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sw_para.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/tcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tcp.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/tpcf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tpcf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/txf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    txf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/txp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    txp.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/vdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vdf.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mib/tables/vpd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vpd.dat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Missions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../missions/solar-orbiter/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solar Orbiter
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solar Orbiter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/solar-orbiter/mib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Solar Orbiter MIB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/solar-orbiter/pus-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How Solar Orbiter uses PUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/solar-orbiter/swa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solar Orbiter SWA instrument database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/solar-orbiter/stix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solar Orbiter STIX instrument database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/solar-orbiter/instrument-interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solar Orbiter instrument interfaces: SWA DPU ICD and EID-A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/herschel-planck/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Herschel and Planck
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/rosetta-mex-vex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rosetta, Mars Express and Venus Express
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../missions/other-missions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Other missions and SCOS-2000 users
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explorer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIB Explorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../simulator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_10" id="__nav_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference catalogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/sources-and-copies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources & copies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party/NOTICE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Third-party notice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../about/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/methodology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#provenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cited-by-these-wiki-pages-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cited by these wiki pages (3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documents-this-one-references-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documents this one references (21)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">Tools, MIB editors and related standards</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">User Manual</span>
+      
+    
+  </nav>
+
+
+  
+    <a href="https://github.com/feiteira/OPEN-SPACE-INFO/edit/main/docs/library/yamcs-server-manual.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="yamcs-server-manual"><abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> Server Manual<a class="headerlink" href="#yamcs-server-manual" title="Permanent link">&para;</a></h1>
+<dl class="osi-meta"><dt>Issue / version</dt><dd>Release 5.14.1-SNAPSHOT</dd><dt>Date</dt><dd>2026</dd><dt>Organisation</dt><dd>Space Applications Services NV/SA (Sint-Stevens-Woluwe, Belgium), with Aerospace Applications North America, Inc. (Houston, USA)</dd><dt>Type</dt><dd>User Manual</dd><dt>Status</dt><dd>Development snapshot 'Release 5.14.1-SNAPSHOT' of the continuously rebuilt manual (PDF p. 1), copyright 2026 Space Applications Services NV/SA (PDF p. 2). The PDF metadata creation date is 2026-11-12, the day it was retrieved from dl.yamcs.org; it is not a frozen release and its content changes with each build.</dd><dt>Pages</dt><dd>240</dd></dl>
+
+<h2 id="provenance">Provenance<a class="headerlink" href="#provenance" title="Permanent link">&para;</a></h2>
+<dl class="osi-meta"><dt>Original location</dt><dd><a href="https://dl.yamcs.org/docs/yamcs-server-manual.pdf" rel="noopener">https://dl.yamcs.org/docs/yamcs-server-manual.pdf</a></dd><dt>Copied (UTC)</dt><dd>2026-11-12T17:47:45Z</dd><dt>SHA-256</dt><dd><code>2570c89abae82a9a9e6b6e76ea6875754f639f1a582fabbe13e05a3c06fd8eab</code></dd><dt>Size</dt><dd>1.6 MB</dd><dt>Our copy</dt><dd><a href="../third-party/tooling/yamcs-server-manual.pdf">yamcs-server-manual.pdf</a> (unchanged third-party file, not MIT; see the <a href="../third-party/NOTICE/">notice</a>)</dd></dl>
+
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>The <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> Server Manual, release 5.14.1-SNAPSHOT (240 pages), published by Space Applications Services, documents <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr>, a monitoring and control server written in Java (with RocksDB storage) for spacecraft, payloads, instruments and test equipment. It explains the monitoring and control model: <abbr title="XML Telemetric and Command Exchange">XTCE</abbr>-style telemetered, derived, local and constant parameters plus system parameters, limits and alarms, command transmission constraints, significance levels and user-defined verification stages. It then covers the server architecture (instances, data links, streams, processors, services, plugins, stream and parameter archives, buckets) and time handling (milliseconds since 1970 <abbr title="International Atomic Time">TAI</abbr> including leap seconds; mission, reception, generation and earth reception times).</p>
+<p>For a <abbr title="telemetry">TM</abbr>/<abbr title="telecommand">TC</abbr> engineer the central chapters are the Mission Database and Data Links. The first covers data types and encodings, containers with inheritance, algorithms in JavaScript, Python or Java, command definitions, and the <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> and Excel spreadsheet loaders, with an explicit list of unsupported <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> features. The second covers packet input streams, packet preprocessors (generic, <abbr title="International Space Station">ISS</abbr>, cFS, <abbr title="CubeSat Space Protocol">CSP</abbr> and a <abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> preprocessor for <abbr title="European Cooperation for Space Standardization">ECSS</abbr>-E-<abbr title="service type">ST</abbr>-70-41C with <abbr title="CCSDS Unsegmented Time Code (also: CCSDS unsegmented code)">CUC</abbr> time decoding), command postprocessors (including wrapping of time-tagged commands into <abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> <abbr title="telecommand">TC</abbr>[11,4]) and <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> frame processing. Frame processing handles <abbr title="telemetry">TM</abbr>, <abbr title="Advanced Orbiting Systems (also: acquisition of signal)">AOS</abbr> and <abbr title="Unified Space Data Link Protocol (also: Unified Space Link Protocol)">USLP</abbr> downlink and <abbr title="telecommand">TC</abbr> uplink with <abbr title="Communications Link Transmission Unit">CLTU</abbr> encoding (<abbr title="Bose-Chaudhuri-Hocquenghem (code)">BCH</abbr> or <abbr title="Low-Density Parity-Check (also: Low Density Parity Check; Low Density Parity Check (code))">LDPC</abbr>), Reed-Solomon decoding, <abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr> and <abbr title="Space Data Link Security">SDLS</abbr> authenticated encryption. Later chapters describe processors and the command processing chain step by step, command queues and transmission constraints, activities and the timeline, services (parameter archive, time correlation, <abbr title="CCSDS File Delivery Protocol">CFDP</abbr> classes 1 and 2, replication), security and authentication modules, the web interface, the yamcsadmin and yamcsd programs, plugins and the internal SQL language. Because it names the <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> Blue Book behind each feature, the manual is a practical cross-reference between the standards and a working implementation.</p>
+<h2 id="key-points">Key points<a class="headerlink" href="#key-points" title="Permanent link">&para;</a></h2>
+<ul>
+<li><abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> is implemented entirely in Java and uses RocksDB as its storage engine; the preferred platform is Linux x64, and functionality is exposed through an embedded web server and an HTTP-based <abbr title="Application Program Interface">API</abbr>. <em>(PDF p. 14)</em></li>
+<li>Following <abbr title="XML Telemetric and Command Exchange">XTCE</abbr>, <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> distinguishes telemetered, derived, local and constant parameters, and adds system parameters and command/command history parameters for use in verifiers; <abbr title="XML Telemetric and Command Exchange">XTCE</abbr>'s predefined execution stages are not enforced and users may define any number of stages, each with a verifier. <em>(PDF p. 15)</em></li>
+<li>Data links carry three kinds of data: telemetry packets, telecommands and (from the <abbr title="International Space Station">ISS</abbr> ground segment heritage) processed parameters; built-in links exist for UDP and TCP, and <abbr title="Space Link Extension">SLE</abbr> links are provided by a plugin. <em>(PDF p. 16)</em></li>
+<li>All <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> frame processing is done in data links: a frame link demultiplexes frames into sub-links for realtime and dump data, each applying a packet preprocessor before the streams. <em>(PDF p. 17)</em></li>
+<li><abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> time is a signed 8-byte count of milliseconds since 1970-01-01 00:00:00 <abbr title="International Atomic Time">TAI</abbr> including leap seconds, using the IERS <abbr title="Coordinated Universal Time">UTC</abbr>-<abbr title="International Atomic Time">TAI</abbr>.history leap-second table; a high-resolution Instant adds picoseconds. <em>(PDF p. 19)</em></li>
+<li>Generation time is set by the preprocessor from the packet (or local time with useLocalGenerationTime); free-running on-board clocks are converted with the Time Correlation Service. <em>(PDF p. 20)</em></li>
+<li>The <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> loader is deliberately tolerant and backward compatible with <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> 1.0 and 1.1; unsupported concepts include Stream, Message, ParameterSegmentRefEntry, ContainerSegmentRefEntry, DiscreteLookupList, ErrorDetectCorrectType, ContextSignificanceList, ParameterToSetList, ParameterToSuspendAlarmsOnSet and RestrictionCriteria/NextContainer. <em>(PDF p. 44)</em></li>
+<li>For command arguments <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> allows sizeInBitsOfSizeTag = 0 (no size tag) for compatibility with systems such as <abbr title="Spacecraft Control and Operations System (also: Add variant: Spacecraft Control Operations System (ICALEPCS 2019, Pecchioli))">SCOS</abbr>-2k, although <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> requires a size tag greater than 0; float encodings IEEE754_1985, MILSTD_1750A and STRING are supported. <em>(PDF p. 44)</em></li>
+<li>If several CompleteVerifiers are declared, the first one to succeed completes the command, whereas <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> requires all to succeed; command arrays and ArgumentRefEntry IncludeCondition/RepeatEntry are not supported. <em>(PDF p. 45)</em></li>
+<li>The spreadsheet loader only accepts Excel 97-2003 (.xls) files; .xlsx is not supported. <em>(PDF p. 45)</em></li>
+<li>Spreadsheet sheets recognised: General (required), ChangeLog, DataTypes, Parameters, DerivedParameters, LocalParameters, Containers, Algorithms, Alarms, Commands, CommandOptions, CommandVerification and Calibration; sheet-name prefixes such as SYSTEM1|SYSTEM2|Containers describe sub-systems. <em>(PDF p. 46)</em></li>
+<li>Archived packets use (generation time, sequence count) as primary key, so a packet with an existing pair is discarded as a duplicate; <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> originated in the <abbr title="International Space Station">ISS</abbr> world where packets carry reliable GPS-synchronised timestamps. <em>(PDF p. 80)</em></li>
+<li>Three time synchronisation strategies are described: no synchronisation (local time), on-board resync at reset (as in cFS) and a ground-maintained correlation, the method specified by the ESA <abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> standard. <em>(PDF p. 80)</em></li>
+<li>The <abbr title="CCSDS Unsegmented Time Code (also: CCSDS unsegmented code)">CUC</abbr> time decoder follows <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 301.0-B-4 chapter 3.2; time decoders return relative milliseconds that are converted with an epoch, or treated as raw counts for the Time Correlation Service when no epoch is given. <em>(PDF p. 81)</em></li>
+<li>The <abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> packet preprocessor verifies and identifies <abbr title="European Cooperation for Space Standardization">ECSS</abbr> <abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> packets according to <abbr title="European Cooperation for Space Standardization">ECSS</abbr>-E-<abbr title="service type">ST</abbr>-70-41C and uses the first 4 bytes of the <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> primary header as the archive sequence count. <em>(PDF p. 84)</em></li>
+<li>The <abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> command postprocessor can embed a command issued with the pus11ScheduleAt option into a <abbr title="telecommand">TC</abbr>[11,4] request (optional sub-schedule and group IDs; implicit <abbr title="CCSDS Unsegmented Time Code (also: CCSDS unsegmented code)">CUC</abbr> P-field 0x2e by default) and fills in length, sequence count and <abbr title="Cyclic Redundancy Code (also: Cyclic Redundancy Check)">CRC</abbr> of embedded <abbr title="telecommand">TC</abbr> packets. <em>(PDF p. 89)</em></li>
+<li>The <abbr title="Spacecraft Control and Operations System (also: Add variant: Spacecraft Control Operations System (ICALEPCS 2019, Pecchioli))">SCOS</abbr>-2000 <abbr title="Mission Information Base">MIB</abbr> loader (yamcs-scos2k) annotates command parameters with (<abbr title="packet field type code (also: Parameter Type Code)">PTC</abbr>, <abbr title="packet field format code (also: Parameter Format Code)">PFC</abbr>) = (12, 1) as embedded <abbr title="telecommand">TC</abbr> packets; error detection options are 16-<abbr title="Satellite Users Manual (in the OIRD)">SUM</abbr> (Columbus/<abbr title="International Space Station">ISS</abbr>), <abbr title="Cyclic Redundancy Code (also: Cyclic Redundancy Check)">CRC</abbr>-16-CCIIT, ISO-16 and NONE. <em>(PDF p. 90)</em></li>
+<li><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> frame processing supports parts of <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 132.0 (<abbr title="telemetry">TM</abbr> <abbr title="Space Data Link Protocol">SDLP</abbr>), 732.0 (<abbr title="Advanced Orbiting Systems (also: acquisition of signal)">AOS</abbr>), 232.0 (<abbr title="telecommand">TC</abbr> <abbr title="Space Data Link Protocol">SDLP</abbr>), 732.1 (<abbr title="Unified Space Data Link Protocol (also: Unified Space Link Protocol)">USLP</abbr>), 231.0 and 131.0 (synchronisation and channel coding), 232.1 (<abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr>), 133.0 (Space Packet), 133.1 (Encapsulation) and 355.0 (<abbr title="Space Data Link Security">SDLS</abbr>). <em>(PDF p. 99)</em></li>
+<li>Downlink frame types are <abbr title="Advanced Orbiting Systems (also: acquisition of signal)">AOS</abbr>, <abbr title="telemetry">TM</abbr> and <abbr title="Unified Space Data Link Protocol (also: Unified Space Link Protocol)">USLP</abbr>, received by the built-in UdpTmFrameLink or <abbr title="Space Link Extension">SLE</abbr>; the <abbr title="Multiplexer Access Point (also: Multiplexed Access Point)">MAP</abbr> service is supported only for <abbr title="telecommand">TC</abbr> frames, not <abbr title="Unified Space Data Link Protocol (also: Unified Space Link Protocol)">USLP</abbr>. <em>(PDF p. 100)</em></li>
+<li>Frames with a version number other than 0 (<abbr title="telemetry">TM</abbr>), 1 (<abbr title="Advanced Orbiting Systems (also: acquisition of signal)">AOS</abbr>) or 12 (<abbr title="Unified Space Data Link Protocol (also: Unified Space Link Protocol)">USLP</abbr>), a wrong spacecraft ID, length or <abbr title="Cyclic Redundancy Code (also: Cyclic Redundancy Check)">CRC</abbr> are discarded; <abbr title="Advanced Orbiting Systems (also: acquisition of signal)">AOS</abbr> spacecraft IDs may use 10 bits via the signalling-field <abbr title="Spacecraft Identifier">SCID</abbr> extension. <em>(PDF p. 101)</em></li>
+<li>Reed-Solomon is the only raw-frame codec: errorCorrectionCapability 8 or 16 selects RS(255,239) or RS(255,223), with interleaving depth default 5. <em>(PDF p. 103)</em></li>
+<li>In a PACKET virtual channel the first 3 bits distinguish <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> space packets (000) from encapsulation packets (111); idle space packets (<abbr title="application process identifier">APID</abbr> 0x7FF) and idle encapsulation packets (first byte 0x1C) are discarded, and <abbr title="telemetry">TM</abbr> idle frames use first header pointer 0x7FE. <em>(PDF p. 103)</em></li>
+<li>Uplink packs <abbr title="telecommand">TC</abbr> packets into <abbr title="telecommand">TC</abbr> transfer frames and optionally CLTUs (<abbr title="Bose-Chaudhuri-Hocquenghem (code)">BCH</abbr>, LDPC64, LDPC256 or CUSTOM); <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> does not segment <abbr title="telecommand">TC</abbr> packets, so maxFrameLength limits the <abbr title="telecommand">TC</abbr> packet size. <em>(PDF p. 104)</em></li>
+<li>Since <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> 5.5.4 <abbr title="Communications Link Transmission Unit">CLTU</abbr> randomisation follows issue 4 of <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 231.0: before encoding for <abbr title="Bose-Chaudhuri-Hocquenghem (code)">BCH</abbr>, after encoding for <abbr title="Low-Density Parity-Check (also: Low Density Parity Check; Low Density Parity Check (code))">LDPC</abbr> (versions up to 5.5.3 always randomised before encoding, as in issue 3). <em>(PDF p. 105)</em></li>
+<li><abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr> options: cop1T1 retransmission timeout (default 3 s), cop1TxLimit, slidingWindowWidth (FOP_SLIDING_WINDOW_WIDTH K, default 10) and bdAbsolutePriority; without <abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr> a <abbr title="telecommand">TC</abbr> queue of default 10 commands is used. <em>(PDF p. 106)</em></li>
+<li>If initialClcwWait is positive, <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> waits that many seconds at link start-up for a <abbr title="Communications Link Control Word (also: Command Link Control Word)">CLCW</abbr> and sets its ground counter vS to the on-board nR; otherwise synchronisation must be initiated manually. <em>(PDF p. 107)</em></li>
+<li>Commands with the cop1Bypass attribute are sent in <abbr title="bypass (of acceptance check) and data (also: Bypass of Acceptance Check (Bypass Flag = 1) and Data (Control Command Flag = 0))">BD</abbr> frames, bypassing <abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr>; <abbr title="Bus Controller (also: Bypass of Acceptance Check (Bypass Flag = 1) and Control (Control Command Flag = 1))">BC</abbr> frames are generated only by the <abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr> state machine; unsynchronised commands wait in a queue or are rejected with a NACK on the Sent acknowledgment. <em>(PDF p. 108)</em></li>
+<li>Built-in <abbr title="Space Data Link Security">SDLS</abbr> security association <abbr title="Advanced Encryption Standard">AES</abbr>-256-<abbr title="Galois/Counter Mode">GCM</abbr>-128: authenticated encryption, <abbr title="Global Virtual Channel Identifier">GVCID</abbr> context, 12-octet <abbr title="initialization vector">IV</abbr>, 4-octet sequence number, no padding, 16-octet <abbr title="message authentication code">MAC</abbr>, 256-bit key shared for authentication and encryption. <em>(PDF p. 108)</em></li>
+<li>The Time Correlation Service fits ob_time = m * obt + c from (obt, ert) samples, using ob_time = ert - (tof + onboardDelay). <em>(PDF p. 169)</em></li>
+<li>The <abbr title="CCSDS File Delivery Protocol">CFDP</abbr> service implements <abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 727.0-B-5 class 1 (unacknowledged) and class 2 (acknowledged) transfers between the spacecraft and <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> buckets; classes 3 and 4 are not supported. <em>(PDF p. 175)</em></li>
+<li><abbr title="CCSDS File Delivery Protocol">CFDP</abbr> limitations: Keep Alive and Prompt PDUs are not used, filestore requests are not supported, only proxy put and directory listing user operations are supported, and remote suspend/resume is not supported. <em>(PDF p. 176)</em></li>
+</ul>
+<h2 id="cited-by-these-wiki-pages-3">Cited by these wiki pages (3)<a class="headerlink" href="#cited-by-these-wiki-pages-3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../mib/tooling/"><abbr title="Mission Information Base">MIB</abbr> tooling and open-source libraries</a></li>
+<li><a href="../../about/sources-and-copies/">Sources &amp; copies</a></li>
+<li><a href="../../ccsds/xtce/"><abbr title="XML Telemetric and Command Exchange">XTCE</abbr>: <abbr title="Extensible Markup Language">XML</abbr> Telemetric and Command Exchange (<abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 660)</a></li>
+</ul>
+<details class="abstract">
+<summary>Contents (67 headings)</summary>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Title</th>
+<th>PDF page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>General Information</td>
+<td>14</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>Monitoring and Control Model</td>
+<td>15</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>Server Architecture</td>
+<td>16</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>Time in <abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr></td>
+<td>19</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Server Administration</td>
+<td>22</td>
+</tr>
+<tr>
+<td>2.1</td>
+<td>Configuration</td>
+<td>22</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>Logging</td>
+<td>25</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Mission Database</td>
+<td>28</td>
+</tr>
+<tr>
+<td>3.1</td>
+<td>Data Types</td>
+<td>28</td>
+</tr>
+<tr>
+<td>3.2</td>
+<td>Parameter Definitions</td>
+<td>37</td>
+</tr>
+<tr>
+<td>3.3</td>
+<td>Container Definitions</td>
+<td>37</td>
+</tr>
+<tr>
+<td>3.4</td>
+<td>Alarm Definitions</td>
+<td>38</td>
+</tr>
+<tr>
+<td>3.5</td>
+<td>Algorithm Definitions</td>
+<td>39</td>
+</tr>
+<tr>
+<td>3.6</td>
+<td>Command Definitions</td>
+<td>42</td>
+</tr>
+<tr>
+<td>3.7</td>
+<td>Loading <abbr title="telemetry">TM</abbr>/<abbr title="telecommand">TC</abbr> Definitions</td>
+<td>43</td>
+</tr>
+<tr>
+<td>3.7.1</td>
+<td><abbr title="XML Telemetric and Command Exchange">XTCE</abbr> Loader</td>
+<td>43</td>
+</tr>
+<tr>
+<td>3.7.2</td>
+<td>Spreadsheet Loader</td>
+<td>45</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Data Management</td>
+<td>64</td>
+</tr>
+<tr>
+<td>4.1</td>
+<td>Streams</td>
+<td>64</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>Generic Archive</td>
+<td>65</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>Parameter Archive</td>
+<td>68</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>Object Archive (buckets)</td>
+<td>72</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Data Links</td>
+<td>76</td>
+</tr>
+<tr>
+<td>5.1</td>
+<td>Packet Input Stream</td>
+<td>77</td>
+</tr>
+<tr>
+<td>5.2</td>
+<td>Packet Preprocessor</td>
+<td>79</td>
+</tr>
+<tr>
+<td>5.2.4</td>
+<td><abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> Packet Preprocessor</td>
+<td>84</td>
+</tr>
+<tr>
+<td>5.3</td>
+<td>Command Postprocessor</td>
+<td>87</td>
+</tr>
+<tr>
+<td>5.3.3</td>
+<td><abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> Command Postprocessor</td>
+<td>88</td>
+</tr>
+<tr>
+<td>5.4</td>
+<td>File Polling <abbr title="telemetry">TM</abbr> Data Link</td>
+<td>91</td>
+</tr>
+<tr>
+<td>5.5</td>
+<td>TCP <abbr title="telecommand">TC</abbr> Data Link (5.6 TCP <abbr title="telemetry">TM</abbr>, 5.7 TCP <abbr title="telecommand">TC</abbr>/<abbr title="telemetry">TM</abbr> follow)</td>
+<td>92</td>
+</tr>
+<tr>
+<td>5.8</td>
+<td>TSE Data Link</td>
+<td>95</td>
+</tr>
+<tr>
+<td>5.9</td>
+<td>UDP Parameter Data Link (5.10-5.12 UDP <abbr title="telecommand">TC</abbr>, <abbr title="telemetry">TM</abbr> and <abbr title="telecommand">TC</abbr>/<abbr title="telemetry">TM</abbr> follow)</td>
+<td>95</td>
+</tr>
+<tr>
+<td>5.13</td>
+<td><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> Frame Processing</td>
+<td>99</td>
+</tr>
+<tr>
+<td>5.13.1</td>
+<td>Telemetry Frame Processing</td>
+<td>100</td>
+</tr>
+<tr>
+<td>5.13.2</td>
+<td>Telecommand Frame Processing</td>
+<td>104</td>
+</tr>
+<tr>
+<td>5.13.2.2</td>
+<td><abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr> Support</td>
+<td>107</td>
+</tr>
+<tr>
+<td>5.13.2.3</td>
+<td><abbr title="Space Data Link Security">SDLS</abbr> Support</td>
+<td>108</td>
+</tr>
+<tr>
+<td>5.14</td>
+<td><abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> Cascading Link</td>
+<td>109</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Processors</td>
+<td>112</td>
+</tr>
+<tr>
+<td>6.1</td>
+<td><abbr title="telemetry">TM</abbr> Packet Processing</td>
+<td>112</td>
+</tr>
+<tr>
+<td>6.2</td>
+<td>Command Processing</td>
+<td>115</td>
+</tr>
+<tr>
+<td>6.3</td>
+<td>Alarms</td>
+<td>119</td>
+</tr>
+<tr>
+<td>6.4</td>
+<td>Processor Configuration</td>
+<td>121</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Commanding</td>
+<td>128</td>
+</tr>
+<tr>
+<td>7.1</td>
+<td>Command Significance</td>
+<td>128</td>
+</tr>
+<tr>
+<td>7.2</td>
+<td>Command Queues</td>
+<td>128</td>
+</tr>
+<tr>
+<td>7.3</td>
+<td>Transmission Constraints</td>
+<td>129</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Activities</td>
+<td>132</td>
+</tr>
+<tr>
+<td>8.1</td>
+<td>Command Activities</td>
+<td>133</td>
+</tr>
+<tr>
+<td>8.2</td>
+<td>Stack Activities</td>
+<td>134</td>
+</tr>
+<tr>
+<td>8.3</td>
+<td>Script Activities</td>
+<td>135</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Timeline</td>
+<td>140</td>
+</tr>
+<tr>
+<td>9.2</td>
+<td>Bands</td>
+<td>141</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Services</td>
+<td>150</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>Global Services</td>
+<td>150</td>
+</tr>
+<tr>
+<td>10.2</td>
+<td>Instance Services</td>
+<td>158</td>
+</tr>
+<tr>
+<td>10.2.13</td>
+<td>Time Correlation Service</td>
+<td>169</td>
+</tr>
+<tr>
+<td>10.2.17</td>
+<td><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> File Delivery Protocol (<abbr title="CCSDS File Delivery Protocol">CFDP</abbr>)</td>
+<td>175</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Security</td>
+<td>186</td>
+</tr>
+<tr>
+<td>11.5</td>
+<td>AuthModules</td>
+<td>189</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Web Interface</td>
+<td>200</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Programs</td>
+<td>214</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Configuration Sections</td>
+<td>226</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Command Options</td>
+<td>228</td>
+</tr>
+<tr>
+<td>16</td>
+<td><abbr title="open-source mission control framework by Space Applications Services (AGPL-3.0, per its GitHub page)">Yamcs</abbr> Plugin Format</td>
+<td>230</td>
+</tr>
+<tr>
+<td>A</td>
+<td>SQL Language</td>
+<td>232</td>
+</tr>
+<tr>
+<td></td>
+<td>Index</td>
+<td>238</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="documents-this-one-references-21">Documents this one references (21)<a class="headerlink" href="#documents-this-one-references-21" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Document</th>
+<th>Title</th>
+<th>Issue / date</th>
+<th>Kind</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>37</td>
+<td><a href="../../references/#ref-ccsds-301-0-b-4"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 301.0-B-4</a> · <a href="../ccsds-301-0-301x0b4e1/">library</a></td>
+<td>Time Code Formats (https://public.ccsds.org/Pubs/301x0b4e1.pdf)</td>
+<td>B-4</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>63</td>
+<td><a href="../../references/#ref-ccsds-132-0-b-3"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 132.0-B-3</a> · <a href="../ccsds-132-0-132x0b3/">library</a></td>
+<td><abbr title="telemetry">TM</abbr> Space Data Link Protocol</td>
+<td>B-3</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>64</td>
+<td><a href="../../references/#ref-ccsds-732-0-b-5"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 732.0-B-5</a> · <a href="../ccsds-732-0-732x0b5ec1/">library</a></td>
+<td><abbr title="Advanced Orbiting Systems (also: acquisition of signal)">AOS</abbr> Space Data Link Protocol</td>
+<td>B-5</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>65</td>
+<td><a href="../../references/#ref-ccsds-232-0-b-4"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 232.0-B-4</a> · <a href="../ccsds-232-0-232x0b4e1c1/">library</a></td>
+<td><abbr title="telecommand">TC</abbr> Space Data Link Protocol</td>
+<td>B-4</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>66</td>
+<td><a href="../../references/#ref-ccsds-732-1-b-2"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 732.1-B-2</a></td>
+<td>Unified Space Data Link Protocol (footnote links 732x1b3e1.pdf)</td>
+<td>B-2</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>67</td>
+<td><a href="../../references/#ref-ccsds-231-0-b-4"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 231.0-B-4</a> · <a href="../ccsds-231-0-231x0b4e1/">library</a>, <a href="../ccsds-231-0-231x0b4e1c1/">library</a></td>
+<td><abbr title="telecommand">TC</abbr> Synchronization and Channel Coding (footnote links 232x0b4e1c1.pdf)</td>
+<td>B-4</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>68</td>
+<td><a href="../../references/#ref-ccsds-131-0-b-4"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 131.0-B-4</a></td>
+<td><abbr title="telemetry">TM</abbr> Synchronization and Channel Coding (footnote links 131x0b5.pdf)</td>
+<td>B-4</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>69</td>
+<td><a href="../../references/#ref-ccsds-232-1-b-2"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 232.1-B-2</a> · <a href="../ccsds-232-1-232x1b2e2c1/">library</a></td>
+<td>Communications Operation Procedure (<abbr title="Communications Operation Procedure-1 (also: communications operation procedure 1)">COP-1</abbr>)</td>
+<td>B-2</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>70</td>
+<td><a href="../../references/#ref-ccsds-133-0-b-2"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 133.0-B-2</a> · <a href="../ccsds-133-0-133x0b2e2/">library</a></td>
+<td>Space Packet Protocol</td>
+<td>B-2</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>71</td>
+<td><a href="../../references/#ref-ccsds-133-1-b-3"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 133.1-B-3</a> · <a href="../ccsds-133-1-133x1b3e1/">library</a></td>
+<td>Encapsulation Service</td>
+<td>B-3</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>72</td>
+<td><a href="../../references/#ref-ccsds-355-0-b-2"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 355.0-B-2</a> · <a href="../ccsds-355-0-355x0b2/">library</a></td>
+<td>Space Data Link Security Protocol (footnote links 355x1b1.pdf)</td>
+<td>B-2</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>73</td>
+<td><a href="../../references/#ref-ccsds-130-2-g-3"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 130.2-G-3</a> · <a href="../ccsds-130-2-130x2g3/">library</a></td>
+<td>Space Data Link Protocols — Summary of Concept and Rationale (130x2g3.pdf)</td>
+<td>G-3</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>115</td>
+<td><a href="../../references/#ref-ccsds-727-0-b-5"><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 727.0-B-5</a> · <a href="../ccsds-727-0-727x0b5e1/">library</a></td>
+<td><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> File Delivery Protocol (https://public.ccsds.org/Pubs/727x0b5.pdf)</td>
+<td>B-5</td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="../../references/#ref-ecss-e-st-70-41c"><abbr title="European Cooperation for Space Standardization">ECSS</abbr>-E-<abbr title="service type">ST</abbr>-70-41C</a> · <a href="../ecss-e-st-70-41c-15april2016/">library</a></td>
+<td><abbr title="European Cooperation for Space Standardization">ECSS</abbr> <abbr title="packet utilization standard (also: Packet Utilisation Standard)">PUS</abbr> (packet preprocessor and command postprocessor)</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="../../references/#ref-xtce-exchange-format-coordinated-by-omg-http-www-xtce-org-xtce-1-0-1-1-and-1-2">catalogue</a></td>
+<td><abbr title="XML Telemetric and Command Exchange">XTCE</abbr> exchange format coordinated by <abbr title="Object Management Group">OMG</abbr> (http://www.xtce.org); <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> 1.0, 1.1 and 1.2</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>27</td>
+<td><a href="../../references/#ref-xtcetools-project-https-gitlab-com-dovereem-xtcetools">catalogue</a></td>
+<td>xtcetools project (https://gitlab.com/dovereem/xtcetools)</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td>80</td>
+<td><a href="../../references/#ref-ccsds-green-book-xtce-example-yamcs-core-test-resource-ccsds-green-book-xml">catalogue</a></td>
+<td><abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> green book <abbr title="XML Telemetric and Command Exchange">XTCE</abbr> example (yamcs-core test resource ccsds-green-book.xml)</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="../../references/#ref-iers-utc-tai-history-leap-second-file-and-iers-bulletin-c">catalogue</a></td>
+<td>IERS <abbr title="Coordinated Universal Time">UTC</abbr>-<abbr title="International Atomic Time">TAI</abbr>.history leap second file and IERS Bulletin C</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="../../references/#ref-rfc-3164">RFC 3164</a></td>
+<td>BSD syslog message format (syslog logging handler)</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="../../references/#ref-yamcs-sle-plugin-space-link-extension-links-earth-reception-time">catalogue</a></td>
+<td>yamcs-sle plugin (Space Link Extension links, Earth Reception Time)</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="../../references/#ref-yamcs-scos2k-scos-2000-mib-loader">catalogue</a></td>
+<td>yamcs-scos2k (<abbr title="Spacecraft Control and Operations System (also: Add variant: Spacecraft Control Operations System (ICALEPCS 2019, Pecchioli))">SCOS</abbr>-2000 <abbr title="Mission Information Base">MIB</abbr> loader)</td>
+<td></td>
+<td>mentioned</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Notes</p>
+<p>No author is named; the PDF metadata author is 'Space Applications Services'. Printed page n is PDF page n + 13. The extraction reports 241 PDF pages (registry: 240); the last is empty. Diagrams (server architecture, command processing flow, <abbr title="CCSDS File Delivery Protocol">CFDP</abbr> class 2 sequence) have no text layer, e.g. PDF pp. 16 and 116. Footnote numbers are glued to standard numbers in the text layer (e.g. '<abbr title="Consultative Committee for Space Data Systems">CCSDS</abbr> 132.0-B-363' is 132.0-B-3 with footnote 63). The list of standards on PDF p. 99 is internally inconsistent: <abbr title="Unified Space Data Link Protocol (also: Unified Space Link Protocol)">USLP</abbr> is cited as 732.1-B-2 but linked to 732x1b3e1 (B-3); <abbr title="telecommand">TC</abbr> synchronization and channel coding 231.0-B-4 is linked to the <abbr title="telecommand">TC</abbr> <abbr title="Space Data Link Protocol">SDLP</abbr> file 232x0b4e1c1; <abbr title="telemetry">TM</abbr> synchronization is cited as 131.0-B-4 but linked to 131x0b5; <abbr title="Space Data Link Security">SDLS</abbr> is cited as 355.0-B-2 but linked to 355x1b1 (<abbr title="Space Data Link Security">SDLS</abbr> Extended Procedures). '<abbr title="Cyclic Redundancy Code (also: Cyclic Redundancy Check)">CRC</abbr>-16-CCIIT' (for CCITT) is printed as such. The <abbr title="Spacecraft Control and Operations System (also: Add variant: Spacecraft Control Operations System (ICALEPCS 2019, Pecchioli))">SCOS</abbr>-2000 <abbr title="Mission Information Base">MIB</abbr> loader yamcs-scos2k is a separate plugin and is only mentioned in passing. Library items for the cited standards: ccsds-301-0-301x0b4e1, ccsds-132-0-132x0b3, ccsds-732-0-732x0b4 and ccsds-732-0-732x0b5ec1, ccsds-232-0-232x0b4e1c1, ccsds-732-1-732x1b3e1, ccsds-231-0-231x0b4e1, ccsds-131-0-131x0b5, ccsds-232-1-232x1b2e2c1, ccsds-133-0-133x0b2e2, ccsds-133-1-133x1b3e1, ccsds-355-0-355x0b2, ccsds-355-1-355x1b1, ccsds-130-2-130x2g3, ccsds-727-0-727x0b5e1, ecss-e-st-70-41c-15april2016 and, for <abbr title="XML Telemetric and Command Exchange">XTCE</abbr>, omg-xtce-1-3-specification and ccsds-660-0-660x0b2.</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Wiki text and code © 2026 OPEN-SPACE-INFO contributors, MIT License. Third-party documents and data remain the property of their owners — see <a href="/OPEN-SPACE-INFO/about/sources-and-copies/">Sources &amp; copies</a>.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/feiteira/OPEN-SPACE-INFO" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.tracking", "toc.follow", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "content.footnote.tooltips", "content.tabs.link", "content.action.edit", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+  
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../assets/javascripts/bitfield.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  <div id="osi-provenance" class="osi-modal" role="dialog" aria-modal="true" aria-labelledby="osi-provenance-title" hidden>
+    <div class="osi-modal__backdrop" data-osi-close></div>
+    <div class="osi-modal__card" tabindex="-1">
+      <div class="osi-modal__badge">About this information</div>
+      <h2 id="osi-provenance-title">Everything here comes from public sources</h2>
+      <p>
+        All information on this site was retrieved from sources that are publicly available online.
+        They include CCSDS and ECSS standards, ESA/ESOC documents, conference papers, and a
+        Solar Orbiter MIB release posted by an instrument team. Every page cites the documents it
+        relies on.
+      </p>
+      <p>
+        The <a href="../../about/sources-and-copies/">Sources &amp; copies</a> page lists each document
+        with a link back to its original location and the date and time we copied it.
+      </p>
+      <p class="osi-modal__fine">
+        This is an independent, community wiki. It is not affiliated with or endorsed by ESA, CCSDS, ECSS
+        or any mission team. Third-party documents remain the property of their owners.
+      </p>
+      <div class="osi-modal__actions">
+        <a class="osi-btn osi-btn--primary" href="../../about/sources-and-copies/" data-osi-ack>View the sources</a>
+        <button type="button" class="osi-btn" data-osi-close>Got it</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var KEY = "osi-provenance-ack-v1", box = document.getElementById("osi-provenance");
+      if (!box) return;
+      function seen() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+      function remember() { try { localStorage.setItem(KEY, "1"); } catch (e) { /* storage unavailable */ } }
+      function close() { remember(); box.hidden = true; document.removeEventListener("keydown", onKey); }
+      function onKey(e) { if (e.key === "Escape") close(); }
+      box.querySelectorAll("[data-osi-close]").forEach(function (el) { el.addEventListener("click", close); });
+      box.querySelectorAll("[data-osi-ack]").forEach(function (el) { el.addEventListener("click", remember); });
+      if (!seen() && !/[?&]noprovenance\b/.test(location.search)) {
+        box.hidden = false;
+        document.addEventListener("keydown", onKey);
+        var btn = box.querySelector("button[data-osi-close]");
+        if (btn) setTimeout(function () { btn.focus(); }, 50);
+      }
+    })();
+  </script>
+
+  </body>
+</html>
